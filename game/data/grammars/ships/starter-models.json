@@ -1,0 +1,47 @@
+// Starter model-name grammars, one per builder. Each needs a "model" rule.
+[
+  {
+    "id": "models-human-corporate",
+    "description": "Human corporate model names: a bird or animal with a model number.",
+    "rules": {
+      "model": ["#animal# #number#", "#animal#"],
+      "animal": ["Kestrel", "Heron", "Mule", "Swift", "Badger", "Osprey"],
+      "number": ["II", "III", "IV", "S", "LX"]
+    }
+  },
+  {
+    "id": "models-dwarf-yards",
+    "description": "Dwarf yard model names: tools and stone.",
+    "rules": {
+      "model": ["#tool#", "#stone# #tool#"],
+      "tool": ["Anvil", "Pick", "Maul", "Bellows", "Chisel"],
+      "stone": ["Granite", "Basalt", "Iron", "Slate"]
+    }
+  },
+  {
+    "id": "models-light-elf-houses",
+    "description": "Light elf house model names: light and song.",
+    "rules": {
+      "model": ["#word#", "#word# of #house#"],
+      "word": ["Dawnsong", "Glimmer", "Solace", "Lumen", "Aria"],
+      "house": ["Tirael", "Vanthe", "Selune"]
+    }
+  },
+  {
+    "id": "models-orc-yards",
+    "description": "Orc yard model names: blunt and loud.",
+    "rules": {
+      "model": ["#word#", "Big #word#"],
+      "word": ["Smasha", "Burna", "Gutripper", "Roara", "Krusha"]
+    }
+  },
+  {
+    "id": "models-free-machine-foundries",
+    "description": "Free machine foundry designations.",
+    "rules": {
+      "model": ["Pattern #number#", "#word# Form"],
+      "number": ["7", "19", "44", "301"],
+      "word": ["Lattice", "Tessellate", "Null", "Vector"]
+    }
+  }
+]

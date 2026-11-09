@@ -1,0 +1,50 @@
+[
+  {
+    "id": "hc-drive-1", "name": "Corporate drive Mk I", "type": "engine", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 8000,
+    "description": "A plain fusion drive. Not quick, but it starts every time.",
+    "stats": { "thrust": 720, "speedFactor": 1.0 }
+  },
+  {
+    "id": "hc-plant-1", "name": "Corporate power plant Mk I", "type": "powerPlant", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 7000,
+    "description": "Six pips of power and a small weapons capacitor.",
+    "stats": { "pips": 6, "capacitor": 60, "capacitorRecharge": 12 }
+  },
+  {
+    "id": "hc-shield-1", "name": "Corporate shield Mk I", "type": "shield", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 6000,
+    "description": "A standard deflector. Recharges after a short pause once you stop taking hits.",
+    "stats": { "capacity": 80, "recharge": 6, "rechargeDelay": 3 }
+  },
+  {
+    "id": "hc-sensor-1", "name": "Corporate sensor suite Mk I", "type": "sensor", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 3000,
+    "description": "Basic targeting sensors.",
+    "stats": { "range": 6000 }
+  },
+  {
+    "id": "hc-laser-1", "name": "Pulse laser Mk I", "type": "weapon", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 5000, "color": "#ff4a3a",
+    "description": "A light pulse laser drawing on the weapons capacitor.",
+    "stats": { "damage": 8, "fireRate": 4, "energyPerShot": 2.5, "projectileSpeed": 900, "range": 1800 }
+  },
+  {
+    "id": "drone-drive", "name": "Drone drive", "type": "engine", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 1500,
+    "description": "A cheap drive for practice drones.",
+    "stats": { "thrust": 240, "speedFactor": 1.0 }
+  },
+  {
+    "id": "drone-plant", "name": "Drone power cell", "type": "powerPlant", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 1000,
+    "description": "Enough power to fly and hold a weak shield.",
+    "stats": { "pips": 6, "capacitor": 0, "capacitorRecharge": 0 }
+  },
+  {
+    "id": "drone-shield", "name": "Drone deflector", "type": "shield", "size": 1, "mark": 1,
+    "builder": "human-corporate", "price": 1000,
+    "description": "A thin practice shield.",
+    "stats": { "capacity": 30, "recharge": 4, "rechargeDelay": 4 }
+  }
+]

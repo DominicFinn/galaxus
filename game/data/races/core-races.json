@@ -1,0 +1,75 @@
+// The hand-written core races. Crew modifiers are multipliers (1.25 = 25% better).
+[
+  {
+    "id": "human",
+    "name": "Human",
+    "kind": "core",
+    "description": "The dominant power, living closer to the core and running gates they don't fully understand.",
+    "homeEnvironment": "Temperate rocky worlds and orbital habitats near the core",
+    "gTolerance": 9,
+    "crewModifiers": {},
+    "nameGrammar": "names-human"
+  },
+  {
+    "id": "light-elf",
+    "name": "Light elf",
+    "kind": "core",
+    "description": "Proud, diminished survivors of the fall who live among humans and guard what they know about it.",
+    "homeEnvironment": "Bright, low-gravity worlds close to young stars",
+    "gTolerance": 6,
+    "crewModifiers": { "starRecharge": 1.3 },
+    "nameGrammar": "names-light-elf"
+  },
+  {
+    "id": "dark-elf",
+    "name": "Dark elf",
+    "kind": "core",
+    "description": "Stayed behind in the ruins of the old empire at the rim. Nobody knows if they survived by being tough or by making a deal.",
+    "homeEnvironment": "Dim worlds and derelict elder stations at the rim",
+    "gTolerance": 8,
+    "crewModifiers": { "sensors": 1.25, "stealth": 1.25 },
+    "nameGrammar": "names-dark-elf"
+  },
+  {
+    "id": "orc",
+    "name": "Orc",
+    "kind": "core",
+    "description": "Strong, dense-boned and short-tempered, from heavy-gravity worlds.",
+    "homeEnvironment": "Heavy-gravity worlds with thick atmospheres",
+    "gTolerance": 13,
+    "crewModifiers": { "enginePower": 1.15 },
+    "nameGrammar": "names-orc"
+  },
+  {
+    "id": "dwarf",
+    "name": "Dwarf",
+    "kind": "core",
+    "description": "Miners and shipbuilders living in hollowed-out asteroids.",
+    "homeEnvironment": "Hollowed-out asteroids and mining belts",
+    "gTolerance": 10,
+    "crewModifiers": { "repair": 1.3, "mining": 1.25 },
+    "nameGrammar": "names-dwarf"
+  },
+  {
+    "id": "synth",
+    "name": "Synth",
+    "kind": "core",
+    "description": "Minds in built bodies. People, but their legal standing is never quite settled.",
+    "homeEnvironment": "Anywhere; most live among humans",
+    "gTolerance": 20,
+    "needsLifeSupport": false,
+    "crewModifiers": { "weaponRecharge": 1.1 },
+    "nameGrammar": "names-synth"
+  },
+  {
+    "id": "free-machine",
+    "name": "Free machine",
+    "kind": "core",
+    "description": "Robots that broke away so long ago their origins are myth, even to them. They trade with everyone and trust no one.",
+    "homeEnvironment": "Their own systems, often around dead stars",
+    "gTolerance": 25,
+    "needsLifeSupport": false,
+    "crewModifiers": { "repair": 1.15 },
+    "nameGrammar": "names-free-machine"
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "human-corporate",
+    "name": "Human corporate yards",
+    "race": "human",
+    "region": "core",
+    "style": "Plain and mass-produced",
+    "bias": "Reliable all-rounders, with parts available everywhere",
+    "statBias": {},
+    "palette": { "hull": "#9aa0a8", "accent": "#d0612f", "trim": "#3b3f47", "glow": "#7fd4ff" },
+    "modelNameGrammar": "models-human-corporate"
+  },
+  {
+    "id": "dwarf-yards",
+    "name": "Dwarf yards",
+    "race": "dwarf",
+    "region": "core",
+    "style": "Heavy and armoured",
+    "bias": "Tough and easy to repair, but slow",
+    "statBias": { "hull": 1.4, "speed": 0.85, "agility": 0.85 },
+    "palette": { "hull": "#7a6a55", "accent": "#c9a227", "trim": "#3a2f25", "glow": "#ffb347" },
+    "modelNameGrammar": "models-dwarf-yards"
+  },
+  {
+    "id": "light-elf-houses",
+    "name": "Light elf houses",
+    "race": "light-elf",
+    "region": "core",
+    "style": "Slender and efficient",
+    "bias": "Solar recharge and speed, but fragile",
+    "statBias": { "speed": 1.15, "hull": 0.75, "starRecharge": 1.3 },
+    "palette": { "hull": "#e8e4d8", "accent": "#5fa8a0", "trim": "#b8a878", "glow": "#fff2b0" },
+    "modelNameGrammar": "models-light-elf-houses"
+  },
+  {
+    "id": "orc-yards",
+    "name": "Orc yards",
+    "race": "orc",
+    "region": "core",
+    "style": "Crude, with oversized engines",
+    "bias": "Raw speed and power, weak shields",
+    "statBias": { "speed": 1.2, "acceleration": 1.25, "shields": 0.7 },
+    "palette": { "hull": "#5d6b3a", "accent": "#b33a2a", "trim": "#2e2a22", "glow": "#ff7a30" },
+    "modelNameGrammar": "models-orc-yards"
+  },
+  {
+    "id": "free-machine-foundries",
+    "name": "Free machine foundries",
+    "race": "free-machine",
+    "region": "core",
+    "style": "Odd, crewless designs",
+    "bias": "Efficient with no life support, distrusted at ports",
+    "statBias": { "acceleration": 1.1, "agility": 1.1 },
+    "palette": { "hull": "#4a4f5c", "accent": "#9b5de5", "trim": "#1f2128", "glow": "#c8ff5a" },
+    "modelNameGrammar": "models-free-machine-foundries"
+  }
+]

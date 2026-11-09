@@ -1,0 +1,16 @@
+# Godot
+.godot/
+*.import
+export_presets.cfg
+/game/android/
+
+# .NET
+bin/
+obj/
+*.user
+.vs/
+.idea/
+TestResults/
+
+# OS
+.DS_Store

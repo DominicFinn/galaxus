@@ -1,0 +1,278 @@
+using Godot;
+using Galaxus.Core.Ships;
+
+namespace Galaxus;
+
+/// <summary>
+/// Cockpit HUD drawn directly with 2D primitives at the game's 640x360 resolution, so it scales
+/// up with sharp pixels like the 3D view.
+/// </summary>
+public partial class Hud : Control
+{
+    private static readonly Color Green = new(0.45f, 1f, 0.55f);
+    private static readonly Color Dim = new(0.45f, 1f, 0.55f, 0.35f);
+    private static readonly Color Amber = new(1f, 0.75f, 0.3f);
+    private static readonly Color Red = new(1f, 0.35f, 0.3f);
+    private static readonly Color Blue = new(0.45f, 0.75f, 1f);
+    private static readonly Color Panel = new(0f, 0.05f, 0.02f, 0.55f);
+    private const int FontSize = 8;
+
+    private readonly List<(string Text, float Age)> _messages = [];
+    private Font _font = null!;
+
+    public Ship? Player { get; set; }
+    public Camera3D? Camera { get; set; }
+    public Vector2 MouseStick { get; set; }
+    public float MouseStickRadius { get; set; } = 60;
+    public float Throttle { get; set; }
+    public int Kills { get; set; }
+    public bool ShowHelp { get; set; }
+    public bool Cockpit { get; set; }
+
+    public override void _Ready()
+    {
+        SetAnchorsPreset(LayoutPreset.FullRect);
+        MouseFilter = MouseFilterEnum.Ignore;
+        _font = ThemeDB.FallbackFont;
+    }
+
+    public void Message(string text) => _messages.Insert(0, (text, 0));
+
+    public override void _Process(double delta)
+    {
+        for (int i = _messages.Count - 1; i >= 0; i--)
+        {
+            var (text, age) = _messages[i];
+            age += (float)delta;
+            if (age > 4 || i > 4) _messages.RemoveAt(i);
+            else _messages[i] = (text, age);
+        }
+        QueueRedraw();
+    }
+
+    public override void _Draw()
+    {
+        if (Player == null || Camera == null) return;
+        var size = GetViewportRect().Size;
+        var centre = size / 2;
+
+        DrawCrosshair(centre);
+        DrawMouseStick(centre);
+        DrawTarget(size);
+        DrawFlightPanel(size);
+        DrawPowerPanel(size);
+        DrawDefencePanel(size);
+        DrawTargetPanel();
+        DrawMessages(size);
+        Text(new Vector2(size.X - 6, 12), $"DRONES DOWN {Kills}", Dim, HorizontalAlignment.Right);
+        Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
+        if (ShowHelp) DrawHelp(size);
+    }
+
+    private void DrawCrosshair(Vector2 c)
+    {
+        DrawLine(c + new Vector2(-8, 0), c + new Vector2(-3, 0), Green);
+        DrawLine(c + new Vector2(3, 0), c + new Vector2(8, 0), Green);
+        DrawLine(c + new Vector2(0, -8), c + new Vector2(0, -3), Green);
+        DrawLine(c + new Vector2(0, 3), c + new Vector2(0, 8), Green);
+    }
+
+    private void DrawMouseStick(Vector2 c)
+    {
+        if (MouseStick.LengthSquared() < 1) return;
+        DrawArc(c, MouseStickRadius, 0, Mathf.Tau, 48, Dim, 1);
+        DrawRect(new Rect2(c + MouseStick - new Vector2(1.5f, 1.5f), new Vector2(3, 3)), Green);
+    }
+
+    private void DrawTarget(Vector2 size)
+    {
+        var target = Player!.Target;
+        if (target is not { Alive: true }) return;
+
+        var targetPos = target.Body.Position.ToGodot();
+        float distance = targetPos.DistanceTo(Player.Body.Position.ToGodot());
+
+        if (Camera!.IsPositionBehind(targetPos) || !OnScreen(Camera.UnprojectPosition(targetPos), size, 10))
+        {
+            DrawOffscreenArrow(targetPos, size);
+            return;
+        }
+
+        var p = Camera.UnprojectPosition(targetPos);
+        float half = Mathf.Clamp(2400f / distance, 5, 30);
+        var colour = Amber;
+        // Corner brackets.
+        foreach (var (sx, sy) in new[] { (-1, -1), (1, -1), (1, 1), (-1, 1) })
+        {
+            var corner = p + new Vector2(sx * half, sy * half);
+            DrawLine(corner, corner - new Vector2(sx * 4, 0), colour);
+            DrawLine(corner, corner - new Vector2(0, sy * 4), colour);
+        }
+        Text(p + new Vector2(0, half + 10), $"{distance:0} m", colour, HorizontalAlignment.Center);
+
+        // Lead indicator: where to aim so the bolts meet the target.
+        var weapon = Player.Spec.Weapons.Count > 0 ? Player.Spec.Weapons[0] : null;
+        if (weapon != null && distance < weapon.Range * 1.2f)
+        {
+            var lead = World.LeadPoint(Player.Body.Position, Player.Body.Velocity, target.Body.Position, target.Body.Velocity, weapon.ProjectileSpeed);
+            if (lead != null && !Camera.IsPositionBehind(lead.Value.ToGodot()))
+            {
+                var l = Camera.UnprojectPosition(lead.Value.ToGodot());
+                DrawPolyline([l + new Vector2(0, -4), l + new Vector2(4, 0), l + new Vector2(0, 4), l + new Vector2(-4, 0), l + new Vector2(0, -4)], Red);
+                DrawLine(p, l, new Color(Red, 0.3f));
+            }
+        }
+    }
+
+    private void DrawOffscreenArrow(Vector3 targetPos, Vector2 size)
+    {
+        // Direction to the target in camera space, flattened onto the screen.
+        var local = Camera!.GlobalTransform.AffineInverse() * targetPos;
+        var dir = new Vector2(local.X, -local.Y);
+        if (dir.LengthSquared() < 1e-4f) dir = Vector2.Down;
+        dir = dir.Normalized();
+        var centre = size / 2;
+        var tip = centre + dir * (Mathf.Min(size.X, size.Y) / 2 - 20);
+        var side = new Vector2(-dir.Y, dir.X);
+        DrawColoredPolygon([tip + dir * 6, tip - dir * 4 + side * 5, tip - dir * 4 - side * 5], Amber);
+    }
+
+    private void DrawFlightPanel(Vector2 size)
+    {
+        var origin = new Vector2(8, size.Y - 74);
+        DrawRect(new Rect2(origin - new Vector2(4, 12), new Vector2(96, 80)), Panel);
+        var stats = Player!.CurrentFlightStats();
+        bool assist = Player.Controls.Flight.Assist;
+
+        Text(origin, assist ? "FLIGHT ASSIST ON" : "FLIGHT ASSIST OFF", assist ? Green : Amber);
+        Text(origin + new Vector2(0, 14), $"SPD {Player.Body.Speed,4:0} m/s", Green);
+        Text(origin + new Vector2(0, 26), $"MAX {stats.MaxSpeed,4:0} m/s", Dim);
+
+        // Throttle bar: the setting with assist on, live thrust with it off.
+        var bar = new Rect2(origin + new Vector2(76, -4), new Vector2(8, 60));
+        DrawRect(bar, Dim, false);
+        float fill = assist ? Throttle : Mathf.Abs(Player.Controls.Flight.Thrust);
+        float h = bar.Size.Y * fill;
+        DrawRect(new Rect2(bar.Position.X + 1, bar.End.Y - h, bar.Size.X - 2, h), assist ? Green : Amber);
+        // Speed marker against top speed.
+        float speedMark = Mathf.Clamp(Player.Body.ForwardSpeed / stats.MaxSpeed, 0, 1);
+        float y = bar.End.Y - bar.Size.Y * speedMark;
+        DrawLine(new Vector2(bar.Position.X - 4, y), new Vector2(bar.Position.X - 1, y), Blue, 2);
+
+        // Best turn speed: g-tolerance caps turning above this.
+        float bestTurn = Galaxus.Core.Flight.FlightModel.TurnRateLimit(1, stats.GTolerance) / MathF.Max(stats.PitchRate, 0.01f);
+        Text(origin + new Vector2(0, 38), $"TURN <{bestTurn:0} m/s", Dim);
+        Text(origin + new Vector2(0, 50), $"G-LIMIT {stats.GTolerance:0}g", Dim);
+    }
+
+    private void DrawPowerPanel(Vector2 size)
+    {
+        var origin = new Vector2(size.X / 2 - 48, size.Y - 62);
+        DrawRect(new Rect2(origin - new Vector2(4, 4), new Vector2(104, 58)), Panel);
+        (string Label, ShipSystem System, Color Colour)[] systems =
+        [
+            ("ENG", ShipSystem.Engines, Amber),
+            ("SHD", ShipSystem.Shields, Blue),
+            ("WEP", ShipSystem.Weapons, Red),
+        ];
+        for (int s = 0; s < 3; s++)
+        {
+            var (label, system, colour) = systems[s];
+            var column = origin + new Vector2(8 + s * 32, 0);
+            int halves = Player!.Power.HalfPips(system);
+            for (int pip = 0; pip < 4; pip++)
+            {
+                var rect = new Rect2(column + new Vector2(0, 30 - pip * 9), new Vector2(18, 7));
+                DrawRect(rect, Dim, false);
+                int filled = Mathf.Clamp(halves - pip * 2, 0, 2);
+                if (filled == 2) DrawRect(rect, colour);
+                else if (filled == 1) DrawRect(new Rect2(rect.Position, new Vector2(rect.Size.X / 2, rect.Size.Y)), colour);
+            }
+            Text(column + new Vector2(9, 48), $"{s + 1} {label}", colour, HorizontalAlignment.Center);
+        }
+    }
+
+    private void DrawDefencePanel(Vector2 size)
+    {
+        var origin = new Vector2(size.X - 108, size.Y - 62);
+        DrawRect(new Rect2(origin - new Vector2(4, 12), new Vector2(104, 66)), Panel);
+        Bar(origin, "SHIELD", Player!.Shields / MathF.Max(Player.Spec.MaxShields, 1), Blue);
+        Bar(origin + new Vector2(0, 16), "HULL", Player.Hull / Player.Spec.MaxHull, Green);
+        Bar(origin + new Vector2(0, 32), "WEAPON", Player.Capacitor / MathF.Max(Player.Spec.CapacitorMax, 1), Red);
+    }
+
+    private void DrawTargetPanel()
+    {
+        var target = Player!.Target;
+        var origin = new Vector2(8, 14);
+        DrawRect(new Rect2(origin - new Vector2(4, 10), new Vector2(120, 58)), Panel);
+        if (target is not { Alive: true })
+        {
+            Text(origin, "NO TARGET  (T)", Dim);
+            return;
+        }
+        float distance = Vector3.Zero.DistanceTo((target.Body.Position - Player.Body.Position).ToGodot());
+        Text(origin, target.Name.ToUpperInvariant(), Amber);
+        Text(origin + new Vector2(0, 10), $"{target.Spec.Hull.Class.ToUpperInvariant()}  {distance:0} m", Dim);
+        Bar(origin + new Vector2(0, 22), "SHIELD", target.Shields / MathF.Max(target.Spec.MaxShields, 1), Blue);
+        Bar(origin + new Vector2(0, 36), "HULL", target.Hull / target.Spec.MaxHull, Green);
+    }
+
+    private void DrawMessages(Vector2 size)
+    {
+        for (int i = 0; i < _messages.Count; i++)
+        {
+            var (text, age) = _messages[i];
+            float alpha = Mathf.Clamp(4 - age, 0, 1);
+            Text(new Vector2(size.X / 2, 60 + i * 11), text, new Color(Green, alpha), HorizontalAlignment.Center);
+        }
+    }
+
+    private void DrawHelp(Vector2 size)
+    {
+        string[] lines =
+        [
+            "MOUSE / ARROWS / LEFT STICK   pitch and yaw (down arrow raises the nose)",
+            "A D                           yaw",
+            "Q E / BUMPERS / RIGHT STICK X roll",
+            "W S / RIGHT STICK Y           throttle (assist on) or thrust (assist off)",
+            "X                             zero throttle",
+            "R F Z C                       thrusters up, down, left, right",
+            "SPACE / LEFT CLICK / RT       fire",
+            "G / B                         flight assist on or off",
+            "1 2 3 / D-PAD UP LEFT RIGHT   power to engines, shields, weapons",
+            "4 / D-PAD DOWN                balance power",
+            "T / A                         next target",
+            "V / Y                         chase or cockpit camera",
+            "ESC                           release mouse      F10  quit",
+        ];
+        var rect = new Rect2(size.X / 2 - 200, 70, 400, lines.Length * 11 + 16);
+        DrawRect(rect, new Color(0, 0.03f, 0.01f, 0.85f));
+        DrawRect(rect, Dim, false);
+        for (int i = 0; i < lines.Length; i++)
+            Text(rect.Position + new Vector2(10, 16 + i * 11), lines[i], Green);
+    }
+
+    private void Bar(Vector2 origin, string label, float fraction, Color colour)
+    {
+        Text(origin, label, Dim);
+        var rect = new Rect2(origin + new Vector2(44, -7), new Vector2(52, 8));
+        DrawRect(rect, Dim, false);
+        DrawRect(new Rect2(rect.Position + Vector2.One, new Vector2((rect.Size.X - 2) * Mathf.Clamp(fraction, 0, 1), rect.Size.Y - 2)), colour);
+    }
+
+    private void Text(Vector2 position, string text, Color colour, HorizontalAlignment align = HorizontalAlignment.Left)
+    {
+        float width = align == HorizontalAlignment.Left ? -1 : 400;
+        var at = align switch
+        {
+            HorizontalAlignment.Center => position - new Vector2(200, 0),
+            HorizontalAlignment.Right => position - new Vector2(400, 0),
+            _ => position,
+        };
+        DrawString(_font, at, text, align, width, FontSize, colour);
+    }
+
+    private static bool OnScreen(Vector2 p, Vector2 size, float margin) =>
+        p.X >= margin && p.Y >= margin && p.X <= size.X - margin && p.Y <= size.Y - margin;
+}

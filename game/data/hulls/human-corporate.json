@@ -1,0 +1,65 @@
+[
+  {
+    "id": "kestrel",
+    "name": "Kestrel",
+    "builder": "human-corporate",
+    "class": "fighter",
+    "description": "A cheap single-seat fighter. Every human navy has flown one at some point.",
+    "price": 42000,
+    "mass": 18,
+    "baseSpeed": 110,
+    "pitchRate": 75,
+    "yawRate": 55,
+    "rollRate": 150,
+    "hullPoints": 120,
+    "radius": 6,
+    "crewBerths": 0,
+    "cargoTonnes": 2,
+    "slots": [
+      { "type": "engine", "size": 1 },
+      { "type": "powerPlant", "size": 1 },
+      { "type": "shield", "size": 1 },
+      { "type": "sensor", "size": 1 },
+      { "type": "weapon", "size": 1, "position": [-3.9, -0.1, -0.6] },
+      { "type": "weapon", "size": 1, "position": [3.9, -0.1, -0.6] }
+    ],
+    "defaultLoadout": ["hc-drive-1", "hc-plant-1", "hc-shield-1", "hc-sensor-1", "hc-laser-1", "hc-laser-1"],
+    "model": [
+      { "position": [0, 0, 0], "back": [2.2, 1.5], "front": [0.4, 0.35], "length": 10, "color": "hull" },
+      { "position": [0, 0.85, -0.8], "back": [1.1, 0.7], "front": [0.35, 0.15], "length": 3.6, "skew": [0, -0.3], "color": "#2b4660" },
+      { "position": [2.4, -0.1, 1.2], "back": [3.2, 0.25], "front": [1.6, 0.18], "length": 4.0, "skew": [0.5, 0], "color": "hull", "mirror": true },
+      { "position": [3.9, -0.1, 0.8], "back": [0.3, 0.3], "front": [0.2, 0.2], "length": 3.6, "color": "trim", "mirror": true },
+      { "position": [1.25, 0, 3.6], "back": [1.0, 1.0], "front": [0.7, 0.7], "length": 3.0, "color": "trim", "mirror": true },
+      { "position": [1.25, 0, 5.15], "back": [0.75, 0.75], "front": [0.75, 0.75], "length": 0.1, "color": "glow", "mirror": true },
+      { "position": [0, 1.0, 3.6], "back": [0.15, 1.5], "front": [0.1, 0.3], "length": 2.8, "skew": [0, -0.6], "color": "accent" },
+      { "position": [0, 0, 4.9], "back": [1.6, 0.9], "front": [1.8, 1.1], "length": 0.4, "color": "trim" }
+    ]
+  },
+  {
+    "id": "target-drone",
+    "name": "Target drone",
+    "builder": "human-corporate",
+    "class": "drone",
+    "description": "A crewless practice target that flies a lazy weaving pattern. Navies buy them by the thousand.",
+    "price": 6000,
+    "mass": 8,
+    "baseSpeed": 80,
+    "pitchRate": 50,
+    "yawRate": 40,
+    "rollRate": 80,
+    "hullPoints": 40,
+    "radius": 5,
+    "slots": [
+      { "type": "engine", "size": 1 },
+      { "type": "powerPlant", "size": 1 },
+      { "type": "shield", "size": 1 }
+    ],
+    "defaultLoadout": ["drone-drive", "drone-plant", "drone-shield"],
+    "model": [
+      { "position": [0, 0, -1.5], "back": [3.0, 3.0], "front": [0.2, 0.2], "length": 3, "color": "accent" },
+      { "position": [0, 0, 1.5], "back": [0.6, 0.6], "front": [3.0, 3.0], "length": 3, "color": "hull" },
+      { "position": [2.2, 0, 0], "back": [1.6, 0.15], "front": [1.6, 0.15], "length": 1.6, "color": "trim", "mirror": true },
+      { "position": [0, 0, 3.05], "back": [0.5, 0.5], "front": [0.5, 0.5], "length": 0.1, "color": "glow" }
+    ]
+  }
+]

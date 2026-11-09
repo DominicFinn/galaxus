@@ -1,0 +1,74 @@
+// Starter personal-name grammars, one per core race. Each needs a "name" rule.
+// These are deliberately small; the content pass expands them.
+[
+  {
+    "id": "names-human",
+    "description": "Human personal names: given name and family name.",
+    "rules": {
+      "name": ["#given# #family#"],
+      "given": ["Mara", "Tomas", "Ines", "Joss", "Priya", "Okon", "Lena", "Dov", "Hana", "Ruben"],
+      "family": ["Okafor", "Varga", "Lindqvist", "Hale", "Moreau", "Tanaka", "Reyes", "Kowal", "Ashby", "Sorensen"]
+    }
+  },
+  {
+    "id": "names-light-elf",
+    "description": "Light elf names: a flowing given name and a house name.",
+    "rules": {
+      "name": ["#given# of House #house#"],
+      "given": ["#start##end#"],
+      "start": ["Ael", "Ith", "Saer", "Lor", "Vael", "Ner"],
+      "end": ["ariel", "wen", "iel", "aran", "ith", "uen"],
+      "house": ["Tirael", "Vanthe", "Selune", "Arandor"]
+    }
+  },
+  {
+    "id": "names-dark-elf",
+    "description": "Dark elf names: short, hard given name and a ruin they claim.",
+    "rules": {
+      "name": ["#given# of #ruin#"],
+      "given": ["#start##end#"],
+      "start": ["Vyr", "Ksa", "Drae", "Zhe", "Mor"],
+      "end": ["eth", "ix", "ane", "oth", "ra"],
+      "ruin": ["the Hollow Gate", "Seventh Spire", "Ashreach", "the Quiet Docks"]
+    }
+  },
+  {
+    "id": "names-orc",
+    "description": "Orc names: a given name and the world or crew they come from.",
+    "rules": {
+      "name": ["#given# #clan#"],
+      "given": ["Grukk", "Varsha", "Throm", "Ozga", "Brakka", "Durn"],
+      "clan": ["Ironback", "Deepgrav", "Skullhauler", "Redburn"]
+    }
+  },
+  {
+    "id": "names-dwarf",
+    "description": "Dwarf names: a given name and the asteroid hold they hail from.",
+    "rules": {
+      "name": ["#given# #family# of #hold#"],
+      "given": ["Brannoc", "Hilde", "Torvald", "Ysolde", "Grim", "Kettla"],
+      "family": ["Stonevein", "Coalbeard", "Hammerlock", "Deepdelve"],
+      "hold": ["Karr's Rock", "Hold Ninety", "the Anvil Belt", "Old Seam"]
+    }
+  },
+  {
+    "id": "names-synth",
+    "description": "Synth names: often a chosen human-style name, sometimes a serial they kept.",
+    "rules": {
+      "name": ["#chosen#", "#chosen# #serial#", "#serial#"],
+      "chosen": ["Echo", "Patience", "Juniper", "Wren", "Cass", "Halcyon"],
+      "serial": ["#letter##letter#-#digit##digit#"],
+      "letter": ["A", "K", "R", "S", "T", "V", "X"],
+      "digit": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    }
+  },
+  {
+    "id": "names-free-machine",
+    "description": "Free machine names: descriptive titles from their own culture.",
+    "rules": {
+      "name": ["#adjective# #noun#"],
+      "adjective": ["Patient", "Ninth", "Unreturned", "Lattice", "Quiet", "Recursive"],
+      "noun": ["Arbiter", "Counsel", "Engine", "Witness", "Harmonic", "Ledger"]
+    }
+  }
+]
