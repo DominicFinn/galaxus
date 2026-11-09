@@ -1,0 +1,22 @@
+{
+  "id": "models-free-machine-foundries",
+  "description": "Free machine foundry designations.",
+  "rules": {
+    "model": [
+      "Pattern #number#",
+      "#word# Form"
+    ],
+    "number": [
+      "7",
+      "19",
+      "44",
+      "301"
+    ],
+    "word": [
+      "Lattice",
+      "Tessellate",
+      "Null",
+      "Vector"
+    ]
+  }
+}

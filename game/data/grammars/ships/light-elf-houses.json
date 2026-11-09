@@ -1,0 +1,22 @@
+{
+  "id": "models-light-elf-houses",
+  "description": "Light elf house model names: light and song.",
+  "rules": {
+    "model": [
+      "#word#",
+      "#word# of #house#"
+    ],
+    "word": [
+      "Dawnsong",
+      "Glimmer",
+      "Solace",
+      "Lumen",
+      "Aria"
+    ],
+    "house": [
+      "Tirael",
+      "Vanthe",
+      "Selune"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "models-human-corporate",
+  "description": "Human corporate model names: a bird or animal with a model number.",
+  "rules": {
+    "model": [
+      "#animal# #number#",
+      "#animal#"
+    ],
+    "animal": [
+      "Kestrel",
+      "Heron",
+      "Mule",
+      "Swift",
+      "Badger",
+      "Osprey"
+    ],
+    "number": [
+      "II",
+      "III",
+      "IV",
+      "S",
+      "LX"
+    ]
+  }
+}

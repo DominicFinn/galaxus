@@ -1,0 +1,23 @@
+{
+  "id": "models-dwarf-yards",
+  "description": "Dwarf yard model names: tools and stone.",
+  "rules": {
+    "model": [
+      "#tool#",
+      "#stone# #tool#"
+    ],
+    "tool": [
+      "Anvil",
+      "Pick",
+      "Maul",
+      "Bellows",
+      "Chisel"
+    ],
+    "stone": [
+      "Granite",
+      "Basalt",
+      "Iron",
+      "Slate"
+    ]
+  }
+}

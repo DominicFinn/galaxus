@@ -1,0 +1,17 @@
+{
+  "id": "models-orc-yards",
+  "description": "Orc yard model names: blunt and loud.",
+  "rules": {
+    "model": [
+      "#word#",
+      "Big #word#"
+    ],
+    "word": [
+      "Smasha",
+      "Burna",
+      "Gutripper",
+      "Roara",
+      "Krusha"
+    ]
+  }
+}
