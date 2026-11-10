@@ -78,6 +78,9 @@ public sealed class Session
             .First();
         session.Career.SystemId = start.Id;
         session.Career.TradeRoute = Market.PickRoute(db, galaxy, start.Id);
+        TradeIntel.Note(session);
+        // You start knowing the prices at your trade partner, picked up on the docks.
+        if (session.Career.TradeRoute is { } route) TradeIntel.Note(session, galaxy.Systems[route.B]);
         return session;
     }
 
@@ -226,6 +229,7 @@ public sealed class Session
         Simulation.Run(days);
         Career.SystemId = destination;
         var results = Career.Settle(Galaxy);
+        TradeIntel.Note(this);
         return new JumpReport(days, results, Galaxy.News.Where(n => n.Day > dayBefore).ToList());
     }
 
@@ -247,6 +251,7 @@ public sealed class Session
         }
 
         var news = Galaxy.News.Where(n => n.Day > dayBefore).TakeLast(Math.Max(0, Galaxy.News.Count - newsBefore)).ToList();
+        TradeIntel.Note(this);
         return new JumpReport(days, results, news);
     }
 }

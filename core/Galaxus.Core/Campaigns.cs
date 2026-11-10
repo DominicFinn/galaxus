@@ -42,6 +42,8 @@ public static class Campaigns
                    ?? galaxy.Systems.Where(s => s.Stations.Count > 0).OrderBy(s => galaxy.DistanceLy(s.Id, power.HomeSystem)).First();
         career.SystemId = home.Id;
         career.TradeRoute = Market.PickRoute(db, galaxy, home.Id);
+        TradeIntel.Note(session);
+        if (career.TradeRoute is { } route) TradeIntel.Note(session, galaxy.Systems[route.B]);
         career.CampaignBase = home.Id;
         career.CampaignId = def.Id;
         career.CampaignStep = 0;

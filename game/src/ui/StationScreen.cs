@@ -355,6 +355,7 @@ public partial class StationScreen : PanelContainer
     {
         var tab = new VBoxContainer { Name = "Market" };
         _market = Ui.Table(("Goods", 0), ("Category", 80), ("Buy", 50), ("Sell", 50), ("Stock", 45), ("Week", 45), ("Held", 35));
+        _market.ItemSelected += ShowMarketTip;
         tab.AddChild(_market);
         var actions = new HBoxContainer();
         tab.AddChild(actions);
@@ -412,7 +413,20 @@ public partial class StationScreen : PanelContainer
             item.SetMetadata(0, i);
             if (c.Id == selected) item.Select(0);
         }
-        _marketNote.Text = "Stock is limited and prices move as you trade. Markets recover over a few days.";
+        _marketNote.Text = MarketNote;
+        ShowMarketTip();
+    }
+
+    private const string MarketNote = "Stock is limited and prices move as you trade. Markets recover over a few days.";
+
+    /// <summary>For something in your hold: the best place you know to sell it, if anywhere beats here.</summary>
+    private void ShowMarketTip()
+    {
+        if (_market.GetSelected() is not { } item) return;
+        var c = _commodities[item.GetMetadata(0).AsInt32()];
+        _marketNote.Text = _session.Career.Cargo.ContainsKey(c.Id) && TradeIntel.BestSale(_session, c.Id) is { } best
+            ? $"Best sale you know for {c.Name.ToLowerInvariant()}: {best.System.Name}, {best.Sell:N0} cr" + (best.AgeDays > 0 ? $" ({best.AgeDays} days ago)." : ".")
+            : MarketNote;
     }
 
     private void Trade(int tonnes)

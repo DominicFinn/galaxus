@@ -52,13 +52,18 @@ public static class Market
     // The public face ------------------------------------------------------------------------
 
     /// <summary>Every good on this market, for the market screen.</summary>
-    public static List<MarketQuote> Quotes(Session session, StarSystem system) =>
-        Legal(session.Db, system, session.Galaxy).Select(c => Quote(session, system, c)).ToList();
+    public static List<MarketQuote> Quotes(Session session, StarSystem system)
+    {
+        var ctx = Context.For(session.Db, session.Galaxy, system, session.Galaxy.Day, session);
+        return Legal(session.Db, system, session.Galaxy).Select(c => Quote(session, system, c, ctx)).ToList();
+    }
 
-    public static MarketQuote Quote(Session session, StarSystem system, CommodityDef c)
+    public static MarketQuote Quote(Session session, StarSystem system, CommodityDef c) =>
+        Quote(session, system, c, Context.For(session.Db, session.Galaxy, system, session.Galaxy.Day, session));
+
+    private static MarketQuote Quote(Session session, StarSystem system, CommodityDef c, Context ctx)
     {
         var galaxy = session.Galaxy;
-        var ctx = Context.For(session.Db, galaxy, system, galaxy.Day, session);
         var b = ctx.Base(c, galaxy.Day);
         var (bought, sold) = session.Career.TradeEffect(system.Id, c.Id, galaxy.Day, RecoveryHalfLife(session.Easy));
         float trend = Trend(ctx, c, galaxy.Day);

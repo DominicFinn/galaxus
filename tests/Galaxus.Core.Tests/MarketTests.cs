@@ -178,4 +178,46 @@ public class MarketTests
         Assert.Equal(credits - offer.Price + tradeIn, session.Career.Credits);
         Assert.Equal(offer.Hull.Id, session.Career.HullId);
     }
+
+    [Fact]
+    public void You_remember_markets_you_visit_and_find_runs_between_them()
+    {
+        var session = NewGame(19, easy: true);
+        var route = session.Career.TradeRoute!;
+        // You start knowing your own market and your trade partner's, so the loop shows from day one.
+        Assert.True(session.Career.SeenMarkets.ContainsKey(route.A));
+        Assert.True(session.Career.SeenMarkets.ContainsKey(route.B));
+        Assert.Contains(TradeIntel.Routes(session), r => r.To == route.B);
+        session.Career.SeenMarkets.Remove(route.B);
+        Assert.DoesNotContain(TradeIntel.Routes(session), r => r.To == route.B);
+
+        // Visit the partner and come back: now the run there shows up, with a profit.
+        session.Jump(route.B);
+        Assert.True(session.Career.SeenMarkets.ContainsKey(route.B));
+        session.Jump(route.A);
+        var run = TradeIntel.Routes(session, route.GoodsAtoB).FirstOrDefault(r => r.To == route.B);
+        Assert.NotNull(run);
+        Assert.True(run!.Profit > 0 && run.Days > 0);
+        Assert.Equal(TradeIntel.Known(session, route.GoodsAtoB).Count, TradeIntel.Known(session, route.GoodsAtoB).Select(k => k.System.Id).Distinct().Count());
+
+        var loaded = SaveGame.Load(Db, SaveGame.Save(session));
+        Assert.Equal(session.Career.SeenMarkets.Keys.Order(), loaded.Career.SeenMarkets.Keys.Order());
+    }
+
+    [Fact]
+    public void You_hear_of_jackpots_within_a_few_jumps()
+    {
+        var session = NewGame(20);
+        var galaxy = session.Galaxy;
+        var heard = 0;
+        for (int day = galaxy.Day; day < galaxy.Day + 200 && heard == 0; day++)
+        {
+            galaxy.Day = day;
+            var near = galaxy.WithinJumps(session.Here.Id, TradeIntel.RumourJumps).Select(s => s.Id).Append(session.Here.Id).ToHashSet();
+            var rumours = TradeIntel.Rumours(session);
+            Assert.All(rumours, d => Assert.True(near.Contains(d.Source) || near.Contains(d.Destination)));
+            heard += rumours.Count;
+        }
+        Assert.True(heard > 0, "No jackpots within reach in 200 days.");
+    }
 }

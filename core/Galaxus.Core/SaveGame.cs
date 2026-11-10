@@ -54,6 +54,8 @@ public static class SaveGame
         public string? CampaignDebrief { get; set; }
         /// <summary>Recent trades by "systemId:commodityId", so markets you've emptied stay short for a while.</summary>
         public Dictionary<string, TradeMark> Trades { get; set; } = [];
+        /// <summary>Markets as you last saw them.</summary>
+        public Dictionary<int, SeenMarket> SeenMarkets { get; set; } = [];
         /// <summary>The Easy trade loop picked at the start.</summary>
         public TradeRoute? TradeRoute { get; set; }
         /// <summary>The mods loaded when this was saved. Mods can change the galaxy, so a save moved to a game with different mods may not come out the same.</summary>
@@ -122,6 +124,7 @@ public static class SaveGame
             CampaignDebrief = c.CampaignDebrief,
             Trades = new(c.Trades),
             TradeRoute = c.TradeRoute,
+            SeenMarkets = new(c.SeenMarkets),
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -234,6 +237,7 @@ public static class SaveGame
         c.CampaignBase = data.CampaignBase;
         c.CampaignDebrief = data.CampaignDebrief;
         foreach (var (key, mark) in data.Trades) c.Trades[key] = mark;
+        foreach (var (id, market) in data.SeenMarkets) if (id >= 0 && id < session.Galaxy.Systems.Count) c.SeenMarkets[id] = market;
         // Older saves had no route: pick one from where you are now.
         c.TradeRoute = data.TradeRoute ?? Market.PickRoute(db, session.Galaxy, c.SystemId);
         return session;

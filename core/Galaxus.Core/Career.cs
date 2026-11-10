@@ -77,6 +77,9 @@ public sealed class Career
     /// </summary>
     public Dictionary<string, TradeMark> Trades { get; } = [];
 
+    /// <summary>Markets as you last saw them, by system id (see TradeIntel).</summary>
+    public Dictionary<int, SeenMarket> SeenMarkets { get; } = [];
+
     /// <summary>The start system's partner and goods for the dependable Easy trade loop.</summary>
     public Galaxy.TradeRoute? TradeRoute { get; set; }
 
