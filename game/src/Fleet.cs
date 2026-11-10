@@ -18,6 +18,13 @@ public partial class Main
     private (double X, double Y, double Z) _fleetKm;
     private bool _dockedAtFlagship;
     private const int NavFleet = -4;
+    /// <summary>True when the fleet here is your campaign's; false for a war fleet holding a front.</summary>
+    private bool _campaignFleet;
+    private Galaxus.Core.Galaxy.WarFleet? _warFleet;
+
+    /// <summary>What to call the fleet: your campaign base, or "the Concord war fleet".</summary>
+    private string FleetName => _campaignFleet && Campaigns.Current(_session) is { } c ? c.BaseName
+        : _warFleet != null ? $"{_warFleet.Faction.Name} war fleet" : "The fleet";
 
     /// <summary>Parks the fleet if this is the campaign's base system; clears it otherwise.</summary>
     private void SetupFleet()
@@ -29,9 +36,16 @@ public partial class Main
         }
         _fleet.Clear();
         _flagship = null;
-        if (Campaigns.Current(_session) is not { } def || _session.Career.CampaignBase != _session.Career.SystemId) return;
-
+        _campaignFleet = false;
+        _warFleet = null;
         _fleetKm = (_stationKm.X + 9, _stationKm.Y + 1.5, _stationKm.Z - 4);
+        if (Campaigns.Current(_session) is not { } def || _session.Career.CampaignBase != _session.Career.SystemId)
+        {
+            SetupWarFleet();
+            return;
+        }
+        _campaignFleet = true;
+
         var rng = new Rng(Rng.Hash(def.Id + "fleet"));
         var race = Campaigns.Client(_session.Galaxy, def).RaceId;
         void Park(string hullId, string name, NVector3 offset)
@@ -51,6 +65,35 @@ public partial class Main
             float side = i % 2 == 0 ? 1 : -1;
             var offset = new NVector3(side * spacing * (1 + i / 2), rng.Range(-200, 200), (i / 2) * 900 - rng.Range(0, 600));
             Park(def.Fleet[i], $"{_session.Db.Hulls[def.Fleet[i]].Name}", offset);
+        }
+    }
+
+    /// <summary>
+    /// A war fleet holding the front here: the flagship and a few escorts, on a friendly side of
+    /// their own. Docking with the flagship works like a station.
+    /// </summary>
+    private void SetupWarFleet()
+    {
+        if (Galaxus.Core.Galaxy.WarFleets.At(_session.Db, _session.Galaxy, _session.Here) is not { } fleet) return;
+        _warFleet = fleet;
+        var rng = new Rng(_session.Here.Seed ^ 0x3ee7);
+        int side = 700 + fleet.Faction.Id;
+        void Park(string hullId, string name, NVector3 offset)
+        {
+            var ship = new Ship(210_000 + _fleet.Count, name, ShipFactory.Build(_session.Db, hullId, null, fleet.Faction.RaceId)) { Side = side };
+            ship.Body.Orientation = NQuaternion.CreateFromYawPitchRoll(-0.6f, 0, 0);
+            ship.Controls.Flight.Throttle = 0;
+            _world.Ships.Add(ship);
+            _fleet.Add((ship, offset));
+            AddVisual(ship);
+        }
+        Park(fleet.FlagshipHull, fleet.FlagshipName, NVector3.Zero);
+        _flagship = _fleet[0].Ship;
+        float spacing = _flagship.Spec.HalfLength * 1.4f + 400;
+        for (int i = 0; i < fleet.EscortHulls.Count; i++)
+        {
+            float sideways = i % 2 == 0 ? 1 : -1;
+            Park(fleet.EscortHulls[i], _session.Db.Hulls[fleet.EscortHulls[i]].Name, new NVector3(sideways * spacing * (1 + i / 2), rng.Range(-200, 200), (i / 2) * 900 - rng.Range(0, 600)));
         }
     }
 

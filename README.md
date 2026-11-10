@@ -211,7 +211,7 @@ Debug options go after `--`. For example, `tools/play.sh -- --demo` flies and sh
 
 ## Controls
 
-There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 shows the list in game.
+There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 shows the list in game. Every control can be rebound in Settings, Controls, separately for keyboard and mouse and for controllers. Xbox and PlayStation pads work out of the box on Mac and Windows; flight sticks and HOTAS set up the same way, including a throttle lever that sets your throttle where it sits.
 
 | Action | Keyboard and mouse | Gamepad |
 | --- | --- | --- |
@@ -230,14 +230,14 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Chase or cockpit camera | V | Y |
 | Dock (when close and slow) and undock | Enter | X |
 | Galaxy map | M | Start |
-| System map: set a course | N | |
+| System map: set a course | N | View / Share |
 | System map: find your ship | C | |
-| Cruise drive on and off (with a course set, it flies itself) | J | |
+| Cruise drive on and off (with a course set, it flies itself) | J | Left stick click |
 | Speed time up, slow it down | Full stop, comma | |
 | Follow your next job | L | |
-| Match target speed | Tab | Left stick click |
+| Match target speed | Tab | |
 | Pause menu: save, load, settings (difficulty is in Settings) | Esc | |
-| Controls on screen | F1 | Back |
+| Controls on screen | F1 | |
 | Frame rate and ship count | F3 | |
 | Quit | F10 | |
 

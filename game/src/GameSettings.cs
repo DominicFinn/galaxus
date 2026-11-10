@@ -28,6 +28,10 @@ public sealed class GameSettings
     public float MasterVolume { get; set; } = 0.8f;
     public float MusicVolume { get; set; } = 0.6f;
     public float SfxVolume { get; set; } = 0.8f;
+    /// <summary>Your own control bindings, by action, over the defaults (see GameInput).</summary>
+    public Dictionary<string, List<string>> Bindings { get; set; } = [];
+    /// <summary>Stick and trigger deadzone, 0 to 0.5.</summary>
+    public float Deadzone { get; set; } = 0.15f;
 
     public static GameSettings Current { get; private set; } = new();
 
@@ -43,6 +47,7 @@ public sealed class GameSettings
             Current = new();
         }
         Current.Apply();
+        GameInput.Apply(Current.Bindings, Current.Deadzone);
     }
 
     public void Save()

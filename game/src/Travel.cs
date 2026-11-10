@@ -52,7 +52,7 @@ public partial class Main
         var rng = new Rng(_session.Here.Seed ^ (ulong)(uint)_session.Galaxy.Day ^ 0xa441);
         bool easy = GameSettings.Current.Difficulty == 0;
         double distance = easy ? rng.Range(20, 30) : rng.Range(35, 60);
-        var (aim, label) = _flagship != null ? (_fleetKm, "the fleet") : (_stationKm, _session.Here.Stations.FirstOrDefault() ?? "");
+        var (aim, label) = _flagship != null && _campaignFleet ? (_fleetKm, FleetName) : (_stationKm, _session.Here.Stations.FirstOrDefault() ?? "");
         // A random direction, kept out of the station's planet.
         (double X, double Y, double Z) dir = Normalised((rng.Range(-1, 1), rng.Range(-0.4f, 0.4f), rng.Range(-1, 1)));
         if (_stationBody >= 0)

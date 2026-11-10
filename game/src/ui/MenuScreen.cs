@@ -33,7 +33,7 @@ public sealed class MenuActions
 /// </summary>
 public partial class MenuScreen : Control
 {
-    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns, Import }
+    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns, Import, Controls }
 
     private MenuActions _actions = null!;
     private Logo _logo = null!;
@@ -92,7 +92,7 @@ public partial class MenuScreen : Control
     {
         _page = page;
         foreach (var child in _items.GetChildren()) child.QueueFree();
-        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns ? 440 : 360, 0);
+        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns or Page.Controls ? 440 : 360, 0);
         _footer.Text = Loading.IsWeb
             ? "Web preview. The desktop game is free to download, and your game can come with you: pause, then Save game, Export this game to a file."
             : "Galaxus is a working title. Early build.";
@@ -109,6 +109,7 @@ public partial class MenuScreen : Control
             case Page.Campaigns: BuildCampaigns(); break;
             case Page.Result: BuildResult(); break;
             case Page.Import: BuildImport(); break;
+            case Page.Controls: BuildControls(); break;
         }
         // Centre the panel under the logo once its contents have sized it, and again once wrapped
         // text has settled its height.
@@ -190,9 +191,10 @@ public partial class MenuScreen : Control
     }
 
     /// <summary>A scrolling list that fits the window under the logo, for pages with more than a few entries.</summary>
-    private VBoxContainer Scrolled()
+    /// <param name="below">Room to leave under the list for controls that follow it.</param>
+    private VBoxContainer Scrolled(float below = 0)
     {
-        var scroll = new ScrollContainer { CustomMinimumSize = new Vector2(420, Mathf.Clamp(Size.Y - 210, 140, 420)), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };
+        var scroll = new ScrollContainer { CustomMinimumSize = new Vector2(420, Mathf.Clamp(Size.Y - 210 - below, 120, 420)), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };
         var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         scroll.AddChild(list);
         Add(scroll);
@@ -362,7 +364,88 @@ public partial class MenuScreen : Control
         Add(Slider("Master volume", s.MasterVolume, 0, 1, v => { s.MasterVolume = v; AudioManager.Instance?.ApplyVolumes(); }));
         Add(Slider("Music", s.MusicVolume, 0, 1, v => { s.MusicVolume = v; AudioManager.Instance?.ApplyVolumes(); }));
         Add(Slider("Sound effects", s.SfxVolume, 0, 1, v => { s.SfxVolume = v; AudioManager.Instance?.ApplyVolumes(); }));
+        Add(Ui.Button("Controls", () => { s.Save(); ShowPage(Page.Controls); }));
         Add(Ui.Button("Back", () => { s.Save(); ShowPage(_back); }));
+    }
+
+    // Controls ---------------------------------------------------------------------------------
+
+    /// <summary>The action waiting for an input, and whether it's the controller column.</summary>
+    private (string Action, bool Controller)? _capturing;
+    private ulong _captureEnded;
+
+    /// <summary>True while a binding is being captured (and on the frame it finishes), so the game ignores that input.</summary>
+    public bool BusyWithInput => _capturing != null || Engine.GetProcessFrames() <= _captureEnded + 1;
+
+    /// <summary>
+    /// Every action with its keyboard-and-mouse and controller bindings. Click one, then press the key
+    /// or button or move the stick you want; Escape cancels. Flight sticks and HOTAS work the same way.
+    /// </summary>
+    private void BuildControls()
+    {
+        var s = GameSettings.Current;
+        Add(Ui.Label("CONTROLS", Ui.Amber));
+        Add(Ui.Label("Click a binding, then press the key or button, or move the stick or lever. Escape cancels. Xbox and PlayStation pads work out of the box.", Ui.Dim, wrap: true));
+        var list = Scrolled(below: 150);
+        foreach (var (action, name) in GameInput.Rebindable)
+        {
+            var row = new HBoxContainer();
+            var label = Ui.Label(name);
+            label.CustomMinimumSize = new Vector2(150, 0);
+            row.AddChild(label);
+            foreach (bool controller in new[] { false, true })
+            {
+                bool waiting = _capturing is { } c && c.Action == action && c.Controller == controller;
+                bool leverOnly = action == GameInput.ThrottleLever && !controller;
+                var button = Ui.Button(waiting ? "Press now…" : leverOnly ? "" : GameInput.Describe(action, controller), () =>
+                {
+                    _capturing = (action, controller);
+                    ShowPage(Page.Controls);
+                });
+                button.CustomMinimumSize = new Vector2(125, 0);
+                button.ClipText = true;
+                button.Disabled = leverOnly;
+                row.AddChild(button);
+            }
+            list.AddChild(row);
+        }
+        Add(Slider("Stick deadzone", s.Deadzone, 0, 0.5f, v => { s.Deadzone = v; GameInput.Apply(s.Bindings, v); }));
+        Add(Ui.Button("Reset controls to defaults", () =>
+        {
+            s.Bindings.Clear();
+            s.Deadzone = 0.15f;
+            GameInput.Apply(s.Bindings, s.Deadzone);
+            s.Save();
+            ShowPage(Page.Controls);
+        }));
+        Add(Ui.Button("Back", () => { _capturing = null; s.Save(); ShowPage(Page.Settings); }));
+    }
+
+    /// <summary>While a binding is waiting, the next suitable input becomes it.</summary>
+    public override void _Input(InputEvent e)
+    {
+        if (_capturing is not { } capture || !Visible) return;
+        if (e is InputEventKey { Pressed: true, Keycode: Key.Escape })
+        {
+            _capturing = null;
+            _captureEnded = Engine.GetProcessFrames();
+            GetViewport().SetInputAsHandled();
+            ShowPage(Page.Controls);
+            return;
+        }
+        bool fits = capture.Controller
+            ? e is InputEventJoypadButton { Pressed: true } || e is InputEventJoypadMotion m && Mathf.Abs(m.AxisValue) > 0.6f
+            : (e is InputEventKey { Pressed: true, Echo: false } || e is InputEventMouseButton { Pressed: true } mb && mb.ButtonIndex is not (MouseButton.WheelUp or MouseButton.WheelDown));
+        // The lever only takes an axis.
+        if (capture.Action == GameInput.ThrottleLever && e is not InputEventJoypadMotion) fits = false;
+        if (!fits) return;
+        var s = GameSettings.Current;
+        s.Bindings[capture.Action] = GameInput.Rebind(capture.Action, e);
+        s.Save();
+        _capturing = null;
+        _captureEnded = Engine.GetProcessFrames();
+        GetViewport().SetInputAsHandled();
+        ShowPage(Page.Controls);
     }
 
     private Control Toggle(string label, bool value, Action<bool> set)

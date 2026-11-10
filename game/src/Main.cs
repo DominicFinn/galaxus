@@ -46,6 +46,7 @@ public partial class Main : Node3D
     private bool _cockpit;
 
     private float _throttle = 0.4f;
+    private float _leverLast = -1;
     private Vector2 _mouseStick;
     private int _kills;
 
@@ -312,7 +313,7 @@ public partial class Main : Node3D
         EnterSystem();
         if (_demo || startScreen == "flight") SetScreen(Screen.Flight);
         else if (startScreen == "map") OpenMap();
-        else if (_flagship != null) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(7); }
+        else if (_flagship != null && _campaignFleet) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(7); }
         else if (_session.Here.Stations.Count > 0) Dock();
         else SetScreen(Screen.Flight);
         UpdateCamera(1f, snap: true);
@@ -434,7 +435,7 @@ public partial class Main : Node3D
         _player.Resupply();
         // On Easy the station tops your tank up as you dock.
         if (GameSettings.Current.Difficulty == 0) _session.Refuel();
-        _stationScreen.Port = _dockedAtFlagship && Campaigns.Current(_session) is { } campaign ? campaign.BaseName : _dockedPort?.Name;
+        _stationScreen.Port = _dockedAtFlagship ? (_campaignFleet ? FleetName : $"{_flagship?.Name}, {FleetName}") : _dockedPort?.Name;
         // Docking delivers any jobs for this station.
         string stationName = _dockedPort?.Name ?? _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
         var delivered = _session.Dock(stationName);
@@ -712,7 +713,7 @@ public partial class Main : Node3D
     private void HandleScreenKeys()
     {
         if (Input.IsActionJustPressed(GameInput.Quit)) GetTree().Quit();
-        if (_screen == Screen.Menu && Input.IsActionJustPressed(GameInput.ReleaseMouse)) Resume();
+        if (_screen == Screen.Menu && !_menu.BusyWithInput && Input.IsActionJustPressed(GameInput.ReleaseMouse)) Resume();
         else if (_screen == Screen.Map && (Input.IsActionJustPressed(GameInput.Map) || Input.IsActionJustPressed(GameInput.ReleaseMouse))) CloseMap();
         else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.ReleaseMouse)) OpenPause();
         else if (_screen == Screen.SystemMap && (Input.IsActionJustPressed(GameInput.SystemMapKey) || Input.IsActionJustPressed(GameInput.ReleaseMouse))) CloseSystemMap();
@@ -748,7 +749,7 @@ public partial class Main : Node3D
             _dockedPort = null;
             _dockedAtFlagship = true;
             Dock();
-            _stationScreen.ShowTab(7);
+            if (_campaignFleet) _stationScreen.ShowTab(7);
             return;
         }
         if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { _dockedPort = null; _dockedAtFlagship = false; Dock(); return; }
@@ -788,6 +789,13 @@ public partial class Main : Node3D
             Input.GetAxis(GameInput.StrafeDown, GameInput.StrafeUp));
 
         float throttleInput = Input.GetAxis(GameInput.ThrottleDown, GameInput.ThrottleUp);
+        // A HOTAS lever sets the throttle where it sits; only when it moves, so keys still work too.
+        if (GameInput.Lever is { } lever && Input.GetConnectedJoypads().Count > 0)
+        {
+            float raw = Input.GetJoyAxis(Input.GetConnectedJoypads()[0], lever.Axis);
+            float setting = Mathf.Clamp((lever.Reversed ? raw : -raw) * 0.5f + 0.5f, 0, 1);
+            if (Mathf.Abs(setting - _leverLast) > 0.02f) { _throttle = setting; _leverLast = setting; }
+        }
         if (controls.Flight.Assist)
         {
             _throttle = Mathf.Clamp(_throttle + throttleInput * ThrottleRate * dt, 0, 1);
@@ -836,18 +844,19 @@ public partial class Main : Node3D
                 case ShotFired fired when fired.Projectile.Kind == "missile" && fired.Projectile.Owner == _player:
                     _effects.AddBolt(fired.Projectile);
                     _fightCooldown = 8;
-                    AudioManager.Instance?.Ui("jump");
+                    AudioManager.Instance?.Shot(fired.Projectile.Position.ToGodot(), "missile", "", 0, fired.Projectile.Damage);
                     _hud.Message($"MISSILE AWAY. {_player.MissilesLeft} LEFT");
                     break;
                 case ShotFired fired:
                     if (fired.Projectile.Owner == _player) _fightCooldown = 8;
                     _effects.AddBolt(fired.Projectile);
-                    AudioManager.Instance?.Laser(fired.Projectile.Position.ToGodot(), fired.Projectile.Owner.Spec.Builder.Race,
+                    AudioManager.Instance?.Shot(fired.Projectile.Position.ToGodot(), fired.Projectile.Kind, fired.Projectile.Owner.Spec.Builder.Race,
                         fired.Projectile.Velocity.Length(), fired.Projectile.Damage);
                     break;
                 case FlakBurst burst:
                     _effects.RemoveBolt(burst.Projectile);
                     _effects.HullSpark(burst.Point.ToGodot());
+                    AudioManager.Instance?.FlakBurst(burst.Point.ToGodot());
                     break;
                 case ProjectileExpired expired:
                     _effects.RemoveBolt(expired.Projectile);

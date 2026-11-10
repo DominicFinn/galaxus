@@ -282,7 +282,7 @@ public partial class Main
 
     private string NavName => _navTarget == NavStation ? _session.Here.Stations.FirstOrDefault() ?? "Station"
         : _navTarget == NavBattle ? "The fighting"
-        : _navTarget == NavFleet ? Campaigns.Current(_session)?.BaseName ?? "The fleet"
+        : _navTarget == NavFleet ? FleetName
         : _navTarget <= NavPortBase ? _solar.Stations[NavPortBase - _navTarget].Name
         : _navTarget >= 0 ? _solar.Bodies[_navTarget].Name : "";
 

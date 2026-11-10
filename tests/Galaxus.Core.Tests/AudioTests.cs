@@ -93,6 +93,17 @@ public class AudioTests
     }
 
     [Fact]
+    public void Every_weapon_kind_has_its_own_sound()
+    {
+        var kinds = new[] { "laser", "pulse", "beam", "plasma", "rail", "scatter", "flak", "missile", "torpedo" };
+        var sounds = kinds.Select(k => SoundBank.Shot(k, "human", 900, 20)).ToList();
+        Assert.All(sounds, s => Assert.InRange(Peak(s), 0.2f, 0.7f));
+        // No two kinds are the same sound.
+        Assert.Equal(kinds.Length, sounds.Select(s => (s.Length, MathF.Round(s.Take(4000).Sum(MathF.Abs), 1))).Distinct().Count());
+        Assert.InRange(Peak(SoundBank.FlakBurst()), 0.2f, 0.7f);
+    }
+
+    [Fact]
     public void Loops_join_without_a_click()
     {
         foreach (var loop in new[] { SoundBank.Engine("human"), SoundBank.Engine("orc"), SoundBank.Engine("dwarf"), SoundBank.StationAmbience("Mining", 3) })

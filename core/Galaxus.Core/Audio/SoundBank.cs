@@ -94,6 +94,89 @@ public static class SoundBank
     }
 
     /// <summary>
+    /// A shot from any weapon kind, each with its own voice. Lasers keep the builder's race voice
+    /// (see <see cref="Laser"/>); the heavier kinds sound like what they are.
+    /// </summary>
+    public static float[] Shot(string kind, string race, float projectileSpeed, float damage)
+    {
+        float weight = Math.Clamp(MathF.Log10(MathF.Max(damage, 2)) / 2.5f, 0.3f, 1.2f); // heavier hits sound lower
+        switch (kind)
+        {
+            case "pulse": // two punchy blips
+            {
+                var b = Mono(0.18f);
+                for (int k = 0; k < 2; k++)
+                    Tone(b, k * 0.06f, 0.09f, x => (760 - 200 * weight) * (1 - 0.4f * x), Wave.Triangle, Pluck(0.09f, 10), 1 - k * 0.25f);
+                Synth.LowPass(b, 3000);
+                return Finish(b, WeaponPeak);
+            }
+            case "beam": // a short, humming zap
+            {
+                var b = Mono(0.3f);
+                Tone(b, 0, 0.3f, x => (620 - 150 * weight) * (1 + 0.03f * MathF.Sin(x * 60)), Wave.Sine, x => MathF.Min(1, x * 40) * Decay(x, 4), 1);
+                Tone(b, 0, 0.3f, x => (1240 - 300 * weight) * (1 + 0.03f * MathF.Sin(x * 60)), Wave.Sine, x => MathF.Min(1, x * 40) * Decay(x, 6), 0.3f);
+                return Finish(b, WeaponPeak * 0.9f);
+            }
+            case "plasma": // a wobbly, low bloop
+            {
+                var b = Mono(0.3f);
+                Tone(b, 0, 0.3f, x => (300 - 80 * weight) * (1 + 0.25f * MathF.Sin(x * 40)) * (1 - 0.4f * x), Wave.Triangle, Pluck(0.3f, 6), 1);
+                Tone(b, 0, 0.12f, _ => 0, Wave.Noise, Pluck(0.12f, 8), 0.2f, 61);
+                Synth.LowPass(b, 1800);
+                return Finish(b, WeaponPeak);
+            }
+            case "rail": // a sharp crack that rings
+            {
+                var b = Mono(0.45f);
+                Tone(b, 0, 0.04f, _ => 0, Wave.Noise, Pluck(0.04f, 5, 0.001f), 0.7f, 71);
+                Synth.LowPass(b, 4500);
+                Tone(b, 0, 0.45f, _ => 1400 - 300 * weight, Wave.Sine, Pluck(0.45f, 7, 0.001f), 0.35f);
+                Tone(b, 0, 0.25f, x => 180 * (1 - 0.3f * x), Wave.Sine, Pluck(0.25f, 8), 0.6f);
+                return Finish(b, WeaponPeak);
+            }
+            case "scatter": // a soft, gritty puff
+            {
+                var b = Mono(0.22f);
+                Tone(b, 0, 0.22f, _ => 0, Wave.Noise, Pluck(0.22f, 9), 1, 83);
+                Synth.LowPass(b, 2200, 900);
+                Tone(b, 0, 0.1f, x => 220 * (1 - 0.4f * x), Wave.Triangle, Pluck(0.1f, 9), 0.5f);
+                return Finish(b, WeaponPeak * 0.9f);
+            }
+            case "flak": // a deep launch thump
+            {
+                var b = Mono(0.3f);
+                Tone(b, 0, 0.3f, x => 110 * (1 - 0.5f * x), Wave.Sine, Pluck(0.3f, 8), 1);
+                Tone(b, 0, 0.06f, _ => 0, Wave.Noise, Pluck(0.06f, 7), 0.3f, 91);
+                Synth.LowPass(b, 1400);
+                return Finish(b, WeaponPeak * 0.85f);
+            }
+            case "missile": // a rising whoosh as it lights
+            case "torpedo": // the same, heavier and lower
+            {
+                bool heavy = kind == "torpedo";
+                float seconds = heavy ? 1f : 0.7f;
+                var b = Mono(seconds);
+                Tone(b, 0, seconds, _ => 0, Wave.Noise, x => MathF.Min(1, x * 12) * Decay(x, 3), 1, heavy ? 97u : 93u);
+                Synth.LowPass(b, heavy ? 500 : 900, heavy ? 1300 : 2600);
+                Tone(b, 0, seconds * 0.6f, x => (heavy ? 70 : 110) * (1 + 0.6f * x), Wave.Sine, Pluck(seconds * 0.6f, 5, 0.02f), 0.5f);
+                return Finish(b, WeaponPeak);
+            }
+            default:
+                return Laser(race, projectileSpeed, damage);
+        }
+    }
+
+    /// <summary>A flak shell bursting: a muffled pop and a puff of grit.</summary>
+    public static float[] FlakBurst()
+    {
+        var b = Mono(0.4f);
+        Tone(b, 0, 0.4f, _ => 0, Wave.Noise, Pluck(0.4f, 7, 0.002f), 1, 101);
+        Synth.LowPass(b, 1600, 300);
+        Tone(b, 0, 0.2f, x => 90 * (1 - 0.4f * x), Wave.Sine, Pluck(0.2f, 9), 0.6f);
+        return Finish(b, HitPeak);
+    }
+
+    /// <summary>
     /// A four-second engine loop for the game to pitch up and down with throttle. Frequencies are
     /// whole multiples of 0.25 Hz so the loop joins without a click, and nothing in it buzzes.
     /// </summary>

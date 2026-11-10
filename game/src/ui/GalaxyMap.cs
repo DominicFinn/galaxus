@@ -454,6 +454,8 @@ public partial class GalaxyMap : Control
         };
         // History and lore: landmarks, takeovers and wars.
         if (s.LandmarkNote is { Length: > 0 } note) lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]{note}[/color]");
+        if (WarFleets.At(_session.Db, galaxy, s) is { } fleet)
+            lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]{Faction(fleet.Faction.Id)}'s war fleet holds the front here. Its flagship, the {fleet.FlagshipName}, takes visitors.[/color]");
         if (s.PreviousOwner >= 0) lines.Add($"Taken from {Faction(s.PreviousOwner)} on day {s.OwnerSince}" + (galaxy.Day - s.OwnerSince < 21 ? ", and still unsettled." : "."));
         foreach (var w in wars) lines.Add($"[color=#{Ui.Hex(Ui.Red)}]On the front between {Faction(w.A)} and {Faction(w.B)}.[/color]");
         if (events.Count > 0) lines.Add($"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]");

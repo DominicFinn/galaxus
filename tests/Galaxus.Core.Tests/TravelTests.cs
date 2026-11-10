@@ -124,3 +124,24 @@ public class TravelTests
         Assert.Null(TradeIntel.Compare(session, unknown).AgeDays);
     }
 }
+
+public class WarFleetTests
+{
+    private static readonly ContentDatabase Db = ContentDatabase.Load(new DirectoryContentSource(ContentTests.DataFolder));
+
+    [Fact]
+    public void Fronts_have_a_war_fleet_with_a_flagship_you_can_dock_with()
+    {
+        var session = Session.StartNew(Db, 45);
+        session.Simulation.Run(120);
+        var galaxy = session.Galaxy;
+        var fronts = galaxy.Conflicts.Where(c => c.Stage >= 1).Select(c => galaxy.Systems[c.FrontSystem]).Where(s => s.Stations.Count > 0).ToList();
+        Assert.NotEmpty(fronts);
+        var fleets = fronts.Select(s => WarFleets.At(Db, galaxy, s)).Where(f => f != null).ToList();
+        Assert.NotEmpty(fleets);
+        Assert.All(fleets, f => Assert.True(Db.Hulls[f!.FlagshipHull].Dockable));
+        Assert.All(fleets, f => Assert.True(f!.Conflict.Involves(f.Faction.Id)));
+        // Quiet systems have none.
+        Assert.Null(WarFleets.At(Db, galaxy, galaxy.Systems.First(s => s.Stations.Count > 0 && !galaxy.Conflicts.Any(c => c.FrontSystem == s.Id))));
+    }
+}

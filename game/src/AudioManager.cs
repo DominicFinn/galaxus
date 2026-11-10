@@ -247,11 +247,17 @@ public partial class AudioManager : Node
         player.Play();
     }
 
-    public void Laser(Vector3 at, string race, float speed, float damage)
+    /// <summary>A shot from any weapon, in its kind's voice (and, for lasers, its builder's race).</summary>
+    public void Shot(Vector3 at, string kind, string race, float speed, float damage)
     {
-        string key = $"laser-{race}-{(int)speed / 100}-{(int)damage / 4}";
-        if (!Allowed(key, 0.045f)) return;
-        PlayAt(at, Stream(key, () => SoundBank.Laser(race, speed, damage)), priority: 1, vary: 0.07f);
+        string key = kind is "laser" or "" ? $"laser-{race}-{(int)speed / 100}-{(int)damage / 4}" : $"shot-{kind}-{(int)damage / 20}";
+        if (!Allowed(key, kind is "missile" or "torpedo" ? 0.12f : 0.045f)) return;
+        PlayAt(at, Stream(key, () => SoundBank.Shot(kind, race, speed, damage)), priority: kind is "torpedo" ? 2 : 1, vary: 0.07f);
+    }
+
+    public void FlakBurst(Vector3 at)
+    {
+        if (Allowed("flak-burst", 0.06f)) PlayAt(at, Stream("flak-burst", SoundBank.FlakBurst), priority: 2, vary: 0.1f);
     }
 
     public void ShieldHit(Vector3 at)
