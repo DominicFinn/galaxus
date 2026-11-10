@@ -44,6 +44,9 @@ public sealed class ContentDatabase
     public Dictionary<string, PartDef> Parts { get; } = [];
     public GrammarLibrary Grammars { get; } = new();
 
+    /// <summary>Problems found while loading. Only filled when loaded with throwOnProblems: false.</summary>
+    public List<string> Problems { get; } = [];
+
     private static readonly JsonSerializerOptions Json = new()
     {
         PropertyNameCaseInsensitive = true,
@@ -51,8 +54,11 @@ public sealed class ContentDatabase
         AllowTrailingCommas = true,
     };
 
-    /// <summary>Loads and validates everything. Throws ContentException listing every problem found.</summary>
-    public static ContentDatabase Load(IContentSource source)
+    /// <summary>
+    /// Loads and validates everything. Throws ContentException listing every problem found, unless
+    /// throwOnProblems is false, in which case the problems are left in Problems (used by tools).
+    /// </summary>
+    public static ContentDatabase Load(IContentSource source, bool throwOnProblems = true)
     {
         var db = new ContentDatabase();
         var problems = new List<string>();
@@ -67,7 +73,8 @@ public sealed class ContentDatabase
         foreach (var grammar in grammars.Values) db.Grammars.Add(grammar);
 
         problems.AddRange(db.Validate());
-        if (problems.Count > 0) throw new ContentException(problems);
+        if (problems.Count > 0 && throwOnProblems) throw new ContentException(problems);
+        db.Problems.AddRange(problems);
         return db;
     }
 

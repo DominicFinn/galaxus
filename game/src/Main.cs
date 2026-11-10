@@ -55,7 +55,9 @@ public partial class Main : Node3D
 
         try
         {
-            _db = ContentDatabase.Load(new GodotContentSource());
+            // The preview only needs one hull, so it shouldn't be blocked by problems elsewhere.
+            _db = ContentDatabase.Load(new GodotContentSource(), throwOnProblems: _previewHull == null);
+            foreach (var problem in _db.Problems) GD.Print($"Content problem: {problem}");
         }
         catch (ContentException e)
         {

@@ -33,6 +33,13 @@ public sealed class FlatMeshBuilder
         for (int i = 0; i < 3; i++) { _normals.Add(normal); _colors.Add(color); }
     }
 
+    /// <summary>Adds a triangle that is already wound and has its normal.</summary>
+    public void Add(Vector3 a, Vector3 b, Vector3 c, Vector3 normal, Color color)
+    {
+        _vertices.Add(a); _vertices.Add(b); _vertices.Add(c);
+        for (int i = 0; i < 3; i++) { _normals.Add(normal); _colors.Add(color); }
+    }
+
     public void Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, Color color, Vector3 inside)
     {
         Triangle(a, b, c, color, inside);
@@ -83,12 +90,10 @@ public static class MeshFactory
         var lit = new FlatMeshBuilder();
         var glow = new FlatMeshBuilder();
 
-        foreach (var shape in hull.Model)
+        foreach (var t in ShipGeometry.Build(hull))
         {
-            bool isGlow = shape.Color == "glow";
-            var color = ResolveColour(shape.Color, palette);
-            AddTaperedBox(isGlow ? glow : lit, shape, color, mirrored: false);
-            if (shape.Mirror) AddTaperedBox(isGlow ? glow : lit, shape, color, mirrored: true);
+            var target = t.Color == "glow" ? glow : lit;
+            target.Add(t.A.ToGodot(), t.B.ToGodot(), t.C.ToGodot(), t.Normal.ToGodot(), ResolveColour(t.Color, palette));
         }
 
         var mesh = new ArrayMesh();
@@ -105,46 +110,6 @@ public static class MeshFactory
         "glow" => palette.Glow,
         _ => name,
     });
-
-    private static void AddTaperedBox(FlatMeshBuilder builder, ShapeDef shape, Color color, bool mirrored)
-    {
-        float sign = mirrored ? -1 : 1;
-        var centre = new Vector3(shape.Position[0] * sign, shape.Position[1], shape.Position[2]);
-        var skew = new Vector2(shape.Skew[0] * sign, shape.Skew[1]);
-        float roll = Mathf.DegToRad(shape.Roll) * sign;
-        float half = shape.Length / 2f;
-
-        // Back face sits towards +Z (the rear), front face towards -Z (the nose).
-        Vector3 Corner(float w, float h, float sx, float sy, Vector2 offset, float z)
-        {
-            var p = new Vector2(sx * w / 2f, sy * h / 2f).Rotated(roll) + offset;
-            return centre + new Vector3(p.X, p.Y, z);
-        }
-
-        Vector3[] back =
-        [
-            Corner(shape.Back[0], shape.Back[1], -1, -1, Vector2.Zero, half),
-            Corner(shape.Back[0], shape.Back[1], 1, -1, Vector2.Zero, half),
-            Corner(shape.Back[0], shape.Back[1], 1, 1, Vector2.Zero, half),
-            Corner(shape.Back[0], shape.Back[1], -1, 1, Vector2.Zero, half),
-        ];
-        Vector3[] front =
-        [
-            Corner(shape.Front[0], shape.Front[1], -1, -1, skew, -half),
-            Corner(shape.Front[0], shape.Front[1], 1, -1, skew, -half),
-            Corner(shape.Front[0], shape.Front[1], 1, 1, skew, -half),
-            Corner(shape.Front[0], shape.Front[1], -1, 1, skew, -half),
-        ];
-
-        var inside = (back[0] + back[1] + back[2] + back[3] + front[0] + front[1] + front[2] + front[3]) / 8f;
-        builder.Quad(back[0], back[1], back[2], back[3], color, inside);
-        builder.Quad(front[0], front[1], front[2], front[3], color, inside);
-        for (int i = 0; i < 4; i++)
-        {
-            int j = (i + 1) % 4;
-            builder.Quad(back[i], back[j], front[j], front[i], color, inside);
-        }
-    }
 
     /// <summary>A subdivided icosahedron, flat shaded, with a colour chosen per face.</summary>
     public static ArrayMesh Icosphere(float radius, int subdivisions, Func<Vector3, Color> colourAt, Material? material = null)
