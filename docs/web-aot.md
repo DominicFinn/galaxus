@@ -6,9 +6,11 @@ template we use now. On the way we found a one-line problem in the community bui
 for most of the slowness on its own: fixing it makes the plain interpreter 13 times faster, with
 no change to how we build the game.
 
-This was a one-day experiment (10 November 2026) on branch `web-aot-experiment`, with the engine
-changes on branch `web-aot` in a worktree of the community fork (`~/git/godot-dotnet-web-aot`,
-based on commit 34ac8af).
+This was a one-day experiment (10 November 2026). The game side is in this repository; the engine
+changes are on [`web-debug-level-0`](https://github.com/DominicFinn/godot/tree/web-debug-level-0) and
+[`web-aot-option`](https://github.com/DominicFinn/godot/tree/web-aot-option) in our fork of the community engine, based on commit
+34ac8af of [ComplexRobot/godot](https://github.com/ComplexRobot/godot), which is what the
+[community web export project](https://github.com/ComplexRobot/godot-dotnet-web-export) builds.
 
 ## Results
 
@@ -69,8 +71,7 @@ rest). Nothing can attach a debugger to a Godot web export, so this costs a lot 
 Passing 0 in release templates makes the simulation, meshes and terrain 8 to 17 times faster in
 our benchmark, and content loading 3 times faster. The
 template doesn't depend on the game, so this needs one custom template build, not one per game
-build. A template built this way is at `~/git/web-aot-templates/interp-debug0.zip` and works with
-`WEB_TEMPLATE=... tools/export-web.sh`.
+build. Use one with `WEB_TEMPLATE=<template zip> tools/export-web.sh`.
 
 ### 2. The template can't hold AOT code
 
@@ -145,13 +146,14 @@ about 4,000 methods run as AOT code and 900 fall back during the benchmark.
 
 ## Changes
 
-In the fork (`~/git/godot-dotnet-web-aot`, branch `web-aot`):
+In the engine fork:
 
-- `modules/mono/mono_gd/gd_mono.cpp`: debug level 0 in release templates, 1 in debug templates;
-  with AOT, Mono's AOT log messages go to Godot's output.
-- `modules/mono/config.py` and `modules/mono/build_scripts/mono_configure.py`: the
-  `mono_wasm_aot_dir` option.
-- `platform/web/SCsub`: relink when the AOT objects change.
+- [`web-debug-level-0`](https://github.com/DominicFinn/godot/tree/web-debug-level-0), `modules/mono/mono_gd/gd_mono.cpp`: debug
+  level 0 in release templates, 1 in debug templates.
+- [`web-aot-option`](https://github.com/DominicFinn/godot/tree/web-aot-option), on top of that:
+  `modules/mono/config.py` and `modules/mono/build_scripts/mono_configure.py` add the
+  `mono_wasm_aot_dir` option; `gd_mono.cpp` sends Mono's AOT log messages to Godot's output in
+  AOT templates; `platform/web/SCsub` relinks when the AOT objects change.
 
 In this repository:
 
