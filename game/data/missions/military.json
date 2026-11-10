@@ -1,0 +1,586 @@
+[
+  {
+    "id": "escort-short-haul",
+    "name": "Escort a short haul",
+    "type": "escort",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [
+      "food",
+      "industrial",
+      "machinery",
+      "consumer"
+    ],
+    "minRank": 0,
+    "baseReward": 2600,
+    "complications": [
+      "ambush-on-route",
+      "ambush-rival-crew",
+      "deadline-client-panics"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-escort-short-haul"
+  },
+  {
+    "id": "escort-ore-haulers",
+    "name": "Escort ore haulers",
+    "type": "escort",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "pirate-surge",
+      "raids"
+    ],
+    "cargoCategories": [
+      "ore",
+      "metals"
+    ],
+    "minRank": 0,
+    "baseReward": 3400,
+    "complications": [
+      "ambush-on-route",
+      "ambush-wreck-bait",
+      "bad-intel-defended"
+    ],
+    "followUps": [
+      "raider-base-assault"
+    ],
+    "textGrammar": "mission-escort-ore-haulers"
+  },
+  {
+    "id": "patrol-lane-sweep",
+    "name": "Lane sweep",
+    "type": "patrol",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 2000,
+    "complications": [
+      "ambush-on-route",
+      "bad-intel-wrong-place"
+    ],
+    "followUps": [
+      "raider-base-assault"
+    ],
+    "textGrammar": "mission-patrol-lane-sweep"
+  },
+  {
+    "id": "patrol-gate-watch",
+    "name": "Gate watch",
+    "type": "patrol",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "crackdown",
+      "gate-warden-drive"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 3000,
+    "complications": [
+      "extra-stop-inspection",
+      "client-lies-purpose",
+      "rival-offer-bribe"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-patrol-gate-watch"
+  },
+  {
+    "id": "bounty-small-fry",
+    "name": "Bounty: small fry",
+    "type": "bounty",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 3000,
+    "complications": [
+      "fugitive-wanted",
+      "bad-intel-wrong-place",
+      "rival-bid-poached"
+    ],
+    "followUps": [
+      "bounty-employer"
+    ],
+    "textGrammar": "mission-bounty-small-fry"
+  },
+  {
+    "id": "bounty-synth-registry",
+    "name": "Bounty: unregistered synth",
+    "type": "bounty",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "synth-registry-sweep"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 3800,
+    "complications": [
+      "client-lies-purpose",
+      "double-cross-fall-guy",
+      "fugitive-stowaway"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-bounty-synth-registry"
+  },
+  {
+    "id": "blockade-run-medicine",
+    "name": "Run the blockade: medicine",
+    "type": "blockade-running",
+    "scale": "small",
+    "legal": false,
+    "givers": [],
+    "events": [
+      "blockade"
+    ],
+    "cargoCategories": [
+      "medical",
+      "food",
+      "water"
+    ],
+    "minRank": 1,
+    "baseReward": 4200,
+    "complications": [
+      "ambush-on-route",
+      "extra-stop-inspection",
+      "deadline-gate-queue"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-blockade-run-medicine"
+  },
+  {
+    "id": "escort-convoy-skirmish",
+    "name": "Escort a convoy",
+    "type": "escort",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "raids",
+      "pirate-surge"
+    ],
+    "cargoCategories": [
+      "food",
+      "industrial",
+      "machinery",
+      "metals"
+    ],
+    "minRank": 1,
+    "baseReward": 3600,
+    "complications": [
+      "ambush-on-route",
+      "ambush-wreck-bait",
+      "double-cross-ambush-pay"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-escort-convoy-skirmish"
+  },
+  {
+    "id": "raid-supply-depot",
+    "name": "Raid a supply depot",
+    "type": "raid",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "border-dispute",
+      "open-war"
+    ],
+    "cargoCategories": [
+      "fuel",
+      "weapons",
+      "industrial"
+    ],
+    "minRank": 2,
+    "baseReward": 4600,
+    "complications": [
+      "bad-intel-defended",
+      "ambush-rival-crew",
+      "client-lies-danger"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-raid-supply-depot"
+  },
+  {
+    "id": "raid-pirate-haven",
+    "name": "Raid a pirate haven",
+    "type": "raid",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "pirate-surge",
+      "raids"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 4200,
+    "complications": [
+      "bad-intel-wrong-place",
+      "ambush-rival-crew",
+      "rival-offer-turncoat"
+    ],
+    "followUps": [
+      "bounty-employer"
+    ],
+    "textGrammar": "mission-raid-pirate-haven"
+  },
+  {
+    "id": "patrol-border-picket",
+    "name": "Border picket",
+    "type": "patrol",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "border-dispute"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 3400,
+    "complications": [
+      "bad-intel-defended",
+      "ambush-rival-crew",
+      "client-lies-purpose"
+    ],
+    "followUps": [
+      "raid-supply-depot"
+    ],
+    "textGrammar": "mission-patrol-border-picket"
+  },
+  {
+    "id": "blockade-run-fuel",
+    "name": "Run the blockade: fuel",
+    "type": "blockade-running",
+    "scale": "skirmish",
+    "legal": false,
+    "givers": [],
+    "events": [
+      "blockade",
+      "open-war"
+    ],
+    "cargoCategories": [
+      "fuel",
+      "food",
+      "medical"
+    ],
+    "minRank": 1,
+    "baseReward": 4800,
+    "complications": [
+      "ambush-on-route",
+      "deadline-gate-queue",
+      "bad-intel-stale-charts"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-blockade-run-fuel"
+  },
+  {
+    "id": "bounty-mercenary-captain",
+    "name": "Bounty: mercenary captain",
+    "type": "bounty",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "mercenary-uprising"
+    ],
+    "cargoCategories": [],
+    "minRank": 2,
+    "baseReward": 5200,
+    "complications": [
+      "double-cross-withheld",
+      "rival-offer-turncoat",
+      "bad-intel-defended"
+    ],
+    "followUps": [
+      "bounty-employer"
+    ],
+    "textGrammar": "mission-bounty-mercenary-captain"
+  },
+  {
+    "id": "raider-base-assault",
+    "name": "Assault on the raider base",
+    "type": "raid",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "pirate-surge",
+      "raids"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 4800,
+    "complications": [
+      "ambush-wreck-bait",
+      "bad-intel-defended",
+      "rival-offer-turncoat"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-raider-base-assault"
+  },
+  {
+    "id": "bounty-employer",
+    "name": "Bounty: the employer",
+    "type": "bounty",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 4600,
+    "complications": [
+      "double-cross-fall-guy",
+      "client-lies-purpose",
+      "bad-intel-wrong-place"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-bounty-employer"
+  },
+  {
+    "id": "escort-carrier-screen",
+    "name": "Screen a carrier",
+    "type": "escort",
+    "scale": "battle",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "open-war",
+      "border-dispute"
+    ],
+    "cargoCategories": [],
+    "minRank": 3,
+    "baseReward": 5200,
+    "complications": [
+      "ambush-rival-crew",
+      "bad-intel-defended",
+      "double-cross-fall-guy"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-escort-carrier-screen"
+  },
+  {
+    "id": "patrol-fleet-picket",
+    "name": "Fleet picket",
+    "type": "patrol",
+    "scale": "battle",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "open-war",
+      "blockade"
+    ],
+    "cargoCategories": [],
+    "minRank": 2,
+    "baseReward": 4200,
+    "complications": [
+      "ambush-wreck-bait",
+      "bad-intel-defended",
+      "rival-offer-bribe"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-patrol-fleet-picket"
+  },
+  {
+    "id": "raid-strike-wing",
+    "name": "Strike wing",
+    "type": "raid",
+    "scale": "battle",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "open-war",
+      "border-dispute"
+    ],
+    "cargoCategories": [],
+    "minRank": 3,
+    "baseReward": 5600,
+    "complications": [
+      "bad-intel-defended",
+      "ambush-rival-crew",
+      "client-lies-danger"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-raid-strike-wing"
+  },
+  {
+    "id": "blockade-break-fleet",
+    "name": "Break the blockade",
+    "type": "blockade-running",
+    "scale": "battle",
+    "legal": false,
+    "givers": [],
+    "events": [
+      "blockade",
+      "open-war"
+    ],
+    "cargoCategories": [
+      "fuel",
+      "food",
+      "medical",
+      "weapons"
+    ],
+    "minRank": 3,
+    "baseReward": 6000,
+    "complications": [
+      "bad-intel-defended",
+      "ambush-on-route",
+      "deadline-client-panics"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-blockade-break-fleet"
+  },
+  {
+    "id": "raid-mercenary-suppression",
+    "name": "Suppress the mercenary fleet",
+    "type": "raid",
+    "scale": "battle",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "mercenary-uprising"
+    ],
+    "cargoCategories": [],
+    "minRank": 3,
+    "baseReward": 5400,
+    "complications": [
+      "double-cross-ambush-pay",
+      "rival-offer-turncoat",
+      "client-lies-purpose"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-raid-mercenary-suppression"
+  },
+  {
+    "id": "patrol-warden-cordon",
+    "name": "Warden cordon",
+    "type": "patrol",
+    "scale": "battle",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "crackdown",
+      "gate-warden-drive",
+      "synth-registry-sweep"
+    ],
+    "cargoCategories": [],
+    "minRank": 3,
+    "baseReward": 4400,
+    "complications": [
+      "extra-stop-inspection",
+      "client-lies-purpose",
+      "double-cross-fall-guy"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-patrol-warden-cordon"
+  },
+  {
+    "id": "raid-supply-lines",
+    "name": "Harass supply lines",
+    "type": "raid",
+    "scale": "war",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "open-war"
+    ],
+    "cargoCategories": [],
+    "minRank": 3,
+    "baseReward": 5000,
+    "complications": [
+      "bad-intel-defended",
+      "ambush-rival-crew",
+      "deadline-client-panics"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-raid-supply-lines"
+  },
+  {
+    "id": "escort-war-convoy",
+    "name": "War convoy",
+    "type": "escort",
+    "scale": "war",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "open-war",
+      "blockade"
+    ],
+    "cargoCategories": [
+      "weapons",
+      "fuel",
+      "food",
+      "medical"
+    ],
+    "minRank": 3,
+    "baseReward": 5400,
+    "complications": [
+      "ambush-on-route",
+      "bad-intel-defended",
+      "double-cross-ambush-pay"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-escort-war-convoy"
+  },
+  {
+    "id": "patrol-war-picket",
+    "name": "Theatre picket",
+    "type": "patrol",
+    "scale": "war",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "open-war",
+      "border-dispute"
+    ],
+    "cargoCategories": [],
+    "minRank": 4,
+    "baseReward": 5200,
+    "complications": [
+      "bad-intel-defended",
+      "client-lies-danger",
+      "rival-offer-turncoat"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-patrol-war-picket"
+  },
+  {
+    "id": "blockade-war-lifeline",
+    "name": "Lifeline run",
+    "type": "blockade-running",
+    "scale": "war",
+    "legal": false,
+    "givers": [],
+    "events": [
+      "blockade",
+      "open-war"
+    ],
+    "cargoCategories": [
+      "fuel",
+      "food",
+      "medical",
+      "weapons"
+    ],
+    "minRank": 4,
+    "baseReward": 6400,
+    "complications": [
+      "bad-intel-defended",
+      "ambush-on-route",
+      "deadline-client-panics"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-blockade-war-lifeline"
+  }
+]

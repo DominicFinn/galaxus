@@ -1,0 +1,1219 @@
+[
+  {
+    "id": "mission-frontier-boom-fuel-depot",
+    "description": "Text for: Fuel for a boom-town depot.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Fuel for the depot at {destination}",
+        "{tonnes} t of {cargo} for {destination}",
+        "Fill the tanks at {destination}"
+      ],
+      "ctx": [
+        "Traffic at {destination} has outrun the depot's tanks. Ships are queueing to leave empty.",
+        "The new depot at {destination} opened with a full house and a half-empty tank.",
+        "A trade boom is burning more fuel than the outer systems can make. The depot at {destination} is first to run dry.",
+        "{destination} is a stop between two lanes and a hundred ships want its fuel. It has some."
+      ],
+      "task": [
+        "Haul {tonnes} t of {cargo} to {destination} within {deadline}.",
+        "Bring {tonnes} t of {cargo} to {destination}. It must arrive sealed and not rattled.",
+        "Take the {cargo} to {destination} in {deadline}. Ships are waiting on the dock.",
+        "Deliver {tonnes} t of {cargo} to the depot at {destination} within {deadline}."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The tanks fill and the queue clears. {faction} pays {reward}.",
+        "The depot opens its pumps within the hour. {faction} pays {reward}.",
+        "The first ship fuels from your delivery before you've finished the paperwork. {faction} pays {reward}.",
+        "Pumps running. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The depot ran dry while you were en route. {faction} pays nothing.",
+        "The fuel arrived late and the queue had left. {faction} withholds the fee.",
+        "The cargo did not arrive. {faction} will remember it when the next boom starts."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-survey-empty-system",
+    "description": "Text for: Survey an empty system.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Survey #empty# {destination}",
+        "#chart.cap# {destination}, #bare#",
+        "Fresh charts of {destination}"
+      ],
+      "empty": [
+        "the empty system",
+        "the blank system",
+        "the unvisited system"
+      ],
+      "bare": [
+        "every rock of it",
+        "no stone left off",
+        "start to finish"
+      ],
+      "chart": [
+        "map",
+        "chart",
+        "survey",
+        "sound out"
+      ],
+      "ctx": [
+        "Nobody has filed a survey of {destination}. The old charts show a star and a guess.",
+        "{destination} is a blank on every map we hold, and a blank is worth nothing to anyone who wants to file a claim.",
+        "The gate points at {destination} and nobody has ever gone through with an instrument case.",
+        "Somebody will claim {destination} before long. Whoever holds the survey holds the first word."
+      ],
+      "task": [
+        "Fly a full survey: star class, planets, belts, gate approaches. Scan each body once and log it.",
+        "Make a pass of every body you can reach, scan it and bring the log back.",
+        "Scan the star, each world and the belts, and note anything that looks hazardous or worth digging.",
+        "Fly the system end to end, scanning as you go. Close passes where the sensors ask for them."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:warning# #voice:payment#",
+        "#voice:opener# #ctx# #voice:urgency# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #task# Finish inside {deadline}. #ctx# #voice:payment#"
+      ],
+      "success": [
+        "The log is complete and the chart room goes quiet while it reads it. {faction} pays {reward}.",
+        "{faction} loads your survey into its registers before you've left the dock. {reward} is credited.",
+        "The system now has a name on a chart and your ship's mark beside it. {faction} pays {reward}.",
+        "Clean data, no gaps. {faction} pays {reward} and asks if you are free next week."
+      ],
+      "failure": [
+        "The survey is patchy and the gaps are where the money would have been. {faction} withholds payment.",
+        "Without a full log {faction} has to send someone else. They will not forget who left holes in the chart.",
+        "The deadline passes and a rival's survey is filed first. {faction} has no use for yours."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-survey-rush-prospect",
+    "description": "Text for: Prospect a strike for the rush.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Prospect the strike at {destination}",
+        "Rush survey: {destination}",
+        "Is {destination} worth the fuss?"
+      ],
+      "ctx": [
+        "Word of a rich strike at {destination} has reached every bar from here to the next gate, and half of it is made up.",
+        "Prospectors are queuing for {destination}. Somebody should check what they are queuing for.",
+        "There is ore at {destination}, or there is a rumour of ore. A rumour is a poor basis for a mine.",
+        "The rush is on and claim stakes are going into rock at {destination} faster than anyone can value them."
+      ],
+      "task": [
+        "Scan the seams, drill a few test cores and bring back honest numbers on grade and tonnage.",
+        "Take core samples from the main belt, rate the grade and send the figures back before the crowd does.",
+        "Run a density scan across the field and log the five richest bodies. Do not mark any of them as yours.",
+        "Test the strike. If it is real, say how big. If it is salted rock, say that instead."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "Your numbers are better than the rumours, and for once somebody is pleased about it. {faction} pays {reward}.",
+        "The strike is real and now {faction} has the figures first. It pays {reward}.",
+        "You saved {faction} a very expensive mistake with a very cheap survey. {reward} is yours.",
+        "The cores check out. {faction} pays {reward} and starts hiring."
+      ],
+      "failure": [
+        "The numbers came back too late to matter. The crowd had already staked the best of it. {faction} pays nothing.",
+        "Your report was vague about grade. {faction} will not bet a mine on vague.",
+        "{faction} wanted the figures first and got them third. The fee is withheld."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-scan-gas-giant",
+    "description": "Text for: Scan a gas giant.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Skim the giant at {destination}",
+        "Gas giant scan: {destination}",
+        "Deep atmosphere profile, {destination}"
+      ],
+      "ctx": [
+        "The giant at {destination} has never been profiled below the cloud tops. Our fuel estimates are guesses and our guesses are expensive.",
+        "A skimming depot is only worth building if the atmosphere holds what the models say it does, and at {destination} nobody has looked.",
+        "{destination} has a giant with banded storms and a magnetic field that the old charts disagree about.",
+        "The light is poor and the winds are worse at {destination}, which is why the data is so thin."
+      ],
+      "task": [
+        "Drop to the upper cloud layers on a scanning run, log the composition and climb out before the shear takes your hull.",
+        "Make three passes through the upper atmosphere and take your scans at the marked depths.",
+        "Sample the gas at each marked altitude, plot the storm edges and log the hydrogen fraction.",
+        "Fly the skimmer line, scan the field strength at the poles and bring everything home in one piece."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #voice:warning# #ctx# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:urgency# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The profile is better than the model, which has been quietly deleted. {faction} pays {reward}.",
+        "You came out of the clouds with a full log and a hull that needs washing. {faction} pays {reward}.",
+        "Every depth is covered. {faction} credits {reward} and reaches for the planning tables.",
+        "The storm edges are exactly where you said they were. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The scan stopped halfway down. {faction} has a half profile and half a plan.",
+        "The data is too noisy to use, and {faction} cannot build a depot on noise. No payment.",
+        "You turned back early. Probably sensible, but {faction} is not paying for sensible."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-chart-gate-approach",
+    "description": "Text for: Chart a gate approach.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Chart the approach to {destination}",
+        "Gate approach survey: {destination}",
+        "Safe lanes into {destination}"
+      ],
+      "ctx": [
+        "Traffic is rising and the lane into {destination} is still marked by a few rocks and someone's memory.",
+        "The gate at {destination} is a long way from the nearest light, and ships arriving there have to guess where the debris is.",
+        "A trade boom is pushing hulls through {destination} faster than the charts can keep up with.",
+        "Every captain who comes through {destination} drifts a little off line, and the drift has already cost one hull."
+      ],
+      "task": [
+        "Fly the approach at three speeds, log every hazard and mark a clean lane.",
+        "Map the debris, the shadow zones and any rock that moves. Publish a lane we can put on the public chart.",
+        "Scan the corridor from the gate to the first safe holding point and mark the traffic bends.",
+        "Tag each hazard with a position and a drift rate. We will build the lane around your numbers."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The lane goes on the public chart with your tag in the margin. {faction} pays {reward}.",
+        "Two freighters use your corridor before you've finished docking. {faction} pays {reward}.",
+        "Every hazard is logged and one of them is a surprise. {faction} pays {reward} and quietly thanks you.",
+        "The approach is safer by evening. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The lane has gaps, and a hauler found one of them. {faction} blames the survey and will not pay.",
+        "The deadline passes with the approach half charted. {faction} pays nothing for half a lane.",
+        "Your log lists the hazards but not where they are. {faction} sends it back."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-plant-beacons",
+    "description": "Text for: Plant survey beacons.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Plant {tonnes} t of beacons at {destination}",
+        "Beacon line to {destination}",
+        "Mark {destination} for the map"
+      ],
+      "ctx": [
+        "A system with no beacons is a system nobody will fly to. {destination} has none.",
+        "We hold the right to mark {destination}, and we have the hardware. What we lack is someone to put it in the right places.",
+        "The {cargo} in your hold is a string of nav beacons. They only work when they sit at the points we have marked.",
+        "Our survey of {destination} is done. The marking is not, and ships are already asking for it."
+      ],
+      "task": [
+        "Take {tonnes} t of {cargo} to {destination} and plant each unit at its marked point. Check that each one answers the ping.",
+        "Carry the {cargo} out, drop the beacons on the listed coordinates and bring back the confirmation log.",
+        "Set the beacons along the marked line, test each against the next, and leave none unlit."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The line lights up one beacon at a time. {faction} pays {reward}.",
+        "Every beacon answers. {faction} pays {reward} and starts writing the sailing notes.",
+        "The last unit blinks on and the system has a shape. {faction} pays {reward}.",
+        "The marked line holds. {faction} credits {reward}."
+      ],
+      "failure": [
+        "Three beacons are dark and one is in the wrong place. {faction} withholds payment.",
+        "The beacons never made it to the marks. {faction} writes the {cargo} off and does not forget it.",
+        "With the deadline gone, the line is useless to the ships already arriving. No payment."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-survey-oddity",
+    "description": "Text for: Survey a system that does not add up.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "A strange count at {destination}",
+        "Check the survey of {destination}",
+        "{destination} does not add up"
+      ],
+      "odd": [
+        "The planets are in the right place and the right number, and the orbital timing is wrong by a margin that does not reduce.",
+        "Our probe counted one more moon than the last probe, and neither count has an error bar.",
+        "The mass of the system is not the sum of its parts. We have checked the parts.",
+        "One of the survey drones returned an image of a world with a coastline. The next pass showed no world.",
+        "The star is a sensible star. Its light curve is not, and we have no model that fits.",
+        "Three independent scans of the same belt disagree, and the disagreement has a pattern."
+      ],
+      "ctx": [
+        "We have a survey of {destination} that does not add up. #odd#",
+        "{destination} is giving us numbers we cannot reconcile. #odd#",
+        "A drone came back from {destination} with a log that is internally consistent and externally absurd. #odd#"
+      ],
+      "task": [
+        "Fly the system, run the scans again and report what you find. Do not offer an explanation. We want the readings.",
+        "Repeat the survey and log every discrepancy. Raw data only. Do not tidy it.",
+        "Survey the marked bodies. If the numbers do not agree with ours, send both sets and leave the arguing to us.",
+        "Go and measure it properly. Report only what the instruments say, even if the instruments contradict each other."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#"
+      ],
+      "coda": [
+        "Whatever it was, it does not appear on the second pass.",
+        "The numbers agree with each other and with nothing else. Nobody has an explanation.",
+        "The old men in the chart room read it twice and put it in a drawer.",
+        "The readings are filed. The question stays open."
+      ],
+      "success": [
+        "The data is clean and the contradictions are intact. #coda# {faction} pays {reward}.",
+        "Your log matches the drone's, and neither matches the charts. #coda# {faction} pays {reward}.",
+        "You found exactly what the first team found, which is the unsettling part. {faction} pays {reward}. #coda#",
+        "{faction} reads your readings in silence and pays {reward}. #coda#"
+      ],
+      "failure": [
+        "The instruments gave you nothing usable. {faction} cannot tell whether that is the system or the sensors, and will not pay to find out.",
+        "You came back with a tidy explanation and no data. {faction} has no use for explanations.",
+        "The survey was cut short. {faction} will send someone braver, or someone with a better hull."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-survey-ruins-elf-house",
+    "description": "Text for: Map ruins for a light elf house.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Mapping for the house at {destination}",
+        "The ruins of {destination}",
+        "A quiet survey, {destination}"
+      ],
+      "ctx": [
+        "The house holds an old interest in {destination}. It prefers not to say why.",
+        "There are ruins at {destination} of a kind the house considers its own concern. We would like them recorded accurately and discreetly.",
+        "The house wants an exact survey of the ruins at {destination}. It has seen an unreliable one already.",
+        "The ruins at {destination} have been stirring, or the sensors say they have. The house wants a record before someone else makes one."
+      ],
+      "task": [
+        "Map the structures: positions, dimensions and any marked surfaces. Take no samples and move nothing.",
+        "Chart every structure and note any that are powered. Touch nothing, and leave nothing behind.",
+        "Record the layout as precisely as your instruments allow. You will find nothing to remove. Remove nothing.",
+        "Survey the site in full and send the log to the house alone. Copies are not wanted."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:warning# #voice:payment# #voice:closer#",
+        "#voice:opener# #ctx# #voice:urgency# #task# #voice:payment#"
+      ],
+      "success": [
+        "The house receives the log with perfect courtesy and says little. {faction} pays {reward}.",
+        "Your map is accepted. Nobody explains what it will be used for, and {faction} pays {reward}.",
+        "The steward reads the survey, then reads one page again, and closes the folder. {faction} pays {reward}.",
+        "Every structure is recorded. {faction} pays {reward}, and the matter does not come up again."
+      ],
+      "failure": [
+        "The site is not mapped and the house is displeased, and displeasure from the house is long. {faction} pays nothing.",
+        "Parts of the survey are missing. The house does not ask why. It simply declines payment.",
+        "Your log was seen by someone else first. {faction} withdraws the commission and a good deal of goodwill."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-survey-ruins-society",
+    "description": "Text for: Dig-site mapping for a survey society.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Dig-site survey at {destination}",
+        "Map the ruin field, {destination}",
+        "Elder structures at {destination}"
+      ],
+      "ctx": [
+        "We have a dig site at {destination} and half a plan of it. The other half is under rubble.",
+        "A field of elder ruins sits on the far side of {destination}, and the three previous surveys each put them somewhere different.",
+        "The ruins at {destination} are older than the gate, if the stonework is to be believed. We would like them on paper.",
+        "Our team went out to {destination} and returned with a mapping gap and several theories. The gap is the useful part."
+      ],
+      "task": [
+        "Fly a low grid over the site, scan every structure and mark its position against the gate beacon.",
+        "Scan the field in a grid, mark entrances, and log any surface carvings you can resolve.",
+        "Map the surface and the first level of any open shafts. Send images of anything that looks like writing.",
+        "Plot the ruin field and flag anything that moved between your first pass and your last."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The grid is complete and the structures line up. The society is quietly delighted. {faction} pays {reward}.",
+        "Your survey gives the members something new to argue about. {faction} pays {reward}.",
+        "The carvings resolve cleanly. Nobody can read them, but they can be copied. {faction} pays {reward}.",
+        "The field is on paper at last. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The grid has holes where the ruins are densest. {faction} cannot publish a map with holes.",
+        "Too little of the site was recorded. {faction} withholds the fee and tells the other captains why.",
+        "The imaging failed halfway. The ruins are exactly as unmapped as before."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-survey-quiet-system",
+    "description": "Text for: Survey where ships go quiet.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Quiet space at {destination}",
+        "Radio check at {destination}",
+        "Why {destination} is quiet"
+      ],
+      "ctx": [
+        "Two survey drones went into {destination} and stopped reporting at nearly the same moment. Neither was damaged by anything we can name.",
+        "Ships have stopped talking inside {destination}. Their beacons keep running. Their voices do not.",
+        "We lost a probe at {destination}, then found a second probe's log that says it was in two places for an hour.",
+        "The traffic through {destination} has not stopped. The chatter has."
+      ],
+      "task": [
+        "Fly in with your own recorder running and log every channel. Come out and bring the file.",
+        "Survey the system on passive sensors only and note where the quiet starts.",
+        "Map the silence. Log every point where your comms drop and every point where they return.",
+        "Run the standard survey and add a signal sweep at each stop. We want to know whether anything is out there."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:warning# #voice:payment# #voice:closer#",
+        "#voice:opener# #ctx# #voice:urgency# #task# #voice:payment#"
+      ],
+      "coda": [
+        "There was nothing in the log that anyone could name.",
+        "The silence began and ended at points that no object marks.",
+        "The recorder is clean. The silence in it is very clean.",
+        "Nobody has a theory and everybody has an opinion."
+      ],
+      "success": [
+        "You came back, which is more than the drones did. #coda# {faction} pays {reward}.",
+        "The recording is thirty minutes of nothing and the society treats it as treasure. {faction} pays {reward}. #coda#",
+        "The log shows your comms dropping and returning on schedule. #coda# {faction} pays {reward}.",
+        "{faction} listens to the quiet twice and pays {reward}. #coda#"
+      ],
+      "failure": [
+        "No recording, no payment. {faction} has lost three drones and a captain to this system and is unlikely to try a fourth.",
+        "You turned back before the quiet began. {faction} understands, and pays nothing.",
+        "The file is corrupt. {faction} says the corruption is interesting and withholds the fee anyway."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-claim-escort",
+    "description": "Text for: Escort a claim ship.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Escort the claim ship to {destination}",
+        "Claim run: {destination}",
+        "Cover for the claimants at {destination}"
+      ],
+      "ctx": [
+        "Our claim ship is carrying the writ for {destination}, the stakes and a crew that has never seen a pirate. A rival wants the writ.",
+        "The claim at {destination} is good in law and thin in practice. The first ship to plant a marker wins, and ours is slow.",
+        "We have the right to {destination}. A second party has the speed. We need someone with guns to make up the difference.",
+        "The claim ship is full of surveyors and stakes, and it moves like a barn."
+      ],
+      "task": [
+        "Fly escort to {destination}, stay in formation and make sure the claim ship plants its marker before anyone else does.",
+        "See the claim ship through to {destination}. Stay close, shoot anyone who closes faster than you like.",
+        "Keep the claim ship alive until it has set the marker at {destination}.",
+        "Cover the claim ship on the whole run to {destination} and stay until the marker lights."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The marker lights and the claim is lodged. {faction} pays {reward}.",
+        "The claim ship docks with all its stakes. {faction} pays {reward} and starts setting out the first camp.",
+        "The stakes go in the ground and the rival turns away. {faction} pays {reward}.",
+        "The claim holds. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The claim ship was lost and the writ with it. {faction} has a lot to say and none of it is {reward}.",
+        "A rival planted first. {faction} pays nothing for a second place.",
+        "The claim ship arrived late and empty-handed. {faction} withholds the fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-claim-escort-independence",
+    "description": "Text for: Escort a breakaway claim.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "A free claim at {destination}",
+        "Escort the settlers to {destination}",
+        "Flag and stakes for {destination}"
+      ],
+      "ctx": [
+        "The people of {destination} want out of the charter the core has had them under. Their first act is a new claim, filed under their own seal.",
+        "The settlement at {destination} is declaring itself, and the surveyors are going out ahead of the flag.",
+        "A claim at {destination} under an independent seal will annoy several governments. We would like it done before they have finished being annoyed.",
+        "The old charter says nothing about {destination}. The new one says a great deal."
+      ],
+      "task": [
+        "Escort our claim ship to {destination} and keep it clear of any patrol, tax boat or ambitious neighbour.",
+        "Fly cover until the claim ship has planted the new marker at {destination}.",
+        "See the settlers' ship through to {destination} without it being boarded.",
+        "Escort the claim vessel, hold off interference and stay until the marker is up."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:warning# #voice:payment# #voice:closer#",
+        "#voice:opener# #ctx# #voice:urgency# #task# #voice:payment#"
+      ],
+      "success": [
+        "The new marker blinks and a small crowd cheers. {faction} pays {reward}.",
+        "The claim is planted and the customs boat arrives an hour late. {faction} pays {reward}.",
+        "The settlers raise their flag over a patch of rock. {faction} pays {reward}.",
+        "It is filed. Several governments will object and none of them will do much. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The claim ship was boarded short of {destination}. {faction} does not pay, and does not forgive.",
+        "The marker never went up. {faction} says the cause will need another escort and another captain.",
+        "A patrol turned the settlers back. {faction} pays nothing."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-escort-survey-ship",
+    "description": "Text for: Escort a survey ship.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Escort a survey ship to {destination}",
+        "Guard the survey boat, {destination}",
+        "Fly cover for the cartographers"
+      ],
+      "ctx": [
+        "The survey ship bound for {destination} carries no guns and several people who have never been shot at.",
+        "{destination} lies beyond the last patrolled gate. The survey team goes out in a converted tug.",
+        "We have a team that wants to survey {destination} and a hull that cannot survive a second look from a raider.",
+        "Surveyors collect data. They do not, as a rule, collect enemies. They have collected one anyway."
+      ],
+      "task": [
+        "Escort the survey ship to {destination} and stay with it through its first pass.",
+        "Fly alongside until the survey ship has completed its scan and is ready to return.",
+        "Keep the survey ship clear of trouble to {destination} and back.",
+        "Cover the survey ship for the whole survey. Break contact only when the data is aboard."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The survey ship docks with its data intact and its crew speechless. {faction} pays {reward}.",
+        "The tug and its scientists are home. {faction} pays {reward} and offers you a place on the next expedition.",
+        "Everyone is accounted for. {faction} pays {reward}.",
+        "Not a scratch on the survey boat. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The survey ship took a hit and turned back. {faction} pays nothing and has a repair bill.",
+        "You lost the survey ship. {faction} has a memorial to arrange and no further commission for you.",
+        "The ship made it. Its data did not. {faction} withholds the fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-escort-hold-prospectors",
+    "description": "Text for: Escort hold prospectors.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Hold prospectors to {destination}",
+        "Escort the drill barge, {destination}",
+        "A dwarf crew for {destination}"
+      ],
+      "ctx": [
+        "The hold has sent a prospecting barge to {destination}. It is slow, heavy and carries a good deal of equipment, which attracts interest.",
+        "There is a field at {destination} that the hold intends to dig. The barge is mostly drills and bad-tempered dwarves.",
+        "Our drill barge sets out for {destination} on a schedule that lets any raider with a clock know where it will be.",
+        "We have a barge, a crew and a contract. We want a hull with guns that will take the risk off the first two."
+      ],
+      "task": [
+        "Escort the barge to {destination} and stay until its drills are down.",
+        "Fly cover for the barge the whole way and see it into the field safely.",
+        "Keep raiders and rivals off the barge to {destination}. It is slow. Plan for slow.",
+        "Escort the barge from the gate to the field and stay until the first cores are lifted."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:warning# #voice:payment# #voice:closer#",
+        "#voice:opener# #ctx# #voice:urgency# #task# #voice:payment#"
+      ],
+      "success": [
+        "The barge sets its drills and the first core comes up clean. {faction} pays {reward}.",
+        "The hold's crew send down the first sample and begin to complain about the sample. {faction} pays {reward}.",
+        "The barge arrived whole. {faction} pays {reward}, to the credit.",
+        "The drills are down. {faction} pays {reward} and not a credit more."
+      ],
+      "failure": [
+        "The barge is damaged and the crew are furious. {faction} cites the contract and pays nothing.",
+        "The barge did not reach the field. {faction} notes the clause and withholds the fee.",
+        "You left the barge before the drills were down. The contract does not allow for that."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-colony-prefab-habitat",
+    "description": "Text for: Deliver a colony's first habitat.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "First habitat for {destination}",
+        "{tonnes} t of prefab for {destination}",
+        "A roof for {destination}"
+      ],
+      "ctx": [
+        "The colony at {destination} has an air supply, a charter and a tent. It needs a habitat.",
+        "Settlers are already at {destination}, sleeping in their ship. The first habitat unit will let them leave it.",
+        "{destination} gets its first permanent building when you arrive, assuming you do.",
+        "The colony at {destination} is two weeks from the first cold snap and has no walls."
+      ],
+      "task": [
+        "Haul {tonnes} t of {cargo} to {destination} within {deadline}. Keep it sealed and do not bend the frames.",
+        "Carry {tonnes} t of {cargo} to {destination}. The frame sections are delicate and the colonists cannot replace them.",
+        "Take the {cargo} to {destination} and keep it dry, level and unscratched. Deadline {deadline}.",
+        "Deliver {tonnes} t of {cargo} to {destination} in {deadline}. It is everything the colony has."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The sections are bolted together before the sun is down. {faction} pays {reward}.",
+        "The first wall goes up and the colonists cheer a wall. {faction} pays {reward}.",
+        "They move in the same night. {faction} pays {reward}.",
+        "The habitat stands. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The sections did not arrive. The colony sleeps in its ship for another month. {faction} pays nothing.",
+        "{faction} reports the frames bent in transit and refuses payment.",
+        "The cold came first. {faction} has a long list of complaints and no {reward}."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-colony-first-supply",
+    "description": "Text for: First supply run to a new colony.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "First supply run to {destination}",
+        "Supplies for the new colony at {destination}",
+        "{tonnes} t of {cargo} for {destination}"
+      ],
+      "ctx": [
+        "The colony at {destination} has been alive for a few weeks. It is short of nearly everything and long on optimism.",
+        "{destination} is a settlement of tents and a prefab habitat, still waiting on its first resupply.",
+        "{destination} needs more than it has, and has not yet worked out how much more.",
+        "The settlers at {destination} wrote a list. It is a short list. They will add to it."
+      ],
+      "task": [
+        "Haul {tonnes} t of {cargo} to {destination} within {deadline}.",
+        "Bring {tonnes} t of {cargo} to {destination}. Check it twice before you leave.",
+        "Deliver {tonnes} t of {cargo} to {destination} in {deadline}. The colony is counting the days.",
+        "Take the {cargo} out to {destination}. {tonnes} t, sealed, before {deadline} are up."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The settlers carry it off the ramp by hand, grateful. {faction} pays {reward}.",
+        "The first supply run lands. The colony sets about being a colony. {faction} pays {reward}.",
+        "They've unpacked the {cargo} before you leave. {faction} pays {reward} and the settlers press a small gift on you.",
+        "The shelves of the colony store look less bare. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The supplies arrived after the colonists had given up and gone. {faction} pays nothing.",
+        "The {cargo} never turned up. {faction} sends an apology to the colony and an invoice to you.",
+        "The colony ran short while you were late. {faction} remembers."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-outpost-mining-gear",
+    "description": "Text for: Mining gear for a new outpost.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Drill heads for {destination}",
+        "{tonnes} t of mining gear, {destination}",
+        "Outfit the outpost at {destination}"
+      ],
+      "ctx": [
+        "The outpost at {destination} has staked its claim and has nothing to cut rock with.",
+        "Our new outpost at {destination} has a crew, a pad and no equipment. The rush is making sure everyone else has sold out.",
+        "The seams at {destination} will not dig themselves, and the last of our own stock is on someone else's ship.",
+        "The rush has pushed prices for drill heads up and availability down. We found some. They are not at {destination}."
+      ],
+      "task": [
+        "Haul {tonnes} t of {cargo} to {destination} within {deadline}.",
+        "Bring {tonnes} t of {cargo} to {destination}. Handle it as if you were paying for it.",
+        "Take the {cargo} to {destination} in {deadline}. The outpost's crew is idle and wages run.",
+        "Deliver {tonnes} t of {cargo} to {destination}. Do not stop for anyone who offers to buy it."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The heads are in the rigs by nightfall. {faction} pays {reward}.",
+        "The outpost is digging before you have undocked. {faction} pays {reward}.",
+        "The crew fits the first head before the manifest is signed. {faction} pays {reward}.",
+        "Everything arrived in working order. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The gear arrived late and the crew is already gone. {faction} pays nothing.",
+        "{faction} says the heads were damaged. It does not offer to pay for the damage or the delivery.",
+        "The outpost had to buy at rush prices while you were late. {faction} will not pay for that."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-independence-aid",
+    "description": "Text for: Supplies for a breakaway settlement.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Supplies to the free settlement at {destination}",
+        "{tonnes} t of {cargo}, no questions",
+        "Relief for {destination}"
+      ],
+      "ctx": [
+        "{destination} has declared for itself and the old suppliers have declared against it.",
+        "The settlers at {destination} left their charter and the charter's shops went with it.",
+        "Supply convoys now steer clear of {destination}, which is a polite way of imposing a blockade.",
+        "We cannot pay the old suppliers' prices and they will not take our new currency."
+      ],
+      "task": [
+        "Haul {tonnes} t of {cargo} to {destination} within {deadline}. Expect a customs boat and answer it politely.",
+        "Bring {tonnes} t of {cargo} to {destination}. There will be a patrol. We would prefer it did not find you.",
+        "Take the {cargo} to {destination}. Declare it honestly. The cargo is legal, which is the whole point.",
+        "Deliver {tonnes} t of {cargo} to {destination} in {deadline}. The old authority will object to it, and has no grounds."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:warning# #voice:payment# #voice:closer#",
+        "#voice:opener# #ctx# #voice:urgency# #task# #voice:payment#"
+      ],
+      "success": [
+        "The shelves fill. The settlement hangs out a flag in your honour. {faction} pays {reward}.",
+        "The shipment is unloaded to quiet applause. {faction} pays {reward}.",
+        "They ring the settlement bell when you dock. {faction} pays {reward}.",
+        "The first delivery to the free settlement lands. {faction} pays {reward}."
+      ],
+      "failure": [
+        "A patrol turned you back. {faction} pays nothing and has made a note of your name.",
+        "The supplies were seized. {faction} blames you and does not offer a second chance.",
+        "The settlement ran short. {faction} withholds the fee and tells the other captains why."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-prospect-field",
+    "description": "Text for: Prospect an asteroid field.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Prospect the field at {destination}",
+        "Asteroid survey: {destination}",
+        "What is in the rocks at {destination}?"
+      ],
+      "ctx": [
+        "There is a field at {destination} that has never been drilled. Nobody knows what is in it, and finding out costs less than guessing.",
+        "{destination} has an asteroid belt on every chart and an assay on none of them.",
+        "The belt at {destination} looks promising from far away. It has looked promising from far away for years.",
+        "A claim on {destination} is worth the grade of its rock, and no one has measured the grade."
+      ],
+      "task": [
+        "Fly the field, scan and sample the bigger rocks, and report the five most promising.",
+        "Take core samples from a dozen bodies and bring back the assay.",
+        "Run a density sweep, drill a few test holes and plot the grades.",
+        "Prospect the belt and report back with grade, tonnage and the best place to start."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The assay is solid and the best rocks are marked. {faction} pays {reward}.",
+        "Some of the belt is worthless and some of it is excellent, and you can tell which. {faction} pays {reward}.",
+        "Your samples come back richer than hoped. {faction} pays {reward}.",
+        "The assay is filed and a claim is already being drawn up. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The samples were contaminated and the assay is useless. {faction} pays nothing.",
+        "You surveyed the wrong rocks. {faction} has no use for the right answer to the wrong question.",
+        "Too few cores, too many guesses. {faction} withholds the fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-mine-quota",
+    "description": "Text for: Mine a quota for a hold.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Mine {tonnes} t of {cargo}",
+        "Quota: {tonnes} t of {cargo} for {destination}",
+        "Fill the hold with {cargo}"
+      ],
+      "ctx": [
+        "The rush has drained the stockpile at {destination}. The smelters there will not run without ore.",
+        "The seams at {system} are open and the quota at {destination} is not filled.",
+        "Our own crews are too few for a quota this size. The rush has doubled the work and not the workforce.",
+        "The ore is in the rock. The rock is not in our hold. This is the problem."
+      ],
+      "task": [
+        "Mine {tonnes} t of {cargo} and deliver it to {destination} within {deadline}. Weigh it at the dock.",
+        "Fill your hold with {tonnes} t of {cargo} and bring it to {destination} in {deadline}.",
+        "Cut {tonnes} t of {cargo} from the marked seam and bring it to {destination}.",
+        "Meet the quota: {tonnes} t of {cargo}, delivered to {destination} in {deadline}."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The scales read {tonnes} t on the nose. {faction} pays {reward}.",
+        "The smelters light the furnace before the ore is cold. {faction} pays {reward}.",
+        "Quota met. {faction} pays {reward} and adds you to the roll of reliable crews.",
+        "The hold is full and the dock crew grumbles about the weight. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The scales read short. {faction} pays by the tonne and the tonnes are missing.",
+        "You were not at the dock when the deadline passed. The smelters sat cold. {faction} pays nothing.",
+        "{faction} says the {cargo} was low grade and pays the rate for rubble."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-mine-hold-quota",
+    "description": "Text for: Fulfil a dwarf hold's quota.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "A hold's quota, {tonnes} t",
+        "{tonnes} t of {cargo} for the hold",
+        "Contract: {tonnes} t, {destination}"
+      ],
+      "ctx": [
+        "The hold has a contract to meet and not enough hands. The contract is old and the penalties are older.",
+        "A quota is a promise, and the hold keeps its promises. This one needs more shoulders than it has.",
+        "The hold's own rigs are in the shop and the quota is not. We would like someone with a decent mining laser to cover the gap.",
+        "Contracts do not pause for repairs."
+      ],
+      "task": [
+        "Mine {tonnes} t of {cargo} and bring it to {destination} within {deadline}. Weigh it twice.",
+        "Fill the quota: {tonnes} t of {cargo}, delivered to {destination} by {deadline}. Do not shave the grade.",
+        "Cut {tonnes} t of {cargo} and deliver it to {destination} in {deadline}.",
+        "Bring {tonnes} t of {cargo} to {destination} within {deadline}. Short weight will be noted."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The hold's assessor weighs the load, checks the grade and says nothing, which is high praise. {faction} pays {reward}.",
+        "The quota is met to the kilo. {faction} pays {reward}.",
+        "The contract is closed. {faction} pays {reward} and the dwarves seem faintly impressed.",
+        "The assessor adjusts a ledger in your favour. {faction} pays {reward}."
+      ],
+      "failure": [
+        "Short weight. The contract has a clause for that and {faction} reads it aloud.",
+        "The grade was poor and the clause for poor grade is longer than the one for short weight. No payment.",
+        "{faction} cites the penalty. It is larger than the fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-mine-strange-seam",
+    "description": "Text for: Mine a seam that behaves oddly.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward",
+      "cargo",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Mine the seam at {destination}",
+        "{tonnes} t from the odd seam",
+        "A quiet seam at {destination}"
+      ],
+      "odd": [
+        "Drills that go in at one angle come out at another.",
+        "The ore reads the same grade at every depth, which ore does not do.",
+        "Three crews have cut it and each reports a different colour.",
+        "The seam is warm. It was not warm when we surveyed it.",
+        "The core samples are heavier on the way up than they were on the way down."
+      ],
+      "ctx": [
+        "There is a seam at {destination} that has paid out well and puzzled everyone. #odd#",
+        "We have mined {destination} for a month and the seam has changed. #odd#",
+        "The seam at {destination} makes for good rock and bad stories. #odd#"
+      ],
+      "task": [
+        "Mine {tonnes} t of {cargo} from the marked seam and deliver it to {destination} in {deadline}. Do not drill below the line.",
+        "Cut {tonnes} t of {cargo} and bring it in. Log the depth of every cut.",
+        "Fill the quota: {tonnes} t of {cargo} within {deadline}. Take your own readings and keep them.",
+        "Bring {tonnes} t of {cargo} to {destination}. We would like a record of how the seam behaves while you cut."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:warning# #voice:payment# #voice:closer#",
+        "#voice:opener# #ctx# #voice:urgency# #task# #voice:payment#"
+      ],
+      "coda": [
+        "Nobody has a good explanation.",
+        "The assay says it is ordinary rock.",
+        "The seam is still warm.",
+        "The log is filed with the other logs."
+      ],
+      "success": [
+        "The ore is ordinary and the readings are not. #coda# {faction} pays {reward}.",
+        "You came back with the quota and a log nobody will read aloud. #coda# {faction} pays {reward}.",
+        "The scales say {tonnes} t. The seam says nothing. {faction} pays {reward}. #coda#",
+        "{faction} accepts the load and the log, and pays {reward}. #coda#"
+      ],
+      "failure": [
+        "You cut short and left the quota unmet. {faction} pays nothing and asks no questions.",
+        "The load was weighed and found light, or the scales were wrong. {faction} withholds the fee.",
+        "The crew pulled out early. {faction} understands, but pays only for what it received. Nothing."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-recover-survey-drone",
+    "description": "Text for: Recover a lost survey drone.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "Find the drone at {destination}",
+        "Lost drone, {destination}",
+        "Recover a survey drone"
+      ],
+      "ctx": [
+        "A survey drone went quiet at {destination}. It holds three weeks of data and a good deal of money.",
+        "Our drone stopped answering at {destination}. Its beacon still pings, faintly, from a place it should not be.",
+        "The drone at {destination} carries the only copy of the survey. We keep the only copy, because backups cost.",
+        "We lost the drone. We have not lost the data, which is still in it."
+      ],
+      "task": [
+        "Fly to {destination}, find the drone and bring it back, or bring back its core if the drone is beyond saving.",
+        "Track the beacon at {destination}, recover the drone and deliver it within {deadline}.",
+        "Locate the drone, recover it and return it intact. The core is what matters. The casing is not.",
+        "Follow the beacon to the drone at {destination}. If it is damaged, pull the core and bring that."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The drone is battered and its core is whole. {faction} pays {reward}.",
+        "You tow in the drone and the survey team hugs it. {faction} pays {reward}.",
+        "The core comes out and the data is intact. {faction} pays {reward}.",
+        "Three weeks of data, saved. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The drone is lost and its data with it. {faction} pays nothing.",
+        "You found the drone, but the core was too damaged. {faction} pays only a condolence.",
+        "Someone else got there first. {faction} blames the delay and withholds the fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-frontier-file-claim",
+    "description": "Text for: File a claim with the registry.",
+    "variables": [
+      "captain",
+      "client",
+      "faction",
+      "system",
+      "destination",
+      "deadline",
+      "reward"
+    ],
+    "rules": {
+      "title": [
+        "File the claim for {destination}",
+        "Claim papers to the registry",
+        "Writ for {destination}"
+      ],
+      "ctx": [
+        "Our survey of {destination} is finished and the claim is drawn. It only needs to be lodged at the registry, in person, before someone else's lawyer gets there.",
+        "The claim to {destination} is written and sealed. A courier is needed, and a quick one.",
+        "The claim for {destination} is time-limited. The limit is days, not weeks.",
+        "A rival has the same survey, or nearly. Whichever claim reaches the registry first wins."
+      ],
+      "task": [
+        "Carry the sealed papers to the registry and have them stamped within {deadline}.",
+        "Deliver the claim writ to the registry. Wait for the stamp and bring back the receipt.",
+        "Take the papers to {destination} and have them lodged. Do not open the case.",
+        "Deliver the claim and bring back the stamped copy within {deadline}."
+      ],
+      "briefing": [
+        "#voice:opener# #ctx# #task# #voice:payment#",
+        "#voice:opener# #task# #ctx# #voice:urgency# #voice:payment#",
+        "#voice:opener# #ctx# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The registry clerk stamps it with more ceremony than it needs. {faction} pays {reward}.",
+        "The claim is lodged an hour ahead of the rival's. {faction} pays {reward}.",
+        "The receipt is in your hand and the system is ours. {faction} pays {reward}.",
+        "The stamp comes down. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The claim was lodged late and a rival has the system. {faction} pays nothing.",
+        "The papers were lost. {faction} has an expensive lawyer and a cheap grudge.",
+        "You missed the window. {faction} withholds the fee."
+      ]
+    }
+  }
+]

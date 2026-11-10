@@ -1,0 +1,709 @@
+[
+  {
+    "id": "frontier-boom-fuel-depot",
+    "name": "Fuel for a boom-town depot",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "frontier-confederation",
+      "mining-corporation",
+      "survey-society"
+    ],
+    "events": [
+      "trade-boom"
+    ],
+    "cargoCategories": [
+      "fuel"
+    ],
+    "minRank": 0,
+    "baseReward": 3600,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-gate-queue",
+      "extra-stop-inspection"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-boom-fuel-depot"
+  },
+  {
+    "id": "frontier-survey-empty-system",
+    "name": "Survey an empty system",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "research-consortium",
+      "mining-corporation"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 3200,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded"
+    ],
+    "followUps": [
+      "frontier-file-claim"
+    ],
+    "textGrammar": "mission-frontier-survey-empty-system"
+  },
+  {
+    "id": "frontier-survey-rush-prospect",
+    "name": "Prospect a strike for the rush",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "mining-corporation",
+      "dwarf-hold"
+    ],
+    "events": [
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "data",
+      "ore"
+    ],
+    "minRank": 0,
+    "baseReward": 4100,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "rival-bid-double-sold"
+    ],
+    "followUps": [
+      "frontier-mine-quota"
+    ],
+    "textGrammar": "mission-frontier-survey-rush-prospect"
+  },
+  {
+    "id": "frontier-scan-gas-giant",
+    "name": "Scan a gas giant",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "research-consortium",
+      "survey-society",
+      "light-elf-house"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 3600,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "rim-signal-gate"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-scan-gas-giant"
+  },
+  {
+    "id": "frontier-chart-gate-approach",
+    "name": "Chart a gate approach",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "frontier-confederation",
+      "survey-society",
+      "mining-corporation"
+    ],
+    "events": [
+      "trade-boom"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 3000,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "deadline-old-news"
+    ],
+    "followUps": [
+      "frontier-plant-beacons"
+    ],
+    "textGrammar": "mission-frontier-chart-gate-approach"
+  },
+  {
+    "id": "frontier-plant-beacons",
+    "name": "Plant survey beacons",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "frontier-confederation",
+      "survey-society",
+      "research-consortium"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "technology"
+    ],
+    "minRank": 0,
+    "baseReward": 3400,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "cargo-is-stolen"
+    ],
+    "followUps": [
+      "frontier-claim-escort"
+    ],
+    "textGrammar": "mission-frontier-plant-beacons"
+  },
+  {
+    "id": "frontier-survey-oddity",
+    "name": "Survey a system that does not add up",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "research-consortium"
+    ],
+    "events": [
+      "rim-incident",
+      "unexplained-signal"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 1,
+    "baseReward": 5600,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "rim-signal-own-voice",
+      "rim-signal-missing",
+      "client-lies-danger"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-survey-oddity"
+  },
+  {
+    "id": "frontier-survey-ruins-elf-house",
+    "name": "Map ruins for a light elf house",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "light-elf-house"
+    ],
+    "events": [
+      "elder-machine-waking"
+    ],
+    "cargoCategories": [
+      "data",
+      "elder-artefacts"
+    ],
+    "minRank": 1,
+    "baseReward": 6200,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "client-lies-purpose",
+      "rim-signal-gate"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-survey-ruins-elf-house"
+  },
+  {
+    "id": "frontier-survey-ruins-society",
+    "name": "Dig-site mapping for a survey society",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "research-consortium"
+    ],
+    "events": [
+      "elder-machine-waking",
+      "rim-incident"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 5000,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "ambush-wreck-bait"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-survey-ruins-society"
+  },
+  {
+    "id": "frontier-survey-quiet-system",
+    "name": "Survey where ships go quiet",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "research-consortium"
+    ],
+    "events": [
+      "ships-going-quiet"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 1,
+    "baseReward": 5800,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "rim-signal-missing",
+      "rim-signal-interference"
+    ],
+    "followUps": [
+      "frontier-recover-survey-drone"
+    ],
+    "textGrammar": "mission-frontier-survey-quiet-system"
+  },
+  {
+    "id": "frontier-claim-escort",
+    "name": "Escort a claim ship",
+    "type": "escort",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [
+      "mining-corporation",
+      "frontier-confederation",
+      "dwarf-hold"
+    ],
+    "events": [
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "industrial",
+      "machinery"
+    ],
+    "minRank": 0,
+    "baseReward": 4500,
+    "complications": [
+      "ambush-on-route",
+      "ambush-wreck-bait",
+      "deadline-gate-queue",
+      "rival-bid-outbid",
+      "rival-offer-turncoat"
+    ],
+    "followUps": [
+      "frontier-colony-prefab-habitat"
+    ],
+    "textGrammar": "mission-frontier-claim-escort"
+  },
+  {
+    "id": "frontier-claim-escort-independence",
+    "name": "Escort a breakaway claim",
+    "type": "escort",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [
+      "frontier-confederation"
+    ],
+    "events": [
+      "independence-movement"
+    ],
+    "cargoCategories": [
+      "industrial",
+      "machinery"
+    ],
+    "minRank": 0,
+    "baseReward": 5000,
+    "complications": [
+      "ambush-on-route",
+      "ambush-wreck-bait",
+      "deadline-gate-queue",
+      "rival-bid-outbid",
+      "double-cross-fall-guy"
+    ],
+    "followUps": [
+      "frontier-colony-prefab-habitat"
+    ],
+    "textGrammar": "mission-frontier-claim-escort-independence"
+  },
+  {
+    "id": "frontier-escort-survey-ship",
+    "name": "Escort a survey ship",
+    "type": "escort",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "research-consortium"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 3800,
+    "complications": [
+      "ambush-on-route",
+      "ambush-wreck-bait",
+      "deadline-gate-queue",
+      "rival-bid-outbid",
+      "bad-intel-defended"
+    ],
+    "followUps": [
+      "frontier-survey-empty-system"
+    ],
+    "textGrammar": "mission-frontier-escort-survey-ship"
+  },
+  {
+    "id": "frontier-escort-hold-prospectors",
+    "name": "Escort hold prospectors",
+    "type": "escort",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [
+      "dwarf-hold"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "machinery",
+      "industrial"
+    ],
+    "minRank": 0,
+    "baseReward": 4200,
+    "complications": [
+      "ambush-on-route",
+      "ambush-wreck-bait",
+      "deadline-gate-queue",
+      "rival-bid-outbid",
+      "rival-bid-poached"
+    ],
+    "followUps": [
+      "frontier-mine-hold-quota"
+    ],
+    "textGrammar": "mission-frontier-escort-hold-prospectors"
+  },
+  {
+    "id": "frontier-colony-prefab-habitat",
+    "name": "Deliver a colony's first habitat",
+    "type": "delivery",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [
+      "frontier-confederation",
+      "mining-corporation",
+      "dwarf-hold"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "industrial",
+      "machinery"
+    ],
+    "minRank": 0,
+    "baseReward": 5200,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-gate-queue",
+      "extra-stop-inspection",
+      "deadline-client-panics"
+    ],
+    "followUps": [
+      "frontier-colony-first-supply"
+    ],
+    "textGrammar": "mission-frontier-colony-prefab-habitat"
+  },
+  {
+    "id": "frontier-colony-first-supply",
+    "name": "First supply run to a new colony",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "frontier-confederation",
+      "mining-corporation",
+      "dwarf-hold",
+      "survey-society"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "food",
+      "water",
+      "medical"
+    ],
+    "minRank": 0,
+    "baseReward": 3800,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-gate-queue",
+      "extra-stop-inspection",
+      "extra-stop-stranded"
+    ],
+    "followUps": [
+      "frontier-outpost-mining-gear"
+    ],
+    "textGrammar": "mission-frontier-colony-first-supply"
+  },
+  {
+    "id": "frontier-outpost-mining-gear",
+    "name": "Mining gear for a new outpost",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "mining-corporation",
+      "dwarf-hold"
+    ],
+    "events": [
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "machinery"
+    ],
+    "minRank": 0,
+    "baseReward": 4000,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-gate-queue",
+      "extra-stop-inspection",
+      "rival-bid-double-sold"
+    ],
+    "followUps": [
+      "frontier-mine-quota"
+    ],
+    "textGrammar": "mission-frontier-outpost-mining-gear"
+  },
+  {
+    "id": "frontier-independence-aid",
+    "name": "Supplies for a breakaway settlement",
+    "type": "delivery",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [
+      "frontier-confederation"
+    ],
+    "events": [
+      "independence-movement"
+    ],
+    "cargoCategories": [
+      "food",
+      "medical",
+      "consumer"
+    ],
+    "minRank": 0,
+    "baseReward": 3900,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-gate-queue",
+      "extra-stop-inspection",
+      "double-cross-withheld"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-independence-aid"
+  },
+  {
+    "id": "frontier-prospect-field",
+    "name": "Prospect an asteroid field",
+    "type": "survey",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "mining-corporation",
+      "dwarf-hold",
+      "survey-society"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "ore",
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 3400,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "rival-bid-poached"
+    ],
+    "followUps": [
+      "frontier-mine-quota"
+    ],
+    "textGrammar": "mission-frontier-prospect-field"
+  },
+  {
+    "id": "frontier-mine-quota",
+    "name": "Mine a quota for a hold",
+    "type": "mining",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [
+      "mining-corporation",
+      "dwarf-hold",
+      "frontier-confederation"
+    ],
+    "events": [
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "ore"
+    ],
+    "minRank": 0,
+    "baseReward": 3800,
+    "complications": [
+      "ambush-rival-crew",
+      "rival-bid-poached",
+      "deadline-client-panics",
+      "bad-intel-defended"
+    ],
+    "followUps": [
+      "frontier-boom-fuel-depot"
+    ],
+    "textGrammar": "mission-frontier-mine-quota"
+  },
+  {
+    "id": "frontier-mine-hold-quota",
+    "name": "Fulfil a dwarf hold's quota",
+    "type": "mining",
+    "scale": "skirmish",
+    "legal": true,
+    "givers": [
+      "dwarf-hold"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "ore",
+      "metals"
+    ],
+    "minRank": 0,
+    "baseReward": 3600,
+    "complications": [
+      "ambush-rival-crew",
+      "rival-bid-poached",
+      "deadline-client-panics",
+      "bad-intel-defended",
+      "extra-stop-inspection"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-mine-hold-quota"
+  },
+  {
+    "id": "frontier-mine-strange-seam",
+    "name": "Mine a seam that behaves oddly",
+    "type": "mining",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "research-consortium",
+      "mining-corporation"
+    ],
+    "events": [
+      "elder-machine-waking",
+      "rim-incident"
+    ],
+    "cargoCategories": [
+      "ore"
+    ],
+    "minRank": 1,
+    "baseReward": 5400,
+    "complications": [
+      "ambush-rival-crew",
+      "rival-bid-poached",
+      "deadline-client-panics",
+      "bad-intel-defended",
+      "rim-signal-interference",
+      "client-lies-danger"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-frontier-mine-strange-seam"
+  },
+  {
+    "id": "frontier-recover-survey-drone",
+    "name": "Recover a lost survey drone",
+    "type": "salvage",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "research-consortium",
+      "mining-corporation"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 3000,
+    "complications": [
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "rim-signal-interference",
+      "extra-stop-stranded",
+      "ambush-wreck-bait"
+    ],
+    "followUps": [
+      "frontier-survey-quiet-system"
+    ],
+    "textGrammar": "mission-frontier-recover-survey-drone"
+  },
+  {
+    "id": "frontier-file-claim",
+    "name": "File a claim with the registry",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "mining-corporation",
+      "frontier-confederation",
+      "survey-society",
+      "dwarf-hold"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 3000,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-gate-queue",
+      "extra-stop-inspection"
+    ],
+    "followUps": [
+      "frontier-claim-escort"
+    ],
+    "textGrammar": "mission-frontier-file-claim"
+  }
+]

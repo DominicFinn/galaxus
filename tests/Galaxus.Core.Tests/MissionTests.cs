@@ -73,17 +73,21 @@ public class MissionTests
     }
 
     [Fact]
-    public void Events_create_their_own_work()
+    public void Every_event_creates_its_own_work()
     {
-        var ev = Db.Missions.Values.SelectMany(m => m.Events).FirstOrDefault();
-        if (ev == null) return;
-        int fromEvent = 0;
-        for (ulong seed = 0; seed < 200; seed++)
+        // For each event, a giver that one of its templates accepts should be offered that work.
+        foreach (var ev in Db.Missions.Values.SelectMany(m => m.Events).Distinct())
         {
-            var mission = MissionGenerator.Generate(Db, Context("human", ev) with { Giver = new FactionInfo("Test", "none", "human") }, new Rng(seed));
-            if (mission?.Template.Events.Contains(ev) == true) fromEvent++;
+            var template = Db.Missions.Values.First(m => m.Events.Contains(ev));
+            var giverType = template.Givers.FirstOrDefault() ?? "any";
+            var raceId = Db.FactionTypes.TryGetValue(giverType, out var type) && type.Races.Count > 0 ? type.Races[0] : "human";
+            var context = Context(raceId, ev) with { Giver = new FactionInfo("Test", giverType, raceId) };
+
+            bool offered = false;
+            for (ulong seed = 0; seed < 300 && !offered; seed++)
+                offered = MissionGenerator.Generate(Db, context, new Rng(seed))?.Template.Events.Contains(ev) == true;
+            Assert.True(offered, $"No missions came from event '{ev}' for giver type '{giverType}'.");
         }
-        Assert.True(fromEvent > 0, $"No missions came from event '{ev}'.");
     }
 
     [Fact]

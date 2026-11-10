@@ -1,0 +1,1239 @@
+[
+  {
+    "id": "mission-escort-short-haul",
+    "description": "Text for escort a short haul.",
+    "variables": [
+      "cargo",
+      "client",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Escort to {destination}",
+        "Close escort: {tonnes} t of {cargo}",
+        "Guard duty for {faction}",
+        "Minder wanted, {destination} run"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{client} has {tonnes} t of {cargo} bound for {destination} and a hauler crew that won't fly it unescorted.",
+        "A single freighter with {tonnes} t of {cargo} needs a gun beside it from {system} to {destination}.",
+        "{faction} wants an escort for a {cargo} run to {destination}. Keep the hauler alive and in formation.",
+        "Fly cover for {client}'s {cargo} shipment as far as {destination}."
+      ],
+      "detail": [
+        "The hauler is slow and the crew nervous. Stay within a kilometre of it.",
+        "It has no weapons worth the name, so you are the whole defence.",
+        "Arrive within {deadline}.",
+        "Raiders have been seen on this lane, though nothing is confirmed."
+      ],
+      "success": [
+        "The hauler docks at {destination} without a scratch. {faction} pays {reward} and the hauler crew buy the first round.",
+        "{tonnes} t of {cargo} arrive intact. {faction} pays {reward} and asks for you by name next time.",
+        "You see the hauler to its berth and the crew shake your hand. {reward} lands in your account within the hour.",
+        "Nobody fired a shot at you. {faction} pays {reward} anyway, which is the point of an escort."
+      ],
+      "failure": [
+        "The hauler never made it to {destination}. {faction} wants to know where you were.",
+        "You lost the hauler on the way. {faction} will not be paying, and says so loudly.",
+        "The {cargo} went down with the freighter. {faction} blames your escort, and the crew who got out agree.",
+        "The hauler turned back at the first sign of trouble and so, it seems, did you. No pay."
+      ]
+    }
+  },
+  {
+    "id": "mission-escort-ore-haulers",
+    "description": "Text for escort ore haulers.",
+    "variables": [
+      "cargo",
+      "client",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Ore train to {destination}",
+        "Escort the {cargo} haulers",
+        "Raiders on the ore lane",
+        "Gun cover for {faction}'s haulers"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} sends {tonnes} t of {cargo} to {destination} and has lost haulers on this lane before. They want you flying top cover.",
+        "Raiders are working the lane out of {system}. Take the ore haulers through to {destination}.",
+        "A string of ore haulers leaves {system} for {destination}. You are the escort, and the only one they could afford.",
+        "Escort {client}'s haulers and their {cargo} to {destination}, and shoot anything that closes uninvited."
+      ],
+      "detail": [
+        "Two haulers went missing last week. Nobody found wreckage, which suggests somebody found the cargo.",
+        "The raiders like to hit the rear hauler first.",
+        "The convoy will not wait for you, so be at the dock within {deadline}.",
+        "If you see where the raiders come from, someone will pay to know."
+      ],
+      "success": [
+        "The haulers dock at {destination} one after another, all of them. {faction} pays {reward}. One of the pilots mentions a signal she did not like on the way, and you make a note of it.",
+        "The raiders showed up, took one look at you and left. {faction} pays {reward}.",
+        "You bring the whole convoy in. {faction} pays {reward} and the haulers' crews buy you drinks you do not need.",
+        "{tonnes} t of {cargo} is safe at {destination}. {faction} pays {reward}. You have a fair idea which way the raiders ran."
+      ],
+      "failure": [
+        "A hauler was lost, and {faction} does not count the rest as a success. No pay.",
+        "The raiders took the lot. {faction} says an escort should have been harder to get past.",
+        "You were out of position when it started. The convoy scattered and {faction} has stopped answering your messages.",
+        "The {cargo} never reached {destination}. The raiders are richer and you are not."
+      ]
+    }
+  },
+  {
+    "id": "mission-patrol-lane-sweep",
+    "description": "Text for lane sweep.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Lane sweep in {system}",
+        "Patrol: {system}",
+        "Show the flag in {system}",
+        "Sweep and report"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #voice:warning# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{faction} wants the lanes around {system} swept and the traffic reassured.",
+        "Fly a patrol through {system} and deal with anything that shouldn't be there.",
+        "The lanes in {system} have gone untended. Patrol them for {deadline} and report what you find.",
+        "{client} needs eyes and guns in {system} to keep the freight moving."
+      ],
+      "detail": [
+        "Check the beacons and the debris fields in particular.",
+        "Hostile contacts are yours to engage. Anything else, log it and move on.",
+        "Traders have been reporting odd transponder pings out past the beacons.",
+        "Nothing is known to be out there. That is what worries {client}."
+      ],
+      "success": [
+        "Your sweep of {system} is logged and closed. {faction} pays {reward}.",
+        "You flushed out two chancers and left the rest alone. {faction} pays {reward}.",
+        "The lanes are quiet and the traders know why. {faction} pays {reward}.",
+        "You found nothing worth shooting and plenty worth noting. {faction} pays {reward}."
+      ],
+      "failure": [
+        "You never finished the sweep of {system}. {faction} sends someone else.",
+        "Something got past you in {system} and {faction} has the losses to prove it.",
+        "The patrol log is thin and {faction} does not believe it. No pay.",
+        "You left {system} early and the traders noticed."
+      ]
+    }
+  },
+  {
+    "id": "mission-patrol-gate-watch",
+    "description": "Text for gate watch.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Gate watch at {system}",
+        "Hold the gate in {system}",
+        "Inspection cover",
+        "Warden support in {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:urgency# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "The gate at {system} is under tighter watch and {faction} needs another ship on station.",
+        "{client} is running inspections at {system} and wants armed cover for the wardens.",
+        "Hold position by the gate in {system} and back the inspectors if anyone makes a run for it.",
+        "Patrol the approach to the gate at {system}. Stop and identify anything that will not identify itself."
+      ],
+      "detail": [
+        "Passengers are being turned back and tempers are short.",
+        "Some of the traffic will try to bolt rather than be searched.",
+        "Expect {deadline} of dull work punctuated by one bad minute.",
+        "You will be asked to look at things that are none of your business. Do it anyway."
+      ],
+      "success": [
+        "The gate held and nobody was hurt. {faction} pays {reward}.",
+        "You turned back three runners and a great deal of bad feeling. {faction} pays {reward}.",
+        "The wardens thank you in the tone of people who would rather not need to. {faction} pays {reward}.",
+        "The inspections finish on time. {faction} pays {reward}, and the queue is somebody else's problem now."
+      ],
+      "failure": [
+        "A ship ran the gate while you watched. {faction} wants to know why you did not stop it.",
+        "You stood aside at the wrong moment, and the inspectors will say so in their report.",
+        "The watch broke down in {system}. {faction} will not be calling again.",
+        "You fired on a ship that had every right to be there. {faction} is not paying and will be apologising for you."
+      ]
+    }
+  },
+  {
+    "id": "mission-bounty-small-fry",
+    "description": "Text for bounty: small fry.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Bounty: {target}",
+        "Wanted: {target}",
+        "Bring in {target}",
+        "{target}, dead or alive"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #voice:warning# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{target} has been jumping contracts around {system} and {client} wants it ended.",
+        "There is a price on {target}, last seen in {system}. {faction} will pay for proof.",
+        "{faction} wants {target} found and brought to heel. How you do it is your affair.",
+        "Find {target}. {client} has had enough of the losses and has put money behind that feeling."
+      ],
+      "detail": [
+        "Last known to be flying a stripped courier.",
+        "The target is not a soldier, but will fight if cornered.",
+        "The price stands for {deadline}.",
+        "The paperwork says alive. The client's tone says otherwise."
+      ],
+      "success": [
+        "You hand over {target}, or what is left of them, and {faction} pays {reward}. The client seems oddly interested in what {target} was carrying.",
+        "{target} is not going to trouble {system} again. {faction} pays {reward}.",
+        "The bounty clears. {faction} pays {reward} and does not ask how.",
+        "{target} came quietly in the end. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} slipped away and {faction} withdraws the offer.",
+        "You lost {target} in the debris. Someone else will collect.",
+        "Another hunter reached {target} first. {faction} pays them and not you.",
+        "{target} was never where the tip said. {faction} blames you anyway."
+      ]
+    }
+  },
+  {
+    "id": "mission-bounty-synth-registry",
+    "description": "Text for bounty: unregistered synth.",
+    "variables": [
+      "client",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Registry bounty: {target}",
+        "Find {target}",
+        "Unregistered: {target}",
+        "Sweep target: {target}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:urgency# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "The registry sweep has turned up {target}, a synth who never registered, and {faction} wants them located in {system}.",
+        "{client} has named {target} as an unregistered synth hiding near {system}. Find them and bring them in.",
+        "{faction} is paying to close the registry sweep in {system}. {target} is the last name on the list.",
+        "Track {target} down and deliver them to {faction}'s officers."
+      ],
+      "detail": [
+        "Opinion on the sweep is divided, and {client} knows it.",
+        "The target has friends who will not take kindly to being asked questions.",
+        "There is a price for the job and a price for not asking why.",
+        "The warrant is valid. Whether it is just is not part of the contract."
+      ],
+      "success": [
+        "You deliver {target} and {faction} pays {reward}. Nobody meets your eye on the way out.",
+        "The sweep closes on {target}. {faction} pays {reward}.",
+        "{target} is in custody. {faction} pays {reward}, and the dock goes quiet as you pass.",
+        "You hand over the warrant's subject. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} was warned and gone before you arrived. {faction} is displeased.",
+        "You lost the trail in {system}. The warrant stays open and the price drops.",
+        "Someone beat you to {target}. You did not see who. {faction} pays nothing.",
+        "The contract lapsed with {target} still at large."
+      ]
+    }
+  },
+  {
+    "id": "mission-blockade-run-medicine",
+    "description": "Text for run the blockade: medicine.",
+    "variables": [
+      "cargo",
+      "client",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Blockade run to {destination}",
+        "Slip the cordon: {destination}",
+        "Medicine past the picket",
+        "{tonnes} t of {cargo}, no questions"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #voice:warning# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{destination} is cut off by a blockade, and {client} needs {tonnes} t of {cargo} to get through it.",
+        "Get {tonnes} t of {cargo} past the picket and into {destination}. The patrols will not be pleased.",
+        "{faction} wants the blockade of {destination} run, quietly and in one piece.",
+        "Carry {cargo} through the cordon to {destination}. Nobody is going to give you permission."
+      ],
+      "detail": [
+        "The pickets fire without hailing.",
+        "There is a gap in the patrol schedule, if the information is good.",
+        "The deadline is {deadline}, and people at {destination} are counting.",
+        "Run dark and keep your drive cold until the last moment."
+      ],
+      "success": [
+        "You slip through the cordon and into {destination}. {faction} pays {reward}. The {cargo} is carried off before the picket has finished arguing about you.",
+        "The pickets never saw you. {faction} pays {reward}.",
+        "{tonnes} t of {cargo} reach {destination}. {faction} pays {reward} and, for once, thanks you too.",
+        "You burn the last of your fuel getting in, but you get in. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The picket caught you short of {destination}. The {cargo} is impounded.",
+        "You turned back before the cordon. {faction} understands, and still does not pay.",
+        "The cordon was tighter than the tip said. You lost the cargo and {faction} lost patience.",
+        "The cargo never reached {destination}, and neither did the people who needed it."
+      ]
+    }
+  },
+  {
+    "id": "mission-escort-convoy-skirmish",
+    "description": "Text for escort a convoy.",
+    "variables": [
+      "cargo",
+      "client",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Convoy escort to {destination}",
+        "Escort screen: {tonnes} t of {cargo}",
+        "Run the convoy through {system}",
+        "Raiders on the convoy road"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} is gathering a convoy at {system} for {destination}, with {tonnes} t of {cargo} among it. You are one of the escorts.",
+        "Join the convoy to {destination} as one of its guns. The raiders have been picking off ships that travel alone, and now they will meet a crowd.",
+        "Take station beside the convoy leaving {system} for {destination}. You will have two other escorts, and the raiders will probably have more ships than that.",
+        "{client} needs the convoy to {destination} protected. You cannot cover all of it, so cover your assigned ships."
+      ],
+      "detail": [
+        "Expect a fight at the gate, where they like to wait.",
+        "Your assigned haulers carry the {cargo}.",
+        "Keep your wingmates in sight and your haulers closer.",
+        "The convoy leaves in {deadline}, with or without you."
+      ],
+      "success": [
+        "The raiders hit the convoy at the gate. You held your part of the line and the haulers got through. {faction} pays {reward}.",
+        "One hauler was lost further back, but yours made it to {destination}. {faction} pays {reward}.",
+        "The convoy docks at {destination}. {faction} pays {reward} and the other escorts salute you at the bar.",
+        "The raiders broke before the convoy did. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The convoy scattered at the gate and you could not hold your haulers together. {faction} counts the losses against you.",
+        "Your hauler died in the first volley. The rest of the convoy made it, and {faction} will remember which one did not.",
+        "The raiders cut through the screen. {faction} blames the escorts, and you are an escort.",
+        "You reached {destination} with an empty formation and nothing to show for it."
+      ]
+    }
+  },
+  {
+    "id": "mission-raid-supply-depot",
+    "description": "Text for raid a supply depot.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Depot raid in {system}",
+        "Burn the stores at {system}",
+        "Hit and withdraw: {system}",
+        "Strike on a forward depot"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} wants the enemy's forward depot at {system} struck. You are one of the ships it can spare.",
+        "A small force is hitting a supply depot in {system}. Your job is the defence suppression, so the bombers can do theirs.",
+        "Raid the depot at {system}. {client} wants fuel tanks burning and nothing else touched.",
+        "Join a raiding party against a depot in {system}, and be gone before the response arrives."
+      ],
+      "detail": [
+        "The garrison is small and will call for help. Expect it within minutes.",
+        "Your orders are to leave nothing to be used and nothing to be proved.",
+        "The window is {deadline}. After that the depot rotates its guard.",
+        "This will not win the war. It will make the next month of it harder for the other side."
+      ],
+      "success": [
+        "The depot burns and your party withdraws without losing a ship. {faction} pays {reward}. It is one raid in a long war, but a good one.",
+        "You suppressed the guns and the bombers did the rest. {faction} pays {reward}.",
+        "The stores at {system} are ash. {faction} pays {reward} and will find another depot for you.",
+        "You got out before the garrison's reinforcements arrived. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The depot was reinforced the night before. Your party pulled out with losses and {faction} is not pleased.",
+        "The raid failed in {system} and the depot stands. {faction} pays only the dead.",
+        "You were pinned by the garrison's guns while the bombers turned back. {faction} will not be paying.",
+        "Somebody warned the garrison. {faction} suspects you or your client list."
+      ]
+    }
+  },
+  {
+    "id": "mission-raid-pirate-haven",
+    "description": "Text for raid a pirate haven.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Pirate haven: {system}",
+        "Smoke the nest in {system}",
+        "Raid in {system}",
+        "Clear out {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #voice:warning# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "Raiders have a hideout in {system}, and {faction} wants it burned out. You are one of several ships it has hired.",
+        "A pirate haven in {system} has become too comfortable. Hit it hard with the others.",
+        "{client} has located the raiders' anchorage in {system} and will pay for every ship that helps clear it.",
+        "Join the strike on the haven at {system} and keep the pirates from scattering."
+      ],
+      "detail": [
+        "There are more of them than you are used to.",
+        "Whoever pays them also supplies them. If you find the ledger, bring it.",
+        "Strike inside {deadline}, before the pirates move on.",
+        "Anything with a transponder that will not answer is fair game."
+      ],
+      "success": [
+        "The haven is smoke and drifting hull plates. {faction} pays {reward}. Among the wreckage you pick up a ledger, with a name in it.",
+        "The pirates scattered, and most of them did not get far. {faction} pays {reward}.",
+        "You held the near side of the anchorage while the others went in. {faction} pays {reward}.",
+        "The strike was messy and it worked. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The pirates were waiting. The strike broke up and so did the contract.",
+        "Half the force never arrived and the haven held. {faction} withdraws payment.",
+        "You were driven off with the rest. {faction} does not pay for a failed raid.",
+        "The haven was empty when you got there, and the raiders were elsewhere, doing worse."
+      ]
+    }
+  },
+  {
+    "id": "mission-patrol-border-picket",
+    "description": "Text for border picket.",
+    "variables": [
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Border picket: {system}",
+        "Hold the line at {system}",
+        "Contested space: {system}",
+        "Picket duty in {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} is posting pickets along a disputed border at {system}. You are one ship of a thin line.",
+        "Patrol the contested space at {system} and challenge anything that crosses without leave.",
+        "Join the picket line in {system}, and be ready to stand when the other side tests it.",
+        "Hold your sector of the line at {system} for {deadline}."
+      ],
+      "detail": [
+        "Your orders are to challenge, not to start a war.",
+        "The other side is doing the same on its side. Nobody wants the first shot.",
+        "You have a stretch of nine kilometres and two wingmates.",
+        "Report any sign of a build-up. The brass wants numbers."
+      ],
+      "success": [
+        "Your sector held and nobody crossed it. {faction} pays {reward}. Your sighting reports are read with interest.",
+        "The other side tested the line and you stopped them. {faction} pays {reward}.",
+        "You rotate out with a clean log. {faction} pays {reward}.",
+        "You saw what the picket was meant to see. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The picket was outflanked, and your sector gave first. {faction} does not pay for gaps.",
+        "You let a patrol cross and {faction}'s report reads badly for you.",
+        "You missed the build-up. {faction} has a different view of its border now.",
+        "The line broke and the contract with it."
+      ]
+    }
+  },
+  {
+    "id": "mission-blockade-run-fuel",
+    "description": "Text for run the blockade: fuel.",
+    "variables": [
+      "cargo",
+      "client",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Fuel for {destination}",
+        "Past the picket: {tonnes} t of {cargo}",
+        "Blockade run, {destination}",
+        "Dark run to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #voice:warning# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{destination} is running low on {cargo} and the blockade is closing. {faction} needs {tonnes} t delivered through it.",
+        "Carry {tonnes} t of {cargo} past the warships to {destination}. You are one of several runners tonight.",
+        "{client} has put together a run of ships to break the supply cordon around {destination}. You carry {cargo}.",
+        "Run {tonnes} t of {cargo} through the blockade. The guns will see you if the timing is wrong."
+      ],
+      "detail": [
+        "The pickets rotate on a schedule. You will be given it, and then told it is probably wrong.",
+        "Not every runner will get through, and the plan allows for that.",
+        "You have {deadline}, and the cordon tightens every day.",
+        "You will fly dark, with the drive on its lowest burn."
+      ],
+      "success": [
+        "You are one of three runners to reach {destination}, and your {cargo} is among what arrives. {faction} pays {reward}.",
+        "The pickets fired on you and missed. {faction} pays {reward}.",
+        "{tonnes} t of {cargo} is on the dock at {destination}. {faction} pays {reward}.",
+        "You came through with the tanks nearly dry. {faction} pays {reward} and a bonus in thanks."
+      ],
+      "failure": [
+        "Your run did not make it. The {cargo} was lost with the ship that carried it, or close enough.",
+        "The pickets were waiting and you turned back. {faction} wants another run, from someone else.",
+        "You were caught short of {destination}. The cargo is impounded and so, briefly, are you.",
+        "Two of the runners got through. You were not one of them."
+      ]
+    }
+  },
+  {
+    "id": "mission-bounty-mercenary-captain",
+    "description": "Text for bounty: mercenary captain.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Bounty: {target}, turncoat captain",
+        "Bring down {target}",
+        "The {target} contract",
+        "Mercenary bounty: {target}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:urgency# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{target} led a company of hired guns into the uprising, and {faction} wants them stopped.",
+        "The mercenary uprising has a face, and it is {target}. {client} will pay to see it removed from {system}.",
+        "{target} turned their company on their own employer. Find them in {system}.",
+        "Hunt {target}, now commanding a stolen gunship near {system}."
+      ],
+      "detail": [
+        "Their crew is loyal and well armed.",
+        "The captain will not be alone. Expect an escort of three or four.",
+        "Other hunters are on this bounty. You will not be the only one.",
+        "The bounty stands for {deadline}."
+      ],
+      "success": [
+        "{target} went down fighting and their company scattered. {faction} pays {reward}. In their strongbox you find a contract with a different client's seal on it.",
+        "The uprising lost its leader. {faction} pays {reward}.",
+        "You broke {target}'s company at {system}. {faction} pays {reward}.",
+        "{target} is dead and the guns are quiet. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} was better guarded than the briefing said. You were driven off and {faction} has other hunters.",
+        "The captain escaped to the outer system. {faction} withdraws the bounty.",
+        "Your gunship took too much damage to continue. {faction} does not pay for retreats.",
+        "A rival hunter claimed {target}. {faction} pays them, not you."
+      ]
+    }
+  },
+  {
+    "id": "mission-raider-base-assault",
+    "description": "Text for assault on the raider base.",
+    "variables": [
+      "client",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Raider base in {system}",
+        "Assault the hidden base",
+        "Strike at {system}",
+        "The trail ends in {system}"
+      ],
+      "briefing": [
+        "#voice:opener# Your last job turned up a trail, and it leads to {system}. #detail# #voice:payment#",
+        "#voice:opener# The signals you logged point to a base in {system}. #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{faction} has found the raiders' base at {system} and wants it destroyed.",
+        "A hidden raider base sits in {system}, and {client} will pay to see it gone.",
+        "Strike the raiders' base in {system} with the force {faction} has assembled."
+      ],
+      "detail": [
+        "The base is small but heavily armed.",
+        "You will fly with others, but the raiders have the advantage of ground they know.",
+        "There may be prisoners. Do not shoot the transports.",
+        "Whoever sold the raiders their guns will not like what you find."
+      ],
+      "success": [
+        "The base is gone and the raiders with it. {faction} pays {reward}. The people who armed them are still out there, and so is the work of finding them.",
+        "You broke the base with the rest of the strike force. {faction} pays {reward}.",
+        "The raiders' anchorage at {system} is wreckage. {faction} pays {reward}.",
+        "{faction} pays {reward} and puts your name on the clear-out list."
+      ],
+      "failure": [
+        "The base held and the strike force withdrew. {faction} is not paying for that.",
+        "You lost your wingmates in the approach and {faction} blames the intelligence, and you.",
+        "The raiders were warned and gone before you arrived, leaving a trap in their place.",
+        "The assault failed at {system}. The raiders are still there and so, less happily, are you."
+      ]
+    }
+  },
+  {
+    "id": "mission-bounty-employer",
+    "description": "Text for bounty: the employer.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Bounty: {target}, the paymaster",
+        "Who paid for it: {target}",
+        "Settle with {target}",
+        "The man behind it: {target}"
+      ],
+      "briefing": [
+        "#voice:opener# The trail from your last job leads to {target}. #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{target} paid for the trouble, and {faction} wants them found in {system}.",
+        "The ledger you recovered names {target}. {client} is willing to put a price on them.",
+        "{target} has been funding raiders and hired guns from behind a shop front in {system}. Find them."
+      ],
+      "detail": [
+        "They will have protection, probably the paid kind.",
+        "Do not expect an honest answer from anybody who knows them.",
+        "The bounty stands for {deadline}.",
+        "They are patient, and have been waiting for this."
+      ],
+      "success": [
+        "{target} is taken, and with them the thread that held the whole thing together. {faction} pays {reward}.",
+        "You found {target} in {system}. {faction} pays {reward}.",
+        "The paymaster is in custody. {faction} pays {reward} and the rest of the ring scatters.",
+        "{target} had more friends than expected and fewer than needed. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} was gone before you reached {system}. The ring will be back.",
+        "The paymaster had your measure and your route. {faction} withdraws the bounty.",
+        "You were led to the wrong dock. {target} is richer and you are not.",
+        "Someone else collected {target}, and for a different client."
+      ]
+    }
+  },
+  {
+    "id": "mission-escort-carrier-screen",
+    "description": "Text for screen a carrier.",
+    "variables": [
+      "client",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Screen the carrier at {system}",
+        "Carrier screen: {system}",
+        "Picket for the flagship",
+        "Escort wing, fleet action"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} is bringing a carrier into {system}, and every light hull in range is screening it. You are one of forty.",
+        "A fleet action is coming to {system}. Your wing's job is to keep the carrier's flank clear of fighters and torpedoes.",
+        "Take station on the carrier at {system}. You will not see the whole battle. Nobody will.",
+        "Screen {client}'s carrier during the action at {system}, and shoot whatever tries to reach it."
+      ],
+      "detail": [
+        "Your orders will come over the squadron net, and you will follow them.",
+        "Commissioned officers only. The brass wants hands it can trust.",
+        "Expect the first wave in minutes and the second in ten.",
+        "The carrier will not wait for you to turn round. Neither will the fleet."
+      ],
+      "success": [
+        "The carrier launched her last wing and withdrew whole. {faction} pays {reward}. Whether the day was won is for the admirals, but your screen held.",
+        "You held your flank through three waves. {faction} pays {reward}. The fleet took the field, and you helped.",
+        "The carrier is safe. {faction} pays {reward} and your wing gets a mention in dispatches.",
+        "The carrier stayed afloat and so did you. {faction} pays {reward}. The battle itself is still being counted."
+      ],
+      "failure": [
+        "The carrier was hit despite your screen, and {faction} blames the escort wing as a whole. You are part of that whole.",
+        "You held your line. The fleet didn't. {faction} pays nothing for a lost carrier, whatever the screen did.",
+        "The screen broke in the second wave. {faction} will remember who was on that flank.",
+        "The carrier survived by turning for home and you were left covering a retreat. No pay."
+      ]
+    }
+  },
+  {
+    "id": "mission-patrol-fleet-picket",
+    "description": "Text for fleet picket.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Fleet picket at {system}",
+        "Forward screen, {system}",
+        "Early warning in {system}",
+        "Eyes for the fleet"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction}'s fleet is massing near {system}, and you are one of the pickets out ahead of it.",
+        "Fly forward picket for the fleet at {system} and report any sign of the enemy.",
+        "{client} wants early warning in {system}. You are one of a dozen small ships posted around the fleet.",
+        "Hold a picket station in {system} while the fleet prepares."
+      ],
+      "detail": [
+        "You are to run, not to fight, if the enemy comes in force. The fleet needs the warning more than it needs another dead picket.",
+        "Keep your transponder quiet and your reports short.",
+        "You will not see the fleet's battle, only its beginning.",
+        "The station is {deadline} of watching empty space."
+      ],
+      "success": [
+        "Your warning reached the fleet with minutes to spare. {faction} pays {reward}. What the admiral did with those minutes is for the admiral.",
+        "You called the enemy's approach and fell back in good order. {faction} pays {reward}.",
+        "The picket did its job. {faction} pays {reward}. The fleet is where it needs to be.",
+        "Your station held until the fleet came up behind you. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The picket was overrun before your warning went out. {faction} lost the minutes it counted on.",
+        "You called it late. The fleet formed under fire and {faction} notes your report.",
+        "You held the station, and the fleet never listened. {faction} pays you, but it was not enough to save the day.",
+        "You abandoned the picket too early. {faction} will not be paying."
+      ]
+    }
+  },
+  {
+    "id": "mission-raid-strike-wing",
+    "description": "Text for strike wing.",
+    "variables": [
+      "client",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Strike wing over {system}",
+        "Run the strike on {system}",
+        "Fleet strike: {system}",
+        "Alpha wing, {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} is hitting the enemy fleet at {system}, and you are flying with a strike wing of sixty ships.",
+        "A fleet action has opened at {system}. Your wing is to go in with the first rush and take out the enemy's gun line.",
+        "{client} is committing every light hull to the strike on {system}. Your wing is one of six.",
+        "Fly with the strike wing against the enemy's fleet at {system}."
+      ],
+      "detail": [
+        "You will take orders from the wing commander. Question them afterwards.",
+        "Your target is a screening destroyer. You will not see the capital ships.",
+        "The first pass is the dangerous one.",
+        "Commissioned officers only. The risks are what they are."
+      ],
+      "success": [
+        "You were one of sixty ships over {system}. Your target went down, and {faction} pays {reward}. The enemy fleet broke, and you did a little of the breaking.",
+        "Your wing took out its destroyer and came home with all but two. {faction} pays {reward}.",
+        "The gun line collapsed. {faction} pays {reward}, and the fleet moves in behind you.",
+        "You put your shots where they were needed. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The strike failed at {system}. You fought well, but the enemy's fleet was stronger than the briefing.",
+        "You held the wing's flank and the wing broke around you. {faction} pays for results.",
+        "The destroyer you were sent after was a decoy, and the real gun line shredded the wing.",
+        "You got out, and many did not. {faction} will not be paying."
+      ]
+    }
+  },
+  {
+    "id": "mission-blockade-break-fleet",
+    "description": "Text for break the blockade.",
+    "variables": [
+      "cargo",
+      "client",
+      "destination",
+      "faction",
+      "reward",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Break the blockade at {destination}",
+        "Convoy under fire: {destination}",
+        "Fleet-supported run",
+        "Breaking the cordon"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} is breaking the blockade of {destination} with force, and your ship carries {tonnes} t of {cargo} in the first wave.",
+        "A relief fleet is forcing the cordon around {destination}. You are one of the supply ships under its guns.",
+        "{client} has raised a relief fleet to run the blockade of {destination}. You are a small part of that fleet, and the cargo is not small.",
+        "Fly in with the relief fleet, drop your {cargo} at {destination} and get out."
+      ],
+      "detail": [
+        "The warships will do the fighting. You are to get through the gap they make.",
+        "You will be one of dozens, and the gap will not stay open long.",
+        "The gap opens at a time given on the fleet net. Be ready.",
+        "Some ships will not come out. The plan accepts that."
+      ],
+      "success": [
+        "The fleet forced the cordon and you flew through the gap with {tonnes} t of {cargo}. {faction} pays {reward}. The blockade is not broken for good, but {destination} will eat this month.",
+        "Your {cargo} reached {destination} under the fleet's guns. {faction} pays {reward}.",
+        "You were one of the ships that mattered. {faction} pays {reward}.",
+        "The gap held long enough. {faction} pays {reward} and the fleet pulls back behind you."
+      ],
+      "failure": [
+        "The fleet could not hold the gap and the supply ships turned back. You carried the {cargo} home, and {faction} pays nothing for that.",
+        "The cordon closed and you were caught on the wrong side of it. The cargo was lost.",
+        "You made it through. The fleet didn't, and {destination} is still under blockade. {faction} pays only for the effort.",
+        "The relief failed at {destination}. You fought well, but the cordon was stronger."
+      ]
+    }
+  },
+  {
+    "id": "mission-raid-mercenary-suppression",
+    "description": "Text for suppress the mercenary fleet.",
+    "variables": [
+      "client",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Mercenary suppression, {system}",
+        "Put down the uprising",
+        "Strike wing: {system}",
+        "The turncoat fleet at {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "The mercenary companies at {system} have turned on their employers, and {faction} is sending the fleet to put them down. You are one wing of it.",
+        "A mercenary fleet holds {system}. {client} wants it cleared, and you are one of a hundred ships that will clear it.",
+        "Join the assault on the rebel mercenaries at {system}. Your wing is assigned to their picket line.",
+        "The uprising makes its stand at {system}. Fly with {faction}'s fleet and break it."
+      ],
+      "detail": [
+        "Some of the rebels used to fly beside you.",
+        "They know the fleet's tactics because they taught it.",
+        "Orders come from the wing commander. Do what you are told.",
+        "The reward is paid whether or not the day is won, if you stay to the end."
+      ],
+      "success": [
+        "The rebels broke at {system}. You flew with the wing that took their picket line, and {faction} pays {reward}. The uprising is not over, but it has lost its fleet.",
+        "Your wing broke the picket and the fleet came in behind it. {faction} pays {reward}.",
+        "The mercenaries at {system} are scattered. {faction} pays {reward}.",
+        "You were one ship in a hundred. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The mercenaries held {system} and the fleet withdrew. You fought your part, and {faction} does not pay for a withdrawal.",
+        "The rebels knew the fleet's plan, and the plan was wrong. You were one ship in the wreckage.",
+        "You held your line. The fleet didn't. The uprising keeps {system}.",
+        "The assault failed. {faction} blames the staff, and pays no one."
+      ]
+    }
+  },
+  {
+    "id": "mission-patrol-warden-cordon",
+    "description": "Text for warden cordon.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Warden cordon at {system}",
+        "Close the system: {system}",
+        "Cordon duty, {system}",
+        "Sweep with the wardens"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:urgency# #voice:payment#",
+        "#voice:opener# #detail# #task# #voice:payment# #voice:closer#"
+      ],
+      "task": [
+        "{faction} is closing {system} to all traffic, and the cordon needs every armed ship it can find. You are one of eighty.",
+        "The wardens are sealing every gate in {system}. Your ship holds a stretch of the cordon.",
+        "Fly cordon in {system} while {faction}'s inspectors go through the system, dock by dock.",
+        "{client} has called a full sweep of {system}. You are one hull in the net."
+      ],
+      "detail": [
+        "Nothing leaves. Nothing enters. Fire on anything that will not heave to.",
+        "Some of the ships you stop will be friends.",
+        "The sweep runs for {deadline}. It will be long.",
+        "Opinion on the sweep is divided. Your orders are not."
+      ],
+      "success": [
+        "The cordon held for the full sweep, and {faction} pays {reward}. The inspectors found what they were after. You are not told what it was.",
+        "Nothing crossed your stretch. {faction} pays {reward}.",
+        "The sweep ends and the cordon stands down. {faction} pays {reward}.",
+        "You held your station. {faction} pays {reward}, and the dockside has little to say to you."
+      ],
+      "failure": [
+        "A ship broke through your stretch of the cordon. {faction} does not forgive holes.",
+        "The sweep missed its target, and someone has to take the blame. {faction} has picked the picket.",
+        "You fired on a ship carrying a warden's pass. {faction} is not paying and is not pleased.",
+        "The cordon failed. Nobody will say whose fault it was, which is how you know."
+      ]
+    }
+  },
+  {
+    "id": "mission-raid-supply-lines",
+    "description": "Text for harass supply lines.",
+    "variables": [
+      "client",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Supply line raid, {system}",
+        "Harassing fire: {system}",
+        "Cut the lifeline",
+        "A small part of a long war"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "The war is a thousand small raids, and {faction} wants yours at {system}, against the enemy's supply convoys.",
+        "Strike the enemy's supply lines around {system}. You are one raider among several hundred in the theatre.",
+        "Take your ship into {system} and hit the convoys. {client} wants the front starved, one hauler at a time.",
+        "Harass the enemy's logistics at {system}. One ship cannot win a war, but a hundred ships can."
+      ],
+      "detail": [
+        "Each convoy you stop is another week of the war.",
+        "Don't expect an end to it. The war does not end with you.",
+        "Hit hard, run clean, come back for more.",
+        "You will not see the outcome. Perhaps nobody will."
+      ],
+      "success": [
+        "Three convoys never reached the front, and {faction} pays {reward}. It will take a hundred more like you, but you did your share.",
+        "You stopped the haulers at {system}. {faction} pays {reward}. The war is a little shorter than it was.",
+        "The supply line is a little thinner. {faction} pays {reward}.",
+        "You burned what you found and made it back. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The convoys were escorted in strength and you had to turn back. {faction} pays nothing.",
+        "You were chased out of {system} before you could strike. The war goes on without you.",
+        "The enemy rerouted and your raid found empty space. {faction} is not paying for that.",
+        "The raid failed. You fought well. It made no difference to anyone but you."
+      ]
+    }
+  },
+  {
+    "id": "mission-escort-war-convoy",
+    "description": "Text for war convoy.",
+    "variables": [
+      "cargo",
+      "client",
+      "destination",
+      "faction",
+      "reward",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "War convoy to {destination}",
+        "Escort the fleet train",
+        "Front-line supply: {destination}",
+        "One escort among many"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{faction} is moving {tonnes} t of {cargo} to the front at {destination}, and the convoy needs every escort it can raise.",
+        "The front at {destination} is hungry for {cargo}. You are one of a hundred escorts for a convoy of a thousand ships.",
+        "Take your place in the escort screen of {client}'s fleet train, bound for {destination}.",
+        "Fly escort for the supply convoy to {destination}. The war depends on ships like these, and on ships like yours."
+      ],
+      "detail": [
+        "The convoy takes a week to cross, and the enemy will find it.",
+        "Your own charges are the ones to keep alive, and the rest is for other escorts.",
+        "You are not the only one watching, and not the only one who will fail.",
+        "It is a long, slow job, and it is the war."
+      ],
+      "success": [
+        "The convoy reached {destination}. Some ships did not, but yours did. {faction} pays {reward}. The war eats {cargo} faster than anyone can move it.",
+        "You brought your ships to the front. {faction} pays {reward}.",
+        "The fleet train docked and the front is fed for another month. {faction} pays {reward}.",
+        "{tonnes} t of {cargo} reached {destination}. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The convoy was cut in half and your section was in the wrong half. {faction} pays nothing.",
+        "The enemy took the train at the second gate. You held your charges, and lost them anyway.",
+        "You fought well, and the convoy was lost around you. The front goes hungry.",
+        "The war moved on while you were escorting. {destination} has fallen, and the cargo with it."
+      ]
+    }
+  },
+  {
+    "id": "mission-patrol-war-picket",
+    "description": "Text for theatre picket.",
+    "variables": [
+      "client",
+      "deadline",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Theatre picket: {system}",
+        "Hold {system}",
+        "Long watch at {system}",
+        "Rearguard in {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "The front is moving through {system}, and {faction} wants a rearguard held there. You are one of a hundred ships on a wide line.",
+        "Hold the picket at {system} while the fleet falls back. The war has not turned your way, and your job is to make the turn slower.",
+        "Cover the withdrawal through {system}. {client} will not say how many ships are behind you.",
+        "Stand picket in {system}. The fleet is somewhere ahead, or somewhere behind. Nobody is sure."
+      ],
+      "detail": [
+        "Honoured captains only. The brass wants nobody who will break.",
+        "You will be relieved if there is anyone left to relieve you.",
+        "Every day you hold buys another day for the rest.",
+        "Expect to be outnumbered."
+      ],
+      "success": [
+        "The picket held for {deadline}, and the fleet got away. {faction} pays {reward}. You will not be thanked in public.",
+        "You were one of the ships that kept the line. {faction} pays {reward}.",
+        "The rearguard did its work. {faction} pays {reward}. The war goes on.",
+        "Your section held and the rest followed. {faction} pays {reward}."
+      ],
+      "failure": [
+        "You held your line. The fleet didn't. The picket is gone, and the war has moved on.",
+        "The picket was overrun at {system} and you withdrew when you could. {faction} is not paying.",
+        "The enemy broke through before the fleet was clear. {faction} has other things to think about than your fee.",
+        "The line fell back and you went with it. {faction} does not forgive a retreat in the middle of a war."
+      ]
+    }
+  },
+  {
+    "id": "mission-blockade-war-lifeline",
+    "description": "Text for lifeline run.",
+    "variables": [
+      "cargo",
+      "client",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Lifeline to {destination}",
+        "The last run to {destination}",
+        "War runner: {destination}",
+        "Under the guns of {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:urgency# #voice:payment#",
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment#",
+        "#voice:opener# #task# #voice:payment# #voice:closer#",
+        "#voice:opener# #detail# #task# #voice:payment#"
+      ],
+      "task": [
+        "{destination} is besieged and {faction} has asked every ship it can find to carry {cargo} to it. You are one of many runners.",
+        "Carry {tonnes} t of {cargo} through the siege lines to {destination}. The war is lost or won elsewhere, but this is your part of it.",
+        "{client} is sending a stream of ships into {destination}, one at a time. You are the next.",
+        "Run the lines at {destination}. A single ship cannot save a siege, but it can keep it going."
+      ],
+      "detail": [
+        "The siege is tight and the lines are thick.",
+        "You will not be told how many runners came before you.",
+        "Take the longest approach, and don't stop.",
+        "The siege has {deadline} of food left, and your cargo is part of it."
+      ],
+      "success": [
+        "You reached {destination} and the garrison unloaded your {cargo} before the picket could blink. {faction} pays {reward}. The siege goes on, but the garrison eats.",
+        "You ran the lines and lived. {faction} pays {reward}.",
+        "{tonnes} t of {cargo} bought {destination} another week. {faction} pays {reward}.",
+        "You were one of the few. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The siege lines were too thick and you turned back. {destination} is hungrier for it.",
+        "Your run did not make it. The war does not stop to mourn you.",
+        "You ran the lines and {destination} fell the next day. {faction} pays nothing for a lost garrison.",
+        "The cargo was lost and the siege goes on, and so does the war."
+      ]
+    }
+  }
+]
