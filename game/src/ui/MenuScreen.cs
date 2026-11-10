@@ -20,6 +20,8 @@ public sealed class MenuActions
     /// <summary>Checks a save file brought in from elsewhere before it's loaded.</summary>
     public required Func<string, Galaxus.Core.SaveGame.SaveCheck> CheckSave { get; init; }
     public required Action<string> Save { get; init; }
+    /// <summary>The game in progress as a save file, for exporting.</summary>
+    public required Func<string> CurrentSave { get; init; }
     public required Action Resume { get; init; }
     public required Action MainMenu { get; init; }
     public required Action Quit { get; init; }
@@ -31,7 +33,7 @@ public sealed class MenuActions
 /// </summary>
 public partial class MenuScreen : Control
 {
-    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns, Export, Import }
+    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns, Import }
 
     private MenuActions _actions = null!;
     private Logo _logo = null!;
@@ -92,7 +94,7 @@ public partial class MenuScreen : Control
         foreach (var child in _items.GetChildren()) child.QueueFree();
         _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns ? 440 : 360, 0);
         _footer.Text = Loading.IsWeb
-            ? "Web preview. It runs more slowly than the desktop game, which is free to download. Your saves can come with you: see Load game."
+            ? "Web preview. The desktop game is free to download, and your game can come with you: pause, then Save game, Export this game to a file."
             : "Galaxus is a working title. Early build.";
 
         switch (page)
@@ -106,7 +108,6 @@ public partial class MenuScreen : Control
             case Page.Simulator: BuildSimulator(); break;
             case Page.Campaigns: BuildCampaigns(); break;
             case Page.Result: BuildResult(); break;
-            case Page.Export: BuildExport(); break;
             case Page.Import: BuildImport(); break;
         }
         // Centre the panel under the logo once its contents have sized it, and again once wrapped
@@ -268,13 +269,10 @@ public partial class MenuScreen : Control
             button.Disabled = !saving && data == null;
             Add(button);
         }
-        if (!saving)
-        {
-            Add(Ui.Button("Import a save file", ImportSave));
-            var export = Ui.Button("Export a save file", () => ShowPage(Page.Export));
-            export.Disabled = !SaveSlots.Loadable.Any(s => SaveSlots.Peek(s) != null);
-            Add(export);
-        }
+        if (saving) Add(Ui.Button("Export this game to a file", ExportGame));
+        else Add(Ui.Button("Import a save file", ImportSave));
+        if (_transferMessage is { } message) Add(Wrapped(message, Ui.Green));
+        _transferMessage = null;
         Add(Ui.Button("Back", () => ShowPage(_back)));
     }
 
@@ -285,32 +283,18 @@ public partial class MenuScreen : Control
         _ => $"Slot {slot[^1]}",
     };
 
-    private const string TransferNote =
-        "Save files work in both the web preview and the desktop game. Export one here, then choose Import a save file in the other to carry on where you left off.";
-
     private string? _transferMessage;
 
-    private void BuildExport()
+    private void ExportGame()
     {
-        Add(Ui.Label("EXPORT A SAVE", Ui.Amber));
-        Add(Wrapped(TransferNote, Ui.Dim));
-        foreach (var slot in SaveSlots.Loadable)
+        string json = _actions.CurrentSave();
+        if (SaveTransfer.Export(this, json))
         {
-            if (SaveSlots.Peek(slot) is not { } data) continue;
-            var button = Ui.Button($"{SlotName(slot)}: {SaveSlots.Describe(data)}", () =>
-            {
-                if (SaveTransfer.Export(this, slot) && Loading.IsWeb)
-                {
-                    _transferMessage = $"Downloaded {SaveTransfer.FileName(data)}. Look in your downloads folder.";
-                    ShowPage(Page.Export);
-                }
-            });
-            button.Alignment = HorizontalAlignment.Left;
-            Add(button);
+            _transferMessage = Loading.IsWeb
+                ? $"Downloaded {SaveTransfer.FileName(Galaxus.Core.SaveGame.Peek(json)!)}. Load it in the desktop game with Load game, Import a save file."
+                : "Choose where to save the file, then load it in the other game with Load game, Import a save file.";
+            ShowPage(Page.Save);
         }
-        if (_transferMessage is { } message) Add(Wrapped(message, Ui.Green));
-        _transferMessage = null;
-        Add(Ui.Button("Back", () => ShowPage(Page.Load)));
     }
 
     // The import page shows what checking the file found: why it can't be loaded, or a warning

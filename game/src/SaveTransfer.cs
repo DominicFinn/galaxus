@@ -18,10 +18,10 @@ public static class SaveTransfer
         return $"galaxus-{(captain.Length > 0 ? captain : "save")}-day-{data.Day}.json";
     }
 
-    /// <summary>Writes a save slot out as a file. Returns false if the slot is empty.</summary>
-    public static bool Export(Node host, string slot)
+    /// <summary>Writes a save out as a file. Returns false if it isn't a save.</summary>
+    public static bool Export(Node host, string json)
     {
-        if (SaveSlots.ReadText(slot) is not { } json || SaveGame.Peek(json) is not { } data) return false;
+        if (SaveGame.Peek(json) is not { } data) return false;
         string name = FileName(data);
         if (Loading.IsWeb)
         {

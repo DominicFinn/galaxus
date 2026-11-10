@@ -154,6 +154,7 @@ public partial class Main : Node3D
             Load = slot => Loading.Run(this, "Loading your game", () => Restart(SaveSlots.Read(_db, slot)), finish: false),
             CheckSave = json => SaveGame.Check(_db, json),
             Save = slot => { SaveSlots.Write(slot, _session); },
+            CurrentSave = () => SaveGame.Save(_session),
             Resume = Resume,
             MainMenu = () => Restart(null),
             Quit = () => GetTree().Quit(),
