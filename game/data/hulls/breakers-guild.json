@@ -1,0 +1,3227 @@
+[
+ {
+  "id": "bg-stray",
+  "name": "Stray",
+  "builder": "breakers-guild",
+  "class": "fighter",
+  "description": "A patched single-seater built round a hull that used to be somebody else's. It is cheap, it flies, and the paint does not match.",
+  "price": 32000,
+  "mass": 20,
+  "baseSpeed": 105,
+  "pitchRate": 78,
+  "yawRate": 56,
+  "rollRate": 160,
+  "hullPoints": 110,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 2,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -1.3,
+     -0.7,
+     -7.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.6,
+     0,
+     -1.0
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-1-1",
+   "bg-plant-1-1",
+   "bg-shield-1-1",
+   "bg-sensor-1-1",
+   "bg-scrap-1-1",
+   "bg-scrap-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.5
+    ],
+    "back": [
+     2.2,
+     1.6
+    ],
+    "front": [
+     1.3,
+     1.1
+    ],
+    "length": 7,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     -0.1,
+     -4.6
+    ],
+    "back": [
+     1.3,
+     1.0
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 3.2,
+    "color": "#c8b04a"
+   },
+   {
+    "position": [
+     0,
+     0.85,
+     -1.2
+    ],
+    "back": [
+     1.0,
+     0.5
+    ],
+    "front": [
+     0.7,
+     0.3
+    ],
+    "length": 2.2,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     0.9,
+     -2.35
+    ],
+    "back": [
+     0.6,
+     0.2
+    ],
+    "front": [
+     0.6,
+     0.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.7,
+     0,
+     1.0
+    ],
+    "back": [
+     3.4,
+     0.25
+    ],
+    "front": [
+     2.0,
+     0.2
+    ],
+    "length": 3.2,
+    "color": "#8f4a2c",
+    "skew": [
+     1.0,
+     0
+    ]
+   },
+   {
+    "position": [
+     -2.0,
+     0.1,
+     1.6
+    ],
+    "back": [
+     2.4,
+     0.25
+    ],
+    "front": [
+     1.3,
+     0.2
+    ],
+    "length": 2.4,
+    "color": "#3f6a9c",
+    "skew": [
+     -0.6,
+     0
+    ]
+   },
+   {
+    "position": [
+     -1.3,
+     -0.7,
+     -2.4
+    ],
+    "back": [
+     0.6,
+     0.6
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 5.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     1.5,
+     0.9,
+     2.4
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 2.4,
+    "color": "#252220",
+    "roll": 20
+   },
+   {
+    "position": [
+     -1.1,
+     0.3,
+     0.0
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 3.6,
+    "color": "#8a8d8c",
+    "skew": [
+     0,
+     0.5
+    ]
+   },
+   {
+    "position": [
+     0.9,
+     0,
+     4.5
+    ],
+    "back": [
+     1.7,
+     1.5
+    ],
+    "front": [
+     1.36,
+     1.2000000000000002
+    ],
+    "length": 3.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0.9,
+     0,
+     6.05
+    ],
+    "back": [
+     1.19,
+     1.0499999999999998
+    ],
+    "front": [
+     1.19,
+     1.0499999999999998
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -1.1,
+     -0.5,
+     4.0
+    ],
+    "back": [
+     1.0,
+     1.0
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 2.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -1.1,
+     -0.5,
+     5.05
+    ],
+    "back": [
+     0.7,
+     0.7
+    ],
+    "front": [
+     0.7,
+     0.7
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     1.8,
+     0.3,
+     -0.8
+    ],
+    "back": [
+     0.9,
+     0.3
+    ],
+    "front": [
+     0.9,
+     0.3
+    ],
+    "length": 1.0,
+    "color": "#c9c9bd"
+   }
+  ]
+ },
+ {
+  "id": "bg-jackdaw",
+  "name": "Jackdaw",
+  "builder": "breakers-guild",
+  "class": "fighter",
+  "description": "A pirate raider with an orc-style ram nose, a corporate dorsal fin and guns taken from three different wrecks. Fast enough to catch a trader and rude enough to try.",
+  "price": 52000,
+  "mass": 24,
+  "baseSpeed": 115,
+  "pitchRate": 74,
+  "yawRate": 54,
+  "rollRate": 170,
+  "hullPoints": 140,
+  "radius": 8,
+  "crewBerths": 0,
+  "cargoTonnes": 4,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.6,
+     -0.6,
+     -6.8
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -4.2,
+     -0.1,
+     -5.6
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.6,
+     -0.4,
+     -5.2
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-1-3",
+   "bg-plant-1-2",
+   "bg-shield-1-1",
+   "bg-sensor-1-1",
+   "bg-scrap-1-1",
+   "bg-harpoon-1-1",
+   "bg-scrap-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     2.4,
+     1.6
+    ],
+    "front": [
+     1.4,
+     1.2
+    ],
+    "length": 7.5,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -5.4
+    ],
+    "back": [
+     1.4,
+     1.2
+    ],
+    "front": [
+     0.2,
+     0.4
+    ],
+    "length": 3.8,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     0.9,
+     -1.5
+    ],
+    "back": [
+     1.1,
+     0.6
+    ],
+    "front": [
+     0.7,
+     0.3
+    ],
+    "length": 2.4,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     0.95,
+     -2.75
+    ],
+    "back": [
+     0.6,
+     0.2
+    ],
+    "front": [
+     0.6,
+     0.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.8,
+     -0.1,
+     0.8
+    ],
+    "back": [
+     3.0,
+     0.3
+    ],
+    "front": [
+     1.6,
+     0.25
+    ],
+    "length": 3.6,
+    "color": "#c8b04a",
+    "skew": [
+     1.2,
+     0
+    ]
+   },
+   {
+    "position": [
+     -2.9,
+     0.2,
+     0.0
+    ],
+    "back": [
+     3.8,
+     0.3
+    ],
+    "front": [
+     1.8,
+     0.25
+    ],
+    "length": 4.2,
+    "color": "#8a8d8c",
+    "skew": [
+     -1.2,
+     0.2
+    ]
+   },
+   {
+    "position": [
+     3.6,
+     -0.6,
+     -2.4
+    ],
+    "back": [
+     0.7,
+     0.7
+    ],
+    "front": [
+     0.6,
+     0.6
+    ],
+    "length": 4.6,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     -4.2,
+     -0.1,
+     -2.2
+    ],
+    "back": [
+     0.9,
+     0.9
+    ],
+    "front": [
+     0.7,
+     0.7
+    ],
+    "length": 3.6,
+    "color": "#a63a36"
+   },
+   {
+    "position": [
+     2.6,
+     -0.4,
+     -3.5
+    ],
+    "back": [
+     0.5,
+     0.5
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 3.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     1.6,
+     2.4
+    ],
+    "back": [
+     0.3,
+     2.0
+    ],
+    "front": [
+     0.2,
+     1.2
+    ],
+    "length": 2.4,
+    "color": "#3f6a9c",
+    "skew": [
+     0,
+     0.3
+    ]
+   },
+   {
+    "position": [
+     -0.8,
+     1.0,
+     1.0
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 3.0,
+    "color": "#252220",
+    "roll": -30
+   },
+   {
+    "position": [
+     1.6,
+     0.1,
+     4.5
+    ],
+    "back": [
+     2.0,
+     1.8
+    ],
+    "front": [
+     1.6,
+     1.4400000000000002
+    ],
+    "length": 3.2,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     1.6,
+     0.1,
+     6.1499999999999995
+    ],
+    "back": [
+     1.4,
+     1.26
+    ],
+    "front": [
+     1.4,
+     1.26
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -1.4,
+     -0.2,
+     4.2
+    ],
+    "back": [
+     1.4,
+     1.4
+    ],
+    "front": [
+     1.1199999999999999,
+     1.1199999999999999
+    ],
+    "length": 2.6,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     -1.4,
+     -0.2,
+     5.55
+    ],
+    "back": [
+     0.9799999999999999,
+     0.9799999999999999
+    ],
+    "front": [
+     0.9799999999999999,
+     0.9799999999999999
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0.9,
+     4.0
+    ],
+    "back": [
+     0.8,
+     0.8
+    ],
+    "front": [
+     0.6400000000000001,
+     0.6400000000000001
+    ],
+    "length": 2.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     0.9,
+     5.05
+    ],
+    "back": [
+     0.5599999999999999,
+     0.5599999999999999
+    ],
+    "front": [
+     0.5599999999999999,
+     0.5599999999999999
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "bg-backdoor",
+  "name": "Backdoor",
+  "builder": "breakers-guild",
+  "class": "courier",
+  "description": "A plain-looking runner with an honest hold, a dishonest one under it and a fast drive in the back. Customs have never found the second hold. The ones who did are not available for comment.",
+  "price": 62000,
+  "mass": 22,
+  "baseSpeed": 145,
+  "pitchRate": 64,
+  "yawRate": 50,
+  "rollRate": 130,
+  "hullPoints": 95,
+  "radius": 9,
+  "crewBerths": 1,
+  "cargoTonnes": 10,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -1.5,
+     -0.9,
+     -3.5
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 2
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-1-3",
+   "bg-plant-1-2",
+   "bg-shield-1-1",
+   "bg-sensor-1-2",
+   "bg-scrap-1-1",
+   "bg-rack-1-1",
+   "bg-smuggler-compartment-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.5
+    ],
+    "back": [
+     3.0,
+     2.0
+    ],
+    "front": [
+     2.0,
+     1.6
+    ],
+    "length": 9.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -5.2
+    ],
+    "back": [
+     2.0,
+     1.6
+    ],
+    "front": [
+     0.3,
+     0.4
+    ],
+    "length": 4.2,
+    "color": "#3d8a80"
+   },
+   {
+    "position": [
+     0,
+     1.2,
+     -2.2
+    ],
+    "back": [
+     1.4,
+     0.6
+    ],
+    "front": [
+     0.9,
+     0.3
+    ],
+    "length": 2.6,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     1.25,
+     -3.5
+    ],
+    "back": [
+     0.8,
+     0.2
+    ],
+    "front": [
+     0.8,
+     0.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.7,
+     0,
+     2.0
+    ],
+    "back": [
+     3.0,
+     0.3
+    ],
+    "front": [
+     1.6,
+     0.25
+    ],
+    "length": 3.6,
+    "color": "#252220",
+    "skew": [
+     0.8,
+     0
+    ]
+   },
+   {
+    "position": [
+     -2.2,
+     0.1,
+     2.4
+    ],
+    "back": [
+     2.2,
+     0.3
+    ],
+    "front": [
+     1.2,
+     0.25
+    ],
+    "length": 2.8,
+    "color": "#c8b04a",
+    "skew": [
+     -0.5,
+     0
+    ]
+   },
+   {
+    "position": [
+     0,
+     -1.2,
+     1.0
+    ],
+    "back": [
+     2.4,
+     0.7
+    ],
+    "front": [
+     2.0,
+     0.7
+    ],
+    "length": 6.0,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     1.6,
+     1.2,
+     1.5
+    ],
+    "back": [
+     1.4,
+     0.6
+    ],
+    "front": [
+     1.4,
+     0.6
+    ],
+    "length": 2.4,
+    "color": "#c9c9bd"
+   },
+   {
+    "position": [
+     -1.5,
+     -0.9,
+     -1.5
+    ],
+    "back": [
+     0.5,
+     0.5
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 4.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     1.8,
+     4.0
+    ],
+    "back": [
+     0.3,
+     1.6
+    ],
+    "front": [
+     0.2,
+     0.8
+    ],
+    "length": 2.2,
+    "color": "#a63a36",
+    "skew": [
+     0,
+     0.2
+    ]
+   },
+   {
+    "position": [
+     1.4,
+     0,
+     5.5
+    ],
+    "back": [
+     1.6,
+     1.6
+    ],
+    "front": [
+     1.2800000000000002,
+     1.2800000000000002
+    ],
+    "length": 2.8,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     1.4,
+     0,
+     6.95
+    ],
+    "back": [
+     1.1199999999999999,
+     1.1199999999999999
+    ],
+    "front": [
+     1.1199999999999999,
+     1.1199999999999999
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -1.5,
+     0.1,
+     5.6
+    ],
+    "back": [
+     1.2,
+     1.2
+    ],
+    "front": [
+     0.96,
+     0.96
+    ],
+    "length": 2.4,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -1.5,
+     0.1,
+     6.85
+    ],
+    "back": [
+     0.84,
+     0.84
+    ],
+    "front": [
+     0.84,
+     0.84
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "bg-tinker",
+  "name": "Tinker",
+  "builder": "breakers-guild",
+  "class": "courier",
+  "description": "Two scrapped couriers cut down and welded into one. It is light, quick and will rattle all the way to the next gate.",
+  "price": 44000,
+  "mass": 18,
+  "baseSpeed": 155,
+  "pitchRate": 66,
+  "yawRate": 52,
+  "rollRate": 135,
+  "hullPoints": 85,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 8,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.2,
+     -6.4
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-1-1",
+   "bg-plant-1-1",
+   "bg-shield-1-1",
+   "bg-sensor-1-1",
+   "bg-scrap-1-1",
+   "bg-rack-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     2.4,
+     1.8
+    ],
+    "front": [
+     1.8,
+     1.4
+    ],
+    "length": 8,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -5.0
+    ],
+    "back": [
+     1.6,
+     1.4
+    ],
+    "front": [
+     0.3,
+     0.4
+    ],
+    "length": 2.8,
+    "color": "#c9702e"
+   },
+   {
+    "position": [
+     0,
+     1.0,
+     -1.8
+    ],
+    "back": [
+     1.2,
+     0.5
+    ],
+    "front": [
+     0.8,
+     0.3
+    ],
+    "length": 2.4,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     1.05,
+     -3.05
+    ],
+    "back": [
+     0.7,
+     0.2
+    ],
+    "front": [
+     0.7,
+     0.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     1.0
+    ],
+    "back": [
+     3.0,
+     0.25
+    ],
+    "front": [
+     1.6,
+     0.2
+    ],
+    "length": 3.0,
+    "color": "#3f6a9c",
+    "skew": [
+     0.8,
+     0
+    ]
+   },
+   {
+    "position": [
+     -2.0,
+     0.2,
+     0.8
+    ],
+    "back": [
+     2.0,
+     0.25
+    ],
+    "front": [
+     1.2,
+     0.2
+    ],
+    "length": 2.6,
+    "color": "#c9c9bd",
+    "skew": [
+     -0.4,
+     0
+    ]
+   },
+   {
+    "position": [
+     -1.4,
+     -1.0,
+     -0.5
+    ],
+    "back": [
+     1.0,
+     0.8
+    ],
+    "front": [
+     1.0,
+     0.8
+    ],
+    "length": 3.5,
+    "color": "#c8b04a"
+   },
+   {
+    "position": [
+     1.0,
+     1.3,
+     1.8
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 2.8,
+    "color": "#252220",
+    "roll": 35
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.0
+    ],
+    "back": [
+     2.0,
+     1.8
+    ],
+    "front": [
+     1.6,
+     1.4400000000000002
+    ],
+    "length": 2.4,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     0,
+     6.25
+    ],
+    "back": [
+     1.4,
+     1.26
+    ],
+    "front": [
+     1.4,
+     1.26
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     1.9,
+     -0.3,
+     4.4
+    ],
+    "back": [
+     1.0,
+     1.0
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 1.8,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     1.9,
+     -0.3,
+     5.3500000000000005
+    ],
+    "back": [
+     0.7,
+     0.7
+    ],
+    "front": [
+     0.7,
+     0.7
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "bg-longshot",
+  "name": "Longshot",
+  "builder": "breakers-guild",
+  "class": "explorer",
+  "description": "A survey hull hung with extra tanks, a second sensor mast and a guest cabin nobody asked for. It will get you a long way out and probably back.",
+  "price": 150000,
+  "mass": 58,
+  "baseSpeed": 100,
+  "pitchRate": 44,
+  "yawRate": 34,
+  "rollRate": 85,
+  "hullPoints": 240,
+  "radius": 13,
+  "crewBerths": 3,
+  "cargoTonnes": 14,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.2,
+     0,
+     -12.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.2,
+     0,
+     -12.0
+    ]
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-2-1",
+   "bg-plant-2-2",
+   "bg-shield-2-1",
+   "bg-sensor-3-2",
+   "bg-scrap-1-1",
+   "bg-harpoon-1-1",
+   "hc-fuel-scoop-1",
+   "bg-patch-kit"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     4.6,
+     3.2
+    ],
+    "front": [
+     3.2,
+     2.4
+    ],
+    "length": 14,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -10.0
+    ],
+    "back": [
+     3.2,
+     2.4
+    ],
+    "front": [
+     0.6,
+     0.8
+    ],
+    "length": 6,
+    "color": "#c8b04a"
+   },
+   {
+    "position": [
+     0,
+     2.0,
+     -5.0
+    ],
+    "back": [
+     2.4,
+     1.0
+    ],
+    "front": [
+     1.6,
+     0.6
+    ],
+    "length": 4.5,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     2.1,
+     -7.35
+    ],
+    "back": [
+     1.4,
+     0.3
+    ],
+    "front": [
+     1.4,
+     0.3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     6.0,
+     0.4,
+     2.0
+    ],
+    "back": [
+     7.0,
+     0.5
+    ],
+    "front": [
+     3.2,
+     0.4
+    ],
+    "length": 6.0,
+    "color": "#8f4a2c",
+    "skew": [
+     1.6,
+     0
+    ]
+   },
+   {
+    "position": [
+     -5.0,
+     -0.2,
+     3.0
+    ],
+    "back": [
+     5.0,
+     0.5
+    ],
+    "front": [
+     2.6,
+     0.4
+    ],
+    "length": 5.0,
+    "color": "#3f6a9c",
+    "skew": [
+     -1.2,
+     0
+    ]
+   },
+   {
+    "position": [
+     0,
+     0,
+     9.5
+    ],
+    "back": [
+     6.0,
+     3.6
+    ],
+    "front": [
+     4.2,
+     2.8
+    ],
+    "length": 3,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     -3.4,
+     2.4,
+     -1.0
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 8,
+    "color": "#c9c9bd",
+    "roll": 15
+   },
+   {
+    "position": [
+     0,
+     3.4,
+     4.5
+    ],
+    "back": [
+     3.0,
+     2.0
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 0.6,
+    "color": "#3d8a80",
+    "skew": [
+     0,
+     0.3
+    ]
+   },
+   {
+    "position": [
+     3.0,
+     -2.1,
+     -1.0
+    ],
+    "back": [
+     1.6,
+     1.2
+    ],
+    "front": [
+     1.6,
+     1.2
+    ],
+    "length": 6,
+    "color": "#c9702e"
+   },
+   {
+    "position": [
+     -2.2,
+     -2.0,
+     1.5
+    ],
+    "back": [
+     1.0,
+     1.0
+    ],
+    "front": [
+     1.0,
+     1.0
+    ],
+    "length": 4,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     2.0,
+     2.2,
+     6.0
+    ],
+    "back": [
+     0.4,
+     3.0
+    ],
+    "front": [
+     0.3,
+     1.4
+    ],
+    "length": 3.5,
+    "color": "#a63a36",
+    "skew": [
+     0,
+     0.2
+    ]
+   },
+   {
+    "position": [
+     2.0,
+     0.2,
+     13.0
+    ],
+    "back": [
+     3.4,
+     3.0
+    ],
+    "front": [
+     2.72,
+     2.4000000000000004
+    ],
+    "length": 4.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     2.0,
+     0.2,
+     15.05
+    ],
+    "back": [
+     2.38,
+     2.0999999999999996
+    ],
+    "front": [
+     2.38,
+     2.0999999999999996
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -2.4,
+     -0.4,
+     12.0
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     1.7600000000000002,
+     1.7600000000000002
+    ],
+    "length": 3.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -2.4,
+     -0.4,
+     13.55
+    ],
+    "back": [
+     1.54,
+     1.54
+    ],
+    "front": [
+     1.54,
+     1.54
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "bg-cobble",
+  "name": "Cobble",
+  "builder": "breakers-guild",
+  "class": "gunship",
+  "description": "A gunboat built from the hull of a dead frigate, the guns of two others and the engines of a mining tug. It carries more than it should and does not turn well.",
+  "price": 240000,
+  "mass": 90,
+  "baseSpeed": 82,
+  "pitchRate": 38,
+  "yawRate": 30,
+  "rollRate": 66,
+  "hullPoints": 420,
+  "radius": 16,
+  "crewBerths": 3,
+  "cargoTonnes": 6,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     5.5,
+     -2.4,
+     -11.8
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -5.5,
+     -2.0,
+     -8.8
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     0,
+     -2.5,
+     -6.2
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.0,
+     3.2,
+     -0.5
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-2-2",
+   "bg-plant-2-2",
+   "bg-shield-2-1",
+   "bg-sensor-2-1",
+   "bg-scrap-2-2",
+   "bg-scrap-2-1",
+   "bg-harpoon-2-1",
+   "bg-scrap-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     1
+    ],
+    "back": [
+     9.0,
+     4.6
+    ],
+    "front": [
+     6.4,
+     3.6
+    ],
+    "length": 20,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -12
+    ],
+    "back": [
+     4.8,
+     3.0
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 7,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     2.6,
+     -6.0
+    ],
+    "back": [
+     3.0,
+     1.2
+    ],
+    "front": [
+     2.0,
+     0.8
+    ],
+    "length": 6,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     2.8,
+     -9.1
+    ],
+    "back": [
+     1.6,
+     0.3
+    ],
+    "front": [
+     1.6,
+     0.3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     12.5
+    ],
+    "back": [
+     8.0,
+     4.6
+    ],
+    "front": [
+     5.0,
+     3.0
+    ],
+    "length": 5,
+    "color": "#c8b04a"
+   },
+   {
+    "position": [
+     8.0,
+     -0.3,
+     3.0
+    ],
+    "back": [
+     10.0,
+     1.2
+    ],
+    "front": [
+     4.0,
+     1.0
+    ],
+    "length": 9.0,
+    "color": "#252220",
+    "skew": [
+     1.5,
+     0
+    ]
+   },
+   {
+    "position": [
+     -7.5,
+     0.3,
+     4.0
+    ],
+    "back": [
+     8.0,
+     1.0
+    ],
+    "front": [
+     3.5,
+     0.8
+    ],
+    "length": 7.0,
+    "color": "#8a8d8c",
+    "skew": [
+     -1.0,
+     0
+    ]
+   },
+   {
+    "position": [
+     5.5,
+     -2.4,
+     -7.0
+    ],
+    "back": [
+     1.6,
+     1.6
+    ],
+    "front": [
+     1.2,
+     1.2
+    ],
+    "length": 9.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -5.5,
+     -2.0,
+     -5.0
+    ],
+    "back": [
+     2.0,
+     2.0
+    ],
+    "front": [
+     1.4,
+     1.4
+    ],
+    "length": 7.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     3.0,
+     3.2,
+     3.0
+    ],
+    "back": [
+     2.2,
+     1.6
+    ],
+    "front": [
+     1.8,
+     1.4
+    ],
+    "length": 5.0,
+    "color": "#3f6a9c"
+   },
+   {
+    "position": [
+     -2.5,
+     2.9,
+     6.5
+    ],
+    "back": [
+     1.2,
+     1.6
+    ],
+    "front": [
+     1.0,
+     1.2
+    ],
+    "length": 3.0,
+    "color": "#3d8a80"
+   },
+   {
+    "position": [
+     0.0,
+     -2.5,
+     -1.0
+    ],
+    "back": [
+     3.6,
+     1.4
+    ],
+    "front": [
+     3.0,
+     1.2
+    ],
+    "length": 10.0,
+    "color": "#c9702e"
+   },
+   {
+    "position": [
+     -3.6,
+     2.0,
+     -2.0
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 8.0,
+    "color": "#c9c9bd",
+    "roll": 20
+   },
+   {
+    "position": [
+     2.4,
+     0.6,
+     16.0
+    ],
+    "back": [
+     3.0,
+     2.8
+    ],
+    "front": [
+     2.4000000000000004,
+     2.2399999999999998
+    ],
+    "length": 3.6,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     2.4,
+     0.6,
+     17.85
+    ],
+    "back": [
+     2.0999999999999996,
+     1.9599999999999997
+    ],
+    "front": [
+     2.0999999999999996,
+     1.9599999999999997
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -2.4,
+     -0.3,
+     15.5
+    ],
+    "back": [
+     3.4,
+     3.0
+    ],
+    "front": [
+     2.72,
+     2.4000000000000004
+    ],
+    "length": 3.0,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     -2.4,
+     -0.3,
+     17.05
+    ],
+    "back": [
+     2.38,
+     2.0999999999999996
+    ],
+    "front": [
+     2.38,
+     2.0999999999999996
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     -1.8,
+     15.0
+    ],
+    "back": [
+     1.6,
+     1.4
+    ],
+    "front": [
+     1.2800000000000002,
+     1.1199999999999999
+    ],
+    "length": 2.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     -1.8,
+     16.05
+    ],
+    "back": [
+     1.1199999999999999,
+     0.9799999999999999
+    ],
+    "front": [
+     1.1199999999999999,
+     0.9799999999999999
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "bg-gaffer",
+  "name": "Gaffer",
+  "builder": "breakers-guild",
+  "class": "gunship",
+  "description": "A hunter of wrecks and the ships that become them. Long harpoon guns from the salvage trade, bolted to a hull with a better history than its crew.",
+  "price": 260000,
+  "mass": 75,
+  "baseSpeed": 90,
+  "pitchRate": 40,
+  "yawRate": 32,
+  "rollRate": 72,
+  "hullPoints": 380,
+  "radius": 14,
+  "crewBerths": 3,
+  "cargoTonnes": 6,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     4.4,
+     -0.2,
+     -11.2
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -4.0,
+     -1.4,
+     -9.8
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     0,
+     -2.0,
+     -10.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     5.0,
+     0.4,
+     -3.0
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-2-1",
+   "bg-plant-2-2",
+   "bg-shield-2-1",
+   "bg-sensor-2-2",
+   "bg-harpoon-2-1",
+   "bg-harpoon-2-1",
+   "bg-scrap-2-1",
+   "bg-scrap-1-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     6.6,
+     3.6
+    ],
+    "front": [
+     4.6,
+     2.8
+    ],
+    "length": 18,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -11
+    ],
+    "back": [
+     3.6,
+     2.4
+    ],
+    "front": [
+     0.5,
+     0.6
+    ],
+    "length": 6.5,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     0,
+     2.0,
+     -5.0
+    ],
+    "back": [
+     2.6,
+     1.0
+    ],
+    "front": [
+     1.6,
+     0.6
+    ],
+    "length": 5,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     2.15,
+     -7.55
+    ],
+    "back": [
+     1.4,
+     0.3
+    ],
+    "front": [
+     1.4,
+     0.3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     6.5,
+     0.2,
+     3.0
+    ],
+    "back": [
+     8.0,
+     0.8
+    ],
+    "front": [
+     3.2,
+     0.7
+    ],
+    "length": 7.0,
+    "color": "#c8b04a",
+    "skew": [
+     1.2,
+     0
+    ]
+   },
+   {
+    "position": [
+     -7.0,
+     -0.3,
+     2.0
+    ],
+    "back": [
+     9.0,
+     0.8
+    ],
+    "front": [
+     3.6,
+     0.7
+    ],
+    "length": 8.0,
+    "color": "#252220",
+    "skew": [
+     -1.4,
+     0
+    ]
+   },
+   {
+    "position": [
+     4.4,
+     -0.2,
+     -6.0
+    ],
+    "back": [
+     1.0,
+     1.0
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 10.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     -4.0,
+     -1.4,
+     -5.0
+    ],
+    "back": [
+     1.2,
+     1.2
+    ],
+    "front": [
+     0.9,
+     0.9
+    ],
+    "length": 9.0,
+    "color": "#c9c9bd"
+   },
+   {
+    "position": [
+     0,
+     -2.0,
+     -6.0
+    ],
+    "back": [
+     2.0,
+     1.0
+    ],
+    "front": [
+     1.6,
+     0.8
+    ],
+    "length": 8.0,
+    "color": "#a63a36"
+   },
+   {
+    "position": [
+     -2.0,
+     2.0,
+     4.0
+    ],
+    "back": [
+     1.6,
+     2.4
+    ],
+    "front": [
+     1.6,
+     2.0
+    ],
+    "length": 5.0,
+    "color": "#3f6a9c"
+   },
+   {
+    "position": [
+     2.2,
+     2.0,
+     6.0
+    ],
+    "back": [
+     0.4,
+     2.6
+    ],
+    "front": [
+     0.3,
+     1.2
+    ],
+    "length": 4.0,
+    "color": "#c9702e",
+    "skew": [
+     0,
+     0.2
+    ]
+   },
+   {
+    "position": [
+     0,
+     0,
+     11.5
+    ],
+    "back": [
+     6.4,
+     3.8
+    ],
+    "front": [
+     4.6,
+     3.0
+    ],
+    "length": 3,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     2.0,
+     0.2,
+     14.2
+    ],
+    "back": [
+     3.2,
+     2.8
+    ],
+    "front": [
+     2.5600000000000005,
+     2.2399999999999998
+    ],
+    "length": 3.4,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     2.0,
+     0.2,
+     15.95
+    ],
+    "back": [
+     2.2399999999999998,
+     1.9599999999999997
+    ],
+    "front": [
+     2.2399999999999998,
+     1.9599999999999997
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -2.2,
+     -0.4,
+     13.5
+    ],
+    "back": [
+     2.4,
+     2.2
+    ],
+    "front": [
+     1.92,
+     1.7600000000000002
+    ],
+    "length": 2.6,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -2.2,
+     -0.4,
+     14.850000000000001
+    ],
+    "back": [
+     1.68,
+     1.54
+    ],
+    "front": [
+     1.68,
+     1.54
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "bg-wrecktug",
+  "name": "Wrecktug",
+  "builder": "breakers-guild",
+  "class": "miner",
+  "description": "A salvage tug with a grapple arm on the nose, a cutting boom on the flank and a hold built from three older holds. Breakers live on it for months at a time.",
+  "price": 220000,
+  "mass": 130,
+  "baseSpeed": 70,
+  "pitchRate": 28,
+  "yawRate": 22,
+  "rollRate": 48,
+  "hullPoints": 420,
+  "radius": 20,
+  "crewBerths": 4,
+  "cargoTonnes": 70,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     5.5,
+     -1.8,
+     -16.5
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   },
+   {
+    "type": "utility",
+    "size": 2
+   },
+   {
+    "type": "utility",
+    "size": 2
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-2-2",
+   "bg-plant-2-2",
+   "bg-shield-2-1",
+   "bg-sensor-1-2",
+   "bg-scrap-1-2",
+   "bg-rack-3-1",
+   "bg-rack-3-1",
+   "bg-salvage-grapple-2",
+   "bg-wreck-cutter"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     12.0,
+     7.0
+    ],
+    "front": [
+     9.0,
+     6.0
+    ],
+    "length": 22,
+    "color": "#c8b04a"
+   },
+   {
+    "position": [
+     0,
+     -0.5,
+     -15.0
+    ],
+    "back": [
+     6.5,
+     4.5
+    ],
+    "front": [
+     2.6,
+     2.2
+    ],
+    "length": 8,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     0,
+     3.6,
+     -9.0
+    ],
+    "back": [
+     4.0,
+     1.8
+    ],
+    "front": [
+     3.0,
+     1.2
+    ],
+    "length": 6,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     3.9,
+     -12.1
+    ],
+    "back": [
+     2.4,
+     0.3
+    ],
+    "front": [
+     2.4,
+     0.3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     16.5
+    ],
+    "back": [
+     13.0,
+     7.5
+    ],
+    "front": [
+     10.0,
+     6.0
+    ],
+    "length": 7,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     7.5,
+     -1.8,
+     -8.0
+    ],
+    "back": [
+     1.2,
+     1.2
+    ],
+    "front": [
+     1.2,
+     1.2
+    ],
+    "length": 12.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     7.5,
+     -1.8,
+     -15.0
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 3.0,
+    "color": "#c9702e"
+   },
+   {
+    "position": [
+     -8.5,
+     0.0,
+     -4.0
+    ],
+    "back": [
+     6.0,
+     6.0
+    ],
+    "front": [
+     6.0,
+     6.0
+    ],
+    "length": 12,
+    "color": "#3f6a9c"
+   },
+   {
+    "position": [
+     -3.0,
+     -3.6,
+     6.0
+    ],
+    "back": [
+     4.0,
+     2.0
+    ],
+    "front": [
+     4.0,
+     2.0
+    ],
+    "length": 10,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     6.0,
+     3.8,
+     6.0
+    ],
+    "back": [
+     4.0,
+     3.0
+    ],
+    "front": [
+     4.0,
+     3.0
+    ],
+    "length": 8,
+    "color": "#3d8a80"
+   },
+   {
+    "position": [
+     -7.8,
+     3.0,
+     6.0
+    ],
+    "back": [
+     0.5,
+     0.5
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 12,
+    "color": "#c9c9bd",
+    "roll": 10
+   },
+   {
+    "position": [
+     2.0,
+     4.6,
+     -2.0
+    ],
+    "back": [
+     1.2,
+     3.0
+    ],
+    "front": [
+     0.8,
+     2.0
+    ],
+    "length": 4,
+    "color": "#a63a36"
+   },
+   {
+    "position": [
+     0,
+     -4.5,
+     -4.0
+    ],
+    "back": [
+     3.0,
+     1.6
+    ],
+    "front": [
+     3.0,
+     1.6
+    ],
+    "length": 8,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     3.4,
+     0.8,
+     20.0
+    ],
+    "back": [
+     4.2,
+     3.8
+    ],
+    "front": [
+     3.3600000000000003,
+     3.04
+    ],
+    "length": 4.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     3.4,
+     0.8,
+     22.05
+    ],
+    "back": [
+     2.94,
+     2.6599999999999997
+    ],
+    "front": [
+     2.94,
+     2.6599999999999997
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -3.8,
+     -0.8,
+     19.0
+    ],
+    "back": [
+     3.0,
+     3.0
+    ],
+    "front": [
+     2.4000000000000004,
+     2.4000000000000004
+    ],
+    "length": 3.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -3.8,
+     -0.8,
+     20.55
+    ],
+    "back": [
+     2.0999999999999996,
+     2.0999999999999996
+    ],
+    "front": [
+     2.0999999999999996,
+     2.0999999999999996
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     -2.2,
+     19.5
+    ],
+    "back": [
+     2.2,
+     2.0
+    ],
+    "front": [
+     1.7600000000000002,
+     1.6
+    ],
+    "length": 2.5,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     0,
+     -2.2,
+     20.8
+    ],
+    "back": [
+     1.54,
+     1.4
+    ],
+    "front": [
+     1.54,
+     1.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "bg-hulk",
+  "name": "Hulk",
+  "builder": "breakers-guild",
+  "class": "freighter",
+  "description": "A freighter assembled from three hulls of three different ages. It carries a lot, creaks all the time and is always one bad weld from becoming a story.",
+  "price": 480000,
+  "mass": 380,
+  "baseSpeed": 65,
+  "pitchRate": 18,
+  "yawRate": 14,
+  "rollRate": 32,
+  "hullPoints": 700,
+  "radius": 32,
+  "crewBerths": 4,
+  "cargoTonnes": 160,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 3
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     5.0,
+     0,
+     -22.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -5.0,
+     0,
+     -22.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   }
+  ],
+  "defaultLoadout": [
+   "bg-drive-3-1",
+   "bg-plant-3-2",
+   "bg-shield-3-1",
+   "bg-sensor-1-1",
+   "bg-scrap-1-2",
+   "bg-scrap-1-1",
+   "bg-rack-5-1",
+   "bg-rack-4-1",
+   "bg-rack-4-1",
+   "bg-rack-3-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     17,
+     10
+    ],
+    "front": [
+     14,
+     8
+    ],
+    "length": 40,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     0,
+     1,
+     -24
+    ],
+    "back": [
+     12,
+     7
+    ],
+    "front": [
+     4,
+     4
+    ],
+    "length": 8,
+    "color": "#c8b04a"
+   },
+   {
+    "position": [
+     0,
+     5.2,
+     -20
+    ],
+    "back": [
+     5.0,
+     2.4
+    ],
+    "front": [
+     3.5,
+     1.4
+    ],
+    "length": 7,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     0,
+     5.6,
+     -23.6
+    ],
+    "back": [
+     2.8,
+     0.3
+    ],
+    "front": [
+     2.8,
+     0.3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     26
+    ],
+    "back": [
+     19,
+     11
+    ],
+    "front": [
+     14,
+     7
+    ],
+    "length": 11,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -12.0,
+     -1.0,
+     -5.0
+    ],
+    "back": [
+     8.0,
+     10.0
+    ],
+    "front": [
+     8.0,
+     10.0
+    ],
+    "length": 18,
+    "color": "#3f6a9c"
+   },
+   {
+    "position": [
+     12.0,
+     2.0,
+     5.0
+    ],
+    "back": [
+     7.0,
+     7.0
+    ],
+    "front": [
+     7.0,
+     7.0
+    ],
+    "length": 16,
+    "color": "#c9c9bd"
+   },
+   {
+    "position": [
+     -11.0,
+     0.0,
+     14.0
+    ],
+    "back": [
+     6.0,
+     8.0
+    ],
+    "front": [
+     6.0,
+     8.0
+    ],
+    "length": 10,
+    "color": "#3d8a80"
+   },
+   {
+    "position": [
+     12.0,
+     -2.5,
+     -12.0
+    ],
+    "back": [
+     5.0,
+     5.0
+    ],
+    "front": [
+     5.0,
+     5.0
+    ],
+    "length": 8,
+    "color": "#c9702e"
+   },
+   {
+    "position": [
+     0,
+     6.5,
+     6.0
+    ],
+    "back": [
+     8.0,
+     4.0
+    ],
+    "front": [
+     8.0,
+     4.0
+    ],
+    "length": 14,
+    "color": "#c8b04a"
+   },
+   {
+    "position": [
+     0,
+     -6.0,
+     3.0
+    ],
+    "back": [
+     6.0,
+     3.0
+    ],
+    "front": [
+     6.0,
+     3.0
+    ],
+    "length": 20,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     7.0,
+     5.8,
+     14.0
+    ],
+    "back": [
+     0.8,
+     6.0
+    ],
+    "front": [
+     0.5,
+     3.0
+    ],
+    "length": 6,
+    "color": "#a63a36",
+    "skew": [
+     0,
+     0.3
+    ]
+   },
+   {
+    "position": [
+     -3.0,
+     5.4,
+     -8.0
+    ],
+    "back": [
+     0.6,
+     0.6
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 12,
+    "color": "#8a8d8c",
+    "roll": 40
+   },
+   {
+    "position": [
+     5.5,
+     1.0,
+     33.0
+    ],
+    "back": [
+     6.0,
+     5.0
+    ],
+    "front": [
+     4.800000000000001,
+     4.0
+    ],
+    "length": 5.0,
+    "color": "#252220"
+   },
+   {
+    "position": [
+     5.5,
+     1.0,
+     35.55
+    ],
+    "back": [
+     4.199999999999999,
+     3.5
+    ],
+    "front": [
+     4.199999999999999,
+     3.5
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -5.5,
+     -1.0,
+     32.0
+    ],
+    "back": [
+     5.0,
+     4.5
+    ],
+    "front": [
+     4.0,
+     3.6
+    ],
+    "length": 4.0,
+    "color": "#8a8d8c"
+   },
+   {
+    "position": [
+     -5.5,
+     -1.0,
+     34.05
+    ],
+    "back": [
+     3.5,
+     3.15
+    ],
+    "front": [
+     3.5,
+     3.15
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     -3.2,
+     31.5
+    ],
+    "back": [
+     3.0,
+     3.0
+    ],
+    "front": [
+     2.4000000000000004,
+     2.4000000000000004
+    ],
+    "length": 3.0,
+    "color": "#8f4a2c"
+   },
+   {
+    "position": [
+     0,
+     -3.2,
+     33.05
+    ],
+    "back": [
+     2.0999999999999996,
+     2.0999999999999996
+    ],
+    "front": [
+     2.0999999999999996,
+     2.0999999999999996
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ }
+]

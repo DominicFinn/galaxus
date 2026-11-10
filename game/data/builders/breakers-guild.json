@@ -1,0 +1,21 @@
+{
+  "id": "breakers-guild",
+  "name": "The Breakers' Guild",
+  "race": "human",
+  "region": "outer",
+  "culture": "Outer realm breakers",
+  "style": "Patchwork salvage builds: a known hull with parts of three others bolted on",
+  "bias": "Cheap and tougher than they look, but weakly shielded and unpredictable",
+  "statBias": {
+    "hull": 1.05,
+    "shields": 0.85,
+    "agility": 0.95
+  },
+  "palette": {
+    "hull": "#8a8d8c",
+    "accent": "#8f4a2c",
+    "trim": "#252220",
+    "glow": "#7dff6a"
+  },
+  "modelNameGrammar": "models-breakers-guild"
+}

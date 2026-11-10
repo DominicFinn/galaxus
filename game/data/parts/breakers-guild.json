@@ -1,0 +1,1265 @@
+[
+ {
+  "id": "bg-drive-1-1",
+  "name": "Rattler drive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 4400,
+  "description": "Pulled from a wrecked fighter and bench-tested twice. It runs rough but it runs.",
+  "stats": {
+   "thrust": 772,
+   "speedFactor": 0.98
+  }
+ },
+ {
+  "id": "bg-drive-1-2",
+  "name": "Rattler drive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 7000,
+  "description": "Rebuilt with a new injector and old gaskets. Settles after a minute.",
+  "stats": {
+   "thrust": 810,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "bg-drive-1-3",
+  "name": "Rattler drive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 11300,
+  "description": "Run hotter than the plate says. The nozzle is a different colour from the rest.",
+  "stats": {
+   "thrust": 875,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "bg-drive-2-1",
+  "name": "Clatterbox drive Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 13200,
+  "description": "A drive from a dead explorer with one cracked chamber taped off. Strong and a bit lopsided.",
+  "stats": {
+   "thrust": 1957,
+   "speedFactor": 0.98
+  }
+ },
+ {
+  "id": "bg-drive-2-2",
+  "name": "Clatterbox drive Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 21100,
+  "description": "Refurbished by a yard crew who did not sign the work. Smoother than it has any right to be.",
+  "stats": {
+   "thrust": 2052,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "bg-drive-2-3",
+  "name": "Clatterbox drive Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 33800,
+  "description": "Overbored and re-lined. Shakes the cabin on the climb and pulls like a mule.",
+  "stats": {
+   "thrust": 2216,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "bg-drive-3-1",
+  "name": "Wheezer drive Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 39600,
+  "description": "Cut out of a gunship hull with the mounts still welded on. Pulls well, vents oddly.",
+  "stats": {
+   "thrust": 4738,
+   "speedFactor": 0.98
+  }
+ },
+ {
+  "id": "bg-drive-3-2",
+  "name": "Wheezer drive Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 63400,
+  "description": "Refurbished and re-badged. The serial plates disagree with each other.",
+  "stats": {
+   "thrust": 4968,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "bg-drive-3-3",
+  "name": "Wheezer drive Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 101400,
+  "description": "Reconditioned past its rated life. Breakers swear by it and nobody else is asked.",
+  "stats": {
+   "thrust": 5365,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "bg-drive-4-1",
+  "name": "Bellower drive Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 118800,
+  "description": "Two half engines fused into one block. Loud, heavy and quite willing.",
+  "stats": {
+   "thrust": 9064,
+   "speedFactor": 0.98
+  }
+ },
+ {
+  "id": "bg-drive-4-2",
+  "name": "Bellower drive Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 190100,
+  "description": "Refurbished tug drive, with the tow-hook scars still on the casing.",
+  "stats": {
+   "thrust": 9504,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "bg-drive-4-3",
+  "name": "Bellower drive Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 304100,
+  "description": "A hauler drive pushed well past its limits. The warranty is a rumour.",
+  "stats": {
+   "thrust": 10264,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "bg-drive-5-1",
+  "name": "Long Cough drive Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 356400,
+  "description": "A freighter main drive dragged out of a derelict and made to work again.",
+  "stats": {
+   "thrust": 16480,
+   "speedFactor": 0.98
+  }
+ },
+ {
+  "id": "bg-drive-5-2",
+  "name": "Long Cough drive Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 570200,
+  "description": "Refurbished main drive with a bolted collar where the crack used to be.",
+  "stats": {
+   "thrust": 17280,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "bg-drive-5-3",
+  "name": "Long Cough drive Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 912400,
+  "description": "Stripped, rebuilt and over-fuelled. It will move anything and complain about all of it.",
+  "stats": {
+   "thrust": 18662,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "bg-plant-1-1",
+  "name": "Gutter plant Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 4200,
+  "description": "Salvaged cells wired in parallel. Charges quickly and holds less than it should.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 54,
+   "capacitorRecharge": 13.2
+  }
+ },
+ {
+  "id": "bg-plant-1-2",
+  "name": "Gutter plant Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 6700,
+  "description": "Refurbished and balanced against its own surges. The lights dim when the guns fire.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 59,
+   "capacitorRecharge": 14.5
+  }
+ },
+ {
+  "id": "bg-plant-1-3",
+  "name": "Gutter plant Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 10800,
+  "description": "Reconditioned reactor with a bypass nobody will explain. It flickers green at the casing.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 65,
+   "capacitorRecharge": 16.0
+  }
+ },
+ {
+  "id": "bg-plant-2-1",
+  "name": "Cobbled plant Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 12600,
+  "description": "Salvaged cells wired in parallel. Charges quickly and holds less than it should.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 81,
+   "capacitorRecharge": 18.7
+  }
+ },
+ {
+  "id": "bg-plant-2-2",
+  "name": "Cobbled plant Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 20200,
+  "description": "Refurbished and balanced against its own surges. The lights dim when the guns fire.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 89,
+   "capacitorRecharge": 20.6
+  }
+ },
+ {
+  "id": "bg-plant-2-3",
+  "name": "Cobbled plant Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 32300,
+  "description": "Reconditioned reactor with a bypass nobody will explain. It flickers green at the casing.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 98,
+   "capacitorRecharge": 22.6
+  }
+ },
+ {
+  "id": "bg-plant-3-1",
+  "name": "Lumpen plant Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 37800,
+  "description": "Salvaged cells wired in parallel. Charges quickly and holds less than it should.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 122,
+   "capacitorRecharge": 26.4
+  }
+ },
+ {
+  "id": "bg-plant-3-2",
+  "name": "Lumpen plant Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 60500,
+  "description": "Refurbished and balanced against its own surges. The lights dim when the guns fire.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 134,
+   "capacitorRecharge": 29.0
+  }
+ },
+ {
+  "id": "bg-plant-3-3",
+  "name": "Lumpen plant Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 96800,
+  "description": "Reconditioned reactor with a bypass nobody will explain. It flickers green at the casing.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 147,
+   "capacitorRecharge": 31.9
+  }
+ },
+ {
+  "id": "bg-plant-4-1",
+  "name": "Jury plant Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 113400,
+  "description": "Salvaged cells wired in parallel. Charges quickly and holds less than it should.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 182,
+   "capacitorRecharge": 37.4
+  }
+ },
+ {
+  "id": "bg-plant-4-2",
+  "name": "Jury plant Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 181400,
+  "description": "Refurbished and balanced against its own surges. The lights dim when the guns fire.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 200,
+   "capacitorRecharge": 41.1
+  }
+ },
+ {
+  "id": "bg-plant-4-3",
+  "name": "Jury plant Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 290300,
+  "description": "Reconditioned reactor with a bypass nobody will explain. It flickers green at the casing.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 220,
+   "capacitorRecharge": 45.3
+  }
+ },
+ {
+  "id": "bg-plant-5-1",
+  "name": "Patchwork plant Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 340200,
+  "description": "Salvaged cells wired in parallel. Charges quickly and holds less than it should.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 274,
+   "capacitorRecharge": 52.8
+  }
+ },
+ {
+  "id": "bg-plant-5-2",
+  "name": "Patchwork plant Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 544300,
+  "description": "Refurbished and balanced against its own surges. The lights dim when the guns fire.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 301,
+   "capacitorRecharge": 58.1
+  }
+ },
+ {
+  "id": "bg-plant-5-3",
+  "name": "Patchwork plant Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 870900,
+  "description": "Reconditioned reactor with a bypass nobody will explain. It flickers green at the casing.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 331,
+   "capacitorRecharge": 63.9
+  }
+ },
+ {
+  "id": "bg-shield-1-1",
+  "name": "Tarp shield Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 3900,
+  "description": "Hull plate fields wired to a salvaged emitter. Soaks a lot and takes its time to come back.",
+  "stats": {
+   "capacity": 84,
+   "recharge": 5.5,
+   "rechargeDelay": 4.2
+  }
+ },
+ {
+  "id": "bg-shield-1-2",
+  "name": "Tarp shield Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 6200,
+  "description": "Refurbished emitter ring. Holds well and sulks after a hit.",
+  "stats": {
+   "capacity": 92,
+   "recharge": 6.0,
+   "rechargeDelay": 4.1
+  }
+ },
+ {
+  "id": "bg-shield-1-3",
+  "name": "Tarp shield Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 10000,
+  "description": "Reconditioned and over-driven. Deep reserve, slow to recover, loud when it fails.",
+  "stats": {
+   "capacity": 102,
+   "recharge": 6.6,
+   "rechargeDelay": 4.0
+  }
+ },
+ {
+  "id": "bg-shield-2-1",
+  "name": "Sheet shield Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 11700,
+  "description": "Hull plate fields wired to a salvaged emitter. Soaks a lot and takes its time to come back.",
+  "stats": {
+   "capacity": 189,
+   "recharge": 12.3,
+   "rechargeDelay": 4.2
+  }
+ },
+ {
+  "id": "bg-shield-2-2",
+  "name": "Sheet shield Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 18700,
+  "description": "Refurbished emitter ring. Holds well and sulks after a hit.",
+  "stats": {
+   "capacity": 208,
+   "recharge": 13.5,
+   "rechargeDelay": 4.1
+  }
+ },
+ {
+  "id": "bg-shield-2-3",
+  "name": "Sheet shield Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 30000,
+  "description": "Reconditioned and over-driven. Deep reserve, slow to recover, loud when it fails.",
+  "stats": {
+   "capacity": 229,
+   "recharge": 14.9,
+   "rechargeDelay": 4.0
+  }
+ },
+ {
+  "id": "bg-shield-3-1",
+  "name": "Bulkhead shield Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 35100,
+  "description": "Hull plate fields wired to a salvaged emitter. Soaks a lot and takes its time to come back.",
+  "stats": {
+   "capacity": 399,
+   "recharge": 25.9,
+   "rechargeDelay": 4.2
+  }
+ },
+ {
+  "id": "bg-shield-3-2",
+  "name": "Bulkhead shield Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 56200,
+  "description": "Refurbished emitter ring. Holds well and sulks after a hit.",
+  "stats": {
+   "capacity": 439,
+   "recharge": 28.5,
+   "rechargeDelay": 4.1
+  }
+ },
+ {
+  "id": "bg-shield-3-3",
+  "name": "Bulkhead shield Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 89900,
+  "description": "Reconditioned and over-driven. Deep reserve, slow to recover, loud when it fails.",
+  "stats": {
+   "capacity": 483,
+   "recharge": 31.4,
+   "rechargeDelay": 4.0
+  }
+ },
+ {
+  "id": "bg-shield-4-1",
+  "name": "Barn Door shield Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 105300,
+  "description": "Hull plate fields wired to a salvaged emitter. Soaks a lot and takes its time to come back.",
+  "stats": {
+   "capacity": 735,
+   "recharge": 47.8,
+   "rechargeDelay": 4.2
+  }
+ },
+ {
+  "id": "bg-shield-4-2",
+  "name": "Barn Door shield Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 168500,
+  "description": "Refurbished emitter ring. Holds well and sulks after a hit.",
+  "stats": {
+   "capacity": 809,
+   "recharge": 52.6,
+   "rechargeDelay": 4.1
+  }
+ },
+ {
+  "id": "bg-shield-4-3",
+  "name": "Barn Door shield Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 269600,
+  "description": "Reconditioned and over-driven. Deep reserve, slow to recover, loud when it fails.",
+  "stats": {
+   "capacity": 889,
+   "recharge": 57.8,
+   "rechargeDelay": 4.0
+  }
+ },
+ {
+  "id": "bg-shield-5-1",
+  "name": "Scrap Wall shield Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 315900,
+  "description": "Hull plate fields wired to a salvaged emitter. Soaks a lot and takes its time to come back.",
+  "stats": {
+   "capacity": 1260,
+   "recharge": 81.9,
+   "rechargeDelay": 4.2
+  }
+ },
+ {
+  "id": "bg-shield-5-2",
+  "name": "Scrap Wall shield Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 505400,
+  "description": "Refurbished emitter ring. Holds well and sulks after a hit.",
+  "stats": {
+   "capacity": 1386,
+   "recharge": 90.1,
+   "rechargeDelay": 4.1
+  }
+ },
+ {
+  "id": "bg-shield-5-3",
+  "name": "Scrap Wall shield Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 808700,
+  "description": "Reconditioned and over-driven. Deep reserve, slow to recover, loud when it fails.",
+  "stats": {
+   "capacity": 1525,
+   "recharge": 99.1,
+   "rechargeDelay": 4.0
+  }
+ },
+ {
+  "id": "bg-sensor-1-1",
+  "name": "Whisker sensor Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 2300,
+  "description": "A salvaged scanner head on a swivel. Sees far enough and not much more.",
+  "stats": {
+   "range": 5000
+  }
+ },
+ {
+  "id": "bg-sensor-1-2",
+  "name": "Whisker sensor Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 3700,
+  "description": "Refurbished dish with a patched feed. The range figure is optimistic.",
+  "stats": {
+   "range": 6000
+  }
+ },
+ {
+  "id": "bg-sensor-1-3",
+  "name": "Whisker sensor Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 5900,
+  "description": "Reconditioned array with a second dish bolted on for luck.",
+  "stats": {
+   "range": 7000
+  }
+ },
+ {
+  "id": "bg-sensor-2-1",
+  "name": "Bent dish sensor Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 6900,
+  "description": "A salvaged scanner head on a swivel. Sees far enough and not much more.",
+  "stats": {
+   "range": 8000
+  }
+ },
+ {
+  "id": "bg-sensor-2-2",
+  "name": "Bent dish sensor Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 11000,
+  "description": "Refurbished dish with a patched feed. The range figure is optimistic.",
+  "stats": {
+   "range": 9000
+  }
+ },
+ {
+  "id": "bg-sensor-2-3",
+  "name": "Bent dish sensor Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 17700,
+  "description": "Reconditioned array with a second dish bolted on for luck.",
+  "stats": {
+   "range": 10000
+  }
+ },
+ {
+  "id": "bg-sensor-3-1",
+  "name": "Mast sensor Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 20700,
+  "description": "A salvaged scanner head on a swivel. Sees far enough and not much more.",
+  "stats": {
+   "range": 11000
+  }
+ },
+ {
+  "id": "bg-sensor-3-2",
+  "name": "Mast sensor Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 33100,
+  "description": "Refurbished dish with a patched feed. The range figure is optimistic.",
+  "stats": {
+   "range": 12000
+  }
+ },
+ {
+  "id": "bg-sensor-3-3",
+  "name": "Mast sensor Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 53000,
+  "description": "Reconditioned array with a second dish bolted on for luck.",
+  "stats": {
+   "range": 13000
+  }
+ },
+ {
+  "id": "bg-scrap-1-1",
+  "name": "Scrap cannon S1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 3600,
+  "description": "A cannon welded from wreck barrels. It fires scrap, and the scrap hurts.",
+  "stats": {
+   "damage": 9.0,
+   "fireRate": 4.2,
+   "energyPerShot": 2.6,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-1-1",
+  "name": "Harpoon slug S1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 4200,
+  "description": "A winch gun with a barbed slug on a stub of cable. The cable is mostly for show.",
+  "stats": {
+   "damage": 36.0,
+   "fireRate": 1.0,
+   "energyPerShot": 4.4,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-1-2",
+  "name": "Scrap cannon S1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 5800,
+  "description": "Refurbished breech and a new firing pin. Still fires scrap.",
+  "stats": {
+   "damage": 9.9,
+   "fireRate": 4.2,
+   "energyPerShot": 2.6,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-1-2",
+  "name": "Harpoon slug S1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 6700,
+  "description": "Refurbished winch and a straighter rail. Hits what it aims at, mostly.",
+  "stats": {
+   "damage": 39.6,
+   "fireRate": 1.0,
+   "energyPerShot": 4.4,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-1-3",
+  "name": "Scrap cannon S1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 9200,
+  "description": "Reconditioned and over-charged. Sprays hot slag in a wide, ugly cone.",
+  "stats": {
+   "damage": 10.9,
+   "fireRate": 4.2,
+   "energyPerShot": 2.6,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-1-3",
+  "name": "Harpoon slug S1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 10800,
+  "description": "Reconditioned with a magnetic rail from a mining rig. The slugs punch right through light plate.",
+  "stats": {
+   "damage": 43.6,
+   "fireRate": 1.0,
+   "energyPerShot": 4.4,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-2-1",
+  "name": "Scrap cannon S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 10800,
+  "description": "A cannon welded from wreck barrels. It fires scrap, and the scrap hurts.",
+  "stats": {
+   "damage": 18.0,
+   "fireRate": 3.36,
+   "energyPerShot": 4.7,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-2-1",
+  "name": "Harpoon slug S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 12600,
+  "description": "A winch gun with a barbed slug on a stub of cable. The cable is mostly for show.",
+  "stats": {
+   "damage": 72.0,
+   "fireRate": 0.8,
+   "energyPerShot": 7.9,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-2-2",
+  "name": "Scrap cannon S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 17300,
+  "description": "Refurbished breech and a new firing pin. Still fires scrap.",
+  "stats": {
+   "damage": 19.8,
+   "fireRate": 3.36,
+   "energyPerShot": 4.7,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-2-2",
+  "name": "Harpoon slug S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 20200,
+  "description": "Refurbished winch and a straighter rail. Hits what it aims at, mostly.",
+  "stats": {
+   "damage": 79.2,
+   "fireRate": 0.8,
+   "energyPerShot": 7.9,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-2-3",
+  "name": "Scrap cannon S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 27600,
+  "description": "Reconditioned and over-charged. Sprays hot slag in a wide, ugly cone.",
+  "stats": {
+   "damage": 21.8,
+   "fireRate": 3.36,
+   "energyPerShot": 4.7,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-2-3",
+  "name": "Harpoon slug S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 32300,
+  "description": "Reconditioned with a magnetic rail from a mining rig. The slugs punch right through light plate.",
+  "stats": {
+   "damage": 87.1,
+   "fireRate": 0.8,
+   "energyPerShot": 7.9,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-3-1",
+  "name": "Scrap cannon S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 32400,
+  "description": "A cannon welded from wreck barrels. It fires scrap, and the scrap hurts.",
+  "stats": {
+   "damage": 36.0,
+   "fireRate": 2.69,
+   "energyPerShot": 8.4,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-3-1",
+  "name": "Harpoon slug S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 37800,
+  "description": "A winch gun with a barbed slug on a stub of cable. The cable is mostly for show.",
+  "stats": {
+   "damage": 144.0,
+   "fireRate": 0.64,
+   "energyPerShot": 14.3,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-3-2",
+  "name": "Scrap cannon S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 51800,
+  "description": "Refurbished breech and a new firing pin. Still fires scrap.",
+  "stats": {
+   "damage": 39.6,
+   "fireRate": 2.69,
+   "energyPerShot": 8.4,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-3-2",
+  "name": "Harpoon slug S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "breakers-guild",
+  "price": 60500,
+  "description": "Refurbished winch and a straighter rail. Hits what it aims at, mostly.",
+  "stats": {
+   "damage": 158.4,
+   "fireRate": 0.64,
+   "energyPerShot": 14.3,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-scrap-3-3",
+  "name": "Scrap cannon S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 82900,
+  "description": "Reconditioned and over-charged. Sprays hot slag in a wide, ugly cone.",
+  "stats": {
+   "damage": 43.6,
+   "fireRate": 2.69,
+   "energyPerShot": 8.4,
+   "projectileSpeed": 650,
+   "range": 1300
+  },
+  "color": "#ffa63a"
+ },
+ {
+  "id": "bg-harpoon-3-3",
+  "name": "Harpoon slug S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "breakers-guild",
+  "price": 96800,
+  "description": "Reconditioned with a magnetic rail from a mining rig. The slugs punch right through light plate.",
+  "stats": {
+   "damage": 174.2,
+   "fireRate": 0.64,
+   "energyPerShot": 14.3,
+   "projectileSpeed": 520,
+   "range": 2600
+  },
+  "color": "#d8e0cc"
+ },
+ {
+  "id": "bg-rack-1-1",
+  "name": "Scrap crate rack S1",
+  "type": "cargo",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 1200,
+  "description": "Salvaged cargo frames welded into a hold and braced with whatever was nearby.",
+  "stats": {
+   "tonnes": 8
+  }
+ },
+ {
+  "id": "bg-rack-2-1",
+  "name": "Scrap crate rack S2",
+  "type": "cargo",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 3600,
+  "description": "Salvaged cargo frames welded into a hold and braced with whatever was nearby.",
+  "stats": {
+   "tonnes": 16
+  }
+ },
+ {
+  "id": "bg-rack-3-1",
+  "name": "Scrap crate rack S3",
+  "type": "cargo",
+  "size": 3,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 10800,
+  "description": "Salvaged cargo frames welded into a hold and braced with whatever was nearby.",
+  "stats": {
+   "tonnes": 32
+  }
+ },
+ {
+  "id": "bg-rack-4-1",
+  "name": "Scrap crate rack S4",
+  "type": "cargo",
+  "size": 4,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 32400,
+  "description": "Salvaged cargo frames welded into a hold and braced with whatever was nearby.",
+  "stats": {
+   "tonnes": 64
+  }
+ },
+ {
+  "id": "bg-rack-5-1",
+  "name": "Scrap crate rack S5",
+  "type": "cargo",
+  "size": 5,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 97200,
+  "description": "Salvaged cargo frames welded into a hold and braced with whatever was nearby.",
+  "stats": {
+   "tonnes": 128
+  }
+ },
+ {
+  "id": "bg-smuggler-compartment-1",
+  "name": "Smuggler's compartment",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 9500,
+  "description": "A sealed void behind a false bulkhead. Cargo scanners read it as hull.",
+  "stats": {
+   "hiddenCargoTonnes": 6,
+   "scanResistance": 0.6
+  }
+ },
+ {
+  "id": "bg-smuggler-compartment-2",
+  "name": "Smuggler's compartment, large",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 24000,
+  "description": "A fuel tank that has never held fuel. Big enough for a pallet and a stowaway.",
+  "stats": {
+   "hiddenCargoTonnes": 16,
+   "scanResistance": 0.75
+  }
+ },
+ {
+  "id": "bg-salvage-grapple",
+  "name": "Salvage grapple",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 8500,
+  "description": "A cable winch with a four-clawed hook. Hauls drifting cargo and wreckage aboard from a distance.",
+  "stats": {
+   "grappleRange": 600,
+   "salvageYield": 1.25
+  }
+ },
+ {
+  "id": "bg-salvage-grapple-2",
+  "name": "Salvage grapple, heavy",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 21000,
+  "description": "Two winches, a magnetic clamp and a lot of faith. Drags whole hull sections into the hold.",
+  "stats": {
+   "grappleRange": 900,
+   "salvageYield": 1.5
+  }
+ },
+ {
+  "id": "bg-wreck-cutter",
+  "name": "Wreck cutter",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 19000,
+  "description": "A plasma lance on a boom. Slices wrecks into hold-sized pieces and pays out more than the same wreck would otherwise.",
+  "stats": {
+   "cuttingRate": 1.5,
+   "wreckYield": 1.3
+  }
+ },
+ {
+  "id": "bg-patch-kit",
+  "name": "Patch kit",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 3800,
+  "description": "Plate offcuts, sealant and a welding torch on a bracket. Repairs hull damage in flight, badly.",
+  "stats": {
+   "repairPerSecond": 1.2
+  }
+ },
+ {
+  "id": "bg-spare-plate",
+  "name": "Spare plate",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "builder": "breakers-guild",
+  "price": 9000,
+  "description": "Another ship's armour bolted over the first ship's armour. Adds hull points and mass.",
+  "stats": {
+   "hullPoints": 50,
+   "massTonnes": 3
+  }
+ }
+]
