@@ -32,6 +32,8 @@ You fly inside the real system. Planets are drawn at their true apparent size an
 
 1,400 systems in four spiral arms, with nine great powers and about 160 smaller factions, criminals among them. Most of it starts empty. The galaxy runs day by day whether you're watching or not: factions survey and claim new systems, borders flare into disputes that can climb to war, and famines, mining rushes, plagues and stranger things at the rim break out and make the news.
 
+Those 1,400 systems are the ones joined by jump gates. Between them lie about a billion more stars, generated from the galaxy seed when you look at them and following the same arms, core and rim. Zoom right in on the galaxy map and they appear, coloured by star type, with a ring showing your drive's reach. Any star inside the ring is a direct jump away. An explorer hull reaches 24 light years, a courier about 12 and a fighter barely 6, so getting far off the gate network needs the right ship. Each star you visit is added to your save; the rest are regenerated on demand.
+
 ![The whole galaxy, coloured by owner](docs/screenshots/galaxy-map.png)
 
 Travel is by the old elf gate network. Pick a destination and the map plots the route; days pass as you fly.

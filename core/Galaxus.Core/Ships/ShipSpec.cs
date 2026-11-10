@@ -41,6 +41,8 @@ public sealed class ShipSpec
     public int Pips { get; init; }
     public float SensorRange { get; init; }
     public float Radius { get; init; }
+    /// <summary>How far the jump drive reaches between stars, in light years.</summary>
+    public float JumpRangeLy { get; init; }
     public IReadOnlyList<WeaponSpec> Weapons { get; init; } = [];
 }
 
@@ -97,6 +99,11 @@ public static class ShipFactory
             Pips = (int)Sum("powerPlant", "pips"),
             SensorRange = MathF.Max(Sum("sensor", "range") * Bias(StatKeys.Sensors), 2000f),
             Radius = hull.Radius,
+            // Explorers are built for long jumps, fighters barely leave their system.
+            JumpRangeLy = hull.Class switch
+            {
+                "explorer" => 24, "courier" => 12, "freighter" => 9, "miner" => 8, "gunship" => 7, "fighter" => 6, _ => 0,
+            } * (0.9f + 0.1f * speedFactor) * Bias(StatKeys.Speed),
             Weapons = weapons,
         };
     }

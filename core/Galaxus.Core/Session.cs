@@ -1,3 +1,4 @@
+using System.Numerics;
 using Galaxus.Core.Content;
 using Galaxus.Core.Galaxy;
 using Galaxus.Core.Missions;
@@ -49,12 +50,26 @@ public sealed class Session
         return session;
     }
 
-    /// <summary>Rebuilds a saved galaxy: same seed, simulated forward to the saved day.</summary>
-    public static Session Restore(ContentDatabase db, ulong seed, GalaxySettings settings, int day)
+    /// <summary>Rebuilds a saved galaxy: same seed, simulated forward to the saved day, with the same deep-space stars registered.</summary>
+    public static Session Restore(ContentDatabase db, ulong seed, GalaxySettings settings, int day, IEnumerable<ulong>? deepKeys = null)
     {
         var session = new Session(db, GalaxyGenerator.Generate(db, seed, settings), settings);
+        foreach (var key in deepKeys ?? []) session.Galaxy.Register(key);
         session.Simulation.Run(day);
         return session;
+    }
+
+    /// <summary>Stars within jump range of where you are, gate systems included, nearest first.</summary>
+    public List<(string Name, float DistanceLy, ulong DeepKey, int SystemId)> InJumpRange()
+    {
+        var here = DeepSpace.PositionLy(Here);
+        float range = JumpRangeLy;
+        var stars = DeepSpace.Near(Galaxy.Seed, here, range)
+            .Select(s => (DeepSpace.Name(s.Star.Key), s.DistanceLy, s.Star.Key, Galaxy.IsRegistered(s.Star.Key) ? Galaxy.Register(s.Star.Key) : -1));
+        var gates = Galaxy.Systems.Where(s => s.IsGateSystem && s.Id != Here.Id)
+            .Select(s => (s.Name, Vector3.Distance(DeepSpace.PositionLy(s), here), 0UL, s.Id))
+            .Where(s => s.Item2 <= range);
+        return stars.Concat(gates).OrderBy(s => s.Item2).ToList();
     }
 
     /// <summary>The jobs on offer here, with any haggled pay applied and withdrawn jobs removed.</summary>
@@ -79,8 +94,35 @@ public sealed class Session
             .ToList();
     }
 
-    /// <summary>Travels to a system along the quickest route. The galaxy moves on while you fly.</summary>
+    public float JumpRangeLy => Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpRangeLy;
+
+    /// <summary>Days for a direct jump: one day, plus one for every eight light years.</summary>
+    public static int JumpDays(float distanceLy) => 1 + (int)(distanceLy / 8f);
+
+    /// <summary>
+    /// Travels somewhere. Gate systems are reached by the quickest gate route. Anywhere else
+    /// (and any gate system within range) can be reached by a direct jump if it's within your
+    /// jump drive's range. Returns null if neither works.
+    /// </summary>
     public JumpReport? Jump(int destination)
+    {
+        float distance = Galaxy.DistanceLy(Career.SystemId, destination);
+        bool gateRoute = Here.IsGateSystem && Galaxy.Systems[destination].IsGateSystem;
+        if (!gateRoute || distance <= JumpRangeLy) return distance <= JumpRangeLy ? DirectJump(destination, distance) : null;
+        return GateJump(destination);
+    }
+
+    private JumpReport DirectJump(int destination, float distanceLy)
+    {
+        int days = JumpDays(distanceLy);
+        int dayBefore = Galaxy.Day;
+        Simulation.Run(days);
+        Career.SystemId = destination;
+        var results = Career.Settle(Galaxy);
+        return new JumpReport(days, results, Galaxy.News.Where(n => n.Day > dayBefore).ToList());
+    }
+
+    private JumpReport? GateJump(int destination)
     {
         var route = Galaxy.Route(Career.SystemId, destination);
         if (route.Count < 2) return null;

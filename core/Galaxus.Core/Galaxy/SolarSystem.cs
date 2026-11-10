@@ -173,6 +173,9 @@ public static class SolarSystems
         return new SolarSystem(star, bodies, stations);
     }
 
+    /// <summary>The star a system will have, without building its planets. Cheap enough for maps.</summary>
+    public static Star StarFor(ulong systemSeed) => MakeStar(new Rng(systemSeed ^ 0x501A4).Fork("star"));
+
     private static Star MakeStar(Rng rng)
     {
         float roll = rng.NextFloat();

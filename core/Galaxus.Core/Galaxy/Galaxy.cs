@@ -31,6 +31,12 @@ public sealed class StarSystem
     public List<int> Gates { get; } = [];
 
     public bool Settled => State is SystemState.Outpost or SystemState.Colony;
+
+    /// <summary>For deep-space stars: their key in DeepSpace. Zero for gate systems.</summary>
+    public ulong DeepKey { get; init; }
+    /// <summary>For deep-space stars: their position in light years, including height above the plane.</summary>
+    public System.Numerics.Vector3 PositionLyCache { get; init; }
+    public bool IsGateSystem => DeepKey == 0;
 }
 
 public sealed class Faction
@@ -97,6 +103,40 @@ public sealed class Galaxy
     public int Day { get; set; }
 
     public const int MaxNews = 400;
+
+    /// <summary>Deep-space stars that have been visited or looked at, in the order they were registered.</summary>
+    public List<ulong> DeepKeys { get; } = [];
+    private readonly Dictionary<ulong, int> _deepIds = [];
+
+    /// <summary>
+    /// Adds a deep-space star to the galaxy so it can be travelled to, and returns its id. Calling
+    /// again with the same key returns the same id. Saves store the keys in order, so ids survive loading.
+    /// </summary>
+    public int Register(ulong key)
+    {
+        if (_deepIds.TryGetValue(key, out int id)) return id;
+        var star = DeepSpace.Find(Seed, key);
+        var system = new StarSystem
+        {
+            Id = Systems.Count,
+            Name = DeepSpace.Name(key),
+            Position = new System.Numerics.Vector2(star.PositionLy.X / DeepSpace.LyPerUnit, star.PositionLy.Y / DeepSpace.LyPerUnit),
+            PositionLyCache = star.PositionLy,
+            Region = DeepSpace.Region(star.PositionLy),
+            Arm = GalaxyGenerator.NearestArm(new System.Numerics.Vector2(star.PositionLy.X, star.PositionLy.Y) / DeepSpace.LyPerUnit),
+            Seed = star.Seed,
+            DeepKey = key,
+        };
+        Systems.Add(system);
+        DeepKeys.Add(key);
+        _deepIds[key] = system.Id;
+        return system.Id;
+    }
+
+    public bool IsRegistered(ulong key) => _deepIds.ContainsKey(key);
+
+    public float DistanceLy(int a, int b) =>
+        Vector3.Distance(DeepSpace.PositionLy(Systems[a]), DeepSpace.PositionLy(Systems[b]));
 
     public Faction? OwnerOf(StarSystem system) => system.Owner >= 0 ? Factions[system.Owner] : null;
 

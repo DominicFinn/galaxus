@@ -23,6 +23,25 @@ public partial class GalaxyMap : Control
     private bool _dragging;
 
     private RichTextLabel _info = null!;
+    private readonly List<(Galaxus.Core.Galaxy.DeepStar Star, Vector2 Screen)> _visibleDeep = [];
+    /// <summary>Zoom (pixels per galaxy unit) at which nearby deep-space stars appear.</summary>
+    private const float DeepZoom = 180f;
+    private readonly Dictionary<(int, int), List<(Galaxus.Core.Galaxy.DeepStar Star, Color Colour)>> _columnCache = [];
+
+    private List<(Galaxus.Core.Galaxy.DeepStar Star, Color Colour)> CachedColumn(ulong seed, int cx, int cy)
+    {
+        if (_columnCache.TryGetValue((cx, cy), out var cached)) return cached;
+        if (_columnCache.Count > 6000) _columnCache.Clear();
+        var list = new List<(Galaxus.Core.Galaxy.DeepStar, Color)>();
+        foreach (var star in Galaxus.Core.Galaxy.DeepSpace.Column(seed, cx, cy))
+        {
+            var (colour, _, _, _) = PlanetFactory.StarLook(PlanetFactory.FromStar(Galaxus.Core.Galaxy.SolarSystems.StarFor(star.Seed).Class));
+            // Fainter for stars far above or below the plane, for a sense of depth.
+            colour.A = 0.9f - MathF.Abs(star.PositionLy.Z) / 150f;
+            list.Add((star, colour));
+        }
+        return _columnCache[(cx, cy)] = list;
+    }
     private Button _jumpButton = null!;
 
     public void Init(Session session, Action<int> jump, Action close)
@@ -73,7 +92,7 @@ public partial class GalaxyMap : Control
             case InputEventMouseButton { ButtonIndex: MouseButton.WheelUp or MouseButton.WheelDown, Pressed: true } wheel:
             {
                 var before = ToGalaxy(wheel.Position);
-                _zoom = Mathf.Clamp(_zoom * (wheel.ButtonIndex == MouseButton.WheelUp ? 1.25f : 0.8f), 0.12f, 8f);
+                _zoom = Mathf.Clamp(_zoom * (wheel.ButtonIndex == MouseButton.WheelUp ? 1.25f : 0.8f), 0.12f, 1200f);
                 var after = ToGalaxy(wheel.Position);
                 _centre += before - after; // keep the point under the cursor fixed
                 QueueRedraw();
@@ -83,7 +102,7 @@ public partial class GalaxyMap : Control
                 _dragging = drag.Pressed;
                 break;
             case InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true } click:
-                _selected = Nearest(click.Position);
+                _selected = Nearest(click.Position, register: true);
                 _route = _selected >= 0 ? _session.Galaxy.Route(_session.Career.SystemId, _selected) : [];
                 UpdateInfo();
                 QueueRedraw();
@@ -91,6 +110,7 @@ public partial class GalaxyMap : Control
             case InputEventMouseMotion motion:
                 if (_dragging) { _centre -= new NVector2(motion.Relative.X, motion.Relative.Y) / _zoom; QueueRedraw(); }
                 int hovered = Nearest(motion.Position);
+                if (hovered <= -1000) hovered = -1; // an unregistered deep star: only show it once clicked
                 if (hovered != _hovered) { _hovered = hovered; UpdateInfo(); QueueRedraw(); }
                 break;
         }
@@ -108,7 +128,8 @@ public partial class GalaxyMap : Control
         QueueRedraw();
     }
 
-    private int Nearest(Vector2 screen)
+    /// <summary>Nearest system to the cursor. A deep-space star is registered so it can be selected and jumped to.</summary>
+    private int Nearest(Vector2 screen, bool register = false)
     {
         int best = -1;
         float bestDistance = 8f;
@@ -117,6 +138,14 @@ public partial class GalaxyMap : Control
             float d = ToScreen(s.Position).DistanceTo(screen);
             if (d < bestDistance) { bestDistance = d; best = s.Id; }
         }
+        Galaxus.Core.Galaxy.DeepStar? deep = null;
+        foreach (var (star, at) in _visibleDeep)
+        {
+            float d = at.DistanceTo(screen);
+            if (d < bestDistance) { bestDistance = d; deep = star; best = -1; }
+        }
+        if (deep is { } found)
+            return register || _session.Galaxy.IsRegistered(found.Key) ? _session.Galaxy.Register(found.Key) : -1000 - _visibleDeep.FindIndex(v => v.Star.Key == found.Key);
         return best;
     }
 
@@ -134,6 +163,25 @@ public partial class GalaxyMap : Control
         }
 
         var s = galaxy.Systems[id];
+        float distanceLy = galaxy.DistanceLy(_session.Career.SystemId, id);
+        float range = _session.JumpRangeLy;
+        if (!s.IsGateSystem || !_session.Here.IsGateSystem)
+        {
+            var star = Galaxus.Core.Galaxy.SolarSystems.StarFor(s.Seed);
+            bool inRange = distanceLy <= range && id != _session.Career.SystemId;
+            _info.Text =
+                $"[color=#{Ui.Hex(Ui.Amber)}]{s.Name.ToUpperInvariant()}[/color]\n" +
+                (s.IsGateSystem ? "Gate system.\n" : $"Unexplored. {star.Description}.\n") +
+                $"{Capitalise(s.Region)}, {s.Arm} arm.\n" +
+                (id == _session.Career.SystemId ? "You are here." :
+                    $"{distanceLy:0.0} light years away.\n" + (inRange
+                        ? $"Within jump range ({Galaxus.Core.Session.JumpDays(distanceLy)} days)."
+                        : $"[color=#{Ui.Hex(Ui.Red)}]Out of range. Your drive reaches {range:0} ly.[/color]"));
+            bool canJumpDeep = _selected == id && inRange;
+            _jumpButton.Disabled = !canJumpDeep;
+            _jumpButton.Text = canJumpDeep ? $"Jump to {s.Name} ({Galaxus.Core.Session.JumpDays(distanceLy)} days)" : "Jump";
+            return;
+        }
         var owner = galaxy.OwnerOf(s);
         var events = galaxy.EventsIn(id).Select(e => _session.Db.Events.TryGetValue(e.EventId, out var d) ? d.Name : e.EventId);
         var route = id == _selected ? _route : galaxy.Route(_session.Career.SystemId, id);
@@ -148,11 +196,13 @@ public partial class GalaxyMap : Control
             (events.Any() ? $"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]\n" : "") +
             (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here.[/color]\n" : "") +
             string.Concat(_session.Career.KnownLeads.Where(l => l.EndsWith($":{id}")).Select(l => $"[color=#{Ui.Hex(Ui.Red)}]Ask around here for {galaxy.Factions[int.Parse(l.Split(':')[0])].Name}.[/color]\n")) +
-            (id == _session.Career.SystemId ? "You are here." : $"{route.Count - 1} jumps, {days} days.");
+            (id == _session.Career.SystemId ? "You are here." : $"{route.Count - 1} gates, {days} days. {distanceLy:N0} ly." +
+                (distanceLy <= range ? $" In jump range ({Galaxus.Core.Session.JumpDays(distanceLy)} days)." : ""));
 
-        bool canJump = _selected >= 0 && _selected != _session.Career.SystemId && _route.Count > 1;
+        bool canJump = _selected >= 0 && _selected != _session.Career.SystemId && (_route.Count > 1 || distanceLy <= range);
         _jumpButton.Disabled = !canJump;
-        _jumpButton.Text = canJump ? $"Jump to {galaxy.Systems[_selected].Name} ({galaxy.RouteDays(_route)} days)" : "Jump";
+        int jumpDays = distanceLy <= range ? Galaxus.Core.Session.JumpDays(distanceLy) : galaxy.RouteDays(_route);
+        _jumpButton.Text = canJump ? $"Jump to {galaxy.Systems[_selected].Name} ({jumpDays} days)" : "Jump";
     }
 
     private string Legend() => string.Join("\n", _session.Galaxy.Factions.Where(f => f.Tier == "great")
@@ -175,6 +225,8 @@ public partial class GalaxyMap : Control
         foreach (var g in s.Gates)
             if (g > s.Id) DrawLine(ToScreen(s.Position), ToScreen(galaxy.Systems[g].Position), gateColour);
 
+        if (_selected >= 0 && _route.Count < 2 && _selected != _session.Career.SystemId)
+            DrawLine(ToScreen(_session.Here.Position), ToScreen(galaxy.Systems[_selected].Position), Ui.Green, 1.5f);
         for (int i = 0; i + 1 < _route.Count; i++)
             DrawLine(ToScreen(galaxy.Systems[_route[i]].Position), ToScreen(galaxy.Systems[_route[i + 1]].Position), Ui.Green, 2);
 
@@ -197,6 +249,29 @@ public partial class GalaxyMap : Control
                 var p = ToScreen(galaxy.Systems[id].Position);
                 DrawColoredPolygon([p + new Vector2(0, -dot - 4), p + new Vector2(dot + 4, 0), p + new Vector2(0, dot + 4), p + new Vector2(-dot - 4, 0)], new Color(Ui.Red, 0.55f));
             }
+
+        // Close in, the billions of stars between the gates come into view.
+        _visibleDeep.Clear();
+        if (_zoom >= DeepZoom)
+        {
+            float perLy = _zoom / Galaxus.Core.Galaxy.DeepSpace.LyPerUnit;
+            var topLeft = ToGalaxy(Vector2.Zero) * Galaxus.Core.Galaxy.DeepSpace.LyPerUnit;
+            var bottomRight = ToGalaxy(Size) * Galaxus.Core.Galaxy.DeepSpace.LyPerUnit;
+            float column = Galaxus.Core.Galaxy.DeepSpace.ColumnLy;
+            for (int cx = (int)MathF.Floor(topLeft.X / column); cx <= (int)MathF.Floor(bottomRight.X / column); cx++)
+            for (int cy = (int)MathF.Floor(topLeft.Y / column); cy <= (int)MathF.Floor(bottomRight.Y / column); cy++)
+                foreach (var (star, colour) in CachedColumn(galaxy.Seed, cx, cy))
+                {
+                    var p = ToScreen(new NVector2(star.PositionLy.X, star.PositionLy.Y) / Galaxus.Core.Galaxy.DeepSpace.LyPerUnit);
+                    _visibleDeep.Add((star, p));
+                    DrawRect(new Rect2(p - Vector2.One, Vector2.One * 2), colour);
+                }
+            var here = ToScreen(_session.Here.Position);
+            DrawArc(here, _session.JumpRangeLy * perLy, 0, Mathf.Tau, 64, new Color(Ui.Green, 0.5f), 1);
+            DrawString(ThemeDB.FallbackFont, here + new Vector2(_session.JumpRangeLy * perLy + 4, 0), $"jump range {_session.JumpRangeLy:0} ly", HorizontalAlignment.Left, -1, 8, Ui.Dim);
+        }
+        else if (_zoom >= DeepZoom / 4)
+            DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 230, Size.Y - 8), "Zoom in further to see the stars between the gates.", HorizontalAlignment.Left, -1, 8, Ui.Dim);
 
         foreach (var job in _session.Career.Missions)
             DrawArc(ToScreen(galaxy.Systems[job.Offer.DestinationSystemId].Position), dot + 4, 0, Mathf.Tau, 16, Ui.Amber, 1);

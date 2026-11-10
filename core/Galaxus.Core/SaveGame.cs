@@ -15,7 +15,7 @@ namespace Galaxus.Core;
 /// </summary>
 public static class SaveGame
 {
-    public const int Version = 1;
+    public const int Version = 2;
 
     private static readonly JsonSerializerOptions Json = new() { WriteIndented = true };
 
@@ -27,6 +27,8 @@ public static class SaveGame
         public int SystemCount { get; set; }
         public int MinorFactions { get; set; }
         public int Day { get; set; }
+        /// <summary>Deep-space stars registered in this galaxy, in order, so their ids come back the same.</summary>
+        public List<ulong> DeepKeys { get; set; } = [];
         public string Captain { get; set; } = "";
         public int Credits { get; set; }
         public int SystemId { get; set; }
@@ -80,6 +82,7 @@ public static class SaveGame
             SystemCount = session.Settings.SystemCount,
             MinorFactions = session.Settings.MinorFactions,
             Day = session.Galaxy.Day,
+            DeepKeys = [.. session.Galaxy.DeepKeys],
             Captain = c.Captain,
             Credits = c.Credits,
             SystemId = c.SystemId,
@@ -133,10 +136,11 @@ public static class SaveGame
     public static Session Load(ContentDatabase db, string json)
     {
         var data = JsonSerializer.Deserialize<SaveData>(json, Json) ?? throw new InvalidDataException("Save file is empty.");
-        if (data.Version != Version) throw new InvalidDataException($"Save version {data.Version} can't be loaded by this build (expects {Version}).");
+        // Version 1 saves predate deep space; they load the same way with no deep stars.
+        if (data.Version is < 1 or > Version) throw new InvalidDataException($"Save version {data.Version} can't be loaded by this build (expects {Version}).");
 
         var settings = new GalaxySettings { SystemCount = data.SystemCount, MinorFactions = data.MinorFactions };
-        var session = Session.Restore(db, data.Seed, settings, data.Day);
+        var session = Session.Restore(db, data.Seed, settings, data.Day, data.DeepKeys);
         var c = session.Career;
         c.Captain = data.Captain;
         c.Credits = data.Credits;
