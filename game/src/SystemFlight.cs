@@ -117,6 +117,7 @@ public partial class Main
         _cruiseKm = PlayerKm;
         _cruising = true;
         _cruiseSpeed = 30;
+        _player.Target = null;
         foreach (var drone in _drones.Keys) _visuals[drone].Visible = false;
         foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
         _world.Projectiles.Clear();
@@ -143,6 +144,7 @@ public partial class Main
             _drones[drone].Anchor = forward * 900;
         }
         _navTarget = _navTarget == NavStation ? -1 : _navTarget;
+        _player.Target = NearestTarget();
         _hud.Message("DROPPED FROM CRUISE");
         AudioManager.Instance?.Ui("undock");
     }
@@ -157,7 +159,7 @@ public partial class Main
         double wanted = target != null
             ? Math.Clamp((distance - dropAt) / 4.0, 20, MaxCruiseKmS)
             : Math.Max(0.05f, _throttle) * 2_000_000;
-        _cruiseSpeed = wanted > _cruiseSpeed ? Math.Min(wanted, _cruiseSpeed * (1 + 1.6 * dt) + 5) : wanted;
+        _cruiseSpeed = wanted > _cruiseSpeed ? Math.Min(wanted, _cruiseSpeed * (1 + 2.4 * dt) + 5) : wanted;
 
         // With a course set, the ship turns towards it unless you're steering.
         var stickIdle = Mathf.Abs(_player.Controls.Flight.Pitch) < 0.08f && Mathf.Abs(_player.Controls.Flight.Yaw) < 0.08f;

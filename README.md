@@ -18,6 +18,16 @@ Every system has its own star and main world: gas giants with rings, airless cra
 
 ![Cockpit view](docs/screenshots/cockpit.png)
 
+## Solar systems
+
+Every system follows real astronomy. Its star has a real spectral class (mostly red and orange dwarfs, with yellow, white and the odd blue giant) with matching mass and brightness. Planets are spaced outwards and their type follows their temperature: molten worlds close in, Earth-like and ocean worlds in the habitable zone, gas and ice giants beyond the frost line, with moons and asteroid belts. Orbits follow Kepler's laws, so planets move round as the days pass. Settled worlds have names; the rest keep catalogue numbers.
+
+You fly inside the real system. Planets are drawn at their true apparent size and grow as you approach, and the light comes from the actual star. Set a course on the system map (N) and engage the cruise drive (J), which builds to many times light speed and drops you out beside your destination.
+
+![Arriving in orbit of a world under a red dwarf](docs/screenshots/arrival.png)
+
+![The system map: orbits, planets, moons, a belt and the habitable zone](docs/screenshots/system-map.png)
+
 ## A living galaxy
 
 1,400 systems in four spiral arms, with nine great powers and about 160 smaller factions, criminals among them. Most of it starts empty. The galaxy runs day by day whether you're watching or not: factions survey and claim new systems, borders flare into disputes that can climb to war, and famines, mining rushes, plagues and stranger things at the rim break out and make the news.
@@ -145,6 +155,9 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Chase or cockpit camera | V | Y |
 | Dock (when close and slow) and undock | Enter | X |
 | Galaxy map | M | Start |
+| System map: set a course | N | |
+| Cruise drive on and off | J | |
+| Match target speed | Tab | Left stick click |
 | Pause menu: save, load, settings | Esc | |
 | Quit | F10 | |
 
