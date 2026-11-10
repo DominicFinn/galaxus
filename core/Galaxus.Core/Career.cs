@@ -16,6 +16,8 @@ public sealed class Career
     public int SystemId { get; set; }
     public string HullId { get; set; } = "hc-sparrow";
     public List<string>? Loadout { get; set; }
+    /// <summary>Fuel in the tank, in light years of direct jumps. Below zero means full (a new ship or an older save).</summary>
+    public float FuelLy { get; set; } = -1;
     public List<AcceptedMission> Missions { get; } = [];
     /// <summary>The campaign you're flying, if you started in one, and how far through it you are.</summary>
     public string? CampaignId { get; set; }
@@ -116,6 +118,7 @@ public sealed class Career
         Credits -= offer.Price - tradeIn;
         HullId = offer.Hull.Id;
         Loadout = null;
+        FuelLy = -1; // new ships come with a full tank
     }
 
     /// <summary>Why the job can't be taken, or null if it can.</summary>

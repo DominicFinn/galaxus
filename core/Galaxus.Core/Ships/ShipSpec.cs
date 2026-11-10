@@ -54,6 +54,8 @@ public sealed class ShipSpec
     public float HitRadius { get; init; }
     /// <summary>How far the jump drive reaches between stars, in light years.</summary>
     public float JumpRangeLy { get; init; }
+    /// <summary>How many light years of direct jumps a full tank covers. Gates and flying within a system use none.</summary>
+    public float FuelTankLy { get; init; }
     public IReadOnlyList<WeaponSpec> Weapons { get; init; } = [];
     /// <summary>Homing missiles carried in the rack, refilled at a station. Fighters and gunships carry most.</summary>
     public int Missiles { get; init; }
@@ -124,6 +126,11 @@ public static class ShipFactory
             {
                 "explorer" => 24, "courier" => 12, "freighter" => 9, "miner" => 8, "gunship" => 7, "fighter" => 6, _ => 0,
             } * (0.9f + 0.1f * speedFactor) * Bias(StatKeys.Speed),
+            // Generous, so exploring off the gate network feels open: explorers go furthest.
+            FuelTankLy = hull.FuelTankLy > 0 ? hull.FuelTankLy : hull.Class switch
+            {
+                "explorer" => 300, "courier" => 150, "freighter" => 120, "miner" => 120, "gunship" => 90, "fighter" => 60, _ => 0,
+            },
             Weapons = weapons,
             Missiles = hull.Class switch { "fighter" => 6, "gunship" => 8, "explorer" => 4, "courier" => 2, _ => 0 },
             Missile = new WeaponSpec("missile-rack", "Homing missile", 70f, 1.2f, 0, 520, 4200, new Vector3(0, -1.2f, -2), "#ffcf70", "missile"),

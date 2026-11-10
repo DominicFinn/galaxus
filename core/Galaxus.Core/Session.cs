@@ -64,10 +64,11 @@ public sealed class Session
     /// A new game: generate the galaxy, run it for a month so there's news and history, and start
     /// the player at a Tolland Compact colony as an independent captain.
     /// </summary>
-    public static Session StartNew(ContentDatabase db, ulong seed, GalaxySettings? settings = null)
+    /// <param name="easy">Easy difficulty, known from the start so the first markets you learn are priced for it.</param>
+    public static Session StartNew(ContentDatabase db, ulong seed, GalaxySettings? settings = null, bool easy = false)
     {
         settings ??= new GalaxySettings();
-        var session = new Session(db, GalaxyGenerator.Generate(db, seed, settings), settings);
+        var session = new Session(db, GalaxyGenerator.Generate(db, seed, settings), settings) { Easy = easy };
         session.Simulation.Run(30);
 
         var galaxy = session.Galaxy;
@@ -216,14 +217,90 @@ public sealed class Session
 
     public JumpReport? Jump(int destination)
     {
+        var plan = PlanJump(destination);
+        return plan.Kind switch
+        {
+            JumpKind.Direct => DirectJump(destination, Galaxy.DistanceLy(Career.SystemId, destination)),
+            JumpKind.Gates => GateJump(destination),
+            _ => null,
+        };
+    }
+
+    // Fuel -------------------------------------------------------------------------------------
+
+    public float FuelTankLy => Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).FuelTankLy;
+
+    /// <summary>Fuel in the tank, in light years.</summary>
+    public float FuelLy => Career.FuelLy < 0 ? FuelTankLy : MathF.Min(Career.FuelLy, FuelTankLy);
+
+    /// <summary>
+    /// How a trip there would go: by gate (free) where both ends are on the network, otherwise a
+    /// direct jump, which needs the destination in your drive's range and the fuel to get there.
+    /// A direct jump is preferred when it's in range and you have the fuel, since it's quicker.
+    /// </summary>
+    public JumpPlan PlanJump(int destination)
+    {
+        if (destination == Career.SystemId) return new JumpPlan(JumpKind.None, 0, 0, "You're already here.");
         float distance = Galaxy.DistanceLy(Career.SystemId, destination);
-        bool gateRoute = Here.IsGateSystem && Galaxy.Systems[destination].IsGateSystem;
-        if (!gateRoute || distance <= JumpRangeLy) return distance <= JumpRangeLy ? DirectJump(destination, distance) : null;
-        return GateJump(destination);
+        bool gates = Here.IsGateSystem && Galaxy.Systems[destination].IsGateSystem && Galaxy.Route(Career.SystemId, destination).Count > 1;
+        bool inRange = distance <= JumpRangeLy;
+        bool fuelled = distance <= FuelLy + 0.01f;
+        if (inRange && fuelled) return new JumpPlan(JumpKind.Direct, JumpDays(distance), distance, null);
+        if (gates) return new JumpPlan(JumpKind.Gates, Galaxy.RouteDays(Galaxy.Route(Career.SystemId, destination)), 0, null);
+        if (!inRange) return new JumpPlan(JumpKind.None, 0, distance, $"Out of range: your drive reaches {JumpRangeLy:0} ly, this is {distance:0.0} ly.");
+        return new JumpPlan(JumpKind.None, 0, distance, $"Not enough fuel: this needs {distance:0.0} ly and you have {FuelLy:0.0} ly.");
+    }
+
+    /// <summary>Credits a light year of fuel costs here: from the local price of fuel, cheaper than buying it as cargo.</summary>
+    public int FuelPricePerLy()
+    {
+        var fuel = Here.Stations.Count > 0
+            ? Market.Quotes(this, Here).Where(q => q.Commodity.Category == "fuel" && q.Stock > 0).Select(q => q.Buy).DefaultIfEmpty(160).Min()
+            : 160;
+        return Math.Max(1, (int)MathF.Round(fuel / (Easy ? 30f : 20f)));
+    }
+
+    /// <summary>Fills the tank as far as your credits go. Returns light years added.</summary>
+    public float Refuel()
+    {
+        if (Here.Stations.Count == 0) return 0;
+        float want = FuelTankLy - FuelLy;
+        if (want <= 0.01f) return 0;
+        int perLy = FuelPricePerLy();
+        float afford = MathF.Min(want, Career.Credits / (float)perLy);
+        if (afford <= 0) return 0;
+        Career.Credits -= (int)MathF.Ceiling(afford * perLy);
+        Career.FuelLy = FuelLy + afford;
+        return afford;
+    }
+
+    /// <summary>True when you can't reach any system with a station: out of fuel somewhere with no station and no gates.</summary>
+    public bool Stranded =>
+        Here.Stations.Count == 0 && !Here.IsGateSystem
+        && !Galaxy.Systems.Any(s => s.Stations.Count > 0 && s.IsGateSystem && Galaxy.DistanceLy(Career.SystemId, s.Id) <= MathF.Min(FuelLy, JumpRangeLy));
+
+    /// <summary>
+    /// A rescue tug: it takes you to the nearest system with a station and gives you enough fuel to
+    /// carry on, for a fee you pay as far as you can. Running dry is never the end.
+    /// </summary>
+    public (StarSystem To, int Fee, int Days) CallRescue()
+    {
+        var to = Galaxy.Systems.Where(s => s.Stations.Count > 0 && s.IsGateSystem).MinBy(s => Galaxy.DistanceLy(Career.SystemId, s.Id))!;
+        float distance = Galaxy.DistanceLy(Career.SystemId, to.Id);
+        int fee = Math.Min(Career.Credits, 500 + (int)(distance * 25));
+        int days = JumpDays(distance) + 2;
+        Career.Credits -= fee;
+        Simulation.Run(days);
+        Career.SystemId = to.Id;
+        Career.Settle(Galaxy);
+        Career.FuelLy = MathF.Max(FuelLy, FuelTankLy * 0.2f);
+        TradeIntel.Note(this);
+        return (to, fee, days);
     }
 
     private JumpReport DirectJump(int destination, float distanceLy)
     {
+        Career.FuelLy = MathF.Max(0, FuelLy - distanceLy);
         int days = JumpDays(distanceLy);
         int dayBefore = Galaxy.Day;
         Simulation.Run(days);
@@ -255,3 +332,8 @@ public sealed class Session
         return new JumpReport(days, results, news);
     }
 }
+
+public enum JumpKind { None, Direct, Gates }
+
+/// <summary>How a trip would go: by direct jump (uses fuel), by gate (free), or not at all and why.</summary>
+public sealed record JumpPlan(JumpKind Kind, int Days, float FuelLy, string? Reason);

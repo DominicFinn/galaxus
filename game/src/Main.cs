@@ -144,8 +144,8 @@ public partial class Main : Node3D
         _menu = new MenuScreen { Visible = false };
         _menu.Init(new MenuActions
         {
-            NewGame = () => Loading.Run(this, "Building the galaxy", () => Restart(Session.StartNew(_db, (ulong)DateTime.Now.Ticks)), finish: false),
-            NewCampaign = id => Loading.Run(this, "Building the galaxy", () => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id)), finish: false),
+            NewGame = () => Loading.Run(this, "Building the galaxy", () => Restart(Session.StartNew(_db, (ulong)DateTime.Now.Ticks, easy: GameSettings.Current.Difficulty == 0)), finish: false),
+            NewCampaign = id => Loading.Run(this, "Building the galaxy", () => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id, easy: GameSettings.Current.Difficulty == 0)), finish: false),
             Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Tutorial ? 0 : 1).ThenBy(c => c.Name).Select(c => (c.Id, c.Tutorial ? $"Tutorial: {c.Name}" : c.Name, c.Summary)),
             PreviewBattle = PreviewRequested,
             OpenViewer = () => { _pendingViewer = true; Restart(null); },

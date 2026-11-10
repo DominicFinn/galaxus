@@ -12,6 +12,17 @@ public sealed record SeenPrice(int Buy, int Sell, int Stock, int Wanted, float T
 /// <param name="AgeDays">How old the price at the other end is.</param>
 public sealed record TradeRun(int From, int To, string CommodityId, int Buy, int Sell, int Tonnes, int Profit, int Days, int AgeDays);
 
+/// <summary>One good compared between two markets: buy at one end, sell at the other.</summary>
+/// <param name="Margin">Credits a tonne made carrying it this way.</param>
+public sealed record PriceGap(string CommodityId, int Buy, int Sell, int Margin, float Trend);
+
+/// <summary>Where you are against another market you know.</summary>
+/// <param name="AgeDays">How old your prices for the other market are; null if you've never seen it.</param>
+/// <param name="Higher">Goods that fetch more there than they cost here: worth taking.</param>
+/// <param name="Lower">Goods that cost less there than they fetch here: worth bringing back.</param>
+/// <param name="Best">The best single run from here to there, for your hold.</param>
+public sealed record MarketComparison(int? AgeDays, List<PriceGap> Higher, List<PriceGap> Lower, TradeRun? Best);
+
 /// <summary>
 /// What the player knows about markets: live prices where you are, the prices you saw at markets
 /// you've visited (they age), and word of jackpots within a few jumps. The galaxy map's trade
@@ -97,6 +108,29 @@ public static class TradeIntel
         var galaxy = session.Galaxy;
         var near = galaxy.WithinJumps(session.Here.Id, RumourJumps).Select(s => s.Id).Append(session.Here.Id).ToHashSet();
         return [.. Market.Deals(session.Db, galaxy, galaxy.Day).Where(d => near.Contains(d.Source) || near.Contains(d.Destination))];
+    }
+
+    /// <summary>
+    /// Compares the market here (live) with another you know (as last seen): what's higher there,
+    /// what's lower, and the best run. Unknown markets come back with no prices.
+    /// </summary>
+    public static MarketComparison Compare(Session session, StarSystem there, int count = 6)
+    {
+        var here = session.Here;
+        if (here.Stations.Count == 0 || there.Id == here.Id || !session.Career.SeenMarkets.TryGetValue(there.Id, out var seen))
+            return new MarketComparison(null, [], [], null);
+        var live = Market.Quotes(session, here).ToDictionary(q => q.Commodity.Id);
+        var higher = new List<PriceGap>();
+        var lower = new List<PriceGap>();
+        foreach (var (id, far) in seen.Prices)
+        {
+            if (!live.TryGetValue(id, out var near)) continue;
+            if (near.Stock > 0 && far.Sell > near.Buy) higher.Add(new PriceGap(id, near.Buy, far.Sell, far.Sell - near.Buy, far.Trend));
+            if (far.Stock > 0 && near.Sell > far.Buy) lower.Add(new PriceGap(id, far.Buy, near.Sell, near.Sell - far.Buy, far.Trend));
+        }
+        var best = Routes(session, null, 50).FirstOrDefault(r => r.To == there.Id);
+        return new MarketComparison(session.Galaxy.Day - seen.Day,
+            [.. higher.OrderByDescending(g => g.Margin).Take(count)], [.. lower.OrderByDescending(g => g.Margin).Take(count)], best);
     }
 
     /// <summary>The best place you know to sell something you're carrying, if anywhere beats here.</summary>

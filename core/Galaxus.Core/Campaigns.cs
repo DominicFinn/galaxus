@@ -23,10 +23,10 @@ public static class Campaigns
             .OrderByDescending(f => f.Alive).ThenByDescending(f => galaxy.OwnedBy(f.Id).Count()).ThenBy(f => f.Id).First();
     }
 
-    public static Session Start(ContentDatabase db, ulong seed, string campaignId, GalaxySettings? settings = null)
+    public static Session Start(ContentDatabase db, ulong seed, string campaignId, GalaxySettings? settings = null, bool easy = false)
     {
         var def = db.Campaigns[campaignId];
-        var session = Session.StartNew(db, seed, settings);
+        var session = Session.StartNew(db, seed, settings, easy);
         var galaxy = session.Galaxy;
         var career = session.Career;
         var power = Client(galaxy, def);

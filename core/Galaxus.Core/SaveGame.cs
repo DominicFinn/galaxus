@@ -52,6 +52,8 @@ public static class SaveGame
         public int CampaignStep { get; set; }
         public int CampaignBase { get; set; } = -1;
         public string? CampaignDebrief { get; set; }
+        /// <summary>Fuel in the tank, in light years; below zero means full.</summary>
+        public float FuelLy { get; set; } = -1;
         /// <summary>Recent trades by "systemId:commodityId", so markets you've emptied stay short for a while.</summary>
         public Dictionary<string, TradeMark> Trades { get; set; } = [];
         /// <summary>Markets as you last saw them.</summary>
@@ -123,6 +125,7 @@ public static class SaveGame
             CampaignBase = c.CampaignBase,
             CampaignDebrief = c.CampaignDebrief,
             Trades = new(c.Trades),
+            FuelLy = c.FuelLy,
             TradeRoute = c.TradeRoute,
             SeenMarkets = new(c.SeenMarkets),
             Missions = c.Missions.Select(m => new SavedMission
@@ -237,6 +240,7 @@ public static class SaveGame
         c.CampaignBase = data.CampaignBase;
         c.CampaignDebrief = data.CampaignDebrief;
         foreach (var (key, mark) in data.Trades) c.Trades[key] = mark;
+        c.FuelLy = data.FuelLy;
         foreach (var (id, market) in data.SeenMarkets) if (id >= 0 && id < session.Galaxy.Systems.Count) c.SeenMarkets[id] = market;
         // Older saves had no route: pick one from where you are now.
         c.TradeRoute = data.TradeRoute ?? Market.PickRoute(db, session.Galaxy, c.SystemId);

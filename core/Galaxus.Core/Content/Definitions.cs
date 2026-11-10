@@ -72,6 +72,8 @@ public sealed class HullDef
     /// <summary>The cheapest and dearest shipyards normally ask. Zero means 80% and 125% of the list price.</summary>
     public int PriceLow { get; set; }
     public int PriceHigh { get; set; }
+    /// <summary>Fuel tank, in light years of direct jumps. Zero means the default for the class.</summary>
+    public float FuelTankLy { get; set; }
     /// <summary>Mass in tonnes. Acceleration is engine thrust divided by mass.</summary>
     public float Mass { get; set; } = 20f;
     /// <summary>Top speed in m/s before engine and power modifiers.</summary>
