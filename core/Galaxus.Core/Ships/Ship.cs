@@ -34,6 +34,23 @@ public sealed class Ship
     public bool Alive => Hull > 0;
     /// <summary>Scales damage this ship takes: the difficulty setting, applied to the player's ship.</summary>
     public float DamageTakenScale { get; set; } = 1f;
+    /// <summary>Difficulty scales: how fast this ship's guns fire and how hard its shots hit.</summary>
+    public float FireRateScale { get; set; } = 1f;
+    public float DamageDealtScale { get; set; } = 1f;
+    /// <summary>Difficulty scales for the player: shield recharge and missile lock speed.</summary>
+    public float ShieldRechargeScale { get; set; } = 1f;
+    /// <summary>How long shields wait after a hit before recharging, as a multiple.</summary>
+    public float ShieldDelayScale { get; set; } = 1f;
+    public float LockSpeedScale { get; set; } = 1f;
+    /// <summary>Difficulty scales for warship turrets: accuracy against fighters, and how much they'd rather shoot someone other than the player.</summary>
+    public float TurretAccuracy { get; set; } = 1f;
+    public float TurretPlayerWeight { get; set; } = 1f;
+    /// <summary>Difficulty scale for this ship's flak, which bursts near fighters and hurts everything in the blast.</summary>
+    public float FlakDamageScale { get; set; } = 1f;
+    /// <summary>True for the player's own ship.</summary>
+    public bool IsPlayer { get; set; }
+    /// <summary>The player's aim assist cone in degrees, when AimAssist is on.</summary>
+    public float AimAssistCone { get; set; } = AimAssistDegrees;
     public int MissilesLeft { get; private set; }
     /// <summary>How far the missile lock on the current target has built up, 0 to 1. Locked at 1.</summary>
     public float Lock { get; private set; }
@@ -95,7 +112,7 @@ public sealed class Ship
             Capacitor + Spec.CapacitorRecharge * Power.Multiplier(ShipSystem.Weapons) * dt);
 
         if (_shieldDelay > 0) _shieldDelay -= dt;
-        else Shields = MathF.Min(Spec.MaxShields, Shields + Spec.ShieldRecharge * Power.Multiplier(ShipSystem.Shields) * dt);
+        else Shields = MathF.Min(Spec.MaxShields, Shields + Spec.ShieldRecharge * ShieldRechargeScale * Power.Multiplier(ShipSystem.Shields) * dt);
 
         _fireCooldown -= dt;
         if (Controls.Fire && _fixed.Count > 0 && _fireCooldown <= 0) TryFire(shotsFired);
@@ -124,14 +141,14 @@ public sealed class Ship
         float distance = to.Length();
         bool inCone = distance > 1 && distance < missile.Range
                       && Vector3.Dot(Vector3.Normalize(to), Body.Forward) > MathF.Cos(LockConeDegrees * MathF.PI / 180f);
-        Lock = inCone ? MathF.Min(1, Lock + dt / LockSeconds) : MathF.Max(0, Lock - dt / LockSeconds * 2);
+        Lock = inCone ? MathF.Min(1, Lock + dt * LockSpeedScale / LockSeconds) : MathF.Max(0, Lock - dt / LockSeconds * 2);
 
         if (Controls.Missile && Locked && MissilesLeft > 0 && _missileCooldown <= 0)
         {
             MissilesLeft--;
             _missileCooldown = 1f / missile.FireRate;
             var origin = Body.Position + Vector3.Transform(missile.Hardpoint, Body.Orientation);
-            shotsFired.Add(new Projectile(this, origin, Body.Velocity * 0.5f + Body.Forward * missile.ProjectileSpeed, missile.Damage,
+            shotsFired.Add(new Projectile(this, origin, Body.Velocity * 0.5f + Body.Forward * missile.ProjectileSpeed, missile.Damage * DamageDealtScale,
                 missile.Range / missile.ProjectileSpeed * 1.6f, missile.Color, "missile") { Target = target });
         }
         Controls.Missile = false;
@@ -153,14 +170,14 @@ public sealed class Ship
         if (Capacitor < weapon.EnergyPerShot) return;
 
         Capacitor -= weapon.EnergyPerShot;
-        _fireCooldown = 1f / (weapon.FireRate * weapons.Count);
+        _fireCooldown = 1f / (weapon.FireRate * weapons.Count * FireRateScale);
 
         var origin = Body.Position + Vector3.Transform(weapon.Hardpoint, Body.Orientation);
         var aim = Body.Forward;
         // Aim assist: if the target's lead point is within a few degrees of the nose, the guns
         // swing to it. Like gimballed mounts, it rewards getting close to the mark without
         // needing pixel-perfect aim.
-        float cone = AimAssist ? AimAssistDegrees : AiAimAssistDegrees;
+        float cone = AimAssist ? AimAssistCone : AiAimAssistDegrees;
         if (cone > 0 && Target is { Alive: true } target &&
             World.LeadPoint(origin, Body.Velocity, target.Body.Position, target.Body.Velocity, weapon.ProjectileSpeed) is { } lead)
         {
@@ -184,12 +201,13 @@ public sealed class Ship
             {
                 float a = i * 1.2566f;
                 var dir = Vector3.Normalize(aim + (right * MathF.Cos(a) + up * MathF.Sin(a)) * (i == 0 ? 0 : 0.035f));
-                shotsFired.Add(new Projectile(this, origin, Body.Velocity + dir * weapon.ProjectileSpeed, weapon.Damage / 5 * 1.4f, life, weapon.Color, weapon.Kind));
+                shotsFired.Add(new Projectile(this, origin, Body.Velocity + dir * weapon.ProjectileSpeed, weapon.Damage / 5 * 1.4f * DamageDealtScale, life, weapon.Color, weapon.Kind));
             }
             return;
         }
         var velocity = (weapon.Homing ? Vector3.Zero : Body.Velocity) + aim * weapon.ProjectileSpeed;
-        shotsFired.Add(new Projectile(this, origin, velocity, weapon.Damage, life * (weapon.Homing ? 1.6f : 1), weapon.Color, weapon.Kind)
+        float damage = weapon.Damage * DamageDealtScale * (weapon.Kind == "flak" ? FlakDamageScale : 1);
+        shotsFired.Add(new Projectile(this, origin, velocity, damage, life * (weapon.Homing ? 1.6f : 1), weapon.Color, weapon.Kind)
         {
             Target = weapon.Homing ? target : null,
         });
@@ -219,8 +237,12 @@ public sealed class Ship
                 float d = Vector3.Distance(origin, other.Body.Position) - other.Spec.Radius;
                 if (d > weapon.Range) continue;
                 bool big = other.Spec.Hull.IsCapital;
-                float score = d * (weapon.Kind == "torpedo" ? (big ? 0.3f : 4f) : weapon.Kind == "flak" ? (big ? 3f : 0.5f) : 1f);
+                if (other.Spec.Hull.Class == "drone") continue;
+                // Torpedoes are for warships: they never go after fighters.
+                if (weapon.Kind == "torpedo" && !big) continue;
+                float score = d * (weapon.Kind == "torpedo" ? 0.3f : weapon.Kind == "flak" ? (big ? 3f : 0.5f) : 1f);
                 if (other == Target) score *= 0.5f;
+                if (other.IsPlayer) score *= TurretPlayerWeight;
                 if (score < bestScore) { bestScore = score; best = other; }
             }
             if (best == null) { _turretCooldowns[i] = 0.25f; continue; }
@@ -228,10 +250,10 @@ public sealed class Ship
             var aimAt = World.LeadPoint(origin, Body.Velocity, best.Body.Position, best.Body.Velocity, weapon.ProjectileSpeed) ?? best.Body.Position;
             var aim = Vector3.Normalize(aimAt - origin);
             // Turret crews aren't perfect: a little scatter, more against small fast craft.
-            float wobble = best.Spec.Hull.IsCapital ? 0.004f : 0.02f;
+            float wobble = best.Spec.Hull.IsCapital ? 0.004f : 0.02f / TurretAccuracy;
             aim = Vector3.Normalize(aim + new Vector3(Jitter(i, 1), Jitter(i, 2), Jitter(i, 3)) * wobble);
             Capacitor -= weapon.EnergyPerShot;
-            _turretCooldowns[i] = 1f / weapon.FireRate;
+            _turretCooldowns[i] = 1f / (weapon.FireRate * FireRateScale);
             Launch(weapon, origin, aim, best, shotsFired);
         }
     }
@@ -249,7 +271,7 @@ public sealed class Ship
     {
         if (!Alive) return new DamageResult(0, 0, false);
         amount *= DamageTakenScale;
-        _shieldDelay = Spec.ShieldRechargeDelay;
+        _shieldDelay = Spec.ShieldRechargeDelay * ShieldDelayScale;
         float toShields = MathF.Min(Shields, amount);
         Shields -= toShields;
         float toHull = amount - toShields;

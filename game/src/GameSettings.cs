@@ -22,8 +22,8 @@ public sealed class GameSettings
     public bool ShowHints { get; set; } = true;
     /// <summary>0 easy, 1 normal, 2 hard: damage you take and how good enemy pilots are. New players start on easy.</summary>
     public int Difficulty { get; set; } = 0;
-    public float DamageTaken => Difficulty switch { 0 => 0.55f, 1 => 0.85f, _ => 1f };
-    public float EnemySkill => Difficulty switch { 0 => 0.6f, 1 => 0.9f, _ => 1.1f };
+    /// <summary>Everything the difficulty level changes (see Galaxus.Core.Difficulty).</summary>
+    public Galaxus.Core.Difficulty Level => Galaxus.Core.Difficulty.For(Difficulty);
     /// <summary>Volumes, 0 to 1.</summary>
     public float MasterVolume { get; set; } = 0.8f;
     public float MusicVolume { get; set; } = 0.6f;

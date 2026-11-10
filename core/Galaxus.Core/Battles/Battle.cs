@@ -69,8 +69,20 @@ public sealed class Battle
     /// <summary>Every ship this battle has put into the world, so the game can give them visuals and clear them up.</summary>
     public List<Ship> Spawned { get; } = [];
     public string Name => Def.Name;
-    /// <summary>Scales enemy pilots' skill: the difficulty setting.</summary>
-    public float EnemySkillScale { get; set; } = 1f;
+    /// <summary>The difficulty: how dangerous the enemy is to you, how strong your side is, how long timers run.</summary>
+    public Difficulty Difficulty { get; set; } = Difficulty.Hard;
+
+    /// <summary>
+    /// How much the second wind is helping you right now, 0 to 1. It rises when you're clearly
+    /// losing and fades as you recover. Hidden from the player: it should feel like you pulled it back.
+    /// </summary>
+    public float SecondWind { get; private set; }
+
+    /// <summary>How badly you seem to be losing right now, 0 to 1, from your health, the odds near you and your charges.</summary>
+    public float Pressure { get; private set; }
+
+    private float _sinceAssessed;
+    private float _playerShieldBase = -1;
 
     /// <param name="variables">Grammar variables for radio and results: client, enemy, system, captain, station.</param>
     /// <param name="tagNames">Names for tagged warships ("flagship", "target"), fixed when the job was offered.</param>
@@ -123,7 +135,82 @@ public sealed class Battle
         foreach (var wave in Def.Waves)
             if (!_spawned.Contains(wave.Id) && Due(wave)) Spawn(wave);
         FlyCrews(dt);
+        UpdateSecondWind(dt);
         CheckObjectives();
+    }
+
+    /// <summary>
+    /// Works out twice a second how badly you're losing, and eases the enemies near you off while
+    /// you are: slower, softer, less accurate fire, fewer of them on you, and quicker shields for you.
+    /// It builds over a few seconds and fades more slowly, so it never flickers.
+    /// </summary>
+    private void UpdateSecondWind(float dt)
+    {
+        if (_playerShieldBase < 0) _playerShieldBase = _player.ShieldRechargeScale;
+        _sinceAssessed += dt;
+        if (_sinceAssessed >= 0.5f)
+        {
+            _sinceAssessed = 0;
+            Pressure = AssessPressure();
+        }
+        float target = Pressure * Difficulty.SecondWind;
+        // Builds quickly (a fight can turn in a few seconds), fades slowly.
+        SecondWind = target > SecondWind ? MathF.Min(target, SecondWind + dt * 0.6f) : MathF.Max(target, SecondWind - dt * 0.05f);
+
+        float ease = SecondWind;
+        _player.ShieldRechargeScale = _playerShieldBase * (1 + ease);
+        _player.ShieldDelayScale = 1 - 0.6f * ease;
+        var me = _player.Body.Position;
+        foreach (var (ship, pilot) in Crews)
+        {
+            if (ship.Side != EnemySide || !ship.Alive) continue;
+            // The ones in your fight ease off most; the wider battle hardly changes.
+            float near = Vector3.Distance(ship.Body.Position, me) < 4000 ? 1 : 0.3f;
+            float e = ease * near;
+            ship.FireRateScale = Difficulty.EnemyFireRate * (1 - 0.45f * e);
+            ship.DamageDealtScale = Difficulty.EnemyDamage * (1 - 0.4f * e);
+            ship.TurretAccuracy = Difficulty.TurretAccuracy * (1 - 0.5f * e);
+            ship.TurretPlayerWeight = Difficulty.TurretPlayerWeight * (1 + 5 * e);
+            ship.FlakDamageScale = Difficulty.FlakDamage * (1 - 0.5f * e);
+            pilot.AimScale = Difficulty.EnemyAim * (1 - 0.6f * e);
+            // When you're nearly done for, the ones near you leave you a moment to get clear.
+            pilot.MaxOnPlayer = e > 0.75f ? 0 : e > 0.4f ? Math.Max(1, Math.Min(Difficulty.MaxAttackers, 3) - 1) : Difficulty.MaxAttackers;
+        }
+    }
+
+    /// <summary>
+    /// How badly you're losing, 0 to 1: low hull and shields count most, then being outnumbered near
+    /// you, then a ship you're protecting close to going down.
+    /// </summary>
+    private float AssessPressure()
+    {
+        if (!_player.Alive) return 0;
+        var spec = _player.Spec;
+        float health = (_player.Hull + _player.Shields) / MathF.Max(1, spec.MaxHull + spec.MaxShields);
+        // Starts to count once your shields are mostly gone, and is full when you're down to a third of your hull.
+        float hurt = Math.Clamp((0.7f - health) / 0.45f, 0, 1);
+
+        // The odds within 3 km: warships count for more than fighters.
+        float enemies = 0, friends = 1;
+        var me = _player.Body.Position;
+        foreach (var ship in _world.Ships)
+        {
+            if (!ship.Alive || ship == _player || Vector3.Distance(ship.Body.Position, me) > 3000) continue;
+            float weight = ship.Spec.Hull.IsCapital ? 3 : 1;
+            if (ship.Side == EnemySide) enemies += weight;
+            else if (ship.Side == FriendSide) friends += weight;
+        }
+        float outnumbered = Math.Clamp((enemies / friends - 1.2f) / 1.8f, 0, 1);
+
+        // A ship you must protect, nearly gone.
+        float charge = 0;
+        foreach (var o in Objectives.Where(o => o.State == ObjectiveState.Pending && o.Def.Type is "protect" or "escape" && o.Def.Tag != null))
+            foreach (var ward in _tags.GetValueOrDefault(o.Def.Tag!) ?? [])
+                if (ward.Alive)
+                    charge = MathF.Max(charge, Math.Clamp((0.35f - ward.Hull / MathF.Max(1, ward.Spec.MaxHull)) / 0.25f, 0, 1));
+
+        // Being hurt matters most; being hurt and outnumbered is the clearest sign you're losing.
+        return Math.Clamp(MathF.Max(hurt * (0.5f + 0.5f * outnumbered), charge * 0.7f), 0, 1);
     }
 
     private void FlyCrews(float dt)
@@ -162,7 +249,12 @@ public sealed class Battle
             var hull = group.Hull ?? PickHull(builder, group.Class ?? "fighter", unbound);
             if (hull == null) continue;
             var def = _db.Hulls[hull];
-            for (int i = 0; i < group.Count; i++)
+            // Your side's fighter groups grow with the difficulty, so the fight stays even around you.
+            int count = wave.Side == "friend" && !def.IsCapital && group.Role is not ("freighter" or "holding")
+                ? (int)MathF.Round(group.Count * Difficulty.AllyScale) : group.Count;
+            // Ships the objectives need alive (to protect, get away, scan or meet) are tougher on easier levels.
+            bool protectedShip = group.Tag != null && Def.Objectives.Any(o => o.Tag == group.Tag && o.Type is "protect" or "escape" or "scan" or "rendezvous");
+            for (int i = 0; i < count; i++)
             {
                 var spec = ShipFactory.Build(_db, hull, null, race);
                 string name = group.Name != null && i == 0 ? Fill(group.Name)
@@ -170,6 +262,18 @@ public sealed class Battle
                     : def.IsCapital ? WarshipNames[_rng.Next(WarshipNames.Length)]
                     : $"{def.Name} {ships.Count + 1}";
                 var ship = new Ship(Interlocked.Increment(ref _nextShipId), name, spec) { Side = side };
+                if (wave.Side == "enemy")
+                {
+                    ship.FireRateScale = Difficulty.EnemyFireRate;
+                    ship.DamageDealtScale = Difficulty.EnemyDamage;
+                    ship.TurretAccuracy = Difficulty.TurretAccuracy;
+                    ship.TurretPlayerWeight = Difficulty.TurretPlayerWeight;
+                    ship.FlakDamageScale = Difficulty.FlakDamage;
+                    if (def.IsCapital) ship.DamageTakenScale = 1 / Difficulty.EnemyWarshipToughness;
+                }
+                // Ships the objectives need alive are tougher on easier levels, whichever side they're on
+                // (an enemy you must scan shouldn't be shot out from under you).
+                if (protectedShip) ship.DamageTakenScale = 1 / Difficulty.ProtectedToughness;
                 float spacing = def.IsCapital ? spec.Radius * 3 + 300 : 140;
                 var offset = (_right * (i - (group.Count - 1) / 2f) + _up * _rng.Range(-0.3f, 0.3f)) * spacing
                              + new Vector3(_rng.Range(-1, 1), _rng.Range(-1, 1), _rng.Range(-1, 1)) * (def.IsCapital ? 50 : 80);
@@ -185,7 +289,12 @@ public sealed class Battle
                     pilot.Assigned = targets[0];
                 if (wave.Side == "enemy") pilot.Skill = 0.3f + 0.08f * Def.MinRank + _rng.NextFloat() * 0.2f;
                 if (group.Skill is { } skill) pilot.Skill = skill;
-                if (wave.Side == "enemy") pilot.Skill *= EnemySkillScale;
+                if (wave.Side == "enemy")
+                {
+                    pilot.Skill *= Difficulty.EnemySkill;
+                    pilot.AimScale = Difficulty.EnemyAim;
+                    pilot.MaxOnPlayer = Difficulty.MaxAttackers;
+                }
 
                 _world.Ships.Add(ship);
                 Spawned.Add(ship);
@@ -219,6 +328,7 @@ public sealed class Battle
         count += Math.Clamp((enemies - friends * 2) / 4, 0, 4);
         if (enemies == 0) count = 0;
         if (Def.Wingmen >= 0) count = Math.Min(Def.Wingmen, 6);
+        if (enemies > 0) count = Math.Min(count + Difficulty.ExtraWingmen, 6);
         var hull = PickHull(_sides.FriendBuilder, "fighter", false);
         if (hull == null) return;
         string[] calls = ["Two", "Three", "Four", "Five", "Six", "Seven"];
@@ -229,7 +339,7 @@ public sealed class Battle
             ship.Body.Position = _player.Body.Position + (_right * (i % 2 == 0 ? 1 : -1) * (60 + 50 * (i / 2)) - _forward * (40 + 40 * (i / 2)));
             ship.Body.Orientation = _player.Body.Orientation;
             ship.Body.Velocity = _player.Body.Velocity;
-            var pilot = new Pilot(PilotRole.Escort, _rng.Fork($"wing-{i}")) { Assigned = _player, Player = _player, Skill = 0.65f };
+            var pilot = new Pilot(PilotRole.Escort, _rng.Fork($"wing-{i}")) { Assigned = _player, Player = _player, Skill = Difficulty.WingmanSkill };
             _world.Ships.Add(ship);
             Spawned.Add(ship);
             Crews.Add((ship, pilot));
@@ -324,7 +434,20 @@ public sealed class Battle
     }
 
     /// <summary>Seconds left on a survive objective.</summary>
-    public float TimeLeft(BattleObjective o) => MathF.Max(0, o.Def.Seconds - Time);
+    public float TimeLeft(BattleObjective o) => MathF.Max(0, SurviveSeconds(o) - Time);
+
+    /// <summary>How long a survive objective runs at this difficulty.</summary>
+    private float SurviveSeconds(BattleObjective o) => o.Def.Seconds * Difficulty.SurviveTime;
+
+    /// <summary>Applies the difficulty to the player's ship: damage taken, aim assist, shields and missile lock.</summary>
+    public static void ApplyToPlayer(Ship player, Difficulty difficulty)
+    {
+        player.IsPlayer = true;
+        player.DamageTakenScale = difficulty.DamageTaken;
+        player.AimAssistCone = difficulty.PlayerAimAssist;
+        player.ShieldRechargeScale = difficulty.ShieldRecharge;
+        player.LockSpeedScale = difficulty.LockSpeed;
+    }
 
     /// <summary>How far through a scan or rendezvous you are with the nearest marked ship, 0 to 1, or null when you're not at one.</summary>
     public float? HoldProgress(BattleObjective o) =>
@@ -349,7 +472,7 @@ public sealed class Battle
                     if (_tags.TryGetValue(o.Def.Tag!, out var ward) && ward.Count > 0 && ward.All(s => !s.Alive)) o.State = ObjectiveState.Failed;
                     break;
                 case "survive":
-                    if (Time >= o.Def.Seconds) o.State = ObjectiveState.Done;
+                    if (Time >= SurviveSeconds(o)) o.State = ObjectiveState.Done;
                     break;
                 case "scan":
                 case "rendezvous":

@@ -252,6 +252,8 @@ public partial class Main : Node3D
     {
         // The difficulty may have changed in Settings.
         _session.Easy = GameSettings.Current.Difficulty == 0;
+        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
+        if (_battle != null) _battle.Difficulty = GameSettings.Current.Level;
         _menu.Visible = false;
         if (_pauseReturn == Screen.Docked) Dock(); else SetScreen(_pauseReturn);
     }
@@ -267,9 +269,9 @@ public partial class Main : Node3D
         _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId))
         {
             Side = 0,
-            DamageTakenScale = GameSettings.Current.DamageTaken,
             AimAssist = true,
         };
+        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
         _world.Ships.Add(_player);
         AddVisual(_player);
         BuildCockpit();
@@ -531,8 +533,8 @@ public partial class Main : Node3D
         _visuals.Remove(old);
 
         _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
-        _player.DamageTakenScale = GameSettings.Current.DamageTaken;
         _player.AimAssist = true;
+        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
         BuildCockpit();
         _player.Body.Position = old.Body.Position;
         _player.Body.Orientation = old.Body.Orientation;

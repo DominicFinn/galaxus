@@ -60,6 +60,21 @@ public sealed class Pilot(PilotRole role, Rng rng)
     /// <summary>How good the pilot is, 0 to 1. Better pilots lead shots tighter and jink harder.</summary>
     public float Skill { get => _skill; set => _skill = Math.Clamp(value, 0.1f, 1); }
 
+    /// <summary>Difficulty: scales this pilot's aim assist.</summary>
+    public float AimScale { get; set; } = 1f;
+
+    /// <summary>Difficulty: the most pilots on this side that go after the player at once.</summary>
+    public int MaxOnPlayer { get; set; } = int.MaxValue;
+
+    /// <summary>How many other pilots on this ship's side are already after the player.</summary>
+    private int ChasingPlayer(Ship ship, World world)
+    {
+        int n = 0;
+        if (Player == null) return 0;
+        foreach (var s in world.Ships) if (s != ship && s.Alive && s.Side == ship.Side && s.Target == Player) n++;
+        return n;
+    }
+
     public void Think(Ship ship, World world, float dt)
     {
         if (!ship.Alive) return;
@@ -67,7 +82,9 @@ public sealed class Pilot(PilotRole role, Rng rng)
         c.Flight.Assist = true;
         c.Flight.Roll = 0;
         c.Fire = false;
-        ship.AiAimAssistDegrees = _skill * _skill * 2.2f;
+        ship.AiAimAssistDegrees = _skill * _skill * 2.2f * AimScale;
+        // Too many already after the player: find someone else to fight.
+        if (Player != null && ship.Target == Player && ChasingPlayer(ship, world) >= MaxOnPlayer) ship.Target = null;
 
         // Being hit makes a pilot jink for a moment.
         if (_lastHull >= 0 && ship.Hull < _lastHull) _jinkTime = 1.2f + rng.NextFloat();
@@ -208,6 +225,9 @@ public sealed class Pilot(PilotRole role, Rng rng)
         foreach (var other in world.Ships)
         {
             if (!other.Alive || other == ship || !world.Hostile(ship, other)) continue;
+            if (other == Player && MaxOnPlayer < int.MaxValue && ChasingPlayer(ship, world) >= MaxOnPlayer) continue;
+            // Drones are markers and practice targets (scan beacons, the tutorial's targets): left alone unless ordered.
+            if (other.Spec.Hull.Class == "drone" && other != Assigned) continue;
             float d = Vector3.Distance(centre, other.Body.Position);
             if (d > radius) continue;
             bool big = other.Spec.Hull.IsCapital;

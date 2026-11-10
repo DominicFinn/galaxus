@@ -189,6 +189,8 @@ public sealed class World
         foreach (var ship in Ships)
         {
             if (!ship.Alive || ship == shot.Owner || ship.Side == shot.Owner.Side) continue;
+            // Torpedoes are heavy anti-ship weapons: they pass small craft by rather than vaporising a fighter in the way.
+            if (shot.Kind == "torpedo" && !ship.Spec.Hull.IsCapital) continue;
             float half = MathF.Max(0, ship.Spec.HalfLength - ship.Spec.HitRadius);
             float t, distance;
             if (half < 1) (t, distance) = ClosestOnSegment(start, end, ship.Body.Position);

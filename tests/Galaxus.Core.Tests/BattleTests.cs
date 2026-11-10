@@ -148,3 +148,66 @@ public class BattleTests
         Assert.True(world.Hostile(a, b));
     }
 }
+
+/// <summary>Difficulty: measured win rates with a bot pilot, the second wind, and fair fights for fighters.</summary>
+public class DifficultyTests
+{
+    private static readonly ContentDatabase Db = ContentDatabase.Load(new DirectoryContentSource(ContentTests.DataFolder));
+
+    private static bool Practice(BattleDef b) =>
+        b.Objectives.Any(o => o.Type == "destroy" && o.Tag != null && b.Waves.Any(w => w.Side == "friend" && w.Ships.Any(g => g.Tag == o.Tag)));
+
+    [Fact]
+    public void An_average_player_wins_most_battles_on_easy_and_fewer_as_it_gets_harder()
+    {
+        var battles = Db.Battles.Values.Where(b => !Practice(b)).Select(b => b.Id).ToList();
+        double Rate(Difficulty level) => battles.AsParallel()
+            .SelectMany(id => new[] { 1, 2, 3 }.Select(seed => Balance.Play(Db, id, level, 0.5f, seed)))
+            .Average(r => r.Won ? 1.0 : 0.0);
+        double easy = Rate(Difficulty.Easy), normal = Rate(Difficulty.Normal), hard = Rate(Difficulty.Hard);
+        Assert.True(easy >= 0.85, $"Easy: {easy:P0} won.");
+        Assert.True(easy > normal && normal > hard, $"Easy {easy:P0}, Normal {normal:P0}, Hard {hard:P0}.");
+    }
+
+    [Fact]
+    public void The_second_wind_eases_enemies_off_when_you_are_badly_hurt()
+    {
+        var world = new World();
+        var player = new Ship(1, "Player", ShipFactory.Build(Db, "kestrel")) { Side = 1, AimAssist = true };
+        Battle.ApplyToPlayer(player, Difficulty.Easy);
+        world.Ships.Add(player);
+        var def = Db.Battles["hold-the-line"];
+        var battle = new Battle(Db, def, world, player, Balance.SidesFor(def), new Rng(3), new Dictionary<string, string>()) { Difficulty = Difficulty.Easy };
+        // Let the enemy arrive, then knock the player down to almost nothing.
+        for (int i = 0; i < 30 * 40 && battle.EnemiesLeft() == 0; i++) { battle.Step(1 / 30f); world.Step(1 / 30f); }
+        while (player.Hull + player.Shields > (player.Spec.MaxHull + player.Spec.MaxShields) * 0.15f) player.TakeDamage(5);
+        for (int i = 0; i < 30 * 5; i++) battle.Step(1 / 30f);
+        // Badly hurt counts for half; being outnumbered as well would bring it to full.
+        Assert.True(battle.SecondWind >= 0.45f, $"Second wind {battle.SecondWind} when nearly down.");
+        var enemy = battle.Crews.First(c => c.Ship.Side == battle.EnemySide && c.Ship.Alive).Ship;
+        Assert.True(enemy.FireRateScale < Difficulty.Easy.EnemyFireRate);
+        Assert.True(player.ShieldRechargeScale > Difficulty.Easy.ShieldRecharge);
+    }
+
+    [Fact]
+    public void Torpedoes_pass_fighters_by_and_nobody_shoots_marker_drones()
+    {
+        var world = new World();
+        var fighter = new Ship(1, "Fighter", ShipFactory.Build(Db, "kestrel")) { Side = 1 };
+        var drone = new Ship(2, "Beacon", ShipFactory.Build(Db, Db.Hulls.Values.First(h => h.Class == "drone").Id)) { Side = 3 };
+        var enemy = new Ship(3, "Raider", ShipFactory.Build(Db, "kestrel")) { Side = 2 };
+        world.Ships.AddRange([fighter, drone, enemy]);
+        world.SetHostile(2, 1);
+        world.SetHostile(2, 3);
+        drone.Body.Position = enemy.Body.Position + new System.Numerics.Vector3(0, 0, -200);
+        fighter.Body.Position = enemy.Body.Position + new System.Numerics.Vector3(0, 0, -900);
+        var pilot = new Pilot(PilotRole.Fighter, new Rng(1)) { Skill = 1 };
+        pilot.Think(enemy, world, 1 / 30f);
+        Assert.Equal(fighter, enemy.Target);
+
+        var torpedo = new Projectile(enemy, fighter.Body.Position + new System.Numerics.Vector3(0, 0, 30), new System.Numerics.Vector3(0, 0, -400), 500, 2, "#ffffff", "torpedo");
+        world.Projectiles.Add(torpedo);
+        for (int i = 0; i < 10; i++) world.Step(1 / 30f);
+        Assert.Equal(fighter.Spec.MaxHull, fighter.Hull);
+    }
+}
