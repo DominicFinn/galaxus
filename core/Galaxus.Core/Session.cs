@@ -17,13 +17,15 @@ public sealed class Session
     public Galaxy.Galaxy Galaxy { get; }
     public Simulation Simulation { get; }
     public Career Career { get; } = new();
+    public GalaxySettings Settings { get; }
 
     public StarSystem Here => Galaxy.Systems[Career.SystemId];
 
-    private Session(ContentDatabase db, Galaxy.Galaxy galaxy)
+    private Session(ContentDatabase db, Galaxy.Galaxy galaxy, GalaxySettings settings)
     {
         Db = db;
         Galaxy = galaxy;
+        Settings = settings;
         Simulation = new Simulation(db, galaxy);
     }
 
@@ -33,7 +35,8 @@ public sealed class Session
     /// </summary>
     public static Session StartNew(ContentDatabase db, ulong seed, GalaxySettings? settings = null)
     {
-        var session = new Session(db, GalaxyGenerator.Generate(db, seed, settings));
+        settings ??= new GalaxySettings();
+        var session = new Session(db, GalaxyGenerator.Generate(db, seed, settings), settings);
         session.Simulation.Run(30);
 
         var galaxy = session.Galaxy;
@@ -43,6 +46,14 @@ public sealed class Session
             .ThenBy(s => s.Id == tolland?.HomeSystem ? 1 : 0) // not the capital itself
             .First();
         session.Career.SystemId = start.Id;
+        return session;
+    }
+
+    /// <summary>Rebuilds a saved galaxy: same seed, simulated forward to the saved day.</summary>
+    public static Session Restore(ContentDatabase db, ulong seed, GalaxySettings settings, int day)
+    {
+        var session = new Session(db, GalaxyGenerator.Generate(db, seed, settings), settings);
+        session.Simulation.Run(day);
         return session;
     }
 

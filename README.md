@@ -9,7 +9,10 @@ What's in so far:
 - Stations with a mission board, market, shipyard (88 ships from 11 builders), news feed and faction standing.
 - A galaxy map for travelling by gate. Time passes as you fly, and jobs pay out when you arrive.
 
-You start docked at a Tolland Compact colony in a small courier with 8,000 credits.
+- A title screen with save slots, an autosave each time you dock, and settings for the window, mouse and pitch inversion.
+- Every system looks different: its star's colour and its main world, from gas giants with rings to airless cratered rock, ice, lava, desert, ocean and toxic worlds, with moons.
+
+A new game starts docked at a Tolland Compact colony in a small courier with 8,000 credits. There's a printable control sheet in [docs/controls.pdf](docs/controls.pdf).
 
 ## Running it
 

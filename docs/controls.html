@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Galaxus controls</title>
+<style>
+  @page { size: A4 landscape; margin: 10mm; }
+  :root { --ink: #1c2124; --muted: #5b6468; --rule: #c9cfd2; --accent: #b86a10; --green: #2f7a3d; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 9.5pt/1.35 "Helvetica Neue", Arial, sans-serif; color: var(--ink); background: #fff; }
+  .sheet { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6mm 8mm; }
+  header { grid-column: 1 / -1; display: flex; align-items: center; gap: 6mm; border-bottom: 2px solid var(--ink); padding-bottom: 3mm; }
+  .logo { display: flex; align-items: center; gap: 4mm; }
+  .logo svg { width: 16mm; height: 16mm; }
+  .logo h1 { margin: 0; font: 700 24pt/1 "Courier New", monospace; letter-spacing: 0.35em; color: var(--accent); }
+  header p { margin: 0; color: var(--muted); }
+  section h2 { margin: 0 0 1.5mm; font-size: 10.5pt; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); border-bottom: 1px solid var(--rule); padding-bottom: 1mm; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-size: 8pt; color: var(--muted); font-weight: 600; padding: 0 1.5mm 0.8mm 0; }
+  td { padding: 0.9mm 1.5mm 0.9mm 0; border-bottom: 1px solid #eef0f1; vertical-align: top; }
+  td:first-child { width: 38%; }
+  kbd { font: 600 8.5pt "Courier New", monospace; border: 1px solid var(--rule); border-radius: 2px; padding: 0 1mm; background: #f6f7f8; white-space: nowrap; }
+  .notes p { margin: 0 0 1.6mm; }
+  .notes b { color: var(--ink); }
+  footer { grid-column: 1 / -1; color: var(--muted); font-size: 8pt; border-top: 1px solid var(--rule); padding-top: 2mm; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="logo">
+      <svg viewBox="-40 -40 80 80" aria-hidden="true">
+        <circle r="34" fill="none" stroke="#2f7a3d" stroke-width="2.5"/>
+        <g fill="#2f7a3d"><rect x="31" y="-3" width="6" height="6"/><rect x="-37" y="-3" width="6" height="6"/><rect x="-3" y="31" width="6" height="6"/><rect x="-3" y="-37" width="6" height="6"/></g>
+        <g fill="none" stroke="#b86a10" stroke-width="3" stroke-linecap="round" transform="scale(1,0.62)">
+          <path d="M0 0 C 8 -6, 18 -2, 24 10"/><path d="M0 0 C 6 8, 2 18, -10 24"/><path d="M0 0 C -8 6, -18 2, -24 -10"/><path d="M0 0 C -6 -8, -2 -18, 10 -24"/>
+        </g>
+        <circle r="4" fill="#b86a10"/>
+      </svg>
+      <h1>GALAXUS</h1>
+    </div>
+    <p>Controls. Press F1 in flight for this list on screen. Pitch follows a flight stick: pull back (or press Down) to raise the nose. Both can be inverted in Settings.</p>
+  </header>
+
+  <section>
+    <h2>Flying</h2>
+    <table>
+      <tr><th>Action</th><th>Keyboard and mouse</th><th>Gamepad</th></tr>
+      <tr><td>Pitch and yaw</td><td>Mouse, <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></td><td>Left stick</td></tr>
+      <tr><td>Yaw</td><td><kbd>A</kbd> <kbd>D</kbd></td><td>Left stick</td></tr>
+      <tr><td>Roll</td><td><kbd>Q</kbd> <kbd>E</kbd></td><td>Bumpers, right stick sideways</td></tr>
+      <tr><td>Throttle up and down</td><td><kbd>W</kbd> <kbd>S</kbd></td><td>Right stick up and down</td></tr>
+      <tr><td>Zero throttle</td><td><kbd>X</kbd></td><td>Right stick click</td></tr>
+      <tr><td>Thrusters up, down, left, right</td><td><kbd>R</kbd> <kbd>F</kbd> <kbd>Z</kbd> <kbd>C</kbd></td><td></td></tr>
+      <tr><td>Flight assist on or off</td><td><kbd>G</kbd></td><td><kbd>B</kbd></td></tr>
+      <tr><td>Chase or cockpit camera</td><td><kbd>V</kbd></td><td><kbd>Y</kbd></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Fighting and power</h2>
+    <table>
+      <tr><th>Action</th><th>Keyboard and mouse</th><th>Gamepad</th></tr>
+      <tr><td>Fire</td><td><kbd>Space</kbd>, left click</td><td>Right trigger</td></tr>
+      <tr><td>Next target</td><td><kbd>T</kbd></td><td><kbd>A</kbd></td></tr>
+      <tr><td>Power to engines</td><td><kbd>1</kbd></td><td>D-pad up</td></tr>
+      <tr><td>Power to shields</td><td><kbd>2</kbd></td><td>D-pad left</td></tr>
+      <tr><td>Power to weapons</td><td><kbd>3</kbd></td><td>D-pad right</td></tr>
+      <tr><td>Balance power</td><td><kbd>4</kbd></td><td>D-pad down</td></tr>
+    </table>
+    <h2 style="margin-top:4mm">Stations, map and menus</h2>
+    <table>
+      <tr><th>Action</th><th>Keyboard and mouse</th><th>Gamepad</th></tr>
+      <tr><td>Dock (close and slow) or undock</td><td><kbd>Enter</kbd></td><td><kbd>X</kbd></td></tr>
+      <tr><td>Galaxy map</td><td><kbd>M</kbd></td><td>Start</td></tr>
+      <tr><td>Map: zoom and pan</td><td>Scroll wheel, right-drag</td><td></td></tr>
+      <tr><td>Pause menu: save, load, settings</td><td><kbd>Esc</kbd></td><td></td></tr>
+      <tr><td>Controls on screen</td><td><kbd>F1</kbd></td><td>Back</td></tr>
+      <tr><td>Quit</td><td><kbd>F10</kbd></td><td></td></tr>
+    </table>
+  </section>
+
+  <section class="notes">
+    <h2>How it handles</h2>
+    <p><b>Flight assist on</b> holds the speed you set with the throttle and keeps the ship travelling where the nose points. <b>Off</b>, the drives just push and you drift until you counter-thrust.</p>
+    <p><b>Turn tightest at lower speed.</b> Your pilot can only take so much g, so turn rate falls as speed rises. The HUD shows the best turning speed.</p>
+    <p><b>Power pips.</b> Six pips are shared between engines, shields and weapons. Pressing a system's key moves a pip to it, taking half from each of the others.</p>
+    <p><b>Mouse flying.</b> The mouse moves a dot inside a ring at the centre of the screen. The further the dot from the centre, the harder you turn. Bring it back to fly straight.</p>
+    <p><b>Lead indicator.</b> The red diamond near your target shows where to aim so your shots arrive where it will be.</p>
+    <p><b>Docking.</b> Fly within 500 m of the station below 80 m/s, then press Enter. The game saves automatically each time you dock.</p>
+    <p><b>Travel.</b> Pick a system on the map and jump. Days pass on the way, the galaxy moves on, and jobs for that system pay out on arrival.</p>
+  </section>
+
+  <footer>Galaxus is a working title. Controls are for the current early build and will change.</footer>
+</div>
+</body>
+</html>

@@ -75,9 +75,13 @@ public partial class Space : Node3D
     private MultiMeshInstance3D _dust = null!;
     private readonly Vector3[] _dustPositions = new Vector3[DustCount];
 
-    public Vector3 SunDirection { get; } = new Vector3(0.6f, 0.25f, -0.75f).Normalized();
+    public Vector3 SunDirection { get; private set; } = new Vector3(0.6f, 0.25f, -0.75f).Normalized();
 
-    public void Build(ulong seed)
+    public PlanetKind Planet { get; private set; }
+    public StarKind Star { get; private set; }
+
+    /// <param name="system">The system to show. Null gives a random backdrop from the seed (used by the menu).</param>
+    public void Build(ulong seed, Galaxus.Core.Galaxy.StarSystem? system = null)
     {
         var rng = new Rng(seed);
 
@@ -93,39 +97,35 @@ public partial class Space : Node3D
         };
         AddChild(new WorldEnvironment { Environment = environment });
 
+        // The star: its colour tints the light on everything in the system.
+        var bodies = rng.Fork("bodies");
+        Star = PlanetFactory.PickStar(bodies.Fork("star"));
+        var (disc, light, energy, size) = PlanetFactory.StarLook(Star);
+        var sunDir = new Vector3(bodies.Range(-1, 1), bodies.Range(-0.2f, 0.45f), bodies.Range(-1, -0.2f)).Normalized();
+        SunDirection = sunDir;
         AddChild(new DirectionalLight3D
         {
             Transform = Transform3D.Identity.LookingAt(-SunDirection, Vector3.Up),
-            LightColor = new Color(1f, 0.95f, 0.85f),
-            LightEnergy = 1.3f,
+            LightColor = light,
+            LightEnergy = energy,
         });
-
-        // Distant bodies. They're far enough away that parallax is small but noticeable.
         AddChild(new MeshInstance3D
         {
-            Mesh = MeshFactory.Icosphere(3000, 2, _ => new Color(1f, 0.92f, 0.7f), MeshFactory.Unshaded(new Color(1f, 0.93f, 0.75f))),
+            Mesh = MeshFactory.Icosphere(size, 2, _ => disc, MeshFactory.Unshaded(disc)),
             Position = SunDirection * 90000,
         });
 
-        int planetSeed = (int)(rng.NextULong() & 0x7fffffff);
-        AddChild(new MeshInstance3D
-        {
-            Mesh = MeshFactory.Icosphere(14000, 3, dir => PlanetColour(dir, planetSeed)),
-            Position = new Vector3(-26000, -9000, -38000),
-            RotationDegrees = new Vector3(15, 30, 0),
-        });
+        // The main planet, off to one side so the station and the planet frame each other.
+        var prng = bodies.Fork("planet");
+        Planet = system != null ? PlanetFactory.PickPlanet(system, prng) : (PlanetKind)prng.Next(9);
+        var planet = PlanetFactory.BuildPlanet(Planet, prng.Fork("build"));
+        float angle = prng.Range(0.5f, 2.6f) * (prng.NextFloat() < 0.5f ? -1 : 1);
+        float distance = prng.Range(42000, 60000);
+        planet.Position = new Vector3(Mathf.Sin(angle) * distance, prng.Range(-12000, 9000), -Mathf.Cos(angle) * distance);
+        planet.RotationDegrees = new Vector3(prng.Range(-20, 20), prng.Range(0, 360), prng.Range(-15, 15));
+        AddChild(planet);
 
         BuildDust(rng.Fork("dust"));
-    }
-
-    private static Color PlanetColour(Vector3 dir, int seed)
-    {
-        float height = Noise.Fbm3D(dir * 2.2f + new Vector3(10, 10, 10), seed);
-        float latitude = Mathf.Abs(dir.Y);
-        if (latitude > 0.82f + (height - 0.5f) * 0.2f) return new Color(0.9f, 0.93f, 0.97f); // ice caps
-        if (height < 0.5f) return new Color(0.1f, 0.25f, 0.45f).Lerp(new Color(0.15f, 0.35f, 0.55f), height * 2);
-        if (height < 0.62f) return new Color(0.3f, 0.45f, 0.22f);
-        return new Color(0.48f, 0.4f, 0.3f);
     }
 
     /// <summary>Paints an equirectangular sky: a nebula band along the galactic plane, a bright core, and pixel stars.</summary>

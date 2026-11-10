@@ -15,7 +15,8 @@ namespace Galaxus;
 /// Debug arguments go after "--" on the command line:
 ///   --demo               fly and shoot automatically
 ///   --cockpit            start in the cockpit camera
-///   --screen=NAME        start on flight, station or map (default: docked at the station)
+///   --screen=NAME        skip the menu and start a new game on flight, station or map;
+///                        or show the title "menu" without the splash
 ///   --screenshot=PATH    save a screenshot after --frames (default 180) frames, then quit
 ///   --preview=HULL_ID    show one hull from four angles instead of the game (for content work)
 /// </summary>
@@ -24,7 +25,6 @@ public partial class Main : Node3D
     private const int DroneCount = 4;
     private const float ThrottleRate = 0.7f;
     private const float MouseStickRadius = 60f;
-    private const float MouseSensitivity = 0.5f;
     private const float RespawnDelay = 4f;
 
     private ContentDatabase _db = null!;
@@ -50,15 +50,22 @@ public partial class Main : Node3D
     private int _screenshotFrame = 180;
     private int _frame;
     private string? _previewHull;
-    private string _startScreen = "station";
+    private string? _startScreen;
 
-    private enum Screen { Flight, Docked, Map }
+    private enum Screen { Flight, Docked, Map, Menu }
+
+    /// <summary>A session to start when the scene reloads (New game, Continue, Load).</summary>
+    private static Session? _pendingSession;
+    private static bool _splashShown;
+    private MenuScreen _menu = null!;
+    private Screen _pauseReturn = Screen.Flight;
 
     /// <summary>The station sits ahead of the arrival point in every system that has one.</summary>
     private static readonly NVector3 StationPosition = new(0, 0, -1600);
     private const float DockRange = 500f, DockSpeed = 80f;
 
-    private Session _session = null!;
+    private Session? _sessionOrNull;
+    private Session _session { get => _sessionOrNull!; set => _sessionOrNull = value; }
     private Screen _screen = Screen.Flight;
     private Screen _mapReturn = Screen.Flight;
     private StationScreen _stationScreen = null!;
@@ -89,13 +96,85 @@ public partial class Main : Node3D
             return;
         }
 
-        _session = Session.StartNew(_db, 2026);
+        GameSettings.Load();
+        _camera = new Camera3D { Fov = 70, Near = 0.3f, Far = 150000, Current = true };
+        AddChild(_camera);
+
+        var menuLayer = new CanvasLayer { Layer = 3 };
+        AddChild(menuLayer);
+        _menu = new MenuScreen { Visible = false };
+        _menu.Init(new MenuActions
+        {
+            NewGame = () => Restart(Session.StartNew(_db, (ulong)DateTime.Now.Ticks)),
+            Load = slot => Restart(SaveSlots.Read(_db, slot)),
+            Save = slot => { SaveSlots.Write(slot, _session); },
+            Resume = Resume,
+            MainMenu = () => Restart(null),
+            Quit = () => GetTree().Quit(),
+        });
+        menuLayer.AddChild(_menu);
+
+        if (_pendingSession != null)
+        {
+            var session = _pendingSession;
+            _pendingSession = null;
+            StartGame(session, _startScreen);
+        }
+        else if (_demo || _startScreen is "flight" or "station" or "map")
+            StartGame(Session.StartNew(_db, 2026), _startScreen);
+        else
+            ShowTitle(splash: !_splashShown && _startScreen != "menu");
+    }
+
+    /// <summary>The title screen: a random system as a slowly turning backdrop, with the splash first time round.</summary>
+    private void ShowTitle(bool splash)
+    {
+        _space = new Space();
+        AddChild(_space);
+        _space.Build((ulong)DateTime.Now.Ticks);
+        _camera.Rotation = new Vector3(0, 0, 0);
+        _menu.Open(inGame: false);
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+
+        if (splash)
+        {
+            _splashShown = true;
+            _menu.Visible = false;
+            var splashLayer = new CanvasLayer { Layer = 4 };
+            AddChild(splashLayer);
+            var splashScreen = new Splash();
+            splashScreen.Finished += () => _menu.Open(inGame: false);
+            splashLayer.AddChild(splashScreen);
+        }
+    }
+
+    /// <summary>Starts or switches games by reloading the scene with the session waiting.</summary>
+    private void Restart(Session? session)
+    {
+        _pendingSession = session;
+        _startScreen = null;
+        GetTree().ReloadCurrentScene();
+    }
+
+    private void OpenPause()
+    {
+        _pauseReturn = _screen == Screen.Menu ? _pauseReturn : _screen;
+        SetScreen(Screen.Menu);
+        _menu.Open(inGame: true);
+    }
+
+    private void Resume()
+    {
+        _menu.Visible = false;
+        if (_pauseReturn == Screen.Docked) Dock(); else SetScreen(_pauseReturn);
+    }
+
+    private void StartGame(Session session, string? startScreen)
+    {
+        _session = session;
 
         _effects = new Effects();
         AddChild(_effects);
-
-        _camera = new Camera3D { Fov = 70, Near = 0.3f, Far = 150000, Current = true };
-        AddChild(_camera);
 
         _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
         _world.Ships.Add(_player);
@@ -129,9 +208,10 @@ public partial class Main : Node3D
         uiLayer.AddChild(_map);
 
         EnterSystem();
-        if (_demo || _startScreen == "flight") SetScreen(Screen.Flight);
-        else if (_startScreen == "map") OpenMap();
-        else Dock();
+        if (_demo || startScreen == "flight") SetScreen(Screen.Flight);
+        else if (startScreen == "map") OpenMap();
+        else if (_session.Here.Stations.Count > 0) Dock();
+        else SetScreen(Screen.Flight);
         UpdateCamera(1f, snap: true);
     }
 
@@ -142,7 +222,7 @@ public partial class Main : Node3D
         _space?.QueueFree();
         _space = new Space();
         AddChild(_space);
-        _space.Build(here.Seed);
+        _space.Build(here.Seed, here);
 
         _stationNode?.QueueFree();
         _stationNode = null;
@@ -168,7 +248,11 @@ public partial class Main : Node3D
         foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
         _world.Projectiles.Clear();
         _hud.Location = $"{here.Name.ToUpperInvariant()}  DAY {_session.Galaxy.Day}";
+        _hud.Message($"{_space.Star.ToString().ToUpperInvariant()} STAR, {SpacedName(_space.Planet)} WORLD");
     }
+
+    private static string SpacedName(PlanetKind kind) =>
+        string.Concat(kind.ToString().Select((c, i) => i > 0 && char.IsUpper(c) ? " " + c : c.ToString())).ToUpperInvariant();
 
     private void SetScreen(Screen screen)
     {
@@ -176,6 +260,7 @@ public partial class Main : Node3D
         _stationScreen.Visible = screen == Screen.Docked;
         _map.Visible = screen == Screen.Map;
         _hud.Visible = screen == Screen.Flight;
+        if (screen != Screen.Menu) _menu.Visible = false;
         if (!_demo && _screenshotPath == null)
             Input.MouseMode = screen == Screen.Flight ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
     }
@@ -184,6 +269,7 @@ public partial class Main : Node3D
     {
         _stationScreen.Refresh();
         SetScreen(Screen.Docked);
+        SaveSlots.Write(SaveSlots.Autosave, _session);
     }
 
     /// <summary>Leave the station pointing away from it, so you're clear of the hub.</summary>
@@ -276,7 +362,7 @@ public partial class Main : Node3D
         if (e is InputEventMouseMotion motion && Input.MouseMode == Input.MouseModeEnum.Captured)
         {
             // Virtual joystick: the mouse moves a dot inside a ring, and the dot's offset is the stick.
-            _mouseStick += new Vector2(motion.Relative.X, motion.Relative.Y) * MouseSensitivity;
+            _mouseStick += new Vector2(motion.Relative.X, motion.Relative.Y) * GameSettings.Current.MouseSensitivity;
             if (_mouseStick.Length() > MouseStickRadius) _mouseStick = _mouseStick.Normalized() * MouseStickRadius;
         }
         else if (e is InputEventMouseButton { Pressed: true } && Input.MouseMode != Input.MouseModeEnum.Captured && !_demo)
@@ -295,6 +381,14 @@ public partial class Main : Node3D
             return;
         }
         float dt = Mathf.Min((float)delta, 1 / 30f);
+
+        if (_sessionOrNull == null)
+        {
+            // Title screen: drift the camera slowly round the backdrop.
+            _camera.Rotation += new Vector3(0, dt * 0.015f, 0);
+            CaptureScreenshotIfAsked();
+            return;
+        }
 
         if (_screen != Screen.Flight)
         {
@@ -348,7 +442,9 @@ public partial class Main : Node3D
     private void HandleScreenKeys()
     {
         if (Input.IsActionJustPressed(GameInput.Quit)) GetTree().Quit();
-        if (_screen == Screen.Map && (Input.IsActionJustPressed(GameInput.Map) || Input.IsActionJustPressed(GameInput.ReleaseMouse))) CloseMap();
+        if (_screen == Screen.Menu && Input.IsActionJustPressed(GameInput.ReleaseMouse)) Resume();
+        else if (_screen == Screen.Map && (Input.IsActionJustPressed(GameInput.Map) || Input.IsActionJustPressed(GameInput.ReleaseMouse))) CloseMap();
+        else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.ReleaseMouse)) OpenPause();
         else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.Map)) OpenMap();
         else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.Dock)) Undock();
     }
@@ -356,7 +452,7 @@ public partial class Main : Node3D
     private void HandleCommands()
     {
         if (Input.IsActionJustPressed(GameInput.Quit)) GetTree().Quit();
-        if (Input.IsActionJustPressed(GameInput.ReleaseMouse)) Input.MouseMode = Input.MouseModeEnum.Visible;
+        if (Input.IsActionJustPressed(GameInput.ReleaseMouse)) { OpenPause(); return; }
         if (Input.IsActionJustPressed(GameInput.Help)) _hud.ShowHelp = !_hud.ShowHelp;
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
         if (Input.IsActionJustPressed(GameInput.TargetNext)) _player.Target = NextTarget();
@@ -387,7 +483,10 @@ public partial class Main : Node3D
         var stick = _mouseStick / MouseStickRadius;
         if (stick.Length() < 0.06f) stick = Vector2.Zero;
 
-        controls.Flight.Pitch = Mathf.Clamp(Input.GetAxis(GameInput.PitchDown, GameInput.PitchUp) - stick.Y, -1, 1);
+        var settings = GameSettings.Current;
+        float keyPitch = Input.GetAxis(GameInput.PitchDown, GameInput.PitchUp) * (settings.InvertStick ? -1 : 1);
+        float mousePitch = -stick.Y * (settings.InvertMouse ? -1 : 1);
+        controls.Flight.Pitch = Mathf.Clamp(keyPitch + mousePitch, -1, 1);
         controls.Flight.Yaw = Mathf.Clamp(Input.GetAxis(GameInput.YawLeft, GameInput.YawRight) + stick.X, -1, 1);
         controls.Flight.Roll = Input.GetAxis(GameInput.RollLeft, GameInput.RollRight);
         controls.Flight.Strafe = new System.Numerics.Vector2(

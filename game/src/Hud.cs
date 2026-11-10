@@ -71,7 +71,7 @@ public partial class Hud : Control
         Text(new Vector2(size.X / 2, 12), Location, Dim, HorizontalAlignment.Center);
         if (Prompt != null) Text(new Vector2(size.X / 2, size.Y / 2 + 36), Prompt, Amber, HorizontalAlignment.Center);
         Text(new Vector2(size.X - 6, 12), $"DRONES DOWN {Kills}", Dim, HorizontalAlignment.Right);
-        Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
+        if (GameSettings.Current.ShowHints) Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
         if (ShowHelp) DrawHelp(size);
     }
 
@@ -252,7 +252,7 @@ public partial class Hud : Control
             "V / Y                         chase or cockpit camera",
             "ENTER / X                     dock when close and slow",
             "M / START                     galaxy map",
-            "ESC                           release mouse      F10  quit",
+            "ESC                           pause menu, save and load      F10  quit",
         ];
         var rect = new Rect2(size.X / 2 - 200, 70, 400, lines.Length * 11 + 16);
         DrawRect(rect, new Color(0, 0.03f, 0.01f, 0.85f));

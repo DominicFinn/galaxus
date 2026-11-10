@@ -150,3 +150,32 @@ public class SessionTests
         Assert.Empty(career.Cargo);
     }
 }
+
+public class SaveGameTests
+{
+    private static readonly ContentDatabase Db = ContentDatabase.Load(new DirectoryContentSource(ContentTests.DataFolder));
+
+    [Fact]
+    public void Saving_and_loading_restores_the_galaxy_and_career()
+    {
+        var session = Session.StartNew(Db, 77);
+        var offer = session.Board().First(o => o.Playable && o.Mission.Tonnes <= session.Career.FreeCargo(Db));
+        session.Career.Accept(session.Galaxy, offer);
+        session.Career.Buy(Db, session.Galaxy, Db.Commodities.Keys.Order().First(), 1);
+        session.Career.Reputation[3] = 150;
+        session.Simulation.Run(40);
+
+        var json = SaveGame.Save(session);
+        var loaded = SaveGame.Load(Db, json);
+
+        Assert.Equal(session.Galaxy.Day, loaded.Galaxy.Day);
+        Assert.Equal(session.Galaxy.News.Select(n => n.Text), loaded.Galaxy.News.Select(n => n.Text));
+        Assert.Equal(session.Galaxy.Systems.Select(s => s.Owner), loaded.Galaxy.Systems.Select(s => s.Owner));
+        Assert.Equal(session.Career.Credits, loaded.Career.Credits);
+        Assert.Equal(session.Career.Cargo, loaded.Career.Cargo);
+        Assert.Equal(150, loaded.Career.Reputation[3]);
+        Assert.Equal(offer.Mission.Briefing, loaded.Career.Missions.Single().Offer.Mission.Briefing);
+        Assert.Equal(session.Career.Missions.Single().DeadlineDay, loaded.Career.Missions.Single().DeadlineDay);
+        Assert.Equal(session.Here.Name, SaveGame.Peek(json)!.SystemName);
+    }
+}
