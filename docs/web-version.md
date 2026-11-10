@@ -22,6 +22,8 @@ How it feels:
 
 Saves move between the two: Load game has Export a save file (a download in the browser, a file dialog on a computer) and Import a save file. Saves record the mods they were made with, and importing warns if they don't match, because mods can change the galaxy.
 
+Compiling the C# ahead of time makes the web build up to 46 times faster, and a one-line fix to the community template gets 13 times on its own: see [web-aot.md](web-aot.md).
+
 To build and try it: `tools/export-web.sh`, then `python3 tools/serve-web.py build/web` and open http://127.0.0.1:8765. Hosting needs cross-origin isolation headers: itch.io has a setting for it, GitHub Pages needs Godot's service worker option.
 
 ## The blocker (as first written)

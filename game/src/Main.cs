@@ -93,6 +93,13 @@ public partial class Main : Node3D
         // down once this scene has drawn.
         Loading.Finish(this);
 
+        if (WebBench.Requested())
+        {
+            WebBench.Run();
+            if (!Loading.IsWeb) GetTree().Quit();
+            return;
+        }
+
         try
         {
             // The preview only needs one hull, so it shouldn't be blocked by problems elsewhere.
