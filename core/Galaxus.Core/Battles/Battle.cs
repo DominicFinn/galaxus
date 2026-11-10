@@ -25,6 +25,7 @@ public sealed record RadioCall(string Text, string Side) : BattleEvent;
 public sealed record ObjectiveChanged(BattleObjective Objective) : BattleEvent;
 public sealed record WaveArrived(string WaveId, string Side, int Ships) : BattleEvent;
 public sealed record BattleOver(bool Won, string Text) : BattleEvent;
+public sealed record ScanComplete(BattleObjective Objective, Ship Ship, int Done, int Of) : BattleEvent;
 
 /// <summary>
 /// A set-piece battle running in a World: spawns each wave when its time or trigger comes, flies
@@ -55,6 +56,7 @@ public sealed class Battle
     private readonly HashSet<string> _spawned = [];
     private readonly Dictionary<string, float> _triggeredAt = [];
 
+    private float _lastDt;
     public BattleDef Def { get; }
     public int FriendSide { get; }
     public int EnemySide { get; }
@@ -81,6 +83,9 @@ public sealed class Battle
         _rng = rng;
         _variables = new(variables);
         _tagNames = tagNames != null ? new(tagNames) : [];
+        // A group with a fixed name gives its tag that name, so {flagship} reads right in the radio.
+        foreach (var g in def.Waves.SelectMany(w => w.Ships).Where(g => g.Tag != null && g.Name != null))
+            _tagNames[g.Tag!] = g.Name!.Replace("{base}", variables.GetValueOrDefault("base", g.Name!));
         foreach (var (tag, name) in _tagNames) _variables[tag] = name;
 
         FriendSide = player.Side;
@@ -111,6 +116,7 @@ public sealed class Battle
         Events.Clear();
         if (Won != null) { FlyCrews(dt); return; }
         Time += dt;
+        _lastDt = dt;
         foreach (var wave in Def.Waves)
             if (!_spawned.Contains(wave.Id) && Due(wave)) Spawn(wave);
         FlyCrews(dt);
@@ -156,7 +162,8 @@ public sealed class Battle
             for (int i = 0; i < group.Count; i++)
             {
                 var spec = ShipFactory.Build(_db, hull, null, race);
-                string name = group.Tag != null && _tagNames.TryGetValue(group.Tag, out var tagged) && i == 0 ? tagged
+                string name = group.Name != null && i == 0 ? Fill(group.Name)
+                    : group.Tag != null && _tagNames.TryGetValue(group.Tag, out var tagged) && i == 0 ? tagged
                     : def.IsCapital ? WarshipNames[_rng.Next(WarshipNames.Length)]
                     : $"{def.Name} {ships.Count + 1}";
                 var ship = new Ship(Interlocked.Increment(ref _nextShipId), name, spec) { Side = side };
@@ -216,7 +223,7 @@ public sealed class Battle
 
     private string? PickHull(string builder, string cls, bool unbound)
     {
-        bool Fits(HullDef h) => h.Class == cls && h.Class != "drone" && h.Id.StartsWith("fm-unbound") == unbound;
+        bool Fits(HullDef h) => h.Class == cls && (cls == "drone" || h.Class != "drone") && (cls == "drone" || h.Id.StartsWith("fm-unbound") == unbound);
         var options = _db.Hulls.Values.Where(h => h.Builder == builder && Fits(h)).ToList();
         if (options.Count == 0) options = _db.Hulls.Values.Where(Fits).ToList();
         if (options.Count == 0 && unbound) options = _db.Hulls.Values.Where(h => h.Builder == builder && h.Class == cls).ToList();
@@ -236,14 +243,56 @@ public sealed class Battle
         "capital" => PilotRole.Capital,
         "freighter" => PilotRole.Freighter,
         "interceptor" => PilotRole.Interceptor,
+        "holding" => PilotRole.Holding,
         _ => PilotRole.Fighter,
     };
+
+    private readonly Dictionary<(BattleObjective, Ship), float> _held = [];
+    private readonly HashSet<(BattleObjective, Ship)> _scanned = [];
+
+    /// <summary>
+    /// Scans and rendezvous: time spent close to each marked ship counts up; scans need every
+    /// marked ship, a rendezvous needs you matched in speed too. Losing an unscanned ship fails it.
+    /// </summary>
+    private void Progress(BattleObjective o, List<Ship> marks, float dt)
+    {
+        bool rendezvous = o.Def.Type == "rendezvous";
+        foreach (var ship in marks)
+        {
+            var key = (o, ship);
+            if (_scanned.Contains(key)) continue;
+            if (!ship.Alive)
+            {
+                o.State = ObjectiveState.Failed;
+                return;
+            }
+            bool close = World.DistanceToShip(ship, _player.Body.Position) <= o.Def.Distance;
+            bool matched = !rendezvous || Vector3.Distance(ship.Body.Velocity, _player.Body.Velocity) < 15;
+            float held = _held.GetValueOrDefault(key);
+            held = close && matched ? held + dt : rendezvous ? MathF.Max(0, held - dt * 2) : held;
+            _held[key] = held;
+            if (held >= o.Def.Seconds)
+            {
+                _scanned.Add(key);
+                Events.Add(new ScanComplete(o, ship, marks.Count(m => _scanned.Contains((o, m))), marks.Count));
+            }
+        }
+        if (marks.All(m => _scanned.Contains((o, m)))) o.State = ObjectiveState.Done;
+    }
+
+    /// <summary>How far through a scan or rendezvous you are with the nearest marked ship, 0 to 1, or null when you're not at one.</summary>
+    public float? HoldProgress(BattleObjective o) =>
+        _tags.TryGetValue(o.Def.Tag ?? "", out var marks)
+            ? marks.Where(m => !_scanned.Contains((o, m)) && World.DistanceToShip(m, _player.Body.Position) <= o.Def.Distance)
+                .Select(m => (float?)(_held.GetValueOrDefault((o, m)) / o.Def.Seconds)).FirstOrDefault()
+            : null;
 
     private void CheckObjectives()
     {
         foreach (var o in Objectives.Where(o => o.State == ObjectiveState.Pending))
         {
             var before = o.State;
+            float dt = _lastDt;
             switch (o.Def.Type)
             {
                 case "destroy":
@@ -255,6 +304,10 @@ public sealed class Battle
                     break;
                 case "survive":
                     if (Time >= o.Def.Seconds) o.State = ObjectiveState.Done;
+                    break;
+                case "scan":
+                case "rendezvous":
+                    if (_tags.TryGetValue(o.Def.Tag!, out var marks) && marks.Count > 0) Progress(o, marks, dt);
                     break;
                 case "escape":
                     if (_tags.TryGetValue(o.Def.Tag!, out var runners) && runners.Count > 0)

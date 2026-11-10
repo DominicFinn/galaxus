@@ -55,9 +55,49 @@ public partial class Main
             {
                 if (PortWorld() is { } port) ApproachPort(port.Body, port.Site, 2.2, 0.7);
             }),
+            new("citadel.png", 900, () =>
+            {
+                // A great power's capital: the citadel station, with traffic about it.
+                var capital = galaxy.Factions.First(f => f.PowerId == "meridian-concord").HomeSystem;
+                _holdStill = false;
+                _demo = false;
+                GoTo(capital);
+                SetScreen(Screen.Flight);
+                _player.Respawn(_stationLocal + new System.Numerics.Vector3(600, 400, 3200), System.Numerics.Quaternion.CreateFromYawPitchRoll(0.15f, -0.1f, 0));
+                _holdStill = true;
+                _trafficTimer = 0;
+            }),
             new("battle-opening.png", 1500, () => StartShowcaseBattle("fleet-engagement")),
             new("battle-fleet.png", 1500, () => { _cockpit = false; }),
             new("battle-cockpit.png", 600, () => { _cockpit = true; }),
+            new("campaign-fleet.png", 400, () =>
+            {
+                // A campaign start: out beside the flagship and its fleet.
+                var id = _session.Db.Campaigns.Keys.OrderBy(k => k).FirstOrDefault();
+                if (id == null) return;
+                _demo = false;
+                _holdStill = false;
+                var campaign = _session.Db.Campaigns[id];
+                _session.Career.CampaignId = id;
+                _session.Career.CampaignStep = 0;
+                _session.Career.CampaignBase = galaxy.Factions.First(f => f.PowerId == campaign.Power).HomeSystem;
+                _session.Career.CampaignDebrief = "Showcase.";
+                GoTo(_session.Career.CampaignBase);
+                EnterSystem();
+                SetScreen(Screen.Flight);
+                if (_flagship != null)
+                    _player.Respawn(_flagship.Body.Position + new System.Numerics.Vector3(-_flagship.Spec.HalfLength * 1.2f, _flagship.Spec.HalfLength * 0.3f, _flagship.Spec.HalfLength * 1.6f),
+                        System.Numerics.Quaternion.CreateFromYawPitchRoll(-0.6f, -0.12f, 0));
+                _holdStill = true;
+            }),
+            new("campaign-orders.png", 30, () =>
+            {
+                _holdStill = false;
+                if (_flagship == null) return;
+                _dockedAtFlagship = true;
+                Dock();
+                _stationScreen.ShowTab(7);
+            }),
             new("galaxy-deep-stars.png", 20, () =>
             {
                 _holdStill = false;

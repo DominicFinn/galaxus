@@ -1,0 +1,82 @@
+[
+  {
+    "id": "campaign-khanate-tithe",
+    "description": "The Iron Tithe: intro, outro, orders and debriefs.",
+    "variables": [
+      "barge",
+      "base",
+      "captain",
+      "client",
+      "enemy",
+      "flagship",
+      "stranded",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "intro": [
+        "HEY. You. {captain}. You are on the {base} now and you fly for {client}. Good. We were short of pilots and long on dwarves.\n\nHere is how it is. The {enemy} hold the stone rocks next door and they have been getting rich on iron that the khans think is theirs. Raids, truces, raids again. Now the League is arming and the khan wants to hit first.\n\nI am Warchief Brakka of the Ninth Tusk. I command this ship and everyone on it. You will fly with Thrug Two-Fangs, who will shout at you and save your hull. Old Mazka keeps the plunder list. Do not cheat Mazka. She counts better than the dwarves.\n\nGo find your ship. It is loud. Good.",
+        "{captain}! The {base} welcomes you. Do not touch the grog and do not touch the guns until you are told.\n\nThe {enemy} have dug into the Anvil Drift and pulled up our iron. The khan wants it back, the plunder, the glory and a ruined dwarf or two. That is the war. It starts small and ends big.\n\nI am Warchief Brakka. You answer to me. Thrug flies your wing. Mazka keeps your share. Fly well and you will be sung about. Fly badly and you will be sung about worse."
+      ],
+      "outro": [
+        "It is done, {captain}. The Hold League sits in its stone and thinks about its mistakes. The clans sing the Hearthhall for a month and your name appears in the song, between two rude words.\n\nBrakka says you may go. Thrug says to come back for the next one. Mazka sends the last of your plunder, and a bill for the grog."
+      ],
+      "briefing-stakes": [
+        "Brakka: Captain {captain}. First job. The khan's claim stakes in {system} need checking. Four of them. Fly slow, hold close, wait for each to answer. Pirates have been sniffing about. Kill them.\n\nThrug: Slow flying! I hate it! I will fly with you!",
+        "Brakka: A small thing, to see how you fly. Check the stakes in {system}. Close in, hold, wait. Then kill whatever turns up."
+      ],
+      "debrief-stakes": [
+        "Brakka: Good. You can hold still and you can fight. The two together are rare.\n\nMazka: Your share, {captain}. Four coins for the stakes, the rest for the pirates. I counted twice.\n\nThrug: You flew well! I am proud of you!",
+        "Brakka: Stakes checked and pirates dead. Mazka will pay you. Sleep. Tomorrow we raid."
+      ],
+      "briefing-haulers": [
+        "Brakka: A Hold League ore train crosses {system}, four haulers with three guards. The khan wants the ore. Kill the haulers and take what you can. Plunder is shared by the wing.\n\nThrug: Dwarf ore! Heavy and slow! I love them!",
+        "Brakka: Raid. {enemy} ore haulers in {system}. Break them. The ore is ours when they are in pieces."
+      ],
+      "debrief-haulers": [
+        "Brakka: The haulers are broken and the ore is ours. The League will complain. Let them.\n\nMazka: Plunder total, three hundred pieces. Your share is on the list. Do not argue. I counted.",
+        "Brakka: Good raid. They will hit us back. Be ready."
+      ],
+      "briefing-fuel": [
+        "Brakka: The tender {stranded} is dead in {system}, tanks dry, and screaming about it. Go to her. Match speed, hold close, pass fuel. Pirates are circling. They always are. Protect her.\n\nThrug: Holding still again. I hate it. I will do it.",
+        "Brakka: A hauler has run dry. Fuel her. Pirates will come. Kill them while you fuel. Do not let her die."
+      ],
+      "debrief-fuel": [
+        "Brakka: She has fuel and she has her ship. The pirates have worms. Good.\n\nMazka: The tender master offers a barrel. I counted it. It is mine now. Your pay is on the list.",
+        "Brakka: Fuel in her tanks and thieves in the dark. Well done, Captain."
+      ],
+      "briefing-barge": [
+        "Brakka: This is hard. The khan's tithe barge {barge} must pass the League border in {system}. It is a truce gift. The dwarves swore not to touch it. They are dwarves. Escort her and keep your safeties off.\n\nThrug: If they cut us I will cut them! Twice!",
+        "Brakka: Escort the {barge}. Tribute for a truce. The League says it will not strike her. The League says many things."
+      ],
+      "debrief-barge": [
+        "Brakka: They struck. We held. The truce is dust now, which is how I wanted it.\n\nMazka: A damaged barge is a lost barge, but she is whole. I will pay you for her.\n\nThrug: That Coalvein! He flew like a dwarf in a hurry. I want him.",
+        "Brakka: The League broke its word. Now we may break its ships."
+      ],
+      "briefing-watch": [
+        "Brakka: The League has a watch in {system}. They guard something. I want to know what. Fly close to each ship, hold, scan. Do not shoot. Dead ships cannot be scanned.\n\nThrug: You will make me be quiet. I will do it.",
+        "Brakka: Reconnaissance, {captain}. The {enemy} have a quiet watch at {system}. Scan every ship. Slow. Silent. Then run."
+      ],
+      "debrief-watch": [
+        "Brakka: The scans say plate, guns and more guns. The League is arming for a fleet. We hit them first.\n\nMazka: I have valued the plate. The khan will want it.\n\nThrug: I was quiet! For a minute! Did you see?",
+        "Brakka: Good eyes, {captain}. They are building a war. We will give them one."
+      ],
+      "briefing-train": [
+        "Brakka: A full ore train, five haulers under a cruiser, goes to feed the League fleet in {system}. Burn it. Coalvein flies with it. Kill the train first. The dwarf if you can.\n\nThrug: Coalvein is mine! And yours! And mine!",
+        "Brakka: Break the train, Captain. Five haulers, a cruiser, a screen. Starve their fleet before it forms."
+      ],
+      "debrief-train": [
+        "Brakka: The train is ash. The League fleet will be hungry. They will fight anyway.\n\nMazka: That is a lot of ore, burned. I wept a little. Your pay is double.",
+        "Brakka: Good. Now we meet them in the open. Prepare for the Hearthhall."
+      ],
+      "briefing-siege": [
+        "Brakka: The Hold League fleet gathers over the Hearthhall in {system}. We strike now. Our line is led by the battlecruiser {flagship}. Theirs by the {target}. Break the {target}. Keep the {flagship} alive. This is the great battle. Make a song of it.\n\nThrug: I will fly with you to the end! And past it!",
+        "Brakka: Every clan is at {system}. Every gun. Every horn. The {target} is the dwarves' great ship. Kill it. Everything else is plunder."
+      ],
+      "debrief-siege": [
+        "Brakka: The {target} is broken. The League is beaten. The khan has her war and the clans have their plunder.\n\nMazka: It is the biggest plunder in thirty years. I need a bigger ledger.\n\nThrug: Captain! You flew like an orc! The highest praise!",
+        "Brakka: The Hearthhall is ours. {captain}, you will be in the song."
+      ]
+    }
+  }
+]

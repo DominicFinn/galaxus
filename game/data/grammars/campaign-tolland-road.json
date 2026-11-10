@@ -1,0 +1,80 @@
+[
+  {
+    "id": "campaign-tolland-road",
+    "description": "The Long Road: intro, outro, orders and debriefs.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "flagship",
+      "stranded",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "intro": [
+        "You the new one? {captain}. Right. Welcome to the {base}. She is a big old ship with a bad paint job and she is what stands between the Reach and the dark. You fly for {client} now.\n\nHere is the picture. The Compact is a lot of small places that do not much like each other. We have pirates in every shadow and the Lattice parked on our fence. Something worse is coming through from the rim. Nobody in the core wants to hear it.\n\nI am Marshal Dell Harrow. I run this ship on what we have, which is not much. You fly with Cass Tuttle, who will tell you the truth. Ma Perrin keeps the stores. If she says there is none, there is none.\n\nGo find your ship. It is the one that is still flying.",
+        "{captain}. Good. We needed hulls. The {base} will have you.\n\nThe {client} is a confederation of people who prefer to be left alone, and the galaxy keeps declining. Pirates raid the haul routes. The Lattice sits at our border and says nothing. The Unbound are drifting in from the rim, and they have not come to trade.\n\nMarshal Dell Harrow. I do the talking and Cass Tuttle does the flying and Ma Perrin does the counting. We have less than we need. We make it work."
+      ],
+      "outro": [
+        "That is the run, {captain}. The Unbound are broken for now and the Reach is still the Reach. Harrow says you did the job, which from Harrow is a medal.\n\nGo where you like. Cass says to write. Ma Perrin says to bring fuel when you come back."
+      ],
+      "briefing-fence": [
+        "Harrow: Captain {captain}, first run. Three relay posts on the fence line in {system} have not reported in a month. Check each. Close in, hold, wait. Pirates have been seen near the lane.\n\nCass: I will fly with you. Try not to scratch your paint.",
+        "Harrow: Fence check, Captain. Go slow. Hold at the posts until they answer. If rustlers turn up, shoot them."
+      ],
+      "debrief-fence": [
+        "Harrow: Fence is up and the rustlers are gone. Good start.\n\nPerrin: Your pay. I have it in coin. It is not much. It is what there is.\n\nCass: Not bad, for a new one.",
+        "Harrow: Posts reporting. Good. There is a den to clear next."
+      ],
+      "briefing-nest": [
+        "Harrow: Pirates have taken a hulk in {system} and call it a base. Clear it. Fighters, gunships, and friends who will come when called. Do not let them run.\n\nCass: I know the place. It smells.",
+        "Harrow: A rustlers' den in {system}. They have been hitting haulers on the Reach road. Burn them out."
+      ],
+      "debrief-nest": [
+        "Harrow: The den is cold. The road is safer.\n\nPerrin: Salvage from the den is worth something. I have taken my share. Yours is on the sheet.\n\nCass: Good shooting.",
+        "Harrow: That is the rustlers dealt with. Next, a rescue."
+      ],
+      "briefing-rail": [
+        "Harrow: The homesteader {stranded} is drifting in {system}, dry. We are nearest. Match speed, hold, pass fuel. Thirty seconds. Pirates have heard. Protect her.\n\nPerrin: It is our fuel. Do not waste it. Bring back the tank.",
+        "Harrow: A hauler is stranded. Fuel her. Keep her alive. The pirates will try for her. Give them a reason not to."
+      ],
+      "debrief-rail": [
+        "Harrow: She is moving again. Good.\n\nPerrin: The master has sent beans. We are short on everything else, so the beans are welcome.\n\nCass: Holding still with pirates around. You did it well.",
+        "Harrow: Fuel delivered and pirates dead. You are learning."
+      ],
+      "briefing-caravan": [
+        "Harrow: The last caravan of the season goes through {system}. Four ships with seed and stores for three stations. Pirates know it. Escort her through. The Reach cannot afford to lose it.\n\nCass: If they cut the lead ship, we are in trouble.",
+        "Harrow: Escort a caravan, Captain. Four freighters. The pirates will test us. Do not let them in."
+      ],
+      "debrief-caravan": [
+        "Harrow: They are through. Three stations eat this winter. It was not a clean run, and Rooke is still out there.\n\nPerrin: The stations sent thanks. I would have preferred credits.\n\nCass: Rooke called us lovely. I will kill him.",
+        "Harrow: Good work. The Reach will remember. Now we look outward."
+      ],
+      "briefing-quiet": [
+        "Harrow: The Lattice is parking pickets near our space in {system}. I want to know why. Scan them. Close in, hold, do not shoot. Quiet work.\n\nCass: Slow flying with a Lattice ship watching. I will have no hair left.",
+        "Harrow: Reconnaissance. Lattice pickets, and whatever is with them. Scan each one. Ships you destroy cannot be scanned. Remember that."
+      ],
+      "debrief-quiet": [
+        "Harrow: One of those hulls was Unbound. They are travelling with the Lattice, or near it. I do not like either answer.\n\nPerrin: I have costed a fleet response. We cannot afford it. We will do it anyway.\n\nCass: Rim hulls. In the Reach. I told you.",
+        "Harrow: Good scans. The Unbound are here. We go and find the head of it."
+      ],
+      "briefing-brood": [
+        "Harrow: The Unbound have a brood-mother in {system}, a cruiser and its fighters. It is the head of the thing. Find it. Kill the {target}. Then the rest.\n\nCass: A big ship with a lot of friends. I like those odds less than I say.",
+        "Harrow: Hunt, Captain. The Unbound mothership {target} sits at {system}. Destroy it. Do not stop to admire it."
+      ],
+      "debrief-brood": [
+        "Harrow: The {target} is dead. The Unbound will come for us now. Every one of them.\n\nPerrin: I have counted what is left. It is not enough. Fly anyway.\n\nCass: Well done. Prepare for what follows.",
+        "Harrow: That was the head of the first wave. There is a second behind it. Get ready."
+      ],
+      "briefing-reckoning": [
+        "Harrow: The Unbound are coming for {system} with a brood fleet. Everything we have is here. The {flagship} will hold the line and you will hold the {flagship}. Relief is nine minutes off. Kill the carrier if you can. Do not leave the line.\n\nCass: I will fly on your left. Until the end.",
+        "Harrow: The last order. Hold {system}. Nine minutes. The Unbound will throw everything. We will throw back. Keep the {flagship} alive."
+      ],
+      "debrief-reckoning": [
+        "Harrow: The line held. The Unbound are broken. Well done, {captain}.\n\nPerrin: The bottle was for after. This is after.\n\nCass: Hell of a run.",
+        "Harrow: It is done. The Reach holds, and you held it. Go and sleep."
+      ]
+    }
+  }
+]

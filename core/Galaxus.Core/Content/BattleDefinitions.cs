@@ -9,7 +9,7 @@ public sealed class BattleDef
 {
     public string Id { get; set; } = "";
     public string Name { get; set; } = "";
-    /// <summary>war (between two powers or factions at war), pirate, synth (rogue machines), or defence (of a station).</summary>
+    /// <summary>war (between two powers or factions at war), pirate, synth (rogue machines), defence (of a station), or campaign (only flown as part of a campaign, never posted on boards).</summary>
     public string Kind { get; set; } = "war";
     /// <summary>For war battles: the conflict stages it's offered at: raids, blockade, war.</summary>
     public List<string> Stages { get; set; } = [];
@@ -47,7 +47,9 @@ public sealed class GroupDef
     /// <summary>
     /// How they fly: fighter (dogfights), bomber (goes for warships), escort (guards Target),
     /// capital (a warship holding course and firing its turrets), freighter (flies a course and
-    /// runs from trouble), interceptor (hunts you first).
+    /// runs from trouble), interceptor (hunts you first), holding (sits still: beacons, a stranded
+    /// ship, a listening post).
+    /// Use class "drone" for small unmanned things like sensor beacons.
     /// </summary>
     public string Role { get; set; } = "fighter";
     /// <summary>Hull class to pick from the side's builder (fighter, gunship, frigate...). Hull overrides it.</summary>
@@ -58,18 +60,73 @@ public sealed class GroupDef
     public string? Tag { get; set; }
     /// <summary>The tag this group goes after or guards.</summary>
     public string? Target { get; set; }
+    /// <summary>A fixed name for the group's first ship, such as an enemy ace or your base ("{base}"). Variables are filled in.</summary>
+    public string? Name { get; set; }
 }
 
 public sealed class ObjectiveDef
 {
     public string Id { get; set; } = "";
-    /// <summary>destroy (every ship with Tag, or every ship in Wave), protect (keep Tag alive), survive (Seconds), escape (Tag reaches its exit).</summary>
+    /// <summary>
+    /// destroy (every ship with Tag, or every ship in Wave), protect (keep Tag alive), survive
+    /// (Seconds), escape (Tag reaches its exit), scan (fly within Distance of every ship with Tag
+    /// and hold there for Seconds each: reconnaissance), rendezvous (match speed within Distance of
+    /// Tag and hold for Seconds: refuelling, transfers, boarding).
+    /// </summary>
     public string Type { get; set; } = "destroy";
     public string? Tag { get; set; }
     public string? Wave { get; set; }
     public float Seconds { get; set; }
+    /// <summary>For scan and rendezvous: how close you have to be, in metres from the ship's hull.</summary>
+    public float Distance { get; set; }
     /// <summary>Shown on the HUD, e.g. "Destroy the carrier Iron Vow".</summary>
     public string Text { get; set; } = "";
     /// <summary>Optional objectives pay a bonus but don't decide the battle.</summary>
     public bool Optional { get; set; }
+}
+
+/// <summary>
+/// A campaign: you start enlisted with a great power and fly a run of missions for it, returning
+/// to your base (a flagship with its fleet) between each for a debrief and new orders. It's a
+/// guided cut of the game in the same galaxy; when it's done, play carries on freely.
+/// </summary>
+public sealed class CampaignDef
+{
+    public string Id { get; set; } = "";
+    public string Name { get; set; } = "";
+    /// <summary>The great power you fly for.</summary>
+    public string Power { get; set; } = "";
+    /// <summary>The great power you're mostly fighting, for steps whose enemy is "rival".</summary>
+    public string Rival { get; set; } = "";
+    /// <summary>A paragraph for the new game screen.</summary>
+    public string Summary { get; set; } = "";
+    /// <summary>The ship you start in.</summary>
+    public string Hull { get; set; } = "";
+    public int Credits { get; set; } = 5000;
+    /// <summary>Your starting standing with the power, 0 to 5.</summary>
+    public int Rank { get; set; } = 1;
+    /// <summary>Your base: a dockable warship (flagship or carrier) and its name.</summary>
+    public string BaseHull { get; set; } = "";
+    public string BaseName { get; set; } = "";
+    /// <summary>Other warships parked with the base, so it reads as a fleet.</summary>
+    public List<string> Fleet { get; set; } = [];
+    /// <summary>Grammar with "intro" and "outro" rules, and each step's briefing and debrief rules.</summary>
+    public string TextGrammar { get; set; } = "";
+    public List<CampaignStepDef> Steps { get; set; } = [];
+}
+
+public sealed class CampaignStepDef
+{
+    public string Id { get; set; } = "";
+    public string Title { get; set; } = "";
+    /// <summary>The battle flown for this step (any kind, usually "campaign").</summary>
+    public string Battle { get; set; } = "";
+    /// <summary>Where it happens: base (in the base's system), near (a system a jump or two away), front (towards the rival).</summary>
+    public string Where { get; set; } = "base";
+    /// <summary>Who you're up against: rival, pirates or unbound.</summary>
+    public string Enemy { get; set; } = "rival";
+    public int Reward { get; set; } = 10000;
+    /// <summary>Rules in the campaign grammar for the orders and the debrief afterwards.</summary>
+    public string Briefing { get; set; } = "";
+    public string Debrief { get; set; } = "";
 }

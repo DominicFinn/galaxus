@@ -1,0 +1,207 @@
+[
+  {
+    "id": "battle-campaign-tolland-road-fence",
+    "description": "Fence Line: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Three relay posts mark the fence line in {system}. Nobody has checked them in a month. Fly close, hold, wait for each to report. Pirates are around. Shoot them if they show.",
+        "Fence line check at {station}. Easy work. Hold near each post until it pings. Keep an eye out for rustlers."
+      ],
+      "success": [
+        "Posts reporting and pirates gone. {client} pays {captain}, which is more than the posts are worth.",
+        "Fence checked, rustlers run off. {client} pays."
+      ],
+      "failure": [
+        "The posts are unchecked. {client} pays nothing, in the kindest possible way.",
+        "You came back empty. The fence stays dark."
+      ],
+      "radio-posts": [
+        "Cass: Posts ahead, three of them. Slow down and sit, and I will keep watch.",
+        "Cass: First post on the scope. Match speed and hold. It is boring. Enjoy it."
+      ],
+      "radio-cass": [
+        "Cass Tuttle, on your wing. Welcome to nowhere.",
+        "Cass: Wing's up. Do not wreck my paint, I have only the one."
+      ],
+      "radio-rustlers": [
+        "Cass: Contacts behind. Three, and not friendly. I make that about right.",
+        "Cass: Rustlers. Shoot them or I will.",
+        "Cass: Three pirates. Short on everything, same as us."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-tolland-road-rail",
+    "description": "Rail Hauler: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "stranded",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Homesteader {stranded} ran her tanks dry in {system}. She is drifting and the pirates have heard. Fly alongside, hold, pass fuel. Thirty seconds. They arrive in twenty.",
+        "Stranded hauler. Match her speed and hold close while you pass fuel. It is all you have to do, and the pirates will make it harder."
+      ],
+      "success": [
+        "The {stranded} has fuel and a heading. {client} pays {captain}. The master sends a bag of beans and an apology for the state of her hull.",
+        "Fuel passed, pirates dead. {client} pays. Ma Perrin notes it cost three tanks."
+      ],
+      "failure": [
+        "The {stranded} is lost. {client} pays nothing and the Reach goes quiet.",
+        "No fuel, no ship."
+      ],
+      "radio-stranded": [
+        "{stranded}: Compact wing, we are bone dry. Come alongside, hold still, and please hurry.",
+        "{stranded}: Engines cold, lights low. We will take whatever you can spare."
+      ],
+      "radio-first": [
+        "Cass: Two fighters ahead. Do not stop holding. I will keep them busy.",
+        "Cass: Pirates. Two. They heard the call as well."
+      ],
+      "radio-second": [
+        "Cass: Gunship coming in, right. It wants the {stranded}. Do not let it.",
+        "Cass: Three fighters and a gunship, right side. They mean it."
+      ],
+      "radio-third": [
+        "Cass: Frigate behind us, and fighters. Somebody is being generous.",
+        "Cass: Last of them, I hope. A frigate and three."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-tolland-road-caravan",
+    "description": "The Last Caravan: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "system",
+      "toll"
+    ],
+    "rules": {
+      "briefing": [
+        "Four homesteader freighters are moving the last caravan of the season through {system}. They carry seed stock for three stations. Pirates know it. Escort them. Do not lose them.",
+        "A caravan of four ships, loaded with the Reach's winter stores. Get them through {system}. The pirates will try for the leaders first."
+      ],
+      "success": [
+        "The caravan is through, and three stations eat this winter. {client} pays {captain}. Ma Perrin finds the money for a decent meal.",
+        "Caravan delivered and the pirates beaten. {client} pays and the Reach talks about it for a week."
+      ],
+      "failure": [
+        "The caravan is broken. {client} pays nothing. Three stations go hungry.",
+        "The caravan is lost. It will be a hard winter."
+      ],
+      "radio-caravan": [
+        "Cass: Four freighters and two of ours. We stay in close. Nobody gets ahead.",
+        "Cass: Caravan formed. They are slow and good-hearted."
+      ],
+      "radio-outriders": [
+        "Cass: Outriders ahead. Pirates, four of them. They are testing us.",
+        "Cass: Fighters, ahead. They will go for the lead ship. Do not let them."
+      ],
+      "radio-ambush": [
+        "Cass: Gunships on the right! They are aiming for the freighters!",
+        "Cass: The real attack. Three bombers and four fighters, right. Break them!"
+      ],
+      "radio-rooke": [
+        "Jack Rooke: Compact. Lovely evening for a toll. Pay up, or pay later.",
+        "Cass: That is Rooke, the gentleman pirate. He has a frigate, the {toll}, with him. Mind the frigate."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-tolland-road-quiet",
+    "description": "Quiet Line: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "The Lattice has parked pickets in {system}, close to our space, and has not said why. Scan them and whatever is with them. Close in, hold, do not shoot. Ships you destroy cannot be scanned.",
+        "Reconnaissance. Lattice pickets in {system}, watching the Reach. Scan every hull and keep your head down. The Marshal wants facts."
+      ],
+      "success": [
+        "The scans show a hull that is not Lattice, and not any Reach yard either. It carries Unbound transponders. {client} pays {captain} and goes very quiet.",
+        "Scans taken. Someone is travelling with the Lattice. {client} pays and calls the Marshal."
+      ],
+      "failure": [
+        "No scan, no facts. {client} pays nothing and sends you out again.",
+        "The scans failed. Command is guessing."
+      ],
+      "radio-pickets": [
+        "Cass: Two Lattice frigates, still as stones. They do not talk. They never do.",
+        "Cass: Pickets ahead. If we are patient we can scan from seven hundred metres."
+      ],
+      "radio-stray": [
+        "Cass: Odd one on the right. Small frigate, not Lattice. It does not match anything I know.",
+        "Cass: Something holding off the pickets. I do not like the shape of it."
+      ],
+      "radio-screen": [
+        "Cass: Fighters on the pickets. They have not seen us. Do not startle them.",
+        "Cass: Screen of three. Quiet, now."
+      ],
+      "radio-react": [
+        "Cass: Splinters! Five of them, behind us! Those are Unbound! Go!",
+        "Cass: Rim hulls! They noticed the scan. Break them, then run."
+      ],
+      "radio-wake": [
+        "Cass: Jump flash. Another Unbound frigate and fighters. We have what we came for. Time to go.",
+        "Cass: Reinforcement from the far side. That is enough reconnaissance."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-tolland-road-reckoning",
+    "description": "The Hard Reckoning: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "flagship",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "An Unbound brood fleet is coming for {system}. Everything the Compact can scrape together is out here: the {flagship} and her escort, the Marshal's own wing, and you. Relief is nine minutes off. Keep the {flagship} alive and burn the carrier.",
+        "No more dry runs. The Unbound are at the gate of {system} and we are the gate. Hold the line nine minutes. The {flagship} stays where she is. So do you."
+      ],
+      "success": [
+        "Relief finds the line standing. The brood carrier {target} is a cooling hulk. {client} pays {captain} the full fee. Ma Perrin finds a bottle she has been saving.",
+        "The line held. The Reach does not forget who held it. {client} pays and the Marshal pours a drink."
+      ],
+      "failure": [
+        "The {flagship} is lost and {system} with her. {client} pays nothing. The Unbound own the gate.",
+        "The line broke. The Reach is open."
+      ],
+      "radio-line": [
+        "Harrow: All Compact ships, this is the Marshal. We have nine minutes. Nobody else is coming. Hold.",
+        "Harrow: The {flagship} holds. I want every wing in tight. We are short on everything but nerve."
+      ],
+      "radio-first": [
+        "Cass: Splinters and gunships, ahead. Twelve of them. They go for the {flagship}.",
+        "Cass: First wave. Eight fighters, four bombers. Shoot the bombers."
+      ],
+      "radio-siege": [
+        "Cass: Three frigates, left, heavy. They will pound the {flagship} if we let them.",
+        "Cass: Unbound frigates. They are slow and they hit hard."
+      ],
+      "radio-brood": [
+        "Cass: A carrier, overhead. The {target}. That is the brood-mother, and she has eight more.",
+        "Cass: Jump flash. {target}, carrier class. This is the real attack."
+      ],
+      "radio-relief": [
+        "Harrow: Relief is here. Well held, all of you.",
+        "Cass: Friendly column inbound. It is the best sight I have seen all year."
+      ]
+    }
+  }
+]

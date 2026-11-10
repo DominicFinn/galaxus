@@ -189,3 +189,27 @@ public class SaveGameTests
         Assert.Equal(session.Here.Name, SaveGame.Peek(json)!.SystemName);
     }
 }
+
+public class SystemProfileTests
+{
+    private static readonly Galaxus.Core.Content.ContentDatabase Db =
+        Galaxus.Core.Content.ContentDatabase.Load(new Galaxus.Core.Content.DirectoryContentSource(ContentTests.DataFolder));
+
+    [Fact]
+    public void Capitals_are_the_biggest_places_and_the_core_outnumbers_the_rim()
+    {
+        var galaxy = Galaxus.Core.Galaxy.GalaxyGenerator.Generate(Db, 3, new Galaxus.Core.Galaxy.GalaxySettings());
+        var profiles = galaxy.Systems.Where(s => s.Settled).Select(s => (s, p: Galaxus.Core.Galaxy.SystemProfiles.For(galaxy, s, Db))).ToList();
+        foreach (var power in galaxy.Factions.Where(f => f.PowerId != null))
+        {
+            var capital = profiles.First(x => x.s.Id == power.HomeSystem).p;
+            Assert.Equal(Galaxus.Core.Galaxy.StationSize.Citadel, capital.StationSize);
+            Assert.Equal(power.Name, capital.CapitalOf);
+        }
+        double Median(string region) => profiles.Where(x => x.s.Region == region && x.s.State == Galaxus.Core.Galaxy.SystemState.Colony)
+            .Select(x => (double)x.p.Population).OrderBy(v => v).DefaultIfEmpty(0).ElementAt(profiles.Count(x => x.s.Region == region && x.s.State == Galaxus.Core.Galaxy.SystemState.Colony) / 2);
+        Assert.True(Median("core") > Median("rim") * 100);
+        Assert.Contains(profiles, x => x.p.StationSize == Galaxus.Core.Galaxy.StationSize.Hub);
+        Assert.Equal(Galaxus.Core.Galaxy.SystemProfiles.For(galaxy, profiles[0].s, Db), profiles[0].p);
+    }
+}

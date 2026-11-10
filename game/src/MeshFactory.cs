@@ -106,7 +106,7 @@ public static class MeshFactory
     /// A station: a hub with a docking bay on its front face, spokes and a ring, built from the same
     /// tapered boxes as ships so it shares their look. Owner colour picks out the ring.
     /// </summary>
-    public static ArrayMesh BuildStation(Color ownerColour)
+    public static ArrayMesh BuildStation(Color ownerColour, Galaxus.Core.Galaxy.StationSize size = Galaxus.Core.Galaxy.StationSize.Station)
     {
         var shapes = new List<ShapeDef>
         {
@@ -115,29 +115,49 @@ public static class MeshFactory
             new() { Position = [0, 0, -55.5f], Back = [24, 10], Front = [24, 10], Length = 1, Color = "glow" },
             new() { Position = [0, 0, 60], Back = [20, 20], Front = [44, 44], Length = 30, Color = "trim" },
         };
-        const int segments = 12;
-        const float ringRadius = 150f;
-        for (int i = 0; i < segments; i++)
+        void Ring(float ringRadius, float z, int segments, bool spokes)
         {
-            float angle = i * 360f / segments;
-            float rad = Mathf.DegToRad(angle);
-            float chord = 2 * ringRadius * Mathf.Sin(Mathf.Pi / segments) + 4;
-            shapes.Add(new ShapeDef
+            for (int i = 0; i < segments; i++)
             {
-                Position = [Mathf.Cos(rad) * ringRadius, Mathf.Sin(rad) * ringRadius, 0],
-                Back = [26, chord], Front = [26, chord], Length = 30, Roll = angle, Color = i % 3 == 0 ? "accent" : "hull",
-            });
-            if (i % 3 == 0)
+                float angle = i * 360f / segments;
+                float rad = Mathf.DegToRad(angle);
+                float chord = 2 * ringRadius * Mathf.Sin(Mathf.Pi / segments) + 4;
                 shapes.Add(new ShapeDef
                 {
-                    Position = [Mathf.Cos(rad) * ringRadius * 0.55f, Mathf.Sin(rad) * ringRadius * 0.55f, 0],
-                    Back = [ringRadius * 0.85f, 8], Front = [ringRadius * 0.85f, 8], Length = 8, Roll = angle, Color = "trim",
+                    Position = [Mathf.Cos(rad) * ringRadius, Mathf.Sin(rad) * ringRadius, z],
+                    Back = [26, chord], Front = [26, chord], Length = 30, Roll = angle, Color = i % 3 == 0 ? "accent" : "hull",
                 });
-            shapes.Add(new ShapeDef
+                if (spokes && i % 3 == 0)
+                    shapes.Add(new ShapeDef
+                    {
+                        Position = [Mathf.Cos(rad) * ringRadius * 0.55f, Mathf.Sin(rad) * ringRadius * 0.55f, z],
+                        Back = [ringRadius * 0.85f, 8], Front = [ringRadius * 0.85f, 8], Length = 8, Roll = angle, Color = "trim",
+                    });
+                shapes.Add(new ShapeDef
+                {
+                    Position = [Mathf.Cos(rad) * (ringRadius + 13.5f), Mathf.Sin(rad) * (ringRadius + 13.5f), z - 12],
+                    Back = [1.5f, 3], Front = [1.5f, 3], Length = 1, Roll = angle, Color = "glow",
+                });
+            }
+        }
+        Ring(150f, 0, 12, true);
+        if (size is Galaxus.Core.Galaxy.StationSize.Hub or Galaxus.Core.Galaxy.StationSize.Citadel)
+        {
+            // A hub stacks habitat rings along a longer spine.
+            shapes.Add(new ShapeDef { Position = [0, 0, 110], Back = [30, 30], Front = [30, 30], Length = 160, Color = "hull" });
+            Ring(110f, 120, 10, true);
+            Ring(110f, -110, 10, true);
+            shapes.Add(new ShapeDef { Position = [0, 0, -100], Back = [30, 30], Front = [30, 30], Length = 120, Color = "hull" });
+        }
+        if (size == Galaxus.Core.Galaxy.StationSize.Citadel)
+        {
+            // A citadel adds a great outer ring and towers: the capital of a power.
+            Ring(230f, 0, 18, true);
+            foreach (var (x, y) in new[] { (0f, 1f), (0f, -1f), (1f, 0f), (-1f, 0f) })
             {
-                Position = [Mathf.Cos(rad) * (ringRadius + 13.5f), Mathf.Sin(rad) * (ringRadius + 13.5f), -12],
-                Back = [1.5f, 3], Front = [1.5f, 3], Length = 1, Roll = angle, Color = "glow",
-            });
+                shapes.Add(new ShapeDef { Position = [x * 70, y * 70, 0], Back = [22, 22], Front = [10, 10], Length = 260, Color = "accent" });
+                shapes.Add(new ShapeDef { Position = [x * 70, y * 70, -131], Back = [10, 10], Front = [4, 4], Length = 2, Color = "glow" });
+            }
         }
         var hull = new HullDef { Id = "station", Model = shapes };
         var palette = new PaletteDef { Hull = "#8d939c", Accent = "#" + ownerColour.ToHtml(false), Trim = "#3c4048", Glow = "#ffe6a0" };

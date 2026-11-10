@@ -1,0 +1,784 @@
+[
+  {
+    "id": "campaign-khanate-tithe-stakes",
+    "name": "Claim Stakes",
+    "kind": "campaign",
+    "reward": 5000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-khanate-tithe-stakes",
+    "waves": [
+      {
+        "id": "stakes",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 4,
+            "tag": "stake"
+          }
+        ],
+        "radio": "radio-stakes"
+      },
+      {
+        "id": "thrug",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 300,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 1
+          }
+        ],
+        "radio": "radio-thrug"
+      },
+      {
+        "id": "scrap",
+        "side": "enemy",
+        "at": 70,
+        "position": "behind",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-scrap"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "mark",
+        "type": "scan",
+        "tag": "stake",
+        "seconds": 8,
+        "distance": 400,
+        "text": "Check all four claim stakes: close in and hold"
+      },
+      {
+        "id": "scrap",
+        "type": "destroy",
+        "wave": "scrap",
+        "text": "Kill the pirates"
+      }
+    ]
+  },
+  {
+    "id": "campaign-khanate-tithe-haulers",
+    "name": "Ore Train Raid",
+    "kind": "campaign",
+    "reward": 8000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-khanate-tithe-haulers",
+    "waves": [
+      {
+        "id": "haulers",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 5500,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 4,
+            "tag": "hauler"
+          }
+        ],
+        "radio": "radio-haulers"
+      },
+      {
+        "id": "guard",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 3,
+            "target": "hauler"
+          }
+        ],
+        "radio": "radio-guard"
+      },
+      {
+        "id": "help",
+        "side": "enemy",
+        "after": "wave:guard",
+        "delay": 25,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-help"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "loot",
+        "type": "destroy",
+        "tag": "hauler",
+        "text": "Destroy the Hold League ore haulers"
+      },
+      {
+        "id": "guard",
+        "type": "destroy",
+        "wave": "guard",
+        "text": "Kill the escort fighters",
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-khanate-tithe-fuel",
+    "name": "Dry Hold",
+    "kind": "campaign",
+    "reward": 12000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-khanate-tithe-fuel",
+    "waves": [
+      {
+        "id": "stranded",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "freighter",
+            "count": 1,
+            "tag": "stranded"
+          }
+        ],
+        "radio": "radio-stranded"
+      },
+      {
+        "id": "first",
+        "side": "enemy",
+        "at": 40,
+        "position": "ahead",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-first"
+      },
+      {
+        "id": "second",
+        "side": "enemy",
+        "after": "wave:first",
+        "delay": 25,
+        "position": "left",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2,
+            "target": "stranded"
+          }
+        ],
+        "radio": "radio-second"
+      },
+      {
+        "id": "third",
+        "side": "enemy",
+        "after": "wave:second",
+        "delay": 30,
+        "position": "behind",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          }
+        ],
+        "radio": "radio-third"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "refuel",
+        "type": "rendezvous",
+        "tag": "stranded",
+        "seconds": 30,
+        "distance": 150,
+        "text": "Match speed with the {stranded} and hold to pass fuel"
+      },
+      {
+        "id": "keep",
+        "type": "protect",
+        "tag": "stranded",
+        "text": "Keep the {stranded} alive"
+      }
+    ]
+  },
+  {
+    "id": "campaign-khanate-tithe-barge",
+    "name": "The Tithe Barge",
+    "kind": "campaign",
+    "reward": 17000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-khanate-tithe-barge",
+    "waves": [
+      {
+        "id": "barge",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 700,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 1,
+            "tag": "barge"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 2,
+            "target": "barge"
+          }
+        ],
+        "radio": "radio-barge"
+      },
+      {
+        "id": "cut",
+        "side": "enemy",
+        "at": 45,
+        "position": "ahead",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2,
+            "target": "barge"
+          }
+        ],
+        "radio": "radio-cut"
+      },
+      {
+        "id": "coalvein",
+        "side": "enemy",
+        "after": "wave:cut",
+        "delay": 15,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "hull": "dw-flint",
+            "count": 1,
+            "tag": "ace",
+            "name": "Hadrin Coalvein"
+          }
+        ],
+        "radio": "radio-coalvein"
+      },
+      {
+        "id": "wardens",
+        "side": "enemy",
+        "after": "wave:coalvein",
+        "delay": 30,
+        "position": "left",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "warden"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-wardens"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "alive",
+        "type": "protect",
+        "tag": "barge",
+        "text": "Keep the tithe barge {barge} alive"
+      },
+      {
+        "id": "through",
+        "type": "escape",
+        "tag": "barge",
+        "text": "Get the {barge} through {system}"
+      },
+      {
+        "id": "ace",
+        "type": "destroy",
+        "tag": "ace",
+        "text": "Shoot down Master Pilot Hadrin Coalvein",
+        "optional": true
+      },
+      {
+        "id": "warden",
+        "type": "destroy",
+        "tag": "warden",
+        "text": "Destroy the frigate {warden}",
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-khanate-tithe-watch",
+    "name": "Eyes on the Hold",
+    "kind": "campaign",
+    "reward": 23000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-khanate-tithe-watch",
+    "waves": [
+      {
+        "id": "wardens",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "frigate",
+            "count": 2,
+            "tag": "warden"
+          }
+        ],
+        "radio": "radio-wardens"
+      },
+      {
+        "id": "screen",
+        "side": "enemy",
+        "at": 0,
+        "position": "near",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 4,
+            "target": "warden"
+          }
+        ],
+        "radio": "radio-screen"
+      },
+      {
+        "id": "buoys",
+        "side": "enemy",
+        "at": 0,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "freighter",
+            "count": 3,
+            "tag": "tender"
+          }
+        ],
+        "radio": "radio-buoys"
+      },
+      {
+        "id": "react",
+        "side": "enemy",
+        "after": "objective:wardens",
+        "delay": 10,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-react"
+      },
+      {
+        "id": "wake",
+        "side": "enemy",
+        "after": "wave:react",
+        "delay": 40,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-wake"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "wardens",
+        "type": "scan",
+        "tag": "warden",
+        "seconds": 15,
+        "distance": 700,
+        "text": "Scan both League frigates and hold close"
+      },
+      {
+        "id": "tenders",
+        "type": "scan",
+        "tag": "tender",
+        "seconds": 12,
+        "distance": 500,
+        "text": "Scan the three supply hulls"
+      },
+      {
+        "id": "survive",
+        "type": "survive",
+        "seconds": 240,
+        "text": "Get clear with the scan data"
+      }
+    ]
+  },
+  {
+    "id": "campaign-khanate-tithe-train",
+    "name": "Break the Ore Train",
+    "kind": "campaign",
+    "reward": 30000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-khanate-tithe-train",
+    "waves": [
+      {
+        "id": "train",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 5,
+            "tag": "hauler"
+          },
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1,
+            "tag": "warden"
+          }
+        ],
+        "radio": "radio-train"
+      },
+      {
+        "id": "screen",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 6,
+            "target": "hauler"
+          }
+        ],
+        "radio": "radio-screen"
+      },
+      {
+        "id": "coalvein",
+        "side": "enemy",
+        "at": 60,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "hull": "dw-flint",
+            "count": 1,
+            "tag": "ace",
+            "name": "Hadrin Coalvein"
+          }
+        ],
+        "radio": "radio-coalvein"
+      },
+      {
+        "id": "hammer",
+        "side": "enemy",
+        "after": "wave:coalvein",
+        "delay": 30,
+        "position": "left",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3
+          }
+        ],
+        "radio": "radio-hammer"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "train",
+        "type": "destroy",
+        "tag": "hauler",
+        "text": "Destroy the Hold League haulers"
+      },
+      {
+        "id": "ace",
+        "type": "destroy",
+        "tag": "ace",
+        "text": "Shoot down Master Pilot Hadrin Coalvein",
+        "optional": true
+      },
+      {
+        "id": "warden",
+        "type": "destroy",
+        "tag": "warden",
+        "text": "Destroy the cruiser {warden}",
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-khanate-tithe-siege",
+    "name": "Hearthhall Siege",
+    "kind": "campaign",
+    "reward": 40000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-khanate-tithe-siege",
+    "waves": [
+      {
+        "id": "line",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1200,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "battlecruiser",
+            "count": 1,
+            "tag": "flagship",
+            "name": "{base}"
+          },
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-line"
+      },
+      {
+        "id": "league",
+        "side": "enemy",
+        "at": 15,
+        "position": "ahead",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "battlecruiser",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2,
+            "tag": "screen"
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-league"
+      },
+      {
+        "id": "swarm",
+        "side": "enemy",
+        "after": "wave:league",
+        "delay": 45,
+        "position": "above",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 8
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 4,
+            "target": "flagship"
+          }
+        ],
+        "radio": "radio-swarm"
+      },
+      {
+        "id": "coalvein",
+        "side": "enemy",
+        "after": "wave:swarm",
+        "delay": 15,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "hull": "dw-flint",
+            "count": 1,
+            "tag": "ace",
+            "name": "Hadrin Coalvein"
+          }
+        ],
+        "radio": "radio-coalvein"
+      },
+      {
+        "id": "reserve",
+        "side": "enemy",
+        "after": "wave:swarm",
+        "delay": 60,
+        "position": "right",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "carrier",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-reserve"
+      },
+      {
+        "id": "reinforce",
+        "side": "friend",
+        "after": "wave:reserve",
+        "delay": 30,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 4
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-reinforce"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the League flagship {target}"
+      },
+      {
+        "id": "flag",
+        "type": "protect",
+        "tag": "flagship",
+        "text": "Keep the {flagship} alive"
+      },
+      {
+        "id": "screen",
+        "type": "destroy",
+        "tag": "screen",
+        "text": "Destroy the League cruisers",
+        "optional": true
+      },
+      {
+        "id": "ace",
+        "type": "destroy",
+        "tag": "ace",
+        "text": "Shoot down Hadrin Coalvein",
+        "optional": true
+      }
+    ]
+  }
+]

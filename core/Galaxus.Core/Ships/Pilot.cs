@@ -21,6 +21,8 @@ public enum PilotRole
     Patrol,
     /// <summary>Lurks, then goes for traders and lone ships.</summary>
     Pirate,
+    /// <summary>Sits still: a beacon, a stranded ship, a listening post.</summary>
+    Holding,
 }
 
 /// <summary>
@@ -66,6 +68,11 @@ public sealed class Pilot(PilotRole role, Rng rng)
 
         switch (Role)
         {
+            case PilotRole.Holding:
+                c.Flight.Throttle = 0;
+                c.Flight.Pitch = 0;
+                c.Flight.Yaw = 0;
+                break;
             case PilotRole.Capital: FlyCapital(ship, world, dt); break;
             case PilotRole.Freighter: FlyFreighter(ship, world); break;
             case PilotRole.Escort:

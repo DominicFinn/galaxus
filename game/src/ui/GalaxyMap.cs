@@ -75,6 +75,21 @@ public partial class GalaxyMap : Control
 
     private VBoxContainer _jobs = null!;
 
+    /// <summary>Population, government and security, and whether it's a capital.</summary>
+    private string ProfileLine(StarSystem s)
+    {
+        var p = SystemProfiles.For(_session.Galaxy, s, _session.Db);
+        if (p.Population == 0) return "";
+        string security = p.Security switch
+        {
+            "Lawless" or "War zone" => $"[color=#{Ui.Hex(Ui.Red)}]{p.Security}[/color]",
+            "Low" => $"[color=#{Ui.Hex(Ui.Amber)}]Low security[/color]",
+            _ => $"{p.Security} security",
+        };
+        return (p.CapitalOf != null ? $"[color=#{Ui.Hex(Ui.Amber)}]Capital of {p.CapitalOf}.[/color]\n" : "") +
+               $"Population {p.PopulationText}. {p.Government}. {security}.\n";
+    }
+
     /// <summary>Your jobs as buttons: click one to make it the active job and plot its route.</summary>
     private void RebuildJobs()
     {
@@ -238,6 +253,7 @@ public partial class GalaxyMap : Control
             $"[color=#{Ui.Hex(Ui.Amber)}]{s.Name.ToUpperInvariant()}[/color]\n" +
             $"{Capitalise(s.Region)}, {s.Arm} arm. {s.State}{(s.Economy != Economy.None ? $", {s.Economy}" : "")}.\n" +
             (owner != null ? $"Held by [color=#{owner.Colour.TrimStart('#')}]{owner.Name}[/color].\n" : "Unclaimed.\n") +
+            ProfileLine(s) +
             (s.Stations.Count > 0 ? $"Stations: {string.Join(", ", s.Stations)}\n" : "No stations.\n") +
             (events.Any() ? $"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]\n" : "") +
             (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here: {string.Join(", ", jobs.Select(j => j.Offer.DestinationStation).Distinct())}.[/color]\n" : "") +

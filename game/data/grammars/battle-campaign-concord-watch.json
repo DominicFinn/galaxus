@@ -1,0 +1,288 @@
+[
+  {
+    "id": "battle-campaign-concord-watch-beacons",
+    "description": "Beacon Audit: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Three nav beacons in {system} have missed their audit. Fly close to each and hold until it reports. Mind the pirates that have been seen nearby.",
+        "Routine audit of the beacon chain at {station}. Slow down, close to 400 metres, hold. The beacon will not answer a ship that is moving."
+      ],
+      "success": [
+        "All three beacons report and the raiders are gone. {client} files the audit as complete.",
+        "Beacons logged, pirates scattered. {client} pays {captain}."
+      ],
+      "failure": [
+        "The audit is incomplete. {client} will send someone else, with a note on your file.",
+        "The beacons are still unlogged. The order stands."
+      ],
+      "radio-beacons": [
+        "Wren: Beacons on the board, three of them. Section four says we hold at four hundred metres. I would like to hold at four hundred metres.",
+        "Wren: First beacon ahead. Matching speed. Please do the same, Captain."
+      ],
+      "radio-wing": [
+        "Wren here, on your wing. Flight Officer Wren, in case Command did not say.",
+        "Wren: Wing in position. I have the manual open on my second screen."
+      ],
+      "radio-raiders": [
+        "Wren: Contact, three, behind us. They are not on the audit schedule.",
+        "Wren: Pirates. Captain, may I say weapons free?",
+        "Wren: Three fighters from astern. I believe they are the sort we are meant to report."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-concord-watch-customs",
+    "description": "Customs Run: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "runner",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "A freighter is running from {station} without a clearance. The Concord would like it stopped. It has two escorts and will not stop for a polite request.",
+        "Customs flagged a hull leaving {system} with a forged manifest. Intercept the {runner}. Force is authorised, which is a phrase I have never enjoyed writing."
+      ],
+      "success": [
+        "The {runner} is stopped and its manifest, such as it was, recovered. {client} pays.",
+        "Smuggler down, cargo seized, paperwork started. {client} pays {captain}."
+      ],
+      "failure": [
+        "The {runner} is through the gate. {client} writes a short, unkind memo.",
+        "The runner escaped. Customs is unamused."
+      ],
+      "radio-runner": [
+        "Wren: There she is. Freighter {runner}. I have her manifest and it is fiction.",
+        "Wren: Target at range. Under section nine we may demand she heave to. She will not."
+      ],
+      "radio-guard": [
+        "Wren: Two escorts, loose formation. Do they know we have seen them?",
+        "Wren: Fighter escorts. Nothing we cannot manage."
+      ],
+      "radio-late": [
+        "Wren: Two more from starboard. I suspect they were paid to be late.",
+        "Wren: Reinforcements, right. Captain, please do not let the paperwork pile up."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-concord-watch-dry-tanks",
+    "description": "Dry Tanks: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "stranded",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "The freighter {stranded} has drifted dead in {system} with dry tanks. We are the nearest. Match speed, hold close and the transfer will take half a minute. Pirates have heard the distress call.",
+        "A stranded hauler needs fuel. Fly alongside the {stranded}, hold still relative to her, and keep the pirates off while you do. They are already on their way."
+      ],
+      "success": [
+        "The {stranded} has fuel and a heading. {client} pays and the master sends a case of something undrinkable.",
+        "Transfer complete, pirates dead. {client} pays {captain}. The master of the {stranded} sends thanks and a very long invoice of his own."
+      ],
+      "failure": [
+        "The {stranded} is lost. {client} pays nothing and starts an inquiry.",
+        "No fuel delivered. The {stranded} is still drifting, or is wreckage."
+      ],
+      "radio-stranded": [
+        "{stranded}: Concord patrol, thank God. We are bone dry. Please come alongside and do not hurry. Actually, please hurry.",
+        "{stranded}: Our reactor is cold and the master is praying. Match speed and we will take what you can spare."
+      ],
+      "radio-first": [
+        "Wren: Two contacts closing. Captain, we cannot transfer fuel and dodge at once. Perhaps one at a time.",
+        "Wren: Pirates. They did hear the call."
+      ],
+      "radio-second": [
+        "Wren: Three fighters and a gunship, right. The gunship wants the freighter. Please do not let it have her.",
+        "Wren: More. The gunship is going for the {stranded}."
+      ],
+      "radio-third": [
+        "Wren: Frigate behind us with an escort. I did not read about this in the manual.",
+        "Wren: Last of them, I hope. A frigate and three fighters, astern."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-concord-watch-envoy",
+    "description": "Envoy's Passage: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "envoy",
+      "greeter",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "A Concord envoy is crossing {system} to meet a Khanate delegation. You are the escort, with two of our own. The Khanates have promised an honour guard. Take that promise at its face value, but keep your safeties off.",
+        "Escort the envoy {envoy} through {system}. The delegation is meant to meet us halfway and show us courtesy. The Commodore says to expect courtesy. The Commodore also says to expect otherwise."
+      ],
+      "success": [
+        "The {envoy} is clear and the envoy is shaken but unharmed. {client} files a protest in three copies.",
+        "Envoy delivered, honour guard dispersed with prejudice. {client} pays {captain}."
+      ],
+      "failure": [
+        "The {envoy} is lost. {client} suspends talks and starts drafting the speech.",
+        "The envoy is dead. This will be remembered."
+      ],
+      "radio-envoy": [
+        "{envoy}: Concord escort, this is the envoy. Please keep the ride smooth. I have a speech to give.",
+        "Wren: Envoy in the middle, two of ours on her flanks. We stay close."
+      ],
+      "radio-greeters": [
+        "Wren: The honour guard has arrived. A frigate, the {greeter}, and four fighters. They are not hailing.",
+        "Wren: Khanate ships ahead. Weapons are hot. Captain, I think they have read the protocol differently."
+      ],
+      "radio-knives": [
+        "Wren: Gunships behind us, going for the envoy. That is a clear breach.",
+        "Wren: Two bombers from astern and fighters. They were never an honour guard."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-concord-watch-listen",
+    "description": "Quiet Listening: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Two Khanate pickets are sitting in {system}, apparently doing nothing. Command wants a scan of both. Go close, hold, and do not shoot first. A ship you destroy is a ship you cannot scan.",
+        "Reconnaissance. The {enemy} have parked a picket line in {system} and said nothing about it. Scan each ship, then the tenders if you can. Expect a reaction."
+      ],
+      "success": [
+        "The scans are clean. The tenders carry torpedo stock and boarding gear, a great deal of it. {client} pays {captain} and goes quiet.",
+        "Data in hand. The picket is not a picket. {client} pays and calls a meeting."
+      ],
+      "failure": [
+        "No scan, or too late for it to matter. {client} asks you to try again with fewer guns firing.",
+        "The scan failed. Command is blind."
+      ],
+      "radio-pickets": [
+        "Wren: Two frigates holding, no lights, no greetings. I have them at three thousand five hundred metres.",
+        "Wren: Pickets ahead. They are sitting still, which is what worries me."
+      ],
+      "radio-screen": [
+        "Wren: Fighters circling the pickets. Low and slow. They have not seen us yet. Please do not startle them.",
+        "Wren: Screen of four. If we scan from within seven hundred metres they will notice."
+      ],
+      "radio-tenders": [
+        "Wren: Tenders on the right, three of them, heavy and low. That is a lot of stores for a picket.",
+        "Wren: Supply hulls, holding. Captain, these are the interesting ones."
+      ],
+      "radio-react": [
+        "Wren: Interceptors behind us. They noticed the scan.",
+        "Wren: Four hunters, astern. We have what we need. Let us go."
+      ],
+      "radio-wake": [
+        "Wren: Jump flash. Cruiser and fighters, far side. We have been rather expensive for them.",
+        "Wren: Heavy reinforcement arriving. Time to leave, Captain."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-concord-watch-tithe",
+    "description": "Cut the Tithe Fleet: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system",
+      "warden"
+    ],
+    "rules": {
+      "briefing": [
+        "A Khanate convoy is carrying ore and guns to a staging point near {system}. Cut it. The {enemy} screen it well and you will not be the only fast ship out there.",
+        "Intercept. Four freighters, an escort frigate and a fighter screen. The Commodore has authorised a bonus for the freighters. I am asked to say that it is for the freighters, and not for the ace."
+      ],
+      "success": [
+        "The tithe fleet is burning. {client} pays {captain} and files it under deterrence.",
+        "Convoy destroyed. The {enemy} will have to find their guns elsewhere. {client} pays."
+      ],
+      "failure": [
+        "The convoy gets through. {client} pays nothing, and Quill wants the unspent ammunition back.",
+        "The freighters escape. The staging point will be ready."
+      ],
+      "radio-convoy": [
+        "Wren: Convoy ahead, four freighters, one frigate, the {warden}. They are riding low.",
+        "Wren: There they are. Fat, slow and well guarded."
+      ],
+      "radio-screen": [
+        "Wren: Six fighters on the screen. We should take them before the freighters can bolt.",
+        "Wren: Screen is up. They have seen us. Weapons free."
+      ],
+      "radio-ace": [
+        "Skarn Redtooth: Concord. Little ships, little lawyers. I will take your wing as a trophy.",
+        "Wren: That is the Redtooth. Captain, they say he has forty kills. I would prefer he did not have forty-one."
+      ],
+      "radio-hounds": [
+        "Wren: Gunships and fighters from the left. The Khanates call it a hunt.",
+        "Wren: More of them, left side. Keep the freighters in sight."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-concord-watch-clause",
+    "description": "The Clause Holds: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "flagship",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "The {enemy} are coming for the {flagship} with everything they have. The Commodore will hold {system}. We have eight minutes until relief. Protect the {flagship} and keep the fighters between her and the bombers.",
+        "The {flagship} will not move and will not be moved. Relief is on its way and will arrive late, which is how the Concord does everything. Hold."
+      ],
+      "success": [
+        "Relief arrives to find the {flagship} scorched and standing. {client} pays {captain} the full fee. The Commodore calls it a satisfactory outcome. Quill calls it an expensive one.",
+        "The line held. {client} pays and awards you a medal, with the paperwork to follow."
+      ],
+      "failure": [
+        "The {flagship} is lost. {client} pays nothing and begins the inquiry.",
+        "{system} is lost and the {flagship} with it. This will take a long time to put right."
+      ],
+      "radio-line": [
+        "Marsh: All hands, this is the Commodore. We have eight minutes. I want every fighter in the air and every gun on the bombers.",
+        "Marsh: Concord ships, hold. The {flagship} holds. That is an order and a request."
+      ],
+      "radio-first": [
+        "Wren: Eight fighters and four gunships. The gunships want the {flagship}. They will not have her.",
+        "Wren: First wave, ahead. Stay close to the {flagship}."
+      ],
+      "radio-siege": [
+        "Wren: Two cruisers on the left with heavy guns. We cannot let them settle.",
+        "Wren: Siege cruisers. They will batter the {flagship} if left alone."
+      ],
+      "radio-carrier": [
+        "Wren: A carrier, overhead. The {target}. Her wing is already out.",
+        "Wren: Jump flash. {target}, carrier class, and eight interceptors."
+      ],
+      "radio-ace": [
+        "Skarn Redtooth: Lawyer. I came for your Commodore. Fly, or be flown past.",
+        "Wren: The Redtooth is back and behind us. Captain, he is yours."
+      ],
+      "radio-relief": [
+        "Marsh: Relief is here. Well held, all of you.",
+        "Wren: Friendly fleet inbound. I never thought I would be so glad to see an administrative column."
+      ]
+    }
+  }
+]

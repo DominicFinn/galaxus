@@ -1,0 +1,291 @@
+[
+  {
+    "id": "battle-campaign-khanate-tithe-stakes",
+    "description": "Claim Stakes: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Four claim stakes mark the khan's ore field in {system}. Someone has been pulling them. Fly close to each stake and hold until it answers. Pirates are sniffing around. Kill them if they come.",
+        "The khan's stakes in {system} need checking. Close in, hold, wait. Waiting is half of flying. Pirates will come. That is the other half."
+      ],
+      "success": [
+        "Stakes checked, pirates dead. {client} pays {captain} and the Packmother's cooks send you a leg of something.",
+        "Claim intact and the thieves gutted. {client} pays."
+      ],
+      "failure": [
+        "The stakes are unchecked and the pirates laugh. {client} pays nothing.",
+        "You failed the claim. The khan notices."
+      ],
+      "radio-stakes": [
+        "Thrug: Four stakes! Fly close, hold still. I hate holding still!",
+        "Thrug: Stakes ahead. Be dull for a minute, then we fight."
+      ],
+      "radio-thrug": [
+        "Thrug Two-Fangs on your wing. I have been looking for a good wingman. You will do.",
+        "Thrug: Wing is up! Do not fall behind, little hull!"
+      ],
+      "radio-scrap": [
+        "Thrug: Pirates, behind! Four of them! Good!",
+        "Thrug: Four thieves. Break them!",
+        "Thrug: They came to steal from the khan. Teach them."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-khanate-tithe-haulers",
+    "description": "Ore Train Raid: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Four {enemy} ore haulers are crawling through {system} with three escorts. The khan wants the ore. Kill the haulers, break the escorts. Plunder is shared by the wing.",
+        "A Hold League ore train in {system}. Slow, fat, and fond of contracts. We tear up the contracts. Take the haulers."
+      ],
+      "success": [
+        "Haulers burning and the ore scattered for the khan's crews to gather. {client} pays {captain}. Old Mazka writes your share on a very long list.",
+        "The ore train is wrecked. {client} pays and you are told you flew like an orc."
+      ],
+      "failure": [
+        "The haulers escape. {client} pays nothing and mutters.",
+        "The ore train is through. The khan will not forget."
+      ],
+      "radio-haulers": [
+        "Thrug: Haulers! Slow as cows and just as stupid!",
+        "Thrug: Four dwarf ore ships. Break their backs!"
+      ],
+      "radio-guard": [
+        "Thrug: Three fighters guard them. They fly like they are being paid by the hour.",
+        "Thrug: Escort fighters. Kill them first, or kill them second."
+      ],
+      "radio-help": [
+        "Thrug: More dwarves, right! They hurry because they have contracts!",
+        "Thrug: Dwarf reinforcements! Good, I was bored."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-khanate-tithe-fuel",
+    "description": "Dry Hold: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "stranded",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "The {stranded}, a Packmother tender, ran her tanks dry in {system}. She is dead in space and loud on the radio. Fly alongside, hold still, pass fuel. Pirates are already circling. Do not let them eat her.",
+        "A clan hauler is stranded. Match her speed and hold close while her crew take your fuel. It takes thirty seconds. Pirates will arrive in less."
+      ],
+      "success": [
+        "The {stranded} is fuelled and furious about it. {client} pays {captain}. The tender master sends a barrel of something that burns.",
+        "Fuel passed, thieves dead. {client} pays and the clan sings your name badly."
+      ],
+      "failure": [
+        "The {stranded} is lost. {client} pays nothing and the clan wails.",
+        "No fuel, no ship. The pirates feast."
+      ],
+      "radio-stranded": [
+        "{stranded}: Khan's wing! We are dry! Come close and hold, and bring your guns!",
+        "{stranded}: Tanks empty, engines cold, tempers hot. Quick, now!"
+      ],
+      "radio-first": [
+        "Thrug: Pirates from ahead! Three! They heard the shouting!",
+        "Thrug: Fighters, ahead. Do not stop holding. I will deal with them. Probably."
+      ],
+      "radio-second": [
+        "Thrug: Gunships left! They want the tender! Do not let them!",
+        "Thrug: More! The gunships go for the {stranded}!"
+      ],
+      "radio-third": [
+        "Thrug: Frigate behind us, and fighters! Big pirates! Good!",
+        "Thrug: They sent a frigate. We are being honoured."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-khanate-tithe-barge",
+    "description": "The Tithe Barge: briefing, radio calls and outcome text.",
+    "variables": [
+      "barge",
+      "captain",
+      "client",
+      "enemy",
+      "system",
+      "warden"
+    ],
+    "rules": {
+      "briefing": [
+        "The khan's tithe barge {barge} crosses {system} today, carrying plunder for the Hold League as the price of a truce. The {enemy} have promised not to touch it. They have promised before. Escort her. Keep your guns warm.",
+        "Escort the {barge}. She carries the khan's tithe to the border. The dwarves agreed to let her pass. A dwarf agrees to many things, then reads the fine print."
+      ],
+      "success": [
+        "The {barge} is through and the tithe delivered. The truce survives, if only on paper. {client} pays {captain}.",
+        "Barge delivered, ambush broken. {client} pays and Old Mazka is pleased."
+      ],
+      "failure": [
+        "The {barge} is lost with the tithe. The truce is void. {client} pays nothing.",
+        "The khan's gift is gone. The war is back on."
+      ],
+      "radio-barge": [
+        "{barge}: Khan's wing, we are loaded. Stay close and keep out of our way.",
+        "Thrug: The barge is slow. I like the barge. I will protect the barge."
+      ],
+      "radio-cut": [
+        "Thrug: Dwarf fighters ahead! They said no contracts were broken! Liars!",
+        "Thrug: Gunships target the barge! Kill them!"
+      ],
+      "radio-coalvein": [
+        "Hadrin Coalvein: Orc pilots. The League objects to your cargo. Clause eleven, if you wish to argue.",
+        "Thrug: That is Coalvein, the dwarf with forty kills. I will have him."
+      ],
+      "radio-wardens": [
+        "Thrug: A dwarf frigate, the {warden}, left! The wardens have come to taxes!",
+        "Thrug: Frigate and fighters, left. They do not give up."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-khanate-tithe-watch",
+    "description": "Eyes on the Hold: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "The {enemy} have set a watch in {system}. The khan wants to know what it is watching. Fly close to each ship, hold, scan. Do not shoot. Dead ships cannot be scanned.",
+        "Reconnaissance, Captain. A quiet watch of Hold League ships in {system}. Scan every hull. Shoot nothing until the scan is done."
+      ],
+      "success": [
+        "The scans show hold-forged armour plate and crates of guns in the supply hulls, enough for a fleet. {client} pays {captain} and starts shouting.",
+        "Scans taken. The League is arming. {client} pays and calls the clans."
+      ],
+      "failure": [
+        "No scan, no knowledge. {client} sends you back, angrier.",
+        "The scan failed. The khan guesses instead."
+      ],
+      "radio-wardens": [
+        "Thrug: Dwarf frigates, still as stone! I hate scouting!",
+        "Thrug: Two ships, no lights. Slow down. Slow! Down!"
+      ],
+      "radio-screen": [
+        "Thrug: Fighters circle them. They will see us if we go too close.",
+        "Thrug: A screen of four. Be a quiet orc. It is hard."
+      ],
+      "radio-buoys": [
+        "Thrug: Supply hulls, right. Heavy. Why does a watch need so much?",
+        "Thrug: Three big freighters, holding. These are the ones to scan."
+      ],
+      "radio-react": [
+        "Thrug: Dwarf hunters, behind! They noticed!",
+        "Thrug: Four interceptors. We have enough. Run, or kill them!"
+      ],
+      "radio-wake": [
+        "Thrug: Jump flash! A cruiser! The dwarves send their best!",
+        "Thrug: Big ship, far side. Time to leave."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-khanate-tithe-train",
+    "description": "Break the Ore Train: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system",
+      "warden"
+    ],
+    "rules": {
+      "briefing": [
+        "The League is moving a full ore train to its staging fleet, five haulers under the cruiser {warden}. Burn it. The dwarf ace Coalvein flies with it. Do not fight him alone, but do fight him.",
+        "Intercept the {enemy} supply train in {system}. Five haulers, one cruiser and a screen. It is the supply for their war. Starve them."
+      ],
+      "success": [
+        "The ore train is ash. The League will have to dig more. {client} pays {captain} and the clans feast.",
+        "Haulers down. {client} pays and tells you to get some sleep."
+      ],
+      "failure": [
+        "The train gets through. The League is ready. {client} pays nothing.",
+        "The haulers escape. Their staging fleet eats well."
+      ],
+      "radio-train": [
+        "Thrug: Five haulers and a cruiser, the {warden}! A big fat feast!",
+        "Thrug: Train ahead. Kill the haulers. Leave the cruiser for later."
+      ],
+      "radio-screen": [
+        "Thrug: Six fighters! They have actually brought a screen! Impressive!",
+        "Thrug: Screen up, ahead. Break through!"
+      ],
+      "radio-coalvein": [
+        "Hadrin Coalvein: Orcs. Your raid is out of contract. I will be collecting damages.",
+        "Thrug: Coalvein! He is here! Mine!"
+      ],
+      "radio-hammer": [
+        "Thrug: Gunships and hunters left! Dwarves hit hard when they are cornered!",
+        "Thrug: More of them. Good. I was getting dull."
+      ]
+    }
+  },
+  {
+    "id": "battle-campaign-khanate-tithe-siege",
+    "description": "Hearthhall Siege: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "flagship",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "The Hold League fleet is forming above the Hearthhall, a stone holdfast in {system}. We fight them now, before they finish. The {flagship} leads our line against their flagship {target}. Kill the {target}. Keep the {flagship} alive. Plunder after.",
+        "The khan has called every clan to {system}. The {enemy} fleet is in range and so is their flagship, the {target}. This is the war in one afternoon. Fight."
+      ],
+      "success": [
+        "The {target} breaks apart over the Hearthhall. The League sues for peace and the clans sing for a month. {client} pays {captain} the full share, and the khan names you in the long list.",
+        "The League line breaks. {client} pays, and the plunder is considerable."
+      ],
+      "failure": [
+        "The {flagship} is lost and the line with it. {client} pays nothing and calls a new moot.",
+        "The clans are beaten. The League keeps its Hearthhall."
+      ],
+      "radio-line": [
+        "Brakka: Khan's fleet, this is the Warchief! We fight until they run or we are ash! Sound the horns!",
+        "Thrug: Wing, form on me! Or on the Captain! Whoever is in front!"
+      ],
+      "radio-league": [
+        "Thrug: Dwarf battlecruiser, the {target}! And cruisers! It is a proper war now!",
+        "Thrug: Their line is up! The {target} is the big one!"
+      ],
+      "radio-swarm": [
+        "Thrug: Bombers from above! They want the {flagship}! Kill them!",
+        "Thrug: Eight hunters and four gunships, high! Shoot them!"
+      ],
+      "radio-coalvein": [
+        "Hadrin Coalvein: Orc. I have a contract with your name on it. Clause paid in full.",
+        "Thrug: Coalvein again! Captain, he is yours or mine!"
+      ],
+      "radio-reserve": [
+        "Thrug: Carrier on the right, with more fighters! They really brought everything!",
+        "Thrug: Reserve fleet, right. Hold on!"
+      ],
+      "radio-reinforce": [
+        "Brakka: Fresh clans arriving! The horns were heard! Finish it!",
+        "Thrug: Our reinforcements! Louder than the dwarves, as ever!"
+      ]
+    }
+  }
+]

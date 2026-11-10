@@ -31,7 +31,12 @@
       "#le-heard# {fact}. #le-coda#",
       "#le-heard# {fact}. #le-coda#",
       "Since you ask, {fact}. #le-coda#",
-      "It would be improper to repeat gossip, but {fact}."
+      "It would be improper to repeat gossip, but {fact}.",
+      "It is said in the courts that the Roll of Houses has two pauses in it. I will not say what fills them.",
+      "A human once asked me which star we came from. I told her the lamp is lit and the road is long, and she was gracious enough to stop.",
+      "There is talk among the humans that the gates were laid from the rim inward. We say only that the oldest work was the hardest to leave. Draw what conclusion you like.",
+      "The Lattice keeps a register of our people and will not read it aloud. We have never asked, and they have never offered. It is a very polite arrangement.",
+      "I am told the dwarves cannot name the metal in the gates. I find it restful that someone else is puzzled."
     ],
     "le-heard": [
       "One hears, in the better houses, that",
@@ -86,7 +91,9 @@
       "I find {system} tolerable, in small doses.",
       "I keep my own counsel regarding the rest.",
       "My house is old, and I am not required to explain it.",
-      "Some of what I remember is not for strangers."
+      "Some of what I remember is not for strangers.",
+      "At every table of my house, one chair is set for the guest who is late.",
+      "The lamp I keep was lit when I was young, and it is not for strangers."
     ],
     "drink": [
       "#le-thanks# #le-toast#",

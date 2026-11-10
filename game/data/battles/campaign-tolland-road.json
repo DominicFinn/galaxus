@@ -1,0 +1,575 @@
+[
+  {
+    "id": "campaign-tolland-road-fence",
+    "name": "Fence Line",
+    "kind": "campaign",
+    "reward": 5000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-tolland-road-fence",
+    "waves": [
+      {
+        "id": "posts",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 3,
+            "tag": "post"
+          }
+        ],
+        "radio": "radio-posts"
+      },
+      {
+        "id": "cass",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 300,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 1
+          }
+        ],
+        "radio": "radio-cass"
+      },
+      {
+        "id": "rustlers",
+        "side": "enemy",
+        "at": 75,
+        "position": "behind",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-rustlers"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "fence",
+        "type": "scan",
+        "tag": "post",
+        "seconds": 8,
+        "distance": 400,
+        "text": "Check all three relay posts: close in and hold"
+      },
+      {
+        "id": "rustlers",
+        "type": "destroy",
+        "wave": "rustlers",
+        "text": "Run off the pirates"
+      }
+    ]
+  },
+  {
+    "id": "campaign-tolland-road-rail",
+    "name": "Rail Hauler",
+    "kind": "campaign",
+    "reward": 12000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-tolland-road-rail",
+    "waves": [
+      {
+        "id": "stranded",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "freighter",
+            "count": 1,
+            "tag": "stranded"
+          }
+        ],
+        "radio": "radio-stranded"
+      },
+      {
+        "id": "first",
+        "side": "enemy",
+        "at": 40,
+        "position": "ahead",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-first"
+      },
+      {
+        "id": "second",
+        "side": "enemy",
+        "after": "wave:first",
+        "delay": 25,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1,
+            "target": "stranded"
+          }
+        ],
+        "radio": "radio-second"
+      },
+      {
+        "id": "third",
+        "side": "enemy",
+        "after": "wave:second",
+        "delay": 30,
+        "position": "behind",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          }
+        ],
+        "radio": "radio-third"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "refuel",
+        "type": "rendezvous",
+        "tag": "stranded",
+        "seconds": 30,
+        "distance": 150,
+        "text": "Match speed with the {stranded} and hold to pass fuel"
+      },
+      {
+        "id": "keep",
+        "type": "protect",
+        "tag": "stranded",
+        "text": "Keep the {stranded} alive"
+      }
+    ]
+  },
+  {
+    "id": "campaign-tolland-road-caravan",
+    "name": "The Last Caravan",
+    "kind": "campaign",
+    "reward": 17000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-tolland-road-caravan",
+    "waves": [
+      {
+        "id": "caravan",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 900,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 4,
+            "tag": "caravan"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 2,
+            "target": "caravan"
+          }
+        ],
+        "radio": "radio-caravan"
+      },
+      {
+        "id": "outriders",
+        "side": "enemy",
+        "at": 40,
+        "position": "ahead",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-outriders"
+      },
+      {
+        "id": "ambush",
+        "side": "enemy",
+        "after": "wave:outriders",
+        "delay": 25,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3,
+            "target": "caravan"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-ambush"
+      },
+      {
+        "id": "rooke",
+        "side": "enemy",
+        "after": "wave:ambush",
+        "delay": 25,
+        "position": "behind",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 1,
+            "tag": "ace",
+            "name": "Jack Rooke"
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "toll"
+          }
+        ],
+        "radio": "radio-rooke"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "alive",
+        "type": "protect",
+        "tag": "caravan",
+        "text": "Keep the caravan alive"
+      },
+      {
+        "id": "through",
+        "type": "escape",
+        "tag": "caravan",
+        "text": "Get the caravan through {system}"
+      },
+      {
+        "id": "ace",
+        "type": "destroy",
+        "tag": "ace",
+        "text": "Shoot down Jack Rooke",
+        "optional": true
+      },
+      {
+        "id": "toll",
+        "type": "destroy",
+        "tag": "toll",
+        "text": "Destroy the frigate {toll}",
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-tolland-road-quiet",
+    "name": "Quiet Line",
+    "kind": "campaign",
+    "reward": 23000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-tolland-road-quiet",
+    "waves": [
+      {
+        "id": "pickets",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "frigate",
+            "count": 2,
+            "tag": "picket"
+          }
+        ],
+        "radio": "radio-pickets"
+      },
+      {
+        "id": "stray",
+        "side": "enemy",
+        "at": 0,
+        "position": "right",
+        "distance": 5500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "fm-unbound-bramble",
+            "count": 1,
+            "tag": "stray"
+          }
+        ],
+        "radio": "radio-stray"
+      },
+      {
+        "id": "screen",
+        "side": "enemy",
+        "at": 0,
+        "position": "near",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 3,
+            "target": "picket"
+          }
+        ],
+        "radio": "radio-screen"
+      },
+      {
+        "id": "react",
+        "side": "enemy",
+        "after": "objective:stray",
+        "delay": 10,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "hull": "fm-unbound-splinter",
+            "count": 5
+          }
+        ],
+        "radio": "radio-react"
+      },
+      {
+        "id": "wake",
+        "side": "enemy",
+        "after": "wave:react",
+        "delay": 40,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "hull": "fm-unbound-bramble",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "hull": "fm-unbound-splinter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-wake"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "pickets",
+        "type": "scan",
+        "tag": "picket",
+        "seconds": 15,
+        "distance": 700,
+        "text": "Scan both Lattice pickets and hold close"
+      },
+      {
+        "id": "stray",
+        "type": "scan",
+        "tag": "stray",
+        "seconds": 12,
+        "distance": 500,
+        "text": "Scan the unidentified hull"
+      },
+      {
+        "id": "survive",
+        "type": "survive",
+        "seconds": 240,
+        "text": "Get clear with the scan data"
+      }
+    ]
+  },
+  {
+    "id": "campaign-tolland-road-reckoning",
+    "name": "The Hard Reckoning",
+    "kind": "campaign",
+    "reward": 40000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-tolland-road-reckoning",
+    "waves": [
+      {
+        "id": "line",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1200,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "battlecruiser",
+            "count": 1,
+            "tag": "flagship",
+            "name": "{base}"
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-line"
+      },
+      {
+        "id": "first",
+        "side": "enemy",
+        "at": 20,
+        "position": "ahead",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "hull": "fm-unbound-splinter",
+            "count": 8
+          },
+          {
+            "role": "bomber",
+            "hull": "fm-unbound-splinter",
+            "count": 4,
+            "target": "flagship"
+          }
+        ],
+        "radio": "radio-first"
+      },
+      {
+        "id": "siege",
+        "side": "enemy",
+        "after": "wave:first",
+        "delay": 40,
+        "position": "left",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "capital",
+            "hull": "fm-unbound-bramble",
+            "count": 3,
+            "tag": "siege"
+          },
+          {
+            "role": "fighter",
+            "hull": "fm-unbound-splinter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-siege"
+      },
+      {
+        "id": "brood",
+        "side": "enemy",
+        "after": "wave:siege",
+        "delay": 45,
+        "position": "above",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "capital",
+            "hull": "fm-unbound-brood",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "interceptor",
+            "hull": "fm-unbound-splinter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-brood"
+      },
+      {
+        "id": "relief",
+        "side": "friend",
+        "after": "wave:brood",
+        "delay": 80,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 4
+          }
+        ],
+        "radio": "radio-relief"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "hold",
+        "type": "survive",
+        "seconds": 540,
+        "text": "Hold {system} until relief arrives"
+      },
+      {
+        "id": "flag",
+        "type": "protect",
+        "tag": "flagship",
+        "text": "Keep the {flagship} alive"
+      },
+      {
+        "id": "brood",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the Unbound brood carrier {target}",
+        "optional": true
+      },
+      {
+        "id": "siege",
+        "type": "destroy",
+        "tag": "siege",
+        "text": "Destroy the Unbound frigates",
+        "optional": true
+      }
+    ]
+  }
+]

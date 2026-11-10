@@ -48,6 +48,7 @@ public sealed class ContentDatabase
     public Dictionary<string, MissionTemplateDef> Missions { get; } = [];
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
     public Dictionary<string, BattleDef> Battles { get; } = [];
+    public Dictionary<string, CampaignDef> Campaigns { get; } = [];
     public Dictionary<string, PowerDef> Powers { get; } = [];
     public Dictionary<string, Audio.MusicStyleDef> MusicStyles { get; } = [];
     /// <summary>Face pools, keyed by race id.</summary>
@@ -94,6 +95,7 @@ public sealed class ContentDatabase
         LoadInto(source, "missions", db.Missions, m => m.Id, problems);
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
         LoadInto(source, "battles", db.Battles, b => b.Id, problems);
+        LoadInto(source, "campaigns", db.Campaigns, c => c.Id, problems);
         LoadInto(source, "powers", db.Powers, p => p.Id, problems);
         LoadInto(source, "music", db.MusicStyles, m => m.Id, problems);
         LoadInto(source, "portraits", db.Portraits, p => p.Race, problems);
@@ -157,7 +159,7 @@ public sealed class ContentDatabase
 
     /// <summary>Folders a mod may add to. Powers are left out: the great powers belong to the base game.</summary>
     public static readonly string[] ModFolders =
-        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "battles", "music", "portraits", "people", "grammars"];
+        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "battles", "campaigns", "music", "portraits", "people", "grammars"];
 
     private static readonly System.Text.RegularExpressions.Regex OwnerPattern =
         new(@"^(?:Grammar|[A-Z][A-Za-z]*(?: [a-z]+)?) '([^']+)'", System.Text.RegularExpressions.RegexOptions.Compiled);
@@ -178,6 +180,7 @@ public sealed class ContentDatabase
         AddFromMod(mod, "missions", Missions, m => m.Id, origins, problems);
         AddFromMod(mod, "complications", Complications, c => c.Id, origins, problems);
         AddFromMod(mod, "battles", Battles, b => b.Id, origins, problems);
+        AddFromMod(mod, "campaigns", Campaigns, c => c.Id, origins, problems);
         AddFromMod(mod, "music", MusicStyles, m => m.Id, origins, problems);
         AddFromMod(mod, "portraits", Portraits, x => x.Race, origins, problems);
         AddFromMod(mod, "people", Roles, r => r.Id, origins, problems);
@@ -444,6 +447,7 @@ public sealed class ContentDatabase
         }
 
         CheckBattles(p);
+        CheckCampaigns(p);
 
         foreach (var power in Powers.Values)
         {
@@ -510,10 +514,39 @@ public sealed class ContentDatabase
     }
 
     /// <summary>A grammar may only declare variables the game will actually supply.</summary>
-    public static readonly HashSet<string> BattleKinds = ["war", "pirate", "synth", "defence"];
-    public static readonly HashSet<string> BattleRoles = ["fighter", "bomber", "escort", "capital", "freighter", "interceptor"];
+    public static readonly HashSet<string> BattleKinds = ["war", "pirate", "synth", "defence", "campaign"];
+    public static readonly HashSet<string> BattleRoles = ["fighter", "bomber", "escort", "capital", "freighter", "interceptor", "holding"];
     public static readonly HashSet<string> BattlePositions = ["near", "ahead", "behind", "left", "right", "above", "far"];
-    public static readonly HashSet<string> ObjectiveTypes = ["destroy", "protect", "survive", "escape"];
+    public static readonly HashSet<string> ObjectiveTypes = ["destroy", "protect", "survive", "escape", "scan", "rendezvous"];
+
+    private void CheckCampaigns(List<string> p)
+    {
+        foreach (var c in Campaigns.Values)
+        {
+            string at = $"Campaign '{c.Id}'";
+            if (!Powers.ContainsKey(c.Power)) p.Add($"{at}: unknown power '{c.Power}'.");
+            if (!Powers.ContainsKey(c.Rival)) p.Add($"{at}: unknown rival power '{c.Rival}'.");
+            if (!Hulls.ContainsKey(c.Hull)) p.Add($"{at}: unknown starting hull '{c.Hull}'.");
+            if (!Hulls.TryGetValue(c.BaseHull, out var baseHull)) p.Add($"{at}: unknown base hull '{c.BaseHull}'.");
+            else if (!baseHull.Dockable) p.Add($"{at}: base hull '{c.BaseHull}' isn't dockable.");
+            foreach (var f in c.Fleet.Where(f => !Hulls.ContainsKey(f))) p.Add($"{at}: unknown fleet hull '{f}'.");
+            if (c.Rank is < 0 or > 5) p.Add($"{at}: rank must be 0 to 5.");
+            if (c.Steps.Count == 0) p.Add($"{at}: needs steps.");
+            bool grammar = Grammars.Contains(c.TextGrammar);
+            if (!grammar) p.Add($"{at}: unknown text grammar '{c.TextGrammar}'.");
+            var rules = grammar ? Grammars.Get(c.TextGrammar).Rules : new Dictionary<string, List<string>>();
+            foreach (var rule in new[] { "intro", "outro" }.Where(r => grammar && !rules.ContainsKey(r))) p.Add($"{at}: grammar needs an '{rule}' rule.");
+            foreach (var step in c.Steps)
+            {
+                string sat = $"{at}, step '{step.Id}'";
+                if (!Battles.ContainsKey(step.Battle)) p.Add($"{sat}: unknown battle '{step.Battle}'.");
+                if (step.Where is not ("base" or "near" or "front")) p.Add($"{sat}: where must be base, near or front.");
+                if (step.Enemy is not ("rival" or "pirates" or "unbound")) p.Add($"{sat}: enemy must be rival, pirates or unbound.");
+                foreach (var rule in new[] { step.Briefing, step.Debrief })
+                    if (grammar && !rules.ContainsKey(rule)) p.Add($"{sat}: rule '{rule}' isn't in grammar '{c.TextGrammar}'.");
+            }
+        }
+    }
 
     private void CheckBattles(List<string> p)
     {
@@ -561,7 +594,8 @@ public sealed class ContentDatabase
                 string oat = $"{at}, objective '{o.Id}'";
                 if (!ObjectiveTypes.Contains(o.Type)) p.Add($"{oat}: type must be one of {string.Join(", ", ObjectiveTypes)}.");
                 if (o.Type is "destroy" && o.Tag == null && o.Wave == null) p.Add($"{oat}: destroy needs a tag or a wave.");
-                if (o.Type is "protect" or "escape" && o.Tag == null) p.Add($"{oat}: {o.Type} needs a tag.");
+                if (o.Type is "protect" or "escape" or "scan" or "rendezvous" && o.Tag == null) p.Add($"{oat}: {o.Type} needs a tag.");
+                if (o.Type is "scan" or "rendezvous" && (o.Distance <= 0 || o.Seconds <= 0)) p.Add($"{oat}: {o.Type} needs distance and seconds.");
                 if (o.Tag != null && !tags.Contains(o.Tag)) p.Add($"{oat}: tag '{o.Tag}' isn't in any wave.");
                 if (o.Wave != null && !waveIds.Contains(o.Wave)) p.Add($"{oat}: wave '{o.Wave}' doesn't exist.");
                 if (o.Type == "survive" && o.Seconds <= 0) p.Add($"{oat}: survive needs seconds.");

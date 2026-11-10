@@ -1,10 +1,12 @@
 using Godot;
+using Galaxus.Core;
 
 namespace Galaxus;
 
 /// <summary>Following a job in flight: the HUD line, switching jobs, and a course to the job's port.</summary>
 public partial class Main
 {
+
     private double _jobHudRefresh;
 
     /// <summary>Updates the HUD's job lines about twice a second (working out the next step isn't free).</summary>
@@ -42,6 +44,14 @@ public partial class Main
     /// <summary>If the active job ends at a surface port in this system, set a course for it.</summary>
     private void CourseForJob()
     {
+        // In a campaign with nothing in hand, the next stop is the flagship.
+        if (_flagship != null && Campaigns.OrdersInHand(_session) == null
+            && Galaxus.Core.Ships.World.DistanceToShip(_flagship, _player.Body.Position) > 3000)
+        {
+            _navTarget = NavFleet;
+            _hud.Message($"COURSE SET FOR THE {Campaigns.Current(_session)!.BaseName.ToUpperInvariant()}. J FOR AUTOPILOT");
+            return;
+        }
         if (_session.Career.ActiveJob is not { } job || job.Offer.DestinationSystemId != _session.Career.SystemId) return;
         if (job.Offer.BattleId != null)
         {

@@ -52,6 +52,18 @@ Travel is by the old elf gate network. Pick a destination and the map plots the 
 
 ![A route plotted across the map](docs/screenshots/map-route.png)
 
+## Ways to start
+
+Start as a free trader with a small ship and the whole galaxy, or enlist in a campaign. A campaign puts you in a great power's service, in their ship, with a base to return to: a flagship parked with its fleet. Dock with it for your orders, fly the mission, and come back for a debrief and the next. Missions build from reconnaissance (fly close to beacons and pickets and hold while you scan), refuelling a stranded ship while pirates close in, escorts and intercepts, up to a full battle at the end. The same galaxy carries on around you, and when the campaign is over you're free.
+
+- **The Concord Watch:** the Meridian Concord against the Grav Khanates, flying from the battlecruiser Sovereign Clause.
+- **The Iron Tithe:** the Grav Khanates against the Hold League, from the Skullfang.
+- **The Long Road:** the Tolland Compact on the frontier, against pirates and the Unbound, from the Hard Reckoning.
+
+![Your base: the Sovereign Clause and her fleet](docs/screenshots/campaign-fleet.png)
+
+![Orders, taken aboard the flagship](docs/screenshots/campaign-orders.png)
+
 ## Battles and warships
 
 The wars between factions are fought in set pieces, in the spirit of X-Wing and TIE Fighter. Factions at war post battles on job boards near their front lines; lawful factions post pirate hunts, the outer galaxy has rogue machines, and stations near trouble ask for defenders. Take one, fly to the system and head for the fighting, and the battle comes to you in waves: fighter screens, bomber runs on the warships, carriers launching their wings, cruisers jumping in, convoys trying to get clear. Command talks to you over the radio, the objectives sit on the HUD, and the job pays when you win, with a bonus for the optional objectives.
@@ -61,6 +73,12 @@ Every great power has a navy of its own design: frigates, cruisers, Star Destroy
 ![A fleet engagement: the Meridian Concord line forms up as the Grav Khanates close](docs/screenshots/battle-opening.png)
 
 ![Plasma fire across the gap between the two lines](docs/screenshots/battle-fleet.png)
+
+## Traffic, stations and systems
+
+Systems are busy in proportion to who lives there. Traders come and go at the station, patrols fly the space around it, and where the law is thin pirates go for traders and for you; the local owner pays a bounty for each one you bring down. Fire on a trader and the police come for you. Every system has a population, a government and a security level, shown on both maps and at the station. Stations grow with the population they serve, from small outposts to stacked-ring hubs, and each great power's capital has a citadel.
+
+![The citadel at the capital of the Meridian Concord](docs/screenshots/citadel.png)
 
 ## Stations and talking to people
 
@@ -184,6 +202,10 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Match target speed | Tab | Left stick click |
 | Pause menu: save, load, settings | Esc | |
 | Quit | F10 | |
+
+## Lore
+
+The setting is in [docs/lore-bible.md](docs/lore-bible.md), with deeper histories in [docs/lore](docs/lore): the elves, who will never say where they came from; the orcs, their Goddess and an empire that never was; and humanity's long run of empires, leagues and rebellions, starting from a single home world that may only be a rumour. The people you talk to at stations repeat what they've heard of it.
 
 ## Expanding the universe
 

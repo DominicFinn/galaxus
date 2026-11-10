@@ -1,0 +1,93 @@
+[
+  {
+    "id": "concord-watch",
+    "name": "The Concord Watch",
+    "power": "meridian-concord",
+    "rival": "grav-khanates",
+    "summary": "You are a newly commissioned pilot of the Meridian Concord, assigned to the battlecruiser Sovereign Clause on the Khanate border. Patrol, recon, escort and a final stand, flown in a Concord fighter under a commodore who reads regulations aloud. The gentlest way into the galaxy, and the most formal.",
+    "hull": "mc-sentinel",
+    "credits": 5000,
+    "rank": 1,
+    "baseHull": "mc-charter",
+    "baseName": "Sovereign Clause",
+    "fleet": [
+      "mc-statute",
+      "mc-warrant",
+      "mc-warrant",
+      "mc-mandate"
+    ],
+    "textGrammar": "campaign-concord-watch",
+    "steps": [
+      {
+        "id": "beacons",
+        "title": "Beacon Audit",
+        "battle": "campaign-concord-watch-beacons",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 5000,
+        "briefing": "briefing-beacons",
+        "debrief": "debrief-beacons"
+      },
+      {
+        "id": "customs",
+        "title": "Customs Run",
+        "battle": "campaign-concord-watch-customs",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 8000,
+        "briefing": "briefing-customs",
+        "debrief": "debrief-customs"
+      },
+      {
+        "id": "dry-tanks",
+        "title": "Dry Tanks",
+        "battle": "campaign-concord-watch-dry-tanks",
+        "where": "near",
+        "enemy": "pirates",
+        "reward": 12000,
+        "briefing": "briefing-dry-tanks",
+        "debrief": "debrief-dry-tanks"
+      },
+      {
+        "id": "envoy",
+        "title": "Envoy's Passage",
+        "battle": "campaign-concord-watch-envoy",
+        "where": "near",
+        "enemy": "rival",
+        "reward": 17000,
+        "briefing": "briefing-envoy",
+        "debrief": "debrief-envoy"
+      },
+      {
+        "id": "listen",
+        "title": "Quiet Listening",
+        "battle": "campaign-concord-watch-listen",
+        "where": "front",
+        "enemy": "rival",
+        "reward": 23000,
+        "briefing": "briefing-listen",
+        "debrief": "debrief-listen"
+      },
+      {
+        "id": "tithe",
+        "title": "Cut the Tithe Fleet",
+        "battle": "campaign-concord-watch-tithe",
+        "where": "front",
+        "enemy": "rival",
+        "reward": 30000,
+        "briefing": "briefing-tithe",
+        "debrief": "debrief-tithe"
+      },
+      {
+        "id": "clause",
+        "title": "The Clause Holds",
+        "battle": "campaign-concord-watch-clause",
+        "where": "base",
+        "enemy": "rival",
+        "reward": 40000,
+        "briefing": "briefing-clause",
+        "debrief": "debrief-clause"
+      }
+    ]
+  }
+]

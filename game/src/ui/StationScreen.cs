@@ -78,6 +78,7 @@ public partial class StationScreen : PanelContainer
         tabs.AddChild(BuildPeopleTab());
         tabs.AddChild(BuildNewsTab());
         tabs.AddChild(BuildStandingTab());
+        tabs.AddChild(BuildOrdersTab());
 
         var footer = new HBoxContainer();
         root.AddChild(footer);
@@ -102,8 +103,11 @@ public partial class StationScreen : PanelContainer
         string ownerText = owner == null ? "unclaimed" : $"[color=#{owner.Colour.TrimStart('#')}]{owner.Name}[/color]";
         var events = galaxy.EventsIn(here.Id).Select(e => db.Events.TryGetValue(e.EventId, out var d) ? d.Name : e.EventId).ToList();
 
+        var profile = Galaxus.Core.Galaxy.SystemProfiles.For(galaxy, here, db);
         _header.Text =
             $"[color=#{Ui.Hex(Ui.Amber)}]{StationName.ToUpperInvariant()}[/color]  {here.Name}, {here.Region} {here.Arm} arm. Held by {ownerText}. {here.Economy} economy." +
+            $" Population {profile.PopulationText}, {profile.Security.ToLowerInvariant()} security." +
+            (profile.CapitalOf != null ? $" [color=#{Ui.Hex(Ui.Amber)}]Capital of {profile.CapitalOf}.[/color]" : "") +
             (events.Count > 0 ? $"  [color=#{Ui.Hex(Ui.Red)}]Now: {string.Join(", ", events)}[/color]" : "") +
             $"\nDay {galaxy.Day}.  {career.Credits:N0} cr.  {db.Hulls[career.HullId].Name}, hold {career.CargoUsed}/{career.CargoCapacity(db)} t.";
         _status.Text = message ?? "";
@@ -115,6 +119,58 @@ public partial class StationScreen : PanelContainer
         RefreshPeople();
         RefreshNews();
         RefreshStanding();
+        RefreshOrders();
+    }
+
+    private RichTextLabel _orders = null!;
+    private Button _takeOrders = null!;
+    /// <summary>Called when orders are taken, so the game can set a course.</summary>
+    public Action? OrdersTaken { get; set; }
+
+    /// <summary>Campaign orders: the debrief from the last mission, and the next orders, taken at your base.</summary>
+    private Control BuildOrdersTab()
+    {
+        var tab = new VBoxContainer { Name = "Orders" };
+        var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
+        _orders = Ui.Text();
+        _orders.FitContent = true;
+        _orders.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        scroll.AddChild(_orders);
+        tab.AddChild(scroll);
+        _takeOrders = Ui.Button("Take your orders", () =>
+        {
+            if (Galaxus.Core.Campaigns.TakeOrders(_session) != null)
+            {
+                Refresh("Orders taken. Undock when you're ready; the course is set.");
+                OrdersTaken?.Invoke();
+            }
+        });
+        tab.AddChild(_takeOrders);
+        return tab;
+    }
+
+    private void RefreshOrders()
+    {
+        var def = Galaxus.Core.Campaigns.Current(_session);
+        int index = _tabs.GetChildCount() - 1;
+        _tabs.SetTabHidden(index, def == null);
+        if (def == null) return;
+        var career = _session.Career;
+        bool atBase = StationName == def.BaseName;
+        var step = Galaxus.Core.Campaigns.Step(_session);
+        var inHand = Galaxus.Core.Campaigns.OrdersInHand(_session);
+        string amber = Ui.Hex(Ui.Amber);
+        var text = $"[color=#{amber}]{def.Name.ToUpperInvariant()}[/color]   ";
+        text += step != null ? $"Mission {career.CampaignStep + 1} of {def.Steps.Count}: {step.Title}\n\n" : "Campaign complete.\n\n";
+        if (career.CampaignDebrief is { } debrief) text += debrief + "\n\n";
+        if (inHand != null)
+            text += $"[color=#{amber}]ORDERS[/color]\n{inHand.Offer.Mission.Briefing}\n\n{_session.NextStep(inHand)}";
+        else if (step != null)
+            text += atBase ? "Your next orders are ready." : $"Report to the {def.BaseName} for your next orders. It's with the fleet at {_session.Galaxy.Systems[career.CampaignBase].Name}.";
+        else
+            text += "The galaxy is yours. Keep flying for them, or go your own way.";
+        _orders.Text = text;
+        _takeOrders.Visible = atBase && step != null && inHand == null;
     }
 
     /// <summary>For the showcase and tutorials: 0 jobs, 1 in hand, 2 market, 3 shipyard, 4 people, 5 news, 6 standing.</summary>

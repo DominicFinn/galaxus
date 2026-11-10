@@ -63,6 +63,7 @@ public partial class Main
         _battleCleanup = 0;
         SetWarp(1, "");
         _player.Target = null;
+        ClearTraffic();
         ParkDrones();
         if (_navTarget == NavBattle) _navTarget = -1;
         _hud.Message($"{def.Name.ToUpperInvariant()}: {sides.EnemyName.ToUpperInvariant()} INBOUND");
@@ -116,6 +117,9 @@ public partial class Main
     {
         if (_battleJob == null || _battle == null) return;
         var result = _session.Career.FinishBattle(_battleJob, over.Won, _battle.BonusesEarned);
+        Campaigns.Record(_session, _battleJob, over.Won);
+        if (Campaigns.Current(_session) != null && over.Won)
+            _hud.Message(Campaigns.Finished(_session) ? "CAMPAIGN COMPLETE. REPORT TO THE FLAGSHIP" : "RETURN TO THE FLAGSHIP FOR YOUR DEBRIEF");
         _hud.Radio(over.Text, "friend");
         _hud.Message(over.Won
             ? $"VICTORY. +{result.Payment:N0} CR{(_battle.BonusesEarned > 0 ? $" WITH {_battle.BonusesEarned} BONUS" : "")}"

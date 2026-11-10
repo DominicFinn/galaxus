@@ -6,6 +6,10 @@ namespace Galaxus.Ui;
 public sealed class MenuActions
 {
     public required Action NewGame { get; init; }
+    /// <summary>Starts a campaign by id.</summary>
+    public required Action<string> NewCampaign { get; init; }
+    /// <summary>The campaigns on offer: id, name and summary.</summary>
+    public required Func<IEnumerable<(string Id, string Name, string Summary)>> Campaigns { get; init; }
     public required Action<string> Load { get; init; }
     public required Action<string> Save { get; init; }
     public required Action Resume { get; init; }
@@ -19,7 +23,7 @@ public sealed class MenuActions
 /// </summary>
 public partial class MenuScreen : Control
 {
-    private enum Page { Main, Load, Save, Settings }
+    private enum Page { Main, Load, Save, Settings, NewGame }
 
     private MenuActions _actions = null!;
     private Logo _logo = null!;
@@ -67,7 +71,7 @@ public partial class MenuScreen : Control
     {
         _page = page;
         foreach (var child in _items.GetChildren()) child.QueueFree();
-        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : 360, 0);
+        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page == Page.NewGame ? 440 : 360, 0);
         _footer.Text = "Galaxus is a working title. Early build.";
 
         switch (page)
@@ -76,6 +80,7 @@ public partial class MenuScreen : Control
             case Page.Load: BuildSlots(saving: false); break;
             case Page.Save: BuildSlots(saving: true); break;
             case Page.Settings: BuildSettings(); break;
+            case Page.NewGame: BuildNewGame(); break;
         }
         // Centre the panel under the logo once its contents have sized it.
         CallDeferred(MethodName.CentrePanel);
@@ -101,12 +106,28 @@ public partial class MenuScreen : Control
             continueButton.Disabled = latest == null;
             continueButton.TooltipText = latest != null && SaveSlots.Peek(latest) is { } d ? SaveSlots.Describe(d) : "No saved games yet.";
             Add(continueButton);
-            Add(Ui.Button("New game", () => _actions.NewGame()));
+            Add(Ui.Button("New game", () => { _back = Page.Main; ShowPage(Page.NewGame); }));
         }
         Add(Ui.Button("Load game", () => { _back = Page.Main; ShowPage(Page.Load); }));
         Add(Ui.Button("Settings", () => { _back = Page.Main; ShowPage(Page.Settings); }));
         if (InGame) Add(Ui.Button("Main menu", () => _actions.MainMenu()));
         Add(Ui.Button("Quit", () => _actions.Quit()));
+    }
+
+    /// <summary>Ways to start: as a free trader with a small ship, or enlisted in a campaign.</summary>
+    private void BuildNewGame()
+    {
+        Add(Ui.Label("NEW GAME", Ui.Amber));
+        Add(Ui.Label("Free trader: a small ship, a little money and the whole galaxy. Trade, take jobs, pick sides.", Ui.Dim, wrap: true));
+        Add(Ui.Button("Start as a free trader", () => _actions.NewGame()));
+        foreach (var (id, name, summary) in _actions.Campaigns())
+        {
+            Add(Ui.Label(" ", Ui.Dim));
+            Add(Ui.Label(summary, Ui.Dim, wrap: true));
+            var campaignId = id;
+            Add(Ui.Button($"Campaign: {name}", () => _actions.NewCampaign(campaignId)));
+        }
+        Add(Ui.Button("Back", () => ShowPage(_back)));
     }
 
     private void BuildSlots(bool saving)

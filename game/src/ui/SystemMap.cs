@@ -157,7 +157,10 @@ public partial class SystemMap : Control
         var star = _solar.Star;
         if (id == -1)
         {
+            var profile = SystemProfiles.For(_session.Galaxy, _system, _session.Db);
             _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{_system.Name.ToUpperInvariant()}[/color]\n" +
+                         (profile.CapitalOf != null ? $"Capital of {profile.CapitalOf}. " : "") +
+                         (profile.Population > 0 ? $"Population {profile.PopulationText}. {profile.Government}. {profile.Security} security.\n" : "") +
                          $"{star.Description}, {star.Temperature:N0} K, {star.Mass:0.00} solar masses, {star.Luminosity:0.###} times the Sun's light.\n" +
                          $"Habitable zone {star.HabitableInner:0.00} to {star.HabitableOuter:0.00} AU. Frost line {star.FrostLine:0.0} AU.\n" +
                          $"{_solar.Planets.Count(b => b.Kind != BodyKind.Belt)} planets, {_solar.Bodies.Count(b => b.IsMoon)} moons.\n\n" +

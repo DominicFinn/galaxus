@@ -17,6 +17,13 @@ public sealed class Career
     public string HullId { get; set; } = "hc-sparrow";
     public List<string>? Loadout { get; set; }
     public List<AcceptedMission> Missions { get; } = [];
+    /// <summary>The campaign you're flying, if you started in one, and how far through it you are.</summary>
+    public string? CampaignId { get; set; }
+    public int CampaignStep { get; set; }
+    /// <summary>The system your campaign base is parked in.</summary>
+    public int CampaignBase { get; set; } = -1;
+    /// <summary>The debrief from the step just finished, shown when you next dock at the base.</summary>
+    public string? CampaignDebrief { get; set; }
     /// <summary>The job you're working on, which the maps and HUD guide you to. Null picks the most urgent.</summary>
     public string? ActiveJobId { get; set; }
 

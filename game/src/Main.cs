@@ -113,6 +113,8 @@ public partial class Main : Node3D
         _menu.Init(new MenuActions
         {
             NewGame = () => Restart(Session.StartNew(_db, (ulong)DateTime.Now.Ticks)),
+            NewCampaign = id => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id)),
+            Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Name).Select(c => (c.Id, c.Name, c.Summary)),
             Load = slot => Restart(SaveSlots.Read(_db, slot)),
             Save = slot => { SaveSlots.Write(slot, _session); },
             Resume = Resume,
@@ -220,7 +222,7 @@ public partial class Main : Node3D
         AddChild(layer);
         _hud = new Hud { Player = _player, Camera = _camera, MouseStickRadius = MouseStickRadius, Cockpit = _cockpit };
         _hud.Contacts = () => _world.Ships.Where(sh => sh != _player && sh.Alive && sh.Body.Position.Y < 1e6f)
-            .Select(sh => (sh, _world.Hostile(_player, sh) ? -1 : _battle != null && sh.Side == _player.Side ? 1 : 0));
+            .Select(sh => (sh, _world.Hostile(_player, sh) ? -1 : sh.Side == _player.Side ? 1 : 0));
         layer.AddChild(_hud);
         _hud.Message("F1 FOR CONTROLS");
 
@@ -241,15 +243,21 @@ public partial class Main : Node3D
         EnterSystem();
         if (_demo || startScreen == "flight") SetScreen(Screen.Flight);
         else if (startScreen == "map") OpenMap();
+        else if (_flagship != null) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(7); }
         else if (_session.Here.Stations.Count > 0) Dock();
         else SetScreen(Screen.Flight);
         UpdateCamera(1f, snap: true);
     }
 
     /// <summary>Builds the space for the current system: its sky, planet and station.</summary>
+    /// <summary>Population, station size and security of the system you're in.</summary>
+    private Galaxus.Core.Galaxy.SystemProfile _profile = null!;
+    private float StationScale => _profile?.StationScale ?? 1f;
+
     private void EnterSystem()
     {
         var here = _session.Here;
+        _profile = Galaxus.Core.Galaxy.SystemProfiles.For(_session.Galaxy, here, _db);
         _dockedPort = null;
         _timeWarp = 1;
         _space?.QueueFree();
@@ -264,7 +272,8 @@ public partial class Main : Node3D
             var owner = _session.Galaxy.OwnerOf(here);
             _stationNode = new MeshInstance3D
             {
-                Mesh = MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f)),
+                Mesh = MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f), _profile.StationSize),
+                Scale = Vector3.One * _profile.StationScale,
                 Position = _stationLocal.ToGodot(),
             };
             AddChild(_stationNode);
@@ -281,6 +290,10 @@ public partial class Main : Node3D
         foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
         _world.Projectiles.Clear();
         BuildSystemBodies();
+        ClearBattle();
+        ClearTraffic();
+        SetupFleet();
+        _dockedAtFlagship = false;
         UpdateSystemView();
         _hud.Location = $"{here.Name.ToUpperInvariant()}  DAY {_session.Galaxy.Day}";
         _hud.Message($"{_solar.Star.Description.ToUpperInvariant()}, {_solar.Planets.Count(b => b.Kind != BodyKind.Belt)} PLANETS. N FOR SYSTEM MAP");
@@ -318,7 +331,7 @@ public partial class Main : Node3D
     private void Dock(string? arrival = null)
     {
         _timeWarp = 1;
-        _stationScreen.Port = _dockedPort?.Name;
+        _stationScreen.Port = _dockedAtFlagship && Campaigns.Current(_session) is { } campaign ? campaign.BaseName : _dockedPort?.Name;
         // Docking delivers any jobs for this station.
         string stationName = _dockedPort?.Name ?? _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
         var delivered = _session.Dock(stationName);
@@ -335,7 +348,8 @@ public partial class Main : Node3D
     /// <summary>Leave the station pointing away from it, so you're clear of the hub.</summary>
     private void Undock()
     {
-        if (_dockedPort != null) LaunchFromPort(_dockedPort);
+        if (_dockedAtFlagship) { LaunchFromFlagship(); _dockedAtFlagship = false; }
+        else if (_dockedPort != null) LaunchFromPort(_dockedPort);
         else _player.Respawn(_stationLocal + new NVector3(0, 0, 320), NQuaternion.Identity);
         _throttle = 0.3f;
         _mouseStick = Vector2.Zero;
@@ -383,7 +397,9 @@ public partial class Main : Node3D
         foreach (var result in report.Results.Where(r => !r.Success))
             summary += $" Job failed: {result.Mission.Offer.Mission.Title}.";
 
-        if (_session.Here.Stations.Count > 0) Dock(summary);
+        // Back at the fleet, you dock with the flagship; elsewhere at the station.
+        if (_flagship != null) { _dockedAtFlagship = true; Dock(summary); _stationScreen.ShowTab(7); }
+        else if (_session.Here.Stations.Count > 0) Dock(summary);
         else
         {
             SetScreen(Screen.Flight);
@@ -482,6 +498,7 @@ public partial class Main : Node3D
         for (int step = 0; step < steps; step++)
         {
             StepBattle(dt);
+            StepTraffic(dt);
             if (_battle != null) ParkDrones();
             else if (!_cruising)
                 foreach (var (drone, brain) in _drones)
@@ -543,17 +560,18 @@ public partial class Main : Node3D
     private string? DockPrompt()
     {
         if (PortPrompt() is { } port) return port;
+        if (FlagshipPrompt() is { } flagship) return flagship;
         if (_stationNode == null) return null;
         if (_cruising) return null;
         float distance = NVector3.Distance(_player.Body.Position, _stationLocal);
-        if (distance > DockRange * 3) return null;
-        if (distance > DockRange) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
+        if (distance > DockRange * StationScale * 3) return null;
+        if (distance > DockRange * StationScale) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
         return _player.Body.Speed > DockSpeed ? "SLOW DOWN TO DOCK" : "ENTER TO DOCK";
     }
 
     private bool CanDock => _stationNode != null
                             && !_cruising
-                            && NVector3.Distance(_player.Body.Position, _stationLocal) <= DockRange
+                            && NVector3.Distance(_player.Body.Position, _stationLocal) <= DockRange * StationScale
                             && _player.Body.Speed <= DockSpeed;
 
     private void HandleScreenKeys()
@@ -588,8 +606,16 @@ public partial class Main : Node3D
             _player.Controls.Flight.Assist = true;
             _hud.Message("MATCHING TARGET SPEED");
         }
-        if (Input.IsActionJustPressed(GameInput.Dock) && PortToDock is { } port) { _dockedPort = port; Dock(); return; }
-        if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { _dockedPort = null; Dock(); return; }
+        if (Input.IsActionJustPressed(GameInput.Dock) && PortToDock is { } port) { _dockedPort = port; _dockedAtFlagship = false; Dock(); return; }
+        if (Input.IsActionJustPressed(GameInput.Dock) && CanDockAtFlagship)
+        {
+            _dockedPort = null;
+            _dockedAtFlagship = true;
+            Dock();
+            _stationScreen.ShowTab(7);
+            return;
+        }
+        if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { _dockedPort = null; _dockedAtFlagship = false; Dock(); return; }
 
         if (Input.IsActionJustPressed(GameInput.PipEngines)) { _player.Power.Raise(ShipSystem.Engines); AudioManager.Instance?.Ui("pip-0"); }
         if (Input.IsActionJustPressed(GameInput.PipShields)) { _player.Power.Raise(ShipSystem.Shields); AudioManager.Instance?.Ui("pip-1"); }
@@ -694,6 +720,7 @@ public partial class Main : Node3D
                     AudioManager.Instance?.Explosion(ship.Body.Position.ToGodot());
                     if (destroyed.By == _player)
                     {
+                        PayBounty(ship);
                         _kills++;
                         _hud.Message($"{ship.Name.ToUpperInvariant()} DESTROYED");
                     }

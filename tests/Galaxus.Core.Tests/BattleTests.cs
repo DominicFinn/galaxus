@@ -17,7 +17,7 @@ public class BattleTests
         world.Ships.Add(player);
         var sides = new BattleSides("The Meridian Concord", "meridian-yards", "human", "The Grav Khanates", "orc-yards", "orc");
         var def = Db.Battles[id];
-        var vars = new Dictionary<string, string> { ["client"] = "The Meridian Concord", ["enemy"] = "The Grav Khanates", ["system"] = "Ashby", ["captain"] = "Vale", ["station"] = "Ashby Ring" };
+        var vars = new Dictionary<string, string> { ["client"] = "The Meridian Concord", ["enemy"] = "The Grav Khanates", ["system"] = "Ashby", ["captain"] = "Vale", ["station"] = "Ashby Ring", ["base"] = "Sovereign Clause" };
         var battle = new Battle(Db, def, world, player, sides, new Rng((ulong)seed), vars, Battle.NameTags(def, new Rng(5)));
         return (battle, world, player);
     }

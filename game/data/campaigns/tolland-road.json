@@ -1,0 +1,93 @@
+[
+  {
+    "id": "tolland-road",
+    "name": "The Long Road",
+    "power": "tolland-compact",
+    "rival": "the-lattice",
+    "summary": "You fly for the Tolland Compact, a frontier confederation with more ships than fuel. From the battlecruiser Hard Reckoning you patrol the Reach, refuel stranded haulers, fight pirates and find out what is moving on the rim. Short on everything, long on nerve.",
+    "hull": "tw-coyote",
+    "credits": 5000,
+    "rank": 1,
+    "baseHull": "tw-reckoning",
+    "baseName": "Hard Reckoning",
+    "fleet": [
+      "tw-marshal",
+      "tw-posse",
+      "tw-posse",
+      "tw-caravan"
+    ],
+    "textGrammar": "campaign-tolland-road",
+    "steps": [
+      {
+        "id": "fence",
+        "title": "Fence Line",
+        "battle": "campaign-tolland-road-fence",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 5000,
+        "briefing": "briefing-fence",
+        "debrief": "debrief-fence"
+      },
+      {
+        "id": "nest",
+        "title": "Rustlers' Den",
+        "battle": "pirate-nest",
+        "where": "near",
+        "enemy": "pirates",
+        "reward": 8000,
+        "briefing": "briefing-nest",
+        "debrief": "debrief-nest"
+      },
+      {
+        "id": "rail",
+        "title": "Rail Hauler",
+        "battle": "campaign-tolland-road-rail",
+        "where": "near",
+        "enemy": "pirates",
+        "reward": 12000,
+        "briefing": "briefing-rail",
+        "debrief": "debrief-rail"
+      },
+      {
+        "id": "caravan",
+        "title": "The Last Caravan",
+        "battle": "campaign-tolland-road-caravan",
+        "where": "near",
+        "enemy": "pirates",
+        "reward": 17000,
+        "briefing": "briefing-caravan",
+        "debrief": "debrief-caravan"
+      },
+      {
+        "id": "quiet",
+        "title": "Quiet Line",
+        "battle": "campaign-tolland-road-quiet",
+        "where": "front",
+        "enemy": "rival",
+        "reward": 23000,
+        "briefing": "briefing-quiet",
+        "debrief": "debrief-quiet"
+      },
+      {
+        "id": "brood",
+        "title": "Hunt the Brood-Mother",
+        "battle": "synth-mothership-hunt",
+        "where": "front",
+        "enemy": "unbound",
+        "reward": 30000,
+        "briefing": "briefing-brood",
+        "debrief": "debrief-brood"
+      },
+      {
+        "id": "reckoning",
+        "title": "The Hard Reckoning",
+        "battle": "campaign-tolland-road-reckoning",
+        "where": "base",
+        "enemy": "unbound",
+        "reward": 40000,
+        "briefing": "briefing-reckoning",
+        "debrief": "debrief-reckoning"
+      }
+    ]
+  }
+]

@@ -113,3 +113,9 @@ Writers can hint at these, have characters argue about them and spread rumours, 
 Grounded, a bit weary, occasionally funny. People have jobs, debts and grudges. The galaxy is old and most of it is empty. Danger is real but mostly mundane: pirates, customs, a rival, a faulty drive. The strange stuff at the rim lands harder because the rest is ordinary.
 
 Write in British English. Plain sentences. No em dashes. Use credits ("cr") for money and days for time; avoid calendar years.
+
+## Further lore
+
+Back stories told from inside the setting, with the real history left unwritten: [lore/elves.md](lore/elves.md) for the light and dark elves, and [lore/origins.md](lore/origins.md) for the human single-origin rumour and how each race regards origins. [lore/orcs.md](lore/orcs.md) covers the orcs' imagined empire, the Old Horde, and their enormous Goddess.
+
+Human history, from the Scatter to the present, as each great power tells it: [lore/humans.md](lore/humans.md).

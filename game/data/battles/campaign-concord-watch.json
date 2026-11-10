@@ -1,0 +1,751 @@
+[
+  {
+    "id": "campaign-concord-watch-beacons",
+    "name": "Beacon Audit",
+    "kind": "campaign",
+    "reward": 5000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-concord-watch-beacons",
+    "waves": [
+      {
+        "id": "beacons",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 3,
+            "tag": "beacon"
+          }
+        ],
+        "radio": "radio-beacons"
+      },
+      {
+        "id": "wing",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 300,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 1
+          }
+        ],
+        "radio": "radio-wing"
+      },
+      {
+        "id": "raiders",
+        "side": "enemy",
+        "at": 75,
+        "position": "behind",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-raiders"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "audit",
+        "type": "scan",
+        "tag": "beacon",
+        "seconds": 8,
+        "distance": 400,
+        "text": "Scan all three nav beacons: close in and hold"
+      },
+      {
+        "id": "raiders",
+        "type": "destroy",
+        "wave": "raiders",
+        "text": "Destroy the pirate raiders"
+      }
+    ]
+  },
+  {
+    "id": "campaign-concord-watch-customs",
+    "name": "Customs Run",
+    "kind": "campaign",
+    "reward": 8000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-concord-watch-customs",
+    "waves": [
+      {
+        "id": "runner",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 1,
+            "tag": "runner"
+          }
+        ],
+        "radio": "radio-runner"
+      },
+      {
+        "id": "guard",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 4800,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 2,
+            "target": "runner"
+          }
+        ],
+        "radio": "radio-guard"
+      },
+      {
+        "id": "late",
+        "side": "enemy",
+        "after": "wave:guard",
+        "delay": 25,
+        "position": "right",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-late"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "stop",
+        "type": "destroy",
+        "tag": "runner",
+        "text": "Stop the smuggler {runner}"
+      },
+      {
+        "id": "guards",
+        "type": "destroy",
+        "wave": "guard",
+        "text": "Destroy the escorts",
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-concord-watch-dry-tanks",
+    "name": "Dry Tanks",
+    "kind": "campaign",
+    "reward": 12000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-concord-watch-dry-tanks",
+    "waves": [
+      {
+        "id": "stranded",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "freighter",
+            "count": 1,
+            "tag": "stranded"
+          }
+        ],
+        "radio": "radio-stranded"
+      },
+      {
+        "id": "first",
+        "side": "enemy",
+        "at": 40,
+        "position": "ahead",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-first"
+      },
+      {
+        "id": "second",
+        "side": "enemy",
+        "after": "wave:first",
+        "delay": 25,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1,
+            "target": "stranded"
+          }
+        ],
+        "radio": "radio-second"
+      },
+      {
+        "id": "third",
+        "side": "enemy",
+        "after": "wave:second",
+        "delay": 30,
+        "position": "behind",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          }
+        ],
+        "radio": "radio-third"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "refuel",
+        "type": "rendezvous",
+        "tag": "stranded",
+        "seconds": 30,
+        "distance": 150,
+        "text": "Match speed with the {stranded} and hold to transfer fuel"
+      },
+      {
+        "id": "keep",
+        "type": "protect",
+        "tag": "stranded",
+        "text": "Keep the {stranded} alive"
+      }
+    ]
+  },
+  {
+    "id": "campaign-concord-watch-envoy",
+    "name": "Envoy's Passage",
+    "kind": "campaign",
+    "reward": 17000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-concord-watch-envoy",
+    "waves": [
+      {
+        "id": "envoy",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 700,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "courier",
+            "count": 1,
+            "tag": "envoy"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 2,
+            "target": "envoy"
+          }
+        ],
+        "radio": "radio-envoy"
+      },
+      {
+        "id": "greeters",
+        "side": "enemy",
+        "at": 45,
+        "position": "ahead",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "greeter"
+          }
+        ],
+        "radio": "radio-greeters"
+      },
+      {
+        "id": "knives",
+        "side": "enemy",
+        "after": "wave:greeters",
+        "delay": 30,
+        "position": "behind",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2,
+            "target": "envoy"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-knives"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "alive",
+        "type": "protect",
+        "tag": "envoy",
+        "text": "Keep the envoy {envoy} alive"
+      },
+      {
+        "id": "through",
+        "type": "escape",
+        "tag": "envoy",
+        "text": "Get the {envoy} out of {system}"
+      },
+      {
+        "id": "frigate",
+        "type": "destroy",
+        "tag": "greeter",
+        "text": "Destroy the frigate {greeter}",
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-concord-watch-listen",
+    "name": "Quiet Listening",
+    "kind": "campaign",
+    "reward": 23000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-concord-watch-listen",
+    "waves": [
+      {
+        "id": "pickets",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "frigate",
+            "count": 2,
+            "tag": "picket"
+          }
+        ],
+        "radio": "radio-pickets"
+      },
+      {
+        "id": "screen",
+        "side": "enemy",
+        "at": 0,
+        "position": "near",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 4,
+            "target": "picket"
+          }
+        ],
+        "radio": "radio-screen"
+      },
+      {
+        "id": "tenders",
+        "side": "enemy",
+        "at": 0,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "freighter",
+            "count": 3,
+            "tag": "tender"
+          }
+        ],
+        "radio": "radio-tenders"
+      },
+      {
+        "id": "react",
+        "side": "enemy",
+        "after": "objective:pickets",
+        "delay": 10,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-react"
+      },
+      {
+        "id": "wake",
+        "side": "enemy",
+        "after": "wave:react",
+        "delay": 40,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-wake"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "pickets",
+        "type": "scan",
+        "tag": "picket",
+        "seconds": 15,
+        "distance": 700,
+        "text": "Scan both Khanate pickets and hold close"
+      },
+      {
+        "id": "tenders",
+        "type": "scan",
+        "tag": "tender",
+        "seconds": 12,
+        "distance": 500,
+        "text": "Scan the three tenders"
+      },
+      {
+        "id": "survive",
+        "type": "survive",
+        "seconds": 240,
+        "text": "Get clear with the scan data"
+      }
+    ]
+  },
+  {
+    "id": "campaign-concord-watch-tithe",
+    "name": "Cut the Tithe Fleet",
+    "kind": "campaign",
+    "reward": 30000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-concord-watch-tithe",
+    "waves": [
+      {
+        "id": "convoy",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 4,
+            "tag": "convoy"
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "warden"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "screen",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 6,
+            "target": "convoy"
+          }
+        ],
+        "radio": "radio-screen"
+      },
+      {
+        "id": "ace",
+        "side": "enemy",
+        "at": 60,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "hull": "orc-bonebiter",
+            "count": 1,
+            "tag": "ace",
+            "name": "Skarn Redtooth"
+          }
+        ],
+        "radio": "radio-ace"
+      },
+      {
+        "id": "hounds",
+        "side": "enemy",
+        "after": "wave:ace",
+        "delay": 30,
+        "position": "left",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-hounds"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "convoy",
+        "type": "destroy",
+        "tag": "convoy",
+        "text": "Destroy the tithe freighters"
+      },
+      {
+        "id": "ace",
+        "type": "destroy",
+        "tag": "ace",
+        "text": "Shoot down the ace Skarn Redtooth",
+        "optional": true
+      },
+      {
+        "id": "warden",
+        "type": "destroy",
+        "tag": "warden",
+        "text": "Destroy the escort frigate {warden}",
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-concord-watch-clause",
+    "name": "The Clause Holds",
+    "kind": "campaign",
+    "reward": 40000,
+    "minRank": 1,
+    "textGrammar": "battle-campaign-concord-watch-clause",
+    "waves": [
+      {
+        "id": "line",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1200,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "battlecruiser",
+            "count": 1,
+            "tag": "flagship",
+            "name": "{base}"
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-line"
+      },
+      {
+        "id": "first",
+        "side": "enemy",
+        "at": 20,
+        "position": "ahead",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 8
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 4,
+            "target": "flagship"
+          }
+        ],
+        "radio": "radio-first"
+      },
+      {
+        "id": "siege",
+        "side": "enemy",
+        "after": "wave:first",
+        "delay": 40,
+        "position": "left",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2,
+            "tag": "siege"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-siege"
+      },
+      {
+        "id": "carrier",
+        "side": "enemy",
+        "after": "wave:siege",
+        "delay": 45,
+        "position": "above",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "carrier",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-carrier"
+      },
+      {
+        "id": "ace",
+        "side": "enemy",
+        "after": "wave:siege",
+        "delay": 20,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "hull": "orc-bonebiter",
+            "count": 1,
+            "tag": "ace",
+            "name": "Skarn Redtooth"
+          }
+        ],
+        "radio": "radio-ace"
+      },
+      {
+        "id": "relief",
+        "side": "friend",
+        "after": "wave:carrier",
+        "delay": 80,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 4
+          }
+        ],
+        "radio": "radio-relief"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "hold",
+        "type": "survive",
+        "seconds": 480,
+        "text": "Hold {system} until relief arrives"
+      },
+      {
+        "id": "flag",
+        "type": "protect",
+        "tag": "flagship",
+        "text": "Keep the {flagship} alive"
+      },
+      {
+        "id": "carrier",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the carrier {target}",
+        "optional": true
+      },
+      {
+        "id": "siege",
+        "type": "destroy",
+        "tag": "siege",
+        "text": "Destroy the siege cruisers",
+        "optional": true
+      },
+      {
+        "id": "ace",
+        "type": "destroy",
+        "tag": "ace",
+        "text": "Shoot down Skarn Redtooth",
+        "optional": true
+      }
+    ]
+  }
+]

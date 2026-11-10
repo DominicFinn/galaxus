@@ -145,6 +145,8 @@ public partial class Main
         var (_, light, energy, _) = PlanetFactory.StarLook(PlanetFactory.FromStar(_solar.Star.Class));
         _space.FaceStar(toStar, light, energy);
 
+        UpdateFleet();
+
         // The station is only drawn when you're near it.
         if (_stationNode != null)
         {
@@ -164,6 +166,7 @@ public partial class Main
             return;
         }
         _cruiseKm = PlayerKm;
+        ClearTraffic();
         _cruising = true;
         if (_navTarget != -1) _mouseStick = Vector2.Zero;
         _cruiseSpeed = 30;
@@ -256,12 +259,14 @@ public partial class Main
     private double CourseDropKm() =>
         _navTarget == NavStation ? StationDropKm * 2
         : _navTarget == NavBattle ? 12
+        : _navTarget == NavFleet ? 4
         : _navTarget <= NavPortBase ? 25
         : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
 
     private (double X, double Y, double Z)? NavTargetKm() => _navTarget switch
     {
         NavStation => _stationKm,
+        NavFleet when _flagship != null => _fleetKm,
         NavBattle when BattleJobHere() is { } battleJob => BattlePointKm(battleJob),
         <= NavPortBase when -_navTarget + NavPortBase < _solar.Stations.Count =>
             _solar.PortPositionKm(_solar.Stations[NavPortBase - _navTarget], Day, TerrainOf(_solar.Stations[NavPortBase - _navTarget].Body)),
@@ -271,6 +276,7 @@ public partial class Main
 
     private string NavName => _navTarget == NavStation ? _session.Here.Stations.FirstOrDefault() ?? "Station"
         : _navTarget == NavBattle ? "The fighting"
+        : _navTarget == NavFleet ? Campaigns.Current(_session)?.BaseName ?? "The fleet"
         : _navTarget <= NavPortBase ? _solar.Stations[NavPortBase - _navTarget].Name
         : _navTarget >= 0 ? _solar.Bodies[_navTarget].Name : "";
 
@@ -394,7 +400,8 @@ public partial class Main
         if (_stationNode != null)
         {
             var local = _player.Body.Position - _stationLocal;
-            float distance = Galaxus.Core.Ships.Collision.StationDistance(local, out var normal) - _player.Spec.Radius;
+            // Bigger stations are the same shape scaled up.
+            float distance = Galaxus.Core.Ships.Collision.StationDistance(local / StationScale, out var normal) * StationScale - _player.Spec.Radius;
             if (distance < 0)
             {
                 // Push clear, bounce off with most of the speed lost, and take damage from the impact.

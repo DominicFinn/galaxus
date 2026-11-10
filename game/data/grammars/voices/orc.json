@@ -121,7 +121,8 @@
       "this ship hums. A ship should roar.",
       "you won't let me touch the drive.",
       "no one has laughed in a week, and that is bad for a crew.",
-      "you sleep too much."
+      "you sleep too much.",
+      "the Big Chair is empty and nobody's left it a snack. The Goddess notices."
     ],
     "o-grievance2": [
       "Pay me, or find a weaker orc.",
@@ -175,7 +176,9 @@
       "We drink tonight!",
       "You're all right, small captain.",
       "I'll sing about this one.",
-      "More burn! More!"
+      "More burn! More!",
+      "By her ample shadow, that was fine work!",
+      "The Goddess saw that!"
     ],
     "combat": [
       "#o-call# #o-order#",
@@ -193,7 +196,9 @@
       "Incoming, and I'm happy!",
       "Shields? Never mind shields!",
       "More! Send more!",
-      "I see them!"
+      "I see them!",
+      "For the Goddess!",
+      "By her ample shadow, there they are!"
     ],
     "o-order": [
       "Full burn, {captain}!",
@@ -212,7 +217,9 @@
       "For the drive!",
       "Break them!",
       "Hit hard!",
-      "Louder!"
+      "Louder!",
+      "FOR THE HORDE!",
+      "Mam's bones, I'm happy!"
     ],
     "idle": [
       "#o-idle-open# #o-topic#",
@@ -248,13 +255,22 @@
       "The best engine I ever heard shook a station apart. Beautiful.",
       "Humans fear the rim. I fear being bored.",
       "I once out-armwrestled a gate warden. He sulked for a week.",
-      "I miss a proper mudhole and a proper brawl."
+      "I miss a proper mudhole and a proper brawl.",
+      "We ran the whole galaxy once, in the Old Horde. Ask any orc. Don't ask a dwarf.",
+      "The Goddess is so big the heavy worlds are her footprints. That's why I sleep well under load.",
+      "A drive's the loudest prayer there is. That's why ours are bigger than the cockpit.",
+      "Some say the Goddess is tall. Some say wide. Some say moon-sized. I say she's whichever one is nearest at dinner.",
+      "I once shared a feast table with a dwarf who had receipts for our Horde. He ate well and was wrong the whole time.",
+      "Every ship should have a Big Chair for the Goddess. Ours is bolted to the galley, and nobody sits in it."
     ],
     "o-rumour": [
       "They say #voice-common:quiet#. Ha, I'd like to meet whatever did it.",
       "I hear #voice-common:quiet#. Sounds like someone I want to fight.",
       "Someone in {system} said #voice-common:quiet#. Nobody laughed.",
-      "People are scared that #voice-common:quiet#. I'm not."
+      "People are scared that #voice-common:quiet#. I'm not.",
+      "They say the Horde's Map matches the gates exactly. Of course it does. We built them!",
+      "I hear a scholar wants to look at the Tablets of Kron. Let her. The stone will do the talking.",
+      "A khan in the Drift swears the Goddess spoke to him. He says she asked for more gravy."
     ],
     "o-idle-end": [
       "Ha!",

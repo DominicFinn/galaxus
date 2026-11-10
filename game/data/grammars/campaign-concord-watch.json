@@ -1,0 +1,80 @@
+[
+  {
+    "id": "campaign-concord-watch",
+    "description": "The Concord Watch: intro, outro, orders and debriefs.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "enemy",
+      "flagship",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "intro": [
+        "Welcome aboard the {base}, Captain {captain}. You have been commissioned into the service of {client} and assigned to this ship's fighter wing. Please read your terms of service. They are short, and you will be tested on them.\n\nThe situation is as follows. The Concord and {enemy} share a long, quarrelsome border, and for forty years it has been settled by treaty, committee and the occasional shot across a bow. The treaty is fraying. Khanate raiders and plain pirates are using the gap between the two.\n\nI am Commodore Ottoline Marsh. I command the {base} and everything parked beside her. I expect punctuality, accurate reports and a little restraint. You will fly with Flight Officer Tobias Wren, who knows the manual better than I do. Quartermaster Evander Quill will want your receipts. Report to the briefing room when you are ready, and not before.",
+        "Captain {captain}. The Concord is grateful for your service and {base} is glad of an extra hull. You are on the books with {client} from today.\n\nThe border with {enemy} has been quiet only in the sense that nobody has written down what happens on it. That is changing. There are pirates working both sides, and the Khanates are testing us.\n\nI am Commodore Ottoline Marsh. You will receive orders in writing. Fly with Flight Officer Wren, who will correct you, and keep every receipt for Mr Quill. We begin with small matters. They will not stay small."
+      ],
+      "outro": [
+        "That concludes the formal part of your commission, Captain {captain}. The border holds, for now, and the file on the {base} has been closed and stamped. Commodore Marsh has asked me to say that you may consider yourself a Concord pilot in good standing. She would like it noted that she did not say so lightly.\n\nYou are free to go where you like. Wren will write. Quill will send a final invoice."
+      ],
+      "briefing-beacons": [
+        "Marsh: Captain {captain}, your first order. Three nav beacons in {system} have missed their audit. Scan each one, close and slow, and return. Pirates have been reported near the lane. Flight Officer Wren will fly your wing.\n\nIt is a small job. Do it correctly.",
+        "Marsh: A routine audit, Captain. Beacons in {system} have gone quiet and the Authority wants them confirmed. Hold at four hundred metres until each reports. Pirates are an inconvenience. Treat them accordingly."
+      ],
+      "debrief-beacons": [
+        "Marsh: A tidy first run, Captain. The audit is filed. Mr Quill will have your pay shortly.\n\nQuill: Receipt, please. Initialled. Yes, you do need one.\n\nWren: That was good flying. Section four was obeyed in the main.",
+        "Marsh: Beacons logged, pirates dispersed, paperwork correct. Well done. Your next order comes after rest."
+      ],
+      "briefing-customs": [
+        "Marsh: Customs has asked for help. A freighter is leaving {station} with a forged manifest and two escorts. Stop it. Force is authorised. I would rather you did not need it, but I expect you will.\n\nWren: The manifest lists cabbages. It is clearly a gun run.",
+        "Marsh: A smuggler is attempting a clearance without one. Intercept the freighter. Stay within the law and, where the law is silent, within reason."
+      ],
+      "debrief-customs": [
+        "Marsh: The freighter is stopped. The cargo was not cabbages. Customs sends thanks, which is rarer than it sounds.\n\nQuill: Your reward is attached. Do not spend it all in one place. There is nowhere to spend it here anyway.",
+        "Marsh: Contraband recovered. You may stand down. Next, a rescue."
+      ],
+      "briefing-dry-tanks": [
+        "Marsh: A freighter is dead in {system} with empty tanks. We are closest. Match speed, hold alongside, transfer fuel. The transfer takes thirty seconds and the pirates will take rather less to arrive.\n\nWren: Thirty seconds of holding still, with pirates about. I will not enjoy it.",
+        "Marsh: Distress call, Captain. A freighter has run dry in {system}. You will refuel her. Keep her alive while you do. That is the whole of it."
+      ],
+      "debrief-dry-tanks": [
+        "Marsh: The freighter is refuelled and moving. The master has sent a letter. Mr Quill has it.\n\nQuill: It is a letter of thanks and an invoice for a damaged hull. I am treating the first as the more important.",
+        "Marsh: Good. Fuel delivered and the pirates discouraged. You are beginning to show form, Captain."
+      ],
+      "briefing-envoy": [
+        "Marsh: This one matters. A Concord envoy must cross {system} to meet a delegation from {enemy}. You will escort her. The delegation has promised an honour guard. I want you ready for it to go badly.\n\nWren: I have read the protocol. Nothing in it covers this.",
+        "Marsh: Escort duty, Captain. The envoy {enemy} wish to speak with crosses {system} today. The Khanates have agreed to meet her. I have agreed to believe it only partly."
+      ],
+      "debrief-envoy": [
+        "Marsh: The envoy is alive and furious, which is the correct condition for an envoy. The talks are suspended. The Khanates have disowned the ambush, naturally.\n\nWren: Captain, I will say it plainly. I was glad you were flying.",
+        "Marsh: A bad day done well. The Khanates will not apologise, and I do not want them to. I want to know what they were hiding."
+      ],
+      "briefing-listen": [
+        "Marsh: The Khanates have put pickets in {system}, and they have not said why. I want scans of every hull. Go close, hold, and do not fire. The pickets will notice you eventually, and I want the data before that.\n\nWren: If we shoot a picket, we cannot scan it. That is a rule I came up with myself.",
+        "Marsh: Reconnaissance, Captain. Scan the pickets and anything near them. Quietly. Something is wrong in {system}, and I want to know what."
+      ],
+      "debrief-listen": [
+        "Marsh: The scan shows torpedo stocks and boarding gear on the tenders, in quantity. That is not a picket. That is a fleet being fed.\n\nQuill: I have costed it. It is a lot.\n\nMarsh: The Khanates are preparing something. We intercept their supply, and then we prepare ourselves.",
+        "Marsh: Excellent work. You have just given the Concord a reason to stop being polite. We cut their supply next."
+      ],
+      "briefing-tithe": [
+        "Marsh: A Khanate tithe convoy is moving ore and guns through {system}. We will cut it. Four freighters, a frigate, a fighter screen. Their ace, Skarn Redtooth, flies with them. Do not engage him alone.\n\nWren: He has forty kills. I would prefer he had thirty-nine.",
+        "Marsh: Intercept, Captain. The {enemy} convoy is a gift to us, and a trap if we are careless. Kill the freighters. Mind the ace."
+      ],
+      "debrief-tithe": [
+        "Marsh: The convoy is gone. The Khanates are enraged, which will make them hurry. I expect an assault in force soon.\n\nQuill: The ammunition bill is considerable. I shall find the credits.",
+        "Marsh: The Redtooth lives, I understand. Pity. Prepare, Captain. We will need every wing we have."
+      ],
+      "briefing-clause": [
+        "Marsh: The {enemy} are coming for {system}. All of them. The battlecruiser {flagship} will hold the line beside the {base}, and relief is eight minutes away. Protect the {flagship} and kill what you can. Captain {captain}, I am glad to have you in my wing.\n\nWren: I will fly on your left, Captain. Until the end.",
+        "Marsh: The last order of this commission. Hold {system}. The Khanates will test every gun. Keep the battlecruiser {flagship} alive. Everything else is paperwork."
+      ],
+      "debrief-clause": [
+        "Marsh: {system} holds. The Khanates have withdrawn and Concord relief is in the system, late and correct.\n\nQuill: I have your final invoice. It is for a medal. It is free.\n\nWren: It has been an honour, Captain.",
+        "Marsh: It is done. The border stands and the Concord owes you more than it will admit. Well done."
+      ]
+    }
+  }
+]

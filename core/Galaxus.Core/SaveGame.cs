@@ -46,6 +46,10 @@ public static class SaveGame
         public List<string> WithdrawnOffers { get; set; } = [];
         public List<SavedMission> Missions { get; set; } = [];
         public string? ActiveJob { get; set; }
+        public string? CampaignId { get; set; }
+        public int CampaignStep { get; set; }
+        public int CampaignBase { get; set; } = -1;
+        public string? CampaignDebrief { get; set; }
     }
 
     public sealed class SavedMission
@@ -102,6 +106,10 @@ public static class SaveGame
             Haggled = new(c.Haggled),
             WithdrawnOffers = [.. c.WithdrawnOffers],
             ActiveJob = c.ActiveJobId,
+            CampaignId = c.CampaignId,
+            CampaignStep = c.CampaignStep,
+            CampaignBase = c.CampaignBase,
+            CampaignDebrief = c.CampaignDebrief,
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -174,6 +182,10 @@ public static class SaveGame
             c.Missions.Add(new AcceptedMission(offer, m.AcceptedDay, m.DeadlineDay));
         }
         c.ActiveJobId = data.ActiveJob;
+        c.CampaignId = data.CampaignId != null && db.Campaigns.ContainsKey(data.CampaignId) ? data.CampaignId : null;
+        c.CampaignStep = data.CampaignStep;
+        c.CampaignBase = data.CampaignBase;
+        c.CampaignDebrief = data.CampaignDebrief;
         return session;
     }
 }

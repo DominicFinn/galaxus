@@ -25,13 +25,19 @@
       "You still have your ship! Good!",
       "I told them you'd be back.",
       "Sit! Eat! Shout!",
-      "Come, tell me you've fought something."
+      "Come, tell me you've fought something.",
+      "The Goddess fed you, then. Good.",
+      "Have you seen the Horde's stones? Come, I'll show you one."
     ],
     "rumour": [
       "#or-heard# {fact}! #or-coda#",
       "#or-heard# {fact}. #or-coda#",
       "Want to know something? {fact}! #or-coda#",
-      "Listen, {captain}, {fact}. #or-coda#"
+      "Listen, {captain}, {fact}. #or-coda#",
+      "Every khan has a saga of where orcs came from, and no two agree! Don't ask which is true. It's rude and it ruins the feast.",
+      "Every orc knows the Old Horde ruled everything once. The dwarves say there's no record. The dwarves would say that, wouldn't they!",
+      "The Tablets of Kron prove it all, {captain}. Don't let a dwarf tell you the carving is new. The stone is old!",
+      "They say the elves were our tenants and we handed back the lease. Polite of us, I'd say."
     ],
     "or-heard": [
       "Everyone's shouting that",
@@ -43,13 +49,17 @@
       "Whoever's wrong, I'd fight them.",
       "Sounds like trouble. I like trouble.",
       "That's the news, and it's good enough.",
-      "Do something about it!"
+      "Do something about it!",
+      "The Goddess sees all of it, and she's very large, so she sees it well.",
+      "We held all of it once. We'll hold it again when it's convenient.",
+      "Don't tell me it isn't so. I've seen the Map!"
     ],
     "no-rumour": [
       "Nothing! Dull as a cold forge!",
       "No news. I'd start one if I could.",
       "Not a word. Boring week.",
-      "Nobody's saying anything. Somebody should."
+      "Nobody's saying anything. Somebody should.",
+      "No news. But I can tell you how big the Goddess is, if you like."
     ],
     "work": [
       "#or-lead# {fact}. #or-workcoda#",
@@ -86,7 +96,10 @@
       "I broke a door once. It hasn't forgiven me.",
       "{system} is loud, and so am I.",
       "I could lift this table, and the man under it.",
-      "My clan would be proud, or at least loud."
+      "My clan would be proud, or at least loud.",
+      "I'm of the Horde, and the Horde is only resting.",
+      "I eat twice for the Goddess and once for me.",
+      "My aunt seats the Long Table. I do as I'm told, and I'm not told often."
     ],
     "drink": [
       "#or-thanks# #or-toast#",
@@ -104,7 +117,11 @@
       "To big engines!",
       "To a loud death, a long way off!",
       "To whoever pays!",
-      "To {system}, and the fools in it!"
+      "To {system}, and the fools in it!",
+      "To the Goddess, and her ample shadow!",
+      "To the Horde, and the day it remembers us!",
+      "To a full plate and a loud engine!",
+      "To Mam! May she never notice the bill!"
     ],
     "drink-again": [
       "No! If I drink again I'll fight the wall!",
@@ -128,7 +145,9 @@
       "Fly fast!",
       "Burn bright, {captain}!",
       "Come back with stories!",
-      "Go! And make noise!"
+      "Go! And make noise!",
+      "By her ample shadow, fly well!",
+      "Go with the Goddess, and bring her a snack!"
     ],
     "haggle-yes": [
       "#or-grudge# {fact}!",

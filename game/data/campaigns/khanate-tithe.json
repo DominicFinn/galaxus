@@ -1,0 +1,93 @@
+[
+  {
+    "id": "khanate-tithe",
+    "name": "The Iron Tithe",
+    "power": "grav-khanates",
+    "rival": "hold-league",
+    "summary": "You are a hot-blooded young pilot sworn to a Grav Khanate war host, flying an orc fighter from the battlecruiser Skullfang. Raid the Hold League, break their ore trains, take your share of the plunder and fight the great battle at the Hearthhall. Loud, fast and proud of it.",
+    "hull": "orc-skullbasher",
+    "credits": 5000,
+    "rank": 1,
+    "baseHull": "orc-warmaw",
+    "baseName": "Skullfang",
+    "fleet": [
+      "orc-skullsplitter",
+      "orc-tuskraider",
+      "orc-tuskraider",
+      "orc-packmother"
+    ],
+    "textGrammar": "campaign-khanate-tithe",
+    "steps": [
+      {
+        "id": "stakes",
+        "title": "Claim Stakes",
+        "battle": "campaign-khanate-tithe-stakes",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 5000,
+        "briefing": "briefing-stakes",
+        "debrief": "debrief-stakes"
+      },
+      {
+        "id": "haulers",
+        "title": "Ore Train Raid",
+        "battle": "campaign-khanate-tithe-haulers",
+        "where": "near",
+        "enemy": "rival",
+        "reward": 8000,
+        "briefing": "briefing-haulers",
+        "debrief": "debrief-haulers"
+      },
+      {
+        "id": "fuel",
+        "title": "Dry Hold",
+        "battle": "campaign-khanate-tithe-fuel",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 12000,
+        "briefing": "briefing-fuel",
+        "debrief": "debrief-fuel"
+      },
+      {
+        "id": "barge",
+        "title": "The Tithe Barge",
+        "battle": "campaign-khanate-tithe-barge",
+        "where": "near",
+        "enemy": "rival",
+        "reward": 17000,
+        "briefing": "briefing-barge",
+        "debrief": "debrief-barge"
+      },
+      {
+        "id": "watch",
+        "title": "Eyes on the Hold",
+        "battle": "campaign-khanate-tithe-watch",
+        "where": "front",
+        "enemy": "rival",
+        "reward": 23000,
+        "briefing": "briefing-watch",
+        "debrief": "debrief-watch"
+      },
+      {
+        "id": "train",
+        "title": "Break the Ore Train",
+        "battle": "campaign-khanate-tithe-train",
+        "where": "front",
+        "enemy": "rival",
+        "reward": 30000,
+        "briefing": "briefing-train",
+        "debrief": "debrief-train"
+      },
+      {
+        "id": "siege",
+        "title": "Hearthhall Siege",
+        "battle": "campaign-khanate-tithe-siege",
+        "where": "front",
+        "enemy": "rival",
+        "reward": 40000,
+        "briefing": "briefing-siege",
+        "debrief": "debrief-siege"
+      }
+    ]
+  }
+]

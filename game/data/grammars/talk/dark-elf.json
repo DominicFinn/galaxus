@@ -30,7 +30,12 @@
       "#de-heard# {fact}. #de-coda#",
       "#de-heard# {fact}. #de-coda#",
       "If you must know, {fact}. #de-coda#",
-      "{fact}. That's what I've heard. #de-coda#"
+      "{fact}. That's what I've heard. #de-coda#",
+      "The Hollow Gate. Spacers call it the last good gate. We don't call it anything near strangers.",
+      "Everyone asks if the Courts made a deal. We stayed. Hear what you like in that.",
+      "Some say the Courts are houses struck from the Roll. Some say we struck ourselves. Don't ask which.",
+      "Humans ask where we came from. I say we don't count back that far. They write it down as if it meant something.",
+      "If you meet a grown hull, all spines, don't stop to look. Light elves leave the room. We just leave."
     ],
     "de-heard": [
       "Word came through quiet:",
@@ -85,7 +90,9 @@
       "{system} is as good as any hole.",
       "I've seen worse places. I live in some.",
       "Some of it I'd rather not discuss.",
-      "Ask what I've done and I'll ask what you've paid."
+      "Ask what I've done and I'll ask what you've paid.",
+      "When a hall closes, somebody has to say its name. I've said four.",
+      "I carry a key to a door I haven't found. It was my neighbour's."
     ],
     "drink": [
       "#de-thanks# #de-toast#",
