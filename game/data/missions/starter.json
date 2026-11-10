@@ -6,12 +6,23 @@
     "scale": "small",
     "legal": true,
     "givers": [],
-    "events": ["famine"],
-    "cargoCategories": ["food", "medical"],
+    "events": [
+      "famine"
+    ],
+    "cargoCategories": [
+      "food",
+      "medical"
+    ],
     "minRank": 0,
     "baseReward": 3000,
-    "complications": ["ambush-on-route", "cargo-is-stolen"],
-    "followUps": [],
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-gate-queue"
+    ],
+    "followUps": [
+      "lantern-relief-convoy"
+    ],
     "textGrammar": "mission-famine-relief-run"
   },
   {
@@ -22,11 +33,20 @@
     "legal": true,
     "givers": [],
     "events": [],
-    "cargoCategories": ["data"],
+    "cargoCategories": [
+      "data"
+    ],
     "minRank": 0,
     "baseReward": 1800,
-    "complications": ["ambush-on-route"],
-    "followUps": [],
+    "complications": [
+      "ambush-on-route",
+      "client-lies-purpose",
+      "double-cross-withheld",
+      "rim-signal-interference"
+    ],
+    "followUps": [
+      "discreet-house-courier"
+    ],
     "textGrammar": "mission-sealed-courier"
   }
 ]

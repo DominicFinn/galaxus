@@ -3,29 +3,60 @@
     "id": "mission-famine-relief-run",
     "description": "Text for famine relief deliveries.",
     "variables": [
-      "system",
-      "destination",
       "cargo",
-      "tonnes",
-      "reward",
       "deadline",
-      "faction"
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
     ],
     "rules": {
       "title": [
         "Relief run to {destination}",
-        "{tonnes} t of {cargo} for {destination}"
+        "{tonnes} t of {cargo} for {destination}",
+        "#t-hunger# at {destination}",
+        "Feed {destination}"
+      ],
+      "t-hunger": [
+        "Hunger",
+        "Empty larders",
+        "Ration run",
+        "Food for a failing harvest"
       ],
       "briefing": [
-        "#voice:opener# {destination} is going hungry. Take {tonnes} t of {cargo} there within {deadline}. #voice:payment#"
+        "#voice:opener# #scene# #task# #voice:payment# #end#"
+      ],
+      "scene": [
+        "{destination} is going hungry.",
+        "The harvests at {destination} have failed and the stores are nearly gone.",
+        "{destination} has been on short rations for weeks, and it is getting worse.",
+        "Word from {destination} says the markets there have stopped taking credits for food.",
+        "The grain ships stopped calling at {destination} a while ago and nobody can say why."
+      ],
+      "task": [
+        "Take {tonnes} t of {cargo} there within {deadline}.",
+        "I need {tonnes} t of {cargo} landed at {destination} inside {deadline}.",
+        "Carry {tonnes} t of {cargo} from {system} to {destination}. {deadline} at most.",
+        "{tonnes} t of {cargo} are waiting at {system}. They need to be at {destination} in {deadline}."
+      ],
+      "end": [
+        "#voice:urgency#",
+        "#voice:closer#",
+        "#voice:warning#",
+        "#voice:urgency# #voice:closer#"
       ],
       "success": [
         "The {cargo} is unloaded under armed guard. {faction} pays {reward}.",
-        "Queues form before you've finished docking. {faction} pays {reward}."
+        "Queues form before you've finished docking. {faction} pays {reward}.",
+        "A dockmaster signs for {tonnes} t of {cargo} with shaking hands. {faction} pays {reward}.",
+        "The price of food at {destination} drops by half before the day is out. {faction} pays {reward}, and the dockers remember your ship's name."
       ],
       "failure": [
         "The relief never arrived. {destination} will remember the name of your ship.",
-        "{faction} sends another captain. They won't send you again."
+        "{faction} sends another captain. They won't send you again.",
+        "By the time you docked the stores had already been rationed to nothing. {faction} withholds the {reward}.",
+        "The {cargo} turned up late, and the people it was meant for had given up waiting."
       ]
     }
   },
@@ -33,24 +64,50 @@
     "id": "mission-sealed-courier",
     "description": "Text for sealed data courier jobs.",
     "variables": [
-      "destination",
-      "reward",
       "deadline",
-      "faction"
+      "destination",
+      "faction",
+      "reward",
+      "system"
     ],
     "rules": {
       "title": [
         "Sealed delivery to {destination}",
-        "Courier: {destination}"
+        "Courier: {destination}",
+        "One case, one address: {destination}",
+        "Hand-carry to {destination}",
+        "Do not open: {destination}"
       ],
       "briefing": [
-        "#voice:opener# A sealed data core needs to reach {destination} within {deadline}. Don't open it. #voice:warning# #voice:payment#"
+        "#voice:opener# #task# #detail# #voice:warning# #voice:payment# #end#"
+      ],
+      "task": [
+        "A sealed data core needs to reach {destination} within {deadline}.",
+        "I need a sealed core carried from {system} to {destination} in {deadline}.",
+        "Take this sealed case to {destination}, in {deadline} at most.",
+        "A core, sealed and sensitive, must go to {destination} by hand inside {deadline}."
+      ],
+      "detail": [
+        "Don't open it.",
+        "Nothing can be sent through the gates by other means, which is why we are talking.",
+        "It is smaller than your fist and worth more than your ship, or nothing at all. I would not like to guess.",
+        "You will be met at the dock by someone who knows the seal."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:urgency#"
       ],
       "success": [
-        "The recipient checks the seal, nods, and {faction} pays {reward}."
+        "The recipient checks the seal, nods, and {faction} pays {reward}.",
+        "The seal is intact. Whoever collects it does not say a word, and {faction} pays {reward}.",
+        "{faction} pays {reward}. Nobody tells you what was on the core, and you do not ask.",
+        "The case is whisked away behind a locked door. {faction} pays {reward}."
       ],
       "failure": [
-        "The core never arrived. {faction} has questions."
+        "The core never arrived. {faction} has questions.",
+        "The seal was broken when it reached {destination}. {faction} does not say it blames you, which is how you know.",
+        "You were late and the recipient had gone. {faction} withholds the {reward}.",
+        "{faction} stops returning your messages."
       ]
     }
   }

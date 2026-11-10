@@ -1,0 +1,689 @@
+[
+  {
+    "id": "breach-repair-supplies",
+    "name": "Breach repair supplies",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "habitat-breach",
+      "reactor-failure"
+    ],
+    "cargoCategories": [
+      "industrial",
+      "machinery",
+      "technology"
+    ],
+    "minRank": 0,
+    "baseReward": 3300,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "deadline-client-panics",
+      "extra-stop-stranded"
+    ],
+    "followUps": [
+      "breach-evacuation"
+    ],
+    "textGrammar": "mission-breach-repair-supplies"
+  },
+  {
+    "id": "hand-carried-news",
+    "name": "Hand-carried news",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "solar-flare",
+      "embargo",
+      "blockade",
+      "ships-going-quiet"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 1700,
+    "complications": [
+      "ambush-on-route",
+      "bad-intel-stale-charts",
+      "rim-signal-interference",
+      "deadline-old-news"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-hand-carried-news"
+  },
+  {
+    "id": "breach-evacuation",
+    "name": "Breach evacuation",
+    "type": "rescue",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "habitat-breach",
+      "reactor-failure"
+    ],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 3600,
+    "complications": [
+      "ambush-on-route",
+      "extra-stop-stranded",
+      "client-lies-danger",
+      "deadline-client-panics"
+    ],
+    "followUps": [
+      "breach-repair-supplies"
+    ],
+    "textGrammar": "mission-breach-evacuation"
+  },
+  {
+    "id": "flare-stranded-rescue",
+    "name": "Flare rescue",
+    "type": "rescue",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [
+      "solar-flare"
+    ],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 3100,
+    "complications": [
+      "ambush-on-route",
+      "extra-stop-stranded",
+      "bad-intel-stale-charts",
+      "deadline-client-panics"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-flare-stranded-rescue"
+  },
+  {
+    "id": "plague-medical-run",
+    "name": "Plague medical run",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "lantern-order",
+      "merchant-republic",
+      "research-consortium",
+      "trade-guild",
+      "human-noble-house"
+    ],
+    "events": [
+      "plague"
+    ],
+    "cargoCategories": [
+      "medical"
+    ],
+    "minRank": 0,
+    "baseReward": 3600,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "client-lies-danger",
+      "extra-stop-inspection"
+    ],
+    "followUps": [
+      "plague-quarantine-evacuation"
+    ],
+    "textGrammar": "mission-plague-medical-run"
+  },
+  {
+    "id": "fuel-shortage-haul",
+    "name": "Fuel shortage haul",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "shipping-company",
+      "mining-corporation",
+      "trade-guild",
+      "trade-league",
+      "dwarf-hold",
+      "frontier-confederation"
+    ],
+    "events": [
+      "fuel-shortage"
+    ],
+    "cargoCategories": [
+      "fuel"
+    ],
+    "minRank": 0,
+    "baseReward": 2800,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "rival-bid-outbid",
+      "deadline-gate-queue"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-fuel-shortage-haul"
+  },
+  {
+    "id": "trade-boom-contract",
+    "name": "Boom town freight",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "shipping-company",
+      "trade-guild",
+      "trade-league",
+      "merchant-republic",
+      "mining-corporation",
+      "dwarf-hold"
+    ],
+    "events": [
+      "trade-boom",
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "consumer",
+      "industrial",
+      "machinery",
+      "metals",
+      "luxury"
+    ],
+    "minRank": 0,
+    "baseReward": 2400,
+    "complications": [
+      "rival-bid-outbid",
+      "rival-bid-double-sold",
+      "cargo-is-stolen",
+      "ambush-on-route"
+    ],
+    "followUps": [
+      "standing-freight"
+    ],
+    "textGrammar": "mission-trade-boom-contract"
+  },
+  {
+    "id": "standing-freight",
+    "name": "Standing freight contract",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "shipping-company",
+      "mining-corporation",
+      "trade-guild",
+      "trade-league",
+      "dwarf-hold",
+      "merchant-republic",
+      "frontier-confederation"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "industrial",
+      "machinery",
+      "metals",
+      "consumer",
+      "technology"
+    ],
+    "minRank": 0,
+    "baseReward": 1800,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "rival-bid-outbid",
+      "extra-stop-inspection",
+      "deadline-gate-queue"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-standing-freight"
+  },
+  {
+    "id": "lantern-relief-convoy",
+    "name": "Lantern relief convoy",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "lantern-order"
+    ],
+    "events": [
+      "rim-refugee-wave",
+      "famine",
+      "plague"
+    ],
+    "cargoCategories": [
+      "food",
+      "medical",
+      "water",
+      "consumer"
+    ],
+    "minRank": 0,
+    "baseReward": 3400,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "extra-stop-extra-pickup",
+      "client-lies-danger"
+    ],
+    "followUps": [
+      "silent-refugees"
+    ],
+    "textGrammar": "mission-lantern-relief-convoy"
+  },
+  {
+    "id": "house-gift-delivery",
+    "name": "Gift for a house",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "light-elf-house",
+      "human-noble-house",
+      "old-monarchy"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "luxury"
+    ],
+    "minRank": 1,
+    "baseReward": 3200,
+    "complications": [
+      "cargo-is-stolen",
+      "ambush-on-route",
+      "client-lies-purpose",
+      "contraband-sealed-case"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-house-gift-delivery"
+  },
+  {
+    "id": "khanate-feast-delivery",
+    "name": "Feast delivery",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "orc-khanate",
+      "orc-warband"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "food",
+      "luxury"
+    ],
+    "minRank": 0,
+    "baseReward": 2300,
+    "complications": [
+      "ambush-on-route",
+      "cargo-is-stolen",
+      "rival-bid-poached",
+      "client-lies-purpose"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-khanate-feast-delivery"
+  },
+  {
+    "id": "discreet-house-courier",
+    "name": "Discreet house courier",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "light-elf-house",
+      "human-noble-house",
+      "old-monarchy",
+      "information-broker"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "data",
+      "luxury"
+    ],
+    "minRank": 1,
+    "baseReward": 2800,
+    "complications": [
+      "ambush-on-route",
+      "client-lies-purpose",
+      "contraband-sealed-case",
+      "double-cross-fall-guy"
+    ],
+    "followUps": [
+      "envoy-passage"
+    ],
+    "textGrammar": "mission-discreet-house-courier"
+  },
+  {
+    "id": "election-ballot-run",
+    "name": "Ballot run",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "merchant-republic",
+      "frontier-confederation",
+      "trade-guild",
+      "trade-league",
+      "old-monarchy"
+    ],
+    "events": [
+      "election"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 2200,
+    "complications": [
+      "ambush-on-route",
+      "double-cross-fall-guy",
+      "rival-offer-bribe",
+      "deadline-gate-queue"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-election-ballot-run"
+  },
+  {
+    "id": "treaty-papers-run",
+    "name": "Treaty papers",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "merchant-republic",
+      "frontier-confederation",
+      "old-monarchy",
+      "human-noble-house",
+      "dwarf-hold",
+      "orc-khanate",
+      "trade-league"
+    ],
+    "events": [
+      "peace-treaty",
+      "succession-dispute",
+      "border-dispute"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 1,
+    "baseReward": 3000,
+    "complications": [
+      "ambush-on-route",
+      "double-cross-ambush-pay",
+      "rival-offer-bribe",
+      "client-lies-purpose"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-treaty-papers-run"
+  },
+  {
+    "id": "pilgrim-passage",
+    "name": "Pilgrim passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "lantern-order",
+      "gate-cult"
+    ],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 1900,
+    "complications": [
+      "fugitive-stowaway",
+      "extra-stop-extra-pickup",
+      "ambush-on-route",
+      "client-lies-purpose"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-pilgrim-passage"
+  },
+  {
+    "id": "envoy-passage",
+    "name": "Envoy passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "light-elf-house"
+    ],
+    "events": [
+      "peace-treaty",
+      "succession-dispute",
+      "coup"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 3800,
+    "complications": [
+      "ambush-on-route",
+      "client-lies-purpose",
+      "double-cross-fall-guy",
+      "fugitive-wanted"
+    ],
+    "followUps": [
+      "house-gift-delivery"
+    ],
+    "textGrammar": "mission-envoy-passage"
+  },
+  {
+    "id": "synth-with-papers",
+    "name": "Synth with papers",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "synth-rights-movement",
+      "merchant-republic",
+      "trade-guild",
+      "research-consortium"
+    ],
+    "events": [
+      "synth-registry-sweep",
+      "crackdown",
+      "gate-warden-drive"
+    ],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 3400,
+    "complications": [
+      "fugitive-wanted",
+      "fugitive-witness",
+      "extra-stop-inspection",
+      "client-lies-danger",
+      "rim-signal-own-voice"
+    ],
+    "followUps": [
+      "silent-refugees"
+    ],
+    "textGrammar": "mission-synth-with-papers"
+  },
+  {
+    "id": "silent-refugees",
+    "name": "Passengers who won't talk",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "lantern-order",
+      "frontier-confederation",
+      "salvage-cooperative",
+      "trade-guild"
+    ],
+    "events": [
+      "rim-refugee-wave",
+      "independence-movement",
+      "open-war"
+    ],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 2700,
+    "complications": [
+      "fugitive-stowaway",
+      "fugitive-witness",
+      "extra-stop-extra-pickup",
+      "rim-signal-missing",
+      "contraband-passenger-bag"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-silent-refugees"
+  },
+  {
+    "id": "exile-passage",
+    "name": "Exile passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "old-monarchy",
+      "human-noble-house",
+      "merchant-republic",
+      "frontier-confederation"
+    ],
+    "events": [
+      "coup",
+      "succession-dispute",
+      "open-war"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 4200,
+    "complications": [
+      "ambush-on-route",
+      "double-cross-fall-guy",
+      "fugitive-wanted",
+      "rival-offer-bribe",
+      "client-lies-purpose"
+    ],
+    "followUps": [
+      "treaty-papers-run"
+    ],
+    "textGrammar": "mission-exile-passage"
+  },
+  {
+    "id": "miners-shift-passage",
+    "name": "Shift change passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "mining-corporation",
+      "shipping-company",
+      "dwarf-hold",
+      "salvage-cooperative",
+      "trade-league"
+    ],
+    "events": [
+      "mining-rush",
+      "strike",
+      "trade-boom"
+    ],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 1700,
+    "complications": [
+      "extra-stop-extra-pickup",
+      "extra-stop-stranded",
+      "fugitive-debtor",
+      "ambush-on-route",
+      "client-lies-money"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-miners-shift-passage"
+  },
+  {
+    "id": "stranded-crew-rescue",
+    "name": "Stranded crew rescue",
+    "type": "rescue",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "shipping-company",
+      "mining-corporation",
+      "salvage-cooperative",
+      "trade-guild",
+      "trade-league",
+      "dwarf-hold",
+      "frontier-confederation"
+    ],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 2900,
+    "complications": [
+      "ambush-wreck-bait",
+      "bad-intel-stale-charts",
+      "bad-intel-wrong-place",
+      "extra-stop-stranded",
+      "fugitive-stowaway"
+    ],
+    "followUps": [
+      "miners-shift-passage"
+    ],
+    "textGrammar": "mission-stranded-crew-rescue"
+  },
+  {
+    "id": "plague-quarantine-evacuation",
+    "name": "Quarantine evacuation",
+    "type": "rescue",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "lantern-order",
+      "merchant-republic",
+      "research-consortium",
+      "trade-guild"
+    ],
+    "events": [
+      "plague"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 3700,
+    "complications": [
+      "ambush-on-route",
+      "client-lies-danger",
+      "extra-stop-inspection",
+      "fugitive-stowaway",
+      "contraband-passenger-bag"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-plague-quarantine-evacuation"
+  },
+  {
+    "id": "quiet-ship-search",
+    "name": "Quiet ship search",
+    "type": "rescue",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "shipping-company",
+      "survey-society",
+      "light-elf-house",
+      "trade-guild",
+      "research-consortium",
+      "salvage-cooperative"
+    ],
+    "events": [
+      "ships-going-quiet",
+      "rim-incident",
+      "unexplained-signal"
+    ],
+    "cargoCategories": [],
+    "minRank": 2,
+    "baseReward": 4000,
+    "complications": [
+      "rim-signal-missing",
+      "rim-signal-own-voice",
+      "rim-signal-interference",
+      "rim-signal-gate",
+      "bad-intel-wrong-place"
+    ],
+    "followUps": [
+      "sealed-courier"
+    ],
+    "textGrammar": "mission-quiet-ship-search"
+  }
+]

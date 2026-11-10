@@ -1,0 +1,1315 @@
+[
+  {
+    "id": "mission-breach-repair-supplies",
+    "description": "Repair cargo for stations in trouble.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Seals and patches for {destination}",
+        "Repairs needed at {destination}",
+        "{tonnes} t of {cargo}, urgently",
+        "Hull repair kit: {destination}",
+        "Station in trouble: {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "{destination} has lost a ring section and is running on patches.",
+        "A breach at {destination} has sealed off a third of the habitat.",
+        "The plant at {destination} is failing and the repair crews have run out of parts.",
+        "{destination} has asked every ship on the lane for repair stock, and ours is the first to answer."
+      ],
+      "task": [
+        "Bring {tonnes} t of {cargo} within {deadline}.",
+        "Deliver {tonnes} t of {cargo} from {system} to {destination} in {deadline}.",
+        "Get {tonnes} t of {cargo} to their repair dock in {deadline}."
+      ],
+      "detail": [
+        "Each day it stays broken, someone breathes thinner air.",
+        "The crews are working in shifts and will be waiting at the lock.",
+        "They have cut the docking queue for you, so do not make it a waste.",
+        "They will probably ask you to help unload. You may say no."
+      ],
+      "end": [
+        "#voice:urgency#",
+        "#voice:closer#",
+        "#voice:warning#"
+      ],
+      "success": [
+        "The repair crews are at your ramp before the engines cool. {faction} pays {reward}.",
+        "The patch holds. {destination} reopens the sealed ring and {faction} pays {reward}.",
+        "A foreman who has not slept in two days signs for the {cargo}. {faction} pays {reward}.",
+        "{faction} pays {reward}. The station thanks you on every public channel, which costs them nothing."
+      ],
+      "failure": [
+        "The repair crews improvised without your {cargo} and lost people doing it. {faction} wants it noted.",
+        "You docked after the section was abandoned. {faction} withholds the {reward}.",
+        "The {cargo} missed the repair window by a day. {faction} sends its regrets and no money."
+      ]
+    }
+  },
+  {
+    "id": "mission-hand-carried-news",
+    "description": "Courier work when the gate relays are down or watched.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "News for {destination}",
+        "Carry the word to {destination}",
+        "Messages for {destination}",
+        "Relay down, ship up",
+        "Hand delivery: {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "The relays are down and nothing is coming through.",
+        "Official channels are being watched, or blocked, or both.",
+        "With no faster-than-ship messages, news only travels on hulls.",
+        "Ships have stopped answering their calls, so we are asking for someone who will turn up."
+      ],
+      "task": [
+        "Take this data core to {destination} within {deadline}.",
+        "Carry the messages from {system} to {destination}. {deadline}.",
+        "We need a courier for {destination}. The core holds orders and letters."
+      ],
+      "detail": [
+        "The orders are probably stale by now. Stale is better than missing.",
+        "Several of the letters are personal. Treat them as you would your own.",
+        "If anyone asks what is on it, say you don't know. That will be true.",
+        "Check in with the dock office when you arrive. Not before."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:urgency#",
+        "#voice:warning#"
+      ],
+      "success": [
+        "The data is read, the orders acted on, and {faction} pays {reward}.",
+        "A man at {destination} opens the core, reads two lines and sits down. {faction} pays {reward}.",
+        "{faction} pays {reward}. The news you carried is already being repeated in every bar on the dock.",
+        "The relays come back a day later, but your news arrived first. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The news arrived too late to be of use. {faction} thanks you anyway and does not pay.",
+        "The core was unreadable when it reached {destination}. {faction} withholds the {reward}.",
+        "No word reached {destination} from you. {faction} has marked the case as lost."
+      ]
+    }
+  },
+  {
+    "id": "mission-breach-evacuation",
+    "description": "Evacuating people from a failing station.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Evacuate {destination}",
+        "Breach at {system}",
+        "Take the people out",
+        "Air running out",
+        "Station emergency: {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "{system} has lost a section of habitat and the people on its far side cannot reach the shuttles.",
+        "A breach is spreading and every ship in range has been asked to help.",
+        "The station can only hold so long. Those who cannot get out are asking for ships.",
+        "The air plant has failed. They have hours."
+      ],
+      "task": [
+        "Take as many as you can to {destination} within {deadline}.",
+        "Pick up {target} and the others and carry them to {destination}. {deadline} at most.",
+        "Get them out and get them to {destination}, in {deadline} or sooner."
+      ],
+      "detail": [
+        "Do not wait to count heads. Go.",
+        "The corridors are cold and not all the lights are working. Wear your suit.",
+        "Some of them will argue about luggage. Do not let them.",
+        "People will be crying. Do not take it personally."
+      ],
+      "end": [
+        "#voice:urgency#",
+        "#voice:warning#",
+        "#voice:closer#"
+      ],
+      "success": [
+        "The last passenger steps aboard and you seal the lock. {faction} pays {reward}.",
+        "You deliver them to {destination}, where a dock crew hands out blankets. {faction} pays {reward}.",
+        "{faction} pays {reward}. The breach is sealed a day later and the section is declared lost.",
+        "{target} is among those you saved, and finds you at the dock to say so. {faction} pays {reward}."
+      ],
+      "failure": [
+        "You reached the station too late. {faction} lists the dead without comment.",
+        "The airlock would not open in time. {faction} does not blame you aloud and does not pay.",
+        "Too few were saved and the cost was counted. {faction} withholds the {reward}."
+      ]
+    }
+  },
+  {
+    "id": "mission-flare-stranded-rescue",
+    "description": "Pulling people out after a solar flare cripples ships.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Flare victims at {system}",
+        "Ships blinded by the flare",
+        "Pick up the stranded",
+        "Systems down, hulls adrift",
+        "After the flare"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "The flare has burned out the electronics of every ship at {system}.",
+        "A flare has left a convoy blind and dead in space.",
+        "The solar storm is dying down, and the casualties are coming to light.",
+        "The flare took out their power and the radiation is still too high for a rescue tug."
+      ],
+      "task": [
+        "Collect the survivors and take them to {destination} within {deadline}.",
+        "Find {target} and the others and carry them to {destination}. {deadline}.",
+        "Pick up the stranded and deliver them to {destination} inside {deadline}."
+      ],
+      "detail": [
+        "Radiation is still high. Don't linger.",
+        "Your own systems may flicker. Fly carefully.",
+        "They will be cold and in no mood for politeness.",
+        "They are in escape pods. Check all the pods."
+      ],
+      "end": [
+        "#voice:urgency#",
+        "#voice:warning#",
+        "#voice:closer#"
+      ],
+      "success": [
+        "The pods are collected one by one and the survivors are warmed at {destination}. {faction} pays {reward}.",
+        "{target} is found in the third pod, annoyed, but whole. {faction} pays {reward}.",
+        "{faction} pays {reward}. The flare is blamed for everything, which suits everyone.",
+        "The last ship's crew thanks you, and asks where to complain about the weather."
+      ],
+      "failure": [
+        "You reached the pods too late. {faction} files them as lost to the flare.",
+        "Your instruments failed in the storm and you missed the last pod. {faction} withholds the {reward}.",
+        "The survivors were collected by another ship before you could reach them. {faction} pays nothing."
+      ]
+    }
+  },
+  {
+    "id": "mission-plague-medical-run",
+    "description": "Plague deliveries of medical cargo.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Cold chain to {destination}",
+        "Plague supplies for {destination}",
+        "Cold cargo for the quarantine at {destination}",
+        "Medical run: {destination}",
+        "Keep it cold, get it there"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "Sickness has closed the ports at {destination}.",
+        "The plague at {destination} has outrun the clinics.",
+        "{destination} has stopped letting people in and out, but cargo still gets through.",
+        "The hospitals at {destination} have been rationing {cargo} for a week.",
+        "{faction} has been watching the plague reports from {destination} with growing alarm."
+      ],
+      "task": [
+        "Deliver {tonnes} t of {cargo} within {deadline}.",
+        "Bring {tonnes} t of {cargo} from {system} to {destination}, inside {deadline}.",
+        "I need {tonnes} t of {cargo} on the quarantine dock at {destination} in {deadline}."
+      ],
+      "detail": [
+        "Keep the crates sealed and cold. Do not open them for anyone, including the people who will ask nicely.",
+        "The cold chain is the whole job. If the crates warm, they are worthless.",
+        "Customs will want to inspect you. Let them, and don't let them keep anything.",
+        "You will not be allowed off the dock. Few captains mind that part."
+      ],
+      "end": [
+        "#voice:urgency#",
+        "#voice:warning#",
+        "#voice:closer#"
+      ],
+      "success": [
+        "The medical team at {destination} signs for {tonnes} t of {cargo} through a glass screen. {faction} pays {reward}.",
+        "The crates are still cold. A nurse thanks you over the dock speaker and {faction} pays {reward}.",
+        "{faction} pays {reward}. The infection numbers at {destination} start to flatten within the week.",
+        "You are decontaminated twice, thanked once and paid {reward}."
+      ],
+      "failure": [
+        "The crates warmed on the way and the {cargo} had to be burned. {faction} wants a word.",
+        "You arrived after the quarantine tightened. The {cargo} sits in a locker at the cordon and {faction} withholds the {reward}.",
+        "The {cargo} came too late for most who needed it. {faction} does not name a captain in its report, which is its own kind of message."
+      ]
+    }
+  },
+  {
+    "id": "mission-fuel-shortage-haul",
+    "description": "Fuel hauling during a shortage.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Fuel for {destination}",
+        "{tonnes} t of {cargo}, no questions about the price",
+        "Tanks running dry at {destination}",
+        "Fuel haul: {system} to {destination}",
+        "Keep the lights on at {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "{destination} has been burning its reserves for days.",
+        "The fuel docks at {destination} are rationing by ship size.",
+        "Stations round {destination} are down to their last tanks.",
+        "There is a shortage, you will have noticed, and {destination} is feeling it worst."
+      ],
+      "task": [
+        "Haul {tonnes} t of {cargo} from {system} to {destination} inside {deadline}.",
+        "Get {tonnes} t of {cargo} to {destination} in {deadline}.",
+        "I have {tonnes} t of {cargo} on a dock at {system} and nobody to move it. {deadline}."
+      ],
+      "detail": [
+        "It is worth more than the hull you are carrying it in, so people will notice.",
+        "Everyone with a gun and an empty tank knows what a fuel hauler looks like.",
+        "Fill your own tanks elsewhere. I mean that.",
+        "Don't stop to trade on the way. Others have."
+      ],
+      "end": [
+        "#voice:urgency#",
+        "#voice:warning#",
+        "#voice:closer#",
+        "#voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "The tanks at {destination} are topped before you've left the dock. {faction} pays {reward}.",
+        "{faction} pays {reward}. The ration notices at {destination} come down by the next shift.",
+        "The dock foreman sniffs the {cargo}, nods, and signs. {faction} pays {reward}.",
+        "You deliver {tonnes} t into a station that was an hour from going dark. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{destination} went dark for two shifts before another ship arrived. {faction} won't be using you again.",
+        "The {cargo} arrived after the shortage had moved on and the buyers had already paid someone else. {faction} withholds the {reward}.",
+        "Short a few tonnes and late, you are a story told in {destination} bars. {faction} withholds the fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-trade-boom-contract",
+    "description": "Freight in a booming economy.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Boom freight to {destination}",
+        "{tonnes} t of {cargo}, good money",
+        "Everyone wants {cargo} at {destination}",
+        "Freight to {destination}",
+        "Contract: {cargo} for {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "Trade is up and every hold on the lane is booked.",
+        "{destination} is booming and cannot get enough {cargo} to keep its warehouses full.",
+        "Money is moving fast at {destination}, and {faction} would like some of it.",
+        "Freight rates are mad this season, so I have a decent offer for once."
+      ],
+      "task": [
+        "I need {tonnes} t of {cargo} moved from {system} to {destination} within {deadline}.",
+        "Take {tonnes} t of {cargo} to {destination}. {deadline}.",
+        "Deliver {tonnes} t of {cargo} to {destination} in {deadline}."
+      ],
+      "detail": [
+        "The buyer is on a clock and so am I.",
+        "Other haulers are asking for more. I have chosen you, so don't make me look foolish.",
+        "It's simple work. In a boom, simple work is the best kind.",
+        "The warehouse will be waiting."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:urgency#",
+        "#voice:warning#"
+      ],
+      "success": [
+        "The buyer at {destination} signs without haggling, which tells you the price was low. {faction} pays {reward}.",
+        "{faction} pays {reward}. Your name goes on a short list at the freight office.",
+        "The warehouse empties by evening. {faction} pays {reward} and asks if you are free next week.",
+        "The boom feeds on {cargo}, and you fed it. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The buyer sourced the {cargo} elsewhere while you were in transit. {faction} withholds the {reward}.",
+        "In a boom nobody waits, and {destination} didn't wait for you.",
+        "{faction} had three other ships on this lane and you were the slow one. No fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-standing-freight",
+    "description": "Plain freight work, always on offer.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "{tonnes} t of {cargo} to {destination}",
+        "Freight: {destination}",
+        "Haul to {destination}",
+        "Standard contract: {cargo}",
+        "Dock to dock: {system} to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #task# #detail# #voice:payment# #end#"
+      ],
+      "task": [
+        "I have {tonnes} t of {cargo} for {destination} and no hold free.",
+        "{faction} needs {tonnes} t of {cargo} moved from {system} to {destination} within {deadline}.",
+        "A shipment of {cargo} is waiting for a ship. It is {tonnes} t and it goes to {destination}, {deadline} at most.",
+        "The booking is {tonnes} t of {cargo}, {system} to {destination}. Terms are {deadline}."
+      ],
+      "detail": [
+        "Ordinary freight. The paperwork is in order.",
+        "Mind the seals. The receiving dock checks them.",
+        "Load and go. No clever detours, please.",
+        "The buyer pays on delivery, and so do we.",
+        "One of our usual haulers broke down, which is why you are getting this."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:warning#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "The seals check out and the dock signs. {faction} pays {reward}.",
+        "A routine delivery, and a routine fee of {reward} from {faction}.",
+        "The receiving clerk logs {tonnes} t without looking up. {faction} pays {reward}.",
+        "It is a quiet day and a clean job. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The consignment missed its window and {faction} has charged you the difference.",
+        "{faction} marks the job as failed and removes you from the preferred list.",
+        "The buyer at {destination} refused a late shipment. {faction} withholds the {reward}."
+      ]
+    }
+  },
+  {
+    "id": "mission-lantern-relief-convoy",
+    "description": "Charitable relief work for Lantern orders.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Lantern alms for {destination}",
+        "Relief for {destination}",
+        "A sister house calls: {destination}",
+        "{tonnes} t of {cargo}, freely given",
+        "The Lantern asks a favour"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "The Lantern keeps a house at {destination}, and it is full of people with nowhere to go.",
+        "Our sisters and brothers at {destination} have fed every arrival and are now out of {cargo}.",
+        "The gates are holy work, and so is feeding those who come through them.",
+        "The order's stores are empty at {destination}, though its doors have stayed open."
+      ],
+      "task": [
+        "We ask you to carry {tonnes} t of {cargo} from {system} to {destination} within {deadline}.",
+        "Take {tonnes} t of {cargo} to {destination}. {deadline} is all the time we have.",
+        "{tonnes} t of {cargo} must reach the house at {destination} in {deadline}."
+      ],
+      "detail": [
+        "We cannot pay what a trader would, but what we pay is honest.",
+        "Say nothing to the wardens about where the crates were packed.",
+        "There may be people at the dock hoping for a berth. We would not blame you for refusing.",
+        "Some of the crates are blessed. You do not need to believe in that. Do not drop them."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:urgency#",
+        "#voice:warning#"
+      ],
+      "success": [
+        "The brothers form a line to unload the {cargo} by hand. {faction} pays {reward} and adds a blessing.",
+        "A warden-priest takes your hands and says something in the old gate tongue. {faction} pays {reward}.",
+        "{faction} pays {reward}. A child at {destination} gives you a carved lantern the size of a thumb.",
+        "Hot soup is served on the dock. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The house at {destination} turned people away that week. The order does not blame you aloud.",
+        "{faction} thanks you for trying, which hurts more than a complaint. The {reward} is not paid.",
+        "The {cargo} was late, and the order has recorded the cost in a ledger it does not show outsiders."
+      ]
+    }
+  },
+  {
+    "id": "mission-house-gift-delivery",
+    "description": "Fragile luxury gifts for noble households.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "A gift for {destination}",
+        "Handle with care: {cargo}",
+        "Courtesy delivery: {destination}",
+        "For the household at {destination}",
+        "Fragile: {cargo}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "A gift must go to a family at {destination}, and a gift that arrives late is an insult.",
+        "There is a seasonal courtesy owed to the house at {destination}.",
+        "An old debt of honour is to be settled with a present.",
+        "A betrothal is to be marked at {destination}, and {faction} must do it properly."
+      ],
+      "task": [
+        "Carry {tonnes} t of {cargo} from {system} to {destination} within {deadline}.",
+        "Deliver {tonnes} t of {cargo} to {destination} in {deadline}. Not a day more.",
+        "The {cargo} must be in the hands of the household steward at {destination} in {deadline}."
+      ],
+      "detail": [
+        "Do not stack it. Do not let anyone stack it.",
+        "Gifts of this kind are noticed, and so is who brought them.",
+        "The seals bear our mark. If they are broken, we shall know.",
+        "Avoid hard acceleration. Good cargo bruises."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:warning#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "The steward inspects every seal with a gloved hand and finds nothing wrong. {faction} pays {reward}.",
+        "The gift is received with exact courtesy. {faction} pays {reward} and your name is remembered, quietly.",
+        "{faction} pays {reward}. A servant brings you tea on the dock, which you suspect is the real reward.",
+        "The household accepts the {cargo}. Whatever was being settled is now settled, and {faction} pays {reward}."
+      ],
+      "failure": [
+        "The gift arrived late and the household noticed. {faction} sends a note that does not mention you by name.",
+        "One crate arrived damaged. {faction} calls it an insult and withholds the {reward}.",
+        "The occasion passed before the {cargo} arrived. {faction} does not forget such things."
+      ]
+    }
+  },
+  {
+    "id": "mission-khanate-feast-delivery",
+    "description": "Feast supplies for orc gatherings.",
+    "variables": [
+      "cargo",
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "tonnes"
+    ],
+    "rules": {
+      "title": [
+        "Feast supplies for {destination}",
+        "{tonnes} t of {cargo} for the fire",
+        "The big meal at {destination}",
+        "Bring the {cargo}",
+        "Warband supplies: {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "There is a feast coming at {destination} and the cooks have nothing to cook.",
+        "Rival warbands are meeting at {destination}, and nobody wants to be the host who ran out of food.",
+        "A great hunt has ended at {destination}, and the loser has to feed everybody.",
+        "My cousin's naming day is at {destination}. It is a very big family."
+      ],
+      "task": [
+        "I need {tonnes} t of {cargo} there within {deadline}.",
+        "Bring {tonnes} t of {cargo} from {system}. {deadline}.",
+        "Haul {tonnes} t of {cargo} to {destination} in {deadline}."
+      ],
+      "detail": [
+        "If it runs out, there will be fighting. Probably friendly fighting.",
+        "Do not eat the {cargo}. I will count it.",
+        "The guests are armed. So are the cooks.",
+        "Be there before the fires are lit."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:urgency#",
+        "#voice:warning#"
+      ],
+      "success": [
+        "The cooks roar when the {cargo} is rolled out. {faction} pays {reward} and you are offered a seat at the fire.",
+        "{faction} pays {reward}. The feast runs three days and your name is shouted at least twice.",
+        "Someone presses a bone-handled knife into your hand as a tip. {faction} pays {reward}.",
+        "The meat is gone by dawn. {faction} pays {reward} and says you may come again."
+      ],
+      "failure": [
+        "The feast started without enough {cargo} and ended in a brawl. {faction} blames you in a loud voice.",
+        "The guests went hungry. {faction} withholds the {reward} and tells everyone why.",
+        "Too late for the fires. {faction} sends you an empty plate and no fee."
+      ]
+    }
+  },
+  {
+    "id": "mission-discreet-house-courier",
+    "description": "Quiet courier work for noble houses.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "A private matter at {destination}",
+        "Discreet courier: {destination}",
+        "A letter for {destination}",
+        "Confidential: {destination}",
+        "Wax and silence"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "There is a matter between {faction} and a household at {destination} that does not belong in a public channel.",
+        "A message of some delicacy must travel from {system} to {destination}.",
+        "Certain papers cannot be sent by any gate relay without being read. They must be carried.",
+        "We would prefer this to go unremarked."
+      ],
+      "task": [
+        "You will take one sealed packet to {destination} within {deadline}.",
+        "The packet must be in the recipient's own hand in {deadline}.",
+        "Deliver the sealed packet to {destination}, {deadline} at most."
+      ],
+      "detail": [
+        "You will not be told what is in it. You will not ask.",
+        "If anyone asks, you are a captain taking a quiet job. That much is true.",
+        "Do not leave it aboard an unattended ship. Do not leave the ship unattended.",
+        "If it is lost, the shame is yours, and ours, and neither of us would enjoy discussing it."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:closer#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "The recipient breaks the seal in another room and returns with a face that gives nothing away. {faction} pays {reward}.",
+        "{faction} pays {reward} through an intermediary. Nobody mentions this job again.",
+        "The packet vanishes into a household that does not employ you. {faction} pays {reward}.",
+        "You receive {reward} and, a day later, an unsigned note of thanks."
+      ],
+      "failure": [
+        "The packet was late, or opened, or both. {faction} will not say which.",
+        "The recipient claims never to have expected anything. {faction} withholds the {reward}.",
+        "A house that cannot be seen to be embarrassed has decided you are not to be hired again."
+      ]
+    }
+  },
+  {
+    "id": "mission-election-ballot-run",
+    "description": "Carrying election data during a poll.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Count the votes at {destination}",
+        "Ballots for {destination}",
+        "Election data: {destination}",
+        "The tally must arrive",
+        "Poll run to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "The election is closing and the results must be carried to {destination}, where they will be counted again.",
+        "No faster-than-a-ship channel exists, so a vote is only as safe as the ship that carries it.",
+        "Several parties would like this tally to be late, or different, or lost.",
+        "The returning officer at {destination} cannot certify a thing until the sealed ballots reach them."
+      ],
+      "task": [
+        "Carry the sealed ballot cores from {system} to {destination} within {deadline}.",
+        "Deliver the tally to {destination} in {deadline}.",
+        "Get the ballots to {destination} before {deadline} run out."
+      ],
+      "detail": [
+        "You will be offered money to be slow. Please refuse it.",
+        "Three signatures are on the seal. If one is damaged, the vote is void.",
+        "I do not care who wins. I care that it is counted.",
+        "Take the direct route. Everyone will be watching the other one."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:closer#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "The returning officer checks all three signatures and declares the count valid. {faction} pays {reward}.",
+        "The tally is certified. {faction} pays {reward}, and the losers complain, as they must.",
+        "{faction} pays {reward}. The result is read out in the main hall to cheers, and some other noises.",
+        "You are the only person at {destination} who is bored by the result. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The count was disputed when the ballots came late. {faction} blames the transport, which is you.",
+        "The seal was broken on the way and the vote was voided. {faction} withholds the {reward}.",
+        "The returning officer certified without your ballots, and the argument started at once."
+      ]
+    }
+  },
+  {
+    "id": "mission-treaty-papers-run",
+    "description": "Carrying diplomatic papers during political events.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "title": [
+        "Papers for {destination}",
+        "Treaty courier: {destination}",
+        "Signatures needed at {destination}",
+        "The agreement goes by ship",
+        "Diplomatic pouch to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "The terms have been argued over and, astonishingly, agreed.",
+        "Two sides at {destination} are waiting on a document that exists only at {system}.",
+        "The negotiators have gone home and left the papers to travel without them.",
+        "Everyone wants the paper signed. Not everyone wants it signed by the same people."
+      ],
+      "task": [
+        "The signed copy must reach {destination} within {deadline}.",
+        "Carry the pouch from {system} to {destination}. {deadline}.",
+        "Deliver the agreement to {destination} in {deadline}, in the hands of the registrar."
+      ],
+      "detail": [
+        "There are two parties who would pay to see it arrive late, and one who would pay to see it arrive changed.",
+        "It is a very small thing to carry and a very large thing to lose.",
+        "Do not discuss it at any bar, even with people who say they are on our side.",
+        "If the pouch is opened, the seals will tell us. Please don't test that."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:closer#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "The registrar lays the pouch on the table and the room goes quiet. {faction} pays {reward}.",
+        "The agreement is signed on schedule. {faction} pays {reward} and leaves the commentary to others.",
+        "{faction} pays {reward}. Somewhere there is a ceremony, and you were not invited to it, which suits you.",
+        "The pouch is opened and the papers are exactly as they were. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The papers were late and the opportunity had narrowed. {faction} is not pleased.",
+        "The pouch arrived with a broken seal. {faction} will not say what that does to the agreement, but it withholds the {reward}.",
+        "The negotiators have gone home again. {faction} holds you partly responsible."
+      ]
+    }
+  },
+  {
+    "id": "mission-pilgrim-passage",
+    "description": "Pilgrims going to holy gates.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Pilgrims to {destination}",
+        "Passage for the faithful",
+        "Holy gate at {destination}",
+        "A pilgrimage by cargo hold",
+        "Carry the pilgrims"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "A party of pilgrims is waiting at {system} to see the gate at {destination}.",
+        "The gate at {destination} is holy to many, and many have come to say so.",
+        "The faithful cannot all afford a berth, so {faction} is paying for theirs.",
+        "A group of pilgrims has walked as far as they can and need a ship to take them the rest."
+      ],
+      "task": [
+        "Carry them to {destination} within {deadline}.",
+        "Take {target} and the others from {system} to {destination} in {deadline}.",
+        "You will need berths and a patient manner. {deadline}."
+      ],
+      "detail": [
+        "They will sing. Do not ask them to stop.",
+        "They bring their own food, which will smell. They will offer you some, which will be good.",
+        "One of them is old and may not complete the return journey. They know it.",
+        "They will want to touch the hull when they arrive. Let them."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:warning#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "The pilgrims disembark singing and press small tokens into your hands. {faction} pays {reward}.",
+        "{target} thanks you at the airlock for a long time. {faction} pays {reward}.",
+        "They see the gate, and some of them weep. {faction} pays {reward}.",
+        "The pilgrims leave your hold cleaner than they found it. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The pilgrims arrived after the rites and are said to be disappointed. {faction} withholds the {reward}.",
+        "They were set down at the wrong dock, in the cold. {faction} wants a word.",
+        "You did not reach {destination}. The faithful will tell the story of that for years."
+      ]
+    }
+  },
+  {
+    "id": "mission-envoy-passage",
+    "description": "Light elf envoys requiring discreet passage.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "An envoy for {destination}",
+        "Passage for a house envoy",
+        "The quiet passenger",
+        "Escort to {destination}",
+        "A courtesy of the Houses"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "An envoy of {faction} must travel from {system} to {destination} without ceremony.",
+        "A member of the house has business at {destination} and does not wish it known.",
+        "The Houses do not travel in public when something is being decided.",
+        "An envoy wishes passage, and a captain who can be trusted not to ask why."
+      ],
+      "task": [
+        "Carry {target} to {destination} within {deadline}.",
+        "You will convey one passenger, {target}, to {destination} in {deadline}.",
+        "Your passenger is {target}. Deliver them to {destination} in {deadline}."
+      ],
+      "detail": [
+        "The envoy will keep to their quarters, and you will not enter them.",
+        "You will not be told their errand. You will not guess it aloud.",
+        "The envoy will speak little and watch a great deal. This is normal.",
+        "The envoy will observe the courtesies. You will want to learn them quickly."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:closer#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "{target} leaves the ship in the same exact silence in which they boarded. {faction} pays {reward}.",
+        "The envoy gives a small, formal bow and is gone. {faction} pays {reward}.",
+        "{faction} pays {reward}. Something is decided at {destination} that week and you will not read about how.",
+        "A single line of thanks arrives for you in a hand you cannot read. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The envoy reached {destination} too late to be useful. The house does not say what that cost.",
+        "{target} was delayed, and a certain meeting went ahead without them. {faction} withholds the {reward}.",
+        "The house has recorded that its envoy was inconvenienced. You will not be hired again."
+      ]
+    }
+  },
+  {
+    "id": "mission-synth-with-papers",
+    "description": "A synth passenger carrying papers through a registry sweep.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Passage for {target}",
+        "A synth with papers",
+        "Registered, allegedly",
+        "Papers in order",
+        "Transit to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "{target} is a synth with a transit permit and every reason to want to leave {system}.",
+        "Registry sweeps are under way and synths are being stopped at every dock.",
+        "A synth needs safe passage and legal papers, which is a rarer combination than it sounds.",
+        "Wardens are checking every synth who tries to board, and {target} would like a ship that makes that quicker."
+      ],
+      "task": [
+        "Take {target} to {destination} within {deadline}.",
+        "Carry {target}, with papers, from {system} to {destination}. {deadline}.",
+        "Deliver {target} to {destination} in {deadline}."
+      ],
+      "detail": [
+        "The papers are genuine. I think. I have not seen them.",
+        "Don't search them. Others will, and that will be enough.",
+        "They don't eat, don't sleep and do not need a berth, but they do like to be treated as a passenger.",
+        "Do not try to find out where they came from. I never have."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:closer#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "{target} is waved through at {destination} after a wait that was longer than it needed to be. {faction} pays {reward}.",
+        "You are told {target} will be fine. {faction} pays {reward}, and you wonder about the phrasing.",
+        "The synth thanks you with exact politeness and walks off into the crowd. {faction} pays {reward}.",
+        "{faction} pays {reward}. You never learn what the papers said."
+      ],
+      "failure": [
+        "The papers were rejected at the gate and {target} was taken for questioning. {faction} says nothing more.",
+        "You arrived without your passenger. {faction} withholds the {reward} and will not explain.",
+        "The wardens held the ship for hours and released the synth to someone else. {faction} is angry and does not say so."
+      ]
+    }
+  },
+  {
+    "id": "mission-silent-refugees",
+    "description": "Refugees from the rim or a war, who will not say where from.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Passengers for {destination}",
+        "They won't say where they've come from",
+        "A hold full of quiet people",
+        "Passage inward",
+        "Refugees at {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "A group of refugees is waiting on the dock at {system}, and they would like to go inward.",
+        "They arrived on a ship that will not fly again.",
+        "They have been through something, and none of them will say what.",
+        "The numbers are not large, but nobody wants to host them."
+      ],
+      "task": [
+        "Carry them to {destination} within {deadline}.",
+        "You will carry {target} and the others to {destination} in {deadline}.",
+        "Take them to {destination}, {deadline} at most."
+      ],
+      "detail": [
+        "They will not answer questions. Don't force them, please.",
+        "Some of them have not eaten in days. Don't give them everything at once.",
+        "They are afraid of the gates. They will not tell you why.",
+        "One of them carries a small case and will not let it out of reach."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:warning#",
+        "#voice:urgency#"
+      ],
+      "success": [
+        "They disembark one at a time, without a word, and are met by people with blankets. {faction} pays {reward}.",
+        "{target} looks back at your ship for a moment and nods. {faction} pays {reward}.",
+        "{faction} pays {reward}. You never learn what they were running from, and you sleep less well for wondering.",
+        "The children wave. The adults do not. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The refugees were held at the gate and sent back. {faction} does not describe where.",
+        "You did not reach {destination}. {faction} is sorry and does not pay.",
+        "The ship was late and some of them were gone when you returned. {faction} does not forgive that."
+      ]
+    }
+  },
+  {
+    "id": "mission-exile-passage",
+    "description": "Moving someone out of reach of a coup or a feud.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Quiet exit for {target}",
+        "Out of {system} before dawn",
+        "The passenger who isn't here",
+        "Exile to {destination}",
+        "A lift for someone in trouble"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "Power has changed hands at {system}, and {target} was on the wrong side.",
+        "A succession has gone badly, and someone close to it would like to leave before the other side arrives.",
+        "There is a person in a back room at {system} who would not survive the week.",
+        "{target} has friends, but not enough of them."
+      ],
+      "task": [
+        "Take {target} to {destination} in {deadline}.",
+        "You will carry {target} from {system} to {destination} inside {deadline}.",
+        "Get {target} off {system} and to {destination}, {deadline} at the longest."
+      ],
+      "detail": [
+        "{target} is not going to say much, and will say it badly.",
+        "There will be people at the dock who know your ship. They will not be there to help.",
+        "Do not file a flight plan until you are on the lane.",
+        "If you are stopped, {target} is your cousin. They do not look it. That cannot be helped."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:urgency#",
+        "#voice:closer#"
+      ],
+      "success": [
+        "{target} arrives at {destination} alive and furious about it. {faction} pays {reward}.",
+        "A guard at {destination} takes the exile in without a word. {faction} pays {reward}.",
+        "{faction} pays {reward}. Within a week the old government is gone and nobody remembers who got whom out.",
+        "You are paid {reward} by {faction}, and never see your passenger again."
+      ],
+      "failure": [
+        "The exile was recognised at the dock. {faction} will not talk about what happened next.",
+        "You were stopped before the lane. {faction} withholds the {reward}, and something worse.",
+        "{target} did not make it to {destination}. {faction} has your ship noted in a list."
+      ]
+    }
+  },
+  {
+    "id": "mission-miners-shift-passage",
+    "description": "Plain passenger work for working crews.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Crew change at {destination}",
+        "Shift passage to {destination}",
+        "Workers for {destination}",
+        "A hold full of boots",
+        "Relief crew"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "The shift boat has broken down and a crew at {destination} has been on station for four months.",
+        "A relief crew is waiting at {system}, and they would like to be paid before they leave.",
+        "Contracts at {destination} are filling and {faction} needs warm bodies.",
+        "There is a rota that must be kept, and the ship we booked has not turned up."
+      ],
+      "task": [
+        "Carry {target} and the rest of the crew from {system} to {destination} within {deadline}.",
+        "Take the shift to {destination} in {deadline}.",
+        "Deliver the crew to {destination}. {deadline}."
+      ],
+      "detail": [
+        "Nobody will complain, except about the food.",
+        "They are paid by the day. Every day you are late, I pay a bit more.",
+        "They have their own kit. They will want somewhere to put it.",
+        "They will sleep anywhere. Do not rely on that."
+      ],
+      "end": [
+        "#voice:closer#",
+        "#voice:urgency#",
+        "#voice:warning#"
+      ],
+      "success": [
+        "The crew shoulders their kits and goes to work. {faction} pays {reward}.",
+        "The outgoing shift is already waiting at the lock. {faction} pays {reward}.",
+        "{faction} pays {reward}. The crew leaves the ship noisier than it found it, and in good spirits.",
+        "{target} offers you a drink at the dock. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The crew arrived late and the outgoing shift had already left. {faction} pays the penalty and bills you.",
+        "The relief crew missed their start. {faction} withholds the {reward}.",
+        "The crew lost two days of pay and has told everyone."
+      ]
+    }
+  },
+  {
+    "id": "mission-stranded-crew-rescue",
+    "description": "Standing rescue work for broken-down crews.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Crew adrift near {system}",
+        "Answer the distress call",
+        "Rescue {target}",
+        "Dead drive, live crew",
+        "Stranded: {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "A ship of ours has lost its drive and is drifting.",
+        "A hauler failed near {system} and the crew has been aboard for days.",
+        "We have had a distress call from {target}, whose drive failed.",
+        "One of our ships has not reported in. Its beacon, however, has."
+      ],
+      "task": [
+        "Find the crew and bring them to {destination} within {deadline}.",
+        "Locate the ship and take its crew aboard. Their safe harbour is {destination}. {deadline}.",
+        "Pick up {target} and the others and take them to {destination} inside {deadline}."
+      ],
+      "detail": [
+        "Their air is limited. Check the number before you waste time.",
+        "Don't try to salvage the hulk. Just the people.",
+        "The beacon has been wrong before. Look around.",
+        "They may be hungry, cold and unreasonable."
+      ],
+      "end": [
+        "#voice:urgency#",
+        "#voice:warning#",
+        "#voice:closer#"
+      ],
+      "success": [
+        "The crew is found alive, hungry and cheerful. {faction} pays {reward}.",
+        "{target} is the last aboard and the first to complain about the food. {faction} pays {reward}.",
+        "The drift crew steps off at {destination} and a medic checks all of them. {faction} pays {reward}.",
+        "{faction} pays {reward}. The hulk is written off, but the people are not."
+      ],
+      "failure": [
+        "You reached the wreck too late. {faction} files the report with a particularly bleak formula.",
+        "The beacon had stopped by the time you arrived. {faction} withholds the {reward}.",
+        "Another ship found them first. {faction} does not pay for work already done."
+      ]
+    }
+  },
+  {
+    "id": "mission-plague-quarantine-evacuation",
+    "description": "Moving the healthy out of a plague zone.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Clear of the quarantine",
+        "Healthy passengers from {system}",
+        "Children out of {system}",
+        "Plague exit",
+        "The last clean berths"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "The plague at {system} has not reached everyone, and some wish to get out before it does.",
+        "A clinic at {system} has cleared a group of patients, who have been tested twice and can leave.",
+        "The healthy are being held in a shelter that is not meant to hold them for long.",
+        "A shipload of children is waiting at {system}, tested and sealed in their cabins."
+      ],
+      "task": [
+        "Carry them to {destination} within {deadline}.",
+        "You will take {target} and the rest to {destination} in {deadline}.",
+        "Deliver the group to {destination}, {deadline} at the longest."
+      ],
+      "detail": [
+        "You will be scanned at every dock, probably twice.",
+        "Do not take anyone aboard who has not been signed off by the clinic. That is the whole point.",
+        "Some will try to bring friends. Stop them kindly.",
+        "You will smell of disinfectant for a week."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:urgency#",
+        "#voice:closer#"
+      ],
+      "success": [
+        "The group is cleared at {destination} and led to a hall. {faction} pays {reward}.",
+        "{target} leaves the ship and does not look back. {faction} pays {reward}.",
+        "{faction} pays {reward}. You are scanned three times and cleared, to your private relief.",
+        "The children are met by relatives who have waited a long time. {faction} pays {reward}."
+      ],
+      "failure": [
+        "Someone aboard turned out to be a carrier. {faction} places your ship in quarantine for days and bills you for the delay.",
+        "The group was turned back at {destination}. {faction} withholds the {reward}.",
+        "You were late, and the clinic's list had changed. {faction} does not say what became of the others."
+      ]
+    }
+  },
+  {
+    "id": "mission-quiet-ship-search",
+    "description": "Searching for ships that have gone silent near the rim.",
+    "variables": [
+      "deadline",
+      "destination",
+      "faction",
+      "reward",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "A ship has gone quiet",
+        "Search near {system}",
+        "Find the {target} expedition",
+        "No signal, no wreck",
+        "Last heard from {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #detail# #voice:payment# #end#"
+      ],
+      "scene": [
+        "A ship we sent out has stopped transmitting, and has not been found.",
+        "Ships have been going quiet near {system}, and one of them was ours.",
+        "We last heard from them at {system}. After that, nothing.",
+        "{target} commanded the vessel, and is not the sort to go silent for no reason."
+      ],
+      "task": [
+        "Find it, or find out what happened, within {deadline}.",
+        "Search the approaches to {system} and report to {destination} in {deadline}.",
+        "Locate the ship and its crew if you can, and bring them to {destination} in {deadline}."
+      ],
+      "detail": [
+        "There is no wreck on the charts. Do not assume that means anything.",
+        "If you hear a signal that sounds like your own voice, tell me and do not answer it.",
+        "Others have looked. They did not report.",
+        "Do not go through any gate you do not recognise."
+      ],
+      "end": [
+        "#voice:warning#",
+        "#voice:urgency#",
+        "#voice:closer#"
+      ],
+      "success": [
+        "You bring back a crew that cannot say where it has been. {faction} pays {reward} and asks you to say nothing.",
+        "The ship is found adrift with its lights on and nobody on the bridge. {faction} pays {reward} and takes the log.",
+        "{faction} pays {reward}. The ship is tugged home and its records are sealed.",
+        "The crew is alive and unharmed. They look at you as if you are the one who is lost. {faction} pays {reward}."
+      ],
+      "failure": [
+        "You found nothing. {faction} says that is also a finding, and withholds the {reward}.",
+        "A signal drew you away and you came back with an empty hold and no explanation. {faction} is not satisfied.",
+        "The search ended in static. {faction} writes the ship off and reminds you not to tell the story."
+      ]
+    }
+  }
+]
