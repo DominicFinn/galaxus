@@ -1,0 +1,12 @@
+{
+  "id": "hesper-works",
+  "name": "Hesper Directorate Works",
+  "race": "human",
+  "region": "inner",
+  "culture": "Hesper Directorate",
+  "style": "Sleek black wedges and blades with gold trim and a single amber stripe",
+  "bias": "Fast and efficient, but light on armour and priced high",
+  "statBias": { "speed": 1.1, "acceleration": 1.1, "hull": 0.85 },
+  "palette": { "hull": "#3a3e48", "accent": "#ffb000", "trim": "#c9a24a", "glow": "#ffcf70" },
+  "modelNameGrammar": "models-hesper-works"
+}

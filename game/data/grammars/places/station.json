@@ -1,31 +1,102 @@
 {
   "id": "places-station",
-  "description": "Station names.",
+  "description": "Station names: founders, Lantern Synod saints, companies, numbered berths and descriptive names. Kinds are station, port, ring, dock, hub, yard, spire, hold, platform and anchorage.",
   "rules": {
     "name": [
       "#founder# #kind#",
-      "#adjective# #kind#"
+      "#founder# #kind#",
+      "#founder# #kind#",
+      "#founder#'s #stationNoun#",
+      "#founder#'s #stationNoun#",
+      "#stationAdj# #kind#",
+      "#stationAdj# #kind#",
+      "#stationAdj# #kind#",
+      "#stationAdj# #places-words:noun# #kind#",
+      "Saint #saint#'s #kind#",
+      "Saint #saint#'s #kind#",
+      "#company# #kind#",
+      "#company# #kind#",
+      "#gantry# #places-words:numberWord#",
+      "#gantry# #places-words:numberWord#",
+      "#kind# #places-words:digits#",
+      "#stationNoun# #kind#",
+      "#places-words:ordinal# #kind#",
+      "The #stationNoun#"
     ],
     "founder": [
-      "Hale",
-      "Okafor",
-      "Varga",
-      "Lindqvist",
-      "Moreau"
+      "#places-people:surname#"
+    ],
+    "saint": [
+      "#places-people:saint#"
+    ],
+    "company": [
+      "#places-people:company#"
     ],
     "kind": [
       "Station",
       "Port",
       "Ring",
       "Dock",
-      "Hub"
+      "Hub",
+      "Yard",
+      "Spire",
+      "Hold",
+      "Platform",
+      "Anchorage"
     ],
-    "adjective": [
-      "Last Light",
-      "Ninth",
+    "stationAdj": [
       "Halfway",
+      "Last",
+      "Windward",
+      "Lee",
+      "Outer",
+      "Inner",
       "Cold Harbour",
-      "New"
+      "Low",
+      "High",
+      "Far",
+      "Sunward",
+      "Dim",
+      "Still",
+      "Rimward",
+      "Middle",
+      "Upper",
+      "Lower",
+      "Narrow",
+      "Quiet",
+      "Hollow",
+      "#places-words:adjective#",
+      "#places-words:adjective#"
+    ],
+    "gantry": [
+      "Gantry",
+      "Gantry",
+      "Berth",
+      "Slip",
+      "Pier",
+      "Gallery",
+      "Mooring"
+    ],
+    "stationNoun": [
+      "Cradle",
+      "Lantern",
+      "Sump",
+      "Tithe",
+      "Anvil",
+      "Hook",
+      "Gallows",
+      "Heart",
+      "Ledger",
+      "Mouth",
+      "Spindle",
+      "Pulley",
+      "Thimble",
+      "Pocket",
+      "Hinge",
+      "Wick",
+      "Keel",
+      "Bellows",
+      "Grindstone"
     ]
   }
 }

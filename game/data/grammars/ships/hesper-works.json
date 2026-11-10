@@ -1,0 +1,58 @@
+{
+  "id": "models-hesper-works",
+  "description": "Hesper Directorate Works model names: a product line with an alphanumeric, a series or a trim level.",
+  "variables": [],
+  "rules": {
+    "model": [
+      "#line# #alnum#",
+      "#line# #alnum#",
+      "#line# #alnum#",
+      "#line# #trim#",
+      "#line# #trim#",
+      "#line# #series#",
+      "#line# #series# #trim#",
+      "#line# #roman# #trim#",
+      "#line# #alnum# #trim#",
+      "#line# #roman#",
+      "#aspire# #alnum#",
+      "#aspire# #trim#",
+      "#aspire# #series#",
+      "#aspire# #alnum# #trim#",
+      "#aspire#",
+      "#line# #series##letter#",
+      "#prefix#-#series#",
+      "#prefix#-#series# #trim#",
+      "#prefix# #aspire#",
+      "#aspire# #roman# #trim#"
+    ],
+    "line": [
+      "Sovereign", "Meridian", "Prestige", "Ascendant", "Apex", "Vantage", "Paragon", "Premier", "Envoy", "Regent",
+      "Equity", "Dividend", "Mandate", "Charter", "Concord", "Pinnacle", "Zenith", "Summit", "Halcyon", "Sterling",
+      "Imperial", "Tycoon", "Curator", "Magnate", "Proxy", "Patron", "Syndic", "Consul", "Legate", "Warrant",
+      "Fiduciary", "Trustee", "Arbiter", "Vector", "Signet", "Crest", "Aegis", "Solstice", "Cadence", "Lumen",
+      "Obsidian", "Onyx", "Jet", "Corvid", "Sable", "Gilt", "Bullion", "Ingot", "Aurum", "Amber"
+    ],
+    "aspire": [
+      "Aspire", "Ascend", "Ambition", "Merit", "Prosper", "Advance", "Elevate", "Surpass", "Exceed", "Thrive",
+      "Accrue", "Compound", "Leverage", "Yield", "Premium", "Distinction", "Eminence", "Pedigree", "Providence", "Fortune",
+      "Fortitude", "Primacy", "Precedent", "Authority", "Assurance", "Continuum", "Ledgerline", "Overture", "Cadenza", "Gilded Hour"
+    ],
+    "prefix": ["HD", "HX", "HW", "DX", "DS", "SX", "RX", "TX", "GX", "VX", "AX", "ZX", "LX", "QX", "PX"],
+    "alnum": [
+      "A1", "A2", "A4", "A7", "B3", "B5", "B9", "C2", "C6", "C8", "D4", "D5", "D9", "E1", "E3", "E7",
+      "F2", "F6", "G3", "G8", "H1", "H4", "H9", "J2", "J5", "K3", "K7", "L4", "L9", "M1", "M6", "N2",
+      "N8", "P3", "P5", "R2", "R7", "S1", "S4", "S9", "T3", "T6", "V2", "V8", "X1", "X5", "X9", "Z4"
+    ],
+    "series": [
+      "100", "120", "150", "200", "240", "250", "300", "350", "400", "450", "500", "600", "700", "750", "800", "900",
+      "1000", "1200", "1500", "2000", "2400", "3000", "4500", "5000", "7000"
+    ],
+    "letter": ["S", "X", "R", "T", "E", "L", "V", "G"],
+    "roman": ["II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XII"],
+    "trim": [
+      "Executive", "LX", "Signature", "Platinum", "Gold", "Black Label", "Director", "Chairman", "Select", "Reserve",
+      "Elite", "Prime", "Standard", "Business", "Concierge", "Boardroom", "Fiduciary", "Retainer", "Limited", "Collector",
+      "Heritage", "Sport", "Touring", "Corporate", "Preferred", "Founders", "Quarterly", "Annual", "Premium", "Express"
+    ]
+  }
+}

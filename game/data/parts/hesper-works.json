@@ -1,0 +1,1103 @@
+[
+ {
+  "id": "hd-drive-1-1",
+  "name": "Vector drive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 11000,
+  "description": "A slim, high-flow fusion drive. Quick off the line and priced to say so.",
+  "stats": {
+   "thrust": 760,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "hd-drive-1-2",
+  "name": "Vector drive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 17600,
+  "description": "A slim, high-flow fusion drive. Quick off the line and priced to say so. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "thrust": 821,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "hd-drive-1-3",
+  "name": "Vector drive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 28200,
+  "description": "A slim, high-flow fusion drive. Quick off the line and priced to say so. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "thrust": 886,
+   "speedFactor": 1.1
+  }
+ },
+ {
+  "id": "hd-drive-2-1",
+  "name": "Vector drive S2 Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 33000,
+  "description": "A twin-chamber drive with a gold-plated injector housing nobody will ever see.",
+  "stats": {
+   "thrust": 1900,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "hd-drive-2-2",
+  "name": "Vector drive S2 Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 52800,
+  "description": "A twin-chamber drive with a gold-plated injector housing nobody will ever see. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "thrust": 2052,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "hd-drive-2-3",
+  "name": "Vector drive S2 Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 84500,
+  "description": "A twin-chamber drive with a gold-plated injector housing nobody will ever see. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "thrust": 2216,
+   "speedFactor": 1.1
+  }
+ },
+ {
+  "id": "hd-drive-3-1",
+  "name": "Vector drive S3 Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 99000,
+  "description": "A mid-frame drive tuned for punctual freight. Delays are billable.",
+  "stats": {
+   "thrust": 4500,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "hd-drive-3-2",
+  "name": "Vector drive S3 Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 158400,
+  "description": "A mid-frame drive tuned for punctual freight. Delays are billable. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "thrust": 4860,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "hd-drive-3-3",
+  "name": "Vector drive S3 Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 253400,
+  "description": "A mid-frame drive tuned for punctual freight. Delays are billable. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "thrust": 5249,
+   "speedFactor": 1.1
+  }
+ },
+ {
+  "id": "hd-drive-4-1",
+  "name": "Vector drive S4 Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 297000,
+  "description": "A four-chamber drive stack. The extra thrust is on the invoice in two places.",
+  "stats": {
+   "thrust": 9000,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "hd-drive-4-2",
+  "name": "Vector drive S4 Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 475200,
+  "description": "A four-chamber drive stack. The extra thrust is on the invoice in two places. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "thrust": 9720,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "hd-drive-4-3",
+  "name": "Vector drive S4 Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 760300,
+  "description": "A four-chamber drive stack. The extra thrust is on the invoice in two places. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "thrust": 10498,
+   "speedFactor": 1.1
+  }
+ },
+ {
+  "id": "hd-drive-5-1",
+  "name": "Vector drive S5 Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 891000,
+  "description": "A keel-mounted drive stack that comes with a resident Directorate technician.",
+  "stats": {
+   "thrust": 16500,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "hd-drive-5-2",
+  "name": "Vector drive S5 Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 1425600,
+  "description": "A keel-mounted drive stack that comes with a resident Directorate technician. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "thrust": 17820,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "hd-drive-5-3",
+  "name": "Vector drive S5 Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 2281000,
+  "description": "A keel-mounted drive stack that comes with a resident Directorate technician. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "thrust": 19246,
+   "speedFactor": 1.1
+  }
+ },
+ {
+  "id": "hd-plant-1-1",
+  "name": "Equity reactor Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 9500,
+  "description": "Six pips and a tidy capacitor. Rated for the quarter, not the decade.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 63,
+   "capacitorRecharge": 12.0
+  }
+ },
+ {
+  "id": "hd-plant-1-2",
+  "name": "Equity reactor Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 15200,
+  "description": "Six pips and a tidy capacitor. Rated for the quarter, not the decade. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 69,
+   "capacitorRecharge": 13.2
+  }
+ },
+ {
+  "id": "hd-plant-1-3",
+  "name": "Equity reactor Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 24300,
+  "description": "Six pips and a tidy capacitor. Rated for the quarter, not the decade. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 76,
+   "capacitorRecharge": 14.5
+  }
+ },
+ {
+  "id": "hd-plant-2-1",
+  "name": "Equity reactor S2 Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 28500,
+  "description": "A compact reactor with an efficient capacitor bank.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 94,
+   "capacitorRecharge": 16.8
+  }
+ },
+ {
+  "id": "hd-plant-2-2",
+  "name": "Equity reactor S2 Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 45600,
+  "description": "A compact reactor with an efficient capacitor bank. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 104,
+   "capacitorRecharge": 18.5
+  }
+ },
+ {
+  "id": "hd-plant-2-3",
+  "name": "Equity reactor S2 Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 73000,
+  "description": "A compact reactor with an efficient capacitor bank. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 114,
+   "capacitorRecharge": 20.3
+  }
+ },
+ {
+  "id": "hd-plant-3-1",
+  "name": "Equity reactor S3 Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 85500,
+  "description": "A balanced-load reactor stack. Its output is audited monthly.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 142,
+   "capacitorRecharge": 23.5
+  }
+ },
+ {
+  "id": "hd-plant-3-2",
+  "name": "Equity reactor S3 Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 136800,
+  "description": "A balanced-load reactor stack. Its output is audited monthly. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 156,
+   "capacitorRecharge": 25.9
+  }
+ },
+ {
+  "id": "hd-plant-3-3",
+  "name": "Equity reactor S3 Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 218900,
+  "description": "A balanced-load reactor stack. Its output is audited monthly. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 172,
+   "capacitorRecharge": 28.5
+  }
+ },
+ {
+  "id": "hd-plant-4-1",
+  "name": "Equity reactor S4 Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 256500,
+  "description": "A heavy reactor with a polished casing and a conservative safety margin.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 213,
+   "capacitorRecharge": 32.9
+  }
+ },
+ {
+  "id": "hd-plant-4-2",
+  "name": "Equity reactor S4 Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 410400,
+  "description": "A heavy reactor with a polished casing and a conservative safety margin. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 234,
+   "capacitorRecharge": 36.2
+  }
+ },
+ {
+  "id": "hd-plant-4-3",
+  "name": "Equity reactor S4 Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 656600,
+  "description": "A heavy reactor with a polished casing and a conservative safety margin. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 257,
+   "capacitorRecharge": 39.8
+  }
+ },
+ {
+  "id": "hd-plant-5-1",
+  "name": "Equity reactor S5 Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 769500,
+  "description": "A yard-grade reactor. The casing is polished, the maintenance schedule is not.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 319,
+   "capacitorRecharge": 46.1
+  }
+ },
+ {
+  "id": "hd-plant-5-2",
+  "name": "Equity reactor S5 Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 1231200,
+  "description": "A yard-grade reactor. The casing is polished, the maintenance schedule is not. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 351,
+   "capacitorRecharge": 50.7
+  }
+ },
+ {
+  "id": "hd-plant-5-3",
+  "name": "Equity reactor S5 Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 1969900,
+  "description": "A yard-grade reactor. The casing is polished, the maintenance schedule is not. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 386,
+   "capacitorRecharge": 55.8
+  }
+ },
+ {
+  "id": "hd-shield-1-1",
+  "name": "Indemnity shield Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 10000,
+  "description": "A thin, quick-cycling field generator. Light and costly.",
+  "stats": {
+   "capacity": 76,
+   "recharge": 6.8,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "hd-shield-1-2",
+  "name": "Indemnity shield Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 16000,
+  "description": "A thin, quick-cycling field generator. Light and costly. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "capacity": 84,
+   "recharge": 7.5,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "hd-shield-1-3",
+  "name": "Indemnity shield Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 25600,
+  "description": "A thin, quick-cycling field generator. Light and costly. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "capacity": 92,
+   "recharge": 8.3,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "hd-shield-2-1",
+  "name": "Indemnity shield S2 Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 30000,
+  "description": "A flat-panel field generator that recharges briskly once the shooting stops.",
+  "stats": {
+   "capacity": 171,
+   "recharge": 15.4,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "hd-shield-2-2",
+  "name": "Indemnity shield S2 Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 48000,
+  "description": "A flat-panel field generator that recharges briskly once the shooting stops. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "capacity": 188,
+   "recharge": 16.9,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "hd-shield-2-3",
+  "name": "Indemnity shield S2 Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 76800,
+  "description": "A flat-panel field generator that recharges briskly once the shooting stops. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "capacity": 207,
+   "recharge": 18.6,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "hd-shield-3-1",
+  "name": "Indemnity shield S3 Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 90000,
+  "description": "A gunship-grade generator with a very short recovery window.",
+  "stats": {
+   "capacity": 361,
+   "recharge": 32.5,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "hd-shield-3-2",
+  "name": "Indemnity shield S3 Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 144000,
+  "description": "A gunship-grade generator with a very short recovery window. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "capacity": 397,
+   "recharge": 35.7,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "hd-shield-3-3",
+  "name": "Indemnity shield S3 Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 230400,
+  "description": "A gunship-grade generator with a very short recovery window. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "capacity": 437,
+   "recharge": 39.3,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "hd-shield-4-1",
+  "name": "Indemnity shield S4 Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 270000,
+  "description": "A broad array with an interest in preserving the asset.",
+  "stats": {
+   "capacity": 665,
+   "recharge": 59.8,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "hd-shield-4-2",
+  "name": "Indemnity shield S4 Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 432000,
+  "description": "A broad array with an interest in preserving the asset. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "capacity": 732,
+   "recharge": 65.8,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "hd-shield-4-3",
+  "name": "Indemnity shield S4 Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 691200,
+  "description": "A broad array with an interest in preserving the asset. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "capacity": 805,
+   "recharge": 72.4,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "hd-shield-5-1",
+  "name": "Indemnity shield S5 Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 810000,
+  "description": "A yard-scale array, insured against everything but the fighting.",
+  "stats": {
+   "capacity": 1140,
+   "recharge": 102.6,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "hd-shield-5-2",
+  "name": "Indemnity shield S5 Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 1296000,
+  "description": "A yard-scale array, insured against everything but the fighting. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "capacity": 1254,
+   "recharge": 112.9,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "hd-shield-5-3",
+  "name": "Indemnity shield S5 Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 2073600,
+  "description": "A yard-scale array, insured against everything but the fighting. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "capacity": 1379,
+   "recharge": 124.1,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "hd-sensor-1-1",
+  "name": "Oversight array Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 7000,
+  "description": "A flat-panel sensor with a clean readout and a subscription for the firmware.",
+  "stats": {
+   "range": 6500
+  }
+ },
+ {
+  "id": "hd-sensor-1-2",
+  "name": "Oversight array Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 11200,
+  "description": "A flat-panel sensor with a clean readout and a subscription for the firmware. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "range": 7500
+  }
+ },
+ {
+  "id": "hd-sensor-1-3",
+  "name": "Oversight array Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 17900,
+  "description": "A flat-panel sensor with a clean readout and a subscription for the firmware. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "range": 8500
+  }
+ },
+ {
+  "id": "hd-sensor-2-1",
+  "name": "Oversight array S2 Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 21000,
+  "description": "A phased array with a long-range scan mode and an upsell for the rest.",
+  "stats": {
+   "range": 9500
+  }
+ },
+ {
+  "id": "hd-sensor-2-2",
+  "name": "Oversight array S2 Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 33600,
+  "description": "A phased array with a long-range scan mode and an upsell for the rest. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "range": 10500
+  }
+ },
+ {
+  "id": "hd-sensor-2-3",
+  "name": "Oversight array S2 Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 53800,
+  "description": "A phased array with a long-range scan mode and an upsell for the rest. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "range": 11500
+  }
+ },
+ {
+  "id": "hd-sensor-3-1",
+  "name": "Oversight array S3 Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 63000,
+  "description": "A wide-aperture array that reads cargo manifests before the pilot does.",
+  "stats": {
+   "range": 12500
+  }
+ },
+ {
+  "id": "hd-sensor-3-2",
+  "name": "Oversight array S3 Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 100800,
+  "description": "A wide-aperture array that reads cargo manifests before the pilot does. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "range": 13500
+  }
+ },
+ {
+  "id": "hd-sensor-3-3",
+  "name": "Oversight array S3 Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 161300,
+  "description": "A wide-aperture array that reads cargo manifests before the pilot does. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "range": 14500
+  }
+ },
+ {
+  "id": "hd-lance-1-1",
+  "name": "Auditor lance Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 7500,
+  "color": "#ffc23a",
+  "description": "A fast, accurate pulse lance that draws very little power.",
+  "stats": {
+   "damage": 7.0,
+   "fireRate": 5.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-1-2",
+  "name": "Auditor lance Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 12000,
+  "color": "#ffc23a",
+  "description": "A fast, accurate pulse lance that draws very little power. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "damage": 7.7,
+   "fireRate": 5.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-1-3",
+  "name": "Auditor lance Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 19200,
+  "color": "#ffc23a",
+  "description": "A fast, accurate pulse lance that draws very little power. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "damage": 8.5,
+   "fireRate": 5.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-2-1",
+  "name": "Auditor lance S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 22500,
+  "color": "#ffc23a",
+  "description": "A twin-emitter lance with a tight, bright beam.",
+  "stats": {
+   "damage": 14.0,
+   "fireRate": 4.0,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-2-2",
+  "name": "Auditor lance S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 36000,
+  "color": "#ffc23a",
+  "description": "A twin-emitter lance with a tight, bright beam. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "damage": 15.4,
+   "fireRate": 4.0,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-2-3",
+  "name": "Auditor lance S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 57600,
+  "color": "#ffc23a",
+  "description": "A twin-emitter lance with a tight, bright beam. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "damage": 16.9,
+   "fireRate": 4.0,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-3-1",
+  "name": "Auditor lance S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 67500,
+  "color": "#ffc23a",
+  "description": "A turret-class lance. Clean, precise and expensive to replace.",
+  "stats": {
+   "damage": 28.0,
+   "fireRate": 3.2,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-3-2",
+  "name": "Auditor lance S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 108000,
+  "color": "#ffc23a",
+  "description": "A turret-class lance. Clean, precise and expensive to replace. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "damage": 30.8,
+   "fireRate": 3.2,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-lance-3-3",
+  "name": "Auditor lance S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 172800,
+  "color": "#ffc23a",
+  "description": "A turret-class lance. Clean, precise and expensive to replace. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "damage": 33.9,
+   "fireRate": 3.2,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 1200,
+   "range": 2200
+  }
+ },
+ {
+  "id": "hd-rail-1-1",
+  "name": "Arbitrage railgun Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 8500,
+  "color": "#fff0c0",
+  "description": "A light railgun that settles disputes at long range.",
+  "stats": {
+   "damage": 20.0,
+   "fireRate": 1.6,
+   "energyPerShot": 3.5,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-1-2",
+  "name": "Arbitrage railgun Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 13600,
+  "color": "#fff0c0",
+  "description": "A light railgun that settles disputes at long range. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "damage": 22.0,
+   "fireRate": 1.6,
+   "energyPerShot": 3.5,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-1-3",
+  "name": "Arbitrage railgun Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 21800,
+  "color": "#fff0c0",
+  "description": "A light railgun that settles disputes at long range. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "damage": 24.2,
+   "fireRate": 1.6,
+   "energyPerShot": 3.5,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-2-1",
+  "name": "Arbitrage railgun S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 25500,
+  "color": "#fff0c0",
+  "description": "A coil railgun with a gold-plated barrel shroud.",
+  "stats": {
+   "damage": 40.0,
+   "fireRate": 1.28,
+   "energyPerShot": 6.3,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-2-2",
+  "name": "Arbitrage railgun S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 40800,
+  "color": "#fff0c0",
+  "description": "A coil railgun with a gold-plated barrel shroud. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "damage": 44.0,
+   "fireRate": 1.28,
+   "energyPerShot": 6.3,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-2-3",
+  "name": "Arbitrage railgun S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 65300,
+  "color": "#fff0c0",
+  "description": "A coil railgun with a gold-plated barrel shroud. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "damage": 48.4,
+   "fireRate": 1.28,
+   "energyPerShot": 6.3,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-3-1",
+  "name": "Arbitrage railgun S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 76500,
+  "color": "#fff0c0",
+  "description": "A turret railgun. Very accurate, with a muzzle flash that photographs well.",
+  "stats": {
+   "damage": 80.0,
+   "fireRate": 1.02,
+   "energyPerShot": 11.3,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-3-2",
+  "name": "Arbitrage railgun S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "hesper-works",
+  "price": 122400,
+  "color": "#fff0c0",
+  "description": "A turret railgun. Very accurate, with a muzzle flash that photographs well. Revised tolerances, sold as the premium tier.",
+  "stats": {
+   "damage": 88.0,
+   "fireRate": 1.02,
+   "energyPerShot": 11.3,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "hd-rail-3-3",
+  "name": "Arbitrage railgun S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "hesper-works",
+  "price": 195800,
+  "color": "#fff0c0",
+  "description": "A turret railgun. Very accurate, with a muzzle flash that photographs well. The flagship tier, with a service plan that costs more than the part.",
+  "stats": {
+   "damage": 96.8,
+   "fireRate": 1.02,
+   "energyPerShot": 11.3,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ }
+]
