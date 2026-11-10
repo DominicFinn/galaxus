@@ -1,0 +1,21 @@
+{
+  "id": "synod-forges",
+  "name": "Lantern Synod Forges",
+  "race": "human",
+  "region": "inner",
+  "culture": "Lantern Synod",
+  "style": "Devotional: tall cathedral silhouettes, rings and arches, spires and vanes, with lantern-gold windows",
+  "bias": "Sturdy shields and sharp sensors for hunting rim tech, but modest speed",
+  "statBias": {
+    "shields": 1.15,
+    "sensors": 1.1,
+    "speed": 0.95
+  },
+  "palette": {
+    "hull": "#e6dcc4",
+    "accent": "#8a1f26",
+    "trim": "#9c7a3c",
+    "glow": "#ffc65a"
+  },
+  "modelNameGrammar": "models-synod-forges"
+}

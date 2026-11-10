@@ -1,0 +1,12 @@
+{
+  "id": "tolland-wrights",
+  "name": "Tolland Reach Shipwrights",
+  "race": "human",
+  "region": "outer",
+  "culture": "Tolland Compact",
+  "style": "Boxy, patched and bolted together",
+  "bias": "Rugged, versatile and cheap, but heavy for their size and a little slow",
+  "statBias": { "hull": 1.15, "speed": 0.95 },
+  "palette": { "hull": "#9a4a30", "accent": "#d8ccaa", "trim": "#5f6a3c", "glow": "#ff9a3c" },
+  "modelNameGrammar": "models-tolland-wrights"
+}

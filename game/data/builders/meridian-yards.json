@@ -1,0 +1,21 @@
+{
+ "id": "meridian-yards",
+ "name": "Meridian Concord Naval Yards",
+ "race": "human",
+ "region": "core",
+ "culture": "Meridian Concord",
+ "style": "Formal, symmetrical and navy-grade, with ceremonial fins",
+ "bias": "Strong shields and sensors, overbuilt and expensive, a little slow to accelerate",
+ "statBias": {
+  "shields": 1.2,
+  "sensors": 1.15,
+  "acceleration": 0.9
+ },
+ "palette": {
+  "hull": "#e4e7ee",
+  "accent": "#1c3a82",
+  "trim": "#d4af37",
+  "glow": "#a8dcff"
+ },
+ "modelNameGrammar": "models-meridian-yards"
+}

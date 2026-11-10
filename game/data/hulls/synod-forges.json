@@ -1,0 +1,3544 @@
+[
+ {
+  "id": "ls-votary",
+  "name": "Votary",
+  "builder": "synod-forges",
+  "class": "fighter",
+  "description": "A single-seat defence craft with a ring of bronze round its tail. Parishes fly it in pairs and call it a guardian.",
+  "price": 52000,
+  "mass": 20,
+  "baseSpeed": 112,
+  "pitchRate": 78,
+  "yawRate": 56,
+  "rollRate": 160,
+  "hullPoints": 130,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 2,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -3.4,
+     -0.1,
+     -1.2
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.4,
+     -0.1,
+     -1.2
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-1-3",
+   "ls-plant-1-1",
+   "ls-shield-1-1",
+   "ls-sensor-1-1",
+   "ls-censer-1-1",
+   "ls-censer-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     2.0,
+     2.4
+    ],
+    "front": [
+     0.7,
+     0.9
+    ],
+    "length": 9.5,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -5.6
+    ],
+    "back": [
+     0.7,
+     0.9
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 1.8,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     1.0,
+     -1.8
+    ],
+    "back": [
+     0.9,
+     0.2
+    ],
+    "front": [
+     0.5,
+     0.1
+    ],
+    "length": 2.4,
+    "color": "glow",
+    "skew": [
+     0,
+     -0.1
+    ]
+   },
+   {
+    "position": [
+     0,
+     2.0,
+     2.2
+    ],
+    "back": [
+     0.3,
+     2.8
+    ],
+    "front": [
+     0.12,
+     1.0
+    ],
+    "length": 4.0,
+    "color": "accent",
+    "skew": [
+     0,
+     -0.3
+    ]
+   },
+   {
+    "position": [
+     0,
+     2.598,
+     2.4
+    ],
+    "back": [
+     3.24,
+     0.4
+    ],
+    "front": [
+     3.24,
+     0.4
+    ],
+    "length": 0.9,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -2.598,
+     2.4
+    ],
+    "back": [
+     3.24,
+     0.4
+    ],
+    "front": [
+     3.24,
+     0.4
+    ],
+    "length": 0.9,
+    "color": "trim"
+   },
+   {
+    "position": [
+     2.25,
+     1.299,
+     2.4
+    ],
+    "back": [
+     3.24,
+     0.4
+    ],
+    "front": [
+     3.24,
+     0.4
+    ],
+    "length": 0.9,
+    "color": "trim",
+    "roll": -60,
+    "mirror": true
+   },
+   {
+    "position": [
+     2.25,
+     -1.299,
+     2.4
+    ],
+    "back": [
+     3.24,
+     0.4
+    ],
+    "front": [
+     3.24,
+     0.4
+    ],
+    "length": 0.9,
+    "color": "trim",
+    "roll": 60,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     2.4
+    ],
+    "back": [
+     5.0,
+     0.3
+    ],
+    "front": [
+     5.0,
+     0.3
+    ],
+    "length": 0.7,
+    "color": "hull"
+   },
+   {
+    "position": [
+     2.0,
+     -0.1,
+     0.2
+    ],
+    "back": [
+     3.2,
+     0.2
+    ],
+    "front": [
+     1.6,
+     0.15
+    ],
+    "length": 3.2,
+    "color": "hull",
+    "skew": [
+     0.4,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     4.7
+    ],
+    "back": [
+     1.6,
+     1.8
+    ],
+    "front": [
+     2.0,
+     2.2
+    ],
+    "length": 1.2,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.4
+    ],
+    "back": [
+     1.7,
+     1.9
+    ],
+    "front": [
+     1.7,
+     1.9
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     1.0,
+     0.1,
+     -0.5
+    ],
+    "back": [
+     0.1,
+     0.6
+    ],
+    "front": [
+     0.1,
+     0.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.0,
+     0.1,
+     1.0
+    ],
+    "back": [
+     0.1,
+     0.6
+    ],
+    "front": [
+     0.1,
+     0.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "ls-seeker",
+  "name": "Seeker",
+  "builder": "synod-forges",
+  "class": "fighter",
+  "description": "An inquisitor's interceptor. Its detector ring sweeps ahead of the nose and it does not tire.",
+  "price": 74000,
+  "mass": 18,
+  "baseSpeed": 122,
+  "pitchRate": 88,
+  "yawRate": 62,
+  "rollRate": 175,
+  "hullPoints": 105,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 1,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.2,
+     -0.2,
+     -2.5
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.2,
+     -0.2,
+     -2.5
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.9,
+     -4.0
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-1-2",
+   "ls-plant-1-1",
+   "ls-shield-1-1",
+   "ls-sensor-1-2",
+   "ls-rim-detector-1",
+   "ls-lantern-1-1",
+   "ls-lantern-1-1",
+   "ls-censer-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.5
+    ],
+    "back": [
+     1.5,
+     1.7
+    ],
+    "front": [
+     0.5,
+     0.6
+    ],
+    "length": 10.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -5.8
+    ],
+    "back": [
+     0.5,
+     0.6
+    ],
+    "front": [
+     0.08,
+     0.08
+    ],
+    "length": 2.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0.8,
+     -0.8
+    ],
+    "back": [
+     0.7,
+     0.2
+    ],
+    "front": [
+     0.4,
+     0.1
+    ],
+    "length": 2.6,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     2.944,
+     -3.0
+    ],
+    "back": [
+     3.58,
+     0.3
+    ],
+    "front": [
+     3.58,
+     0.3
+    ],
+    "length": 0.7,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -2.944,
+     -3.0
+    ],
+    "back": [
+     3.58,
+     0.3
+    ],
+    "front": [
+     3.58,
+     0.3
+    ],
+    "length": 0.7,
+    "color": "trim"
+   },
+   {
+    "position": [
+     2.55,
+     1.472,
+     -3.0
+    ],
+    "back": [
+     3.58,
+     0.3
+    ],
+    "front": [
+     3.58,
+     0.3
+    ],
+    "length": 0.7,
+    "color": "trim",
+    "roll": -60,
+    "mirror": true
+   },
+   {
+    "position": [
+     2.55,
+     -1.472,
+     -3.0
+    ],
+    "back": [
+     3.58,
+     0.3
+    ],
+    "front": [
+     3.58,
+     0.3
+    ],
+    "length": 0.7,
+    "color": "trim",
+    "roll": 60,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     -3.0
+    ],
+    "back": [
+     0.5,
+     6.0
+    ],
+    "front": [
+     0.5,
+     6.0
+    ],
+    "length": 0.3,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -3.0
+    ],
+    "back": [
+     6.0,
+     0.4
+    ],
+    "front": [
+     6.0,
+     0.4
+    ],
+    "length": 0.3,
+    "color": "hull"
+   },
+   {
+    "position": [
+     2.2,
+     -0.1,
+     2.5
+    ],
+    "back": [
+     3.8,
+     0.18
+    ],
+    "front": [
+     1.4,
+     0.12
+    ],
+    "length": 4.2,
+    "color": "hull",
+    "skew": [
+     1.0,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     3.7,
+     0.4,
+     3.2
+    ],
+    "back": [
+     0.15,
+     1.4
+    ],
+    "front": [
+     0.1,
+     0.6
+    ],
+    "length": 2.6,
+    "color": "accent",
+    "skew": [
+     0.5,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     1.4,
+     3.0
+    ],
+    "back": [
+     0.2,
+     1.8
+    ],
+    "front": [
+     0.1,
+     0.6
+    ],
+    "length": 3.0,
+    "color": "accent",
+    "skew": [
+     0,
+     -0.3
+    ]
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.6
+    ],
+    "back": [
+     1.4,
+     1.5
+    ],
+    "front": [
+     1.8,
+     1.9
+    ],
+    "length": 1.2,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     6.3
+    ],
+    "back": [
+     1.5,
+     1.6
+    ],
+    "front": [
+     1.5,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.8,
+     0.1,
+     1.5
+    ],
+    "back": [
+     0.1,
+     0.5
+    ],
+    "front": [
+     0.1,
+     0.5
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "ls-pilgrim",
+  "name": "Pilgrim",
+  "builder": "synod-forges",
+  "class": "courier",
+  "description": "A stout little pilgrim ship with a lit arch at the prow. It carries a few pilgrims or a few crates, and has never turned either away.",
+  "price": 62000,
+  "mass": 22,
+  "baseSpeed": 138,
+  "pitchRate": 62,
+  "yawRate": 48,
+  "rollRate": 125,
+  "hullPoints": 110,
+  "radius": 9,
+  "crewBerths": 1,
+  "cargoTonnes": 14,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -3.0,
+     -0.5,
+     -3.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-1-3",
+   "ls-plant-1-1",
+   "ls-shield-1-2",
+   "ls-sensor-1-1",
+   "ls-censer-1-1",
+   "ls-cradle-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     3.2,
+     3.0
+    ],
+    "front": [
+     2.0,
+     2.0
+    ],
+    "length": 12.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -7.0
+    ],
+    "back": [
+     2.0,
+     2.0
+    ],
+    "front": [
+     0.3,
+     0.4
+    ],
+    "length": 2.5,
+    "color": "accent"
+   },
+   {
+    "position": [
+     1.0,
+     0.0,
+     -4.0
+    ],
+    "back": [
+     0.35,
+     2.4
+    ],
+    "front": [
+     0.35,
+     2.4
+    ],
+    "length": 0.6,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.5,
+     2.0,
+     -4.0
+    ],
+    "back": [
+     2.0617962264113205,
+     0.35
+    ],
+    "front": [
+     2.0617962264113205,
+     0.35
+    ],
+    "length": 0.6,
+    "color": "trim",
+    "roll": -57.9946167919165,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0.2,
+     -5.2
+    ],
+    "back": [
+     1.4,
+     2.0
+    ],
+    "front": [
+     1.4,
+     2.0
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     1.8,
+     1.0
+    ],
+    "back": [
+     2.4,
+     0.5
+    ],
+    "front": [
+     2.4,
+     0.5
+    ],
+    "length": 5.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     3.0,
+     2.0
+    ],
+    "back": [
+     0.3,
+     3.0
+    ],
+    "front": [
+     0.1,
+     1.0
+    ],
+    "length": 3.0,
+    "color": "trim",
+    "skew": [
+     0,
+     -0.2
+    ]
+   },
+   {
+    "position": [
+     2.3,
+     -0.4,
+     0.5
+    ],
+    "back": [
+     1.0,
+     1.6
+    ],
+    "front": [
+     0.8,
+     1.2
+    ],
+    "length": 6.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.9,
+     0.3,
+     0.5
+    ],
+    "back": [
+     0.2,
+     1.0
+    ],
+    "front": [
+     0.2,
+     0.6
+    ],
+    "length": 5.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.62,
+     0.2,
+     -1.5
+    ],
+    "back": [
+     0.1,
+     0.8
+    ],
+    "front": [
+     0.1,
+     0.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.62,
+     0.2,
+     0.0
+    ],
+    "back": [
+     0.1,
+     0.8
+    ],
+    "front": [
+     0.1,
+     0.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.62,
+     0.2,
+     1.5
+    ],
+    "back": [
+     0.1,
+     0.8
+    ],
+    "front": [
+     0.1,
+     0.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.62,
+     0.2,
+     3.0
+    ],
+    "back": [
+     0.1,
+     0.8
+    ],
+    "front": [
+     0.1,
+     0.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.1,
+     0,
+     6.6
+    ],
+    "back": [
+     1.5,
+     1.7
+    ],
+    "front": [
+     1.875,
+     2.125
+    ],
+    "length": 1.2,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.1,
+     0,
+     7.25
+    ],
+    "back": [
+     1.6500000000000001,
+     1.87
+    ],
+    "front": [
+     1.6500000000000001,
+     1.87
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "ls-herald",
+  "name": "Herald",
+  "builder": "synod-forges",
+  "class": "courier",
+  "description": "A fast courier for Synod letters and relief orders. A tall spire carries its transponder and, the Synod says, its good name.",
+  "price": 70000,
+  "mass": 19,
+  "baseSpeed": 150,
+  "pitchRate": 66,
+  "yawRate": 52,
+  "rollRate": 135,
+  "hullPoints": 95,
+  "radius": 8,
+  "crewBerths": 0,
+  "cargoTonnes": 10,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -1.8,
+     -1.1,
+     -3.5
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-1-2",
+   "ls-plant-1-1",
+   "ls-shield-1-1",
+   "ls-sensor-1-1",
+   "ls-lantern-1-1",
+   "ls-cradle-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     1.8,
+     1.8
+    ],
+    "front": [
+     0.8,
+     1.0
+    ],
+    "length": 11.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -6.4
+    ],
+    "back": [
+     0.8,
+     1.0
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 2.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0.9,
+     -2.0
+    ],
+    "back": [
+     0.8,
+     0.2
+    ],
+    "front": [
+     0.5,
+     0.1
+    ],
+    "length": 2.4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     2.6,
+     0.0
+    ],
+    "back": [
+     0.35,
+     4.6
+    ],
+    "front": [
+     0.12,
+     1.2
+    ],
+    "length": 6.0,
+    "color": "accent",
+    "skew": [
+     0,
+     -0.2
+    ]
+   },
+   {
+    "position": [
+     0,
+     3.637,
+     2.0
+    ],
+    "back": [
+     4.44,
+     0.4
+    ],
+    "front": [
+     4.44,
+     0.4
+    ],
+    "length": 0.8,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -3.637,
+     2.0
+    ],
+    "back": [
+     4.44,
+     0.4
+    ],
+    "front": [
+     4.44,
+     0.4
+    ],
+    "length": 0.8,
+    "color": "trim"
+   },
+   {
+    "position": [
+     3.15,
+     1.819,
+     2.0
+    ],
+    "back": [
+     4.44,
+     0.4
+    ],
+    "front": [
+     4.44,
+     0.4
+    ],
+    "length": 0.8,
+    "color": "trim",
+    "roll": -60,
+    "mirror": true
+   },
+   {
+    "position": [
+     3.15,
+     -1.819,
+     2.0
+    ],
+    "back": [
+     4.44,
+     0.4
+    ],
+    "front": [
+     4.44,
+     0.4
+    ],
+    "length": 0.8,
+    "color": "trim",
+    "roll": 60,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     2.0
+    ],
+    "back": [
+     8.0,
+     0.3
+    ],
+    "front": [
+     8.0,
+     0.3
+    ],
+    "length": 0.6,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     2.0
+    ],
+    "back": [
+     0.3,
+     6.0
+    ],
+    "front": [
+     0.3,
+     6.0
+    ],
+    "length": 0.6,
+    "color": "hull"
+   },
+   {
+    "position": [
+     3.4,
+     0,
+     2.0
+    ],
+    "back": [
+     1.6,
+     2.0
+    ],
+    "front": [
+     1.6,
+     2.0
+    ],
+    "length": 3.2,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -1.1,
+     -0.5
+    ],
+    "back": [
+     1.6,
+     1.2
+    ],
+    "front": [
+     1.0,
+     0.8
+    ],
+    "length": 4.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.4
+    ],
+    "back": [
+     1.5,
+     1.5
+    ],
+    "front": [
+     1.875,
+     1.875
+    ],
+    "length": 1.2,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     6.05
+    ],
+    "back": [
+     1.6500000000000001,
+     1.6500000000000001
+    ],
+    "front": [
+     1.6500000000000001,
+     1.6500000000000001
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.95,
+     0.1,
+     -1.0
+    ],
+    "back": [
+     0.1,
+     0.5
+    ],
+    "front": [
+     0.1,
+     0.5
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.4,
+     0.9,
+     2.0
+    ],
+    "back": [
+     0.7,
+     0.12
+    ],
+    "front": [
+     0.7,
+     0.12
+    ],
+    "length": 3.0,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "ls-lamplighter",
+  "name": "Lamplighter",
+  "builder": "synod-forges",
+  "class": "explorer",
+  "description": "A gate-tender's explorer. The great ring on its prow is a working survey frame, and a lamp on the mast shows where the Synod has been.",
+  "price": 190000,
+  "mass": 66,
+  "baseSpeed": 106,
+  "pitchRate": 46,
+  "yawRate": 36,
+  "rollRate": 85,
+  "hullPoints": 260,
+  "radius": 14,
+  "crewBerths": 3,
+  "cargoTonnes": 22,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.0,
+     -1.5,
+     -6.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.0,
+     -1.5,
+     -6.0
+    ]
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-2-3",
+   "ls-plant-2-1",
+   "ls-shield-2-2",
+   "ls-sensor-3-2",
+   "ls-lantern-1-1",
+   "ls-lantern-1-1",
+   "ls-gate-surveyor-1",
+   "ls-rim-detector-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     4.2,
+     4.0
+    ],
+    "front": [
+     2.4,
+     2.6
+    ],
+    "length": 24.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -14.5
+    ],
+    "back": [
+     2.4,
+     2.6
+    ],
+    "front": [
+     0.4,
+     0.5
+    ],
+    "length": 5.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     8.227,
+     -10.0
+    ],
+    "back": [
+     10.04,
+     0.9
+    ],
+    "front": [
+     10.04,
+     0.9
+    ],
+    "length": 1.6,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -8.227,
+     -10.0
+    ],
+    "back": [
+     10.04,
+     0.9
+    ],
+    "front": [
+     10.04,
+     0.9
+    ],
+    "length": 1.6,
+    "color": "trim"
+   },
+   {
+    "position": [
+     7.125,
+     4.114,
+     -10.0
+    ],
+    "back": [
+     10.04,
+     0.9
+    ],
+    "front": [
+     10.04,
+     0.9
+    ],
+    "length": 1.6,
+    "color": "trim",
+    "roll": -60,
+    "mirror": true
+   },
+   {
+    "position": [
+     7.125,
+     -4.114,
+     -10.0
+    ],
+    "back": [
+     10.04,
+     0.9
+    ],
+    "front": [
+     10.04,
+     0.9
+    ],
+    "length": 1.6,
+    "color": "trim",
+    "roll": 60,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     -10.0
+    ],
+    "back": [
+     1.0,
+     18
+    ],
+    "front": [
+     1.0,
+     18
+    ],
+    "length": 0.8,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -10.0
+    ],
+    "back": [
+     17,
+     1.0
+    ],
+    "front": [
+     17,
+     1.0
+    ],
+    "length": 0.8,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -10.0
+    ],
+    "back": [
+     3.0,
+     3.0
+    ],
+    "front": [
+     3.0,
+     3.0
+    ],
+    "length": 0.9,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     2.8,
+     2.0
+    ],
+    "back": [
+     1.2,
+     2.0
+    ],
+    "front": [
+     0.8,
+     1.2
+    ],
+    "length": 10.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     6.5,
+     3.0
+    ],
+    "back": [
+     0.5,
+     6.0
+    ],
+    "front": [
+     0.15,
+     1.4
+    ],
+    "length": 5.0,
+    "color": "trim",
+    "skew": [
+     0,
+     -0.4
+    ]
+   },
+   {
+    "position": [
+     0,
+     10.0,
+     2.4
+    ],
+    "back": [
+     0.8,
+     0.8
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 0.5,
+    "color": "glow"
+   },
+   {
+    "position": [
+     3.6,
+     -0.8,
+     2.0
+    ],
+    "back": [
+     2.4,
+     2.4
+    ],
+    "front": [
+     2.0,
+     2.0
+    ],
+    "length": 10.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     5.0,
+     0.8,
+     2.0
+    ],
+    "back": [
+     0.3,
+     3.0
+    ],
+    "front": [
+     0.2,
+     1.5
+    ],
+    "length": 9.0,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.15,
+     0.6,
+     -4.0
+    ],
+    "back": [
+     0.1,
+     0.9
+    ],
+    "front": [
+     0.1,
+     0.9
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.15,
+     0.6,
+     -1.0
+    ],
+    "back": [
+     0.1,
+     0.9
+    ],
+    "front": [
+     0.1,
+     0.9
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.15,
+     0.6,
+     2.0
+    ],
+    "back": [
+     0.1,
+     0.9
+    ],
+    "front": [
+     0.1,
+     0.9
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.15,
+     0.6,
+     5.0
+    ],
+    "back": [
+     0.1,
+     0.9
+    ],
+    "front": [
+     0.1,
+     0.9
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.6,
+     0,
+     12.6
+    ],
+    "back": [
+     2.2,
+     2.4
+    ],
+    "front": [
+     2.75,
+     3.0
+    ],
+    "length": 1.2,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.6,
+     0,
+     13.25
+    ],
+    "back": [
+     2.4200000000000004,
+     2.64
+    ],
+    "front": [
+     2.4200000000000004,
+     2.64
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -2.8,
+     -4.0
+    ],
+    "back": [
+     1.6,
+     1.6
+    ],
+    "front": [
+     1.0,
+     1.0
+    ],
+    "length": 8.0,
+    "color": "trim"
+   }
+  ]
+ },
+ {
+  "id": "ls-cathedra",
+  "name": "Cathedra",
+  "builder": "synod-forges",
+  "class": "gunship",
+  "description": "A warship in the shape of a cathedral. Twin spires over the stern, a lantern lance in the nave and a censer battery down each flank.",
+  "price": 380000,
+  "mass": 100,
+  "baseSpeed": 86,
+  "pitchRate": 40,
+  "yawRate": 32,
+  "rollRate": 70,
+  "hullPoints": 460,
+  "radius": 19,
+  "crewBerths": 3,
+  "cargoTonnes": 6,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     0,
+     -2.0,
+     -21.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -6.0,
+     -0.6,
+     -9.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     6.0,
+     -0.6,
+     -9.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -6.0,
+     -0.6,
+     -6.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     6.0,
+     -0.6,
+     -6.0
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-2-3",
+   "ls-plant-3-1",
+   "ls-shield-3-1",
+   "ls-sensor-2-1",
+   "ls-lantern-3-1",
+   "ls-censer-2-1",
+   "ls-censer-2-1",
+   "ls-censer-2-2",
+   "ls-censer-2-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -2.0
+    ],
+    "back": [
+     6.0,
+     6.0
+    ],
+    "front": [
+     5.0,
+     5.0
+    ],
+    "length": 26.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -18.0
+    ],
+    "back": [
+     5.0,
+     5.0
+    ],
+    "front": [
+     1.2,
+     1.4
+    ],
+    "length": 6.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -22.0
+    ],
+    "back": [
+     0.8,
+     0.8
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 4.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     3.4,
+     0.0,
+     -14.0
+    ],
+    "back": [
+     0.8,
+     6.0
+    ],
+    "front": [
+     0.8,
+     6.0
+    ],
+    "length": 1.6,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.7,
+     4.75,
+     -14.0
+    ],
+    "back": [
+     5.279549159502341,
+     0.8
+    ],
+    "front": [
+     5.279549159502341,
+     0.8
+    ],
+    "length": 1.6,
+    "color": "trim",
+    "roll": -45.830315486258016,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0.5,
+     -14.0
+    ],
+    "back": [
+     4.6,
+     6.0
+    ],
+    "front": [
+     4.6,
+     6.0
+    ],
+    "length": 0.4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     8.0
+    ],
+    "back": [
+     11.0,
+     2.0
+    ],
+    "front": [
+     11.0,
+     2.0
+    ],
+    "length": 4.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     3.4,
+     4.0
+    ],
+    "back": [
+     4.5,
+     1.4
+    ],
+    "front": [
+     4.5,
+     1.4
+    ],
+    "length": 14.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     5.0,
+     6.0
+    ],
+    "back": [
+     3.4,
+     1.0
+    ],
+    "front": [
+     3.4,
+     1.0
+    ],
+    "length": 8.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     5.6,
+     0.8,
+     9.0
+    ],
+    "back": [
+     2.6,
+     6.0
+    ],
+    "front": [
+     2.0,
+     5.0
+    ],
+    "length": 5.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     5.6,
+     8.0,
+     9.0
+    ],
+    "back": [
+     0.9,
+     10.0
+    ],
+    "front": [
+     0.2,
+     1.6
+    ],
+    "length": 5.0,
+    "color": "accent",
+    "skew": [
+     0,
+     -0.3
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     10.5,
+     -6.0
+    ],
+    "back": [
+     0.8,
+     9.0
+    ],
+    "front": [
+     0.2,
+     1.6
+    ],
+    "length": 6.0,
+    "color": "trim",
+    "skew": [
+     0,
+     -0.3
+    ]
+   },
+   {
+    "position": [
+     0,
+     6.2,
+     -6.0
+    ],
+    "back": [
+     3.0,
+     2.0
+    ],
+    "front": [
+     3.0,
+     2.0
+    ],
+    "length": 6.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     7.0,
+     -9.05
+    ],
+    "back": [
+     1.2,
+     1.6
+    ],
+    "front": [
+     1.2,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     4.5,
+     -0.4,
+     -4.0
+    ],
+    "back": [
+     3.5,
+     1.2
+    ],
+    "front": [
+     2.6,
+     1.0
+    ],
+    "length": 9.0,
+    "color": "hull",
+    "skew": [
+     0.3,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     8.0,
+     -0.4,
+     -4.0
+    ],
+    "back": [
+     2.4,
+     0.6
+    ],
+    "front": [
+     1.4,
+     0.5
+    ],
+    "length": 9.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.05,
+     1.0,
+     -4.0
+    ],
+    "back": [
+     0.1,
+     1.6
+    ],
+    "front": [
+     0.1,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.05,
+     1.0,
+     0.0
+    ],
+    "back": [
+     0.1,
+     1.6
+    ],
+    "front": [
+     0.1,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.05,
+     1.0,
+     4.0
+    ],
+    "back": [
+     0.1,
+     1.6
+    ],
+    "front": [
+     0.1,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.2,
+     0,
+     11.4
+    ],
+    "back": [
+     3.0,
+     3.0
+    ],
+    "front": [
+     3.75,
+     3.75
+    ],
+    "length": 1.2,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.2,
+     0,
+     12.05
+    ],
+    "back": [
+     3.3000000000000003,
+     3.3000000000000003
+    ],
+    "front": [
+     3.3000000000000003,
+     3.3000000000000003
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     3.2,
+     11.4
+    ],
+    "back": [
+     2.0,
+     2.0
+    ],
+    "front": [
+     2.5,
+     2.5
+    ],
+    "length": 1.2,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     3.2,
+     12.05
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     2.2,
+     2.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "ls-stonewright",
+  "name": "Stonewright",
+  "builder": "synod-forges",
+  "class": "miner",
+  "description": "A mining hull for the Synod's quarry chapels. The cradles are blessed before every load and the cutter beam is called a votive.",
+  "price": 260000,
+  "mass": 125,
+  "baseSpeed": 76,
+  "pitchRate": 30,
+  "yawRate": 24,
+  "rollRate": 48,
+  "hullPoints": 460,
+  "radius": 22,
+  "crewBerths": 3,
+  "cargoTonnes": 90,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.4,
+     0,
+     -22.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.4,
+     0,
+     -22.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "utility",
+    "size": 2
+   },
+   {
+    "type": "utility",
+    "size": 2
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-2-2",
+   "ls-plant-2-2",
+   "ls-shield-2-1",
+   "ls-sensor-1-1",
+   "ls-censer-1-1",
+   "ls-lantern-1-1",
+   "ls-cradle-5",
+   "ls-cradle-4",
+   "ls-votive-cutter-2",
+   "ls-votive-cutter-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     8.0,
+     7.0
+    ],
+    "front": [
+     7.0,
+     6.5
+    ],
+    "length": 26.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -16.0
+    ],
+    "back": [
+     7.0,
+     6.5
+    ],
+    "front": [
+     3.0,
+     3.0
+    ],
+    "length": 6.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     -21.0
+    ],
+    "back": [
+     1.4,
+     1.4
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 8.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     -25.1
+    ],
+    "back": [
+     0.9,
+     0.9
+    ],
+    "front": [
+     0.9,
+     0.9
+    ],
+    "length": 0.2,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     5.196,
+     -19.0
+    ],
+    "back": [
+     6.42,
+     0.7
+    ],
+    "front": [
+     6.42,
+     0.7
+    ],
+    "length": 1.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -5.196,
+     -19.0
+    ],
+    "back": [
+     6.42,
+     0.7
+    ],
+    "front": [
+     6.42,
+     0.7
+    ],
+    "length": 1.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     4.5,
+     2.598,
+     -19.0
+    ],
+    "back": [
+     6.42,
+     0.7
+    ],
+    "front": [
+     6.42,
+     0.7
+    ],
+    "length": 1.0,
+    "color": "trim",
+    "roll": -60,
+    "mirror": true
+   },
+   {
+    "position": [
+     4.5,
+     -2.598,
+     -19.0
+    ],
+    "back": [
+     6.42,
+     0.7
+    ],
+    "front": [
+     6.42,
+     0.7
+    ],
+    "length": 1.0,
+    "color": "trim",
+    "roll": 60,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     8.66,
+     -14.0
+    ],
+    "back": [
+     10.54,
+     0.9
+    ],
+    "front": [
+     10.54,
+     0.9
+    ],
+    "length": 1.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -8.66,
+     -14.0
+    ],
+    "back": [
+     10.54,
+     0.9
+    ],
+    "front": [
+     10.54,
+     0.9
+    ],
+    "length": 1.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     7.5,
+     4.33,
+     -14.0
+    ],
+    "back": [
+     10.54,
+     0.9
+    ],
+    "front": [
+     10.54,
+     0.9
+    ],
+    "length": 1.0,
+    "color": "trim",
+    "roll": -60,
+    "mirror": true
+   },
+   {
+    "position": [
+     7.5,
+     -4.33,
+     -14.0
+    ],
+    "back": [
+     10.54,
+     0.9
+    ],
+    "front": [
+     10.54,
+     0.9
+    ],
+    "length": 1.0,
+    "color": "trim",
+    "roll": 60,
+    "mirror": true
+   },
+   {
+    "position": [
+     9.0,
+     -0.5,
+     2.0
+    ],
+    "back": [
+     6.0,
+     7.0
+    ],
+    "front": [
+     6.0,
+     7.0
+    ],
+    "length": 20.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     9.0,
+     -0.5,
+     -6
+    ],
+    "back": [
+     6.4,
+     7.4
+    ],
+    "front": [
+     6.4,
+     7.4
+    ],
+    "length": 0.5,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     9.0,
+     -0.5,
+     2
+    ],
+    "back": [
+     6.4,
+     7.4
+    ],
+    "front": [
+     6.4,
+     7.4
+    ],
+    "length": 0.5,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     9.0,
+     -0.5,
+     10
+    ],
+    "back": [
+     6.4,
+     7.4
+    ],
+    "front": [
+     6.4,
+     7.4
+    ],
+    "length": 0.5,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.8,
+     -0.3,
+     -9.0
+    ],
+    "back": [
+     0.4,
+     3.0
+    ],
+    "front": [
+     0.4,
+     3.0
+    ],
+    "length": 0.6,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.9,
+     2.0,
+     -9.0
+    ],
+    "back": [
+     2.6083189157584594,
+     0.4
+    ],
+    "front": [
+     2.6083189157584594,
+     0.4
+    ],
+    "length": 0.6,
+    "color": "glow",
+    "roll": -41.6335393365702,
+    "mirror": true
+   },
+   {
+    "position": [
+     12.05,
+     0,
+     -3
+    ],
+    "back": [
+     0.1,
+     3.0
+    ],
+    "front": [
+     0.1,
+     3.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     12.05,
+     0,
+     5
+    ],
+    "back": [
+     0.1,
+     3.0
+    ],
+    "front": [
+     0.1,
+     3.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     12.05,
+     0,
+     12
+    ],
+    "back": [
+     0.1,
+     3.0
+    ],
+    "front": [
+     0.1,
+     3.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     4.0,
+     4.0
+    ],
+    "back": [
+     3.4,
+     1.5
+    ],
+    "front": [
+     3.4,
+     1.5
+    ],
+    "length": 14.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     8.0,
+     6.0
+    ],
+    "back": [
+     0.7,
+     7.0
+    ],
+    "front": [
+     0.15,
+     1.4
+    ],
+    "length": 6.0,
+    "color": "trim",
+    "skew": [
+     0,
+     -0.3
+    ]
+   },
+   {
+    "position": [
+     5.5,
+     5.5,
+     10.0
+    ],
+    "back": [
+     0.5,
+     4.0
+    ],
+    "front": [
+     0.12,
+     1.0
+    ],
+    "length": 4.0,
+    "color": "accent",
+    "skew": [
+     0,
+     -0.3
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     13.6
+    ],
+    "back": [
+     4.6,
+     4.0
+    ],
+    "front": [
+     5.75,
+     5.0
+    ],
+    "length": 1.2,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     14.25
+    ],
+    "back": [
+     5.06,
+     4.4
+    ],
+    "front": [
+     5.06,
+     4.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     4.0,
+     -2.5,
+     13.6
+    ],
+    "back": [
+     2.0,
+     2.0
+    ],
+    "front": [
+     2.5,
+     2.5
+    ],
+    "length": 1.2,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     4.0,
+     -2.5,
+     14.25
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     2.2,
+     2.2
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "ls-almoner",
+  "name": "Almoner",
+  "builder": "synod-forges",
+  "class": "freighter",
+  "description": "The Synod's relief freighter. Its cradles carry food, medicine and blankets to any world that asks, and the Synod does not always ask what the cargo is worth.",
+  "price": 420000,
+  "mass": 330,
+  "baseSpeed": 70,
+  "pitchRate": 20,
+  "yawRate": 16,
+  "rollRate": 32,
+  "hullPoints": 950,
+  "radius": 34,
+  "crewBerths": 4,
+  "cargoTonnes": 60,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 3
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.5,
+     -1.0,
+     -40.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.5,
+     -1.0,
+     -40.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   }
+  ],
+  "defaultLoadout": [
+   "ls-drive-3-1",
+   "ls-plant-3-1",
+   "ls-shield-3-1",
+   "ls-sensor-1-1",
+   "ls-censer-1-1",
+   "ls-censer-1-1",
+   "ls-cradle-5",
+   "ls-cradle-5",
+   "ls-cradle-5",
+   "ls-cradle-4"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     10.0,
+     9.0
+    ],
+    "front": [
+     8.0,
+     8.0
+    ],
+    "length": 60.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -37.0
+    ],
+    "back": [
+     8.0,
+     8.0
+    ],
+    "front": [
+     1.5,
+     1.5
+    ],
+    "length": 14.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     4.5,
+     -0.5,
+     -26.0
+    ],
+    "back": [
+     1.0,
+     7.0
+    ],
+    "front": [
+     1.0,
+     7.0
+    ],
+    "length": 2.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.25,
+     5.0,
+     -26.0
+    ],
+    "back": [
+     6.520797289396148,
+     1.0
+    ],
+    "front": [
+     6.520797289396148,
+     1.0
+    ],
+    "length": 2.0,
+    "color": "trim",
+    "roll": -41.6335393365702,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     -26.0
+    ],
+    "back": [
+     7.4,
+     10.0
+    ],
+    "front": [
+     7.4,
+     10.0
+    ],
+    "length": 0.5,
+    "color": "glow"
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     -12
+    ],
+    "back": [
+     6.0,
+     8.0
+    ],
+    "front": [
+     6.0,
+     8.0
+    ],
+    "length": 10.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     0
+    ],
+    "back": [
+     6.0,
+     8.0
+    ],
+    "front": [
+     6.0,
+     8.0
+    ],
+    "length": 10.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     12
+    ],
+    "back": [
+     6.0,
+     8.0
+    ],
+    "front": [
+     6.0,
+     8.0
+    ],
+    "length": 10.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     24
+    ],
+    "back": [
+     6.0,
+     8.0
+    ],
+    "front": [
+     6.0,
+     8.0
+    ],
+    "length": 10.0,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     -18
+    ],
+    "back": [
+     6.4,
+     8.4
+    ],
+    "front": [
+     6.4,
+     8.4
+    ],
+    "length": 0.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     -6
+    ],
+    "back": [
+     6.4,
+     8.4
+    ],
+    "front": [
+     6.4,
+     8.4
+    ],
+    "length": 0.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     6
+    ],
+    "back": [
+     6.4,
+     8.4
+    ],
+    "front": [
+     6.4,
+     8.4
+    ],
+    "length": 0.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     18
+    ],
+    "back": [
+     6.4,
+     8.4
+    ],
+    "front": [
+     6.4,
+     8.4
+    ],
+    "length": 0.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     11.0,
+     -0.5,
+     30
+    ],
+    "back": [
+     6.4,
+     8.4
+    ],
+    "front": [
+     6.4,
+     8.4
+    ],
+    "length": 0.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     14.1,
+     0,
+     -12
+    ],
+    "back": [
+     0.1,
+     5.0
+    ],
+    "front": [
+     0.1,
+     5.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     14.1,
+     0,
+     0
+    ],
+    "back": [
+     0.1,
+     5.0
+    ],
+    "front": [
+     0.1,
+     5.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     14.1,
+     0,
+     12
+    ],
+    "back": [
+     0.1,
+     5.0
+    ],
+    "front": [
+     0.1,
+     5.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     14.1,
+     0,
+     24
+    ],
+    "back": [
+     0.1,
+     5.0
+    ],
+    "front": [
+     0.1,
+     5.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     5.5,
+     8.0
+    ],
+    "back": [
+     5.0,
+     2.0
+    ],
+    "front": [
+     5.0,
+     2.0
+    ],
+    "length": 30.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     11.0,
+     0.0
+    ],
+    "back": [
+     0.9,
+     9.0
+    ],
+    "front": [
+     0.2,
+     2.0
+    ],
+    "length": 8.0,
+    "color": "trim",
+    "skew": [
+     0,
+     -0.4
+    ]
+   },
+   {
+    "position": [
+     0,
+     10.0,
+     18.0
+    ],
+    "back": [
+     0.7,
+     7.0
+    ],
+    "front": [
+     0.2,
+     1.6
+    ],
+    "length": 8.0,
+    "color": "accent",
+    "skew": [
+     0,
+     -0.4
+    ]
+   },
+   {
+    "position": [
+     0,
+     -5.5,
+     5.0
+    ],
+    "back": [
+     3.0,
+     2.0
+    ],
+    "front": [
+     3.0,
+     2.0
+    ],
+    "length": 40.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     11.258,
+     34.0
+    ],
+    "back": [
+     13.6,
+     1.0
+    ],
+    "front": [
+     13.6,
+     1.0
+    ],
+    "length": 2.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -11.258,
+     34.0
+    ],
+    "back": [
+     13.6,
+     1.0
+    ],
+    "front": [
+     13.6,
+     1.0
+    ],
+    "length": 2.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     9.749,
+     5.629,
+     34.0
+    ],
+    "back": [
+     13.6,
+     1.0
+    ],
+    "front": [
+     13.6,
+     1.0
+    ],
+    "length": 2.0,
+    "color": "trim",
+    "roll": -60,
+    "mirror": true
+   },
+   {
+    "position": [
+     9.749,
+     -5.629,
+     34.0
+    ],
+    "back": [
+     13.6,
+     1.0
+    ],
+    "front": [
+     13.6,
+     1.0
+    ],
+    "length": 2.0,
+    "color": "trim",
+    "roll": 60,
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     34.0
+    ],
+    "back": [
+     26.0,
+     1.0
+    ],
+    "front": [
+     26.0,
+     1.0
+    ],
+    "length": 1.5,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     34.0
+    ],
+    "back": [
+     1.0,
+     22.0
+    ],
+    "front": [
+     1.0,
+     22.0
+    ],
+    "length": 1.5,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     34.0
+    ],
+    "back": [
+     4.0,
+     4.0
+    ],
+    "front": [
+     5.0,
+     5.0
+    ],
+    "length": 1.2,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     34.65
+    ],
+    "back": [
+     4.4,
+     4.4
+    ],
+    "front": [
+     4.4,
+     4.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     7.0,
+     0,
+     34.0
+    ],
+    "back": [
+     3.4,
+     3.4
+    ],
+    "front": [
+     4.25,
+     4.25
+    ],
+    "length": 1.2,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     7.0,
+     0,
+     34.65
+    ],
+    "back": [
+     3.74,
+     3.74
+    ],
+    "front": [
+     3.74,
+     3.74
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ }
+]

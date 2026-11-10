@@ -1,0 +1,1288 @@
+[
+ {
+  "id": "rc-drive-1",
+  "name": "Hushdrive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 9500,
+  "description": "A narrow drive cut from an old frame's spine. It makes almost no light.",
+  "stats": {
+   "thrust": 680,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "rc-drive-1-2",
+  "name": "Hushdrive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 15200,
+  "description": "Mk II re-forges the throat with a seam that shows.",
+  "stats": {
+   "thrust": 734,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "rc-drive-1-3",
+  "name": "Hushdrive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 24300,
+  "description": "Mk III is a Court rebuild, black to the nozzle.",
+  "stats": {
+   "thrust": 789,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "rc-drive-2",
+  "name": "Murkwake Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 28500,
+  "description": "A twin-throat drive that runs cold and spits a faint violet trace.",
+  "stats": {
+   "thrust": 1700,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "rc-drive-2-2",
+  "name": "Murkwake Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 45600,
+  "description": "The throats are re-cast from a second salvaged frame.",
+  "stats": {
+   "thrust": 1836,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "rc-drive-2-3",
+  "name": "Murkwake Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 72950,
+  "description": "A tight, quiet burn that sensors find hard to follow.",
+  "stats": {
+   "thrust": 1972,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "rc-drive-3",
+  "name": "Dirgeburn Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 85500,
+  "description": "A mid-weight drive grafted from elder gantry stock. It sounds like a held breath.",
+  "stats": {
+   "thrust": 4100,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "rc-drive-3-2",
+  "name": "Dirgeburn Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 136800,
+  "description": "Its mismatched halves have been trued, mostly.",
+  "stats": {
+   "thrust": 4428,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "rc-drive-3-3",
+  "name": "Dirgeburn Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 218900,
+  "description": "Court wrights swear the third pattern is the old one, restored.",
+  "stats": {
+   "thrust": 4756,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "rc-drive-4",
+  "name": "Tombfire Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 256500,
+  "description": "A long drive pulled from a ruin's cargo spine and made to burn again.",
+  "stats": {
+   "thrust": 8200,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "rc-drive-4-2",
+  "name": "Tombfire Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 410400,
+  "description": "The seams are re-welded in a darker alloy.",
+  "stats": {
+   "thrust": 8856,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "rc-drive-4-3",
+  "name": "Tombfire Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 656650,
+  "description": "It burns nearly invisible and costs accordingly.",
+  "stats": {
+   "thrust": 9512,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "rc-drive-5",
+  "name": "Barrowfall Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 769500,
+  "description": "A vast salvaged drive, black with age, that wakes slowly and then does not stop.",
+  "stats": {
+   "thrust": 14500,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "rc-drive-5-2",
+  "name": "Barrowfall Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 1231200,
+  "description": "The cooling ribs are replaced one at a time, as parts turn up.",
+  "stats": {
+   "thrust": 15660,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "rc-drive-5-3",
+  "name": "Barrowfall Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 1969900,
+  "description": "A Court barge-drive, built to move a hold quietly and for a long time.",
+  "stats": {
+   "thrust": 16820,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "rc-plant-1",
+  "name": "Coldseed cell Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 8000,
+  "description": "A palm-sized cell that burns old fuel from a ruin's stores and gives six pips. It gives off no glare.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 66,
+   "capacitorRecharge": 12.0
+  }
+ },
+ {
+  "id": "rc-plant-1-2",
+  "name": "Coldseed cell Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 12800,
+  "description": "Mk II is re-lit with cleaner stock.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 73,
+   "capacitorRecharge": 13.2
+  }
+ },
+ {
+  "id": "rc-plant-1-3",
+  "name": "Coldseed cell Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 20500,
+  "description": "Mk III runs hot inside and shows nothing outside.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 79,
+   "capacitorRecharge": 14.4
+  }
+ },
+ {
+  "id": "rc-plant-2",
+  "name": "Gravelamp plant Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 24000,
+  "description": "A lamp-shaped plant salvaged from a flooded gantry. It glows a dim, cold violet.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 100,
+   "capacitorRecharge": 17.0
+  }
+ },
+ {
+  "id": "rc-plant-2-2",
+  "name": "Gravelamp plant Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 38400,
+  "description": "The glass is replaced and the filament re-wound.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 110,
+   "capacitorRecharge": 18.7
+  }
+ },
+ {
+  "id": "rc-plant-2-3",
+  "name": "Gravelamp plant Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 61450,
+  "description": "A steady plant that likes the dark.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 120,
+   "capacitorRecharge": 20.4
+  }
+ },
+ {
+  "id": "rc-plant-3",
+  "name": "Ossuary plant Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 72000,
+  "description": "A medium plant built into an elder ossuary casing. Heavy for its output, and quiet.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 150,
+   "capacitorRecharge": 24.0
+  }
+ },
+ {
+  "id": "rc-plant-3-2",
+  "name": "Ossuary plant Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 115200,
+  "description": "The casing is re-ribbed with newer plate.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 165,
+   "capacitorRecharge": 26.4
+  }
+ },
+ {
+  "id": "rc-plant-3-3",
+  "name": "Ossuary plant Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 184300,
+  "description": "Court wrights keep this pattern for hulls that expect a long night.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 180,
+   "capacitorRecharge": 28.8
+  }
+ },
+ {
+  "id": "rc-plant-4",
+  "name": "Sepulchre core Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 216000,
+  "description": "A broad core lifted from a sepulchre's reactor ring. It needs no star to run.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 220,
+   "capacitorRecharge": 33.0
+  }
+ },
+ {
+  "id": "rc-plant-4-2",
+  "name": "Sepulchre core Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 345600,
+  "description": "A second salvaged core is welded alongside the first.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 242,
+   "capacitorRecharge": 36.3
+  }
+ },
+ {
+  "id": "rc-plant-4-3",
+  "name": "Sepulchre core Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 552950,
+  "description": "Black, ribbed and warm to the touch.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 264,
+   "capacitorRecharge": 39.6
+  }
+ },
+ {
+  "id": "rc-plant-5",
+  "name": "Deepvault heart Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 648000,
+  "description": "The great plant of the barges, taken from a dead court's deep vault.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 330,
+   "capacitorRecharge": 46.0
+  }
+ },
+ {
+  "id": "rc-plant-5-2",
+  "name": "Deepvault heart Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 1036800,
+  "description": "Its vault plates are re-forged to a tighter fit.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 363,
+   "capacitorRecharge": 50.6
+  }
+ },
+ {
+  "id": "rc-plant-5-3",
+  "name": "Deepvault heart Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 1658900,
+  "description": "It has run for longer than the Courts have kept records.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 396,
+   "capacitorRecharge": 55.2
+  }
+ },
+ {
+  "id": "rc-shield-1",
+  "name": "Shroudglass Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 7000,
+  "description": "A thin dark film that bends light away. It holds little and says nothing.",
+  "stats": {
+   "capacity": 68,
+   "recharge": 5.1,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "rc-shield-1-2",
+  "name": "Shroudglass Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 11200,
+  "description": "The film is doubled at the edges.",
+  "stats": {
+   "capacity": 75,
+   "recharge": 5.6,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "rc-shield-1-3",
+  "name": "Shroudglass Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 17900,
+  "description": "A third pass of ash glaze. It still breaks early.",
+  "stats": {
+   "capacity": 82,
+   "recharge": 6.1,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "rc-shield-2",
+  "name": "Pallveil Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 21000,
+  "description": "A twin-layer veil of smoked glass. Rebuilds in its own time.",
+  "stats": {
+   "capacity": 153,
+   "recharge": 11.5,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "rc-shield-2-2",
+  "name": "Pallveil Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 33600,
+  "description": "A tighter weave, a little less see-through.",
+  "stats": {
+   "capacity": 168,
+   "recharge": 12.6,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "rc-shield-2-3",
+  "name": "Pallveil Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 53750,
+  "description": "Cold to the touch and slow to forgive.",
+  "stats": {
+   "capacity": 184,
+   "recharge": 13.8,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "rc-shield-3",
+  "name": "Duskward Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 63000,
+  "description": "A falling curtain of dusk, thrown from an elder emitter ring.",
+  "stats": {
+   "capacity": 323,
+   "recharge": 24.2,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "rc-shield-3-2",
+  "name": "Duskward Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 100800,
+  "description": "Better ring spacing and a shorter pause.",
+  "stats": {
+   "capacity": 355,
+   "recharge": 26.6,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "rc-shield-3-3",
+  "name": "Duskward Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 161300,
+  "description": "The ring carries a Court mark nobody will explain.",
+  "stats": {
+   "capacity": 388,
+   "recharge": 29.1,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "rc-shield-4",
+  "name": "Umbral screen Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 189000,
+  "description": "A great dim screen of salvaged emitters. It spreads the load and shows no light.",
+  "stats": {
+   "capacity": 595,
+   "recharge": 44.6,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "rc-shield-4-2",
+  "name": "Umbral screen Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 302400,
+  "description": "Several emitters are swapped for better matched ones.",
+  "stats": {
+   "capacity": 654,
+   "recharge": 49.1,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "rc-shield-4-3",
+  "name": "Umbral screen Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 483850,
+  "description": "A broad screen that sensors have trouble finding.",
+  "stats": {
+   "capacity": 714,
+   "recharge": 53.5,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "rc-shield-5",
+  "name": "Nightfast wall Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 567000,
+  "description": "A wall of shadow-glass drawn across the whole hull. Slow to build, hard to see.",
+  "stats": {
+   "capacity": 1020,
+   "recharge": 76.5,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "rc-shield-5-2",
+  "name": "Nightfast wall Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 907200,
+  "description": "Retuned to refill a little sooner.",
+  "stats": {
+   "capacity": 1122,
+   "recharge": 84.2,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "rc-shield-5-3",
+  "name": "Nightfast wall Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 1451500,
+  "description": "The largest veil the Courts raise, and the thinnest for its size.",
+  "stats": {
+   "capacity": 1224,
+   "recharge": 91.8,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "rc-sensor-1",
+  "name": "Hush array Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 4500,
+  "description": "A small dark lens that listens for what other ships hope to hide.",
+  "stats": {
+   "range": 7500
+  }
+ },
+ {
+  "id": "rc-sensor-1-2",
+  "name": "Hush array Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 7200,
+  "description": "A sharper lens ground from a cracked original.",
+  "stats": {
+   "range": 8500
+  }
+ },
+ {
+  "id": "rc-sensor-1-3",
+  "name": "Hush array Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 11500,
+  "description": "Hand-ground and lightless, with a very long ear.",
+  "stats": {
+   "range": 9500
+  }
+ },
+ {
+  "id": "rc-sensor-2",
+  "name": "Mourning lens Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 13500,
+  "description": "A paired-lens suite that hears a drive through a rock.",
+  "stats": {
+   "range": 11000
+  }
+ },
+ {
+  "id": "rc-sensor-2-2",
+  "name": "Mourning lens Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 21600,
+  "description": "The apertures are widened and re-sealed.",
+  "stats": {
+   "range": 12000
+  }
+ },
+ {
+  "id": "rc-sensor-2-3",
+  "name": "Mourning lens Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 34550,
+  "description": "Court sensor-wrights call this one the better witness.",
+  "stats": {
+   "range": 13000
+  }
+ },
+ {
+  "id": "rc-sensor-3",
+  "name": "Deepwatch comb Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 40500,
+  "description": "A fan of black ribs salvaged from an elder watch tower. It sees a long way and is seen by little.",
+  "stats": {
+   "range": 14500
+  }
+ },
+ {
+  "id": "rc-sensor-3-2",
+  "name": "Deepwatch comb Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 64800,
+  "description": "The ribs are re-seated on a cooler mount.",
+  "stats": {
+   "range": 15500
+  }
+ },
+ {
+  "id": "rc-sensor-3-3",
+  "name": "Deepwatch comb Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 103700,
+  "description": "A tower's eye on a ship's hull, and not entirely tame.",
+  "stats": {
+   "range": 16500
+  }
+ },
+ {
+  "id": "rc-needle-1",
+  "name": "Hush needle S1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 6000,
+  "color": "#b48cff",
+  "description": "A fine violet needle that flies true and makes no sound.",
+  "stats": {
+   "damage": 8.0,
+   "fireRate": 4.5,
+   "energyPerShot": 2.2,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-1-2",
+  "name": "Hush needle S1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 9600,
+  "color": "#b48cff",
+  "description": "Mk II is re-cut from a better salvaged lens.",
+  "stats": {
+   "damage": 8.8,
+   "fireRate": 4.5,
+   "energyPerShot": 2.2,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-1-3",
+  "name": "Hush needle S1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 15350,
+  "color": "#b48cff",
+  "description": "Mk III is a Court rebuild with a longer reach.",
+  "stats": {
+   "damage": 9.6,
+   "fireRate": 4.5,
+   "energyPerShot": 2.2,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-2",
+  "name": "Hush needle S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 18000,
+  "color": "#b48cff",
+  "description": "A longer needle, with the same dreadful patience.",
+  "stats": {
+   "damage": 16.0,
+   "fireRate": 3.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-2-2",
+  "name": "Hush needle S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 28800,
+  "color": "#b48cff",
+  "description": "Mk II is re-cut from a better salvaged lens.",
+  "stats": {
+   "damage": 17.6,
+   "fireRate": 3.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-2-3",
+  "name": "Hush needle S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 46100,
+  "color": "#b48cff",
+  "description": "Mk III is a Court rebuild with a longer reach.",
+  "stats": {
+   "damage": 19.2,
+   "fireRate": 3.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-3",
+  "name": "Hush needle S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 54000,
+  "color": "#b48cff",
+  "description": "A spindle of cold light that finds a gap in the shield and stays there.",
+  "stats": {
+   "damage": 32.0,
+   "fireRate": 2.9,
+   "energyPerShot": 7.1,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-3-2",
+  "name": "Hush needle S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 86400,
+  "color": "#b48cff",
+  "description": "Mk II is re-cut from a better salvaged lens.",
+  "stats": {
+   "damage": 35.2,
+   "fireRate": 2.9,
+   "energyPerShot": 7.1,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-needle-3-3",
+  "name": "Hush needle S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 138250,
+  "color": "#b48cff",
+  "description": "Mk III is a Court rebuild with a longer reach.",
+  "stats": {
+   "damage": 38.4,
+   "fireRate": 2.9,
+   "energyPerShot": 7.1,
+   "projectileSpeed": 1500,
+   "range": 2800
+  }
+ },
+ {
+  "id": "rc-dirge-1",
+  "name": "Dirge caster S1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 6000,
+  "color": "#e0d4ff",
+  "description": "A slow pale bolt that arrives late and hits hard. It leaves the target cold.",
+  "stats": {
+   "damage": 14.0,
+   "fireRate": 2.2,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-1-2",
+  "name": "Dirge caster S1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 9600,
+  "color": "#e0d4ff",
+  "description": "Mk II is re-cut from a better salvaged lens.",
+  "stats": {
+   "damage": 15.4,
+   "fireRate": 2.2,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-1-3",
+  "name": "Dirge caster S1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 15350,
+  "color": "#e0d4ff",
+  "description": "Mk III is a Court rebuild with a longer reach.",
+  "stats": {
+   "damage": 16.8,
+   "fireRate": 2.2,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-2",
+  "name": "Dirge caster S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 18000,
+  "color": "#e0d4ff",
+  "description": "A heavier bolt, drawn out like a long note.",
+  "stats": {
+   "damage": 28.0,
+   "fireRate": 1.8,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-2-2",
+  "name": "Dirge caster S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 28800,
+  "color": "#e0d4ff",
+  "description": "Mk II is re-cut from a better salvaged lens.",
+  "stats": {
+   "damage": 30.8,
+   "fireRate": 1.8,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-2-3",
+  "name": "Dirge caster S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 46100,
+  "color": "#e0d4ff",
+  "description": "Mk III is a Court rebuild with a longer reach.",
+  "stats": {
+   "damage": 33.6,
+   "fireRate": 1.8,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-3",
+  "name": "Dirge caster S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 54000,
+  "color": "#e0d4ff",
+  "description": "A big pale-violet bolt that hangs in the dark before it lands.",
+  "stats": {
+   "damage": 56.0,
+   "fireRate": 1.4,
+   "energyPerShot": 11.7,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-3-2",
+  "name": "Dirge caster S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 86400,
+  "color": "#e0d4ff",
+  "description": "Mk II is re-cut from a better salvaged lens.",
+  "stats": {
+   "damage": 61.6,
+   "fireRate": 1.4,
+   "energyPerShot": 11.7,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-dirge-3-3",
+  "name": "Dirge caster S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "ruin-courts",
+  "price": 138250,
+  "color": "#e0d4ff",
+  "description": "Mk III is a Court rebuild with a longer reach.",
+  "stats": {
+   "damage": 67.2,
+   "fireRate": 1.4,
+   "energyPerShot": 11.7,
+   "projectileSpeed": 800,
+   "range": 1700
+  }
+ },
+ {
+  "id": "rc-cargo-1",
+  "name": "Salvage cradle",
+  "type": "cargo",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 1800,
+  "description": "Black slatted racks, light and unmarked.",
+  "stats": {
+   "tonnes": 8
+  }
+ },
+ {
+  "id": "rc-cargo-2",
+  "name": "Crypt rack",
+  "type": "cargo",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 3950,
+  "description": "A hold of re-skinned elder plate.",
+  "stats": {
+   "tonnes": 16
+  }
+ },
+ {
+  "id": "rc-cargo-3",
+  "name": "Ossuary hold",
+  "type": "cargo",
+  "size": 3,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 8700,
+  "description": "A lightless bay for goods nobody asks about.",
+  "stats": {
+   "tonnes": 32
+  }
+ },
+ {
+  "id": "rc-cargo-4",
+  "name": "Long vault",
+  "type": "cargo",
+  "size": 4,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 19150,
+  "description": "A narrow vault along the keel, with a rail for sealed crates.",
+  "stats": {
+   "tonnes": 64
+  }
+ },
+ {
+  "id": "rc-cargo-5",
+  "name": "Grand ossuary",
+  "type": "cargo",
+  "size": 5,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 42150,
+  "description": "A great ribbed hold, packed with the care of long habit.",
+  "stats": {
+   "tonnes": 128
+  }
+ },
+ {
+  "id": "rc-shadow-veil-1",
+  "name": "Shadow veil Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 14000,
+  "description": "A cold shroud that swallows the ship's heat and glow. It does well in the dark and badly near a bright star.",
+  "stats": {
+   "stealthFactor": 1.3,
+   "detectionRangeFactor": 0.75,
+   "brightLightPenalty": 1.4
+  }
+ },
+ {
+  "id": "rc-shadow-veil-2",
+  "name": "Shadow veil Mk II",
+  "type": "utility",
+  "size": 1,
+  "mark": 2,
+  "builder": "ruin-courts",
+  "price": 22400,
+  "description": "A deeper shroud. It hides more, and suffers more when the light is full.",
+  "stats": {
+   "stealthFactor": 1.5,
+   "detectionRangeFactor": 0.6,
+   "brightLightPenalty": 1.6
+  }
+ },
+ {
+  "id": "rc-ruin-scanner-1",
+  "name": "Ruin scanner Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 11000,
+  "description": "A tuned probe that reads old structure through rubble and silence. Useful for finding what is worth taking.",
+  "stats": {
+   "range": 4500,
+   "detail": 1.6,
+   "salvageReveal": 1.0
+  }
+ },
+ {
+  "id": "rc-salvage-claw-2",
+  "name": "Salvage claw Mk I",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 19000,
+  "description": "Hooked arms and a cutting beam for stripping wrecks. Court crews prefer it to asking.",
+  "stats": {
+   "miningRate": 0.9,
+   "range": 800,
+   "heat": 0.5,
+   "salvageYield": 1.3
+  }
+ },
+ {
+  "id": "rc-scar-forge-1",
+  "name": "Scar forge Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "ruin-courts",
+  "price": 12000,
+  "description": "A tiny forge that re-welds damage with whatever metal is to hand. The repairs show.",
+  "stats": {
+   "repairRate": 1.8,
+   "patchesStored": 16
+  }
+ },
+ {
+  "id": "rc-ninth-lamp",
+  "name": "The Ninth Lamp",
+  "type": "sensor",
+  "size": 3,
+  "mark": 0,
+  "builder": "ruin-courts",
+  "price": 190000,
+  "description": "A watch-tower lens taken whole from the ruin it was named for. It sees further than anything the Courts will sell, and it is not clear who it is looking for.",
+  "stats": {
+   "range": 20000
+  }
+ },
+ {
+  "id": "rc-hollow-gate-drive",
+  "name": "Hollow Gate drive",
+  "type": "engine",
+  "size": 2,
+  "mark": 0,
+  "builder": "ruin-courts",
+  "price": 140000,
+  "description": "A drive pulled out of a gate-keeper's frame. It burns without flame and makes the cabin very quiet.",
+  "stats": {
+   "thrust": 2400,
+   "speedFactor": 1.12
+  }
+ },
+ {
+  "id": "rc-last-word",
+  "name": "Last Word",
+  "type": "weapon",
+  "size": 3,
+  "mark": 0,
+  "builder": "ruin-courts",
+  "price": 210000,
+  "color": "#f2eaff",
+  "description": "A long elder lance with no maker's mark. The bolt is slow, pale and final.",
+  "stats": {
+   "damage": 58.0,
+   "fireRate": 1.8,
+   "energyPerShot": 11.0,
+   "projectileSpeed": 1300,
+   "range": 3000
+  }
+ }
+]

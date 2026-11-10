@@ -1,0 +1,2678 @@
+[
+ {
+  "id": "rc-hookfang",
+  "name": "Hookfang",
+  "builder": "ruin-courts",
+  "class": "fighter",
+  "description": "A raider's blade on an elder frame, with forward hooks nobody remembers adding. It strikes from the dark and is gone before the scan resolves.",
+  "price": 58000,
+  "mass": 18,
+  "baseSpeed": 115,
+  "pitchRate": 80,
+  "yawRate": 58,
+  "rollRate": 165,
+  "hullPoints": 130,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 0,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.4,
+     -0.1,
+     -2.6
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.4,
+     -0.1,
+     -2.6
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.4,
+     -3.2
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-1",
+   "rc-plant-1",
+   "rc-shield-1",
+   "rc-sensor-1",
+   "rc-needle-1",
+   "rc-needle-1",
+   "rc-dirge-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -0.3
+    ],
+    "back": [
+     1.1,
+     0.7
+    ],
+    "front": [
+     0.15,
+     0.15
+    ],
+    "length": 9.4,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.05,
+     1.9
+    ],
+    "back": [
+     1.35,
+     0.85
+    ],
+    "front": [
+     1.1,
+     0.75
+    ],
+    "length": 3.0,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     0.5,
+     -1.4
+    ],
+    "back": [
+     0.5,
+     0.3
+    ],
+    "front": [
+     0.2,
+     0.15
+    ],
+    "length": 2.5,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0.64,
+     -2.3
+    ],
+    "back": [
+     0.3,
+     0.1
+    ],
+    "front": [
+     0.15,
+     0.08
+    ],
+    "length": 1.2,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.0,
+     0,
+     2.2
+    ],
+    "back": [
+     0.7,
+     0.1
+    ],
+    "front": [
+     1.8,
+     0.1
+    ],
+    "length": 4.6,
+    "skew": [
+     -0.8,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.79,
+     0,
+     -0.3
+    ],
+    "back": [
+     0.66,
+     0.3
+    ],
+    "front": [
+     0.26,
+     0.22
+    ],
+    "length": 4.2,
+    "skew": [
+     -0.9,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.9,
+     0.9,
+     3.0
+    ],
+    "back": [
+     0.1,
+     1.7
+    ],
+    "front": [
+     0.1,
+     0.8
+    ],
+    "length": 2.6,
+    "roll": 14,
+    "color": "accent"
+   },
+   {
+    "position": [
+     -1.2,
+     -0.35,
+     0.8
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 5.0,
+    "skew": [
+     -0.3,
+     0
+    ],
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     0,
+     4.8
+    ],
+    "back": [
+     0.95,
+     0.65
+    ],
+    "front": [
+     0.8,
+     0.55
+    ],
+    "length": 1.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.55
+    ],
+    "back": [
+     0.6,
+     0.4
+    ],
+    "front": [
+     0.6,
+     0.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "rc-gloamcutter",
+  "name": "Gloamcutter",
+  "builder": "ruin-courts",
+  "class": "fighter",
+  "description": "A heavier Court fighter with four guns and a tail fin on one side only. Whoever mended it chose not to match the other side.",
+  "price": 76000,
+  "mass": 21,
+  "baseSpeed": 105,
+  "pitchRate": 72,
+  "yawRate": 52,
+  "rollRate": 145,
+  "hullPoints": 155,
+  "radius": 8,
+  "crewBerths": 0,
+  "cargoTonnes": 2,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.6,
+     -0.2,
+     -3.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.6,
+     -0.2,
+     -3.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     1.2,
+     -0.5,
+     -3.6
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -1.2,
+     -0.5,
+     -3.6
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-1-3",
+   "rc-plant-1-2",
+   "rc-shield-1",
+   "rc-sensor-1-2",
+   "rc-needle-1",
+   "rc-needle-1",
+   "rc-dirge-1",
+   "rc-dirge-1",
+   "rc-cargo-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -0.5
+    ],
+    "back": [
+     1.5,
+     0.9
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 10.5,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.1,
+     2.6
+    ],
+    "back": [
+     1.8,
+     1.1
+    ],
+    "front": [
+     1.5,
+     0.95
+    ],
+    "length": 3.4,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     0.65,
+     -1.2
+    ],
+    "back": [
+     0.7,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.2
+    ],
+    "length": 3.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0.82,
+     -2.2
+    ],
+    "back": [
+     0.35,
+     0.1
+    ],
+    "front": [
+     0.2,
+     0.08
+    ],
+    "length": 1.4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.3,
+     -0.1,
+     2.4
+    ],
+    "back": [
+     1.0,
+     0.12
+    ],
+    "front": [
+     2.2,
+     0.12
+    ],
+    "length": 5.6,
+    "skew": [
+     -1.0,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.03,
+     -0.1,
+     0.2
+    ],
+    "back": [
+     0.85,
+     0.3
+    ],
+    "front": [
+     0.26,
+     0.22
+    ],
+    "length": 5.0,
+    "skew": [
+     -1.1,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.6,
+     0.5,
+     3.2
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.12,
+     0.12
+    ],
+    "length": 3.2,
+    "skew": [
+     0,
+     0
+    ],
+    "color": "#6d6678",
+    "mirror": true
+   },
+   {
+    "position": [
+     -0.9,
+     1.0,
+     3.2
+    ],
+    "back": [
+     0.12,
+     2.0
+    ],
+    "front": [
+     0.1,
+     0.9
+    ],
+    "length": 3.2,
+    "roll": -10,
+    "color": "accent"
+   },
+   {
+    "position": [
+     1.5,
+     -0.5,
+     -1.2
+    ],
+    "back": [
+     0.5,
+     0.4
+    ],
+    "front": [
+     0.12,
+     0.12
+    ],
+    "length": 4.4,
+    "skew": [
+     0.3,
+     0
+    ],
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0.7,
+     0,
+     5.5
+    ],
+    "back": [
+     0.8,
+     0.6
+    ],
+    "front": [
+     0.7,
+     0.5
+    ],
+    "length": 1.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.7,
+     0,
+     6.25
+    ],
+    "back": [
+     0.55,
+     0.4
+    ],
+    "front": [
+     0.55,
+     0.4
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "rc-umbral-runner",
+  "name": "Umbral Runner",
+  "builder": "ruin-courts",
+  "class": "courier",
+  "description": "A shadow courier for cargo that must not be seen on the way. Its veil and its hold take most of the hull, and its gun is a last resort.",
+  "price": 72000,
+  "mass": 18,
+  "baseSpeed": 150,
+  "pitchRate": 68,
+  "yawRate": 52,
+  "rollRate": 135,
+  "hullPoints": 90,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 10,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.5,
+     -4.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-1-2",
+   "rc-plant-1",
+   "rc-shield-1",
+   "rc-sensor-1-2",
+   "rc-needle-1",
+   "rc-cargo-1",
+   "rc-shadow-veil-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -0.5
+    ],
+    "back": [
+     1.2,
+     0.8
+    ],
+    "front": [
+     0.15,
+     0.15
+    ],
+    "length": 11.5,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.05,
+     2.5
+    ],
+    "back": [
+     1.4,
+     0.9
+    ],
+    "front": [
+     1.2,
+     0.8
+    ],
+    "length": 3.4,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     0.5,
+     -1.2
+    ],
+    "back": [
+     0.55,
+     0.35
+    ],
+    "front": [
+     0.2,
+     0.15
+    ],
+    "length": 2.8,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0.64,
+     -2.2
+    ],
+    "back": [
+     0.3,
+     0.08
+    ],
+    "front": [
+     0.15,
+     0.06
+    ],
+    "length": 1.2,
+    "color": "glow"
+   },
+   {
+    "position": [
+     1.9,
+     0,
+     2.8
+    ],
+    "back": [
+     0.6,
+     0.08
+    ],
+    "front": [
+     1.5,
+     0.08
+    ],
+    "length": 5.0,
+    "skew": [
+     -0.9,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -0.55,
+     0.8
+    ],
+    "back": [
+     0.9,
+     0.5
+    ],
+    "front": [
+     0.6,
+     0.4
+    ],
+    "length": 6.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     -1.3,
+     0.3,
+     1.0
+    ],
+    "back": [
+     0.3,
+     0.25
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 5.5,
+    "skew": [
+     0.2,
+     0
+    ],
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     1.0,
+     3.8
+    ],
+    "back": [
+     0.1,
+     1.6
+    ],
+    "front": [
+     0.1,
+     0.7
+    ],
+    "length": 2.5,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.9
+    ],
+    "back": [
+     0.95,
+     0.65
+    ],
+    "front": [
+     0.8,
+     0.55
+    ],
+    "length": 1.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     6.65
+    ],
+    "back": [
+     0.6,
+     0.42
+    ],
+    "front": [
+     0.6,
+     0.42
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "rc-lowlight",
+  "name": "Lowlight",
+  "builder": "ruin-courts",
+  "class": "courier",
+  "description": "A plain Court hauler with a deeper hold, built to carry what the ruins give up. It is quiet in dock and quieter in transit.",
+  "price": 64000,
+  "mass": 21,
+  "baseSpeed": 135,
+  "pitchRate": 62,
+  "yawRate": 46,
+  "rollRate": 122,
+  "hullPoints": 115,
+  "radius": 9,
+  "crewBerths": 1,
+  "cargoTonnes": 18,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.6,
+     -4.5
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 2
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-1-3",
+   "rc-plant-1-2",
+   "rc-shield-1",
+   "rc-sensor-1",
+   "rc-needle-1",
+   "rc-cargo-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -0.5
+    ],
+    "back": [
+     1.5,
+     1.0
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 12.5,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.2,
+     3.0
+    ],
+    "back": [
+     2.0,
+     1.5
+    ],
+    "front": [
+     1.8,
+     1.3
+    ],
+    "length": 4.0,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     -0.7,
+     2.2
+    ],
+    "back": [
+     1.8,
+     0.9
+    ],
+    "front": [
+     1.5,
+     0.8
+    ],
+    "length": 6.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0.65,
+     -1.8
+    ],
+    "back": [
+     0.6,
+     0.35
+    ],
+    "front": [
+     0.2,
+     0.15
+    ],
+    "length": 3.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0.8,
+     -2.8
+    ],
+    "back": [
+     0.3,
+     0.08
+    ],
+    "front": [
+     0.15,
+     0.06
+    ],
+    "length": 1.2,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     3.0
+    ],
+    "back": [
+     0.8,
+     0.1
+    ],
+    "front": [
+     1.8,
+     0.1
+    ],
+    "length": 5.2,
+    "skew": [
+     -1.0,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.95,
+     0,
+     0.8
+    ],
+    "back": [
+     0.66,
+     0.3
+    ],
+    "front": [
+     0.22,
+     0.22
+    ],
+    "length": 4.0,
+    "skew": [
+     -0.8,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     -1.4,
+     0.9,
+     2.8
+    ],
+    "back": [
+     0.3,
+     0.2
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 5.0,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0.8,
+     1.1,
+     4.5
+    ],
+    "back": [
+     0.1,
+     1.7
+    ],
+    "front": [
+     0.1,
+     0.8
+    ],
+    "length": 2.6,
+    "roll": 10,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     6.4
+    ],
+    "back": [
+     1.1,
+     0.8
+    ],
+    "front": [
+     0.95,
+     0.7
+    ],
+    "length": 1.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     7.15
+    ],
+    "back": [
+     0.75,
+     0.5
+    ],
+    "front": [
+     0.75,
+     0.5
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "rc-veil-seeker",
+  "name": "Veil Seeker",
+  "builder": "ruin-courts",
+  "class": "explorer",
+  "description": "A long-range survey hull with a dorsal spike of sensors and a second hull's worth of graft down one flank. Court crews use it to read the ruins before they walk them.",
+  "price": 210000,
+  "mass": 56,
+  "baseSpeed": 108,
+  "pitchRate": 48,
+  "yawRate": 36,
+  "rollRate": 85,
+  "hullPoints": 260,
+  "radius": 13,
+  "crewBerths": 3,
+  "cargoTonnes": 20,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.0,
+     -0.5,
+     -6.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -3.0,
+     -0.5,
+     -6.0
+    ]
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-2",
+   "rc-plant-2",
+   "rc-shield-2",
+   "rc-sensor-3-2",
+   "rc-needle-1",
+   "rc-needle-1",
+   "rc-ruin-scanner-1",
+   "rc-shadow-veil-1",
+   "rc-cargo-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -1
+    ],
+    "back": [
+     2.8,
+     2.0
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 26,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.1,
+     8
+    ],
+    "back": [
+     3.2,
+     2.3
+    ],
+    "front": [
+     2.9,
+     2.1
+    ],
+    "length": 8,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     1.5,
+     -5
+    ],
+    "back": [
+     1.6,
+     1.0
+    ],
+    "front": [
+     0.6,
+     0.4
+    ],
+    "length": 7,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     1.8,
+     -8.5
+    ],
+    "back": [
+     0.8,
+     0.2
+    ],
+    "front": [
+     0.4,
+     0.15
+    ],
+    "length": 2.5,
+    "color": "glow"
+   },
+   {
+    "position": [
+     5.2,
+     0,
+     6
+    ],
+    "back": [
+     2.2,
+     0.25
+    ],
+    "front": [
+     4.2,
+     0.25
+    ],
+    "length": 11,
+    "skew": [
+     -2.2,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     6.56,
+     0,
+     -0.5
+    ],
+    "back": [
+     1.52,
+     0.3
+    ],
+    "front": [
+     0.44,
+     0.22
+    ],
+    "length": 9,
+    "skew": [
+     -2.0,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -1.8,
+     -7
+    ],
+    "back": [
+     0.35,
+     0.35
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 8,
+    "color": "trim"
+   },
+   {
+    "position": [
+     -3.0,
+     -0.2,
+     -3
+    ],
+    "back": [
+     0.9,
+     0.7
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 10,
+    "skew": [
+     -0.2,
+     0
+    ],
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     -2.4,
+     2.6,
+     4.5
+    ],
+    "back": [
+     0.2,
+     3.8
+    ],
+    "front": [
+     0.15,
+     1.5
+    ],
+    "length": 6,
+    "roll": -9,
+    "color": "accent"
+   },
+   {
+    "position": [
+     1.8,
+     0,
+     12.8
+    ],
+    "back": [
+     1.5,
+     1.2
+    ],
+    "front": [
+     1.3,
+     1.0
+    ],
+    "length": 3,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.8,
+     0,
+     14.35
+    ],
+    "back": [
+     1.0,
+     0.8
+    ],
+    "front": [
+     1.0,
+     0.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "rc-grudgeblade",
+  "name": "Grudgeblade",
+  "builder": "ruin-courts",
+  "class": "gunship",
+  "description": "A Court gunship named for the feud it was made in. Its swept hooks are bolted on from older ships, and its crews say it remembers every one.",
+  "price": 340000,
+  "mass": 95,
+  "baseSpeed": 85,
+  "pitchRate": 42,
+  "yawRate": 33,
+  "rollRate": 72,
+  "hullPoints": 440,
+  "radius": 17,
+  "crewBerths": 3,
+  "cargoTonnes": 6,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     3.4,
+     -0.4,
+     -8.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     -3.4,
+     -0.4,
+     -8.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     6.0,
+     -0.3,
+     -3.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -6.0,
+     -0.3,
+     -3.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-2-3",
+   "rc-plant-3-2",
+   "rc-shield-3-2",
+   "rc-sensor-2-2",
+   "rc-needle-3",
+   "rc-needle-3",
+   "rc-dirge-2",
+   "rc-dirge-2",
+   "rc-cargo-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -1
+    ],
+    "back": [
+     3.2,
+     2.4
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 32,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.2,
+     9
+    ],
+    "back": [
+     3.8,
+     2.8
+    ],
+    "front": [
+     3.4,
+     2.5
+    ],
+    "length": 9,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     1.7,
+     -6
+    ],
+    "back": [
+     1.8,
+     1.1
+    ],
+    "front": [
+     0.7,
+     0.5
+    ],
+    "length": 8,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     2.0,
+     -10
+    ],
+    "back": [
+     0.9,
+     0.2
+    ],
+    "front": [
+     0.5,
+     0.15
+    ],
+    "length": 2.5,
+    "color": "glow"
+   },
+   {
+    "position": [
+     5.5,
+     -0.2,
+     7
+    ],
+    "back": [
+     2.6,
+     0.3
+    ],
+    "front": [
+     5.0,
+     0.3
+    ],
+    "length": 12,
+    "skew": [
+     -2.4,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     7.54,
+     -0.2,
+     0
+    ],
+    "back": [
+     2.28,
+     0.3
+    ],
+    "front": [
+     0.55,
+     0.22
+    ],
+    "length": 12,
+    "skew": [
+     -3.2,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     4.0,
+     0.8,
+     -4
+    ],
+    "back": [
+     0.9,
+     0.8
+    ],
+    "front": [
+     0.35,
+     0.35
+    ],
+    "length": 9,
+    "color": "#6d6678",
+    "mirror": true
+   },
+   {
+    "position": [
+     -2.2,
+     -1.3,
+     -2
+    ],
+    "back": [
+     1.2,
+     0.8
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 12,
+    "skew": [
+     0.4,
+     0
+    ],
+    "color": "trim"
+   },
+   {
+    "position": [
+     2.8,
+     3.2,
+     8
+    ],
+    "back": [
+     0.2,
+     4.0
+    ],
+    "front": [
+     0.2,
+     1.6
+    ],
+    "length": 7,
+    "roll": 12,
+    "color": "accent"
+   },
+   {
+    "position": [
+     2.0,
+     0,
+     15
+    ],
+    "back": [
+     1.7,
+     1.5
+    ],
+    "front": [
+     1.5,
+     1.3
+    ],
+    "length": 3.2,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.0,
+     0,
+     16.65
+    ],
+    "back": [
+     1.2,
+     1.0
+    ],
+    "front": [
+     1.2,
+     1.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     15.5
+    ],
+    "back": [
+     2.2,
+     1.8
+    ],
+    "front": [
+     2.0,
+     1.6
+    ],
+    "length": 2.2,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     16.65
+    ],
+    "back": [
+     1.6,
+     1.2
+    ],
+    "front": [
+     1.6,
+     1.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "rc-oathsplitter",
+  "name": "Oathsplitter",
+  "builder": "ruin-courts",
+  "class": "gunship",
+  "description": "The heaviest line-breaker the Courts field, with six guns on a frame older than the court that flies it. It is rarely seen and never seen first.",
+  "price": 460000,
+  "mass": 100,
+  "baseSpeed": 78,
+  "pitchRate": 36,
+  "yawRate": 29,
+  "rollRate": 62,
+  "hullPoints": 520,
+  "radius": 18,
+  "crewBerths": 4,
+  "cargoTonnes": 4,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     4.0,
+     -0.4,
+     -8.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     -4.0,
+     -0.4,
+     -8.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     7.5,
+     -0.4,
+     -4.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -7.5,
+     -0.4,
+     -4.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     1.8,
+     -1.0,
+     -10.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -1.8,
+     -1.0,
+     -10.0
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-2-3",
+   "rc-plant-3-2",
+   "rc-shield-3-2",
+   "rc-sensor-2",
+   "rc-needle-3",
+   "rc-needle-3",
+   "rc-dirge-2",
+   "rc-dirge-2",
+   "rc-needle-2",
+   "rc-needle-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -1
+    ],
+    "back": [
+     3.8,
+     2.8
+    ],
+    "front": [
+     0.6,
+     0.6
+    ],
+    "length": 34,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.2,
+     10
+    ],
+    "back": [
+     4.4,
+     3.2
+    ],
+    "front": [
+     3.9,
+     2.9
+    ],
+    "length": 10,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     2.0,
+     -7
+    ],
+    "back": [
+     2.2,
+     1.3
+    ],
+    "front": [
+     0.8,
+     0.6
+    ],
+    "length": 8,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     2.3,
+     -11
+    ],
+    "back": [
+     1.0,
+     0.2
+    ],
+    "front": [
+     0.5,
+     0.15
+    ],
+    "length": 2.5,
+    "color": "glow"
+   },
+   {
+    "position": [
+     6.2,
+     -0.3,
+     6
+    ],
+    "back": [
+     3.0,
+     0.35
+    ],
+    "front": [
+     5.6,
+     0.35
+    ],
+    "length": 13,
+    "skew": [
+     -2.6,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     10.0,
+     -0.3,
+     -1
+    ],
+    "back": [
+     2.66,
+     0.3
+    ],
+    "front": [
+     0.66,
+     0.22
+    ],
+    "length": 13,
+    "skew": [
+     -3.6,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     4.4,
+     1.0,
+     -4
+    ],
+    "back": [
+     1.2,
+     1.0
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 10,
+    "color": "#6d6678",
+    "mirror": true
+   },
+   {
+    "position": [
+     -2.6,
+     -1.6,
+     -1
+    ],
+    "back": [
+     1.5,
+     1.0
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 14,
+    "skew": [
+     0.5,
+     0
+    ],
+    "color": "trim"
+   },
+   {
+    "position": [
+     -3.6,
+     3.0,
+     9
+    ],
+    "back": [
+     0.2,
+     4.5
+    ],
+    "front": [
+     0.2,
+     1.6
+    ],
+    "length": 7,
+    "roll": -12,
+    "color": "accent"
+   },
+   {
+    "position": [
+     3.0,
+     0,
+     16.5
+    ],
+    "back": [
+     1.9,
+     1.7
+    ],
+    "front": [
+     1.7,
+     1.5
+    ],
+    "length": 3.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.0,
+     0,
+     18.25
+    ],
+    "back": [
+     1.4,
+     1.2
+    ],
+    "front": [
+     1.4,
+     1.2
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     16.5
+    ],
+    "back": [
+     2.4,
+     2.0
+    ],
+    "front": [
+     2.2,
+     1.8
+    ],
+    "length": 3.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     18.25
+    ],
+    "back": [
+     1.8,
+     1.4
+    ],
+    "front": [
+     1.8,
+     1.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "rc-ruin-diver",
+  "name": "Ruin Diver",
+  "builder": "ruin-courts",
+  "class": "miner",
+  "description": "A salvage ship that goes into the wrecks other crews will not. It carries a claw, a scanner and a cutting beam, and brings back what is still worth taking.",
+  "price": 280000,
+  "mass": 130,
+  "baseSpeed": 72,
+  "pitchRate": 30,
+  "yawRate": 24,
+  "rollRate": 50,
+  "hullPoints": 420,
+  "radius": 20,
+  "crewBerths": 3,
+  "cargoTonnes": 60,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -1.5,
+     -14.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   },
+   {
+    "type": "utility",
+    "size": 2
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-2-3",
+   "rc-plant-2-2",
+   "rc-shield-2",
+   "rc-sensor-1-2",
+   "rc-needle-1",
+   "rc-cargo-3",
+   "rc-cargo-3",
+   "rc-salvage-claw-2",
+   "rc-ruin-scanner-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -2
+    ],
+    "back": [
+     5.0,
+     4.0
+    ],
+    "front": [
+     1.6,
+     1.6
+    ],
+    "length": 34,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     12
+    ],
+    "back": [
+     5.6,
+     4.4
+    ],
+    "front": [
+     5.0,
+     4.0
+    ],
+    "length": 10,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     2.5,
+     -9
+    ],
+    "back": [
+     2.4,
+     1.4
+    ],
+    "front": [
+     0.9,
+     0.7
+    ],
+    "length": 7,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     2.9,
+     -12.5
+    ],
+    "back": [
+     1.1,
+     0.2
+    ],
+    "front": [
+     0.6,
+     0.15
+    ],
+    "length": 2.5,
+    "color": "glow"
+   },
+   {
+    "position": [
+     4.8,
+     -0.4,
+     4
+    ],
+    "back": [
+     3.6,
+     3.4
+    ],
+    "front": [
+     3.6,
+     3.4
+    ],
+    "length": 14,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     4.8,
+     -0.4,
+     -5
+    ],
+    "back": [
+     2.6,
+     2.6
+    ],
+    "front": [
+     0.9,
+     0.9
+    ],
+    "length": 6,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     -8.0,
+     -0.6,
+     6
+    ],
+    "back": [
+     2.2,
+     2.4
+    ],
+    "front": [
+     2.2,
+     2.4
+    ],
+    "length": 9,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     -7.2,
+     0,
+     0
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     2.4,
+     -1.8,
+     -15
+    ],
+    "back": [
+     1.0,
+     0.9
+    ],
+    "front": [
+     0.35,
+     0.35
+    ],
+    "length": 14,
+    "skew": [
+     -1.4,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.8,
+     -1.8,
+     -21
+    ],
+    "back": [
+     0.7,
+     0.6
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 5,
+    "skew": [
+     1.2,
+     0
+    ],
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.0,
+     3.0,
+     11
+    ],
+    "back": [
+     0.2,
+     3.4
+    ],
+    "front": [
+     0.2,
+     1.2
+    ],
+    "length": 5,
+    "roll": 10,
+    "color": "accent"
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     18
+    ],
+    "back": [
+     2.2,
+     2.0
+    ],
+    "front": [
+     2.0,
+     1.8
+    ],
+    "length": 3.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     19.75
+    ],
+    "back": [
+     1.6,
+     1.4
+    ],
+    "front": [
+     1.6,
+     1.4
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -0.3,
+     18
+    ],
+    "back": [
+     2.6,
+     2.2
+    ],
+    "front": [
+     2.4,
+     2.0
+    ],
+    "length": 3.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -0.3,
+     19.75
+    ],
+    "back": [
+     2.0,
+     1.6
+    ],
+    "front": [
+     2.0,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "rc-court-barge",
+  "name": "Court Barge",
+  "builder": "ruin-courts",
+  "class": "freighter",
+  "description": "The long black hold-ship of a Ruin Court. It is built on a spine older than its owners, and it moves through the dark with the care of a long grudge.",
+  "price": 640000,
+  "mass": 320,
+  "baseSpeed": 66,
+  "pitchRate": 20,
+  "yawRate": 16,
+  "rollRate": 32,
+  "hullPoints": 780,
+  "radius": 30,
+  "crewBerths": 4,
+  "cargoTonnes": 160,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 3
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.0,
+     -1.0,
+     -24.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -3.0,
+     -1.0,
+     -24.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   }
+  ],
+  "defaultLoadout": [
+   "rc-drive-3",
+   "rc-plant-3",
+   "rc-shield-3",
+   "rc-sensor-1",
+   "rc-needle-1",
+   "rc-needle-1",
+   "rc-cargo-5",
+   "rc-cargo-4",
+   "rc-cargo-4"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     6.0,
+     4.5
+    ],
+    "front": [
+     1.2,
+     1.2
+    ],
+    "length": 58,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -3
+    ],
+    "back": [
+     6.5,
+     5.0
+    ],
+    "front": [
+     6.0,
+     4.7
+    ],
+    "length": 20,
+    "color": "#6d6678"
+   },
+   {
+    "position": [
+     0,
+     0,
+     25
+    ],
+    "back": [
+     6.0,
+     4.5
+    ],
+    "front": [
+     7.0,
+     5.2
+    ],
+    "length": 12,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     3.5,
+     -22
+    ],
+    "back": [
+     3.2,
+     2.2
+    ],
+    "front": [
+     1.2,
+     0.8
+    ],
+    "length": 12,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     4.0,
+     -28
+    ],
+    "back": [
+     1.6,
+     0.3
+    ],
+    "front": [
+     0.8,
+     0.2
+    ],
+    "length": 3,
+    "color": "glow"
+   },
+   {
+    "position": [
+     8.5,
+     -0.5,
+     -5
+    ],
+    "back": [
+     7.0,
+     5.0
+    ],
+    "front": [
+     7.0,
+     5.0
+    ],
+    "length": 20,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     8.5,
+     -0.5,
+     15
+    ],
+    "back": [
+     7.0,
+     5.0
+    ],
+    "front": [
+     6.0,
+     4.5
+    ],
+    "length": 14,
+    "color": "#6d6678",
+    "mirror": true
+   },
+   {
+    "position": [
+     -3.8,
+     4.0,
+     5
+    ],
+    "back": [
+     0.3,
+     6.0
+    ],
+    "front": [
+     0.2,
+     2.0
+    ],
+    "length": 16,
+    "roll": -8,
+    "color": "accent"
+   },
+   {
+    "position": [
+     6.0,
+     5.2,
+     10
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.15,
+     0.15
+    ],
+    "length": 24,
+    "skew": [
+     -1,
+     0
+    ],
+    "color": "trim"
+   },
+   {
+    "position": [
+     4.0,
+     0,
+     33
+    ],
+    "back": [
+     3.4,
+     3.0
+    ],
+    "front": [
+     3.0,
+     2.6
+    ],
+    "length": 4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     4.0,
+     0,
+     35.05
+    ],
+    "back": [
+     2.4,
+     2.0
+    ],
+    "front": [
+     2.4,
+     2.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     33
+    ],
+    "back": [
+     4.0,
+     3.4
+    ],
+    "front": [
+     3.6,
+     3.0
+    ],
+    "length": 4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     35.05
+    ],
+    "back": [
+     3.0,
+     2.6
+    ],
+    "front": [
+     3.0,
+     2.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -9.0,
+     -3.0,
+     -20
+    ],
+    "back": [
+     1.0,
+     1.0
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 14,
+    "skew": [
+     0.6,
+     0
+    ],
+    "color": "trim"
+   }
+  ]
+ }
+]

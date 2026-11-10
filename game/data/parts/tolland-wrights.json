@@ -1,0 +1,1239 @@
+[
+ {
+  "id": "tw-drive-1-1",
+  "name": "Tolland drive S1 Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 6000,
+  "description": "A bolted-together fusion drive that any frontier mechanic can strip and rebuild in a day.",
+  "stats": {
+   "thrust": 760,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "tw-drive-1-2",
+  "name": "Tolland drive S1 Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 9600,
+  "description": "A bolted-together fusion drive that any frontier mechanic can strip and rebuild in a day. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "thrust": 821,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "tw-drive-1-3",
+  "name": "Tolland drive S1 Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 15350,
+  "description": "A bolted-together fusion drive that any frontier mechanic can strip and rebuild in a day. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "thrust": 886,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "tw-drive-2-1",
+  "name": "Tolland drive S2 Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 18000,
+  "description": "A stout drive with plenty of spare parts on every Tolland dock.",
+  "stats": {
+   "thrust": 1900,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "tw-drive-2-2",
+  "name": "Tolland drive S2 Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 28800,
+  "description": "A stout drive with plenty of spare parts on every Tolland dock. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "thrust": 2052,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "tw-drive-2-3",
+  "name": "Tolland drive S2 Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 46100,
+  "description": "A stout drive with plenty of spare parts on every Tolland dock. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "thrust": 2216,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "tw-drive-3-1",
+  "name": "Tolland drive S3 Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 54000,
+  "description": "A heavy drive built to run on bad fuel and worse maintenance.",
+  "stats": {
+   "thrust": 4000,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "tw-drive-3-2",
+  "name": "Tolland drive S3 Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 86400,
+  "description": "A heavy drive built to run on bad fuel and worse maintenance. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "thrust": 4320,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "tw-drive-3-3",
+  "name": "Tolland drive S3 Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 138250,
+  "description": "A heavy drive built to run on bad fuel and worse maintenance. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "thrust": 4666,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "tw-drive-4-1",
+  "name": "Tolland drive S4 Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 162000,
+  "description": "A big frame drive that has hauled half the Reach, and been mended a dozen times.",
+  "stats": {
+   "thrust": 8200,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "tw-drive-4-2",
+  "name": "Tolland drive S4 Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 259200,
+  "description": "A big frame drive that has hauled half the Reach, and been mended a dozen times. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "thrust": 8856,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "tw-drive-4-3",
+  "name": "Tolland drive S4 Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 414700,
+  "description": "A big frame drive that has hauled half the Reach, and been mended a dozen times. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "thrust": 9564,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "tw-drive-5-1",
+  "name": "Tolland drive S5 Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 486000,
+  "description": "A huge drive that has hauled half the Reach, and been mended a dozen times.",
+  "stats": {
+   "thrust": 14000,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "tw-drive-5-2",
+  "name": "Tolland drive S5 Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 777600,
+  "description": "A huge drive that has hauled half the Reach, and been mended a dozen times. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "thrust": 15120,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "tw-drive-5-3",
+  "name": "Tolland drive S5 Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 1244150,
+  "description": "A huge drive that has hauled half the Reach, and been mended a dozen times. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "thrust": 16330,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "tw-plant-1-1",
+  "name": "Homestead plant S1 Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 5250,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 63,
+   "capacitorRecharge": 11.4
+  }
+ },
+ {
+  "id": "tw-plant-1-2",
+  "name": "Homestead plant S1 Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 8400,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 69,
+   "capacitorRecharge": 12.5
+  }
+ },
+ {
+  "id": "tw-plant-1-3",
+  "name": "Homestead plant S1 Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 13450,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 76,
+   "capacitorRecharge": 13.8
+  }
+ },
+ {
+  "id": "tw-plant-2-1",
+  "name": "Homestead plant S2 Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 15750,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 94,
+   "capacitorRecharge": 16.0
+  }
+ },
+ {
+  "id": "tw-plant-2-2",
+  "name": "Homestead plant S2 Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 25200,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 104,
+   "capacitorRecharge": 17.6
+  }
+ },
+ {
+  "id": "tw-plant-2-3",
+  "name": "Homestead plant S2 Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 40300,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 114,
+   "capacitorRecharge": 19.3
+  }
+ },
+ {
+  "id": "tw-plant-3-1",
+  "name": "Homestead plant S3 Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 47250,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 142,
+   "capacitorRecharge": 22.3
+  }
+ },
+ {
+  "id": "tw-plant-3-2",
+  "name": "Homestead plant S3 Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 75600,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 156,
+   "capacitorRecharge": 24.6
+  }
+ },
+ {
+  "id": "tw-plant-3-3",
+  "name": "Homestead plant S3 Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 120950,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 172,
+   "capacitorRecharge": 27.0
+  }
+ },
+ {
+  "id": "tw-plant-4-1",
+  "name": "Homestead plant S4 Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 141750,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 213,
+   "capacitorRecharge": 31.3
+  }
+ },
+ {
+  "id": "tw-plant-4-2",
+  "name": "Homestead plant S4 Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 226800,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 234,
+   "capacitorRecharge": 34.4
+  }
+ },
+ {
+  "id": "tw-plant-4-3",
+  "name": "Homestead plant S4 Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 362900,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 257,
+   "capacitorRecharge": 37.9
+  }
+ },
+ {
+  "id": "tw-plant-5-1",
+  "name": "Homestead plant S5 Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 425250,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 319,
+   "capacitorRecharge": 43.8
+  }
+ },
+ {
+  "id": "tw-plant-5-2",
+  "name": "Homestead plant S5 Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 680400,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 351,
+   "capacitorRecharge": 48.2
+  }
+ },
+ {
+  "id": "tw-plant-5-3",
+  "name": "Homestead plant S5 Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 1088650,
+  "description": "A slow, forgiving reactor that sips cheap fuel and keeps going when it is dirty. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 386,
+   "capacitorRecharge": 53.0
+  }
+ },
+ {
+  "id": "tw-shield-1-1",
+  "name": "Patchwork shield S1 Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 4500,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds.",
+  "stats": {
+   "capacity": 76,
+   "recharge": 5.7,
+   "rechargeDelay": 3.2
+  }
+ },
+ {
+  "id": "tw-shield-1-2",
+  "name": "Patchwork shield S1 Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 7200,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "capacity": 84,
+   "recharge": 6.3,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "tw-shield-1-3",
+  "name": "Patchwork shield S1 Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 11500,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "capacity": 92,
+   "recharge": 6.9,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "tw-shield-2-1",
+  "name": "Patchwork shield S2 Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 13500,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds.",
+  "stats": {
+   "capacity": 171,
+   "recharge": 12.8,
+   "rechargeDelay": 3.2
+  }
+ },
+ {
+  "id": "tw-shield-2-2",
+  "name": "Patchwork shield S2 Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 21600,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "capacity": 188,
+   "recharge": 14.1,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "tw-shield-2-3",
+  "name": "Patchwork shield S2 Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 34550,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "capacity": 207,
+   "recharge": 15.5,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "tw-shield-3-1",
+  "name": "Patchwork shield S3 Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 40500,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds.",
+  "stats": {
+   "capacity": 361,
+   "recharge": 27.1,
+   "rechargeDelay": 3.2
+  }
+ },
+ {
+  "id": "tw-shield-3-2",
+  "name": "Patchwork shield S3 Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 64800,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "capacity": 397,
+   "recharge": 29.8,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "tw-shield-3-3",
+  "name": "Patchwork shield S3 Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 103700,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "capacity": 437,
+   "recharge": 32.8,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "tw-shield-4-1",
+  "name": "Patchwork shield S4 Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 121500,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds.",
+  "stats": {
+   "capacity": 665,
+   "recharge": 49.9,
+   "rechargeDelay": 3.2
+  }
+ },
+ {
+  "id": "tw-shield-4-2",
+  "name": "Patchwork shield S4 Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 194400,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "capacity": 732,
+   "recharge": 54.9,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "tw-shield-4-3",
+  "name": "Patchwork shield S4 Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 311050,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "capacity": 805,
+   "recharge": 60.3,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "tw-shield-5-1",
+  "name": "Patchwork shield S5 Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 364500,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds.",
+  "stats": {
+   "capacity": 1140,
+   "recharge": 85.5,
+   "rechargeDelay": 3.2
+  }
+ },
+ {
+  "id": "tw-shield-5-2",
+  "name": "Patchwork shield S5 Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 583200,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "capacity": 1254,
+   "recharge": 94.0,
+   "rechargeDelay": 3.1
+  }
+ },
+ {
+  "id": "tw-shield-5-3",
+  "name": "Patchwork shield S5 Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 933100,
+  "description": "A deflector made of mismatched emitter plates. Ugly, cheap, and it holds. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "capacity": 1379,
+   "recharge": 103.5,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "tw-sensor-1-1",
+  "name": "Rangehand sensor S1 Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 2250,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs.",
+  "stats": {
+   "range": 6000
+  }
+ },
+ {
+  "id": "tw-sensor-1-2",
+  "name": "Rangehand sensor S1 Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 3600,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "range": 7000
+  }
+ },
+ {
+  "id": "tw-sensor-1-3",
+  "name": "Rangehand sensor S1 Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 5750,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "range": 8000
+  }
+ },
+ {
+  "id": "tw-sensor-2-1",
+  "name": "Rangehand sensor S2 Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 6750,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs.",
+  "stats": {
+   "range": 9000
+  }
+ },
+ {
+  "id": "tw-sensor-2-2",
+  "name": "Rangehand sensor S2 Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 10800,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "range": 10000
+  }
+ },
+ {
+  "id": "tw-sensor-2-3",
+  "name": "Rangehand sensor S2 Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 17300,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "range": 11000
+  }
+ },
+ {
+  "id": "tw-sensor-3-1",
+  "name": "Rangehand sensor S3 Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 20250,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs.",
+  "stats": {
+   "range": 12000
+  }
+ },
+ {
+  "id": "tw-sensor-3-2",
+  "name": "Rangehand sensor S3 Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 32400,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "range": 13000
+  }
+ },
+ {
+  "id": "tw-sensor-3-3",
+  "name": "Rangehand sensor S3 Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 51850,
+  "description": "A salvaged survey array with a hand-trimmed antenna. Sees as far as anyone out here needs. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "range": 14000
+  }
+ },
+ {
+  "id": "tw-cargo-1",
+  "name": "Cargo pod S1",
+  "type": "cargo",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 1100,
+  "description": "A strap-on cargo pod. Rated for the load on the plate, and then some.",
+  "stats": {
+   "tonnes": 8
+  }
+ },
+ {
+  "id": "tw-cargo-2",
+  "name": "Cargo pod S2",
+  "type": "cargo",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 3400,
+  "description": "A strap-on cargo pod. Rated for the load on the plate, and then some.",
+  "stats": {
+   "tonnes": 16
+  }
+ },
+ {
+  "id": "tw-cargo-3",
+  "name": "Cargo pod S3",
+  "type": "cargo",
+  "size": 3,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 10100,
+  "description": "A strap-on cargo pod. Rated for the load on the plate, and then some.",
+  "stats": {
+   "tonnes": 32
+  }
+ },
+ {
+  "id": "tw-cargo-4",
+  "name": "Cargo pod S4",
+  "type": "cargo",
+  "size": 4,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 30400,
+  "description": "A strap-on cargo pod. Rated for the load on the plate, and then some.",
+  "stats": {
+   "tonnes": 64
+  }
+ },
+ {
+  "id": "tw-cargo-5",
+  "name": "Cargo pod S5",
+  "type": "cargo",
+  "size": 5,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 91100,
+  "description": "A strap-on cargo pod. Rated for the load on the plate, and then some.",
+  "stats": {
+   "tonnes": 128
+  }
+ },
+ {
+  "id": "tw-slug-1-1",
+  "name": "Longbarrel slug thrower S1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 4400,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way.",
+  "stats": {
+   "damage": 26.0,
+   "fireRate": 1.3,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-1-2",
+  "name": "Longbarrel slug thrower S1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 7050,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "damage": 28.6,
+   "fireRate": 1.3,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-1-3",
+  "name": "Longbarrel slug thrower S1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 11250,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "damage": 31.5,
+   "fireRate": 1.3,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-2-1",
+  "name": "Longbarrel slug thrower S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 13200,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way.",
+  "stats": {
+   "damage": 52.0,
+   "fireRate": 1.04,
+   "energyPerShot": 5.4,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-2-2",
+  "name": "Longbarrel slug thrower S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 21100,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "damage": 57.2,
+   "fireRate": 1.04,
+   "energyPerShot": 5.4,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-2-3",
+  "name": "Longbarrel slug thrower S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 33800,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "damage": 62.9,
+   "fireRate": 1.04,
+   "energyPerShot": 5.4,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-3-1",
+  "name": "Longbarrel slug thrower S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 39600,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way.",
+  "stats": {
+   "damage": 104.0,
+   "fireRate": 0.83,
+   "energyPerShot": 9.7,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-3-2",
+  "name": "Longbarrel slug thrower S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 63350,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "damage": 114.4,
+   "fireRate": 0.83,
+   "energyPerShot": 9.7,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-slug-3-3",
+  "name": "Longbarrel slug thrower S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 101400,
+  "color": "#e0b070",
+  "description": "A long-barrelled slug thrower built on the same lines as a hunting rifle. Slow to cycle, hits hard and carries a long way. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "damage": 125.8,
+   "fireRate": 0.83,
+   "energyPerShot": 9.7,
+   "projectileSpeed": 1100,
+   "range": 2600
+  }
+ },
+ {
+  "id": "tw-rotary-1-1",
+  "name": "Bunkhouse rotary S1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 3600,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then.",
+  "stats": {
+   "damage": 3.4,
+   "fireRate": 9.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-1-2",
+  "name": "Bunkhouse rotary S1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 5750,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "damage": 3.7,
+   "fireRate": 9.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-1-3",
+  "name": "Bunkhouse rotary S1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 9200,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "damage": 4.1,
+   "fireRate": 9.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-2-1",
+  "name": "Bunkhouse rotary S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 10800,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then.",
+  "stats": {
+   "damage": 6.8,
+   "fireRate": 7.2,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-2-2",
+  "name": "Bunkhouse rotary S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 17300,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "damage": 7.5,
+   "fireRate": 7.2,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-2-3",
+  "name": "Bunkhouse rotary S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 27650,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "damage": 8.2,
+   "fireRate": 7.2,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-3-1",
+  "name": "Bunkhouse rotary S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 32400,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then.",
+  "stats": {
+   "damage": 13.6,
+   "fireRate": 5.76,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-3-2",
+  "name": "Bunkhouse rotary S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "tolland-wrights",
+  "price": 51850,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then. Revised injector timing and a better-fitted gasket give a little more push than the Mk I.",
+  "stats": {
+   "damage": 15.0,
+   "fireRate": 5.76,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-rotary-3-3",
+  "name": "Bunkhouse rotary S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "tolland-wrights",
+  "price": 82950,
+  "color": "#ffb347",
+  "description": "A cheap rotary cannon with a hopper of scrap shot. Sprays a lot of lead and jams only now and then. Rebuilt from the best of three scrapped units, and still cheaper than a new one.",
+  "stats": {
+   "damage": 16.5,
+   "fireRate": 5.76,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 850,
+   "range": 1100
+  }
+ },
+ {
+  "id": "tw-mining-laser-2",
+  "name": "Prospector mining laser S2 Mk I",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 12000,
+  "description": "A beam cutter bolted to a boom arm. Rough on the rock, easy on the wallet.",
+  "stats": {
+   "miningRate": 1.0,
+   "range": 850,
+   "heat": 0.7
+  }
+ },
+ {
+  "id": "tw-fuel-scoop-1",
+  "name": "Frontier fuel scoop Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 5500,
+  "description": "A wide-mouthed scoop welded to whatever hull point was free. Fills a tank at gas giants and stars alike.",
+  "stats": {
+   "scoopRate": 1.8,
+   "heatTolerance": 0.6
+  }
+ },
+ {
+  "id": "tw-repair-rig-1",
+  "name": "Jury rig kit Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 6500,
+  "description": "A toolbox, a welding arm and a bin of offcuts. Slow, but it will keep you flying.",
+  "stats": {
+   "repairRate": 1.5,
+   "patchesStored": 25
+  }
+ },
+ {
+  "id": "tw-drop-tank-1",
+  "name": "External drop tank Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 3500,
+  "description": "A strap-on tank for the long gaps between stations. Gives extra jump range and can be jettisoned.",
+  "stats": {
+   "fuelTonnes": 6,
+   "jettisonable": 1
+  }
+ },
+ {
+  "id": "tw-cargo-scanner-1",
+  "name": "Hold sniffer Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 4500,
+  "description": "A hold scanner tuned to find what a customs officer would, so you can hide it first.",
+  "stats": {
+   "range": 1300,
+   "detail": 0.9
+  }
+ }
+]

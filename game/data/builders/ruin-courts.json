@@ -1,0 +1,22 @@
+{
+ "id": "ruin-courts",
+ "name": "Ruin Court shipwrights",
+ "race": "dark-elf",
+ "region": "rim",
+ "culture": "Ruin Courts",
+ "style": "Long elven lines, broken and re-forged, with hooked blades and mismatched grafts",
+ "bias": "Stealthy, with excellent sensors and good agility, but thin shields",
+ "statBias": {
+  "sensors": 1.25,
+  "stealth": 1.25,
+  "agility": 1.1,
+  "shields": 0.85
+ },
+ "palette": {
+  "hull": "#3d3c4c",
+  "accent": "#8a5fe0",
+  "trim": "#6b6e7e",
+  "glow": "#d6c8ff"
+ },
+ "modelNameGrammar": "models-ruin-courts"
+}

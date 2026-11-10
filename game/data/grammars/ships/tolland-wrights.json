@@ -1,0 +1,79 @@
+{
+  "id": "models-tolland-wrights",
+  "description": "Tolland Reach ship names: working animals, weather, places, plain words, family names, Old and Big and nicknames.",
+  "variables": [],
+  "rules": {
+    "model": [
+      "#animal#", "#animal#", "#animal#",
+      "Old #animal#", "Old #animal#", "Big #animal#", "Little #animal#",
+      "#weather# #animal#", "#weather# #animal#",
+      "#colour# #animal#", "#colour# #thing#",
+      "#place# #thing#", "#place# #thing#", "#place# #animal#",
+      "#family#'s #thing#", "#family#'s #thing#", "#family#'s #animal#",
+      "Old #family#", "#family# Run", "#family# Special",
+      "Old #thing#", "Big #thing#", "Honest #thing#", "Stubborn #thing#", "Patient #thing#",
+      "#nick#", "#nick#", "#nick#", "Old #nick#", "Big #nick#",
+      "#weather#", "#thing#", "#thing#",
+      "#plain# #thing#", "#plain# #animal#", "#plain#",
+      "The #nick#", "The #thing#", "Mother #motherword#", "Aunt #aunt#", "Uncle #uncle#",
+      "#animal# #roman#", "#thing# #roman#", "#place# #roman#",
+      "#animal#-#digit#", "#thing# #digit#", "#place# #digit#",
+      "#animal# Mark #digit#", "#thing# Mark #digit#",
+      "No #digit#, #place# Road", "Second-hand #animal#", "Third-hand #thing#"
+    ],
+    "animal": [
+      "Heifer", "Billy", "Yearling", "Bullock", "Drover", "Cob", "Stallion", "Foal", "Mare", "Gelding",
+      "Mule", "Donkey", "Packhorse", "Oxen", "Steer", "Ewe", "Tup", "Nanny", "Sow", "Boar",
+      "Hen", "Rooster", "Gander", "Goose", "Duck", "Turkey", "Bantam", "Collie", "Heeler", "Kelpie",
+      "Sheepdog", "Cur", "Coyote", "Jackal", "Badger", "Raccoon", "Possum", "Prairie Dog", "Jackrabbit", "Gopher",
+      "Crow", "Magpie", "Grouse", "Quail", "Pheasant", "Buzzard", "Vulture", "Roadrunner", "Wren", "Shrike",
+      "Bison", "Elk", "Moose", "Caribou", "Stag", "Antelope", "Mustang", "Burro", "Camel", "Dromedary",
+      "Skunk", "Marmot", "Wolverine", "Lynx", "Bobcat", "Cougar", "Grizzly", "Black Bear", "Muskrat", "Beaver",
+      "Armadillo", "Horned Toad", "Rattler", "Sidewinder", "Gila", "Tortoise", "Bullfrog", "Catfish", "Pike", "Trout"
+    ],
+    "weather": [
+      "Squall", "Dry Spell", "Drizzle", "Hailstone", "Dust Devil", "Thunderhead", "Cold Snap", "Heatwave", "Overcast", "Tailwind",
+      "Headwind", "Crosswind", "Fog Bank", "Black Frost", "First Frost", "Late Frost", "Cloudburst", "Downpour", "Whirlwind", "Gale",
+      "Breeze", "Mist", "Flash Flood", "Dry Lightning", "Sleet", "Snowdrift", "Thaw", "Brownout", "Dust Storm", "Rain Check"
+    ],
+    "colour": [
+      "Rust", "Cream", "Olive", "Brown", "Dun", "Pale", "Faded", "Patched", "Primer", "Grey", "Tan", "Mottled", "Piebald", "Sunbleached", "Mud"
+    ],
+    "place": [
+      "Tolland", "Dry Fork", "Hardscrabble", "Coldwater", "Last Chance", "Millstone", "Brindle", "Harrow", "Windle", "Thornby",
+      "Ashgrove", "Stonecross", "Marrow Creek", "Cinder Flats", "Pikes Landing", "Longfield", "Red Mesa", "Dunmore", "Broken Axle", "Halfway",
+      "Salt Lick", "Barrow Down", "Gallows Hill", "Quarry Gate", "Bent Nail", "Third Pasture", "Tin Roof", "Gravel Pit", "Cutbank", "Settler's Rest",
+      "Fenwick", "Hollow Ridge", "Larkin Bluff", "Copperfield", "Sandy Reach", "Penny Well", "Oxbow", "Wetherby", "Caldwell Drift", "Muddy Ford"
+    ],
+    "thing": [
+      "Hauler", "Wagon", "Cart", "Plough", "Harrow", "Trailer", "Tractor", "Tinker", "Pedlar", "Pickup",
+      "Flatbed", "Ute", "Rig", "Rattler", "Rambler", "Workhorse", "Workshop", "Barn", "Shed", "Gate",
+      "Latch", "Bucket", "Kettle", "Skillet", "Anvil", "Wrench", "Spanner", "Hammer", "Crowbar", "Spade",
+      "Pickaxe", "Lantern", "Ladder", "Wheelbarrow", "Toolbox", "Pantry", "Larder", "Porch", "Fencepost", "Windmill",
+      "Water Tank", "Rain Barrel", "Grain Bin", "Haystack", "Cattle Truck", "Stagecoach", "Mail Run", "Back Road", "Short Cut", "Long Way Round"
+    ],
+    "plain": [
+      "Good", "Fair", "Plain", "Steady", "Sound", "Hard", "Slow", "Dry", "Cheap", "Free",
+      "Lucky", "Odd", "Rough", "Sober", "Square", "True", "Wide", "Tough", "Quiet", "Cold",
+      "Better", "Fine", "Decent", "Fair Weather", "Second Wind"
+    ],
+    "family": [
+      "Hobbs", "Garrick", "Merrow", "Tolliver", "Cassidy", "Penhallow", "Brannock", "Dunwoody", "Ostler", "Fenner",
+      "Harkness", "Maddox", "Wyatt", "Corrigan", "Pruitt", "Haldane", "Sorrel", "Bickerstaff", "Tanner", "Whitlow",
+      "Ramsay", "Odom", "Calloway", "Redfern", "Gannet", "Ashby", "Lockwood", "Thackeray", "Varley", "Yates",
+      "Pettigrew", "Nettleship", "Brackett", "Duggan", "Mercer", "Quill", "Rooke", "Stannard", "Tuckett", "Underhill"
+    ],
+    "nick": [
+      "Rusty", "Dusty", "Lucky", "Patches", "Stubby", "Dumpling", "Biscuit", "Pancake", "Pickles", "Muddle",
+      "Mudlark", "Jinx", "Tumbler", "Sprocket", "Rattletrap", "Clunker", "Jalopy", "Scrapheap", "Hand-Me-Down", "Nine Lives",
+      "Second Chance", "Good Enough", "Near Enough", "Will Do", "Stay Put", "Hold Fast", "Make Do", "Close Call", "Slow Burn", "Safe Enough",
+      "Bartleby", "Wanderer", "Stray", "Drifter", "Bramble", "Thistle", "Nettle", "Burr", "Tick", "Cricket",
+      "Bruiser", "Brute", "Grumbler", "Ol' Faithful", "Ol' Reliable", "Beanpole", "Haystack", "Tumbleweed", "Squatter", "Holdout"
+    ],
+    "motherword": ["Hubbard", "Goose", "Courage", "Brown", "Tolland", "Hen", "Harvest", "Patience", "Mercy", "Hope"],
+    "aunt": ["Maggie", "Dot", "Bess", "Ida", "Nell", "Mabel", "Ruth", "Peg", "Hattie", "Winnie"],
+    "uncle": ["Alf", "Cyrus", "Wilf", "Amos", "Silas", "Ned", "Abe", "Hank", "Jed", "Gus"],
+    "roman": ["II", "III", "IV", "V", "VI"],
+    "digit": ["2", "3", "4", "5", "6", "7", "9"]
+  }
+}

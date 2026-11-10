@@ -1,0 +1,1255 @@
+[
+ {
+  "id": "ls-drive-1-1",
+  "name": "Votive drive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 8000,
+  "description": "A small drive whose exhaust is shaped into a lit ring behind the ship.",
+  "stats": {
+   "thrust": 720,
+   "speedFactor": 0.97
+  }
+ },
+ {
+  "id": "ls-drive-1-2",
+  "name": "Votive drive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 12800,
+  "description": "A small drive whose exhaust is shaped into a lit ring behind the ship. Refined by the yard's second revision.",
+  "stats": {
+   "thrust": 778,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "ls-drive-1-3",
+  "name": "Votive drive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 17600,
+  "description": "A small drive whose exhaust is shaped into a lit ring behind the ship. The Synod's finest standard revision.",
+  "stats": {
+   "thrust": 835,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "ls-drive-2-1",
+  "name": "Votive drive S2 Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 24000,
+  "description": "Twin-chamber drive with a bronze exhaust collar. Pilgrims call the glow the Long Candle.",
+  "stats": {
+   "thrust": 1800,
+   "speedFactor": 0.97
+  }
+ },
+ {
+  "id": "ls-drive-2-2",
+  "name": "Votive drive S2 Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 38400,
+  "description": "Twin-chamber drive with a bronze exhaust collar. Pilgrims call the glow the Long Candle. Refined by the yard's second revision.",
+  "stats": {
+   "thrust": 1944,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "ls-drive-2-3",
+  "name": "Votive drive S2 Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 52800,
+  "description": "Twin-chamber drive with a bronze exhaust collar. Pilgrims call the glow the Long Candle. The Synod's finest standard revision.",
+  "stats": {
+   "thrust": 2088,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "ls-drive-3-1",
+  "name": "Votive drive S3 Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 72000,
+  "description": "A heavy drive built in the Synod's cathedral yards, sound and unhurried.",
+  "stats": {
+   "thrust": 4200,
+   "speedFactor": 0.97
+  }
+ },
+ {
+  "id": "ls-drive-3-2",
+  "name": "Votive drive S3 Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 115200,
+  "description": "A heavy drive built in the Synod's cathedral yards, sound and unhurried. Refined by the yard's second revision.",
+  "stats": {
+   "thrust": 4536,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "ls-drive-3-3",
+  "name": "Votive drive S3 Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 158400,
+  "description": "A heavy drive built in the Synod's cathedral yards, sound and unhurried. The Synod's finest standard revision.",
+  "stats": {
+   "thrust": 4872,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "ls-drive-4-1",
+  "name": "Votive drive S4 Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 200000,
+  "description": "A great drive for relief hulls, blessed at the yard before it is bolted in.",
+  "stats": {
+   "thrust": 8500,
+   "speedFactor": 0.97
+  }
+ },
+ {
+  "id": "ls-drive-4-2",
+  "name": "Votive drive S4 Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 320000,
+  "description": "A great drive for relief hulls, blessed at the yard before it is bolted in. Refined by the yard's second revision.",
+  "stats": {
+   "thrust": 9180,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "ls-drive-4-3",
+  "name": "Votive drive S4 Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 440000,
+  "description": "A great drive for relief hulls, blessed at the yard before it is bolted in. The Synod's finest standard revision.",
+  "stats": {
+   "thrust": 9860,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "ls-drive-5-1",
+  "name": "Votive drive S5 Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 560000,
+  "description": "A cathedral-scale drive. Its fitting takes a full day and a short service.",
+  "stats": {
+   "thrust": 16000,
+   "speedFactor": 0.97
+  }
+ },
+ {
+  "id": "ls-drive-5-2",
+  "name": "Votive drive S5 Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 896000,
+  "description": "A cathedral-scale drive. Its fitting takes a full day and a short service. Refined by the yard's second revision.",
+  "stats": {
+   "thrust": 17280,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "ls-drive-5-3",
+  "name": "Votive drive S5 Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 1232000,
+  "description": "A cathedral-scale drive. Its fitting takes a full day and a short service. The Synod's finest standard revision.",
+  "stats": {
+   "thrust": 18560,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "ls-plant-1-1",
+  "name": "Vigil plant Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 7200,
+  "description": "A small plant with a steady capacitor, kept lit by the yard's attendants.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 60,
+   "capacitorRecharge": 12.0
+  }
+ },
+ {
+  "id": "ls-plant-1-2",
+  "name": "Vigil plant Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 11500,
+  "description": "A small plant with a steady capacitor, kept lit by the yard's attendants. Refined by the yard's second revision.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 66,
+   "capacitorRecharge": 13.2
+  }
+ },
+ {
+  "id": "ls-plant-1-3",
+  "name": "Vigil plant Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 15800,
+  "description": "A small plant with a steady capacitor, kept lit by the yard's attendants. The Synod's finest standard revision.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 72,
+   "capacitorRecharge": 14.4
+  }
+ },
+ {
+  "id": "ls-plant-2-1",
+  "name": "Vigil plant S2 Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 21600,
+  "description": "A paired-cell plant that keeps shields and sensors fed on a long vigil.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 90,
+   "capacitorRecharge": 16.8
+  }
+ },
+ {
+  "id": "ls-plant-2-2",
+  "name": "Vigil plant S2 Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 34500,
+  "description": "A paired-cell plant that keeps shields and sensors fed on a long vigil. Refined by the yard's second revision.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 99,
+   "capacitorRecharge": 18.5
+  }
+ },
+ {
+  "id": "ls-plant-2-3",
+  "name": "Vigil plant S2 Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 47500,
+  "description": "A paired-cell plant that keeps shields and sensors fed on a long vigil. The Synod's finest standard revision.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 108,
+   "capacitorRecharge": 20.2
+  }
+ },
+ {
+  "id": "ls-plant-3-1",
+  "name": "Vigil plant S3 Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 64800,
+  "description": "A reliquary-cased plant with a deep capacitor bank.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 135,
+   "capacitorRecharge": 23.5
+  }
+ },
+ {
+  "id": "ls-plant-3-2",
+  "name": "Vigil plant S3 Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 103600,
+  "description": "A reliquary-cased plant with a deep capacitor bank. Refined by the yard's second revision.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 148,
+   "capacitorRecharge": 25.9
+  }
+ },
+ {
+  "id": "ls-plant-3-3",
+  "name": "Vigil plant S3 Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 142500,
+  "description": "A reliquary-cased plant with a deep capacitor bank. The Synod's finest standard revision.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 162,
+   "capacitorRecharge": 28.2
+  }
+ },
+ {
+  "id": "ls-plant-4-1",
+  "name": "Vigil plant S4 Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 180000,
+  "description": "A large plant of stacked cells in a bronze cage.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 200,
+   "capacitorRecharge": 33.0
+  }
+ },
+ {
+  "id": "ls-plant-4-2",
+  "name": "Vigil plant S4 Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 288000,
+  "description": "A large plant of stacked cells in a bronze cage. Refined by the yard's second revision.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 220,
+   "capacitorRecharge": 36.3
+  }
+ },
+ {
+  "id": "ls-plant-4-3",
+  "name": "Vigil plant S4 Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 396000,
+  "description": "A large plant of stacked cells in a bronze cage. The Synod's finest standard revision.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 240,
+   "capacitorRecharge": 39.6
+  }
+ },
+ {
+  "id": "ls-plant-5-1",
+  "name": "Vigil plant S5 Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 504000,
+  "description": "A cathedral reactor. Heavy, patient and very hard to scare.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 300,
+   "capacitorRecharge": 46.0
+  }
+ },
+ {
+  "id": "ls-plant-5-2",
+  "name": "Vigil plant S5 Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 806400,
+  "description": "A cathedral reactor. Heavy, patient and very hard to scare. Refined by the yard's second revision.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 330,
+   "capacitorRecharge": 50.6
+  }
+ },
+ {
+  "id": "ls-plant-5-3",
+  "name": "Vigil plant S5 Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 1108800,
+  "description": "A cathedral reactor. Heavy, patient and very hard to scare. The Synod's finest standard revision.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 360,
+   "capacitorRecharge": 55.2
+  }
+ },
+ {
+  "id": "ls-shield-1-1",
+  "name": "Aureole shield Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 7200,
+  "description": "A thin halo shield, lit from within.",
+  "stats": {
+   "capacity": 80,
+   "recharge": 6.4,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "ls-shield-1-2",
+  "name": "Aureole shield Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 11500,
+  "description": "A thin halo shield, lit from within. Refined by the yard's second revision.",
+  "stats": {
+   "capacity": 88,
+   "recharge": 7.0,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "ls-shield-1-3",
+  "name": "Aureole shield Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 15800,
+  "description": "A thin halo shield, lit from within. The Synod's finest standard revision.",
+  "stats": {
+   "capacity": 96,
+   "recharge": 7.7,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "ls-shield-2-1",
+  "name": "Aureole shield S2 Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 21600,
+  "description": "Dual-emitter shield that throws a ring of gold light round the hull.",
+  "stats": {
+   "capacity": 180,
+   "recharge": 14.4,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "ls-shield-2-2",
+  "name": "Aureole shield S2 Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 34500,
+  "description": "Dual-emitter shield that throws a ring of gold light round the hull. Refined by the yard's second revision.",
+  "stats": {
+   "capacity": 198,
+   "recharge": 15.8,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "ls-shield-2-3",
+  "name": "Aureole shield S2 Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 47500,
+  "description": "Dual-emitter shield that throws a ring of gold light round the hull. The Synod's finest standard revision.",
+  "stats": {
+   "capacity": 216,
+   "recharge": 17.3,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "ls-shield-3-1",
+  "name": "Aureole shield S3 Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 64800,
+  "description": "A broad aureole shield for hulls that must hold the line.",
+  "stats": {
+   "capacity": 380,
+   "recharge": 30.4,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "ls-shield-3-2",
+  "name": "Aureole shield S3 Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 103600,
+  "description": "A broad aureole shield for hulls that must hold the line. Refined by the yard's second revision.",
+  "stats": {
+   "capacity": 418,
+   "recharge": 33.4,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "ls-shield-3-3",
+  "name": "Aureole shield S3 Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 142500,
+  "description": "A broad aureole shield for hulls that must hold the line. The Synod's finest standard revision.",
+  "stats": {
+   "capacity": 456,
+   "recharge": 36.5,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "ls-shield-4-1",
+  "name": "Aureole shield S4 Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 180000,
+  "description": "A great aureole with a long reserve and a patient recharge.",
+  "stats": {
+   "capacity": 700,
+   "recharge": 56.0,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "ls-shield-4-2",
+  "name": "Aureole shield S4 Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 288000,
+  "description": "A great aureole with a long reserve and a patient recharge. Refined by the yard's second revision.",
+  "stats": {
+   "capacity": 770,
+   "recharge": 61.6,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "ls-shield-4-3",
+  "name": "Aureole shield S4 Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 396000,
+  "description": "A great aureole with a long reserve and a patient recharge. The Synod's finest standard revision.",
+  "stats": {
+   "capacity": 840,
+   "recharge": 67.2,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "ls-shield-5-1",
+  "name": "Aureole shield S5 Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 504000,
+  "description": "A cathedral aureole. It would shelter a small town.",
+  "stats": {
+   "capacity": 1200,
+   "recharge": 96.0,
+   "rechargeDelay": 3.0
+  }
+ },
+ {
+  "id": "ls-shield-5-2",
+  "name": "Aureole shield S5 Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 806400,
+  "description": "A cathedral aureole. It would shelter a small town. Refined by the yard's second revision.",
+  "stats": {
+   "capacity": 1320,
+   "recharge": 105.6,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "ls-shield-5-3",
+  "name": "Aureole shield S5 Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 1108800,
+  "description": "A cathedral aureole. It would shelter a small town. The Synod's finest standard revision.",
+  "stats": {
+   "capacity": 1440,
+   "recharge": 115.2,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "ls-sensor-1-1",
+  "name": "Clerestory sensor Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 7000,
+  "description": "A small lens-and-reed array in a bronze hood. Good at finding what should not be there.",
+  "stats": {
+   "range": 7000
+  }
+ },
+ {
+  "id": "ls-sensor-1-2",
+  "name": "Clerestory sensor Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 11200,
+  "description": "A small lens-and-reed array in a bronze hood. Good at finding what should not be there. Refined by the yard's second revision.",
+  "stats": {
+   "range": 8000
+  }
+ },
+ {
+  "id": "ls-sensor-1-3",
+  "name": "Clerestory sensor Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 15400,
+  "description": "A small lens-and-reed array in a bronze hood. Good at finding what should not be there. The Synod's finest standard revision.",
+  "stats": {
+   "range": 9000
+  }
+ },
+ {
+  "id": "ls-sensor-2-1",
+  "name": "Clerestory sensor S2 Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 14000,
+  "description": "A folded array that sweeps the dark for rim signatures.",
+  "stats": {
+   "range": 10500
+  }
+ },
+ {
+  "id": "ls-sensor-2-2",
+  "name": "Clerestory sensor S2 Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 22400,
+  "description": "A folded array that sweeps the dark for rim signatures. Refined by the yard's second revision.",
+  "stats": {
+   "range": 11500
+  }
+ },
+ {
+  "id": "ls-sensor-2-3",
+  "name": "Clerestory sensor S2 Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 30800,
+  "description": "A folded array that sweeps the dark for rim signatures. The Synod's finest standard revision.",
+  "stats": {
+   "range": 12500
+  }
+ },
+ {
+  "id": "ls-sensor-3-1",
+  "name": "Clerestory sensor S3 Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 36000,
+  "description": "A long-lens sensor tower, the Synod's pride. Little hides from it.",
+  "stats": {
+   "range": 14000
+  }
+ },
+ {
+  "id": "ls-sensor-3-2",
+  "name": "Clerestory sensor S3 Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 57600,
+  "description": "A long-lens sensor tower, the Synod's pride. Little hides from it. Refined by the yard's second revision.",
+  "stats": {
+   "range": 15000
+  }
+ },
+ {
+  "id": "ls-sensor-3-3",
+  "name": "Clerestory sensor S3 Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 79200,
+  "description": "A long-lens sensor tower, the Synod's pride. Little hides from it. The Synod's finest standard revision.",
+  "stats": {
+   "range": 16000
+  }
+ },
+ {
+  "id": "ls-censer-1-1",
+  "name": "Censer Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 5500,
+  "color": "#ff9a3c",
+  "description": "A short-range burst gun that throws a swinging fan of glowing embers.",
+  "stats": {
+   "damage": 5.0,
+   "fireRate": 7.0,
+   "energyPerShot": 2.2,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-1-2",
+  "name": "Censer Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 8800,
+  "color": "#ff9a3c",
+  "description": "A short-range burst gun that throws a swinging fan of glowing embers. Refined by the yard's second revision.",
+  "stats": {
+   "damage": 5.5,
+   "fireRate": 7.0,
+   "energyPerShot": 2.2,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-1-3",
+  "name": "Censer Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 12100,
+  "color": "#ff9a3c",
+  "description": "A short-range burst gun that throws a swinging fan of glowing embers. The Synod's finest standard revision.",
+  "stats": {
+   "damage": 6.0,
+   "fireRate": 7.0,
+   "energyPerShot": 2.2,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-2-1",
+  "name": "Censer S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 16500,
+  "color": "#ff9a3c",
+  "description": "A larger censer with a longer chain of embers and a hot, wide spray.",
+  "stats": {
+   "damage": 10.0,
+   "fireRate": 5.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-2-2",
+  "name": "Censer S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 26400,
+  "color": "#ff9a3c",
+  "description": "A larger censer with a longer chain of embers and a hot, wide spray. Refined by the yard's second revision.",
+  "stats": {
+   "damage": 11.0,
+   "fireRate": 5.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-2-3",
+  "name": "Censer S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 36300,
+  "color": "#ff9a3c",
+  "description": "A larger censer with a longer chain of embers and a hot, wide spray. The Synod's finest standard revision.",
+  "stats": {
+   "damage": 12.0,
+   "fireRate": 5.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-3-1",
+  "name": "Censer S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 50000,
+  "color": "#ff9a3c",
+  "description": "A heavy censer, swung at the line of battle. Fearsome inside a kilometre.",
+  "stats": {
+   "damage": 20.0,
+   "fireRate": 4.48,
+   "energyPerShot": 7.1,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-3-2",
+  "name": "Censer S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 80000,
+  "color": "#ff9a3c",
+  "description": "A heavy censer, swung at the line of battle. Fearsome inside a kilometre. Refined by the yard's second revision.",
+  "stats": {
+   "damage": 22.0,
+   "fireRate": 4.48,
+   "energyPerShot": 7.1,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-censer-3-3",
+  "name": "Censer S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 110000,
+  "color": "#ff9a3c",
+  "description": "A heavy censer, swung at the line of battle. Fearsome inside a kilometre. The Synod's finest standard revision.",
+  "stats": {
+   "damage": 24.0,
+   "fireRate": 4.48,
+   "energyPerShot": 7.1,
+   "projectileSpeed": 750,
+   "range": 1100
+  }
+ },
+ {
+  "id": "ls-lantern-1-1",
+  "name": "Lantern lance Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 5500,
+  "color": "#ffe9a0",
+  "description": "A long lance of gold light, fired in slow measured pulses.",
+  "stats": {
+   "damage": 20.0,
+   "fireRate": 1.5,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-1-2",
+  "name": "Lantern lance Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 8800,
+  "color": "#ffe9a0",
+  "description": "A long lance of gold light, fired in slow measured pulses. Refined by the yard's second revision.",
+  "stats": {
+   "damage": 22.0,
+   "fireRate": 1.5,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-1-3",
+  "name": "Lantern lance Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 12100,
+  "color": "#ffe9a0",
+  "description": "A long lance of gold light, fired in slow measured pulses. The Synod's finest standard revision.",
+  "stats": {
+   "damage": 24.0,
+   "fireRate": 1.5,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-2-1",
+  "name": "Lantern lance S2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 16500,
+  "color": "#ffe9a0",
+  "description": "A tuned lance with a longer pulse and a cleaner beam.",
+  "stats": {
+   "damage": 40.0,
+   "fireRate": 1.2,
+   "energyPerShot": 7.2,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-2-2",
+  "name": "Lantern lance S2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 26400,
+  "color": "#ffe9a0",
+  "description": "A tuned lance with a longer pulse and a cleaner beam. Refined by the yard's second revision.",
+  "stats": {
+   "damage": 44.0,
+   "fireRate": 1.2,
+   "energyPerShot": 7.2,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-2-3",
+  "name": "Lantern lance S2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 36300,
+  "color": "#ffe9a0",
+  "description": "A tuned lance with a longer pulse and a cleaner beam. The Synod's finest standard revision.",
+  "stats": {
+   "damage": 48.0,
+   "fireRate": 1.2,
+   "energyPerShot": 7.2,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-3-1",
+  "name": "Lantern lance S3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 50000,
+  "color": "#ffe9a0",
+  "description": "A great lance in the Synod's own pattern. Hits hard and carries far.",
+  "stats": {
+   "damage": 80.0,
+   "fireRate": 0.96,
+   "energyPerShot": 13.0,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-3-2",
+  "name": "Lantern lance S3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 80000,
+  "color": "#ffe9a0",
+  "description": "A great lance in the Synod's own pattern. Hits hard and carries far. Refined by the yard's second revision.",
+  "stats": {
+   "damage": 88.0,
+   "fireRate": 0.96,
+   "energyPerShot": 13.0,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-lantern-3-3",
+  "name": "Lantern lance S3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "synod-forges",
+  "price": 110000,
+  "color": "#ffe9a0",
+  "description": "A great lance in the Synod's own pattern. Hits hard and carries far. The Synod's finest standard revision.",
+  "stats": {
+   "damage": 96.0,
+   "fireRate": 0.96,
+   "energyPerShot": 13.0,
+   "projectileSpeed": 1400,
+   "range": 3000
+  }
+ },
+ {
+  "id": "ls-cradle-1",
+  "name": "Relief cargo cradle 1",
+  "type": "cargo",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 1800,
+  "description": "A blessed frame of 10 tonnes with extra lashing for fragile relief supplies. Part of the Synod's own charity.",
+  "stats": {
+   "tonnes": 10
+  }
+ },
+ {
+  "id": "ls-cradle-2",
+  "name": "Relief cargo cradle 2",
+  "type": "cargo",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 5400,
+  "description": "A blessed frame of 20 tonnes with extra lashing for fragile relief supplies. Part of the Synod's own charity.",
+  "stats": {
+   "tonnes": 20
+  }
+ },
+ {
+  "id": "ls-cradle-3",
+  "name": "Relief cargo cradle 3",
+  "type": "cargo",
+  "size": 3,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 16000,
+  "description": "A blessed frame of 40 tonnes with extra lashing for fragile relief supplies. Part of the Synod's own charity.",
+  "stats": {
+   "tonnes": 40
+  }
+ },
+ {
+  "id": "ls-cradle-4",
+  "name": "Relief cargo cradle 4",
+  "type": "cargo",
+  "size": 4,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 48000,
+  "description": "A blessed frame of 80 tonnes with extra lashing for fragile relief supplies. Part of the Synod's own charity.",
+  "stats": {
+   "tonnes": 80
+  }
+ },
+ {
+  "id": "ls-cradle-5",
+  "name": "Relief cargo cradle 5",
+  "type": "cargo",
+  "size": 5,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 140000,
+  "description": "A blessed frame of 160 tonnes with extra lashing for fragile relief supplies. Part of the Synod's own charity.",
+  "stats": {
+   "tonnes": 160
+  }
+ },
+ {
+  "id": "ls-rim-detector-1",
+  "name": "Rim-tech detector Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 14000,
+  "description": "A reed-and-lens array tuned to the signatures the Synod forbids. Flags rim tech in a hold at a good distance.",
+  "stats": {
+   "range": 2500,
+   "detail": 1.5,
+   "rimTechDetection": 1.0
+  }
+ },
+ {
+  "id": "ls-rim-detector-2",
+  "name": "Rim-tech detector Mk II",
+  "type": "utility",
+  "size": 1,
+  "mark": 2,
+  "builder": "synod-forges",
+  "price": 22400,
+  "description": "The inquisitors' refinement. Reads sealed holds and tells a genuine find from a crate of rumours.",
+  "stats": {
+   "range": 3500,
+   "detail": 2.0,
+   "rimTechDetection": 1.5
+  }
+ },
+ {
+  "id": "ls-gate-surveyor-1",
+  "name": "Gate surveyor Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 12000,
+  "description": "A tender's instrument for reading the state of a gate. It records, mostly; it does not claim to understand.",
+  "stats": {
+   "range": 4000,
+   "detail": 1.2
+  }
+ },
+ {
+  "id": "ls-mercy-rig-1",
+  "name": "Mercy repair rig Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 9500,
+  "description": "Articulated arms and a store of consecrated patches. Slow, patient and happy to help another ship.",
+  "stats": {
+   "repairRate": 1.6,
+   "patchesStored": 24
+  }
+ },
+ {
+  "id": "ls-alms-scoop-1",
+  "name": "Alms scoop Mk I",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 7500,
+  "description": "A fuel scoop with a bronze mouth, used by relief hulls to top up far from any port.",
+  "stats": {
+   "scoopRate": 2.0,
+   "heatTolerance": 0.5
+  }
+ },
+ {
+  "id": "ls-votive-cutter-2",
+  "name": "Votive cutter S2 Mk I",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "builder": "synod-forges",
+  "price": 17000,
+  "description": "A steady gold beam that cuts ore and draws it to the hold. Stonewrights call every cut a small offering.",
+  "stats": {
+   "miningRate": 1.05,
+   "range": 900,
+   "heat": 0.55
+  }
+ }
+]

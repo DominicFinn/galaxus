@@ -1,0 +1,1103 @@
+[
+ {
+  "id": "mc-drive-1-1",
+  "name": "Pennant drive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 10000,
+  "description": "A clean, slow-spooling drive built to a committee drawing and signed off in triplicate.",
+  "stats": {
+   "thrust": 800,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "mc-drive-1-2",
+  "name": "Pennant drive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 16000,
+  "description": "Mk II tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 864,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "mc-drive-1-3",
+  "name": "Pennant drive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 25600,
+  "description": "Mk III tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 933,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "mc-drive-2-1",
+  "name": "Ensign drive Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 30000,
+  "description": "The standard Concord mid-size drive, specified by the Fleet Standards Committee and delivered some months after it was needed.",
+  "stats": {
+   "thrust": 2000,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "mc-drive-2-2",
+  "name": "Ensign drive Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 48000,
+  "description": "Mk II tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 2160,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "mc-drive-2-3",
+  "name": "Ensign drive Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 76800,
+  "description": "Mk III tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 2332,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "mc-drive-3-1",
+  "name": "Commodore drive Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 90000,
+  "description": "A heavy drive with generous safety margins. It accelerates like a magistrate rising to speak.",
+  "stats": {
+   "thrust": 4800,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "mc-drive-3-2",
+  "name": "Commodore drive Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 144000,
+  "description": "Mk II tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 5184,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "mc-drive-3-3",
+  "name": "Commodore drive Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 230400,
+  "description": "Mk III tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 5598,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "mc-drive-4-1",
+  "name": "Admiral drive Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 270000,
+  "description": "The navy's large drive, overbuilt so that nobody has to explain a failure to a subcommittee.",
+  "stats": {
+   "thrust": 9200,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "mc-drive-4-2",
+  "name": "Admiral drive Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 432000,
+  "description": "Mk II tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 9936,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "mc-drive-4-3",
+  "name": "Admiral drive Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 691200,
+  "description": "Mk III tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 10730,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "mc-drive-5-1",
+  "name": "Plenipotentiary drive Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 810000,
+  "description": "A capital-ship drive finished in white enamel with a gold maker's band round the nozzle.",
+  "stats": {
+   "thrust": 16500,
+   "speedFactor": 1.0
+  }
+ },
+ {
+  "id": "mc-drive-5-2",
+  "name": "Plenipotentiary drive Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 1296000,
+  "description": "Mk II tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 17820,
+   "speedFactor": 1.03
+  }
+ },
+ {
+  "id": "mc-drive-5-3",
+  "name": "Plenipotentiary drive Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 2073600,
+  "description": "Mk III tightens the tolerances and adds a second inspection seal.",
+  "stats": {
+   "thrust": 19245,
+   "speedFactor": 1.06
+  }
+ },
+ {
+  "id": "mc-plant-1-1",
+  "name": "Quorum plant Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 8750,
+  "description": "A small plant with a large capacitor and a brass plate naming the committee that approved it.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 66.0,
+   "capacitorRecharge": 12.5
+  }
+ },
+ {
+  "id": "mc-plant-1-2",
+  "name": "Quorum plant Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 14000,
+  "description": "Mk II adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 72.6,
+   "capacitorRecharge": 13.8
+  }
+ },
+ {
+  "id": "mc-plant-1-3",
+  "name": "Quorum plant Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 22400,
+  "description": "Mk III adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 79.9,
+   "capacitorRecharge": 15.1
+  }
+ },
+ {
+  "id": "mc-plant-2-1",
+  "name": "Assembly plant Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 26250,
+  "description": "Steady power for mid-size hulls, with reserve capacity nobody asked for.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 99.0,
+   "capacitorRecharge": 17.5
+  }
+ },
+ {
+  "id": "mc-plant-2-2",
+  "name": "Assembly plant Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 42000,
+  "description": "Mk II adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 108.9,
+   "capacitorRecharge": 19.2
+  }
+ },
+ {
+  "id": "mc-plant-2-3",
+  "name": "Assembly plant Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 67200,
+  "description": "Mk III adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 119.8,
+   "capacitorRecharge": 21.2
+  }
+ },
+ {
+  "id": "mc-plant-3-1",
+  "name": "Senate plant Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 78750,
+  "description": "A navy plant that carries its own reserve bank for long patrols.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 148.5,
+   "capacitorRecharge": 24.5
+  }
+ },
+ {
+  "id": "mc-plant-3-2",
+  "name": "Senate plant Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 126000,
+  "description": "Mk II adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 163.4,
+   "capacitorRecharge": 26.9
+  }
+ },
+ {
+  "id": "mc-plant-3-3",
+  "name": "Senate plant Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 201600,
+  "description": "Mk III adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 179.7,
+   "capacitorRecharge": 29.6
+  }
+ },
+ {
+  "id": "mc-plant-4-1",
+  "name": "Convocation plant Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 236250,
+  "description": "A large plant with triple-redundant regulators and a very thick manual.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 222.8,
+   "capacitorRecharge": 34.3
+  }
+ },
+ {
+  "id": "mc-plant-4-2",
+  "name": "Convocation plant Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 378000,
+  "description": "Mk II adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 245.0,
+   "capacitorRecharge": 37.7
+  }
+ },
+ {
+  "id": "mc-plant-4-3",
+  "name": "Convocation plant Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 604800,
+  "description": "Mk III adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 269.5,
+   "capacitorRecharge": 41.5
+  }
+ },
+ {
+  "id": "mc-plant-5-1",
+  "name": "Plenum plant Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 708750,
+  "description": "A capital plant fitted in dry dock under the eye of an inspector.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 334.1,
+   "capacitorRecharge": 48.0
+  }
+ },
+ {
+  "id": "mc-plant-5-2",
+  "name": "Plenum plant Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 1134000,
+  "description": "Mk II adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 367.5,
+   "capacitorRecharge": 52.8
+  }
+ },
+ {
+  "id": "mc-plant-5-3",
+  "name": "Plenum plant Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 1814400,
+  "description": "Mk III adds capacitor banks and a revised regulator schedule.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 404.3,
+   "capacitorRecharge": 58.1
+  }
+ },
+ {
+  "id": "mc-shield-1-1",
+  "name": "Aegis Buckler shield Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 7500,
+  "description": "A ceremonial-grade shield projector, as polished as a parade piece and a good deal tougher.",
+  "stats": {
+   "capacity": 80.0,
+   "recharge": 6.8,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "mc-shield-1-2",
+  "name": "Aegis Buckler shield Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 12000,
+  "description": "Mk II deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 88.0,
+   "recharge": 7.5,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "mc-shield-1-3",
+  "name": "Aegis Buckler shield Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 19200,
+  "description": "Mk III deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 96.8,
+   "recharge": 8.2,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "mc-shield-2-1",
+  "name": "Aegis Bulwark shield Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 22500,
+  "description": "Layered emitters in a gilded housing. It holds well and takes its time to recover.",
+  "stats": {
+   "capacity": 180.0,
+   "recharge": 15.3,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "mc-shield-2-2",
+  "name": "Aegis Bulwark shield Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 36000,
+  "description": "Mk II deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 198.0,
+   "recharge": 16.8,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "mc-shield-2-3",
+  "name": "Aegis Bulwark shield Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 57600,
+  "description": "Mk III deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 217.8,
+   "recharge": 18.5,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "mc-shield-3-1",
+  "name": "Aegis Rampart shield Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 67500,
+  "description": "A heavy navy shield, tested against procedure as well as weapons.",
+  "stats": {
+   "capacity": 380.0,
+   "recharge": 32.3,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "mc-shield-3-2",
+  "name": "Aegis Rampart shield Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 108000,
+  "description": "Mk II deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 418.0,
+   "recharge": 35.5,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "mc-shield-3-3",
+  "name": "Aegis Rampart shield Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 172800,
+  "description": "Mk III deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 459.8,
+   "recharge": 39.1,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "mc-shield-4-1",
+  "name": "Aegis Citadel shield Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 202500,
+  "description": "A capital-grade shield with a reputation for outlasting the crews that fit it.",
+  "stats": {
+   "capacity": 700.0,
+   "recharge": 59.5,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "mc-shield-4-2",
+  "name": "Aegis Citadel shield Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 324000,
+  "description": "Mk II deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 770.0,
+   "recharge": 65.5,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "mc-shield-4-3",
+  "name": "Aegis Citadel shield Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 518400,
+  "description": "Mk III deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 847.0,
+   "recharge": 72.0,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "mc-shield-5-1",
+  "name": "Aegis Bastion shield Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 607500,
+  "description": "The Concord's finest shield, usually bought with public money.",
+  "stats": {
+   "capacity": 1200.0,
+   "recharge": 102.0,
+   "rechargeDelay": 2.9
+  }
+ },
+ {
+  "id": "mc-shield-5-2",
+  "name": "Aegis Bastion shield Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 972000,
+  "description": "Mk II deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 1320.0,
+   "recharge": 112.2,
+   "rechargeDelay": 2.8
+  }
+ },
+ {
+  "id": "mc-shield-5-3",
+  "name": "Aegis Bastion shield Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 1555200,
+  "description": "Mk III deepens the emitter stack and shortens the recovery interval.",
+  "stats": {
+   "capacity": 1452.0,
+   "recharge": 123.4,
+   "rechargeDelay": 2.7
+  }
+ },
+ {
+  "id": "mc-sensor-1-1",
+  "name": "Lookout array Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 4000,
+  "description": "A bridge-grade sensor mast with a clear display and a very thorough logging function.",
+  "stats": {
+   "range": 6000
+  }
+ },
+ {
+  "id": "mc-sensor-1-2",
+  "name": "Lookout array Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 6400,
+  "description": "Mk II widens the aperture and adds a second log channel.",
+  "stats": {
+   "range": 7000
+  }
+ },
+ {
+  "id": "mc-sensor-1-3",
+  "name": "Lookout array Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 10240,
+  "description": "Mk III widens the aperture and adds a second log channel.",
+  "stats": {
+   "range": 8000
+  }
+ },
+ {
+  "id": "mc-sensor-2-1",
+  "name": "Censor array Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 12000,
+  "description": "A Gate Authority pattern array that notices most things and files a report on all of them.",
+  "stats": {
+   "range": 9000
+  }
+ },
+ {
+  "id": "mc-sensor-2-2",
+  "name": "Censor array Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 19200,
+  "description": "Mk II widens the aperture and adds a second log channel.",
+  "stats": {
+   "range": 10000
+  }
+ },
+ {
+  "id": "mc-sensor-2-3",
+  "name": "Censor array Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 30720,
+  "description": "Mk III widens the aperture and adds a second log channel.",
+  "stats": {
+   "range": 11000
+  }
+ },
+ {
+  "id": "mc-sensor-3-1",
+  "name": "Inspectorate array Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 36000,
+  "description": "The Inspectorate's own array, built to see what a ship is carrying and what it declared.",
+  "stats": {
+   "range": 12000
+  }
+ },
+ {
+  "id": "mc-sensor-3-2",
+  "name": "Inspectorate array Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 57600,
+  "description": "Mk II widens the aperture and adds a second log channel.",
+  "stats": {
+   "range": 13000
+  }
+ },
+ {
+  "id": "mc-sensor-3-3",
+  "name": "Inspectorate array Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 92160,
+  "description": "Mk III widens the aperture and adds a second log channel.",
+  "stats": {
+   "range": 14000
+  }
+ },
+ {
+  "id": "mc-gavel-1-1",
+  "name": "Gavel pulse cannon Size 1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 6000,
+  "description": "A fast, accurate pulse cannon that fires in tidy, evenly spaced volleys. The Concord calls this restraint.",
+  "stats": {
+   "damage": 10.0,
+   "fireRate": 3.5,
+   "energyPerShot": 2.5,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-1-1",
+  "name": "Edict rail driver Size 1 Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 8000,
+  "description": "A slow, heavy rail driver that fires a single gold-lit slug. It carries the weight of an official finding.",
+  "stats": {
+   "damage": 30.0,
+   "fireRate": 1.2,
+   "energyPerShot": 4.5,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-1-2",
+  "name": "Gavel pulse cannon Size 1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 9600,
+  "description": "Mk II raises the pulse energy and tightens the sights.",
+  "stats": {
+   "damage": 11.0,
+   "fireRate": 3.5,
+   "energyPerShot": 2.5,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-1-2",
+  "name": "Edict rail driver Size 1 Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 12800,
+  "description": "Mk II lengthens the rails and adds a second round of calibration.",
+  "stats": {
+   "damage": 33.0,
+   "fireRate": 1.2,
+   "energyPerShot": 4.5,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-1-3",
+  "name": "Gavel pulse cannon Size 1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 15360,
+  "description": "Mk III raises the pulse energy and tightens the sights.",
+  "stats": {
+   "damage": 12.1,
+   "fireRate": 3.5,
+   "energyPerShot": 2.5,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-1-3",
+  "name": "Edict rail driver Size 1 Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 20480,
+  "description": "Mk III lengthens the rails and adds a second round of calibration.",
+  "stats": {
+   "damage": 36.3,
+   "fireRate": 1.2,
+   "energyPerShot": 4.5,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-2-1",
+  "name": "Gavel pulse cannon Size 2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 18000,
+  "description": "A twin-barrel pulse mount. Each bolt is a measured and proportionate response.",
+  "stats": {
+   "damage": 20.0,
+   "fireRate": 2.8,
+   "energyPerShot": 4.5,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-2-1",
+  "name": "Edict rail driver Size 2 Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 24000,
+  "description": "A medium rail driver with long range and a firing delay the gunners call due process.",
+  "stats": {
+   "damage": 60.0,
+   "fireRate": 0.96,
+   "energyPerShot": 8.1,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-2-2",
+  "name": "Gavel pulse cannon Size 2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 28800,
+  "description": "Mk II raises the pulse energy and tightens the sights.",
+  "stats": {
+   "damage": 22.0,
+   "fireRate": 2.8,
+   "energyPerShot": 4.5,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-2-2",
+  "name": "Edict rail driver Size 2 Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 38400,
+  "description": "Mk II lengthens the rails and adds a second round of calibration.",
+  "stats": {
+   "damage": 66.0,
+   "fireRate": 0.96,
+   "energyPerShot": 8.1,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-2-3",
+  "name": "Gavel pulse cannon Size 2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 46080,
+  "description": "Mk III raises the pulse energy and tightens the sights.",
+  "stats": {
+   "damage": 24.2,
+   "fireRate": 2.8,
+   "energyPerShot": 4.5,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-2-3",
+  "name": "Edict rail driver Size 2 Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 61440,
+  "description": "Mk III lengthens the rails and adds a second round of calibration.",
+  "stats": {
+   "damage": 72.6,
+   "fireRate": 0.96,
+   "energyPerShot": 8.1,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-3-1",
+  "name": "Gavel pulse cannon Size 3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 54000,
+  "description": "A heavy pulse cannon used on cutters and capital ships, with a long range for an energy weapon.",
+  "stats": {
+   "damage": 40.0,
+   "fireRate": 2.24,
+   "energyPerShot": 8.1,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-3-1",
+  "name": "Edict rail driver Size 3 Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "meridian-yards",
+  "price": 72000,
+  "description": "A capital rail driver. Its slugs are fast and hit hard, and it needs a good plant behind it.",
+  "stats": {
+   "damage": 120.0,
+   "fireRate": 0.77,
+   "energyPerShot": 14.6,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-3-2",
+  "name": "Gavel pulse cannon Size 3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 86400,
+  "description": "Mk II raises the pulse energy and tightens the sights.",
+  "stats": {
+   "damage": 44.0,
+   "fireRate": 2.24,
+   "energyPerShot": 8.1,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-3-2",
+  "name": "Edict rail driver Size 3 Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "meridian-yards",
+  "price": 115200,
+  "description": "Mk II lengthens the rails and adds a second round of calibration.",
+  "stats": {
+   "damage": 132.0,
+   "fireRate": 0.77,
+   "energyPerShot": 14.6,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ },
+ {
+  "id": "mc-gavel-3-3",
+  "name": "Gavel pulse cannon Size 3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 138240,
+  "description": "Mk III raises the pulse energy and tightens the sights.",
+  "stats": {
+   "damage": 48.4,
+   "fireRate": 2.24,
+   "energyPerShot": 8.1,
+   "projectileSpeed": 1000,
+   "range": 2200
+  },
+  "color": "#8fd0ff"
+ },
+ {
+  "id": "mc-edict-3-3",
+  "name": "Edict rail driver Size 3 Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "meridian-yards",
+  "price": 184320,
+  "description": "Mk III lengthens the rails and adds a second round of calibration.",
+  "stats": {
+   "damage": 145.2,
+   "fireRate": 0.77,
+   "energyPerShot": 14.6,
+   "projectileSpeed": 1400,
+   "range": 3200
+  },
+  "color": "#ffd85a"
+ }
+]
