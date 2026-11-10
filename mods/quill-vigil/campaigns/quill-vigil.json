@@ -1,0 +1,26 @@
+// A side story about the Quill Gate Betrayal (docs/lore/humans.md, era 5). It leaves every
+// question about Renn and the gate open: nobody learns why he did it or why the gate is shut.
+[
+  {
+    "id": "qv-quill-vigil",
+    "name": "The Quill Vigil",
+    "power": "lantern-synod",
+    "rival": "hesper-directorate",
+    "summary": "The Lantern Synod hires you to fly escort for a pilgrim fleet bound for Quill Gate, shut to civilians since Admiral Renn turned his guns on Marrane's flagship. From the battlecruiser Mercy Unasked you guard barges full of the devout, deal with a man who says he is Renn, and find out why the Hesper Directorate is so keen on old wrecks. A slow, stubborn road with a lot of hymns on it.",
+    "hull": "ls-votary",
+    "credits": 4000,
+    "rank": 1,
+    "baseHull": "ls-basilica",
+    "baseName": "Mercy Unasked",
+    "fleet": ["ls-cantor", "ls-chorister", "ls-chorister", "ls-reliquary"],
+    "textGrammar": "qv-campaign",
+    "steps": [
+      { "id": "buoys", "title": "Lamp Buoys", "battle": "qv-buoys", "where": "base", "enemy": "pirates", "reward": 5000, "briefing": "briefing-buoys", "debrief": "debrief-buoys" },
+      { "id": "road", "title": "The Pilgrim Road", "battle": "qv-road", "where": "near", "enemy": "pirates", "reward": 9000, "briefing": "briefing-road", "debrief": "debrief-road" },
+      { "id": "wreck", "title": "The Corvane Wreck", "battle": "qv-wreck", "where": "near", "enemy": "rival", "reward": 14000, "briefing": "briefing-wreck", "debrief": "debrief-wreck" },
+      { "id": "renn", "title": "A Man Calling Himself Renn", "battle": "qv-renn", "where": "near", "enemy": "pirates", "reward": 18000, "briefing": "briefing-renn", "debrief": "debrief-renn" },
+      { "id": "lane", "title": "The Closed Lane", "battle": "qv-lane", "where": "front", "enemy": "rival", "reward": 25000, "briefing": "briefing-lane", "debrief": "debrief-lane" },
+      { "id": "vigil", "title": "Vigil at Quill Gate", "battle": "qv-vigil", "where": "front", "enemy": "rival", "reward": 38000, "briefing": "briefing-vigil", "debrief": "debrief-vigil" }
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+// Hassall World. Mods can't place fixed systems or stations on the generated map, so Hassall
+// World is the campaign base (an old carrier bolted to a rock, which Hassall calls a station)
+// and Bridgeford 421 is named in the story text only.
+[
+  {
+    "id": "hw-hassall-world",
+    "name": "Hassall World",
+    "power": "tolland-compact",
+    "rival": "grav-khanates",
+    "summary": "Hassall is an eccentric computer engineer who owns a station called Hassall World in Bridgeford 421, a Compact backwater. He buys computer equipment at any price and pays very well for it. The station is crewed almost entirely by synths and robots, who talk a great deal about an old fighter pilot called Ted the Wolf. Hassall needs a pilot to fetch his cores and guard his shipments from pirates, and from orcs, which he insists are not real.",
+    "hull": "tw-coyote",
+    "credits": 6000,
+    "rank": 1,
+    "baseHull": "tw-caravan",
+    "baseName": "Hassall World",
+    "fleet": ["tw-posse", "tw-homesteader", "tw-longhaul"],
+    "textGrammar": "hw-campaign",
+    "steps": [
+      { "id": "cores", "title": "Cores for Mr Hassall", "battle": "hw-cores", "where": "base", "enemy": "pirates", "reward": 9000, "briefing": "briefing-cores", "debrief": "debrief-cores" },
+      { "id": "wafers", "title": "The Wafer Convoy", "battle": "hw-wafers", "where": "near", "enemy": "pirates", "reward": 15000, "briefing": "briefing-wafers", "debrief": "debrief-wafers" },
+      { "id": "exchange", "title": "The Dead Exchange", "battle": "hw-exchange", "where": "near", "enemy": "pirates", "reward": 21000, "briefing": "briefing-exchange", "debrief": "debrief-exchange" },
+      { "id": "weather", "title": "Weather, According to Hassall", "battle": "hw-weather", "where": "front", "enemy": "rival", "reward": 29000, "briefing": "briefing-weather", "debrief": "debrief-weather" },
+      { "id": "holds", "title": "Hassall World Holds", "battle": "hw-holds", "where": "base", "enemy": "rival", "reward": 48000, "briefing": "briefing-holds", "debrief": "debrief-holds" }
+    ]
+  }
+]

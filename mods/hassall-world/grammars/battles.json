@@ -1,0 +1,166 @@
+// Briefings, radio calls and outcomes for the Hassall World battles.
+[
+  {
+    "id": "hw-battle-cores",
+    "description": "Cores for Mr Hassall: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system"],
+    "rules": {
+      "briefing": [
+        "The trader Fair Exchange is waiting in {system} with thirty crates of computer cores for Hassall. Match her speed and hold close while the cores come across. Pirates may have heard.",
+        "Take on Hassall's computer cores from the Fair Exchange in {system}. Fly alongside and hold steady. Then deal with whoever turns up."
+      ],
+      "success": [
+        "Thirty crates of cores, all aboard. Hassall pays {captain} far more than the job is worth, and looks delighted to.",
+        "The cores are safe and the pirates are scrap. Hassall pays handsomely."
+      ],
+      "failure": [
+        "The cores are gone. Hassall says he'll simply buy more, and looks quite sad about it.",
+        "The pirates got the cores. Marigold notes the loss in red."
+      ],
+      "radio-trader": [
+        "Fair Exchange: Hassall's pilot? Thank goodness. Come alongside and hold her steady. These crates are heavy and I'm nervous.",
+        "Fair Exchange: Thirty crates for Mr Hassall. Come close, match me, and we'll pass them over."
+      ],
+      "radio-juniper": [
+        "Juniper: Juniper, on your wing. Ted taught the pilot who taught me. I'll keep an eye out.",
+        "Juniper: I'm with you, Captain. Hold steady when we get there. That's the hard part."
+      ],
+      "radio-pirates": [
+        "Juniper: Three contacts behind. Pirates. They want Mr Hassall's cores.",
+        "Juniper: Here they come. Ted used to say pirates can smell computer cores. I think he was joking."
+      ]
+    }
+  },
+  {
+    "id": "hw-battle-wafers",
+    "description": "The Wafer Convoy: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system"],
+    "rules": {
+      "briefing": [
+        "Three freighters full of microchip wafers are crossing {system} for Hassall. Pirates are waiting. Escort the convoy and keep every freighter alive.",
+        "Hassall's wafers are on three slow ships in {system}. Bring them home in one piece."
+      ],
+      "success": [
+        "Every wafer arrives intact. Hassall pays {captain} and very nearly weeps.",
+        "The convoy is through. Hassall pays handsomely and gives you a wafer to keep, which you can't use."
+      ],
+      "failure": [
+        "The convoy was broken and the wafers are in pieces. Hassall pays nothing and sits down for a while.",
+        "The pirates took the wafers. Hassall says wafers deserve better than pirates."
+      ],
+      "radio-convoy": [
+        "Convoy master: Three ships, fragile cargo, nervous crews. Stay close, please.",
+        "Convoy robot: Statement. Our cargo is delicate. So are we. Please protect both."
+      ],
+      "radio-first": [
+        "Juniper: Four fighters ahead. They'll go for the lead ship. Ted always said so.",
+        "Juniper: Pirates ahead. Keep them off the convoy."
+      ],
+      "radio-second": [
+        "Juniper: Gunships on the right! They're after the freighters!",
+        "Juniper: Two gunships and fighters. That's the real attack."
+      ]
+    }
+  },
+  {
+    "id": "hw-battle-exchange",
+    "description": "The Dead Exchange: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system", "target"],
+    "rules": {
+      "briefing": [
+        "An abandoned data exchange in {system} still has three powered server stacks. Fly to each, hold close while the memory is pulled, then get clear. Pirates squat at the hub.",
+        "Pull the memory from three old server stacks in {system} for Hassall. Close in, hold, and get out before the squatters' friends arrive."
+      ],
+      "success": [
+        "Every byte is aboard. Hassall pays {captain} handsomely and Marigold starts counting.",
+        "The memory is safe and you're clear. Hassall pays, and the synths start reading."
+      ],
+      "failure": [
+        "The data was lost. Hassall pays nothing and talks about it for days.",
+        "You came back without the memory. The stacks are dark now."
+      ],
+      "radio-stacks": [
+        "Juniper: Three server stacks ahead, still warm. Hold close and I'll pull the memory.",
+        "Juniper: There they are. Old relay stacks. Ted's convoys used this hub, years back."
+      ],
+      "radio-squatters": [
+        "Juniper: Squatters on the far side of the hub. They've seen us.",
+        "Juniper: Pirates. They think the stacks belong to them."
+      ],
+      "radio-owners": [
+        "Juniper: Frigate behind us, the {target}. The squatters called their friends.",
+        "Pirate frigate {target}: That's our data. Hand it back and we'll let you run."
+      ]
+    }
+  },
+  {
+    "id": "hw-battle-weather",
+    "description": "Weather, According to Hassall: briefing, radio and outcome.",
+    "variables": ["captain", "client", "enemy", "system"],
+    "rules": {
+      "briefing": [
+        "Four freighters of sensor arrays are crossing {system} near the khanate border. Hassall calls the danger 'weather'. Juniper calls it {enemy}. Escort the convoy through.",
+        "Escort Hassall's sensor arrays through {system}. Hassall says there are no orcs out here. Be ready for orcs anyway."
+      ],
+      "success": [
+        "The arrays are through. Hassall pays {captain} and remarks on the remarkable weather.",
+        "The convoy made it. Hassall pays handsomely and says he's never seen pirates with such big engines."
+      ],
+      "failure": [
+        "The convoy was lost to the weather. Hassall pays nothing and blames the weather.",
+        "The arrays are gone. Somewhere, an orc khan is pleased with himself, according to everyone but Hassall."
+      ],
+      "radio-convoy": [
+        "Convoy master: Four ships, sensor arrays. We've heard there's orcs out here. Mr Hassall says not.",
+        "Hassall (relayed): Remember, Captain. Weather. Nothing but weather."
+      ],
+      "radio-riders": [
+        "Juniper: Five fighters ahead, red noses, big engines. Orcs.\n\nHassall: Weather.",
+        "Orc rider: Hoi! Little ships! Your cargo or your hide!"
+      ],
+      "radio-rams": [
+        "Grisk Loudhull: I am Grisk Loudhull! Remember my name, little wing!\n\nHassall: A very loud storm.",
+        "Juniper: Gunships on the left, and an ace with them. He's shouting his own name. That's an orc, Mr Hassall."
+      ]
+    }
+  },
+  {
+    "id": "hw-battle-holds",
+    "description": "Hassall World Holds: briefing, radio and outcome.",
+    "variables": ["captain", "client", "enemy", "system", "base", "target"],
+    "rules": {
+      "briefing": [
+        "A khanate fleet from {enemy} is coming for {base}. Hold the station until the raid breaks. Keep it in one piece.",
+        "The 'weather' has come to {base}. Two frigates, four fighters and you. Hold until they give up."
+      ],
+      "success": [
+        "{base} holds. Hassall pays {captain} three times over and calls it a historic storm.",
+        "The raid is broken and the station stands. Hassall pays handsomely. The synths on the lower deck are already telling the story."
+      ],
+      "failure": [
+        "{base} is badly holed and its computers are gone. Hassall pays nothing. He has nothing left to pay with.",
+        "The station fell. The synths remember Ted, and now they'll remember this."
+      ],
+      "radio-station": [
+        "Marigold: Station defences ready. That is, two frigates and some fighters. And you.",
+        "Hassall: Everyone stay calm. It's only weather. Very organised weather."
+      ],
+      "radio-first": [
+        "Juniper: Fighters ahead, and gunships going for the station.",
+        "Orc raider: Hoi, tin station! We've come for your thinking boxes!"
+      ],
+      "radio-khan": [
+        "Juniper: Cruiser above us, the {target}. Gunships with it. That's the khan.",
+        "Khanate cruiser {target}: Little station! Open your bays and nobody gets hurt. Much."
+      ],
+      "radio-wolf": [
+        "Juniper: Unknown fighter behind us. Old hull. There's a wolf painted on the nose. It isn't answering.",
+        "Marigold: Contact. Old fighter, no transponder. It is flying the station defence pattern from before my time. Nobody has flown that pattern since Ted."
+      ],
+      "radio-last": [
+        "Juniper: Interceptors on the left. Last push. Stay with the station.",
+        "Juniper: More of them. Keep them off the bays."
+      ]
+    }
+  }
+]

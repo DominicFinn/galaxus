@@ -1,0 +1,69 @@
+// Orders, debriefs, intro and outro for The Quill Vigil.
+// People: Canon Ysolde Fairweather (commands the Mercy Unasked), Brother Amos Kettle (your
+// wingman), Almoner Pruett (keeps the stores and the charity ledger), Nan Sorrel (an old pilgrim
+// with a blue sash she says belonged to her grandmother, who served on Marrane's staff).
+[
+  {
+    "id": "qv-campaign",
+    "description": "The Quill Vigil: intro, outro, orders and debriefs.",
+    "variables": ["base", "captain", "client", "enemy", "system", "station", "auditor", "target"],
+    "rules": {
+      "intro": [
+        "Captain {captain}. Welcome aboard the {base}. I am Canon Ysolde Fairweather, and for the next few weeks you fly for {client}.\n\nThe work is plain. Every generation the Synod sends a pilgrim fleet to keep a vigil at Quill Gate, on the day Admiral Renn turned his guns on Marrane's flagship. The gate has been shut to civilians since. The Gate Authority has never said why, and we have stopped asking them. We go, we light the lamps, we pray for whoever needs it, and we come home.\n\nThis year {enemy} has taken an interest in the wrecks along the road, and in us. I would like to know why.\n\nBrother Amos Kettle will fly your wing. Almoner Pruett keeps the stores and will tell you what everything costs. And you will meet Nan Sorrel, whether you mean to or not.",
+        "{captain}. Good. The {base} has been short a pilot since the last one married a dockmaster.\n\nI am Canon Ysolde Fairweather. {client} keeps a vigil at Quill Gate, closed since the Betrayal. We take barges of the faithful there, and we bring them back. Pirates see slow ships full of old people and think it is a gift. {enemy} sees the same ships and thinks something else, which worries me more.\n\nBrother Amos will fly with you. Almoner Pruett will count your fuel. Nan Sorrel will tell you about her grandmother. Let her."
+      ],
+      "outro": [
+        "The vigil is kept, {captain}. The gate stayed shut, as it always does, and the wardens wrote it all down, as they always do.\n\nFairweather: The key from the wreck is in a box in my cabin. I have not decided what it is for, and I would ask you not to mention it in bars.\n\nAmos: Same time next generation, then.\n\nNan Sorrel sent you the blue sash with a note: 'You'll know what to do with it.' Nobody aboard can tell you whether it's real.",
+        "That is the road done. The pilgrims are home, and {enemy} has lost a cruiser it will not admit it sent.\n\nFairweather: You have been a credit to us, {captain}, though Pruett would like the word 'credit' used with more care.\n\nPruett: The ledger balances. It never has before. I am suspicious."
+      ],
+      "briefing-buoys": [
+        "Fairweather: First duty, Captain. The lamp buoys in {system} mark the start of the pilgrim road. Fly out to each of the four, hold close while the lamp takes, and move on. It is slow work and the pilgrims watch it from the windows, so do it well.\n\nAmos: Scavengers like to pick the buoys for their cells. If they turn up, I'll point.",
+        "Fairweather: Light the four lamp buoys in {system}, Captain. Hold at each until it burns. The barges will not leave until they see all four.\n\nPruett: Each buoy cell costs more than your fighter's lunch. Don't let anybody steal one."
+      ],
+      "debrief-buoys": [
+        "Fairweather: Four lamps, and the pilgrims cheered at every one. A good start.\n\nPruett: Your pay. Also a jar of honey from Nan Sorrel. She says it is for your nerves.\n\nAmos: I've never had honey for my nerves. I'm offended.",
+        "Fairweather: The road is lit. We leave at the next watch.\n\nAmos: Nan Sorrel has asked whether you're married. I told her you fly for the Synod. She said that's no answer."
+      ],
+      "briefing-road": [
+        "Fairweather: The barges are moving through {system}. Three of them, slow and full. Raiders have been seen on the lane. They think pilgrims carry gold. Mostly they carry soup. Stay close and see them through.\n\nAmos: If gunships come, they'll want to board. Don't let them dock.",
+        "Fairweather: Escort, Captain. Three pilgrim barges through {system}. Pirates are about. Keep them off.\n\nNan Sorrel (on the barge channel): My grandmother flew escort for Marrane, you know. She said always watch the left. I don't know if that helps."
+      ],
+      "debrief-road": [
+        "Fairweather: All three barges through, and only one window broken. That is a good day on the pilgrim road.\n\nPruett: The barge masters took up a collection for you. It came to forty credits and a button.\n\nAmos: Keep the button. Buttons are lucky.",
+        "Fairweather: Well flown. We have a stranger stop next. Our scouts have found a wreck that should not be where it is."
+      ],
+      "briefing-wreck": [
+        "Fairweather: There is a Corvane cruiser wreck in {system}, the Covenant of Nine Keys, from the Dominion's last years. The scouts say {enemy} tugs are stripping it. The Synod holds that Dominion wrecks are graves. Scan it, so we know what they are taking, and stop the tugs.\n\nAmos: The tugs have escorts. Directorate pilots. They'll be very polite while they shoot at us.",
+        "Fairweather: {enemy} is cutting into a Dominion wreck in {system}. I want a full scan of it and I want the tugs stopped before they leave. If a Directorate ship comes, do not start a war. Finish one if they start it.\n\nPruett: Salvage law says we can't keep anything. I've read it. Twice."
+      ],
+      "debrief-wreck": [
+        "Fairweather: Your scan shows what they were cutting for. A gate-key, Captain. A flat bronze rod in the old admiral's quarters. The Corvanes kept them, and some say a few still open sleeping gates.\n\nWe have it now. I did not want it. I want {enemy} to have it even less.\n\nAmos: The auditor on the {auditor} said we'd be hearing from his lawyers. I said we'd pray for them.",
+        "Fairweather: The tugs are stopped and the key is aboard. Nobody is to touch it, talk about it or put it near a gate.\n\nPruett: I have logged it as 'one bronze rod, purpose unknown'. That is the truth, and it is also very boring, which is the point."
+      ],
+      "briefing-renn": [
+        "Fairweather: This is unusual. A frigate is waiting for us in {system}, and its captain says he is Admiral Tobias Renn. Renn would be older than anyone alive if he were alive, which he is not, so this is the sixth Renn I've met. He wants a toll. He says he 'paid for the road at Quill Gate and is owed'.\n\nWe will not pay. Protect the barges and break his fleet.\n\nAmos: He's got a lot of ships for a dead man.",
+        "Fairweather: A pretender in {system} calls himself Renn and demands a toll for the road. False Renns come out of the Shroud Arm every generation, usually with a borrowed frigate and a good speech. This one has gunships. Keep the barges safe.\n\nNan Sorrel: My grandmother said Renn had a soft voice. Listen to his voice."
+      ],
+      "debrief-renn": [
+        "Fairweather: His fleet is broken. Whoever he was, he knew the old ceremony at Quill Gate word for word. That is not in any book I've read.\n\nNan Sorrel: His voice was soft. I'm not saying anything else.\n\nAmos: Every Renn knows the ceremony. That's how you get the job.",
+        "Fairweather: The pretender is gone. He said, as he ran, that Marrane would have given the keys to one family and he stopped her. Every false Renn says that. It is never written down twice the same way.\n\nPruett: He didn't pay a toll either, so we're even."
+      ],
+      "briefing-lane": [
+        "Fairweather: We are close now. The last lane before Quill Gate runs through {system}, and {enemy} has parked pickets across it. They have sent a note. It says the lane is 'under commercial review'. I have sent a note back.\n\nGet the barges through. Their pickets will not move, so you may have to move them.\n\nAmos: What did your note say, Canon?\n\nFairweather: It said 'no'.",
+        "Fairweather: A Directorate line blocks the lane in {system}. They want the key, and they think holding up the vigil will make us trade. Get the barges past. If the pickets shoot, you may answer.\n\nPruett: The Directorate has invoiced us for 'lane obstruction'. I've filed it under fiction."
+      ],
+      "debrief-lane": [
+        "Fairweather: We are through, and Quill Gate is ahead. The barge windows are full of faces. They have waited their whole lives for this, some of them.\n\nAmos: The Directorate isn't finished. Their cruiser was hanging back the whole time.\n\nFairweather: Then we keep the vigil with our guns warm.",
+        "Fairweather: Past the line. The gate is a day's flying away. Rest, Captain. Tomorrow is Admiral's Day."
+      ],
+      "briefing-vigil": [
+        "Fairweather: This is Quill Gate. The barges will hold station and keep the vigil. Seven minutes of silence, then the hymn. The wardens will come to log us, as they do every time, and {enemy} knows that once they arrive it can't touch us.\n\nSo it will try before then. Its cruiser is out there. Keep the barges alive, keep the {base} alive, and hold until the wardens come.\n\nAmos: Seven minutes. I can hold my breath for seven minutes. Nearly.",
+        "Fairweather: The vigil, Captain. We hold at the gate until the wardens arrive. {enemy} will come for the barges and for us, because a key is worth more to them than a scandal. Do not let them have either.\n\nNan Sorrel: Watch the left, dear."
+      ],
+      "debrief-vigil": [
+        "Fairweather: The vigil is kept. The wardens arrived, logged us, logged the wreckage, and asked nothing at all about the Directorate cruiser. They never ask anything at Quill Gate.\n\nAmos: Did anyone else see the gate lights flicker during the hymn?\n\nFairweather: They do that every Admiral's Day. The wardens say it is the maintenance cycle.\n\nAmos: Every year on the same day?\n\nFairweather: Brother Amos.",
+        "Fairweather: Held, Captain. The hymn was sung, the gate stayed shut and the barges turn for home.\n\nPruett: I've added up the cost of this year's vigil. I'm going to need a sit-down.\n\nNan Sorrel: My grandmother never said what happened that day. She said she was looking the other way. She said it every time, in exactly those words."
+      ]
+    }
+  }
+]

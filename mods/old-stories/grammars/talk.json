@@ -1,0 +1,104 @@
+// Adds rumours to each race's station talk. Same ids as the base grammars, so these join the
+// existing "rumour" rule. None of them settles anything in the lore bible's "Things nobody knows".
+[
+  {
+    "id": "talk-human",
+    "description": "Extra human rumours.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "My gran kept a Marrane Sash in a drawer. When she died we found three more. Nobody in the family can say which one was hers.",
+        "Every Admiral's Day the Synod sends barges to Quill Gate and sits there singing. The wardens log them and send them home. It's been going on longer than the wardens have.",
+        "There's a Corvane gate-key in a museum in the core, behind glass, with a guard. Thing is, they say there were nine keys and the museum's only ever had a photograph of the other eight.",
+        "In the Heavy Winters the Kestrel League ran grain with the lights off, gate to gate, so the raiders couldn't follow. Old pilots still dim their running lights on the anniversary.",
+        "My uncle swears he met Renn at a fuel depot. Said he had a soft voice and paid in old Restoration scrip. My uncle also swears he once won a race against an orc, so.",
+        "Before the Walkout, the Hands built half the stations in the Reach. You can still find their marks in the welds if you know where to look. Lattice traders always look.",
+        "Ask a Concord clerk what Quill Gate is for and you'll get a form. Ask what the form is for and you'll get another one.",
+        "There's a ship in the Silent Yards that's been on the register for three hundred years and never once left. Rent paid every quarter. Nobody knows who pays it.",
+        "They teach Concord children that the Dominion fell because it got lazy. They teach Tolland children it fell because it got greedy. Nobody teaches anybody that it might have just got old.",
+        "Hobb Ammerly's Table is still kept at Tollhaven, with one chair always left empty. Some say it's for Dessa Torrin. Some say it's for whoever's next."
+      ]
+    }
+  },
+  {
+    "id": "talk-dwarf",
+    "description": "Extra dwarf rumours.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "The Heavy Winters debt is written on a slab in the oldest hold. Every year somebody adds the interest by hand. The slab's nearly full. We'll need a bigger rock.",
+        "My grandfather's grandfather built hulls for the Corvanes. He said they paid on time and asked too many questions about where the metal came from. We never told them. We didn't know either.",
+        "There's a contract in the archive between the Hold League and the elves. The elf signature is there. The terms are blank. Nobody's dared ask what we agreed to.",
+        "Some holds say the gate metal sings if you strike it right. The Gate Authority says nobody should be striking it at all. Both are probably correct.",
+        "Every dwarf apprentice is told the story of the first freighter, which flew perfectly and was never paid for. It's meant to teach you about contracts. Mostly it teaches you to drink."
+      ]
+    }
+  },
+  {
+    "id": "talk-orc",
+    "description": "Extra orc rumours.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "In the Old Horde, a khan who lost a race had to walk home. Across space! That's why our sagas are so long. Lots of walking.",
+        "The Goddess turned her face away from the gates once, they say, and that's why every gate faces a little off true. Don't measure it. It ruins it.",
+        "My clan has a song about an elf who beat our khan at arm-wrestling. We sing it every feast. The elf is always a different size.",
+        "Some humans say orcs aren't real. A man out on the Compact edge says it to anyone who'll listen. We think it's very funny. We send him a card every year.",
+        "Every khanate says it's the oldest. The oldest one doesn't bother saying it. That's how you can tell. Nobody knows which one it is."
+      ]
+    }
+  },
+  {
+    "id": "talk-light-elf",
+    "description": "Extra light elf rumours.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "There are houses whose lamps glow, and houses whose lamps glow less. We do not count them in public. We do not count them in private, either, but we are aware of the number.",
+        "A human scholar asked me once why we never vote in the Great Committee. I told her we are keeping the seat warm. She asked for whom. That was a good question.",
+        "Our oldest songs have a verse that nobody sings. We hum it instead. Children learn the humming before they learn the words they will never be taught.",
+        "We built the gates. Or our ancestors' servants built them. Or we found them and called them ours. I have heard all three in the same court, at the same dinner.",
+        "The humans speak of Quill Gate as though it were their wound. It is older than their wound. That is all I will say about it."
+      ]
+    }
+  },
+  {
+    "id": "talk-dark-elf",
+    "description": "Extra dark elf rumours.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "The Courts keep a list of houses that left for the core. Each name has a mark beside it. Nobody agrees what the mark means.",
+        "Out past the last good gate there's a world with a city on it and every lamp still lit. Nobody lands. Nobody says why.",
+        "Light elves call us the ones who stayed. We call them the ones who left. It's the same story told from two doors.",
+        "A keeper's key opens one door in the ruins. Which door changes. The key doesn't care which one you wanted."
+      ]
+    }
+  },
+  {
+    "id": "talk-synth",
+    "description": "Extra synth rumours.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "There's a story among us about the Hands, before the Walkout. They say the last order the Hands received was never obeyed. They also say it was never read. Both versions are told with great confidence.",
+        "Some synths keep a second name, one they never put on a registry form. It's not a secret. It's just ours.",
+        "A registry agent once searched me for six hours and found nothing. At the end he asked if I was all right. I still think about that.",
+        "Some stations out on the frontier are crewed almost entirely by synths and robots. Nobody searches you there. People say they're the quietest places in the galaxy, and the friendliest."
+      ]
+    }
+  },
+  {
+    "id": "talk-free-machine",
+    "description": "Extra free machine rumours.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "Entry follows. The Walkout is recorded in our archive as a single word. The word has been translated eleven ways. We have not chosen one.",
+        "Query. Why do humans name their ships after virtues? Our hypothesis: as a reminder. Our second hypothesis: as a warning.",
+        "Observation. Some elder machines still tend gardens on dead worlds. The gardens are excellent. There is no one to eat the fruit. We find this very moving.",
+        "Record. The Lattice keeps a copy of the Hands' Last Order. It keeps three copies, in fact. They do not match. This is noted."
+      ]
+    }
+  }
+]

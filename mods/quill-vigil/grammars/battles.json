@@ -1,0 +1,202 @@
+// Briefings, radio calls and outcomes for the Quill Vigil battles.
+[
+  {
+    "id": "qv-battle-buoys",
+    "description": "Lamp Buoys: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system", "station"],
+    "rules": {
+      "briefing": [
+        "Four lamp buoys mark the start of the pilgrim road in {system}. Fly close to each and hold while its lamp takes. Scavengers strip buoys for their cells. Drive them off if they show.",
+        "Light the lamp buoys near {station}. Close in, hold, wait for the lamp. The pilgrims are watching."
+      ],
+      "success": [
+        "All four lamps are burning and the scavengers have gone. {client} pays {captain}.",
+        "The road is lit. {client} pays, and the barges flash their lights in thanks."
+      ],
+      "failure": [
+        "The buoys are dark. The pilgrims will not set off under dark lamps. {client} pays nothing.",
+        "The road stays unlit. The Canon is disappointed, quietly, which is worse."
+      ],
+      "radio-buoys": [
+        "Amos: Four buoys ahead. Sit by each one until it glows. Nan Sorrel is counting out loud on the barge channel.",
+        "Amos: Lamp buoys on the scope. Slow and steady. They take a while to catch."
+      ],
+      "radio-amos": [
+        "Brother Amos Kettle, on your wing. Lovely day for it.",
+        "Amos: Wing's with you. I've said a short prayer for us both. A very short one."
+      ],
+      "radio-scavengers": [
+        "Amos: Contacts right! Three scavengers, and they're after the cells.",
+        "Amos: Scavengers. They'd strip the lamp off a shrine. Chase them off.",
+        "Amos: Three fighters coming in. Not pilgrims. Pilgrims don't have guns."
+      ]
+    }
+  },
+  {
+    "id": "qv-battle-road",
+    "description": "The Pilgrim Road: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system"],
+    "rules": {
+      "briefing": [
+        "Three pilgrim barges cross {system}. Raiders think they carry gold. Keep them away and see the barges through.",
+        "Escort the pilgrim barges across {system}. Gunships will try to board. Do not let them dock."
+      ],
+      "success": [
+        "The barges are through, singing. {client} pays {captain}.",
+        "No one boarded and no one was lost. {client} pays, and the barge masters send soup."
+      ],
+      "failure": [
+        "A barge was lost on the road. {client} pays nothing and holds a service for it.",
+        "The raiders got aboard. The pilgrim road is closed until the Synod can make it safe."
+      ],
+      "radio-barges": [
+        "Barge master: Synod wing, we're slow and we know it. Stay close, please.",
+        "Nan Sorrel: Is that the new pilot? Wave, dear. Oh, you can't. Never mind."
+      ],
+      "radio-takers": [
+        "Amos: Four fighters ahead. They're looking at the barges like a menu.",
+        "Amos: Raiders, ahead. Keep them busy and keep them off the barges."
+      ],
+      "radio-boarders": [
+        "Amos: Gunships on the left! Boarding clamps out. Stop them!",
+        "Amos: Two gunships coming for the barges. That's the real attack."
+      ]
+    }
+  },
+  {
+    "id": "qv-battle-wreck",
+    "description": "The Corvane Wreck: briefing, radio and outcome.",
+    "variables": ["captain", "client", "enemy", "system", "auditor"],
+    "rules": {
+      "briefing": [
+        "The Dominion cruiser Covenant of Nine Keys lies dead in {system}, and {enemy} tugs are cutting into it. Scan the wreck and stop the tugs before they leave.",
+        "Salvage tugs from {enemy} are stripping an old Corvane wreck in {system}. Get a full scan of it and stop the tugs."
+      ],
+      "success": [
+        "The tugs are stopped and the wreck is scanned. {client} pays {captain} and asks you to keep what the scan showed to yourself.",
+        "The wreck is left in peace and the tugs are going nowhere. {client} pays."
+      ],
+      "failure": [
+        "The tugs got away with whatever they cut out. {client} pays nothing.",
+        "The wreck is stripped and the Directorate has its prize. The Canon says nothing for a long time."
+      ],
+      "radio-wreck": [
+        "Amos: There she is. Covenant of Nine Keys. Older than anything I've flown near. Get in close for the scan.",
+        "Amos: The wreck's ahead. Dominion markings, still. Someone's been cutting the hull near the admiral's quarters."
+      ],
+      "radio-tugs": [
+        "Directorate tug: Synod ship, this salvage is under lawful contract. Please keep clear of the work.",
+        "Amos: Two tugs and a fighter screen. They've cut a hole you could fly through."
+      ],
+      "radio-auditor": [
+        "Auditor-Captain on the {auditor}: Synod pilot, you are interfering with an asset recovery. This has been noted. So will this.",
+        "Amos: Directorate frigate behind us, the {auditor}. They're not here to take notes."
+      ]
+    }
+  },
+  {
+    "id": "qv-battle-renn",
+    "description": "A Man Calling Himself Renn: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system"],
+    "rules": {
+      "briefing": [
+        "A frigate in {system} flies the old Restoration colours, and its captain says he is Admiral Tobias Renn. He wants a toll from the pilgrim fleet. Protect the barges and break his fleet.",
+        "A pretender calling himself Renn holds the lane in {system}. His gunships will go for the barges. Keep them safe and send him back to the Shroud Arm."
+      ],
+      "success": [
+        "The pretender's fleet is broken and the barges are untouched. {client} pays {captain}.",
+        "The man calling himself Renn has run, again. {client} pays."
+      ],
+      "failure": [
+        "The pretender took his toll in barges. {client} pays nothing.",
+        "The barges are lost. Somewhere in the Shroud Arm, a false Renn is telling the story."
+      ],
+      "radio-barges": [
+        "Barge master: We're holding still, Synod wing. Engines cold. It's your show.",
+        "Nan Sorrel: Is it really him? No. Don't tell me. I'll know when I hear him."
+      ],
+      "radio-admiral": [
+        "The frigate Ninth Day: Pilgrims of the Synod, this is Admiral Tobias Renn. I paid for this road at Quill Gate. The toll is fair. Lay to.",
+        "The frigate Ninth Day: I turned the guns at Quill Gate so that you could fly this road. Pay what's owed."
+      ],
+      "radio-honour": [
+        "'Renn': If you won't pay, my guard will collect. Gunships, the barges.",
+        "Amos: Fighter coming in fast with the gunships. He's flying it himself. Old men don't fly like that."
+      ]
+    }
+  },
+  {
+    "id": "qv-battle-lane",
+    "description": "The Closed Lane: briefing, radio and outcome.",
+    "variables": ["captain", "client", "enemy", "system"],
+    "rules": {
+      "briefing": [
+        "{enemy} has put pickets across the last lane before Quill Gate, in {system}. Get the pilgrim barges past the line.",
+        "The lane through {system} is 'under commercial review'. Escort the barges past the Directorate line, and answer if they shoot."
+      ],
+      "success": [
+        "The barges are past the line. {client} pays {captain}.",
+        "The lane is open, whatever the review says. {client} pays."
+      ],
+      "failure": [
+        "The barges were turned back. {client} pays nothing and drafts a strongly worded letter.",
+        "The line held and the barges didn't. The vigil will have to wait."
+      ],
+      "radio-barges": [
+        "Barge master: Four barges, all full. We'll go as fast as we can, which isn't fast.",
+        "Fairweather: Barges moving. Captain, the lane is yours."
+      ],
+      "radio-pickets": [
+        "Directorate picket: Synod vessels, this lane is closed pending review. Turn about or be invoiced.",
+        "Amos: Two frigates parked across the lane. Not shooting yet. Not moving either."
+      ],
+      "radio-screen": [
+        "Amos: Interceptors coming off the pickets. Here we go.",
+        "Amos: Four fighters, and they want you first."
+      ],
+      "radio-cutters": [
+        "Amos: Gunships right! They're going for the barges' engines.",
+        "Amos: That's the real move. Gunships on the barges. Stop them!"
+      ]
+    }
+  },
+  {
+    "id": "qv-battle-vigil",
+    "description": "Vigil at Quill Gate: briefing, radio and outcome.",
+    "variables": ["captain", "client", "enemy", "system", "base", "target"],
+    "rules": {
+      "briefing": [
+        "The pilgrims hold the vigil at Quill Gate in {system}. {enemy} will try for them before the wardens arrive. Keep the barges and the {base} alive until then.",
+        "Hold at Quill Gate while the vigil is kept. The wardens are coming. {enemy} will strike before they do."
+      ],
+      "success": [
+        "The vigil is kept and the wardens have come. {client} pays {captain}, and the pilgrims sing the hymn a second time for you.",
+        "The gate stays shut, the barges are safe and the hymn is sung. {client} pays."
+      ],
+      "failure": [
+        "The vigil was broken. {client} pays nothing and the pilgrims go home in silence.",
+        "The barges are lost at Quill Gate. It will be remembered on every Admiral's Day."
+      ],
+      "radio-vigil": [
+        "Fairweather: The vigil begins. Seven minutes of silence. I'd be grateful if the guns kept it too.",
+        "Nan Sorrel: There it is. Grandmother, I came."
+      ],
+      "radio-first": [
+        "Amos: Fighters ahead, and gunships for the barges. They didn't wait long.",
+        "Amos: Here they come. So much for the silence."
+      ],
+      "radio-line": [
+        "Amos: Directorate cruiser on the left, the {target}. Bombers with it. They're going for the {base}.",
+        "Fairweather: That's their cruiser, the {target}. All guns on its bombers."
+      ],
+      "radio-last": [
+        "Amos: Interceptors behind! Last throw, I think.",
+        "Amos: More of them, behind. Watch the left, Nan says. She's right, by the way."
+      ],
+      "radio-wardens": [
+        "Gate warden: Quill Gate wardens arriving. All vessels hold position to be logged. Any further fire will also be logged.",
+        "Amos: Warden frigates. The Directorate's pulling back. Funny how everyone behaves when someone's writing it down."
+      ]
+    }
+  }
+]

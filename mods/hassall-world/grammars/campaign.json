@@ -1,0 +1,62 @@
+// Orders, debriefs, intro and outro for Hassall World.
+// People: Hassall (an eccentric computer engineer who owns the station, buys computers, does not believe in orcs), Juniper (a synth
+// pilot who flies your wing), Marigold (the robot who actually runs the station), and Ted the
+// Wolf, an old fighter pilot the synths talk about. Ted protected them once. Nobody agrees on the
+// details, and the story never says what became of him.
+[
+  {
+    "id": "hw-campaign",
+    "description": "Hassall World: intro, outro, orders and debriefs.",
+    "variables": ["base", "captain", "client", "enemy", "system", "station", "target"],
+    "rules": {
+      "intro": [
+        "Captain {captain}! Come in, come in. Mind the cabling. Welcome to Hassall World.\n\nI'm Hassall. Just Hassall. Computer engineer, forty years at the bench. This is my station. The paperwork says she's an old Caravan-class carrier bolted to a rock in Bridgeford 421, but the paperwork is wrong about a lot of things. The flag is {client}'s, and the rent is mine.\n\nWhat I want is simple. Computer equipment. Cores, wafers, sensor stacks, memory, anything that thinks or helps something think. I pay well. Very well. Ask anyone. Ask Marigold, she does the accounts.\n\nNow, you'll hear people on this station talk about orcs. There are no orcs. Orcs are a story the Hold League tells to sell armour plate. If someone says 'orc' to you, smile and change the subject.\n\nJuniper will fly with you. Juniper is a synth, and a better pilot than either of us. Off you go.",
+        "{captain}, isn't it? Good name. Solid. I'm Hassall, and this is Hassall World, the finest station in Bridgeford 421, mostly because it's the only one.\n\nI'm a computer engineer, and I build bigger machines than anyone out here has a use for. Not as a hobby. As a calling. I need more of them than anyone can sell me, and I pay over the odds for every crate. You fly, you fetch, I pay. Pirates may object. They usually do.\n\nMy crew are synths and robots, nearly all of them. Lovely people. They'll tell you about Ted the Wolf within the hour. Let them, it makes them happy.\n\nAnd before you ask: no, there are no orcs. I've lived out here thirty years and never seen one that wasn't a big man in a bad mood."
+      ],
+      "outro": [
+        "That's the lot, {captain}. The cores are humming, the raid is broken and Hassall World is still bolted to its rock.\n\nHassall: Best money I ever spent. And I've spent a great deal of money. The big green weather has cleared, I see.\n\nJuniper: They were orcs, Mr Hassall.\n\nHassall: They were weather, Juniper.\n\nMarigold: Statement. Your quarters are kept. Ted's quarters are also kept. There is room on this station for people who come back.",
+        "The run is done. Hassall has his computers and you have a great deal of his money.\n\nHassall: You'll always be welcome here, {captain}. Bring cores. Bring wafers. Do not bring orcs, because there aren't any.\n\nJuniper: Ted would have liked you. That's the best thing anyone here knows how to say."
+      ],
+      "briefing-cores": [
+        "Hassall: First job, and it's a lovely one. A trader called the Fair Exchange is waiting in {system} with a hold full of computer cores. Thirty crates. Fly alongside, match her speed and hold steady while the cores come across. Don't rush it. Cores don't like being rushed.\n\nJuniper: Pirates watch this lane. A trader sitting still with thirty crates of cores is a very loud thing.\n\nHassall: Then be louder.",
+        "Hassall: Captain, there's a trader in {system} with computer cores for me. Thirty crates of the good ones. Go alongside, hold, take them on. You'll be paid more than they're worth, which is a lot.\n\nMarigold: Note. Mr Hassall has already paid for the cores. If you lose them he will buy them again. Please do not lose them."
+      ],
+      "debrief-cores": [
+        "Hassall: Thirty crates! Look at them. Look at them, {captain}. Marigold, pay the captain. Pay her twice.\n\nMarigold: Correction. I will pay once, generously.\n\nJuniper: The synths on the lower deck are already arguing about who gets to install them. When Ted brought in cores, they used to throw a party.",
+        "Hassall: Splendid. The cores are in, the pirates are out. Exactly how I like the universe.\n\nJuniper: You fly a bit like Ted. Fast, then very still. He said holding still was the hard part."
+      ],
+      "briefing-wafers": [
+        "Hassall: Microchip wafers, Captain. Three freighters of them, coming through {system}. Wafers are delicate. Wafers are beautiful. Pirates think wafers are money, which they are, but they're also wafers. Escort the convoy and keep it in one piece.\n\nJuniper: The pirates out here hit the lead ship first. Ted always said so.",
+        "Hassall: I've bought every wafer in the Reach, and they're all on three ships in {system}. Bring them home.\n\nMarigold: The convoy masters have asked for hazard pay. Mr Hassall has agreed to triple it. Mr Hassall agrees to most things."
+      ],
+      "debrief-wafers": [
+        "Hassall: Every wafer intact! I could weep. I'm not going to, but I could.\n\nMarigold: The convoy masters have asked if there will be more work. Mr Hassall has said yes before I could check.\n\nJuniper: A robot on the convoy asked if you were the new Ted. I said there isn't a new Ted. Then I said maybe.",
+        "Hassall: Lovely flying. The wafers are in the racks and the racks are singing, or humming. Humming, Marigold says.\n\nJuniper: There's a jacket on the lower deck with a wolf on the back. Nobody wears it. We just keep it clean."
+      ],
+      "briefing-exchange": [
+        "Hassall: Now this is the one. There's a dead data exchange in {system}, an old relay hub nobody owns any more. Three server stacks still have power. Fly to each one and hold while Juniper's kit pulls the memory. I want every byte.\n\nJuniper: Squatters use the hub. Pirates. They'll think the stacks are theirs.\n\nHassall: They're nobody's. Which means they're about to be mine.",
+        "Hassall: Server stacks, Captain! Three of them, abandoned in {system}, still running. Get close, hold, pull the memory. Then get out before anyone notices.\n\nMarigold: Someone will notice. Someone always notices."
+      ],
+      "debrief-exchange": [
+        "Hassall: We've got it all. Do you know how much memory that is? Neither do I. Marigold is counting.\n\nMarigold: Count is in progress. It will take some days.\n\nJuniper: Captain. Some of the shipping logs in that memory are from Ted's time. There's a fighter on them with a wolf callsign, flying escort for synth refugees. I'm going to read them all.",
+        "Hassall: Splendid work. The stacks are ours and the pirates have learned a lesson, probably.\n\nJuniper: One of the logs has Ted's voice on it. Just a few words. 'Stay behind me, I've got you.' Half the station has listened to it already."
+      ],
+      "briefing-weather": [
+        "Hassall: Sensor arrays, Captain. Four freighters of them coming through {system}, towards the khanate border. Now, there's been a lot of nonsense on the station about orcs out there. I want to be clear. There are no orcs. There is bad weather, and some pirates with big engines. Escort the convoy through the weather.\n\nJuniper: Captain, those are orcs. {enemy}. They paint their noses red.\n\nHassall: Weather, Juniper.",
+        "Hassall: Escort job through {system}, and I'll hear no talk of orcs. It's a rough patch of space with some loud pirates in it. Keep my arrays safe.\n\nMarigold: Advisory. The 'weather' has sent a message demanding tribute. It is signed by a khan.\n\nHassall: Weather can't sign things, Marigold."
+      ],
+      "debrief-weather": [
+        "Hassall: The arrays are through! Magnificent. And the weather's cleared.\n\nJuniper: The weather had a war-cry, Mr Hassall. It shouted its own name on open channel.\n\nHassall: Pirates are very theatrical.\n\nMarigold: Warning. The weather is gathering. Scans show a khanate fleet heading for Bridgeford 421.",
+        "Hassall: Lovely. Not a scratch on the arrays.\n\nJuniper: Grisk Loudhull said he'll be back with his whole khanate.\n\nHassall: Then we'll have a lot of weather. Get some rest, Captain."
+      ],
+      "briefing-holds": [
+        "Hassall: Right. Nobody panic. There is a large amount of weather coming towards Hassall World. Big weather. Green, I'm told, with engines. It wants my computers, and it can't have them.\n\nMarigold: The station has two frigates, four fighters and you. The synths on the lower decks are frightened. The last time this happened, Ted was here.\n\nJuniper: He's not here. We are. Keep the station in one piece until they give up.\n\nHassall: It's not orcs.",
+        "Hassall: Captain, I'll be honest. I have never seen weather like this. Hold the station until it passes. I'll double your pay. I'll triple it. Marigold, triple it.\n\nMarigold: Tripled.\n\nJuniper: Ted held this station once, alone, for a whole watch. That's what they say. Let's see if two of us can do better."
+      ],
+      "debrief-holds": [
+        "Hassall: It held! Hassall World held! I said it would, didn't I, Marigold?\n\nMarigold: You said 'we are all going to die', Mr Hassall.\n\nHassall: In a confident voice.\n\nJuniper: Captain. That fighter at the end. The old one. It had a wolf on its nose, and it didn't answer any hail. It just flew alongside the station, turned, and went. Nobody's saying anything about it. Everybody's thinking it.",
+        "Hassall: The weather has broken. I've decided to call it a historic storm.\n\nJuniper: There was a fighter at the end that wasn't ours, painted with a wolf. It fought like it knew every inch of the station. I didn't get a callsign.\n\nMarigold: Statement. Ted's jacket is missing from the lower deck. It may have been mislaid. I am choosing to believe it was mislaid."
+      ]
+    }
+  }
+]
