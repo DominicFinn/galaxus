@@ -19,7 +19,7 @@ env:
 jobs:
   build:
     # macOS, so the Mac app can be built and ad hoc signed the same way tools/export.sh does locally.
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
