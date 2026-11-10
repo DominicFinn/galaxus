@@ -35,6 +35,12 @@ public partial class Hud : Control
     /// <summary>The active job and what to do next, shown top right. Empty for none.</summary>
     public string JobTitle { get; set; } = "";
     public bool ShowPerformance { get; set; }
+    /// <summary>Things to point at in space: objective targets and threats, each with a label.</summary>
+    public List<(Vector3 Position, string Label, Color Colour)> Marks { get; } = [];
+    /// <summary>Extra detail after each objective: distance, scan progress, time left.</summary>
+    public Dictionary<Galaxus.Core.Battles.BattleObjective, string> ObjectiveNotes { get; } = [];
+    /// <summary>What's attacking you and what to do about it, shown under the job lines.</summary>
+    public string Threat { get; set; } = "";
     public string Performance { get; set; } = "";
     /// <summary>The battle's objectives while one is on, or null.</summary>
     public List<Galaxus.Core.Battles.BattleObjective>? Objectives { get; set; }
@@ -112,6 +118,8 @@ public partial class Hud : Control
         Text(new Vector2(size.X / 2, 12), Location, Dim, HorizontalAlignment.Center);
         Text(new Vector2(size.X / 2, 24), Cruise, Amber, HorizontalAlignment.Center);
         DrawNavMarker(size);
+        DrawMarks(size);
+        if (Threat != "") Text(new Vector2(size.X / 2, 84), Threat, Red, HorizontalAlignment.Center);
         if (Prompt != null) Text(new Vector2(size.X / 2, size.Y / 2 + 36), Prompt, Amber, HorizontalAlignment.Center);
         Text(new Vector2(size.X - 6, 12), $"KILLS {Kills}", Dim, HorizontalAlignment.Right);
         if (GameSettings.Current.ShowHints) Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
@@ -163,7 +171,7 @@ public partial class Hud : Control
     {
         if (Objectives == null) return;
         var origin = new Vector2(8, 96);
-        DrawRect(new Rect2(origin - new Vector2(4, 10), new Vector2(230, Objectives.Count * 10 + 16)), Panel);
+        DrawRect(new Rect2(origin - new Vector2(4, 10), new Vector2(300, Objectives.Count * 10 + 16)), Panel);
         Text(origin, "OBJECTIVES", Amber);
         for (int i = 0; i < Objectives.Count; i++)
         {
@@ -174,7 +182,8 @@ public partial class Hud : Control
                 Galaxus.Core.Battles.ObjectiveState.Failed => ("[!]", Red),
                 _ => ("[ ]", o.Def.Optional ? Dim : Colors.White),
             };
-            Text(origin + new Vector2(0, 11 + i * 10), $"{mark} {o.Text.ToUpperInvariant()}{(o.Def.Optional ? " (BONUS)" : "")}", colour);
+            string note = ObjectiveNotes.TryGetValue(o, out var n) && o.State == Galaxus.Core.Battles.ObjectiveState.Pending ? $"  {n}" : "";
+            Text(origin + new Vector2(0, 11 + i * 10), $"{mark} {o.Text.ToUpperInvariant()}{(o.Def.Optional ? " (BONUS)" : "")}{note}", colour);
         }
     }
 
@@ -246,6 +255,36 @@ public partial class Hud : Control
         var p = Camera.UnprojectPosition(point);
         DrawPolyline([p + new Vector2(0, -7), p + new Vector2(7, 0), p + new Vector2(0, 7), p + new Vector2(-7, 0), p + new Vector2(0, -7)], Blue, 1.5f);
         Text(p + new Vector2(0, 18), NavLabel, Blue, HorizontalAlignment.Center);
+    }
+
+    /// <summary>Objective and threat markers: a labelled bracket on screen, a labelled arrow at the edge when off it.</summary>
+    private void DrawMarks(Vector2 size)
+    {
+        if (Camera == null) return;
+        foreach (var (position, label, colour) in Marks)
+        {
+            if (Camera.IsPositionBehind(position) || !OnScreen(Camera.UnprojectPosition(position), size, 12))
+            {
+                var local = Camera.GlobalTransform.AffineInverse() * position;
+                var dir = new Vector2(local.X, -local.Y);
+                if (dir.LengthSquared() < 1e-4f) dir = Vector2.Down;
+                dir = dir.Normalized();
+                var tip = size / 2 + dir * (Mathf.Min(size.X, size.Y) / 2 - 48);
+                var side = new Vector2(-dir.Y, dir.X);
+                DrawColoredPolygon([tip + dir * 8, tip - dir * 5 + side * 6, tip - dir * 5 - side * 6], colour);
+                Text(tip - dir * 18 + new Vector2(0, 4), label, colour, HorizontalAlignment.Center);
+                continue;
+            }
+            var p = Camera.UnprojectPosition(position);
+            const float half = 11;
+            foreach (var (sx, sy) in new[] { (-1, -1), (1, -1), (1, 1), (-1, 1) })
+            {
+                var corner = p + new Vector2(sx * half, sy * half);
+                DrawLine(corner, corner - new Vector2(sx * 5, 0), colour, 1.5f);
+                DrawLine(corner, corner - new Vector2(0, sy * 5), colour, 1.5f);
+            }
+            Text(p + new Vector2(0, -half - 4), label, colour, HorizontalAlignment.Center);
+        }
     }
 
     private void DrawOffscreenArrow(Vector3 targetPos, Vector2 size)

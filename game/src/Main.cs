@@ -378,6 +378,7 @@ public partial class Main : Node3D
         AudioManager.Instance?.Ui("undock");
         _hud.Message($"UNDOCKED FROM {_stationScreen.StationName.ToUpperInvariant()}");
         CourseForJob();
+        _sinceUndock = 0;
     }
 
     private void OpenMap()
@@ -561,6 +562,7 @@ public partial class Main : Node3D
         UpdateSystemView();
         UpdateNavHud();
         UpdateJobHud(delta);
+        UpdateGuidance(dt);
         StepPreview(delta);
         if (_hud.ShowPerformance)
             _hud.Performance = $"{Engine.GetFramesPerSecond():0} FPS   {_world.Ships.Count(sh => sh.Alive)} SHIPS   {_world.Projectiles.Count} SHOTS   {_visuals.Count} MODELS";
@@ -736,6 +738,7 @@ public partial class Main : Node3D
                     break;
                 case ShipHit hit:
                     if (hit.Ship == _player || hit.Projectile.Owner == _player) _fightCooldown = 8;
+                    if (hit.Ship == _player && hit.Projectile.Owner != _player) TookFire(hit.Projectile.Owner);
                     _effects.RemoveBolt(hit.Projectile);
                     if (hit.Damage.ToHull > 0) { _effects.HullSpark(hit.Point.ToGodot()); AudioManager.Instance?.HullHit(hit.Point.ToGodot()); }
                     else { _effects.ShieldFlash(hit.Ship.Body.Position.ToGodot(), hit.Ship.Spec.Radius); AudioManager.Instance?.ShieldHit(hit.Point.ToGodot()); }

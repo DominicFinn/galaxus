@@ -16,6 +16,8 @@ public partial class Main
 {
     private readonly List<(Ship Ship, Pilot Pilot, bool Departing)> _traffic = [];
     private float _trafficTimer;
+    /// <summary>Seconds since you last undocked: pirates leave new arrivals alone for a minute and a half.</summary>
+    private float _sinceUndock = 999;
     private int _nextTrafficId = 300_000;
     /// <summary>Lawful ships (traders, patrols) share one side, so firing on a trader brings the police down on you too.</summary>
     private const int LawfulSide = 500, PirateSide = 900;
@@ -54,6 +56,7 @@ public partial class Main
             _traffic.RemoveAt(i);
         }
 
+        _sinceUndock += dt;
         _trafficTimer -= dt;
         if (_trafficTimer > 0) return;
         _trafficTimer = 6 + _rng.NextFloat() * 8;
@@ -73,6 +76,7 @@ public partial class Main
         string security = _profile.Security;
         float pirateChance = security switch { "Lawless" => 0.45f, "Low" => 0.3f, "War zone" => 0.15f, "Medium" => 0.06f, _ => 0.02f };
         if (!nearStation) pirateChance *= 1.5f;
+        if (_sinceUndock < 90) pirateChance = 0;
         float patrolChance = owner == null ? 0 : security switch { "High" => 0.3f, "War zone" => 0.35f, "Medium" => 0.2f, _ => 0.08f };
 
         string builder = owner != null ? BattleJobs.BuilderFor(db, owner) : "breakers-guild";

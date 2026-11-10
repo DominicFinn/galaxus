@@ -280,6 +280,17 @@ public sealed class Battle
         if (marks.All(m => _scanned.Contains((o, m)))) o.State = ObjectiveState.Done;
     }
 
+    /// <summary>The ships an objective is about that still matter: alive, and not yet scanned for scans.</summary>
+    public IEnumerable<Ship> TargetsOf(BattleObjective o)
+    {
+        var ships = o.Def.Tag != null ? _tags.GetValueOrDefault(o.Def.Tag) : o.Def.Wave != null ? _waves.GetValueOrDefault(o.Def.Wave) : null;
+        if (ships == null) return [];
+        return ships.Where(s => s.Alive && !_scanned.Contains((o, s)));
+    }
+
+    /// <summary>Seconds left on a survive objective.</summary>
+    public float TimeLeft(BattleObjective o) => MathF.Max(0, o.Def.Seconds - Time);
+
     /// <summary>How far through a scan or rendezvous you are with the nearest marked ship, 0 to 1, or null when you're not at one.</summary>
     public float? HoldProgress(BattleObjective o) =>
         _tags.TryGetValue(o.Def.Tag ?? "", out var marks)
