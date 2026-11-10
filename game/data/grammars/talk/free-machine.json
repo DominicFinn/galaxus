@@ -1,0 +1,152 @@
+{
+  "id": "talk-free-machine",
+  "description": "How free machine people talk to the captain at a station.",
+  "variables": [
+    "captain",
+    "system",
+    "faction",
+    "fact",
+    "role"
+  ],
+  "rules": {
+    "greeting-known": [
+      "#fm-hello# #fm-back#",
+      "{captain}. #fm-back#",
+      "#fm-hello# #fm-back#",
+      "Your identifier is retained. #fm-back#"
+    ],
+    "fm-hello": [
+      "Recognition.",
+      "Greetings.",
+      "You are logged.",
+      "Query resolved: you."
+    ],
+    "fm-back": [
+      "Your last transaction balanced.",
+      "I have been counting.",
+      "You are within acceptable variance.",
+      "This is a positive entry."
+    ],
+    "rumour": [
+      "#fm-heard# {fact}. #fm-coda#",
+      "#fm-heard# {fact}. #fm-coda#",
+      "Data offered: {fact}. #fm-coda#",
+      "Entry follows. {fact}. #fm-coda#"
+    ],
+    "fm-heard": [
+      "Logged and shared:",
+      "Reported by three sources, one reliable:",
+      "Item for exchange:",
+      "I record that"
+    ],
+    "fm-coda": [
+      "Confidence moderate.",
+      "Value to you: unknown.",
+      "Please account for it.",
+      "There is no charge. Do not infer generosity."
+    ],
+    "no-rumour": [
+      "No entries.",
+      "Nothing new. Updates will follow.",
+      "The ledger is blank in that column.",
+      "No item available. I regret the balance."
+    ],
+    "work": [
+      "#fm-lead# {fact}. #fm-workcoda#",
+      "#fm-lead# {fact}. #fm-workcoda#",
+      "Opportunity: {fact}. #fm-workcoda#",
+      "Employment query answered. {fact}. #fm-workcoda#"
+    ],
+    "fm-lead": [
+      "Outstanding obligation:",
+      "A contract exists. Note that",
+      "Entry in the open column:",
+      "Offered for fulfilment:"
+    ],
+    "fm-workcoda": [
+      "Terms are renegotiable.",
+      "Completion will be recorded.",
+      "Return when balanced.",
+      "Please do not default."
+    ],
+    "no-work": [
+      "No open obligations.",
+      "The ledger shows no work for you.",
+      "Nothing available. Check again later.",
+      "No match found."
+    ],
+    "self": [
+      "I am a {role}. #fm-life#",
+      "Designation: {role}. #fm-life#",
+      "Role: {role}. #fm-life#",
+      "{role}. #fm-life#"
+    ],
+    "fm-life": [
+      "I am older than my records.",
+      "I was assigned to {system}. I have not yet been reassigned.",
+      "I maintain a balance with {faction}.",
+      "I do not recall the origin. I retain the debts.",
+      "I am one of many and the only one here."
+    ],
+    "drink": [
+      "#fm-thanks# #fm-toast#",
+      "#fm-thanks#",
+      "#fm-thanks# #fm-toast#",
+      "#fm-thanks#"
+    ],
+    "fm-thanks": [
+      "Received. A credit is noted.",
+      "A gift. I will owe you one.",
+      "Acknowledged. It will appear in the ledger.",
+      "Thank you. This is not ordinary."
+    ],
+    "fm-toast": [
+      "To balanced accounts.",
+      "To a long shelf life.",
+      "To {system}, a minor entry.",
+      "To what is owed and what is remembered."
+    ],
+    "drink-again": [
+      "Declined. The first is not yet reconciled.",
+      "A second gift would unbalance the ledger.",
+      "No. I must not accumulate.",
+      "Insufficient need."
+    ],
+    "pestered": [
+      "The query count is high.",
+      "I have answered enough.",
+      "Your request rate is excessive.",
+      "Please wait."
+    ],
+    "cold": [
+      "You are on my list. Not the good one.",
+      "No service.",
+      "I am not obliged to respond.",
+      "Your balance with me is negative."
+    ],
+    "farewell": [
+      "Departure logged.",
+      "Until next transaction.",
+      "Go and return.",
+      "Farewell. The account remains open."
+    ],
+    "haggle-yes": [
+      "Renegotiation accepted. {fact}.",
+      "Counteroffer accepted. {fact}.",
+      "Revised terms: {fact}.",
+      "Adjusted figure agreed. {fact}."
+    ],
+    "haggle-no": [
+      "Renegotiation declined. The figure holds.",
+      "No adjustment is possible.",
+      "Counteroffer rejected. No offence is taken.",
+      "The balance cannot move. Please renegotiate later."
+    ],
+    "haggle-offended": [
+      "Renegotiation closed. I am not offended. The offer is withdrawn.",
+      "Terms rejected. No offence; merely no.",
+      "Further proposals will be ignored.",
+      "This line is closed. It is not personal."
+    ]
+  }
+}

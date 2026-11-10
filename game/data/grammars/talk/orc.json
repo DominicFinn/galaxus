@@ -1,0 +1,158 @@
+{
+  "id": "talk-orc",
+  "description": "How orc people talk to the captain at a station.",
+  "variables": [
+    "captain",
+    "system",
+    "faction",
+    "fact",
+    "role"
+  ],
+  "rules": {
+    "greeting-known": [
+      "#or-hello# #or-back#",
+      "{captain}! #or-back#",
+      "Ha! The captain returns! #or-back#",
+      "#or-hello# #or-back#"
+    ],
+    "or-hello": [
+      "Oi, {captain}!",
+      "Ha!",
+      "Look who it is!",
+      "You!"
+    ],
+    "or-back": [
+      "You still have your ship! Good!",
+      "I told them you'd be back.",
+      "Sit! Eat! Shout!",
+      "Come, tell me you've fought something."
+    ],
+    "rumour": [
+      "#or-heard# {fact}! #or-coda#",
+      "#or-heard# {fact}. #or-coda#",
+      "Want to know something? {fact}! #or-coda#",
+      "Listen, {captain}, {fact}. #or-coda#"
+    ],
+    "or-heard": [
+      "Everyone's shouting that",
+      "I heard it over the engines:",
+      "A big fellow told me that",
+      "By my teeth,"
+    ],
+    "or-coda": [
+      "Whoever's wrong, I'd fight them.",
+      "Sounds like trouble. I like trouble.",
+      "That's the news, and it's good enough.",
+      "Do something about it!"
+    ],
+    "no-rumour": [
+      "Nothing! Dull as a cold forge!",
+      "No news. I'd start one if I could.",
+      "Not a word. Boring week.",
+      "Nobody's saying anything. Somebody should."
+    ],
+    "work": [
+      "#or-lead# {fact}. #or-workcoda#",
+      "#or-lead# {fact}. #or-workcoda#",
+      "You want work? {fact}. #or-workcoda#",
+      "Work! {fact}. #or-workcoda#"
+    ],
+    "or-lead": [
+      "Work for brave ones:",
+      "Hear this:",
+      "Big job, and mean:",
+      "Here is a thing worth doing:"
+    ],
+    "or-workcoda": [
+      "Pay is good. Don't be slow!",
+      "Take it before someone bigger does.",
+      "You're not afraid, are you?",
+      "Bring back proof!"
+    ],
+    "no-work": [
+      "Nothing! Go pick a fight and come back.",
+      "No work. Everyone's sitting about.",
+      "None. It's a disgrace.",
+      "The board is empty. Terrible!"
+    ],
+    "self": [
+      "I'm a {role}! #or-life#",
+      "{role}, and the best on this station! #or-life#",
+      "What am I? A {role}. #or-life#",
+      "{role}! Ask anyone. #or-life#"
+    ],
+    "or-life": [
+      "I've worked for {faction}, and I've outlasted three of their bosses.",
+      "I broke a door once. It hasn't forgiven me.",
+      "{system} is loud, and so am I.",
+      "I could lift this table, and the man under it.",
+      "My clan would be proud, or at least loud."
+    ],
+    "drink": [
+      "#or-thanks# #or-toast#",
+      "#or-thanks#",
+      "#or-thanks# #or-toast#",
+      "#or-thanks#"
+    ],
+    "or-thanks": [
+      "Ha! A good one!",
+      "You're all right, {captain}!",
+      "I'll drink to that!",
+      "Now you're speaking my language!"
+    ],
+    "or-toast": [
+      "To big engines!",
+      "To a loud death, a long way off!",
+      "To whoever pays!",
+      "To {system}, and the fools in it!"
+    ],
+    "drink-again": [
+      "No! If I drink again I'll fight the wall!",
+      "Save it! I'll buy the next one.",
+      "One's plenty. I'm still standing, aren't I?",
+      "Not twice! I have a reputation for holding my drink."
+    ],
+    "pestered": [
+      "Enough! You ask like a customs officer!",
+      "You talk more than I do, and I'm loud!",
+      "Stop it, or I'll hold you by the boots.",
+      "My ears are tired. Ask someone else."
+    ],
+    "cold": [
+      "I don't like you. Go away.",
+      "Hah! You? No.",
+      "You're nothing to me. Leave.",
+      "Say nothing. I'm not interested in your voice."
+    ],
+    "farewell": [
+      "Fly fast!",
+      "Burn bright, {captain}!",
+      "Come back with stories!",
+      "Go! And make noise!"
+    ],
+    "haggle-yes": [
+      "#or-grudge# {fact}!",
+      "#or-grudge# {fact}.",
+      "Ha! You ask like a warrior! {fact}!",
+      "#or-grudge# {fact}!"
+    ],
+    "or-grudge": [
+      "Bold! I like it.",
+      "You have teeth!",
+      "Fine, fine!",
+      "No one asks that loudly. Done."
+    ],
+    "haggle-no": [
+      "No! But I like your nerve.",
+      "Never! Ask again and I'll respect you more, and still say no.",
+      "That's the price. Bold try!",
+      "No. You've got guts, I'll say that."
+    ],
+    "haggle-offended": [
+      "Enough! You push too far!",
+      "You insult me. Take your face elsewhere.",
+      "I said no. Do you want to fight? The job's gone.",
+      "Bah! That's the end of it."
+    ]
+  }
+}

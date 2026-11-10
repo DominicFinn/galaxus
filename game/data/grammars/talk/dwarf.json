@@ -1,0 +1,158 @@
+{
+  "id": "talk-dwarf",
+  "description": "How dwarf people talk to the captain at a station.",
+  "variables": [
+    "captain",
+    "system",
+    "faction",
+    "fact",
+    "role"
+  ],
+  "rules": {
+    "greeting-known": [
+      "#dw-hello#, {captain}. #dw-back#",
+      "#dw-hello#. #dw-back#",
+      "{captain}. #dw-back#",
+      "#dw-hello#. Still honest, I trust? #dw-back#"
+    ],
+    "dw-hello": [
+      "Aye",
+      "Well met",
+      "Right then",
+      "Hello again"
+    ],
+    "dw-back": [
+      "Pull up a stool. It's in better shape than the last.",
+      "Your account's still open.",
+      "Good. I was beginning to wonder.",
+      "I'll not charge you to sit."
+    ],
+    "rumour": [
+      "#dw-heard# {fact}. #dw-coda#",
+      "#dw-heard# {fact}. #dw-coda#",
+      "Free of charge, {fact}. #dw-coda#",
+      "Between us and the walls, {fact}. #dw-coda#"
+    ],
+    "dw-heard": [
+      "The word in the shafts is that",
+      "A hauler told me, and he was sober, that",
+      "I read it in a manifest, so it's probably true:",
+      "Rumour says"
+    ],
+    "dw-coda": [
+      "Judge for yourself.",
+      "Worth a note in your ledger.",
+      "Prices will follow, you mark me.",
+      "I'd not stake a contract on it."
+    ],
+    "no-rumour": [
+      "Nothing, and that's honest.",
+      "Quiet shift. I'd not pad it.",
+      "If I knew, I'd sell it. I don't.",
+      "No news. Doesn't mean there's none."
+    ],
+    "work": [
+      "#dw-lead# {fact}. #dw-workcoda#",
+      "#dw-lead# {fact}. #dw-workcoda#",
+      "There's a contract going. {fact}. #dw-workcoda#",
+      "If it's work you're after, {fact}. #dw-workcoda#"
+    ],
+    "dw-lead": [
+      "Seems someone needs a hand:",
+      "I hear that",
+      "Listen, there's an opening, since",
+      "Right. Here's the shape of it:"
+    ],
+    "dw-workcoda": [
+      "Read the terms before you sign.",
+      "It pays, and fairly.",
+      "Mind the small print.",
+      "Don't sign till you've counted."
+    ],
+    "no-work": [
+      "Not a thing. Try the board.",
+      "Nothing that pays properly.",
+      "No contracts that I'd put my name to.",
+      "Slack time. Happens."
+    ],
+    "self": [
+      "I'm a {role}. #dw-life#",
+      "{role}, and a good one. #dw-life#",
+      "You'd call me a {role}. #dw-life#",
+      "{role}. #dw-life#"
+    ],
+    "dw-life": [
+      "I've been paid fair and paid late, and the second is more common.",
+      "{system} is solid rock, which suits me.",
+      "Twenty years under {faction}, and no complaints in writing.",
+      "I mind my work and my invoices.",
+      "My hold would have me home, but pay is pay."
+    ],
+    "drink": [
+      "#dw-thanks# #dw-toast#",
+      "#dw-thanks#",
+      "#dw-thanks# #dw-toast#",
+      "#dw-thanks#"
+    ],
+    "dw-thanks": [
+      "That's decent of you.",
+      "I'll not say no.",
+      "Aye, thanks. I'll mark it a favour.",
+      "Good ale's not cheap, so thanks."
+    ],
+    "dw-toast": [
+      "To sound welds.",
+      "To fair weight and honest measure.",
+      "To contracts kept.",
+      "To {system}, and the cheap rock under it."
+    ],
+    "drink-again": [
+      "I'll not, thanks. I've a clear head to keep.",
+      "One's courtesy. Two's an account.",
+      "No more. I'm on the clock, in a manner of speaking.",
+      "Put it on the ledger for another day."
+    ],
+    "pestered": [
+      "That's a lot of questions for one cup.",
+      "I'm not paid by the question.",
+      "Mm. Don't you have your own business?",
+      "Enough chatter. I've work."
+    ],
+    "cold": [
+      "We've nothing to discuss.",
+      "Take it elsewhere.",
+      "I don't do business with you.",
+      "No terms. Leave."
+    ],
+    "farewell": [
+      "Keep your seals tight.",
+      "Mind the vacuum.",
+      "Safe haul.",
+      "See you on the next contract."
+    ],
+    "haggle-yes": [
+      "#dw-grudge# {fact}.",
+      "#dw-grudge# {fact}.",
+      "Hah! You've earned it. {fact}.",
+      "#dw-grudge# {fact}, and I'm writing it down."
+    ],
+    "dw-grudge": [
+      "Well argued.",
+      "I like a hard bargain.",
+      "I'll meet you.",
+      "You've a head for it."
+    ],
+    "haggle-no": [
+      "No. But it was well tried.",
+      "The rate stands. I enjoyed that, though.",
+      "Not a credit more. Try again next job.",
+      "No. It's fair, and you know it."
+    ],
+    "haggle-offended": [
+      "That's enough. The offer's withdrawn.",
+      "There's a line, and you've stood on it. Done.",
+      "Now you're not bargaining, you're begging. Finished.",
+      "No. I'll find someone with manners."
+    ]
+  }
+}

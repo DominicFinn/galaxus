@@ -1,0 +1,157 @@
+{
+  "id": "talk-dark-elf",
+  "description": "How dark elf people talk to the captain at a station.",
+  "variables": [
+    "captain",
+    "system",
+    "fact",
+    "role"
+  ],
+  "rules": {
+    "greeting-known": [
+      "#de-open# #de-after#",
+      "#de-open#",
+      "{captain}. #de-after#",
+      "#de-open# You were watched coming in."
+    ],
+    "de-open": [
+      "You again.",
+      "Captain.",
+      "I know you.",
+      "Back, then."
+    ],
+    "de-after": [
+      "Sit if you like.",
+      "Don't make it loud.",
+      "Say what you want.",
+      "I remember faces."
+    ],
+    "rumour": [
+      "#de-heard# {fact}. #de-coda#",
+      "#de-heard# {fact}. #de-coda#",
+      "If you must know, {fact}. #de-coda#",
+      "{fact}. That's what I've heard. #de-coda#"
+    ],
+    "de-heard": [
+      "Word came through quiet:",
+      "It's said, low:",
+      "A trader let slip that",
+      "I wouldn't say it twice, but"
+    ],
+    "de-coda": [
+      "Check it yourself.",
+      "You didn't hear it from me.",
+      "Might be true. Might be bait.",
+      "Stay out of it, if you're wise."
+    ],
+    "no-rumour": [
+      "Nothing I'd share.",
+      "Quiet. For now.",
+      "If I knew, I'd not say. I don't.",
+      "Nothing. Ask again if things change."
+    ],
+    "work": [
+      "#de-lead# {fact}. #de-workcoda#",
+      "#de-lead# {fact}. #de-workcoda#",
+      "If you need work, {fact}. #de-workcoda#",
+      "There is something. {fact}."
+    ],
+    "de-lead": [
+      "Someone's looking for hands:",
+      "Word is",
+      "Might suit you:",
+      "I heard, and only if you can keep quiet:"
+    ],
+    "de-workcoda": [
+      "Pay's fair, if it holds.",
+      "Don't ask who else knows.",
+      "Take it or leave it quietly.",
+      "Ask no more than you need."
+    ],
+    "no-work": [
+      "Not for you. Not now.",
+      "Nothing safe.",
+      "If there were, I'd not tell a stranger.",
+      "The board. Nothing else."
+    ],
+    "self": [
+      "{role}. #de-life#",
+      "I'm a {role}. #de-life#",
+      "Why do you want to know? {role}. #de-life#",
+      "{role}. That's enough. #de-life#"
+    ],
+    "de-life": [
+      "I stay where it's quiet.",
+      "{system} is as good as any hole.",
+      "I've seen worse places. I live in some.",
+      "Some of it I'd rather not discuss.",
+      "Ask what I've done and I'll ask what you've paid."
+    ],
+    "drink": [
+      "#de-thanks# #de-toast#",
+      "#de-thanks#",
+      "#de-thanks#",
+      "#de-thanks# #de-toast#"
+    ],
+    "de-thanks": [
+      "Noted.",
+      "I'll take it.",
+      "Fine. I owe you nothing.",
+      "Hm. Thank you."
+    ],
+    "de-toast": [
+      "To staying unseen.",
+      "To the ones who didn't come back.",
+      "To a quiet night.",
+      "To doors that stay shut."
+    ],
+    "drink-again": [
+      "One's enough. I'm watching my head.",
+      "No. Not twice.",
+      "Not today.",
+      "Ask me tomorrow, if I'm here."
+    ],
+    "pestered": [
+      "That's enough questions.",
+      "You ask too much.",
+      "I'll stop answering.",
+      "Why so many questions?"
+    ],
+    "cold": [
+      "No.",
+      "I don't speak to you.",
+      "Walk on.",
+      "You've done enough. Leave."
+    ],
+    "farewell": [
+      "Keep low.",
+      "Mind your back.",
+      "Go.",
+      "We'll see."
+    ],
+    "haggle-yes": [
+      "#de-grudge# {fact}.",
+      "#de-grudge# {fact}.",
+      "If you insist. {fact}.",
+      "Once. {fact}."
+    ],
+    "de-grudge": [
+      "Once only.",
+      "Fine.",
+      "It costs me.",
+      "You've leverage. Don't get used to it."
+    ],
+    "haggle-no": [
+      "No.",
+      "The price stands.",
+      "That's all there is.",
+      "Ask again and the deal goes."
+    ],
+    "haggle-offended": [
+      "You overreach. Done.",
+      "Deal's off.",
+      "Last word you get from me. Leave.",
+      "No. I'm finished with this."
+    ]
+  }
+}

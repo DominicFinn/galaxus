@@ -28,7 +28,7 @@ if (hullId == "--portraits")
 {
     var races = db.Portraits.Keys.Order().ToList();
     var roles = db.Roles.Keys.Order().ToList();
-    const int cols = 9, cell = 120, rowH = 144;
+    const int cols = 9, cell = 140, rowH = 164;
     var sheet = new Canvas(cols * cell, races.Count * rowH, new Vector3(0.05f, 0.06f, 0.08f));
     for (int r = 0; r < races.Count; r++)
     for (int c = 0; c < cols; c++)
@@ -42,9 +42,16 @@ if (hullId == "--portraits")
             Headwear = pick.Pick(role.Headwear), Eyewear = pick.Pick(role.Eyewear), Collar = pick.Pick(role.Collar), Extras = [.. role.Extras],
         };
         string gender = style.Machine ? "neither" : c % 2 == 0 ? "woman" : "man";
-        foreach (var shape in Galaxus.Core.Portraits.PortraitBuilder.Build(style, seed, null, attire, gender))
-            sheet.Polygon(shape.Points.Select(p => new Vector2(c * cell + 10 + p.X, r * rowH + 12 + p.Y)).ToArray(),
-                new Vector3(shape.Colour.X, shape.Colour.Y, shape.Colour.Z), shape.Colour.W);
+        var pixelArt = Galaxus.Core.Portraits.PixelPortrait.Render(Galaxus.Core.Portraits.PortraitBuilder.Build(style, seed, null, attire, gender));
+        // Each pixel-art pixel becomes a 2x2 block on the sheet, like the game's scaled-up view.
+        const int zoom = 2;
+        for (int py = 0; py < Galaxus.Core.Portraits.PixelPortrait.Height; py++)
+        for (int px = 0; px < Galaxus.Core.Portraits.PixelPortrait.Width; px++)
+        {
+            var v = pixelArt[py * Galaxus.Core.Portraits.PixelPortrait.Width + px];
+            float x0 = c * cell + (cell - 64 * zoom) / 2 + px * zoom, y0 = r * rowH + 8 + py * zoom;
+            sheet.Polygon([new(x0, y0), new(x0 + zoom, y0), new(x0 + zoom, y0 + zoom), new(x0, y0 + zoom)], new Vector3(v.X, v.Y, v.Z), 1);
+        }
     }
     sheet.SavePng(args[2]);
     Console.WriteLine($"Saved portrait sheet to {args[2]}");

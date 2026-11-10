@@ -1,0 +1,29 @@
+{
+  "id": "talk-human",
+  "description": "How humans talk to the captain at a station. Rules are the conversation contract; {fact} is real news from the galaxy, already a full clause.",
+  "variables": ["captain", "system", "faction", "fact", "role", "name", "place"],
+  "rules": {
+    "greeting-known": ["#hello#, {captain}. #back#", "Oh, it's you again. #back#", "{captain}! #back#"],
+    "hello": ["Afternoon", "Evening", "Hello", "Well now"],
+    "back": ["Good to see you.", "Still flying, then.", "Thought you'd moved on.", "Sit down if you like."],
+    "rumour": ["#heard# {fact} #shrug#", "#heard# {fact}", "Between you and me, {fact} #shrug#"],
+    "heard": ["Word on the dock is", "I heard from a pilot that", "Funny thing, someone was saying", "If you believe the gossip,"],
+    "shrug": ["Make of that what you will.", "Don't quote me.", "That's all I know.", "Worth knowing, maybe."],
+    "no-rumour": ["Quiet lately. Nothing worth repeating.", "Can't say I've heard anything.", "Nothing new, sorry."],
+    "work": ["#heard# {fact} #shrug#", "If you're after work, {fact}"],
+    "no-work": ["Not much going that I know of.", "Check the board. That's all there is."],
+    "self": ["I'm a {role} here. #life#", "{role}, for my sins. #life#", "Not much to tell. #life#"],
+    "life": ["Long shifts, short pay.", "It keeps the lights on.", "{system} isn't home, but it'll do.", "I've worked for {faction} longer than I'd like to admit."],
+    "drink": ["#thanks# #toast#", "#thanks#"],
+    "thanks": ["Kind of you.", "I won't say no.", "Now you're talking.", "Cheers, {captain}."],
+    "toast": ["To clean jumps.", "To being paid on time.", "Here's to {system}, such as it is."],
+    "drink-again": ["Another? You'll get a reputation.", "I'm all right, thanks. One's plenty today."],
+    "pestered": ["You ask a lot of questions.", "I do have work to do, you know.", "Maybe another time."],
+    "cold": ["I've nothing to say to you.", "Move along.", "Not interested."],
+    "farewell": ["Safe flying.", "See you around.", "Mind how you go."],
+    "haggle-yes": ["#reluctant# Fine. {fact}", "You drive a hard bargain. {fact}"],
+    "reluctant": ["Ugh.", "All right, all right.", "You're lucky I like your face."],
+    "haggle-no": ["That's the rate. Take it or leave it.", "No. It's a fair price already."],
+    "haggle-offended": ["Forget it. I'll find someone else.", "If that's how you want to be, the job's gone."]
+  }
+}

@@ -240,9 +240,8 @@ public static class PortraitBuilder
                 float a = MathF.PI + i * MathF.PI / 10;
                 points.Add(new Vector2(cx + MathF.Cos(a) * (w + 1.5f), 55 + MathF.Sin(a) * (55 - top)));
             }
-            points.Add(new Vector2(cx + w + 1.5f, forehead + 6));
-            points.Add(new Vector2(cx - w - 1.5f, forehead + 6));
-            s.Add(new PortraitShape([.. points], cap));
+            // Cut the dome off at the hairline, which keeps it convex.
+            s.Add(new PortraitShape(ClipAbove(points, forehead + 6), cap));
         }
         switch (hairStyle)
         {
@@ -491,6 +490,21 @@ public static class PortraitBuilder
         var a = new Vector2(x1, y1);
         var b = new Vector2(x2, y2);
         return new([a + n, b + n, b - n, a - n], colour);
+    }
+
+    /// <summary>The part of a convex polygon above y (smaller y), for hair that stops at the hairline.</summary>
+    private static Vector2[] ClipAbove(List<Vector2> polygon, float y)
+    {
+        var result = new List<Vector2>();
+        for (int i = 0; i < polygon.Count; i++)
+        {
+            var a = polygon[i];
+            var b = polygon[(i + 1) % polygon.Count];
+            bool aIn = a.Y <= y, bIn = b.Y <= y;
+            if (aIn) result.Add(a);
+            if (aIn != bIn) result.Add(Vector2.Lerp(a, b, (y - a.Y) / (b.Y - a.Y)));
+        }
+        return [.. result];
     }
 
     /// <summary>The part of a convex polygon right of x, for the shaded side of a face.</summary>

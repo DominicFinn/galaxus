@@ -1,0 +1,158 @@
+{
+  "id": "talk-synth",
+  "description": "How synth people talk to the captain at a station.",
+  "variables": [
+    "captain",
+    "system",
+    "faction",
+    "fact",
+    "role"
+  ],
+  "rules": {
+    "greeting-known": [
+      "#sy-hello#, {captain}. #sy-back#",
+      "#sy-hello#. #sy-back#",
+      "{captain}. #sy-back#",
+      "Ah. #sy-back#"
+    ],
+    "sy-hello": [
+      "Hello again",
+      "Good to see you",
+      "Welcome back",
+      "Hello"
+    ],
+    "sy-back": [
+      "You didn't make me show my papers this time.",
+      "I've only been scanned once today.",
+      "I was hoping you'd return.",
+      "I trust the ship is well."
+    ],
+    "rumour": [
+      "#sy-heard# {fact}. #sy-coda#",
+      "#sy-heard# {fact}. #sy-coda#",
+      "I shouldn't say, but {fact}. #sy-coda#",
+      "For what it's worth, {fact}. #sy-coda#"
+    ],
+    "sy-heard": [
+      "I overheard, and I was meant to,",
+      "People say things near me, as if I weren't listening:",
+      "I have this on fair authority:",
+      "It's being said that"
+    ],
+    "sy-coda": [
+      "I'd verify it. I always do.",
+      "I could be wrong. I try not to be.",
+      "Do with that what you will.",
+      "Please don't tell them where you heard it."
+    ],
+    "no-rumour": [
+      "Nothing I can verify.",
+      "I've heard plenty, and none of it checks out.",
+      "No, I'm sorry. Quiet.",
+      "Nothing reliable. I'd rather say nothing than guess."
+    ],
+    "work": [
+      "#sy-lead# {fact}. #sy-workcoda#",
+      "#sy-lead# {fact}. #sy-workcoda#",
+      "There's a possibility. {fact}. #sy-workcoda#",
+      "If you're asking about work, {fact}. #sy-workcoda#"
+    ],
+    "sy-lead": [
+      "I've seen a posting:",
+      "Careful, but",
+      "From what I've read,",
+      "Here's what I know:"
+    ],
+    "sy-workcoda": [
+      "I'd read the terms twice.",
+      "They tend to ask less of humans.",
+      "I would take it, if I were you.",
+      "It seems legitimate, as far as I can tell."
+    ],
+    "no-work": [
+      "Nothing I'd recommend.",
+      "Not that I've seen.",
+      "They don't post much for people like me, and I check.",
+      "No. Sorry."
+    ],
+    "self": [
+      "I'm a {role}. #sy-life#",
+      "{role}. #sy-life#",
+      "I work as a {role}. #sy-life#",
+      "Yes, I'm a {role}. #sy-life#"
+    ],
+    "sy-life": [
+      "I've been searched more often than I've been thanked.",
+      "I work for {faction}, within what the law allows.",
+      "{system} is no worse than most ports.",
+      "I'd say more, but you'd probably search that too.",
+      "What I am beyond that is my own business."
+    ],
+    "drink": [
+      "#sy-thanks# #sy-toast#",
+      "#sy-thanks#",
+      "#sy-thanks# #sy-toast#",
+      "#sy-thanks#"
+    ],
+    "sy-thanks": [
+      "Thank you. I don't need it, but the gesture matters.",
+      "That's thoughtful.",
+      "I'll hold it, if you don't mind.",
+      "Most people forget I'd appreciate it."
+    ],
+    "sy-toast": [
+      "To clear scans.",
+      "To being treated as a person.",
+      "To {system}, and whoever's left there.",
+      "To papers that need no explaining."
+    ],
+    "drink-again": [
+      "I haven't finished the first, thank you.",
+      "That's kind, but once is plenty.",
+      "No, thank you. I'd rather not seem a regular.",
+      "I don't drink as such. I'm very grateful anyway."
+    ],
+    "pestered": [
+      "You've asked a great many things.",
+      "I'd prefer fewer questions, if it's the same to you.",
+      "This feels like a search.",
+      "I'll answer, but not for much longer."
+    ],
+    "cold": [
+      "I'd rather not.",
+      "I'm not comfortable speaking with you.",
+      "Please find someone else.",
+      "I think we're done."
+    ],
+    "farewell": [
+      "Take care.",
+      "Goodbye, {captain}.",
+      "Safe travels.",
+      "I'll be here, if the scanners allow."
+    ],
+    "haggle-yes": [
+      "#sy-grudge# {fact}.",
+      "#sy-grudge# {fact}.",
+      "I'll agree. {fact}.",
+      "#sy-grudge# {fact}."
+    ],
+    "sy-grudge": [
+      "That's reasonable.",
+      "I can manage that.",
+      "You asked politely, which helps.",
+      "Fine. I know what it is to ask for more."
+    ],
+    "haggle-no": [
+      "I can't. The figure's fixed.",
+      "No. I'm sorry. I'd like to say yes.",
+      "That's the rate. I've checked.",
+      "I can't go higher."
+    ],
+    "haggle-offended": [
+      "I think that's rather insulting. The offer is withdrawn.",
+      "There is a limit, and I'd rather not be doubted again.",
+      "I'd prefer not to continue.",
+      "I'm sorry, no. We're done."
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "id": "talk-light-elf",
+  "description": "How light elf people talk to the captain at a station.",
+  "variables": [
+    "captain",
+    "system",
+    "faction",
+    "fact",
+    "role"
+  ],
+  "rules": {
+    "greeting-known": [
+      "#le-hello#, {captain}. #le-back#",
+      "#le-hello#. #le-back#",
+      "{captain}. One had hoped you would call again. #le-back#",
+      "You return. #le-back#"
+    ],
+    "le-hello": [
+      "Good day",
+      "I greet you",
+      "Well met",
+      "Ah, {captain}"
+    ],
+    "le-back": [
+      "I am pleased to see you have kept your ship intact.",
+      "Please, sit. The chair is cleaner than it looks.",
+      "Your manners have not deteriorated, which is rare.",
+      "We will say it was expected."
+    ],
+    "rumour": [
+      "#le-heard# {fact}. #le-coda#",
+      "#le-heard# {fact}. #le-coda#",
+      "Since you ask, {fact}. #le-coda#",
+      "It would be improper to repeat gossip, but {fact}."
+    ],
+    "le-heard": [
+      "One hears, in the better houses, that",
+      "I am told, by those who would know, that",
+      "It is said in the courts that",
+      "A cousin of mine writes that"
+    ],
+    "le-coda": [
+      "Do not take it for more than it is.",
+      "I trust you will be discreet.",
+      "You may find it useful, in your station.",
+      "I say no more."
+    ],
+    "no-rumour": [
+      "I have heard nothing worth the breath.",
+      "The courts are quiet. I would not call that restful.",
+      "Nothing that merits repeating, I am afraid.",
+      "If there is news, it has not troubled itself to reach me."
+    ],
+    "work": [
+      "#le-lead# {fact}. #le-workcoda#",
+      "#le-lead# {fact}. #le-workcoda#",
+      "If employment is your concern, {fact}. #le-workcoda#",
+      "One would not normally discuss it, but {fact}."
+    ],
+    "le-lead": [
+      "There is, I understand, a matter you might assist with:",
+      "Those who require capable hands are saying that",
+      "A modest opportunity presents itself, in that",
+      "You may wish to know that"
+    ],
+    "le-workcoda": [
+      "It will be paid, and paid correctly.",
+      "I would not insist.",
+      "It is hardly the work of a lifetime.",
+      "Consider it, at your leisure."
+    ],
+    "no-work": [
+      "Nothing suitable, I regret. The board may hold some lesser matter.",
+      "I know of no engagement worthy of you.",
+      "Not at present. Try the board, if you must.",
+      "There is nothing, and I would not invent it."
+    ],
+    "self": [
+      "I am a {role}. #le-life#",
+      "{role}, by long habit and some choice. #le-life#",
+      "You ask what I am. A {role}, and #le-life.lower#",
+      "One does not usually say. I am a {role}. #le-life#"
+    ],
+    "le-life": [
+      "My family has served {faction} for rather longer than its records admit.",
+      "I find {system} tolerable, in small doses.",
+      "I keep my own counsel regarding the rest.",
+      "My house is old, and I am not required to explain it.",
+      "Some of what I remember is not for strangers."
+    ],
+    "drink": [
+      "#le-thanks# #le-toast#",
+      "#le-thanks#",
+      "#le-thanks# #le-toast#",
+      "#le-thanks#"
+    ],
+    "le-thanks": [
+      "That is gracious of you.",
+      "You are kind, {captain}.",
+      "I accept, with thanks.",
+      "A courteous gesture. I shall remember it."
+    ],
+    "le-toast": [
+      "To better days than these.",
+      "To old houses and long memories.",
+      "To {system}, which has done what it could.",
+      "To those who are not here to drink."
+    ],
+    "drink-again": [
+      "Once is courtesy. Twice would be a habit, and I decline it.",
+      "You are generous, but I will not.",
+      "No, thank you. I have had sufficient for the day.",
+      "I think not. One does not accept the same favour twice before supper."
+    ],
+    "pestered": [
+      "You are very persistent, {captain}.",
+      "I had not realised this was an interrogation.",
+      "There are limits to what I am prepared to discuss.",
+      "Perhaps another day, when you have learned patience."
+    ],
+    "cold": [
+      "I do not believe we have anything to discuss.",
+      "You will excuse me.",
+      "I find I have no wish to speak with you.",
+      "Your reputation arrives before you. It is not flattering."
+    ],
+    "farewell": [
+      "Go well, {captain}.",
+      "Fair winds, as the humans say.",
+      "Until we meet again.",
+      "You may go. I mean that kindly."
+    ],
+    "haggle-yes": [
+      "#le-grudge# {fact}.",
+      "#le-grudge# {fact}.",
+      "Very well. {fact}. Do not make a habit of it.",
+      "I shall allow it. {fact}."
+    ],
+    "le-grudge": [
+      "It is irregular, but I will accommodate you.",
+      "I concede the point, narrowly.",
+      "I find I am in a generous mood.",
+      "Your persistence is noted."
+    ],
+    "haggle-no": [
+      "The sum was fixed with some care. It stands.",
+      "No. I do not bargain.",
+      "I think the figure already generous.",
+      "You have had my answer."
+    ],
+    "haggle-offended": [
+      "I am not a market stall. The matter is closed.",
+      "That you would ask is beneath us both. Good day.",
+      "You mistake me for a merchant. The offer is withdrawn.",
+      "I will not be haggled with. We are finished."
+    ]
+  }
+}
