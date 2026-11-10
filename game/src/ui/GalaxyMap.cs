@@ -143,7 +143,7 @@ public partial class GalaxyMap : Control
     }
 
     private string Legend() => string.Join("\n", _session.Galaxy.Factions.Where(f => f.Tier == "great")
-        .Select(f => $"[color=#{f.Colour.TrimStart('#')}]■[/color] {f.Name}"));
+        .Select(f => $"[color=#{f.Colour.TrimStart('#')}]{f.Name}[/color]"));
 
     private static string Capitalise(string s) => s.Length == 0 ? s : char.ToUpperInvariant(s[0]) + s[1..];
 
