@@ -5,26 +5,37 @@ using Galaxus.Core.Content;
 
 // Exports every ship, warship and station as flat-shaded triangles for the website's three.js viewer.
 //
-//   dotnet run --project tools/WebExport -- <data folder> <output folder>
+//   dotnet run --project tools/WebExport -- <data folder> <output folder> [mod folder ...]
 //
+// Ships from any mod folders given are exported too, marked with the mod's folder name.
 // Each model becomes <id>.bin: float32 positions (9 per triangle), then uint8 sRGB colours
 // (9 per triangle). Lit triangles come first and glow triangles after, so the page can draw the
 // glow unshaded. models.json lists every model with its counts and what the viewer shows about it.
 // Triangles are rewound anticlockwise, which is what three.js treats as the front face.
 
-if (args.Length != 2)
+if (args.Length < 2)
 {
-    Console.Error.WriteLine("usage: WebExport <data folder> <output folder>");
+    Console.Error.WriteLine("usage: WebExport <data folder> <output folder> [mod folder ...]");
     return 2;
 }
 
-var db = ContentDatabase.Load(new DirectoryContentSource(args[0]), throwOnProblems: false);
+var modProblems = new List<string>();
+var mods = args.Skip(2).Select(dir => ModDiscovery.Open(dir, modProblems)).OfType<ModSource>().ToList();
+foreach (var problem in modProblems) Console.Error.WriteLine($"Mod problem: {problem}");
+var baseHulls = ContentDatabase.Load(new DirectoryContentSource(args[0]), throwOnProblems: false).Hulls.Keys.ToHashSet();
+var db = ContentDatabase.Load(new DirectoryContentSource(args[0]), mods, throwOnProblems: false);
+// Which mod each hull came from: load the base game with each mod alone and see what it adds.
+var modOfHull = new Dictionary<string, string>();
+foreach (var mod in mods)
+    foreach (var id in ContentDatabase.Load(new DirectoryContentSource(args[0]), [mod], throwOnProblems: false).Hulls.Keys.Except(baseHulls))
+        modOfHull[id] = mod.FolderName;
+string? ModOf(string hullId) => modOfHull.GetValueOrDefault(hullId);
 string outDir = args[1];
 Directory.CreateDirectory(outDir);
 
 var manifest = new List<object>();
 
-void Export(string id, string name, string category, string builder, string cls, string description, float radius, HullDef hull, PaletteDef palette, object? stats)
+void Export(string id, string name, string category, string builder, string cls, string description, float radius, HullDef hull, PaletteDef palette, object? stats, string? mod = null)
 {
     var triangles = ShipGeometry.Build(hull);
     var lit = triangles.Where(t => t.Color != "glow").ToList();
@@ -45,7 +56,7 @@ void Export(string id, string name, string category, string builder, string cls,
     }
 
     float extent = MathF.Max(ContentDatabase.ModelExtent(hull), 0.1f);
-    manifest.Add(new { id, name, category, builder, cls, description, radius, extent, lit = lit.Count, glow = glow.Count, glowColour = palette.Glow, stats });
+    manifest.Add(new { id, name, category, builder, cls, description, radius, extent, lit = lit.Count, glow = glow.Count, glowColour = palette.Glow, stats, mod });
 }
 
 string BuilderName(string id) => db.Builders.TryGetValue(id, out var b) ? b.Name : id;
@@ -56,7 +67,7 @@ foreach (var hull in db.Hulls.Values.OrderBy(h => BuilderName(h.Builder)).ThenBy
     bool warship = hull.IsCapital || hull.Id.StartsWith("fm-unbound");
     string category = hull.Class == "drone" ? "drone" : warship ? "warship" : "ship";
     var stats = new { speed = hull.BaseSpeed, hull = hull.HullPoints, cargo = hull.CargoTonnes, mass = hull.Mass, price = hull.ForSale ? hull.Price : 0 };
-    Export(hull.Id, hull.Name, category, BuilderName(hull.Builder), hull.Class, hull.Description, hull.Radius, hull, palette, stats);
+    Export(hull.Id, hull.Name, category, BuilderName(hull.Builder), hull.Class, hull.Description, hull.Radius, hull, palette, stats, ModOf(hull.Id));
 }
 
 // Stations use the same shapes as the game's MeshFactory.BuildStation.
