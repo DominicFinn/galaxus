@@ -1,0 +1,19 @@
+// Starter trade goods, one or two per category. The content pass fills these out.
+[
+  { "id": "grain", "name": "Grain", "category": "food", "basePrice": 120, "legality": "legal", "description": "Bulk cereal from agricultural worlds. Cheap, heavy and always needed somewhere." },
+  { "id": "ration-packs", "name": "Ration packs", "category": "food", "basePrice": 260, "legality": "legal", "description": "Sealed meals with a shelf life longer than most marriages." },
+  { "id": "ice", "name": "Water ice", "category": "water", "basePrice": 60, "legality": "legal", "description": "Cut from comets and moons. Stations drink it, breathe it and burn it." },
+  { "id": "medical-supplies", "name": "Medical supplies", "category": "medical", "basePrice": 900, "legality": "legal", "description": "Dressings, drugs and diagnostic kits." },
+  { "id": "iron-ore", "name": "Iron ore", "category": "ore", "basePrice": 80, "legality": "legal", "description": "Raw ore for the smelters." },
+  { "id": "refined-alloys", "name": "Refined alloys", "category": "metals", "basePrice": 420, "legality": "legal", "description": "Hull-grade alloy plate from the inner yards." },
+  { "id": "fusion-cells", "name": "Fusion cells", "category": "fuel", "basePrice": 300, "legality": "legal", "description": "Charged fuel cells for drives and station plants." },
+  { "id": "machine-parts", "name": "Machine parts", "category": "machinery", "basePrice": 650, "legality": "legal", "description": "Pumps, bearings and actuators. Everything breaks eventually." },
+  { "id": "consumer-goods", "name": "Consumer goods", "category": "consumer", "basePrice": 380, "legality": "legal", "description": "Clothes, tools and household kit for settled worlds." },
+  { "id": "fine-wine", "name": "Fine wine", "category": "luxury", "basePrice": 1800, "legality": "legal", "description": "Bottled for the core's dinner tables. Travels badly under hard acceleration." },
+  { "id": "computer-cores", "name": "Computer cores", "category": "technology", "basePrice": 2400, "legality": "legal", "description": "Processing cores for ships and stations." },
+  { "id": "small-arms", "name": "Small arms", "category": "weapons", "basePrice": 1500, "legality": "restricted", "description": "Personal weapons. Needs a permit in most core systems." },
+  { "id": "dreamsalt", "name": "Dreamsalt", "category": "narcotics", "basePrice": 3200, "legality": "contraband", "description": "A crystalline narcotic. Illegal nearly everywhere, popular nearly everywhere." },
+  { "id": "encrypted-data", "name": "Encrypted data cores", "category": "data", "basePrice": 2000, "legality": "legal", "description": "Sealed data, carried by hand because nothing else crosses the gates." },
+  { "id": "elder-relics", "name": "Elder relics", "category": "elder-artefacts", "basePrice": 6000, "legality": "restricted", "description": "Fragments from the elf empire. Light elf space requires a permit to carry them." },
+  { "id": "rim-salvage", "name": "Rim salvage", "category": "rim-tech", "basePrice": 7500, "legality": "contraband", "description": "Machinery recovered beyond the firewall. Gate wardens confiscate it on sight." }
+]

@@ -10,6 +10,7 @@ namespace Galaxus.Core.Text;
 ///   #grammar:symbol#    expand a rule in another grammar (for shared word lists)
 ///   #symbol.cap#        modifiers: cap, upper, lower, a (adds "a"/"an")
 ///   {variable}          a value supplied by the game, such as {cargo} or {system}
+///   #voice:rule#        an alias the game binds at expansion time, e.g. to the client race's voice
 /// </summary>
 public sealed class GrammarDef
 {
@@ -24,6 +25,7 @@ public sealed partial class GrammarLibrary
 {
     private const int MaxDepth = 24;
     private readonly Dictionary<string, GrammarDef> _grammars = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, HashSet<string>> _aliases = new(StringComparer.Ordinal);
 
     [GeneratedRegex(@"#([^#\s]+)#")]
     private static partial Regex SymbolPattern();
@@ -37,15 +39,23 @@ public sealed partial class GrammarLibrary
 
     public IEnumerable<GrammarDef> All => _grammars.Values;
 
-    public string Expand(string grammarId, string symbol, Rng rng, IReadOnlyDictionary<string, string>? variables = null)
+    /// <summary>
+    /// Declares an alias such as "voice" that grammars may reference. Validation only allows the
+    /// listed rules, and every grammar the alias is bound to must provide them.
+    /// </summary>
+    public void RegisterAlias(string alias, IEnumerable<string> rules) => _aliases[alias] = [.. rules];
+
+    public string Expand(string grammarId, string symbol, Rng rng, IReadOnlyDictionary<string, string>? variables = null,
+        IReadOnlyDictionary<string, string>? aliases = null)
     {
-        string text = ExpandSymbol(grammarId, symbol, rng, 0);
+        string text = ExpandSymbol(grammarId, symbol, rng, 0, aliases);
         return VariablePattern().Replace(text, m =>
             variables != null && variables.TryGetValue(m.Groups[1].Value, out var value) ? value : m.Value);
     }
 
-    private string ExpandSymbol(string grammarId, string symbol, Rng rng, int depth)
+    private string ExpandSymbol(string grammarId, string symbol, Rng rng, int depth, IReadOnlyDictionary<string, string>? aliases)
     {
+        if (aliases != null && aliases.TryGetValue(grammarId, out var bound)) grammarId = bound;
         if (depth > MaxDepth)
             throw new InvalidOperationException($"Grammar '{grammarId}' recursed too deeply at '{symbol}'.");
         if (!_grammars.TryGetValue(grammarId, out var grammar))
@@ -57,7 +67,7 @@ public sealed partial class GrammarLibrary
         return SymbolPattern().Replace(chosen, m =>
         {
             var (refGrammar, refSymbol, modifiers) = ParseReference(grammarId, m.Groups[1].Value);
-            string expanded = ExpandSymbol(refGrammar, refSymbol, rng, depth + 1);
+            string expanded = ExpandSymbol(refGrammar, refSymbol, rng, depth + 1, aliases);
             foreach (var modifier in modifiers)
                 expanded = ApplyModifier(expanded, modifier);
             return expanded;
@@ -105,7 +115,12 @@ public sealed partial class GrammarLibrary
                     foreach (Match m in SymbolPattern().Matches(option))
                     {
                         var (refGrammar, refSymbol, modifiers) = ParseReference(grammar.Id, m.Groups[1].Value);
-                        if (!_grammars.TryGetValue(refGrammar, out var target))
+                        if (_aliases.TryGetValue(refGrammar, out var aliasRules))
+                        {
+                            if (!aliasRules.Contains(refSymbol))
+                                problems.Add($"Grammar '{grammar.Id}' rule '{symbol}' uses '{refGrammar}:{refSymbol}', but '{refGrammar}' only offers {string.Join(", ", aliasRules)}.");
+                        }
+                        else if (!_grammars.TryGetValue(refGrammar, out var target))
                             problems.Add($"Grammar '{grammar.Id}' rule '{symbol}' references unknown grammar '{refGrammar}'.");
                         else if (!target.Rules.ContainsKey(refSymbol))
                             problems.Add($"Grammar '{grammar.Id}' rule '{symbol}' references missing rule '{refGrammar}:{refSymbol}'.");

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "complication-ambush",
+    "description": "Text for an ambush on the route.",
+    "variables": ["destination", "client"],
+    "rules": {
+      "reveal": ["Contacts on scanner near {destination}. They were waiting for you.", "Three ships drop out of cruise ahead. Somebody sold your route."],
+      "aftermath": ["Someone talked. {client} swears it wasn't them.", "The ambushers knew your cargo manifest. That's worth asking {client} about."]
+    }
+  },
+  {
+    "id": "complication-stolen-cargo",
+    "description": "Text for discovering the cargo was stolen.",
+    "variables": ["cargo", "faction"],
+    "rules": {
+      "reveal": ["A port scan flags your {cargo} as stolen property. You are now wanted.", "The {cargo} carries the serials of a convoy that went missing last week."],
+      "aftermath": ["{faction} won't be offering you work for a while.", "You were the delivery, and also the scapegoat."]
+    }
+  }
+]

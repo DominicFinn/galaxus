@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mining-corporation",
+    "name": "Mining corporation",
+    "description": "A company that claims belts and moons and strips them. Greedy, expansive and litigious.",
+    "races": [],
+    "tiers": ["minor", "regional"],
+    "criminal": false,
+    "traits": { "aggression": [0.2, 0.5], "greed": [0.6, 1.0], "expansion": [0.6, 1.0], "paranoia": [0.2, 0.5], "honour": [0.2, 0.6], "piety": [0.0, 0.2] },
+    "nameGrammar": "faction-names-mining-corporation"
+  },
+  {
+    "id": "pirate-clan",
+    "name": "Pirate clan",
+    "description": "Raiders working from hidden bases. Some are little more than a family with guns.",
+    "races": [],
+    "tiers": ["minor"],
+    "criminal": true,
+    "traits": { "aggression": [0.6, 1.0], "greed": [0.6, 1.0], "expansion": [0.1, 0.4], "paranoia": [0.5, 0.9], "honour": [0.0, 0.5], "piety": [0.0, 0.3] },
+    "nameGrammar": "faction-names-pirate-clan"
+  }
+]

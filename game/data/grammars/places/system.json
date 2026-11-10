@@ -1,0 +1,36 @@
+{
+  "id": "places-system",
+  "description": "Star system names. The content pass makes these much richer.",
+  "rules": {
+    "name": [
+      "#start##end#",
+      "#start##end# #suffix#"
+    ],
+    "start": [
+      "Kes",
+      "Var",
+      "Hal",
+      "Tor",
+      "Mer",
+      "Ash",
+      "Lin",
+      "Ost"
+    ],
+    "end": [
+      "sa",
+      "ion",
+      "eth",
+      "ara",
+      "ven",
+      "um",
+      "is",
+      "ar"
+    ],
+    "suffix": [
+      "Prime",
+      "Reach",
+      "Major",
+      "Deep"
+    ]
+  }
+}

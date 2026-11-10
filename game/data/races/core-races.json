@@ -9,6 +9,7 @@
     "gTolerance": 9,
     "crewModifiers": {},
     "nameGrammar": "names-human",
+    "missionVoiceGrammar": "mission-voice-human",
     "voiceGrammar": "voice-human"
   },
   {

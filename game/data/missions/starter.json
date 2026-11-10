@@ -1,0 +1,32 @@
+[
+  {
+    "id": "famine-relief-run",
+    "name": "Famine relief run",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": ["famine"],
+    "cargoCategories": ["food", "medical"],
+    "minRank": 0,
+    "baseReward": 3000,
+    "complications": ["ambush-on-route", "cargo-is-stolen"],
+    "followUps": [],
+    "textGrammar": "mission-famine-relief-run"
+  },
+  {
+    "id": "sealed-courier",
+    "name": "Sealed courier job",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": ["data"],
+    "minRank": 0,
+    "baseReward": 1800,
+    "complications": ["ambush-on-route"],
+    "followUps": [],
+    "textGrammar": "mission-sealed-courier"
+  }
+]

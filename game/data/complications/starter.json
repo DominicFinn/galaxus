@@ -1,0 +1,4 @@
+[
+  { "id": "ambush-on-route", "name": "Ambush", "description": "Someone knows your route and is waiting on it.", "effect": "ambush", "weight": 3, "textGrammar": "complication-ambush" },
+  { "id": "cargo-is-stolen", "name": "Stolen cargo", "description": "The cargo belongs to someone else, and they want it back.", "effect": "stolen-cargo", "weight": 1, "textGrammar": "complication-stolen-cargo" }
+]

@@ -42,6 +42,11 @@ public sealed class ContentDatabase
     public Dictionary<string, BuilderDef> Builders { get; } = [];
     public Dictionary<string, HullDef> Hulls { get; } = [];
     public Dictionary<string, PartDef> Parts { get; } = [];
+    public Dictionary<string, CommodityDef> Commodities { get; } = [];
+    public Dictionary<string, FactionTypeDef> FactionTypes { get; } = [];
+    public Dictionary<string, EventDef> Events { get; } = [];
+    public Dictionary<string, MissionTemplateDef> Missions { get; } = [];
+    public Dictionary<string, ComplicationDef> Complications { get; } = [];
     public GrammarLibrary Grammars { get; } = new();
 
     /// <summary>Problems found while loading. Only filled when loaded with throwOnProblems: false.</summary>
@@ -67,10 +72,16 @@ public sealed class ContentDatabase
         LoadInto(source, "builders", db.Builders, b => b.Id, problems);
         LoadInto(source, "hulls", db.Hulls, h => h.Id, problems);
         LoadInto(source, "parts", db.Parts, p => p.Id, problems);
+        LoadInto(source, "commodities", db.Commodities, c => c.Id, problems);
+        LoadInto(source, "factions", db.FactionTypes, f => f.Id, problems);
+        LoadInto(source, "events", db.Events, e => e.Id, problems);
+        LoadInto(source, "missions", db.Missions, m => m.Id, problems);
+        LoadInto(source, "complications", db.Complications, c => c.Id, problems);
 
         var grammars = new Dictionary<string, GrammarDef>();
         LoadInto(source, "grammars", grammars, g => g.Id, problems);
         foreach (var grammar in grammars.Values) db.Grammars.Add(grammar);
+        db.Grammars.RegisterAlias(ContentRules.VoiceAlias, ContentRules.MissionVoiceRules);
 
         problems.AddRange(db.Validate());
         if (problems.Count > 0 && throwOnProblems) throw new ContentException(problems);
@@ -143,7 +154,7 @@ public sealed class ContentDatabase
         foreach (var builder in Builders.Values)
         {
             if (!Races.ContainsKey(builder.Race)) p.Add($"Builder '{builder.Id}': unknown race '{builder.Race}'.");
-            if (builder.Region is not ("core" or "rim")) p.Add($"Builder '{builder.Id}': region must be core or rim.");
+            if (builder.Region is not ("core" or "inner" or "outer" or "rim")) p.Add($"Builder '{builder.Id}': region must be core, inner, outer or rim.");
             CheckModifiers($"Builder '{builder.Id}'", builder.StatBias, p);
             CheckGrammar($"Builder '{builder.Id}'", builder.ModelNameGrammar, "model", p);
             foreach (var colour in new[] { builder.Palette.Hull, builder.Palette.Accent, builder.Palette.Trim, builder.Palette.Glow })
@@ -204,9 +215,98 @@ public sealed class ContentDatabase
             if (part.Color != null && !IsHexColour(part.Color)) p.Add($"{at}: colour '{part.Color}' is not #rrggbb.");
         }
 
+        ValidateWorld(p);
         p.AddRange(Grammars.Validate());
         return p;
     }
+
+    private void ValidateWorld(List<string> p)
+    {
+        foreach (var race in Races.Values.Where(r => r.MissionVoiceGrammar != ""))
+        {
+            foreach (var rule in ContentRules.MissionVoiceRules)
+                CheckGrammar($"Race '{race.Id}' mission voice", race.MissionVoiceGrammar, rule, p);
+            CheckVariables($"Race '{race.Id}' mission voice", race.MissionVoiceGrammar, ContentRules.MissionVariables, p);
+        }
+
+        foreach (var c in Commodities.Values)
+        {
+            string at = $"Commodity '{c.Id}'";
+            if (!ContentRules.CommodityCategories.Contains(c.Category)) p.Add($"{at}: category '{c.Category}' is unknown. Use one of {Join(ContentRules.CommodityCategories)}.");
+            if (!ContentRules.Legalities.Contains(c.Legality)) p.Add($"{at}: legality must be legal, restricted or contraband.");
+            if (c.BasePrice <= 0) p.Add($"{at}: basePrice must be positive.");
+        }
+
+        foreach (var f in FactionTypes.Values)
+        {
+            string at = $"Faction type '{f.Id}'";
+            foreach (var race in f.Races.Where(r => !Races.ContainsKey(r))) p.Add($"{at}: unknown race '{race}'.");
+            foreach (var tier in f.Tiers.Where(t => !ContentRules.FactionTiers.Contains(t))) p.Add($"{at}: tier '{tier}' should be minor, regional or great.");
+            if (f.Tiers.Count == 0) p.Add($"{at}: needs at least one tier.");
+            foreach (var (trait, range) in f.Traits)
+            {
+                if (!ContentRules.FactionTraits.Contains(trait)) p.Add($"{at}: trait '{trait}' is unknown. Use {Join(ContentRules.FactionTraits)}.");
+                if (range.Length != 2 || range[0] < 0 || range[1] > 1 || range[0] > range[1]) p.Add($"{at}: trait '{trait}' needs [min, max] within 0 to 1.");
+            }
+            CheckGrammar(at, f.NameGrammar, "name", p);
+            CheckVariables(at, f.NameGrammar, ContentRules.FactionNameVariables, p);
+            if (f.NameGrammar == "") p.Add($"{at}: needs a nameGrammar.");
+        }
+
+        foreach (var e in Events.Values)
+        {
+            string at = $"Event '{e.Id}'";
+            if (e.DurationDays.Length != 2 || e.DurationDays[0] <= 0 || e.DurationDays[0] > e.DurationDays[1]) p.Add($"{at}: durationDays needs [min, max] in days.");
+            foreach (var category in e.CommodityDemand.Keys.Where(k => !ContentRules.CommodityCategories.Contains(k))) p.Add($"{at}: unknown commodity category '{category}'.");
+            if (e.NewsGrammar == "") p.Add($"{at}: needs a newsGrammar.");
+            foreach (var rule in ContentRules.EventNewsRules) CheckGrammar(at, e.NewsGrammar, rule, p);
+            CheckVariables(at, e.NewsGrammar, ContentRules.EventNewsVariables, p);
+        }
+
+        foreach (var c in Complications.Values)
+        {
+            string at = $"Complication '{c.Id}'";
+            if (!ContentRules.ComplicationEffects.Contains(c.Effect)) p.Add($"{at}: effect '{c.Effect}' is unknown. Use one of {Join(ContentRules.ComplicationEffects)}.");
+            if (c.Weight <= 0) p.Add($"{at}: weight must be positive.");
+            if (c.TextGrammar == "") p.Add($"{at}: needs a textGrammar.");
+            foreach (var rule in ContentRules.ComplicationTextRules) CheckGrammar(at, c.TextGrammar, rule, p);
+            CheckVariables(at, c.TextGrammar, ContentRules.MissionVariables, p);
+        }
+
+        foreach (var m in Missions.Values)
+        {
+            string at = $"Mission '{m.Id}'";
+            if (!ContentRules.MissionTypes.Contains(m.Type)) p.Add($"{at}: type '{m.Type}' is unknown. Use one of {Join(ContentRules.MissionTypes)}.");
+            if (!ContentRules.MissionScales.Contains(m.Scale)) p.Add($"{at}: scale must be small, skirmish, battle or war.");
+            if (m.MinRank is < 0 or > 4) p.Add($"{at}: minRank must be 0 to 4.");
+            if (m.BaseReward <= 0) p.Add($"{at}: baseReward must be positive.");
+            foreach (var giver in m.Givers.Where(g => !FactionTypes.ContainsKey(g))) p.Add($"{at}: unknown giver faction type '{giver}'.");
+            foreach (var ev in m.Events.Where(e => !Events.ContainsKey(e))) p.Add($"{at}: unknown event '{ev}'.");
+            foreach (var category in m.CargoCategories.Where(c => !ContentRules.CommodityCategories.Contains(c))) p.Add($"{at}: unknown cargo category '{category}'.");
+            foreach (var category in m.CargoCategories.Where(c => !Commodities.Values.Any(x => x.Category == c)))
+                p.Add($"{at}: no commodity has category '{category}' yet.");
+            foreach (var comp in m.Complications.Where(c => !Complications.ContainsKey(c))) p.Add($"{at}: unknown complication '{comp}'.");
+            foreach (var next in m.FollowUps.Where(f => !Missions.ContainsKey(f))) p.Add($"{at}: unknown follow-up mission '{next}'.");
+            if (m.TextGrammar == "") p.Add($"{at}: needs a textGrammar.");
+            foreach (var rule in ContentRules.MissionTextRules) CheckGrammar(at, m.TextGrammar, rule, p);
+            CheckVariables(at, m.TextGrammar, ContentRules.MissionVariables, p);
+        }
+
+        if (Missions.Count > 0)
+            foreach (var place in ContentRules.PlaceGrammars) CheckGrammar("Galaxy", place, "name", p);
+    }
+
+    /// <summary>A grammar may only declare variables the game will actually supply.</summary>
+    private void CheckVariables(string owner, string grammarId, IEnumerable<string> allowed, List<string> p)
+    {
+        var grammar = Grammars.All.FirstOrDefault(g => g.Id == grammarId);
+        if (grammar == null) return;
+        var allowedSet = allowed.ToHashSet();
+        foreach (var variable in grammar.Variables.Where(v => !allowedSet.Contains(v)))
+            p.Add($"{owner}: grammar '{grammarId}' declares {{{variable}}}, which the game doesn't supply. Available: {Join(allowedSet)}.");
+    }
+
+    private static string Join(IEnumerable<string> items) => string.Join(", ", items.Order());
 
     /// <summary>Furthest any shape corner gets from the ship's centre, in metres. Slightly generous for rolled shapes.</summary>
     public static float ModelExtent(HullDef hull)

@@ -6,7 +6,7 @@ Run `tools/validate.sh` after any change. It loads every file, checks every refe
 
 ## The setting in brief
 
-Read the design brief for the full picture. The short version, so content stays consistent:
+**Read docs/lore-bible.md before writing anything.** It's the canon: regions, arms, powers, what nobody knows and what must never be written. The short version:
 
 - A PC space game in the spirit of Frontier: Elite II. You're an independent human captain who trades, takes missions and picks sides.
 - The elf empire fell long ago at the rim of the galaxy. Its gate network still links everything. Humans now dominate from nearer the core, running gates they don't fully understand.
@@ -36,7 +36,13 @@ game/data/
   builders/     BuilderDef
   hulls/        HullDef, one file per builder is the convention
   parts/        PartDef, one file per builder is the convention
-  grammars/     GrammarDef (names/, ships/, voices/ subfolders)
+  commodities/  CommodityDef
+  factions/     FactionTypeDef
+  events/       EventDef
+  missions/     MissionTemplateDef
+  complications/ ComplicationDef
+  grammars/     GrammarDef, in subfolders: names, ships, voices, mission-voices,
+                factions, events, missions, complications, places
 ```
 
 Ids are lower-case words joined by hyphens (`light-elf`, `hc-laser-2`) and must be unique within their type. Prefix part and hull ids with a short builder code so parallel work can't collide: `hc-` human corporate, `dw-` dwarf yards, `le-` light elf houses, `orc-` orc yards, `fm-` free machine foundries.
@@ -77,6 +83,16 @@ The game asks for particular rules by name.
 | Personal names | `race.nameGrammar` | `name` | none |
 | Ship model names | `builder.modelNameGrammar` | `model` | none |
 | Race voice | `race.voiceGrammar` | `greeting`, `hire`, `complaint`, `praise`, `combat`, `idle`, `leaving` | `{captain}`, `{ship}`, `{system}`, `{crewmate}` |
+| Mission voice | `race.missionVoiceGrammar` | `opener`, `urgency`, `payment`, `warning`, `closer` | mission variables (below) |
+| Faction names | `factionType.nameGrammar` | `name` | `{place}`, `{founder}`, `{race}` |
+| Event news | `event.newsGrammar` | `start`, `ongoing`, `end` | `{system}`, `{faction}`, `{rival}` |
+| Mission text | `mission.textGrammar` | `title`, `briefing`, `success`, `failure` | mission variables |
+| Complication text | `complication.textGrammar` | `reveal`, `aftermath` | mission variables |
+| Places | fixed ids `places-system`, `places-station` | `name` | none |
+
+Mission variables: `{captain}`, `{client}`, `{faction}`, `{system}`, `{destination}`, `{cargo}`, `{tonnes}`, `{reward}`, `{target}`, `{deadline}`. `{reward}` comes formatted ("4,250 cr") and `{deadline}` comes as "6 days". `{cargo}` is lower case.
+
+Mission and complication text can use `#voice:rule#` with any mission voice rule. The game swaps in the client race's mission voice, so the same template reads differently from an orc and from an elf. Use it in briefings so contracts carry the client's voice.
 
 Voice rules are crew chatter, spoken by a crew member of that race:
 
@@ -111,12 +127,15 @@ Modifier and bias keys: `speed`, `acceleration`, `agility`, `hull`, `shields`, `
 
 ## Builders
 
+Builders now sit in a region (`core`, `inner`, `outer`, `rim`) and a `culture` (free text naming the power or culture, e.g. "Meridian Concord" or "Tolland Reach shipwrights"). Ships differ across the galaxy, so a human builder in the Tolland Reach should look and feel nothing like one in the Meridian core. Rim builders' ships are mostly salvaged or researched, not bought.
+
 ```json
 {
   "id": "dwarf-yards",
   "name": "Dwarf yards",
   "race": "dwarf",
-  "region": "core",               // core (sold in markets) or rim (found, salvaged, researched)
+  "region": "inner",              // core, inner, outer or rim
+  "culture": "Hold League",
   "style": "Heavy and armoured",
   "bias": "Tough and easy to repair, but slow",
   "statBias": { "hull": 1.4, "speed": 0.85, "agility": 0.85 },
@@ -238,3 +257,73 @@ Weapons are bolts. Vary them by character, not just numbers: a pulse laser (fast
 Prices rise with size and mark: size 1 Mk I parts cost 3k to 8k, each mark adds about 60%, each size multiplies by about 3.
 
 Builder flavour for parts follows the builder's bias: dwarf parts are tougher and heavier, light elf parts efficient and fragile, orc engines strong and shields weak, free machine parts odd and efficient.
+
+## Commodities
+
+```json
+{ "id": "grain", "name": "Grain", "category": "food", "basePrice": 120, "legality": "legal",
+  "description": "Bulk cereal from agricultural worlds." }
+```
+
+Categories: food, water, medical, ore, metals, industrial, machinery, consumer, luxury, technology, weapons, narcotics, slaves, data, elder-artefacts, rim-tech, fuel. Legality is `legal`, `restricted` (permit needed in some places) or `contraband`. Prices are credits per tonne: bulk goods 50 to 300, manufactured goods 300 to 2,500, luxuries and technology 1,000 to 5,000, artefacts and rim tech 4,000 to 15,000.
+
+## Faction types
+
+A faction type is a kind of faction. The simulation rolls hundreds of actual factions from these.
+
+```json
+{
+  "id": "mining-corporation", "name": "Mining corporation", "description": "...",
+  "races": [],                       // races that found it; empty means any
+  "tiers": ["minor", "regional"],    // minor, regional, great
+  "criminal": false,                 // criminal bases are hidden from the nav map
+  "traits": { "aggression": [0.2, 0.5], "greed": [0.6, 1.0], "expansion": [0.6, 1.0],
+              "paranoia": [0.2, 0.5], "honour": [0.2, 0.6], "piety": [0.0, 0.2] },
+  "nameGrammar": "faction-names-mining-corporation"
+}
+```
+
+Traits are [min, max] between 0 and 1 and drive the simulation directly: aggression pushes towards war, greed towards trade and mining, expansion towards claiming systems, paranoia towards defence and secrecy, honour towards keeping deals, piety towards gate worship and hatred of rim tech.
+
+## Events
+
+```json
+{ "id": "famine", "name": "Famine", "description": "...", "durationDays": [20, 60],
+  "commodityDemand": { "food": 3.0, "medical": 1.8 }, "newsGrammar": "news-famine" }
+```
+
+Events create work. A mission template lists the events that produce it, and while an event runs its work is three times as likely to be offered. Demand multipliers above 1 raise prices for that category.
+
+## Missions
+
+```json
+{
+  "id": "famine-relief-run", "name": "Famine relief run",
+  "type": "delivery",          // see list below
+  "scale": "small",            // small, skirmish, battle, war
+  "legal": true,
+  "givers": [],                // faction type ids; empty means any
+  "events": ["famine"],        // empty means standing work, always offered somewhere
+  "cargoCategories": ["food", "medical"],
+  "minRank": 0,                // 0 unknown, 1 contractor, 2 trusted, 3 commissioned, 4 honoured
+  "baseReward": 3000,
+  "complications": ["ambush-on-route", "cargo-is-stolen"],
+  "followUps": [],             // templates that can follow on success
+  "textGrammar": "mission-famine-relief-run"
+}
+```
+
+Types: delivery, courier, passenger, escort, raid, smuggling, bounty, survey, salvage, claim-jumping, blockade-running, patrol, rescue, investigation, mining.
+
+Rewards: small jobs 1,000 to 8,000 cr base, scaled up by the game for skirmish (×1.5), battle (×2.5) and war (×4) work. Illegal jobs pay about double.
+
+The aim is variety. A few dozen templates multiplied by complications and race voices should rarely feel samey, so each template should have several title and briefing patterns built from sub-rules, and success and failure lines that react to the job.
+
+## Complications
+
+```json
+{ "id": "cargo-is-stolen", "name": "Stolen cargo", "description": "...",
+  "effect": "stolen-cargo", "weight": 1, "textGrammar": "complication-stolen-cargo" }
+```
+
+Effects are game rules, so they come from a fixed list: ambush, stolen-cargo, client-lies, rival-bid, fugitive, double-cross, hidden-contraband, deadline-cut, extra-stop, bad-intel, rival-offer, rim-signal. Write several complications per effect with different stories. `reveal` is the moment it goes wrong; `aftermath` is the line after the job ends.

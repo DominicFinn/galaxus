@@ -1,0 +1,14 @@
+[
+  {
+    "id": "news-famine",
+    "description": "News lines for a famine.",
+    "variables": ["system", "faction"],
+    "rules": {
+      "start": ["Food shortages reported in {system} as #cause#.", "{faction} declares a food emergency in {system}."],
+      "ongoing": ["Ration queues lengthen in {system}. Food prices have #risen#.", "Relief convoys still needed in {system}, says {faction}."],
+      "end": ["Food supplies in {system} recover after weeks of shortage.", "{faction} lifts the food emergency in {system}."],
+      "cause": ["crop blight spreads through the farm domes", "a supply convoy fails to arrive", "hydroponics plants break down"],
+      "risen": ["tripled", "doubled", "climbed for a fourth week"]
+    }
+  }
+]

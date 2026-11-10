@@ -1,0 +1,24 @@
+[
+  {
+    "id": "faction-names-mining-corporation",
+    "description": "Mining corporation names.",
+    "variables": ["place", "founder"],
+    "rules": {
+      "name": ["{place} #ore# #company#", "{founder} #company#", "#adjective# #ore# #company#"],
+      "ore": ["Ore", "Minerals", "Extraction", "Resources", "Metals"],
+      "company": ["Consolidated", "Holdings", "Combine", "Syndicate", "Partners"],
+      "adjective": ["Deep", "Northern", "Second", "United", "Lower"]
+    }
+  },
+  {
+    "id": "faction-names-pirate-clan",
+    "description": "Pirate clan names.",
+    "variables": ["place", "founder"],
+    "rules": {
+      "name": ["the #thing#s of {place}", "{founder}'s #crew#", "the #colour# #thing#s"],
+      "thing": ["Knife", "Hook", "Lantern", "Jackal", "Crow"],
+      "crew": ["Crew", "Boys", "Lot", "Gang"],
+      "colour": ["Black", "Red", "Grey", "Rust"]
+    }
+  }
+]

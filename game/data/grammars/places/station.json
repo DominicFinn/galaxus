@@ -1,0 +1,31 @@
+{
+  "id": "places-station",
+  "description": "Station names.",
+  "rules": {
+    "name": [
+      "#founder# #kind#",
+      "#adjective# #kind#"
+    ],
+    "founder": [
+      "Hale",
+      "Okafor",
+      "Varga",
+      "Lindqvist",
+      "Moreau"
+    ],
+    "kind": [
+      "Station",
+      "Port",
+      "Ring",
+      "Dock",
+      "Hub"
+    ],
+    "adjective": [
+      "Last Light",
+      "Ninth",
+      "Halfway",
+      "Cold Harbour",
+      "New"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "mission-famine-relief-run",
+    "description": "Text for famine relief deliveries.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Relief run to {destination}",
+        "{tonnes} t of {cargo} for {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# {destination} is going hungry. Take {tonnes} t of {cargo} there within {deadline}. #voice:payment#"
+      ],
+      "success": [
+        "The {cargo} is unloaded under armed guard. {faction} pays {reward}.",
+        "Queues form before you've finished docking. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The relief never arrived. {destination} will remember the name of your ship.",
+        "{faction} sends another captain. They won't send you again."
+      ]
+    }
+  },
+  {
+    "id": "mission-sealed-courier",
+    "description": "Text for sealed data courier jobs.",
+    "variables": [
+      "destination",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Sealed delivery to {destination}",
+        "Courier: {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# A sealed data core needs to reach {destination} within {deadline}. Don't open it. #voice:warning# #voice:payment#"
+      ],
+      "success": [
+        "The recipient checks the seal, nods, and {faction} pays {reward}."
+      ],
+      "failure": [
+        "The core never arrived. {faction} has questions."
+      ]
+    }
+  }
+]

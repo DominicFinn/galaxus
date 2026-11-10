@@ -1,0 +1,12 @@
+{
+  "id": "mission-voice-human",
+  "description": "How human clients phrase contracts. Every mission voice needs opener, urgency, payment, warning and closer.",
+  "variables": ["captain", "reward", "deadline"],
+  "rules": {
+    "opener": ["Captain {captain}, thanks for coming.", "Right, let's keep this short.", "You're the captain with the free hold? Good."],
+    "urgency": ["Time matters on this one.", "We needed this done yesterday."],
+    "payment": ["It pays {reward} on delivery.", "{reward}, paid when it's done. Standard terms."],
+    "warning": ["Keep your transponder clean.", "Don't take the scenic route."],
+    "closer": ["Safe flying.", "Good luck out there."]
+  }
+}

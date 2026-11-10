@@ -19,8 +19,10 @@ public sealed class RaceDef
     public Dictionary<string, float> CrewModifiers { get; set; } = [];
     /// <summary>Grammar used for personal names, expanded from its "name" rule.</summary>
     public string NameGrammar { get; set; } = "";
-    /// <summary>Grammar for crew chatter and mission voice for this race.</summary>
+    /// <summary>Grammar for crew chatter from this race.</summary>
     public string VoiceGrammar { get; set; } = "";
+    /// <summary>Grammar mission text uses as #voice:rule# when the client is this race.</summary>
+    public string MissionVoiceGrammar { get; set; } = "";
 }
 
 public sealed class BuilderDef
@@ -28,8 +30,13 @@ public sealed class BuilderDef
     public string Id { get; set; } = "";
     public string Name { get; set; } = "";
     public string Race { get; set; } = "";
-    /// <summary>"core" builders sell in markets, "rim" designs are found, salvaged or researched.</summary>
+    /// <summary>
+    /// Where the yards are, from the galactic core outwards: core, inner, outer or rim. Rim designs
+    /// are mostly found, salvaged or researched rather than bought.
+    /// </summary>
     public string Region { get; set; } = "core";
+    /// <summary>The power or culture the builder belongs to, e.g. a human nation or a dwarf hold league. Free text.</summary>
+    public string Culture { get; set; } = "";
     public string Style { get; set; } = "";
     public string Bias { get; set; } = "";
     /// <summary>Multipliers applied to every hull this builder makes, keyed by stat name.</summary>

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "famine",
+    "name": "Famine",
+    "description": "A harvest failure or a broken supply line leaves a system short of food.",
+    "durationDays": [20, 60],
+    "commodityDemand": { "food": 3.0, "medical": 1.8, "luxury": 0.5 },
+    "newsGrammar": "news-famine"
+  }
+]
