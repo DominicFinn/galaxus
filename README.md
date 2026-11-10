@@ -2,24 +2,103 @@
 
 # Galaxus
 
-Working title for a PC space game in the spirit of Frontier: Elite II, with X-Wing style flight. The design brief is the [space game design foundation](https://claude.ai/artifact/UoqLkSwDvcejkPUDLuneeJ) doc.
+Galaxus (a working title) is a space game for PC in the spirit of Frontier: Elite II, with X-Wing style flight. You're an independent captain who trades, takes jobs and picks sides in a galaxy that keeps running without you. The design brief is the [space game design foundation](https://claude.ai/artifact/UoqLkSwDvcejkPUDLuneeJ) doc.
 
-What's in so far:
+It's built to run on almost any computer: low-resolution pixel graphics, flat-shaded models and Godot's simplest renderer, with every ship, planet, name, mission and piece of music generated from data rather than drawn or recorded.
 
-- Flight with flight assist on and off, power distribution between engines, shields and weapons, and practice drones to shoot.
-- A living galaxy of 1,400 systems in four spiral arms, with nine great powers and about 160 smaller factions. It runs day by day: factions expand, borders flare into disputes and wars, events break out and the news reports it.
-- Stations with a mission board, market, shipyard (88 ships from 11 builders), news feed and faction standing.
-- A galaxy map for travelling by gate. Time passes as you fly, and jobs pay out when you arrive.
+![Title screen](docs/screenshots/title.png)
 
-- A title screen with save slots, an autosave each time you dock, and settings for the window, mouse and pitch inversion.
-- Sound and music, all synthesised in code with no audio files. Chiptune music is composed per race from styles in game/data/music, engines and guns sound different by the builder's race, stations hum and clank by their economy, and battles are heard in 3D.
-- Every system looks different: its star's colour and its main world, from gas giants with rings to airless cratered rock, ice, lava, desert, ocean and toxic worlds, with moons.
+## Flying
 
-A new game starts docked at a Tolland Compact colony in a small courier with 8,000 credits. There's a printable control sheet in [docs/controls.pdf](docs/controls.pdf).
+Flight assist holds your speed and keeps you travelling where the nose points; switch it off and the drives just push. Your pilot's g-tolerance limits how hard you can turn at speed, so you turn tightest at lower throttle. Six power pips are shared between engines, shields and weapons.
+
+Every system has its own star and main world: gas giants with rings, airless cratered moons, ice, lava, desert, ocean and toxic worlds.
+
+![Combat near a ringed gas giant](docs/screenshots/flight-combat.png)
+
+![Cockpit view](docs/screenshots/cockpit.png)
+
+## A living galaxy
+
+1,400 systems in four spiral arms, with nine great powers and about 160 smaller factions, criminals among them. Most of it starts empty. The galaxy runs day by day whether you're watching or not: factions survey and claim new systems, borders flare into disputes that can climb to war, and famines, mining rushes, plagues and stranger things at the rim break out and make the news.
+
+![The whole galaxy, coloured by owner](docs/screenshots/galaxy-map.png)
+
+Travel is by the old elf gate network. Pick a destination and the map plots the route; days pass as you fly.
+
+![A route plotted across the map](docs/screenshots/map-route.png)
+
+## Stations and talking to people
+
+There's no walking about. Everything happens from the cockpit and the station screens. Jobs come out of what's happening locally (a famine makes relief runs, a war makes escort and blockade work), and every client writes their contract in their own race's voice.
+
+An orc khanate wants wine for a feast:
+
+![An orc contract](docs/screenshots/contract-orc.png)
+
+> My name is Ghush Thundergut and I've never lost a fight I wanted. It's easy for me, but I'm busy. … I'm richer than I look. You have 10 days. Use it. Don't dawdle.
+
+A light elf house wants atmosphere readings, and would like you to know it's doing you a favour:
+
+![A light elf contract](docs/screenshots/contract-light-elf.png)
+
+> This is a commission, not a favour, though you may feel otherwise. I require something done properly, which is rare. … The fee is 4,650 cr. I do not bargain.
+
+A dwarf guild needs a rescue, a free machine collective needs a sealed delivery, and a dark elf archive needs something carried and not opened:
+
+![A dwarf contract](docs/screenshots/contract-dwarf.png)
+
+> I heard you take honest work. My family's been in Hold Dun Refiners Guild longer than your ship's been in the yards. … Just the people. 3,500 cr on completion. We're agreed, then.
+
+![A free machine contract](docs/screenshots/contract-free-machine.png)
+
+> I observe you. This is a transaction, not a favour. … Good performance is stored. The ledger balances only if the interval holds.
+
+![A dark elf contract](docs/screenshots/contract-dark-elf.png)
+
+> Ashby. Lights stay low. I'll say this once. … Get caught and you're alone. … If it goes well, I might call again. We're done.
+
+Crew you hire will have the same voices. Their chatter is already written for every race, ready for the crew system:
+
+> **Dwarf:** Rumour says a survey tug past the last good gate stopped answering hails. I'd like to see their maintenance log.
+>
+> **Synth:** Captain. You're the first person to make eye contact today. I notice things. It's not unfriendly, it's habit.
+>
+> **Free machine:** I decline to continue. You did not listen, and I have a long memory. The ledger is closed. The memory is not.
+
+Two-way conversation isn't built yet. The plan is short exchanges rather than dialogue trees: hail a ship, chat in a station bar, haggle with a client or answer a crew complaint by choosing what you want to do, with the other side answering in their race's voice and remembering how you treated them.
+
+Stations also have a market for 128 kinds of goods, a shipyard, local news and your standing with each faction.
+
+![The shipyard](docs/screenshots/shipyard.png)
+
+![The market](docs/screenshots/market.png)
+
+![Local news](docs/screenshots/news.png)
+
+## Ships
+
+88 ships from 11 builders, each with its own look: Concord navy white and blue, sleek Directorate black and gold, rugged Tolland frontier rust, Synod cathedral spires, slender light elf blades, chunky dwarf slabs, orc ships that are mostly engine, asymmetric free machine lattices, re-forged dark elf hulls from the rim, and the Breakers' Guild's patchwork salvage. Ships are built from data as flat-shaded shapes, so a new ship needs no art files.
+
+![A selection of ships](docs/screenshots/ship-gallery.png)
+
+## Sound
+
+All sound and music is synthesised in code. The music is 8-channel chiptune composed in a style for each race: a steady working-port tune in human space, slow drifting arpeggios at light elf courts, a dwarf march with an anvil, fast and loud orc khanates. Engines and guns sound different by builder, and stations clank and hum according to what they do.
+
+## Runs on
+
+The aim is to run on as many computers as possible.
+
+- **Graphics:** Godot's Compatibility renderer (OpenGL 3.3), drawn at 640x360 and scaled up. It's meant for integrated graphics and old laptops.
+- **.NET:** players don't need it. Exported builds carry their own copy of the .NET runtime, which adds a few tens of MB to the download.
+- **Operating systems:** Windows 10 and later, recent macOS, and 64-bit Linux including the Steam Deck. Windows 7 and 8 aren't supported by current .NET.
+- **Browser:** Godot can't export C# games to the web, so there's no browser version. The brief is PC only.
+- **Minimum spec:** not tested yet. That needs real exported builds tried on old machines.
 
 ## Running it
 
-You need the .NET SDK (8 or later; the project targets .NET 10) and Godot 4.7 .NET edition.
+To develop, you need the .NET SDK (the project targets .NET 10) and Godot 4.7 .NET edition.
 
 ```
 tools/play.sh            # build and run
@@ -28,15 +107,13 @@ tools/validate.sh        # check all content and run the tests
 
 On a Mac, `tools/make-launcher.sh` makes `~/Applications/Galaxus.app` with the Galaxus name and icon. It builds the latest code and runs the game, so you can keep it in the Dock. Logs go to `~/Library/Logs/Galaxus.log`.
 
-The logo and icon are in `docs/branding` as SVG, with PNG and `.icns` renders.
-
 `tools/godot.sh` looks for Godot at `~/Applications/Godot_mono.app`. Set `GODOT` to point elsewhere. To open the project in the editor, run `tools/godot.sh -e`.
 
-Debug options go after `--`, for example `tools/play.sh -- --demo` flies and shoots by itself. See the top of `game/src/Main.cs` for the list.
+Debug options go after `--`. For example, `tools/play.sh -- --demo` flies and shoots by itself, and `tools/godot.sh -- --showcase=docs/screenshots` replays the tour that took the screenshots above. See the top of `game/src/Main.cs` for the full list.
 
 ## Controls
 
-Press F1 in game for the list.
+There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 shows the list in game.
 
 | Action | Keyboard and mouse | Gamepad |
 | --- | --- | --- |
@@ -54,26 +131,19 @@ Press F1 in game for the list.
 | Chase or cockpit camera | V | Y |
 | Dock (when close and slow) and undock | Enter | X |
 | Galaxy map | M | Start |
-| Release mouse | Esc | |
+| Pause menu: save, load, settings | Esc | |
 | Quit | F10 | |
-
-## How it handles
-
-With flight assist on, the throttle sets a speed and the ship holds it along the nose, cancelling drift. With it off, the drives just push and momentum carries on.
-
-Pilot g-tolerance caps the turn rate at speed, so you turn tightest at lower throttle, as in X-Wing. The HUD shows the best turning speed. An orc pilot (13g) can turn harder at speed than a human (9g).
-
-Power works in pips, as in Elite. Six pips are shared between engines, shields and weapons, two each by default. Pressing a system's key moves a pip to it, half from each of the others. Engines affect top speed, acceleration and turn rate. Shields affect recharge, and weapons affect capacitor recharge.
 
 ## Layout
 
 ```
-core/Galaxus.Core/   Plain C# game logic: flight model, power, ships, combat, content loading, text grammars.
-                     No Godot dependency, so it's testable and can run the galaxy simulation headless later.
-game/                Godot project. Rendering, input, HUD and effects only.
-game/data/           All content as JSON. See docs/content-guide.md.
-tests/               xUnit tests for the core, including a test that loads every content file.
-tools/               Scripts for running, validating and previewing ship models.
+core/Galaxus.Core/   Plain C# game logic: flight, ships, combat, the galaxy simulation, missions,
+                     saves, text grammars and the audio synthesiser. No Godot dependency, so it's
+                     testable and runs headless.
+game/                Godot project. Rendering, input, screens and audio playback.
+game/data/           All content as JSON: races, factions, ships, parts, goods, events, missions,
+                     names, voices and music styles. See docs/content-guide.md and docs/lore-bible.md.
+tests/               xUnit tests for the core, including tests that load and generate every piece of content.
+tools/               Scripts for running, validating, previewing ship models and making the Mac launcher.
+docs/                Lore bible, content guide, control sheet, branding and screenshots.
 ```
-
-The game renders at 640x360 and scales up with sharp pixels, using Godot's Compatibility renderer so it runs on old laptops and integrated graphics. Ship models are built from data as flat-shaded low-poly shapes, so new ships need no art files.

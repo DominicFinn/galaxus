@@ -96,6 +96,18 @@ public partial class GalaxyMap : Control
         }
     }
 
+    /// <summary>For the showcase: set the view and selection directly.</summary>
+    public void SetView(float zoom, NVector2 centre, int selected = -1)
+    {
+        _zoom = zoom;
+        _centre = centre;
+        _selected = selected;
+        _hovered = -1;
+        _route = selected >= 0 ? _session.Galaxy.Route(_session.Career.SystemId, selected) : [];
+        UpdateInfo();
+        QueueRedraw();
+    }
+
     private int Nearest(Vector2 screen)
     {
         int best = -1;

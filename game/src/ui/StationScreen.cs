@@ -24,6 +24,7 @@ public partial class StationScreen : PanelContainer
     private Button _accept = null!, _buyShip = null!;
     private Label _jobReason = null!, _yardReason = null!, _marketNote = null!;
 
+    private TabContainer _tabs = null!;
     private List<MissionOffer> _offers = [];
     private List<HullDef> _hulls = [];
     private List<CommodityDef> _commodities = [];
@@ -53,6 +54,7 @@ public partial class StationScreen : PanelContainer
         root.AddChild(_header);
 
         var tabs = new TabContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
+        _tabs = tabs;
         root.AddChild(tabs);
         tabs.AddChild(BuildJobsTab());
         tabs.AddChild(BuildInHandTab());
@@ -95,6 +97,41 @@ public partial class StationScreen : PanelContainer
         RefreshShipyard();
         RefreshNews();
         RefreshStanding();
+    }
+
+    /// <summary>For the showcase and tutorials: 0 jobs, 1 in hand, 2 market, 3 shipyard, 4 news, 5 standing.</summary>
+    public void ShowTab(int index) => _tabs.CurrentTab = index;
+
+    /// <summary>Selects the first job posted by a faction of the given race. Returns false if there isn't one.</summary>
+    public bool SelectJobFrom(string race)
+    {
+        var root = _jobs.GetRoot();
+        if (root == null) return false;
+        foreach (var item in root.GetChildren())
+        {
+            var offer = _offers[item.GetMetadata(0).AsInt32()];
+            if (_session.Galaxy.Factions[offer.GiverFactionId].RaceId != race || !offer.Playable) continue;
+            item.Select(0);
+            ShowSelectedJob();
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>Selects a ship in the shipyard by hull id. Returns false if it isn't sold here.</summary>
+    public bool SelectShip(string hullId)
+    {
+        var root = _yard.GetRoot();
+        if (root == null) return false;
+        foreach (var item in root.GetChildren())
+        {
+            if (_hulls[item.GetMetadata(0).AsInt32()].Id != hullId) continue;
+            item.Select(0);
+            _yard.ScrollToItem(item);
+            ShowSelectedShip();
+            return true;
+        }
+        return false;
     }
 
     // Jobs ---------------------------------------------------------------------------------

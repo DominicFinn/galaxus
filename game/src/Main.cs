@@ -18,6 +18,7 @@ namespace Galaxus;
 ///   --screen=NAME        skip the menu and start a new game on flight, station or map;
 ///                        or show the title "menu" without the splash
 ///   --screenshot=PATH    save a screenshot after --frames (default 180) frames, then quit
+///   --showcase=FOLDER    play a scripted tour and save README screenshots into FOLDER, then quit
 ///   --system=ID          with --screen, start in this system instead (for checking planets)
 ///   --preview=HULL_ID    show one hull from four angles instead of the game (for content work)
 /// </summary>
@@ -131,6 +132,7 @@ public partial class Main : Node3D
             var session = Session.StartNew(_db, 2026);
             if (_startSystem is { } id && id >= 0 && id < session.Galaxy.Systems.Count) session.Career.SystemId = id;
             StartGame(session, _startScreen);
+            if (_showcaseDir != null) StartShowcase();
         }
         else
             ShowTitle(splash: !_splashShown && _startScreen != "menu");
@@ -305,7 +307,7 @@ public partial class Main : Node3D
     {
         _stationScreen.Refresh();
         SetScreen(Screen.Docked);
-        SaveSlots.Write(SaveSlots.Autosave, _session);
+        if (_showcaseDir == null) SaveSlots.Write(SaveSlots.Autosave, _session);
         AudioManager.Instance?.Ui("dock");
     }
 
@@ -387,6 +389,7 @@ public partial class Main : Node3D
             else if (arg.StartsWith("--preview=")) _previewHull = arg["--preview=".Length..];
             else if (arg.StartsWith("--screen=")) _startScreen = arg["--screen=".Length..];
             else if (arg.StartsWith("--system=")) _startSystem = int.Parse(arg["--system=".Length..]);
+            else if (arg.StartsWith("--showcase=")) { _showcaseDir = arg["--showcase=".Length..]; _startScreen = "flight"; }
         }
     }
 
@@ -421,6 +424,7 @@ public partial class Main : Node3D
             return;
         }
         float dt = Mathf.Min((float)delta, 1 / 30f);
+        StepShowcase();
 
         if (_sessionOrNull == null)
         {

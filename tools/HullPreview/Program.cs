@@ -12,9 +12,11 @@ using Galaxus.Core.Content;
 // bottom left top-down (nose up), bottom right rear three-quarter.
 // The green ring in each view is the collision radius.
 
-if (args.Length != 3)
+// Optional fourth argument "single": one large front three-quarter view, for galleries.
+bool single = args.Length == 4 && args[3] == "single";
+if (args.Length is not (3 or 4))
 {
-    Console.Error.WriteLine("usage: HullPreview <data folder> <hull id> <output.png>");
+    Console.Error.WriteLine("usage: HullPreview <data folder> <hull id> <output.png> [single]");
     return 2;
 }
 
@@ -29,15 +31,15 @@ if (!db.Hulls.TryGetValue(hullId, out var hull))
 }
 var palette = db.Builders.TryGetValue(hull.Builder, out var builder) ? builder.Palette : new PaletteDef();
 
-const int width = 1280, height = 720;
+int width = single ? 480 : 1280, height = single ? 320 : 720;
 var image = new Canvas(width, height, new Vector3(0.08f, 0.09f, 0.12f));
 var triangles = ShipGeometry.Build(hull);
 float extent = MathF.Max(ContentDatabase.ModelExtent(hull), hull.Radius);
-float scale = (height / 2f * 0.45f) / extent; // pixels per metre, so the model fills each cell
+float scale = (single ? height * 0.62f : height / 2f * 0.45f) / extent; // pixels per metre, so the model fills each cell
 
 // Same euler order as Godot (Y, then X, then Z), angles in degrees.
 // Front 3/4 tilts the nose down so it looks onto the top of the ship, like the rear view.
-(int Col, int Row, float X, float Y)[] views = [(0, 0, -20, 215), (1, 0, 0, 90), (0, 1, 90, 0), (1, 1, 20, 35)];
+(int Col, int Row, float X, float Y)[] views = single ? [(0, 0, -22, 215)] : [(0, 0, -20, 215), (1, 0, 0, 90), (0, 1, 90, 0), (1, 1, 20, 35)];
 var lightDir = Vector3.Normalize(new Vector3(-0.5f, -0.6f, -0.6f));
 var ambient = new Vector3(0.35f, 0.4f, 0.55f) * 0.35f;
 
@@ -45,7 +47,7 @@ foreach (var (col, row, rx, ry) in views)
 {
     var rotation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, ry * MathF.PI / 180f)
                    * Quaternion.CreateFromAxisAngle(Vector3.UnitX, rx * MathF.PI / 180f);
-    var centre = new Vector2(width / 4f + col * width / 2f, height / 4f + row * height / 2f);
+    var centre = single ? new Vector2(width / 2f, height / 2f) : new Vector2(width / 4f + col * width / 2f, height / 4f + row * height / 2f);
     image.ClearDepth();
 
     Vector3 Project(Vector3 p)
@@ -74,7 +76,7 @@ foreach (var (col, row, rx, ry) in views)
         }
         image.Triangle(Project(t.A), Project(t.B), Project(t.C), Vector3.Clamp(colour, Vector3.Zero, Vector3.One));
     }
-    image.Circle(centre, hull.Radius * scale, new Vector3(0.3f, 0.6f, 0.3f));
+    if (!single) image.Circle(centre, hull.Radius * scale, new Vector3(0.3f, 0.6f, 0.3f));
 }
 
 image.SavePng(args[2]);
