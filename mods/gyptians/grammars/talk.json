@@ -1,0 +1,57 @@
+// Gyptian rumours added to station talk for each race.
+[
+  {
+    "id": "talk-human",
+    "description": "Human talk about the Gyptians.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "The Gyptians say every human came from one world, and they're the last ones who left it. They call it Gyptian, or just the Land. Ask them where it is and they'll show you a list of gates.",
+        "A Gyptian once told me what rain was. I've never seen it. Neither had she, but she described it better than I could.",
+        "Concord folk laugh at the Gyptians. Then they go home and teach their kids the Concord's own one-world story. Nobody sees the joke.",
+        "Gyptian ring stations move. Slowly, but they move. They say a station that can't move isn't a home, just a place you're stuck.",
+        "Never call a Gyptian ship 'second-hand'. Every one of them is an heirloom, and they'll tell you whose."
+      ]
+    }
+  },
+  {
+    "id": "talk-dwarf",
+    "description": "Dwarf talk about the Gyptians.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "The Gyptians keep a list of gates they say leads home. We've checked it against our own charts. Half the gates are real. The other half, we couldn't say."
+      ]
+    }
+  },
+  {
+    "id": "talk-orc",
+    "description": "Orc talk about the Gyptians.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "The Gyptians sing about a homeworld nobody can find! Like us and the Old Horde! We like them. They don't drink enough, but we like them."
+      ]
+    }
+  },
+  {
+    "id": "talk-light-elf",
+    "description": "Light elf talk about the Gyptians.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "The Gyptians asked our house whether we remember the humans arriving. We told them we remember a great many things. They took that better than most."
+      ]
+    }
+  },
+  {
+    "id": "talk-synth",
+    "description": "Synth talk about the Gyptians.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "The Gyptians have never once searched me at their stations. They say anyone who wants to go home is welcome to walk the road with them."
+      ]
+    }
+  }
+]

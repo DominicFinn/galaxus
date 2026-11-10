@@ -1,0 +1,10 @@
+[
+  {
+    "id": "gy-road-found",
+    "name": "Gyptians say they've found the road",
+    "description": "A Gyptian fleet announces it has read the next gate in the Reckoning of the Road. Families gather from all over to join the departure, and the port runs short of stores.",
+    "durationDays": [15, 40],
+    "commodityDemand": { "food": 1.5, "fuel": 1.4, "data": 1.6, "medical": 1.2 },
+    "newsGrammar": "gy-news-road-found"
+  }
+]

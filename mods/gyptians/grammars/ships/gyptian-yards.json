@@ -1,0 +1,11 @@
+{
+  "id": "gy-models",
+  "description": "Model names for Gyptian fleet yards.",
+  "variables": [],
+  "rules": {
+    "model": ["#bird#", "#bird# #mark#", "#road#", "#road# #mark#"],
+    "bird": ["Sunbird", "Swift", "Heron", "Skylark", "Kite", "Lapwing", "Wren"],
+    "road": ["Homeward", "Long Road", "Remembrance", "Far Shore", "Old Sky", "Lantern Road"],
+    "mark": ["II", "III", "Elder", "Young"]
+  }
+}

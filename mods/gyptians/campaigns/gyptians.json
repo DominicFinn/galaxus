@@ -1,0 +1,24 @@
+// The Long Leaving. Campaigns must fly for a great power, so the Lantern Synod sponsors the
+// Gyptian fleet and you are its pilot on loan. The base is the Gyptian ring station.
+[
+  {
+    "id": "gy-long-leaving",
+    "name": "The Long Leaving",
+    "power": "lantern-synod",
+    "rival": "meridian-concord",
+    "summary": "The Lantern Synod lends you to a Gyptian fleet: a small people who say they descend from the one human homeworld, a land they call Gyptian. From their ring station Homecoming you fly a Sunbird attack ship, guard their families, chase a stolen page of their Reckoning of the Road, and stand with them when the Concord's Gate Authority decides their journey has gone far enough.",
+    "hull": "gy-sunbird",
+    "credits": 4500,
+    "rank": 1,
+    "baseHull": "gy-homecoming",
+    "baseName": "Homecoming",
+    "fleet": ["gy-steadfast", "gy-steadfast", "gy-homeward", "gy-homeward"],
+    "textGrammar": "gy-campaign",
+    "steps": [
+      { "id": "wing", "title": "Sunbird Wing", "battle": "gy-wing", "where": "base", "enemy": "pirates", "reward": 6000, "briefing": "briefing-wing", "debrief": "debrief-wing" },
+      { "id": "page", "title": "The Lost Page", "battle": "gy-page", "where": "near", "enemy": "pirates", "reward": 11000, "briefing": "briefing-page", "debrief": "debrief-page" },
+      { "id": "authority", "title": "By Order of the Gate Authority", "battle": "gy-authority", "where": "front", "enemy": "rival", "reward": 20000, "briefing": "briefing-authority", "debrief": "debrief-authority" },
+      { "id": "homecoming", "title": "Homecoming Holds", "battle": "gy-homecoming", "where": "base", "enemy": "rival", "reward": 36000, "briefing": "briefing-homecoming", "debrief": "debrief-homecoming" }
+    ]
+  }
+]

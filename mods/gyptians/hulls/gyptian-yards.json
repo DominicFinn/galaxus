@@ -1,0 +1,2055 @@
+[
+ {
+  "id": "gy-sunbird",
+  "name": "Sunbird",
+  "builder": "gyptian-yards",
+  "class": "fighter",
+  "description": "The Gyptian attack ship. Forward-swept wings, a sail fin and a needle nose, painted the blue of a sky the Gyptians say they remember.",
+  "price": 48000,
+  "mass": 21,
+  "baseSpeed": 118,
+  "pitchRate": 78,
+  "yawRate": 56,
+  "rollRate": 165,
+  "hullPoints": 120,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 2,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.2,
+     0,
+     -1.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.2,
+     0,
+     -1.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.6,
+     -4.5
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "tw-drive-1-3",
+   "tw-plant-1-1",
+   "tw-shield-1-1",
+   "tw-sensor-1-1",
+   "tw-rotary-1-1",
+   "tw-rotary-1-1",
+   "tw-slug-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     1.7,
+     1.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 11,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.75,
+     -1.2
+    ],
+    "back": [
+     0.9,
+     0.6
+    ],
+    "front": [
+     0.4,
+     0.25
+    ],
+    "length": 2.6,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     1.6
+    ],
+    "back": [
+     3.4,
+     0.25
+    ],
+    "front": [
+     1.6,
+     0.2
+    ],
+    "length": 3.2,
+    "color": "accent",
+    "skew": [
+     1.2,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     4.25,
+     0,
+     0.6
+    ],
+    "back": [
+     0.3,
+     1.3
+    ],
+    "front": [
+     0.15,
+     0.3
+    ],
+    "length": 3.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     1.5,
+     2.6
+    ],
+    "back": [
+     0.2,
+     2.0
+    ],
+    "front": [
+     0.12,
+     0.5
+    ],
+    "length": 3.6,
+    "color": "accent",
+    "skew": [
+     0,
+     -0.4
+    ]
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.2
+    ],
+    "back": [
+     1.4,
+     1.2
+    ],
+    "front": [
+     1.6,
+     1.4
+    ],
+    "length": 1.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.95
+    ],
+    "back": [
+     1.1,
+     0.9
+    ],
+    "front": [
+     1.1,
+     0.9
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "gy-reedrunner",
+  "name": "Reedrunner",
+  "builder": "gyptian-yards",
+  "class": "courier",
+  "description": "A Gyptian message runner with outrigger runners on either side. Every fleet keeps several, because news travels only as fast as ships.",
+  "price": 58000,
+  "mass": 20,
+  "baseSpeed": 140,
+  "pitchRate": 65,
+  "yawRate": 48,
+  "rollRate": 130,
+  "hullPoints": 100,
+  "radius": 10,
+  "crewBerths": 1,
+  "cargoTonnes": 4,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     1.5,
+     -1.2,
+     -5.0
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 2
+   }
+  ],
+  "defaultLoadout": [
+   "tw-drive-1-2",
+   "tw-plant-1-1",
+   "tw-shield-1-1",
+   "tw-sensor-1-2",
+   "tw-rotary-1-1",
+   "tw-cargo-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     2.0,
+     1.6
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 15,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.9,
+     -2.5
+    ],
+    "back": [
+     1.0,
+     0.6
+    ],
+    "front": [
+     0.5,
+     0.3
+    ],
+    "length": 3.0,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.6,
+     -0.4,
+     1.5
+    ],
+    "back": [
+     0.5,
+     0.5
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 10,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.4,
+     -0.2,
+     1.5
+    ],
+    "back": [
+     2.0,
+     0.15
+    ],
+    "front": [
+     2.0,
+     0.15
+    ],
+    "length": 3,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     1.4,
+     4.0
+    ],
+    "back": [
+     0.2,
+     1.8
+    ],
+    "front": [
+     0.12,
+     0.4
+    ],
+    "length": 4,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     7.6
+    ],
+    "back": [
+     1.6,
+     1.3
+    ],
+    "front": [
+     1.6,
+     1.3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "gy-tallship",
+  "name": "Tallship",
+  "builder": "gyptian-yards",
+  "class": "gunship",
+  "description": "A Gyptian gunship with two sail fins and gun pods on outriggers. It guards the fleet's slow ships and has never been known to leave one behind.",
+  "price": 290000,
+  "mass": 105,
+  "baseSpeed": 82,
+  "pitchRate": 40,
+  "yawRate": 32,
+  "rollRate": 70,
+  "hullPoints": 480,
+  "radius": 20,
+  "crewBerths": 3,
+  "cargoTonnes": 6,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 3
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     0,
+     0,
+     -24
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -9,
+     -1,
+     -5
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     9,
+     -1,
+     -5
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -3,
+     -3,
+     -15
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     3,
+     -3,
+     -15
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "tw-drive-2-3",
+   "tw-plant-3-1",
+   "tw-shield-3-1",
+   "tw-sensor-2-1",
+   "tw-slug-3-1",
+   "tw-rotary-2-1",
+   "tw-rotary-2-1",
+   "tw-slug-2-1",
+   "tw-slug-2-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     9,
+     6
+    ],
+    "front": [
+     3,
+     2.5
+    ],
+    "length": 36,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -21
+    ],
+    "back": [
+     3,
+     2.5
+    ],
+    "front": [
+     0.6,
+     0.6
+    ],
+    "length": 7,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     3.0,
+     -6
+    ],
+    "back": [
+     4,
+     3
+    ],
+    "front": [
+     3,
+     2
+    ],
+    "length": 8,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.5,
+     8,
+     6
+    ],
+    "back": [
+     0.5,
+     9
+    ],
+    "front": [
+     0.3,
+     3
+    ],
+    "length": 12,
+    "color": "accent",
+    "skew": [
+     0,
+     -2
+    ],
+    "roll": -8,
+    "mirror": true
+   },
+   {
+    "position": [
+     9,
+     -1,
+     4
+    ],
+    "back": [
+     3,
+     3
+    ],
+    "front": [
+     2.5,
+     2.5
+    ],
+    "length": 18,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     6,
+     -1,
+     4
+    ],
+    "back": [
+     6,
+     0.6
+    ],
+    "front": [
+     6,
+     0.6
+    ],
+    "length": 6,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     18.5
+    ],
+    "back": [
+     7,
+     5
+    ],
+    "front": [
+     8,
+     5.5
+    ],
+    "length": 3,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     20.1
+    ],
+    "back": [
+     6,
+     4.2
+    ],
+    "front": [
+     6,
+     4.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     9,
+     -1,
+     13.1
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     2.2,
+     2.2
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "gy-homeward",
+  "name": "Homeward",
+  "builder": "gyptian-yards",
+  "class": "freighter",
+  "description": "A Gyptian freighter carrying a family, its stores and usually its grandparents. The stern castle is where the charts are kept.",
+  "price": 560000,
+  "mass": 420,
+  "baseSpeed": 66,
+  "pitchRate": 18,
+  "yawRate": 14,
+  "rollRate": 30,
+  "hullPoints": 950,
+  "radius": 42,
+  "crewBerths": 5,
+  "cargoTonnes": 40,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "powerPlant",
+    "size": 4
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -5.5,
+     -1,
+     -48
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     5.5,
+     -1,
+     -48
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "utility",
+    "size": 2
+   },
+   {
+    "type": "utility",
+    "size": 2
+   }
+  ],
+  "defaultLoadout": [
+   "tw-drive-3-3",
+   "tw-plant-3-2",
+   "tw-shield-3-1",
+   "tw-sensor-1-2",
+   "tw-rotary-1-2",
+   "tw-rotary-1-2",
+   "tw-cargo-5",
+   "tw-cargo-4",
+   "tw-cargo-4",
+   "tw-drop-tank-1",
+   "tw-fuel-scoop-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     12,
+     6
+    ],
+    "front": [
+     6,
+     4
+    ],
+    "length": 70,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     -4,
+     -38
+    ],
+    "back": [
+     4,
+     3
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 8,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     4.6,
+     -20
+    ],
+    "back": [
+     14,
+     6
+    ],
+    "front": [
+     14,
+     6
+    ],
+    "length": 11,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     4.6,
+     -8
+    ],
+    "back": [
+     14,
+     6
+    ],
+    "front": [
+     14,
+     6
+    ],
+    "length": 11,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     4.6,
+     4
+    ],
+    "back": [
+     14,
+     6
+    ],
+    "front": [
+     14,
+     6
+    ],
+    "length": 11,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     4.6,
+     16
+    ],
+    "back": [
+     14,
+     6
+    ],
+    "front": [
+     14,
+     6
+    ],
+    "length": 11,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     9,
+     27
+    ],
+    "back": [
+     10,
+     12
+    ],
+    "front": [
+     9,
+     10
+    ],
+    "length": 10,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     12,
+     21.9
+    ],
+    "back": [
+     7,
+     2
+    ],
+    "front": [
+     7,
+     2
+    ],
+    "length": 0.3,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     19,
+     28
+    ],
+    "back": [
+     0.6,
+     10
+    ],
+    "front": [
+     0.4,
+     3
+    ],
+    "length": 8,
+    "color": "accent",
+    "skew": [
+     0,
+     -2
+    ]
+   },
+   {
+    "position": [
+     7,
+     -2,
+     30
+    ],
+    "back": [
+     4,
+     4
+    ],
+    "front": [
+     4,
+     4
+    ],
+    "length": 12,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     7,
+     -2,
+     36.1
+    ],
+    "back": [
+     3,
+     3
+    ],
+    "front": [
+     3,
+     3
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "gy-steadfast",
+  "name": "Steadfast class",
+  "builder": "gyptian-yards",
+  "class": "frigate",
+  "description": "The largest warship the Gyptian fleets build for themselves. It escorts the Homecoming and flies at the back of every column.",
+  "price": 9000000,
+  "forSale": false,
+  "mass": 4600,
+  "baseSpeed": 66,
+  "pitchRate": 11.4,
+  "yawRate": 11.4,
+  "rollRate": 19.0,
+  "hullPoints": 6899,
+  "radius": 76,
+  "crewBerths": 110,
+  "cargoTonnes": 350,
+  "dockable": false,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "powerPlant",
+    "size": 4
+   },
+   {
+    "type": "shield",
+    "size": 4
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     3.82,
+     11.5,
+     -45
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -3.82,
+     11.5,
+     -45
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     8.7,
+     12.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -8.7,
+     12.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     6.73,
+     12.67,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -6.73,
+     12.67,
+     60
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "tw-drive-4-1",
+   "tw-drive-4-1",
+   "tw-drive-4-1",
+   "tw-plant-4-1",
+   "tw-shield-4-1",
+   "tw-sensor-3-1",
+   "tw-howitzer-4-1",
+   "tw-howitzer-4-1",
+   "tw-mortar-4-1",
+   "tw-mortar-4-1",
+   "tw-hailstorm-4-1",
+   "tw-hailstorm-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     36,
+     24
+    ],
+    "front": [
+     12,
+     10.0
+    ],
+    "length": 144,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -84
+    ],
+    "back": [
+     12,
+     10.0
+    ],
+    "front": [
+     2.4,
+     2.4
+    ],
+    "length": 28,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     12.0,
+     -24
+    ],
+    "back": [
+     16,
+     12
+    ],
+    "front": [
+     12,
+     8
+    ],
+    "length": 32,
+    "color": "glow"
+   },
+   {
+    "position": [
+     10.0,
+     32,
+     24
+    ],
+    "back": [
+     2.0,
+     36
+    ],
+    "front": [
+     1.2,
+     12
+    ],
+    "length": 48,
+    "color": "accent",
+    "skew": [
+     0,
+     -8
+    ],
+    "roll": -8,
+    "mirror": true
+   },
+   {
+    "position": [
+     36,
+     -4,
+     16
+    ],
+    "back": [
+     12,
+     12
+    ],
+    "front": [
+     10.0,
+     10.0
+    ],
+    "length": 72,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     24,
+     -4,
+     16
+    ],
+    "back": [
+     24,
+     2.4
+    ],
+    "front": [
+     24,
+     2.4
+    ],
+    "length": 24,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     74.0
+    ],
+    "back": [
+     28,
+     20
+    ],
+    "front": [
+     32,
+     22.0
+    ],
+    "length": 12,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     80.4
+    ],
+    "back": [
+     24,
+     16.8
+    ],
+    "front": [
+     24,
+     16.8
+    ],
+    "length": 0.4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     36,
+     -4,
+     52.4
+    ],
+    "back": [
+     8.8,
+     8.8
+    ],
+    "front": [
+     8.8,
+     8.8
+    ],
+    "length": 0.4,
+    "color": "glow",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "gy-homecoming",
+  "name": "Homecoming class",
+  "builder": "gyptian-yards",
+  "class": "carrier",
+  "description": "A Gyptian battle station: a great ring around a spire, with a lit hub and fighter bays in the spokes. Each fleet has one, and each fleet says theirs will be the one that goes home.",
+  "price": 180000000,
+  "forSale": false,
+  "mass": 57499,
+  "baseSpeed": 38,
+  "pitchRate": 3.8,
+  "yawRate": 3.8,
+  "rollRate": 5.7,
+  "hullPoints": 40250,
+  "radius": 290,
+  "crewBerths": 1600,
+  "cargoTonnes": 8000,
+  "dockable": true,
+  "hangar": 12,
+  "hangarHull": "gy-sunbird",
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     246.0,
+     0.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     213.0,
+     123.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     123.0,
+     213.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     246.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -123.0,
+     213.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -213.0,
+     123.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -246.0,
+     0.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -213.0,
+     -123.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -123.0,
+     -213.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -0.0,
+     -246.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     123.0,
+     -213.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     213.0,
+     -123.0,
+     0
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "tw-drive-5-1",
+   "tw-drive-5-1",
+   "tw-drive-5-1",
+   "tw-drive-5-1",
+   "tw-plant-5-1",
+   "tw-plant-5-1",
+   "tw-shield-5-1",
+   "tw-shield-5-1",
+   "tw-sensor-3-1",
+   "tw-howitzer-5-1",
+   "tw-hailstorm-4-1",
+   "tw-hailstorm-4-1",
+   "tw-howitzer-5-1",
+   "tw-hailstorm-4-1",
+   "tw-hailstorm-4-1",
+   "tw-howitzer-5-1",
+   "tw-hailstorm-4-1",
+   "tw-hailstorm-4-1",
+   "tw-howitzer-5-1",
+   "tw-hailstorm-4-1",
+   "tw-hailstorm-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     210.0,
+     0.0,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "accent",
+    "roll": 90.0
+   },
+   {
+    "position": [
+     199.72,
+     64.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 108.0
+   },
+   {
+    "position": [
+     169.89,
+     123.43,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 126.0
+   },
+   {
+    "position": [
+     123.43,
+     169.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 144.0
+   },
+   {
+    "position": [
+     64.89,
+     199.72,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "accent",
+    "roll": 162.0
+   },
+   {
+    "position": [
+     0.0,
+     210.0,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 180.0
+   },
+   {
+    "position": [
+     -64.89,
+     199.72,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 198.0
+   },
+   {
+    "position": [
+     -123.43,
+     169.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 216.0
+   },
+   {
+    "position": [
+     -169.89,
+     123.43,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "accent",
+    "roll": 234.0
+   },
+   {
+    "position": [
+     -199.72,
+     64.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 252.0
+   },
+   {
+    "position": [
+     -210.0,
+     0.0,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 270.0
+   },
+   {
+    "position": [
+     -199.72,
+     -64.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 288.0
+   },
+   {
+    "position": [
+     -169.89,
+     -123.43,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "accent",
+    "roll": 306.0
+   },
+   {
+    "position": [
+     -123.43,
+     -169.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 324.0
+   },
+   {
+    "position": [
+     -64.89,
+     -199.72,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 342.0
+   },
+   {
+    "position": [
+     -0.0,
+     -210.0,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 360.0
+   },
+   {
+    "position": [
+     64.89,
+     -199.72,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "accent",
+    "roll": 378.0
+   },
+   {
+    "position": [
+     123.43,
+     -169.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 396.0
+   },
+   {
+    "position": [
+     169.89,
+     -123.43,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 414.0
+   },
+   {
+    "position": [
+     199.72,
+     -64.89,
+     0
+    ],
+    "back": [
+     66,
+     66
+    ],
+    "front": [
+     66,
+     66
+    ],
+    "length": 60,
+    "color": "hull",
+    "roll": 432.0
+   },
+   {
+    "position": [
+     169.88,
+     26.91,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     121.62,
+     121.62,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     26.91,
+     169.88,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -78.09,
+     153.25,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -153.25,
+     78.09,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -169.88,
+     -26.91,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -121.62,
+     -121.62,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -26.91,
+     -169.88,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     78.09,
+     -153.25,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     153.25,
+     -78.09,
+     -32
+    ],
+    "back": [
+     14,
+     14
+    ],
+    "front": [
+     14,
+     14
+    ],
+    "length": 4,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     60,
+     60
+    ],
+    "front": [
+     40,
+     40
+    ],
+    "length": 420,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -230
+    ],
+    "back": [
+     40,
+     40
+    ],
+    "front": [
+     8,
+     8
+    ],
+    "length": 40,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     420,
+     16
+    ],
+    "front": [
+     420,
+     16
+    ],
+    "length": 22,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     16,
+     420
+    ],
+    "front": [
+     16,
+     420
+    ],
+    "length": 22,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -60
+    ],
+    "back": [
+     90,
+     90
+    ],
+    "front": [
+     90,
+     90
+    ],
+    "length": 40,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -81
+    ],
+    "back": [
+     70,
+     70
+    ],
+    "front": [
+     70,
+     70
+    ],
+    "length": 0.5,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     150
+    ],
+    "back": [
+     100,
+     100
+    ],
+    "front": [
+     80,
+     80
+    ],
+    "length": 60,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     180.2
+    ],
+    "back": [
+     80,
+     80
+    ],
+    "front": [
+     80,
+     80
+    ],
+    "length": 0.3,
+    "color": "glow"
+   }
+  ]
+ }
+]

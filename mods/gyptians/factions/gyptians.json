@@ -1,0 +1,22 @@
+// The Gyptians. Small fleets of human families who say they descend from the people who last
+// left the one human homeworld, which they call Gyptian, or the Land. Their claim is never
+// proved or disproved (see "Origins" in docs/lore/origins.md).
+[
+  {
+    "id": "gy-gyptian-fleet",
+    "name": "Gyptian fleet",
+    "description": "A travelling fleet of Gyptian families with a ring station at its heart. They keep the Reckoning of the Road, a list of gates they say leads back to Gyptian, and they mean to follow it one day.",
+    "races": ["human"],
+    "tiers": ["minor"],
+    "criminal": false,
+    "traits": {
+      "aggression": [0.1, 0.3],
+      "greed": [0.2, 0.5],
+      "expansion": [0.0, 0.2],
+      "paranoia": [0.4, 0.7],
+      "honour": [0.6, 0.9],
+      "piety": [0.3, 0.6]
+    },
+    "nameGrammar": "gy-names-fleet"
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "id": "gy-battle-wing",
+    "description": "Sunbird Wing: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system"],
+    "rules": {
+      "briefing": [
+        "Two Gyptian family ships are holding in {system} while they mend a drive. Raiders are coming. Keep the families alive and drive the raiders off.",
+        "Guard two Gyptian family ships in {system}. Fly with the Sunbird wing and see off the raiders."
+      ],
+      "success": [
+        "The families are safe and the raiders are gone. {client} pays {captain}, and the families send bread.",
+        "Raiders driven off. {client} pays, and the Gyptians remember your name."
+      ],
+      "failure": [
+        "A family ship was lost. {client} pays nothing and the fleet holds a leaving song for it.",
+        "The raiders got through. The Gyptians are quiet for a long time."
+      ],
+      "radio-families": [
+        "Family ship: Sunbirds, we're dead in the water and full of children. Please be quick.",
+        "Family ship: Drive's in pieces. We're not going anywhere. Neither are the kids."
+      ],
+      "radio-kit": [
+        "Kit Farrow, on your wing. Welcome to the Gyptians, Captain.",
+        "Kit: Sunbirds up. Stay with me."
+      ],
+      "radio-raiders": [
+        "Kit: Raiders, right side! Three and a gunship. The gunship wants the families.",
+        "Kit: Here they come. Turn inside them. Sunbirds always win the turn."
+      ]
+    }
+  },
+  {
+    "id": "gy-battle-page",
+    "description": "The Lost Page: briefing, radio and outcome.",
+    "variables": ["captain", "client", "system", "target"],
+    "rules": {
+      "briefing": [
+        "Three archive pods drift in {system}. One holds a stolen page of the Reckoning of the Road. Search them all, then get clear before the collectors arrive.",
+        "Search the drifting archive pods in {system} for the lost page. Hold close to each. Collectors are on their way."
+      ],
+      "success": [
+        "The page is found and you're clear. {client} pays {captain}. Old Dov weeps, briefly and with dignity.",
+        "The page is home. {client} pays."
+      ],
+      "failure": [
+        "The collectors have the page. {client} pays nothing.",
+        "The page is lost again. Dov says it will turn up. It took sixty years last time."
+      ],
+      "radio-pods": [
+        "Kit: Three pods ahead. Hold close to each so the scanner can read inside.",
+        "Dov (relayed): Gently, Captain. Paper doesn't like vacuum, and it likes guns even less."
+      ],
+      "radio-collectors": [
+        "Kit: Frigate behind us, the {target}, and fighters. The collectors have come for their page.",
+        "Collector frigate {target}: That page was bought and paid for. Hand it over and you can go."
+      ]
+    }
+  },
+  {
+    "id": "gy-battle-authority",
+    "description": "By Order of the Gate Authority: briefing, radio and outcome.",
+    "variables": ["captain", "client", "enemy", "system", "warden"],
+    "rules": {
+      "briefing": [
+        "Gate wardens from {enemy} mean to impound a column of Gyptian family ships in {system} and seize the Reckoning. Get the column away.",
+        "Escort the Gyptian column out of {system} before {enemy}'s wardens can board it."
+      ],
+      "success": [
+        "The column is clear and the Reckoning is safe. {client} pays {captain} and files a protest.",
+        "The wardens go home empty-handed. {client} pays."
+      ],
+      "failure": [
+        "The column was boarded and the Reckoning seized. {client} pays nothing.",
+        "The family ships are impounded. Somewhere a clerk is reading the Reckoning of the Road, and understanding none of it."
+      ],
+      "radio-column": [
+        "Sabra: Column moving. Stay with us, Captain. Don't let them board.",
+        "Family ship: We've got the Reckoning aboard. If they want it, they'll have to catch us."
+      ],
+      "radio-wardens": [
+        "Warden frigate {warden}: Gyptian vessels, heave to for inspection by order of the Gate Authority.",
+        "Kit: Warden frigate ahead, and interceptors. They're polite. They're also armed."
+      ],
+      "radio-boarders": [
+        "Kit: Boarding gunships on the left! They're going for the family ships!",
+        "Kit: That's the boarding party. Stop them before they clamp on."
+      ]
+    }
+  },
+  {
+    "id": "gy-battle-homecoming",
+    "description": "Homecoming Holds: briefing, radio and outcome.",
+    "variables": ["captain", "client", "enemy", "system", "base", "target"],
+    "rules": {
+      "briefing": [
+        "{enemy} has come for the Gyptian ring station {base}. Hold until the Synod arrives, and keep the {base} alive.",
+        "Defend the {base} against {enemy}. The Synod is on its way. Hold until it gets here."
+      ],
+      "success": [
+        "The {base} holds and the Synod has arrived. {client} pays {captain}. The Gyptians sing all night.",
+        "The ring stands. {client} pays, and the Gyptians write your name in the margin of the Reckoning."
+      ],
+      "failure": [
+        "The {base} is lost. {client} pays nothing. The Gyptians scatter, and the road gets longer.",
+        "The ring station fell. The Reckoning survives in a safe, and the families say they will build another."
+      ],
+      "radio-station": [
+        "Sabra: All Sunbirds up. Steadfasts on the ring. Captain, you're with Kit.",
+        "Dov: The children are in the hub. Keep the hub in one piece, please."
+      ],
+      "radio-first": [
+        "Kit: Fighters ahead, and gunships for the ring.",
+        "Kit: Here they come. Concord colours, no warning."
+      ],
+      "radio-line": [
+        "Kit: Concord cruiser on the left, the {target}. Gunships going for the {base}.",
+        "Sabra: That's their cruiser. Keep its gunships off the ring."
+      ],
+      "radio-last": [
+        "Kit: Interceptors behind! Last push, I hope.",
+        "Kit: More of them. Stay on my wing."
+      ],
+      "radio-synod": [
+        "Synod cruiser: Lantern Synod ships arriving. This station is under the Synod's protection. All Concord vessels stand down.",
+        "Kit: Synod ships! They came. Sabra, they actually came."
+      ]
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "id": "gy-names-fleet",
+  "description": "Names for Gyptian fleets.",
+  "variables": ["place", "founder"],
+  "rules": {
+    "name": [
+      "The #road# Gyptians",
+      "{place} Gyptians",
+      "Gyptians of the #road#",
+      "{founder}'s Fleet",
+      "The #road# Fleet",
+      "House of the #road#"
+    ],
+    "road": ["Long Road", "Old Sky", "Homeward", "Last Leaving", "Far Shore", "Blue Sky", "Remembering", "Patient Road"]
+  }
+}

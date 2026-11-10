@@ -1,0 +1,22 @@
+{
+  "id": "gy-news-road-found",
+  "description": "News for a Gyptian fleet that says it has found the road home.",
+  "variables": ["system", "faction"],
+  "rules": {
+    "start": [
+      "{faction} says it has read the next gate in the Reckoning of the Road, and is gathering at {system} to follow it. Gate wardens have been asked for comment. They have not given any.",
+      "Gyptian families are arriving at {system} from all over. {faction} says the road home is open. Scholars say it says that every so often.",
+      "{faction} has announced a departure from {system} 'towards Gyptian'. The port authority has asked them to pay their berthing fees first."
+    ],
+    "ongoing": [
+      "{system} is full of Gyptian ships and running short of stores. The singing can be heard on three decks.",
+      "Concord observers at {system} describe the Gyptian gathering as 'a festival with a navigation problem'.",
+      "A Synod preacher at {system} is asking the Gyptians for a copy of their Reckoning. They have politely refused."
+    ],
+    "end": [
+      "{faction} has left {system}. The gate they meant to take did not open for them. They say it was not yet time.",
+      "The Gyptian gathering at {system} has broken up. Most families went home. Some say they are home, wherever the fleet is.",
+      "{faction} says it has recorded the gate and will try again. Nobody at {system} is quite sure what was tried."
+    ]
+  }
+}

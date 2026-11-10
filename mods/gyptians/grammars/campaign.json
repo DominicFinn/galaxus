@@ -1,0 +1,52 @@
+// The Long Leaving. People: Road-Keeper Sabra Ollin (leads the fleet), Kit Farrow (a young
+// Sunbird pilot, your wing), Old Dov Hennick (chart-reader, keeper of the Reckoning of the Road).
+// Nothing here proves or disproves that Gyptian, or a single human homeworld, ever existed.
+[
+  {
+    "id": "gy-campaign",
+    "description": "The Long Leaving: intro, outro, orders and debriefs.",
+    "variables": ["base", "captain", "client", "enemy", "system", "station", "target", "warden"],
+    "rules": {
+      "intro": [
+        "Captain {captain}. {client} said they'd send us a pilot. Welcome to the {base}.\n\nI'm Sabra Ollin, Road-Keeper of this fleet. We are Gyptians. Our grandmothers' grandmothers were the last to leave the Land, the world every human came from, and we have kept the road back in a book called the Reckoning. One day we will follow it home.\n\nPeople laugh at that. Let them. The Synod doesn't laugh, which is why you're here.\n\nKit Farrow will fly your wing. Old Dov keeps the Reckoning. If he offers to show it to you, say yes. He doesn't offer often.",
+        "So you're the Synod's pilot. Good. I'm Sabra Ollin, and this ring is the {base}, the heart of our fleet.\n\nWe are the Gyptians. We say we come from Gyptian, the Land, the one world humans came from. Every gate we pass, we write down. Every gate is a step home, or a step away. Dov can tell you which, on a good day.\n\nWe have pirates who think families are easy prey. We have collectors who want the Reckoning. And we have {enemy}, whose gate wardens think a people with a map of their own is a people with ideas. Fly well, Captain."
+      ],
+      "outro": [
+        "The {base} holds, {captain}, and the fleet is whole.\n\nSabra: Dov has read the next gate in the Reckoning. It's a sleeping gate, out past the Shroud Arm. It hasn't opened for anyone in living memory.\n\nDov: Not yet.\n\nSabra: That's what he always says. That's what his father always said. One day one of them will be right.\n\nKit: You've a Sunbird and a berth here whenever you want them. That's not nothing. To us it's most things.",
+        "It's done. {enemy} has withdrawn its order, for now, and the Synod has written a very long letter about it.\n\nSabra: We'll move on soon. The {base} doesn't stay anywhere long.\n\nDov: I've written your name in the Reckoning, Captain. In the margin, mind. The margin is for friends."
+      ],
+      "briefing-wing": [
+        "Sabra: First flight, Captain. Two of our family ships are holding near the {base} while they mend a drive. Raiders have been sniffing about. Fly with Kit and keep them off.\n\nKit: Sunbirds turn faster than anything those raiders fly. Use it.",
+        "Sabra: Family ships are sitting out in {system} waiting on repairs. Raiders are coming. Guard them.\n\nKit: Stay close to me and closer to the families."
+      ],
+      "debrief-wing": [
+        "Sabra: The families are safe. They've sent you bread, which in this fleet is a medal.\n\nKit: Not bad. You fly a Sunbird like you were born in one. Nobody's born in one, mind.",
+        "Sabra: Well flown. Now, Dov has news, and he's been waiting all day to tell it."
+      ],
+      "briefing-page": [
+        "Dov: Years ago a page of the Reckoning was stolen and sold. I've traced it to a wreck in {system}. Three archive pods are drifting there. One of them has the page. Search them all, and gently.\n\nKit: Collectors want the same page. They pay well, and the people they pay shoot well.",
+        "Sabra: A page of the Reckoning, lost before I was born, is somewhere in {system}. Search the archive pods and bring it home.\n\nDov: Hold close to each pod. The page won't announce itself."
+      ],
+      "debrief-page": [
+        "Dov: It's the page. It's the page! Look, Captain: three gates, in my great-grandfather's hand. Two I knew. The third I didn't.\n\nSabra: Then we know where we're going next. And so will anyone else who's been watching us.",
+        "Sabra: The page is home. Dov hasn't put it down since.\n\nKit: The collectors' frigate had Concord paperwork in its hold. I'm only saying."
+      ],
+      "briefing-authority": [
+        "Sabra: The Gate Authority has ordered our family ships impounded in {system}, 'pending inspection of unlicensed navigational records'. They mean the Reckoning. We are not giving them the Reckoning.\n\nGet the column clear. Don't start a war. If they start one, finish it quickly.\n\nKit: The wardens are coming in with boarding gunships. They want the book.",
+        "Sabra: {enemy} wants to inspect the Reckoning. Inspect means keep. Escort the family ships out of {system} before the wardens close in.\n\nDov: Three hundred years we've kept that book. I'm not handing it to a clerk."
+      ],
+      "debrief-authority": [
+        "Sabra: The column is clear and the Reckoning is aboard. The Synod has sent a protest. {enemy} has sent a larger fleet.\n\nKit: They're coming to the {base}.\n\nSabra: Then we'll be home when they arrive.",
+        "Sabra: Well done. The warden on the {warden} said we've no right to a map of our own road. I told him the road was here before his Authority.\n\nDov: That was a bit much, Sabra.\n\nSabra: It was true, Dov."
+      ],
+      "briefing-homecoming": [
+        "Sabra: {enemy} is coming for the {base} itself. They want the Reckoning, and if they can't have it, they'll settle for us. The Synod is sending ships but they're hours out.\n\nHold. Keep the {base} alive. Everything we are is on this ring.\n\nKit: I'll be on your left. Where else would I be.",
+        "Sabra: This is it, Captain. The {base} holds or the road ends here. Hold until the Synod arrives.\n\nDov: I've put the Reckoning in the safe. If the ring goes, the safe goes with it, but it'll feel better.\n\nKit: Sunbirds up. Let's show them what we're for."
+      ],
+      "debrief-homecoming": [
+        "Sabra: The {base} holds. The Synod arrived and {enemy} remembered its manners. The order is withdrawn, the Authority says, 'pending review'.\n\nDov: Everything is pending review with them. Even the sky.\n\nKit: Some of the little ones watched the whole fight from the hub windows. They've decided you're from Gyptian. I didn't correct them.",
+        "Sabra: We're still here, Captain. Still a fleet, still a people, still on the road.\n\nDov: Somebody asked me today whether the Land is real. I said I'd tell them when we get there. That's the only honest answer I've got."
+      ]
+    }
+  }
+]

@@ -1,0 +1,132 @@
+// Text for the Gyptian jobs. The Reckoning of the Road is their list of gates said to lead home.
+[
+  {
+    "id": "gy-mission-chart-fragments",
+    "description": "Carrying old star charts to a Gyptian fleet.",
+    "variables": ["client", "faction", "destination", "reward", "deadline"],
+    "rules": {
+      "title": ["Old charts for {destination}", "Chart fragments for the Gyptians", "A page of the road"],
+      "scene": [
+        "A dealer has turned up charts older than the Dominion, and some of the gate marks match the Reckoning of the Road.",
+        "The fleet has bought a box of star charts from a wreck. Most of it is rubbish. One page might not be.",
+        "Our chart-readers think a lost page of the Reckoning has surfaced. We need it read by the elders at {destination}."
+      ],
+      "task": [
+        "Carry the charts to {destination} within {deadline}.",
+        "Take the chart case to {destination} in {deadline}. Do not open it. The air spoils the ink.",
+        "Bring the fragments to {destination} inside {deadline}, and tell nobody what you carry."
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #voice:payment#",
+        "#voice:opener# #task# #scene# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The elders lay the charts out and are quiet for a long time. {faction} pays {reward} and will not say what they found.",
+        "The chart-readers argue all night. {faction} pays {reward}. One of them shakes your hand twice.",
+        "One page matches. Or nearly matches. {faction} pays {reward} and adds a line to the Reckoning in pencil."
+      ],
+      "failure": [
+        "The charts never arrived. {faction} pays nothing and the elders say the road will wait. It has before.",
+        "The page is lost. {faction} withholds {reward}, sadly rather than angrily."
+      ]
+    }
+  },
+  {
+    "id": "gy-mission-departure-stores",
+    "description": "Stores for a Gyptian departure.",
+    "variables": ["client", "faction", "destination", "cargo", "tonnes", "reward", "deadline"],
+    "rules": {
+      "title": ["Stores for the departure", "{tonnes} t of {cargo} for the Gyptians", "Provisions for the long road"],
+      "scene": [
+        "The fleet says the road home is open and every family is coming. We have twice the mouths we planned for.",
+        "A departure needs stores. The last one ran out of {cargo} before it ran out of hope.",
+        "The Gyptians are gathering at {destination} and the port has been eaten bare."
+      ],
+      "task": [
+        "Bring {tonnes} t of {cargo} to {destination} within {deadline}.",
+        "Deliver {tonnes} t of {cargo} to the fleet at {destination} in {deadline}.",
+        "Run {tonnes} t of {cargo} to {destination}. {deadline}, before the fleet leaves."
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #voice:payment#",
+        "#voice:opener# #task# #scene# #voice:urgency# #voice:payment#"
+      ],
+      "success": [
+        "The stores are shared out between the ships by lamplight. {faction} pays {reward}.",
+        "The fleet is fed for the road. {faction} pays {reward} and invites you to the leaving feast.",
+        "Children carry the {cargo} aboard in a long line, singing. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The stores came too late. {faction} pays nothing and the departure is put off again.",
+        "The fleet left short. {faction} withholds {reward} and remembers it."
+      ]
+    }
+  },
+  {
+    "id": "gy-mission-song-keeper",
+    "description": "Passage for a Gyptian song-keeper.",
+    "variables": ["client", "faction", "destination", "reward", "deadline"],
+    "rules": {
+      "title": ["Passage for a song-keeper", "An elder to {destination}", "Carry the songs to {destination}"],
+      "scene": [
+        "Our song-keeper knows the old songs of the Land by heart, the ones nobody has written down. Another fleet has lost theirs.",
+        "An old woman needs passage to {destination}. She remembers the words for things nobody here has ever seen: rain, tides, a blue sky.",
+        "The song-keeper is old and the fleet at {destination} has no one to teach its children the leaving songs."
+      ],
+      "task": [
+        "Take the song-keeper to {destination} within {deadline}.",
+        "Carry our elder to {destination} in {deadline}, gently.",
+        "Bring the song-keeper safely to {destination}. {deadline}."
+      ],
+      "note": [
+        "She will sing on the way. You may not stop her.",
+        "She will ask you what your grandmother's grandmother's name was. Have an answer.",
+        "She does not like jump drives. Nobody does, but she says so."
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #note# #voice:payment#",
+        "#voice:opener# #scene# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The song-keeper is welcomed at {destination} with the old songs, sung badly and happily. {faction} pays {reward}.",
+        "She sang the whole way. She gives you a verse to keep. {faction} pays {reward}.",
+        "The children at {destination} learn a song about rain that afternoon. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The song-keeper never reached {destination}. {faction} pays nothing. The songs she knew are fewer now.",
+        "She was turned back. {faction} withholds {reward}."
+      ]
+    }
+  },
+  {
+    "id": "gy-mission-reckoning-thief",
+    "description": "Hunting the thief who stole a page of the Reckoning of the Road.",
+    "variables": ["client", "faction", "system", "target", "reward", "deadline"],
+    "rules": {
+      "title": ["The stolen page", "Find {target}", "A thief on the road"],
+      "scene": [
+        "{target} came aboard as a guest and left with a page of the Reckoning of the Road.",
+        "A collector paid {target} to steal a page of the Reckoning. We want it back more than we want {target}.",
+        "Someone took a page of the Reckoning, and the trail leads to {target} in {system}."
+      ],
+      "task": [
+        "Find {target} within {deadline} and bring back the page.",
+        "Hunt down {target} in {deadline}. The page matters. The thief matters less.",
+        "Catch {target} inside {deadline}. Do not damage the page."
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #voice:urgency# #voice:payment#",
+        "#voice:opener# #scene# #task# #voice:warning# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The page is home, a little creased. {faction} pays {reward} and the elders press it flat under the heaviest book aboard.",
+        "{target} is dealt with and the page is back in the Reckoning. {faction} pays {reward}.",
+        "The page comes back. {faction} pays {reward}, and a chart-reader quietly checks it is the right one."
+      ],
+      "failure": [
+        "{target} got away, and so did the page. {faction} pays nothing. One more gate on the road is a guess now.",
+        "The page is lost to a collector somewhere in the core. {faction} withholds {reward}."
+      ]
+    }
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "gy-chart-fragments", "name": "Chart fragments", "type": "courier", "scale": "small", "legal": true,
+    "givers": ["gy-gyptian-fleet"], "events": [], "cargoCategories": ["data"], "minRank": 0, "baseReward": 3400,
+    "complications": ["rival-bid-outbid", "bad-intel-stale-charts", "rim-signal-interference", "deadline-gate-queue"],
+    "followUps": ["gy-reckoning-thief"], "textGrammar": "gy-mission-chart-fragments"
+  },
+  {
+    "id": "gy-departure-stores", "name": "Stores for the departure", "type": "delivery", "scale": "small", "legal": true,
+    "givers": ["gy-gyptian-fleet"], "events": ["gy-road-found"], "cargoCategories": ["food", "fuel", "medical"], "minRank": 0, "baseReward": 3600,
+    "complications": ["ambush-on-route", "client-lies-money", "extra-stop-extra-pickup", "deadline-client-panics"],
+    "followUps": [], "textGrammar": "gy-mission-departure-stores"
+  },
+  {
+    "id": "gy-song-keeper", "name": "Passage for a song-keeper", "type": "passenger", "scale": "small", "legal": true,
+    "givers": ["gy-gyptian-fleet"], "events": [], "cargoCategories": [], "minRank": 1, "baseReward": 4200,
+    "complications": ["fugitive-witness", "extra-stop-inspection", "deadline-gate-queue", "rival-offer-bribe"],
+    "followUps": [], "textGrammar": "gy-mission-song-keeper"
+  },
+  {
+    "id": "gy-reckoning-thief", "name": "The stolen page", "type": "bounty", "scale": "skirmish", "legal": true,
+    "givers": ["gy-gyptian-fleet"], "events": [], "cargoCategories": [], "minRank": 1, "baseReward": 5500,
+    "complications": ["bad-intel-wrong-place", "bad-intel-defended", "double-cross-withheld", "rival-bid-poached"],
+    "followUps": [], "textGrammar": "gy-mission-reckoning-thief"
+  }
+]

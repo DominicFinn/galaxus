@@ -1,0 +1,14 @@
+// The Gyptian fleets build their own ships. Outer realms builder, so their small ships are sold
+// at shipyards in the inner systems, outer realms and rim.
+{
+  "id": "gyptian-yards",
+  "name": "Gyptian fleet yards",
+  "race": "human",
+  "region": "outer",
+  "culture": "Gyptian fleets",
+  "style": "Heirloom: sky-blue hulls, brass trim, forward-swept wings and tall sail fins, as if every ship were built from a memory of open air",
+  "bias": "Quick and nimble, lightly armoured",
+  "statBias": { "agility": 1.12, "speed": 1.05, "hull": 0.9 },
+  "palette": { "hull": "#2f5d8a", "accent": "#c9a24a", "trim": "#e8e1cf", "glow": "#5fe0d0" },
+  "modelNameGrammar": "gy-models"
+}
