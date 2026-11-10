@@ -27,8 +27,9 @@ public static class PlanetFactory
     public static (Color Disc, Color Light, float Energy, float Size) StarLook(StarKind kind) => kind switch
     {
         StarKind.Yellow => (new Color(1f, 0.93f, 0.75f), new Color(1f, 0.95f, 0.85f), 1.3f, 3000),
-        StarKind.Orange => (new Color(1f, 0.72f, 0.42f), new Color(1f, 0.82f, 0.62f), 1.15f, 2600),
-        StarKind.Red => (new Color(1f, 0.45f, 0.3f), new Color(1f, 0.62f, 0.5f), 0.95f, 2200),
+        // Dim stars' light is kept bright enough, and only gently tinted, so their worlds stay readable.
+        StarKind.Orange => (new Color(1f, 0.72f, 0.42f), new Color(1f, 0.88f, 0.74f), 1.2f, 2600),
+        StarKind.Red => (new Color(1f, 0.45f, 0.3f), new Color(1f, 0.79f, 0.68f), 1.15f, 2200),
         StarKind.White => (new Color(0.95f, 0.97f, 1f), new Color(0.95f, 0.97f, 1f), 1.45f, 2800),
         _ => (new Color(0.7f, 0.82f, 1f), new Color(0.78f, 0.86f, 1f), 1.6f, 3600),
     };

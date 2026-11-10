@@ -486,6 +486,7 @@ public partial class Main : Node3D
             _player.Controls.Flight.Throttle = 0;
             foreach (var drone in _drones.Keys) drone.Body.Position = new NVector3(0, 1e7f, 0);
         }
+        ApplyGravity(dt);
         _world.Step(dt);
         if (_cruising)
         {

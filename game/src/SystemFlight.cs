@@ -160,6 +160,7 @@ public partial class Main
         if (_cruising) { DropFromCruise(); return; }
         _cruiseKm = PlayerKm;
         _cruising = true;
+        if (_navTarget != -1) _mouseStick = Vector2.Zero;
         _cruiseSpeed = 30;
         _landed = false;
         _ignoreTargetDrop = NavTargetKm() is { } navAt && _navTarget != NavStation && DistanceKm(_cruiseKm, navAt) < CourseDropKm();
@@ -211,14 +212,31 @@ public partial class Main
         _cruiseSpeed = wanted > _cruiseSpeed ? Math.Min(wanted, _cruiseSpeed * (1 + 2.4 * dt) + 5) : wanted;
 
         // With a course set, the ship turns towards it unless you're steering.
-        var stickIdle = Mathf.Abs(_player.Controls.Flight.Pitch) < 0.08f && Mathf.Abs(_player.Controls.Flight.Yaw) < 0.08f;
-        if (target is { } aim && stickIdle)
+        // With a course set the autopilot flies, unless you clearly take over: keys or a stick held
+        // over, or the mouse pushed well off centre. While it flies, the mouse stick drifts back to
+        // centre so a leftover offset can't fight it.
+        bool keysHeld = Mathf.Abs(Input.GetAxis(GameInput.PitchDown, GameInput.PitchUp)) > 0.2f
+                        || Mathf.Abs(Input.GetAxis(GameInput.YawLeft, GameInput.YawRight)) > 0.2f;
+        bool mouseHeld = _mouseStick.Length() > MouseStickRadius * 0.45f;
+        _autopilot = target != null && !keysHeld && !mouseHeld;
+        double facing = 1;
+        if (target is { } aim)
         {
             var dir = Normalised((aim.X - _cruiseKm.X, aim.Y - _cruiseKm.Y, aim.Z - _cruiseKm.Z));
-            var (pitch, yaw) = Galaxus.Core.Ships.Autopilot.SteerTowards(_player,
-                _player.Body.Position + new NVector3((float)dir.X, (float)dir.Y, (float)dir.Z) * 1000, 3f);
-            _player.Controls.Flight.Pitch = pitch;
-            _player.Controls.Flight.Yaw = yaw;
+            var f = _player.Body.Forward;
+            facing = f.X * dir.X + f.Y * dir.Y + f.Z * dir.Z;
+            if (_autopilot)
+            {
+                _mouseStick *= Mathf.Exp(-6f * dt);
+                var (pitch, yaw) = Galaxus.Core.Ships.Autopilot.SteerTowards(_player,
+                    _player.Body.Position + new NVector3((float)dir.X, (float)dir.Y, (float)dir.Z) * 1000, 3f);
+                _player.Controls.Flight.Pitch = pitch;
+                _player.Controls.Flight.Yaw = yaw;
+            }
+            // Only build speed once the nose is on the target, so you don't shoot off the wrong way while turning.
+            double aligned = Math.Clamp((facing - 0.6) / 0.4, 0, 1);
+            wanted = Math.Max(Math.Min(wanted, 5), wanted * aligned * aligned);
+            _cruiseSpeed = Math.Min(_cruiseSpeed, Math.Max(wanted, 5));
         }
 
         var forward = _player.Body.Forward;
@@ -254,6 +272,8 @@ public partial class Main
         _hud.Message($"COURSE SET: {NavName.ToUpperInvariant()}. J FOR CRUISE");
     }
 
+    /// <summary>True while cruise is steering you to your course.</summary>
+    private bool _autopilot;
     private bool _crashed;
     private bool _lowWarned;
     private bool _landed;
@@ -324,6 +344,37 @@ public partial class Main
         DropFromCruise();
         _hud.Message($"CRUISE DROPPED: TOO CLOSE TO {blocker}");
         return true;
+    }
+
+    /// <summary>
+    /// Gravity near worlds, from their real mass and size. Flight assist pushes back against it like
+    /// any other drift, within what the drives can do; with assist off you fall.
+    /// </summary>
+    private void ApplyGravity(float dt)
+    {
+        if (_cruising || !_player.Alive || _solar == null || _landed) return;
+        var g = GravityAt(PlayerKm);
+        _player.Body.Velocity += g * dt;
+    }
+
+    /// <summary>Pull towards nearby worlds in m/s², summed, ignoring the star (you're always in orbit of it).</summary>
+    private NVector3 GravityAt((double X, double Y, double Z) at)
+    {
+        var total = NVector3.Zero;
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+        {
+            var body = _solar.Bodies[i];
+            if (body.Kind == BodyKind.Belt || body.Mass <= 0) continue;
+            var c = _solar.PositionKm(i, Day);
+            var rel = (X: c.X - at.X, Y: c.Y - at.Y, Z: c.Z - at.Z);
+            double r = Math.Sqrt(rel.X * rel.X + rel.Y * rel.Y + rel.Z * rel.Z);
+            double radius = _solar.RadiusKm(i);
+            if (r > radius * 12) continue; // far enough to ignore
+            double earthRadii = r / SolarSystem.KmPerEarthRadius;
+            double accel = 9.81 * body.Mass / (earthRadii * earthRadii);
+            total += new NVector3((float)(rel.X / r * accel), (float)(rel.Y / r * accel), (float)(rel.Z / r * accel));
+        }
+        return total;
     }
 
     /// <summary>In normal flight, the station is solid and so are planets and the star.</summary>
@@ -498,7 +549,7 @@ public partial class Main
     private void UpdateNavHud()
     {
         var target = NavTargetKm();
-        string status = _cruising ? $"CRUISE {FormatSpeed(_cruiseSpeed)}" : "";
+        string status = _cruising ? $"{(_autopilot ? "AUTOPILOT" : "CRUISE")} {FormatSpeed(_cruiseSpeed)}" : "";
         if (target is { } t)
         {
             double d = DistanceKm(PlayerKm, t);
@@ -522,7 +573,8 @@ public partial class Main
                 var centre = _solar.PositionKm(low, Day);
                 var up = Normalised((here.X - centre.X, here.Y - centre.Y, here.Z - centre.Z));
                 double ground = _surface.GroundKm(new NVector3((float)up.X, (float)up.Y, (float)up.Z));
-                status = $"{status}{(status == "" ? "" : "   ")}ALT {FormatDistance(Math.Max(0, altitude - ground))}";
+                float gees = GravityAt(here).Length() / 9.81f;
+                status = $"{status}{(status == "" ? "" : "   ")}ALT {FormatDistance(Math.Max(0, altitude - ground))}   GRAV {gees:0.00}G";
             }
         }
         _hud.Cruise = status;

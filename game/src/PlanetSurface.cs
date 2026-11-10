@@ -20,6 +20,7 @@ public partial class PlanetSurface : Node3D
     private readonly Patch _near = new(sizeKm: 3, cells: 96, dropKm: 0, holeKm: 0, skirtKm: 0.3);
     private readonly Patch _fine = new(sizeKm: 24, cells: 96, dropKm: 0.015, holeKm: 2.7, skirtKm: 1.5);
     private readonly Patch _wide = new(sizeKm: 300, cells: 100, dropKm: 0.12, holeKm: 21, skirtKm: 8);
+    private readonly Patch _far = new(sizeKm: 1400, cells: 128, dropKm: 0.5, holeKm: 280, skirtKm: 20);
     private MeshInstance3D? _globe;
     private Task<FlatMeshBuilder>? _globeTask;
 
@@ -108,6 +109,7 @@ public partial class PlanetSurface : Node3D
         double altitudeKm = distance - _radiusKm;
         var below = new NVector3((float)(up.X / distance), (float)(up.Y / distance), (float)(up.Z / distance));
 
+        _far.Update(this, Terrain, below, altitudeKm < 2500, centreKm, playerKm, eye);
         _wide.Update(this, Terrain, below, altitudeKm < 600, centreKm, playerKm, eye);
         _fine.Update(this, Terrain, below, altitudeKm < 60, centreKm, playerKm, eye);
         _near.Update(this, Terrain, below, altitudeKm < 12, centreKm, playerKm, eye);

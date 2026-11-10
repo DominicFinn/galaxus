@@ -22,13 +22,13 @@ Every system has its own star and main world: gas giants with rings, airless cra
 
 Every system follows real astronomy. Its star has a real spectral class (mostly red and orange dwarfs, with yellow, white and the odd blue giant) with matching mass and brightness. Planets are spaced outwards and their type follows their temperature: molten worlds close in, Earth-like and ocean worlds in the habitable zone, gas and ice giants beyond the frost line, with moons and asteroid belts. Orbits follow Kepler's laws, so planets move round as the days pass. Settled worlds have names; the rest keep catalogue numbers.
 
-You fly inside the real system. Planets are drawn at their true apparent size and grow as you approach, and the light comes from the actual star. Set a course on the system map (N) and engage the cruise drive (J), which builds to many times light speed and drops you out beside your destination.
+You fly inside the real system. Planets are drawn at their true apparent size and grow as you approach, and the light comes from the actual star. Set a course on the system map (N) and engage the cruise drive (J). With a course set it flies itself: it turns you to the target, builds to many times light speed once you're lined up, and drops you out beside your destination. Take the stick and you're flying again until you let go.
 
 ![Arriving in orbit of a world under a red dwarf](docs/screenshots/arrival.png)
 
 ![The system map: orbits, planets, moons, a belt and the habitable zone](docs/screenshots/system-map.png)
 
-Rocky worlds have real ground: continents and seas, mountain chains, deserts with mesas and dunes, cratered moons, ice caps, lava seas. All of it comes from each world's seed whenever it's needed, so nothing is stored. Cruise slows as you get lower and drops you out a few kilometres above the highest peaks, and from there you can fly down to the surface. Some stations are surface ports on levelled ground (amber on the system map). Pick one on the system map and set a course: cruise drops you out above it, and you fly down, settle on the pad and press Enter to dock.
+Rocky worlds have real ground: continents and seas, mountain chains, deserts with mesas and dunes, cratered moons, ice caps, lava seas. All of it comes from each world's seed whenever it's needed, so nothing is stored. Cruise slows as you get lower and drops you out a few kilometres above the highest peaks, and from there you fly down under the world's real gravity. Some stations are surface ports on levelled ground (amber on the system map). Pick one on the system map and set a course: cruise drops you out above it, and you fly down, settle on the pad and press Enter to dock.
 
 ![Coming down over an Earth-like world: coast, land and sea](docs/screenshots/descent-high.png)
 
