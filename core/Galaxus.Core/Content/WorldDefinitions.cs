@@ -35,6 +35,35 @@ public sealed class FactionTypeDef
     public Dictionary<string, float[]> Traits { get; set; } = [];
     /// <summary>Grammar with a "name" rule. Variables: {place}, {founder}, {race}.</summary>
     public string NameGrammar { get; set; } = "";
+    /// <summary>The shipbuilder this type's factions fly. Unset uses their race's usual builder.</summary>
+    public string? Builder { get; set; }
+    /// <summary>A hull whose model is used for this type's stations (a station-like hull such as a ring).</summary>
+    public string? StationHull { get; set; }
+    /// <summary>Or a station model given directly, built like a ship model, with its collision radius.</summary>
+    public List<ShapeDef>? StationModel { get; set; }
+    public float StationRadius { get; set; }
+}
+
+/// <summary>
+/// A fixed, named place a mod puts on the generated map: a system (and its station) chosen from the
+/// seed and the landmark's id, so it's in the same place every time the galaxy is rebuilt.
+/// </summary>
+public sealed class LandmarkDef
+{
+    public string Id { get; set; } = "";
+    public string SystemName { get; set; } = "";
+    /// <summary>Name for the system's first station; one is added if the system has none.</summary>
+    public string? StationName { get; set; }
+    /// <summary>core, inner, outer or rim.</summary>
+    public string Region { get; set; } = "inner";
+    /// <summary>meridian, tolland, anvil or shroud. Optional.</summary>
+    public string? Arm { get; set; }
+    /// <summary>A great power id or a faction type id. The place is given to that power, or to a faction of that type (one is founded there if none exists).</summary>
+    public string? OwnerFactionType { get; set; }
+    /// <summary>One of the Economy names, such as HighTech. Optional.</summary>
+    public string? Economy { get; set; }
+    /// <summary>A line shown on the system map and galaxy map.</summary>
+    public string Description { get; set; } = "";
 }
 
 /// <summary>Something happening in the galaxy that creates work: a famine, a border war, a mining rush.</summary>

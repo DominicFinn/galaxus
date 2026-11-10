@@ -125,7 +125,7 @@ public partial class Main
             departing = _rng.NextFloat() < 0.5f;
             if (departing)
             {
-                ship.Body.Position = _stationLocal + randomDir * 400 * StationScale;
+                ship.Body.Position = _stationLocal + randomDir * (_customStationRadius > 0 ? _customStationRadius * StationScale + 200 : 400 * StationScale);
                 pilot.Destination = _stationLocal + randomDir * 40_000;
             }
             else

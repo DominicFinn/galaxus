@@ -49,6 +49,7 @@ public sealed class ContentDatabase
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
     public Dictionary<string, BattleDef> Battles { get; } = [];
     public Dictionary<string, CampaignDef> Campaigns { get; } = [];
+    public Dictionary<string, LandmarkDef> Landmarks { get; } = [];
     /// <summary>Mods that had problems and were left out, with why.</summary>
     public List<string> SkippedMods { get; } = [];
     public Dictionary<string, PowerDef> Powers { get; } = [];
@@ -98,6 +99,7 @@ public sealed class ContentDatabase
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
         LoadInto(source, "battles", db.Battles, b => b.Id, problems);
         LoadInto(source, "campaigns", db.Campaigns, c => c.Id, problems);
+        LoadInto(source, "landmarks", db.Landmarks, l => l.Id, problems);
         LoadInto(source, "powers", db.Powers, p => p.Id, problems);
         LoadInto(source, "music", db.MusicStyles, m => m.Id, problems);
         LoadInto(source, "portraits", db.Portraits, p => p.Race, problems);
@@ -161,7 +163,7 @@ public sealed class ContentDatabase
 
     /// <summary>Folders a mod may add to. Powers are left out: the great powers belong to the base game.</summary>
     public static readonly string[] ModFolders =
-        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "battles", "campaigns", "music", "portraits", "people", "grammars"];
+        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "battles", "campaigns", "landmarks", "music", "portraits", "people", "grammars"];
 
     private static readonly System.Text.RegularExpressions.Regex OwnerPattern =
         new(@"^(?:Grammar|[A-Z][A-Za-z]*(?: [a-z]+)?) '([^']+)'", System.Text.RegularExpressions.RegexOptions.Compiled);
@@ -183,6 +185,7 @@ public sealed class ContentDatabase
         AddFromMod(mod, "complications", Complications, c => c.Id, origins, problems);
         AddFromMod(mod, "battles", Battles, b => b.Id, origins, problems);
         AddFromMod(mod, "campaigns", Campaigns, c => c.Id, origins, problems);
+        AddFromMod(mod, "landmarks", Landmarks, l => l.Id, origins, problems);
         AddFromMod(mod, "music", MusicStyles, m => m.Id, origins, problems);
         AddFromMod(mod, "portraits", Portraits, x => x.Race, origins, problems);
         AddFromMod(mod, "people", Roles, r => r.Id, origins, problems);
@@ -450,6 +453,8 @@ public sealed class ContentDatabase
 
         CheckBattles(p);
         CheckCampaigns(p);
+        CheckMoreFactionTypes(p);
+        CheckLandmarks(p);
 
         foreach (var power in Powers.Values)
         {
@@ -522,12 +527,46 @@ public sealed class ContentDatabase
     public static readonly HashSet<string> BattlePositions = ["near", "ahead", "behind", "left", "right", "above", "far"];
     public static readonly HashSet<string> ObjectiveTypes = ["destroy", "protect", "survive", "escape", "scan", "rendezvous"];
 
+    private void CheckMoreFactionTypes(List<string> p)
+    {
+        foreach (var t in FactionTypes.Values)
+        {
+            string at = $"Faction type '{t.Id}'";
+            if (t.Builder != null && !Builders.ContainsKey(t.Builder)) p.Add($"{at}: unknown builder '{t.Builder}'.");
+            if (t.StationHull != null && !Hulls.ContainsKey(t.StationHull)) p.Add($"{at}: unknown station hull '{t.StationHull}'.");
+            if (t.StationModel != null && t.StationModel.Count == 0) p.Add($"{at}: stationModel needs shapes.");
+            if (t.StationModel != null && t.StationRadius <= 0) p.Add($"{at}: a stationModel needs a stationRadius.");
+        }
+    }
+
+    private void CheckLandmarks(List<string> p)
+    {
+        foreach (var l in Landmarks.Values)
+        {
+            string at = $"Landmark '{l.Id}'";
+            if (string.IsNullOrWhiteSpace(l.SystemName)) p.Add($"{at}: needs a systemName.");
+            if (!ContentRules.Regions.Contains(l.Region)) p.Add($"{at}: region must be one of {string.Join(", ", ContentRules.Regions)}.");
+            if (l.Arm != null && !ContentRules.Arms.Contains(l.Arm)) p.Add($"{at}: arm must be one of {string.Join(", ", ContentRules.Arms)}.");
+            if (l.OwnerFactionType != null && !Powers.ContainsKey(l.OwnerFactionType) && !FactionTypes.ContainsKey(l.OwnerFactionType))
+                p.Add($"{at}: ownerFactionType '{l.OwnerFactionType}' is neither a great power nor a faction type.");
+            if (l.Economy != null && !Enum.TryParse<Galaxy.Economy>(l.Economy, out _)) p.Add($"{at}: economy '{l.Economy}' isn't one of {string.Join(", ", Enum.GetNames<Galaxy.Economy>())}.");
+        }
+        foreach (var dup in Landmarks.Values.GroupBy(l => l.SystemName).Where(g => g.Count() > 1))
+            p.Add($"Landmarks {string.Join(", ", dup.Select(l => $"'{l.Id}'"))} share the system name '{dup.Key}'.");
+    }
+
     private void CheckCampaigns(List<string> p)
     {
         foreach (var c in Campaigns.Values)
         {
             string at = $"Campaign '{c.Id}'";
-            if (!Powers.ContainsKey(c.Power)) p.Add($"{at}: unknown power '{c.Power}'.");
+            if (c.FactionType != null)
+            {
+                if (!FactionTypes.ContainsKey(c.FactionType)) p.Add($"{at}: unknown faction type '{c.FactionType}'.");
+                if (c.Power != "") p.Add($"{at}: give either a power or a factionType, not both.");
+            }
+            else if (!Powers.ContainsKey(c.Power)) p.Add($"{at}: unknown power '{c.Power}'.");
+            if (c.BaseLandmark != null && !Landmarks.ContainsKey(c.BaseLandmark)) p.Add($"{at}: unknown base landmark '{c.BaseLandmark}'.");
             if (!Powers.ContainsKey(c.Rival)) p.Add($"{at}: unknown rival power '{c.Rival}'.");
             if (!Hulls.ContainsKey(c.Hull)) p.Add($"{at}: unknown starting hull '{c.Hull}'.");
             if (!Hulls.TryGetValue(c.BaseHull, out var baseHull)) p.Add($"{at}: unknown base hull '{c.BaseHull}'.");
@@ -543,7 +582,11 @@ public sealed class ContentDatabase
             {
                 string sat = $"{at}, step '{step.Id}'";
                 if (!Battles.ContainsKey(step.Battle)) p.Add($"{sat}: unknown battle '{step.Battle}'.");
-                if (step.Where is not ("base" or "near" or "front")) p.Add($"{sat}: where must be base, near or front.");
+                if (step.Where.StartsWith("landmark:"))
+                {
+                    if (!Landmarks.ContainsKey(step.Where["landmark:".Length..])) p.Add($"{sat}: unknown landmark in '{step.Where}'.");
+                }
+                else if (step.Where is not ("base" or "near" or "front")) p.Add($"{sat}: where must be base, near, front or landmark:<id>.");
                 if (step.Enemy is not ("rival" or "pirates" or "unbound")) p.Add($"{sat}: enemy must be rival, pirates or unbound.");
                 foreach (var rule in new[] { step.Briefing, step.Debrief })
                     if (grammar && !rules.ContainsKey(rule)) p.Add($"{sat}: rule '{rule}' isn't in grammar '{c.TextGrammar}'.");

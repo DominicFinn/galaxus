@@ -80,7 +80,7 @@ public partial class Main
                 var campaign = _session.Db.Campaigns[id];
                 _session.Career.CampaignId = id;
                 _session.Career.CampaignStep = 0;
-                _session.Career.CampaignBase = galaxy.Factions.First(f => f.PowerId == campaign.Power).HomeSystem;
+                _session.Career.CampaignBase = Galaxus.Core.Campaigns.Client(galaxy, campaign).HomeSystem;
                 _session.Career.CampaignDebrief = "Showcase.";
                 GoTo(_session.Career.CampaignBase);
                 EnterSystem();

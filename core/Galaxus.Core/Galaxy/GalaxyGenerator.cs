@@ -36,7 +36,112 @@ public static class GalaxyGenerator
         SeedPowers(galaxy, db, rng.Fork("powers"));
         SeedMinorFactions(galaxy, db, settings, rng.Fork("factions"));
         FinishSystems(galaxy, db, rng.Fork("finish"));
+        PlaceLandmarks(galaxy, db, seed);
+        FoundCampaignFactions(galaxy, db, seed);
         return galaxy;
+    }
+
+    /// <summary>
+    /// Puts mods' landmarks on the map: each picks a system in its region from the seed and its own
+    /// id, so it lands in the same place every time, takes the landmark's name, and gets a station
+    /// and an owner if the landmark asks for them.
+    /// </summary>
+    private static void PlaceLandmarks(Galaxy galaxy, ContentDatabase db, ulong seed)
+    {
+        var taken = new HashSet<int>();
+        foreach (var landmark in db.Landmarks.Values.OrderBy(l => l.Id, StringComparer.Ordinal))
+        {
+            var rng = new Rng(seed ^ Rng.Hash("landmark:" + landmark.Id));
+            var inRegion = galaxy.Systems.Where(s => s.IsGateSystem && s.Region == landmark.Region && !taken.Contains(s.Id)
+                                                     && (landmark.Arm == null || s.Arm == landmark.Arm)).ToList();
+            if (inRegion.Count == 0) inRegion = galaxy.Systems.Where(s => s.IsGateSystem && !taken.Contains(s.Id)).ToList();
+            if (inRegion.Count == 0) continue;
+
+            // Whoever it should belong to: a great power, or a faction of a type (founded here if there's none).
+            Faction? owner = null;
+            FactionTypeDef? ownerType = null;
+            if (landmark.OwnerFactionType != null)
+            {
+                owner = galaxy.Factions.FirstOrDefault(f => f.Alive && f.PowerId == landmark.OwnerFactionType);
+                if (owner == null && db.FactionTypes.TryGetValue(landmark.OwnerFactionType, out ownerType))
+                    owner = galaxy.Factions.Where(f => f.Alive && f.TypeId == ownerType.Id).OrderByDescending(f => galaxy.OwnedBy(f.Id).Count()).ThenBy(f => f.Id).FirstOrDefault();
+            }
+            var preferred = owner != null ? inRegion.Where(s => s.Owner == owner.Id).ToList() : [];
+            if (preferred.Count == 0) preferred = inRegion.Where(s => s.Settled).ToList();
+            if (preferred.Count == 0) preferred = inRegion;
+            var system = preferred[rng.Next(preferred.Count)];
+            taken.Add(system.Id);
+
+            system.Name = landmark.SystemName;
+            system.LandmarkNote = landmark.Description;
+            if (!system.Settled)
+            {
+                system.State = SystemState.Colony;
+                if (system.Economy == Economy.None) system.Economy = Economy.Frontier;
+            }
+            string stationName = landmark.StationName ?? $"{landmark.SystemName} Station";
+            if (system.Stations.Count == 0) system.Stations.Add(stationName);
+            else if (landmark.StationName != null) system.Stations[0] = stationName;
+            if (landmark.Economy != null && Enum.TryParse<Economy>(landmark.Economy, out var economy)) system.Economy = economy;
+
+            if (owner == null && ownerType != null) owner = Found(galaxy, db, ownerType, system, rng.Fork("found"));
+            if (owner != null) system.Owner = owner.Id;
+            galaxy.Landmarks[landmark.Id] = system.Id;
+        }
+    }
+
+    /// <summary>
+    /// A campaign that flies for a faction type needs a faction of that type to exist; if the
+    /// generator didn't roll one, one is founded on the edge of settled space (or at the campaign's
+    /// base landmark). Seeded by the campaign id, so a rebuilt galaxy gets the same one.
+    /// </summary>
+    private static void FoundCampaignFactions(Galaxy galaxy, ContentDatabase db, ulong seed)
+    {
+        foreach (var campaign in db.Campaigns.Values.Where(c => c.FactionType != null).OrderBy(c => c.Id, StringComparer.Ordinal))
+        {
+            if (!db.FactionTypes.TryGetValue(campaign.FactionType!, out var type)) continue;
+            if (galaxy.Factions.Any(f => f.Alive && f.TypeId == type.Id)) continue;
+            var rng = new Rng(seed ^ Rng.Hash("campaign-faction:" + campaign.Id));
+            StarSystem? home = campaign.BaseLandmark != null && galaxy.Landmarks.TryGetValue(campaign.BaseLandmark, out int id) ? galaxy.Systems[id] : null;
+            if (home == null)
+            {
+                var edge = galaxy.Systems.Where(s => s.IsGateSystem && s.Owner < 0 && galaxy.Neighbours(s).Any(n => n.Owner >= 0)).OrderBy(s => s.Id).ToList();
+                home = PickWeighted(edge, rng);
+            }
+            if (home == null) continue;
+            var faction = Found(galaxy, db, type, home, rng);
+            if (home.Stations.Count == 0)
+            {
+                home.State = SystemState.Colony;
+                if (home.Economy == Economy.None) home.Economy = Economy.Frontier;
+                AddStations(home, db, rng.Fork("stations"));
+                if (home.Stations.Count == 0) home.Stations.Add($"{home.Name} Station");
+            }
+            home.Owner = faction.Id;
+        }
+    }
+
+    /// <summary>Founds a faction of a type at a system.</summary>
+    private static Faction Found(Galaxy galaxy, ContentDatabase db, FactionTypeDef type, StarSystem home, Rng rng)
+    {
+        string race = type.Races.Count > 0 ? type.Races.OrderBy(r => r, StringComparer.Ordinal).First() : "human";
+        if (!db.Races.ContainsKey(race)) race = "human";
+        var faction = new Faction
+        {
+            Id = galaxy.Factions.Count,
+            Name = FactionName(db, type, race, home, rng),
+            TypeId = type.Id,
+            RaceId = race,
+            Tier = type.Tiers.Contains("regional") ? "regional" : type.Tiers.FirstOrDefault() ?? "minor",
+            Criminal = type.Criminal,
+            Colour = ColourFor(rng),
+            HomeSystem = home.Id,
+            Traits = RollTraits(type, rng.Fork("traits")),
+        };
+        galaxy.Factions.Add(faction);
+        if (type.Criminal) faction.Haunts.Add(home.Id);
+        else home.Owner = faction.Id;
+        return faction;
     }
 
     private static void PlaceSystems(Galaxy galaxy, ContentDatabase db, GalaxySettings settings, Rng rng)

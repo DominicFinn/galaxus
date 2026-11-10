@@ -199,6 +199,45 @@ Mission grammars must have `title`, `briefing`, `success` and `failure`. The var
 
 **3. Check it** with `tools/validate-mods.sh my-mod`.
 
+## Giving a faction its own ships, stations, places and campaign
+
+Four optional fields let a mod's faction feel like its own people. With none of them set, the game behaves as before.
+
+**Its own shipyard.** Add `"builder"` to the faction type, naming a builder (yours or an existing one). Factions of that type then fly that builder's ships in traffic, battles and previews.
+
+```json
+{ "id": "gy-gyptian-fleet", "builder": "gyptian-yards", ... }
+```
+
+**Its own stations.** Add `"stationHull"` naming a hull whose model should stand in for the faction's stations (a ring or a battle station you've designed), or give the shapes directly with `"stationModel"` and a `"stationRadius"` for collisions. Stations owned by that faction use the model instead of the standard ring station; you dock within a few hundred metres of its radius.
+
+```json
+{ "id": "gy-gyptian-fleet", "builder": "gyptian-yards", "stationHull": "gy-homecoming", ... }
+```
+
+**Fixed places on the map.** A `landmarks/` folder holds named places. Each picks a system in its region from the galaxy's seed and its own id, so it's in the same place every time the galaxy is built and every time a save loads. It renames the system and its first station (adding a station if there's none), can set the economy, and can give the place to a great power or a faction type; if no faction of that type exists, one is founded there. The description shows on both maps.
+
+```json
+[{
+  "id": "hw-bridgeford",
+  "systemName": "Bridgeford 421",
+  "stationName": "Hassall World",
+  "region": "outer",
+  "arm": "tolland",
+  "ownerFactionType": "tolland-compact",
+  "economy": "HighTech",
+  "description": "The Hassall works, where half the Compact's drives are wound."
+}]
+```
+
+`region` is core, inner, outer or rim; `arm` (optional) is meridian, tolland, anvil or shroud; `economy` is one of Agricultural, Mining, Refinery, Industrial, HighTech or Frontier. Turning a landmark mod on or off part-way through a saved game will move things, as with any faction mod.
+
+**A campaign for your faction.** Instead of `"power"`, a campaign can give `"factionType"`: you fly for the largest faction of that type, and if the galaxy doesn't have one, one is founded for you. `"baseLandmark"` puts your base at a landmark, and a step can happen there with `"where": "landmark:hw-bridgeford"`. Steps whose enemy is `rival` still fight the great power named in `"rival"`.
+
+```json
+{ "id": "gy-long-leaving", "factionType": "gy-gyptian-fleet", "rival": "meridian-concord", "baseLandmark": "gy-homecoming-reach", ... }
+```
+
 ## Grammar basics
 
 A grammar is a list of rules. A rule is a list of options and the game picks one at random, using a seed so the same seed always gives the same text.

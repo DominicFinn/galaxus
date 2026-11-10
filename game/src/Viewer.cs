@@ -80,6 +80,19 @@ public partial class Viewer : Node3D
         }
         _entries.Add(new Entry("Stations", "Surface port", () => new MeshInstance3D { Mesh = MeshFactory.BuildSurfacePort(owner) },
             $"[color=#{Kit.Hex(Kit.Amber)}]SURFACE PORT[/color]\nA landing pad with lights, a control tower, hangars and fuel tanks, on levelled ground.", 260));
+        // Factions with stations of their own design, from mods.
+        foreach (var type in _db.FactionTypes.Values.Where(t => t.StationHull != null || t.StationModel is { Count: > 0 }))
+        {
+            var t = type;
+            var palette = t.Builder != null && _db.Builders.TryGetValue(t.Builder, out var builder) ? builder.Palette
+                : new PaletteDef { Hull = "#8d939c", Accent = "#4a78d0", Trim = "#3c4048", Glow = "#ffe6a0" };
+            HullDef? hull = t.StationHull != null && _db.Hulls.TryGetValue(t.StationHull, out var h) ? h
+                : t.StationModel is { Count: > 0 } model ? new HullDef { Id = t.Id + "-station", Model = model, Radius = t.StationRadius } : null;
+            if (hull == null) continue;
+            var hullPalette = _db.Builders.TryGetValue(hull.Builder, out var hb) ? hb.Palette : palette;
+            _entries.Add(new Entry("Stations", $"{t.Name} station", () => new MeshInstance3D { Mesh = MeshFactory.BuildShip(hull, hullPalette) },
+                $"[color=#{Kit.Hex(Kit.Amber)}]{t.Name.ToUpperInvariant()} STATION[/color]\n{t.Description}", MathF.Max(hull.Radius, HalfLength(hull))));
+        }
         foreach (var e in _entries) if (!_categories.Contains(e.Category)) _categories.Add(e.Category);
         // Ships first, then warships, then everything else.
         _categories.Sort((a, b) => Rank(a).CompareTo(Rank(b)) != 0 ? Rank(a).CompareTo(Rank(b)) : string.CompareOrdinal(a, b));

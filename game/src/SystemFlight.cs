@@ -401,7 +401,16 @@ public partial class Main
         {
             var local = _player.Body.Position - _stationLocal;
             // Bigger stations are the same shape scaled up.
-            float distance = Galaxus.Core.Ships.Collision.StationDistance(local / StationScale, out var normal) * StationScale - _player.Spec.Radius;
+            float distance;
+            NVector3 normal;
+            if (_customStationRadius > 0)
+            {
+                // A faction's own station model: a sphere of its radius is close enough.
+                float length = local.Length();
+                normal = length > 1e-3f ? local / length : NVector3.UnitY;
+                distance = length - _customStationRadius * StationScale - _player.Spec.Radius;
+            }
+            else distance = Galaxus.Core.Ships.Collision.StationDistance(local / StationScale, out normal) * StationScale - _player.Spec.Radius;
             if (distance < 0)
             {
                 // Push clear, bounce off with most of the speed lost, and take damage from the impact.

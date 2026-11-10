@@ -254,6 +254,7 @@ public partial class GalaxyMap : Control
             $"{Capitalise(s.Region)}, {s.Arm} arm. {s.State}{(s.Economy != Economy.None ? $", {s.Economy}" : "")}.\n" +
             (owner != null ? $"Held by [color=#{owner.Colour.TrimStart('#')}]{owner.Name}[/color].\n" : "Unclaimed.\n") +
             ProfileLine(s) +
+            (s.LandmarkNote is { Length: > 0 } note ? $"[color=#{Ui.Hex(Ui.Amber)}]{note}[/color]\n" : "") +
             (s.Stations.Count > 0 ? $"Stations: {string.Join(", ", s.Stations)}\n" : "No stations.\n") +
             (events.Any() ? $"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]\n" : "") +
             (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here: {string.Join(", ", jobs.Select(j => j.Offer.DestinationStation).Distinct())}.[/color]\n" : "") +

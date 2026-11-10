@@ -304,7 +304,25 @@ public partial class Main : Node3D
     /// <summary>Builds the space for the current system: its sky, planet and station.</summary>
     /// <summary>Population, station size and security of the system you're in.</summary>
     private Galaxus.Core.Galaxy.SystemProfile _profile = null!;
-    private float StationScale => _profile?.StationScale ?? 1f;
+    /// <summary>Custom station models are drawn at their own size, at most doubled for the biggest places.</summary>
+    private float StationScale => _customStationRadius > 0 ? Mathf.Min(_profile?.StationScale ?? 1f, 2f) : _profile?.StationScale ?? 1f;
+    /// <summary>The collision radius of a faction's own station model, or 0 for the standard station.</summary>
+    private float _customStationRadius;
+    /// <summary>How close you must be to dock: the standard range, or outside a custom station's sphere.</summary>
+    private float DockReach => _customStationRadius > 0 ? _customStationRadius * StationScale + 400 : DockRange * StationScale;
+
+    /// <summary>A faction type's own station model, from a hull or a list of shapes, or null for the standard station.</summary>
+    private (ArrayMesh Mesh, float Radius)? CustomStation(Galaxus.Core.Galaxy.Faction owner)
+    {
+        if (!_db.FactionTypes.TryGetValue(owner.TypeId, out var type)) return null;
+        var palette = type.Builder != null && _db.Builders.TryGetValue(type.Builder, out var builder) ? builder.Palette
+            : new Galaxus.Core.Content.PaletteDef { Hull = "#8d939c", Accent = owner.Colour, Trim = "#3c4048", Glow = "#ffe6a0" };
+        if (type.StationHull != null && _db.Hulls.TryGetValue(type.StationHull, out var hull))
+            return (MeshFactory.BuildShip(hull, _db.Builders.TryGetValue(hull.Builder, out var b) ? b.Palette : palette), hull.Radius);
+        if (type.StationModel is { Count: > 0 } model)
+            return (MeshFactory.BuildShip(new Galaxus.Core.Content.HullDef { Id = type.Id + "-station", Model = model, Radius = type.StationRadius }, palette), type.StationRadius);
+        return null;
+    }
 
     private void EnterSystem()
     {
@@ -319,13 +337,16 @@ public partial class Main : Node3D
 
         _stationNode?.QueueFree();
         _stationNode = null;
+        _customStationRadius = 0;
         if (here.Stations.Count > 0)
         {
             var owner = _session.Galaxy.OwnerOf(here);
+            var custom = owner != null ? CustomStation(owner) : null;
+            _customStationRadius = custom?.Radius ?? 0;
             _stationNode = new MeshInstance3D
             {
-                Mesh = MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f), _profile.StationSize),
-                Scale = Vector3.One * _profile.StationScale,
+                Mesh = custom?.Mesh ?? MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f), _profile.StationSize),
+                Scale = Vector3.One * StationScale,
                 Position = _stationLocal.ToGodot(),
             };
             AddChild(_stationNode);
@@ -403,7 +424,7 @@ public partial class Main : Node3D
     {
         if (_dockedAtFlagship) { LaunchFromFlagship(); _dockedAtFlagship = false; }
         else if (_dockedPort != null) LaunchFromPort(_dockedPort);
-        else _player.Respawn(_stationLocal + new NVector3(0, 0, 320), NQuaternion.Identity);
+        else _player.Respawn(_stationLocal + new NVector3(0, 0, _customStationRadius > 0 ? _customStationRadius * StationScale + 320 : 320), NQuaternion.Identity);
         _throttle = 0.3f;
         _mouseStick = Vector2.Zero;
         SetScreen(Screen.Flight);
@@ -629,14 +650,14 @@ public partial class Main : Node3D
         if (_stationNode == null) return null;
         if (_cruising) return null;
         float distance = NVector3.Distance(_player.Body.Position, _stationLocal);
-        if (distance > DockRange * StationScale * 3) return null;
-        if (distance > DockRange * StationScale) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
+        if (distance > DockReach * 3) return null;
+        if (distance > DockReach) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
         return _player.Body.Speed > DockSpeed ? "SLOW DOWN TO DOCK" : "ENTER TO DOCK";
     }
 
     private bool CanDock => _stationNode != null
                             && !_cruising
-                            && NVector3.Distance(_player.Body.Position, _stationLocal) <= DockRange * StationScale
+                            && NVector3.Distance(_player.Body.Position, _stationLocal) <= DockReach
                             && _player.Body.Speed <= DockSpeed;
 
     private void HandleScreenKeys()

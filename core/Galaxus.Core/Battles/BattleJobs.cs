@@ -141,14 +141,24 @@ public static class BattleJobs
             Pirates => ("breakers-guild", "human"),
             _ => (BuilderFor(db, galaxy.Factions[offer.EnemyFactionId]), galaxy.Factions[offer.EnemyFactionId].RaceId),
         };
-        if (offer.EnemyFactionId >= 0 && galaxy.Factions[offer.EnemyFactionId].Criminal) enemyBuilder = "breakers-guild";
+        // Criminals fly salvage, unless their faction type has a yard of its own.
+        if (offer.EnemyFactionId >= 0 && galaxy.Factions[offer.EnemyFactionId] is { Criminal: true } gang
+            && !(db.FactionTypes.TryGetValue(gang.TypeId, out var gangType) && gangType.Builder != null && db.Builders.ContainsKey(gangType.Builder)))
+            enemyBuilder = "breakers-guild";
         return new BattleSides(client.Name, BuilderFor(db, client), client.RaceId,
             EnemyName(galaxy, offer.EnemyFactionId), enemyBuilder, enemyRace, offer.EnemyFactionId == RogueMachines);
     }
 
-    /// <summary>A great power flies its own yard's ships; everyone else buys from their race's main builder.</summary>
-    public static string BuilderFor(ContentDatabase db, Faction faction) =>
-        faction.PowerId != null && db.Powers.TryGetValue(faction.PowerId, out var power) && db.Builders.ContainsKey(power.Builder)
-            ? power.Builder
-            : RaceBuilders.GetValueOrDefault(faction.RaceId, "human-corporate");
+    /// <summary>
+    /// A great power flies its own yard's ships; a faction whose type names a builder flies that
+    /// builder's; everyone else buys from their race's main builder.
+    /// </summary>
+    public static string BuilderFor(ContentDatabase db, Faction faction)
+    {
+        if (faction.PowerId != null && db.Powers.TryGetValue(faction.PowerId, out var power) && db.Builders.ContainsKey(power.Builder))
+            return power.Builder;
+        if (db.FactionTypes.TryGetValue(faction.TypeId, out var type) && type.Builder != null && db.Builders.ContainsKey(type.Builder))
+            return type.Builder;
+        return RaceBuilders.GetValueOrDefault(faction.RaceId, "human-corporate");
+    }
 }

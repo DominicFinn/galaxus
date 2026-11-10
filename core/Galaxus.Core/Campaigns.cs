@@ -12,17 +12,34 @@ namespace Galaxus.Core;
 /// </summary>
 public static class Campaigns
 {
+    /// <summary>
+    /// The faction a campaign flies for: its great power, or the largest faction of its faction
+    /// type (the galaxy founds one if there's none).
+    /// </summary>
+    public static Faction Client(Galaxy.Galaxy galaxy, CampaignDef def)
+    {
+        if (def.FactionType == null) return galaxy.Factions.First(f => f.PowerId == def.Power);
+        return galaxy.Factions.Where(f => f.TypeId == def.FactionType)
+            .OrderByDescending(f => f.Alive).ThenByDescending(f => galaxy.OwnedBy(f.Id).Count()).ThenBy(f => f.Id).First();
+    }
+
     public static Session Start(ContentDatabase db, ulong seed, string campaignId, GalaxySettings? settings = null)
     {
         var def = db.Campaigns[campaignId];
         var session = Session.StartNew(db, seed, settings);
         var galaxy = session.Galaxy;
         var career = session.Career;
-        var power = galaxy.Factions.First(f => f.PowerId == def.Power);
-        // The fleet waits at the power's capital, or the nearest system of theirs with a station.
-        var home = galaxy.Systems[power.HomeSystem].Stations.Count > 0
-            ? galaxy.Systems[power.HomeSystem]
-            : galaxy.Systems.Where(s => s.Owner == power.Id && s.Stations.Count > 0).OrderBy(s => galaxy.DistanceLy(s.Id, power.HomeSystem)).First();
+        var power = Client(galaxy, def);
+        // The fleet waits at the base landmark if there is one, else the client's capital, or the
+        // nearest system of theirs with a station.
+        StarSystem home;
+        if (def.BaseLandmark != null && galaxy.Landmarks.TryGetValue(def.BaseLandmark, out int landmark))
+            home = galaxy.Systems[landmark];
+        else if (galaxy.Systems[power.HomeSystem].Stations.Count > 0)
+            home = galaxy.Systems[power.HomeSystem];
+        else
+            home = galaxy.Systems.Where(s => s.Owner == power.Id && s.Stations.Count > 0).OrderBy(s => galaxy.DistanceLy(s.Id, power.HomeSystem)).FirstOrDefault()
+                   ?? galaxy.Systems.Where(s => s.Stations.Count > 0).OrderBy(s => galaxy.DistanceLy(s.Id, power.HomeSystem)).First();
         career.SystemId = home.Id;
         career.CampaignBase = home.Id;
         career.CampaignId = def.Id;
@@ -56,7 +73,7 @@ public static class Campaigns
         var galaxy = session.Galaxy;
         var career = session.Career;
         var battle = db.Battles[step.Battle];
-        var power = galaxy.Factions.First(f => f.PowerId == def.Power);
+        var power = Client(galaxy, def);
         var rival = galaxy.Factions.FirstOrDefault(f => f.PowerId == def.Rival);
         int enemy = step.Enemy switch
         {
@@ -110,6 +127,8 @@ public static class Campaigns
         var home = galaxy.Systems[session.Career.CampaignBase >= 0 ? session.Career.CampaignBase : session.Career.SystemId];
         var candidates = galaxy.WithinJumps(home.Id, 4).Where(s => s.Stations.Count > 0 && s.Id != home.Id).ToList();
         var rng = new Rng(Rng.Hash($"{session.Career.CampaignId}-{step.Id}-where"));
+        if (step.Where.StartsWith("landmark:") && galaxy.Landmarks.TryGetValue(step.Where["landmark:".Length..], out int marked))
+            return galaxy.Systems[marked];
         return step.Where switch
         {
             "near" when candidates.Count > 0 => candidates.OrderBy(s => galaxy.DistanceLy(home.Id, s.Id)).ElementAt(rng.Next(Math.Min(3, candidates.Count))),
@@ -123,7 +142,7 @@ public static class Campaigns
     {
         variables ??= new Dictionary<string, string>
         {
-            ["client"] = session.Galaxy.Factions.First(f => f.PowerId == def.Power).Name,
+            ["client"] = Client(session.Galaxy, def).Name,
             ["captain"] = session.Career.Captain, ["base"] = def.BaseName,
             ["enemy"] = session.Galaxy.Factions.FirstOrDefault(f => f.PowerId == def.Rival)?.Name ?? "the enemy",
             ["system"] = session.Here.Name, ["station"] = session.Here.Stations.FirstOrDefault() ?? session.Here.Name,

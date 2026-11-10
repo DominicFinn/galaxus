@@ -106,8 +106,12 @@ public sealed class CampaignDef
     /// <summary>A tutorial is listed first on the new game screen and teaches the controls as it goes.</summary>
     public bool Tutorial { get; set; }
     public string Name { get; set; } = "";
-    /// <summary>The great power you fly for.</summary>
+    /// <summary>The great power you fly for. Leave empty and set FactionType to fly for a smaller faction.</summary>
     public string Power { get; set; } = "";
+    /// <summary>A faction type to fly for instead of a great power. The largest faction of that type is used; the galaxy founds one if there's none.</summary>
+    public string? FactionType { get; set; }
+    /// <summary>A landmark id: the campaign's base is there instead of at the power's capital.</summary>
+    public string? BaseLandmark { get; set; }
     /// <summary>The great power you're mostly fighting, for steps whose enemy is "rival".</summary>
     public string Rival { get; set; } = "";
     /// <summary>A paragraph for the new game screen.</summary>
@@ -133,7 +137,7 @@ public sealed class CampaignStepDef
     public string Title { get; set; } = "";
     /// <summary>The battle flown for this step (any kind, usually "campaign").</summary>
     public string Battle { get; set; } = "";
-    /// <summary>Where it happens: base (in the base's system), near (a system a jump or two away), front (towards the rival).</summary>
+    /// <summary>Where it happens: base (in the base's system), near (a system a jump or two away), front (towards the rival), or landmark:id (a landmark's system).</summary>
     public string Where { get; set; } = "base";
     /// <summary>Who you're up against: rival, pirates or unbound.</summary>
     public string Enemy { get; set; } = "rival";
