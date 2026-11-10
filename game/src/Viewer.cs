@@ -222,6 +222,7 @@ public partial class Viewer : Node3D
 
     public override void _Process(double delta)
     {
+        if (Input.MouseMode != Input.MouseModeEnum.Visible) Input.MouseMode = Input.MouseModeEnum.Visible;
         // Turns slowly on its own until you take hold of it.
         _idle += (float)delta;
         if (_idle > 3) _yaw += (float)delta * 0.15f;

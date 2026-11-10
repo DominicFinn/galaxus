@@ -513,7 +513,10 @@ public partial class Main : Node3D
             _mouseStick += new Vector2(motion.Relative.X, motion.Relative.Y) * GameSettings.Current.MouseSensitivity;
             if (_mouseStick.Length() > MouseStickRadius) _mouseStick = _mouseStick.Normalized() * MouseStickRadius;
         }
-        else if (e is InputEventMouseButton { Pressed: true } && Input.MouseMode != Input.MouseModeEnum.Captured && !_demo)
+        // A click takes hold of the mouse for flying, but only when you're actually flying: not on the
+        // title screen, in the viewer, or in menus.
+        else if (e is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left or MouseButton.Right } && Input.MouseMode != Input.MouseModeEnum.Captured
+                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight)
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             GetViewport().SetInputAsHandled();
