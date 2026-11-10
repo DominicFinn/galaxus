@@ -146,7 +146,7 @@ public partial class MenuScreen : Control
         else Add(Ui.Button("Quit", () => _actions.Quit()));
     }
 
-    public const string DownloadUrl = "https://github.com/DominicFinn/galaxus/releases/latest";
+    public const string DownloadUrl = "https://galaxus-game.web.app/#download";
 
     /// <summary>Ways to start: as a free trader with a small ship, or enlisted in a campaign.</summary>
     private void BuildNewGame()
