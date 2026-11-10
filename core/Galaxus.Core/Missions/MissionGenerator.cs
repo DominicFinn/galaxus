@@ -12,7 +12,8 @@ public sealed record MissionContext(
     string Destination,
     string Captain,
     int Rank = 0,
-    string? EventId = null);
+    string? EventId = null,
+    int MinDeadlineDays = 0);
 
 /// <summary>A generated job, ready for the mission board.</summary>
 public sealed record Mission(
@@ -24,6 +25,7 @@ public sealed record Mission(
     int Reward,
     CommodityDef? Cargo,
     int Tonnes,
+    int DeadlineDays,
     ComplicationDef? Complication,
     string? ComplicationReveal,
     string? ComplicationAftermath,
@@ -64,12 +66,13 @@ public static class MissionGenerator
             var options = db.Commodities.Values.Where(c => template.CargoCategories.Contains(c.Category))
                 .OrderBy(c => c.Id, StringComparer.Ordinal).ToList();
             cargo = rng.Pick(options);
-            tonnes = 4 + rng.Next(57);
+            tonnes = 2 + rng.Next(31);
         }
 
         float scale = template.Scale switch { "skirmish" => 1.5f, "battle" => 2.5f, "war" => 4f, _ => 1f };
         int reward = RoundTo((template.BaseReward + (cargo?.BasePrice ?? 0) * tonnes / 10f) * scale * rng.Range(0.85f, 1.25f), 50);
 
+        int deadlineDays = Math.Max(context.MinDeadlineDays + 2 + rng.Next(4), 3 + rng.Next(12));
         var clientRace = db.Races.GetValueOrDefault(context.Giver.RaceId);
         var variables = new Dictionary<string, string>
         {
@@ -82,7 +85,7 @@ public static class MissionGenerator
             ["tonnes"] = tonnes.ToString(),
             ["reward"] = $"{reward:N0} cr",
             ["target"] = PersonName(db, db.Races.Values.OrderBy(r => r.Id).ElementAt(rng.Next(db.Races.Count)), rng),
-            ["deadline"] = $"{3 + rng.Next(12)} days",
+            ["deadline"] = $"{deadlineDays} days",
         };
 
         var aliases = new Dictionary<string, string> { [ContentRules.VoiceAlias] = VoiceGrammarFor(db, clientRace) };
@@ -104,6 +107,7 @@ public static class MissionGenerator
             reward,
             cargo,
             tonnes,
+            deadlineDays,
             complication,
             complication == null ? null : Text(complication.TextGrammar, "reveal"),
             complication == null ? null : Text(complication.TextGrammar, "aftermath"),

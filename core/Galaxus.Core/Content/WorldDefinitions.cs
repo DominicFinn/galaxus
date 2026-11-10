@@ -91,6 +91,23 @@ public sealed class ComplicationDef
     public string TextGrammar { get; set; } = "";
 }
 
+/// <summary>A great power from the lore bible, seeded by the galaxy generator in its arm and region.</summary>
+public sealed class PowerDef
+{
+    public string Id { get; set; } = "";
+    public string Name { get; set; } = "";
+    public string Race { get; set; } = "";
+    public string FactionType { get; set; } = "";
+    /// <summary>meridian, tolland, anvil or shroud.</summary>
+    public string Arm { get; set; } = "";
+    /// <summary>core, inner, outer or rim: where its home system is.</summary>
+    public string Region { get; set; } = "";
+    /// <summary>How many systems it holds at the start.</summary>
+    public int Systems { get; set; } = 10;
+    /// <summary>Map colour, #rrggbb.</summary>
+    public string Colour { get; set; } = "#888888";
+}
+
 /// <summary>The fixed vocabularies content has to use, and the grammar rules the game asks for.</summary>
 public static class ContentRules
 {
@@ -99,6 +116,9 @@ public static class ContentRules
         "food", "water", "medical", "ore", "metals", "industrial", "machinery", "consumer", "luxury",
         "technology", "weapons", "narcotics", "slaves", "data", "elder-artefacts", "rim-tech", "fuel",
     ];
+
+    public static readonly string[] Regions = ["core", "inner", "outer", "rim"];
+    public static readonly string[] Arms = ["meridian", "tolland", "anvil", "shroud"];
 
     public static readonly HashSet<string> Legalities = ["legal", "restricted", "contraband"];
 

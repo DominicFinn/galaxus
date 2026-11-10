@@ -47,6 +47,7 @@ public sealed class ContentDatabase
     public Dictionary<string, EventDef> Events { get; } = [];
     public Dictionary<string, MissionTemplateDef> Missions { get; } = [];
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
+    public Dictionary<string, PowerDef> Powers { get; } = [];
     public GrammarLibrary Grammars { get; } = new();
 
     /// <summary>Problems found while loading. Only filled when loaded with throwOnProblems: false.</summary>
@@ -77,6 +78,7 @@ public sealed class ContentDatabase
         LoadInto(source, "events", db.Events, e => e.Id, problems);
         LoadInto(source, "missions", db.Missions, m => m.Id, problems);
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
+        LoadInto(source, "powers", db.Powers, p => p.Id, problems);
 
         var grammars = new Dictionary<string, GrammarDef>();
         LoadInto(source, "grammars", grammars, g => g.Id, problems);
@@ -290,6 +292,17 @@ public sealed class ContentDatabase
             if (m.TextGrammar == "") p.Add($"{at}: needs a textGrammar.");
             foreach (var rule in ContentRules.MissionTextRules) CheckGrammar(at, m.TextGrammar, rule, p);
             CheckVariables(at, m.TextGrammar, ContentRules.MissionVariables, p);
+        }
+
+        foreach (var power in Powers.Values)
+        {
+            string at = $"Power '{power.Id}'";
+            if (!Races.ContainsKey(power.Race)) p.Add($"{at}: unknown race '{power.Race}'.");
+            if (!FactionTypes.ContainsKey(power.FactionType)) p.Add($"{at}: unknown faction type '{power.FactionType}'.");
+            if (!ContentRules.Arms.Contains(power.Arm)) p.Add($"{at}: arm must be one of {Join(ContentRules.Arms)}.");
+            if (!ContentRules.Regions.Contains(power.Region)) p.Add($"{at}: region must be one of {Join(ContentRules.Regions)}.");
+            if (power.Systems < 1) p.Add($"{at}: needs at least one system.");
+            if (!IsHexColour(power.Colour)) p.Add($"{at}: colour '{power.Colour}' is not #rrggbb.");
         }
 
         if (Missions.Count > 0)
