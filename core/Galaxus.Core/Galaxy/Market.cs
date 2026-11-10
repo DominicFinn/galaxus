@@ -258,7 +258,7 @@ public static class Market
     }
 
     /// <summary>A smooth value from -1 to 1 that drifts week by week: each week has a target, and days blend between them.</summary>
-    private static float Drift(ulong seed, int day)
+    internal static float Drift(ulong seed, int day)
     {
         int week = (int)Math.Floor(day / 7.0);
         float frac = (day - week * 7) / 7f;

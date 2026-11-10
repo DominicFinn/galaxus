@@ -97,23 +97,21 @@ public sealed class Career
         foreach (var stale in Trades.Where(t => day - t.Value.Day > 30).Select(t => t.Key).ToList()) Trades.Remove(stale);
     }
 
-    /// <summary>Trade-in value of the current ship: 60% of its list price.</summary>
-    public int TradeInValue(ContentDatabase db) => db.Hulls[HullId].Price * 6 / 10;
-
-    /// <summary>Why the hull can't be bought, or null if it can.</summary>
-    public string? CannotBuyShip(ContentDatabase db, HullDef hull)
+    /// <summary>Why the ship can't be bought, or null if it can.</summary>
+    public string? CannotBuyShip(ContentDatabase db, ShipOffer offer, int tradeIn)
     {
+        var hull = offer.Hull;
         if (hull.Id == HullId) return "You already fly one.";
-        if (hull.Price - TradeInValue(db) > Credits) return $"You need {hull.Price - TradeInValue(db):N0} cr after trade-in.";
+        if (offer.Price - tradeIn > Credits) return $"You need {offer.Price - tradeIn:N0} cr after trade-in.";
         int capacity = hull.CargoTonnes + (int)hull.DefaultLoadout.Select(id => db.Parts[id]).Where(p => p.Type == "cargo").Sum(p => p.Stats.GetValueOrDefault("tonnes"));
         if (capacity < CargoUsed) return $"Its hold is too small for your {CargoUsed} t of cargo.";
         return null;
     }
 
-    public void BuyShip(ContentDatabase db, HullDef hull)
+    public void BuyShip(ShipOffer offer, int tradeIn)
     {
-        Credits -= hull.Price - TradeInValue(db);
-        HullId = hull.Id;
+        Credits -= offer.Price - tradeIn;
+        HullId = offer.Hull.Id;
         Loadout = null;
     }
 

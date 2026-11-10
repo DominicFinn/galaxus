@@ -38,7 +38,7 @@ public partial class StationScreen : PanelContainer
     private HBoxContainer _topics = null!;
     private Button _haggle = null!;
     private readonly Dictionary<string, List<string>> _transcripts = [];
-    private List<HullDef> _hulls = [];
+    private List<ShipOffer> _hulls = [];
     private List<CommodityDef> _commodities = [];
 
     public string StationName { get; private set; } = "";
@@ -199,7 +199,7 @@ public partial class StationScreen : PanelContainer
         if (root == null) return false;
         foreach (var item in root.GetChildren())
         {
-            if (_hulls[item.GetMetadata(0).AsInt32()].Id != hullId) continue;
+            if (_hulls[item.GetMetadata(0).AsInt32()].Hull.Id != hullId) continue;
             item.Select(0);
             _yard.ScrollToItem(item);
             ShowSelectedShip();
@@ -460,25 +460,32 @@ public partial class StationScreen : PanelContainer
         var root = _yard.CreateItem();
         for (int i = 0; i < _hulls.Count; i++)
         {
-            var h = _hulls[i];
+            var (h, price) = _hulls[i];
             var item = _yard.CreateItem(root);
             item.SetText(0, $"{h.Name} ({db.Builders[h.Builder].Name})");
             item.SetText(1, h.Class);
-            item.SetText(2, $"{h.Price:N0}");
+            item.SetText(2, $"{price:N0}");
+            // White: below its usual price. Amber: dear here.
+            var (low, high) = Shipyards.Range(h);
+            if (price < low + (high - low) * 0.3f) item.SetCustomColor(2, Colors.White);
+            else if (price > low + (high - low) * 0.7f) item.SetCustomColor(2, Ui.Amber);
             item.SetMetadata(0, i);
             if (h.Id == _session.Career.HullId) item.SetCustomColor(0, Colors.White);
         }
-        _yardText.Text = $"Your {db.Hulls[_session.Career.HullId].Name} is worth {_session.Career.TradeInValue(db):N0} cr in trade.";
+        _yardText.Text = (_hulls.Count == 0 ? "Nothing on sale this week. Stock changes weekly, and bigger stations carry more.\n\n" : "Stock changes week by week.\n\n")
+            + $"Your {db.Hulls[_session.Career.HullId].Name} is worth {_session.TradeInValue():N0} cr in trade here.";
         _buyShip.Disabled = true;
         _yardReason.Text = "";
     }
 
-    private HullDef? SelectedHull => _yard.GetSelected() is { } item ? _hulls[item.GetMetadata(0).AsInt32()] : null;
+    private ShipOffer? SelectedHull => _yard.GetSelected() is { } item ? _hulls[item.GetMetadata(0).AsInt32()] : null;
 
     private void ShowSelectedShip()
     {
-        if (SelectedHull is not { } h) return;
+        if (SelectedHull is not { } offer) return;
+        var h = offer.Hull;
         var db = _session.Db;
+        int tradeIn = _session.TradeInValue();
         var spec = Galaxus.Core.Ships.ShipFactory.Build(db, h.Id);
         var builder = db.Builders[h.Builder];
         int capacity = h.CargoTonnes + (int)h.DefaultLoadout.Select(id => db.Parts[id]).Where(p => p.Type == "cargo").Sum(p => p.Stats.GetValueOrDefault("tonnes"));
@@ -487,16 +494,18 @@ public partial class StationScreen : PanelContainer
             $"Top speed {spec.MaxSpeed:0} m/s, acceleration {spec.Acceleration:0} m/s²\n" +
             $"Hull {spec.MaxHull:0}, shields {spec.MaxShields:0}, {spec.Weapons.Count} guns\n" +
             $"Hold {capacity} t, {h.CrewBerths} crew berths\n" +
-            $"Price {h.Price:N0} cr, {h.Price - _session.Career.TradeInValue(db):N0} cr after trade-in";
-        var reason = _session.Career.CannotBuyShip(db, h);
+            $"Price {offer.Price:N0} cr here (usually {Shipyards.Range(h).Low:N0} to {Shipyards.Range(h).High:N0}), {offer.Price - tradeIn:N0} cr after trade-in";
+        var reason = _session.Career.CannotBuyShip(db, offer, tradeIn);
         _buyShip.Disabled = reason != null;
         _yardReason.Text = reason ?? "";
     }
 
     private void BuySelectedShip()
     {
-        if (SelectedHull is not { } h || _session.Career.CannotBuyShip(_session.Db, h) != null) return;
-        _session.Career.BuyShip(_session.Db, h);
+        int tradeIn = _session.TradeInValue();
+        if (SelectedHull is not { } offer || _session.Career.CannotBuyShip(_session.Db, offer, tradeIn) != null) return;
+        var h = offer.Hull;
+        _session.Career.BuyShip(offer, tradeIn);
         AudioManager.Instance?.Ui("paid");
         _shipChanged();
         Refresh($"You now fly a {h.Name}.");

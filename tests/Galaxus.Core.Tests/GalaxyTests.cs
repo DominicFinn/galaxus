@@ -118,7 +118,7 @@ public class SessionTests
         Assert.NotEmpty(session.Here.Stations);
         Assert.NotEmpty(session.Board());
         Assert.NotEmpty(session.Shipyard());
-        Assert.DoesNotContain(session.Shipyard(), h => Db.Builders[h.Builder].Region == "rim");
+        Assert.DoesNotContain(session.Shipyard(), o => Db.Builders[o.Hull.Builder].Region == "rim");
         Assert.Equal(30, session.Galaxy.Day);
     }
 

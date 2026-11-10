@@ -132,4 +132,50 @@ public class MarketTests
         Assert.Equal(Market.Quotes(session, session.Here), Market.Quotes(loaded, loaded.Here));
         Assert.Equal(session.Career.TradeRoute, loaded.Career.TradeRoute);
     }
+
+    [Fact]
+    public void Shipyards_differ_between_systems_and_change_week_to_week()
+    {
+        var session = NewGame(16);
+        var galaxy = session.Galaxy;
+        var yards = galaxy.Systems.Where(s => s.Stations.Count > 0 && s.Settled).Take(40).ToList();
+        string Stock(StarSystem s) => string.Join(",", Shipyards.Offers(session, s).Select(o => o.Hull.Id));
+        Assert.True(yards.Select(Stock).Distinct().Count() > 10, "Shipyards should carry different ships.");
+
+        var here = session.Here;
+        var weeks = Enumerable.Range(0, 6).Select(w => { galaxy.Day = 100 + w * 7; return Stock(here); }).ToList();
+        Assert.True(weeks.Distinct().Count() > 1, "Stock should change from week to week.");
+
+        foreach (var s in yards)
+        foreach (var o in Shipyards.Offers(session, s))
+        {
+            var (low, high) = Shipyards.Range(o.Hull);
+            Assert.InRange(o.Price, low - 50, high + 50);
+            Assert.False(o.Hull.IsCapital || o.Hull.Class == "drone");
+        }
+    }
+
+    [Fact]
+    public void Big_stations_carry_more_ships_than_outposts()
+    {
+        var session = NewGame(17);
+        var galaxy = session.Galaxy;
+        double Average(StationSize size) => galaxy.Systems
+            .Where(s => s.Stations.Count > 0 && s.Settled && SystemProfiles.For(galaxy, s, Db).StationSize == size)
+            .Take(40).Select(s => Shipyards.Offers(session, s).Count).DefaultIfEmpty(0).Average();
+        Assert.True(Average(StationSize.Hub) > Average(StationSize.Outpost) + 1);
+    }
+
+    [Fact]
+    public void Buying_a_ship_uses_the_local_price_and_trade_in()
+    {
+        var session = NewGame(18);
+        var offer = session.Shipyard().First(o => o.Hull.Id != session.Career.HullId);
+        int tradeIn = session.TradeInValue();
+        int credits = session.Career.Credits;
+        Assert.Null(session.Career.CannotBuyShip(Db, offer, tradeIn));
+        session.Career.BuyShip(offer, tradeIn);
+        Assert.Equal(credits - offer.Price + tradeIn, session.Career.Credits);
+        Assert.Equal(offer.Hull.Id, session.Career.HullId);
+    }
 }

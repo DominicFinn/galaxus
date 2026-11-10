@@ -115,18 +115,11 @@ public sealed class Session
                 : o)
             .ToList();
 
-    /// <summary>Hulls for sale here: builders within one region of this system. Rim designs are never sold.</summary>
-    public List<HullDef> Shipyard()
-    {
-        if (Here.Stations.Count == 0) return [];
-        int here = Array.IndexOf(ContentRules.Regions, Here.Region);
-        return Db.Hulls.Values
-            .Where(h => h.Class != "drone" && h.ForSale && !h.IsCapital)
-            .Where(h => Db.Builders.TryGetValue(h.Builder, out var b) && b.Region != "rim"
-                        && Math.Abs(Array.IndexOf(ContentRules.Regions, b.Region) - here) <= 1)
-            .OrderBy(h => h.Price).ThenBy(h => h.Id, StringComparer.Ordinal)
-            .ToList();
-    }
+    /// <summary>Ships on sale here this week, at this yard's prices.</summary>
+    public List<ShipOffer> Shipyard() => Shipyards.Offers(this, Here);
+
+    /// <summary>What this yard will give for your current ship.</summary>
+    public int TradeInValue() => Shipyards.TradeIn(this, Here, Career.HullId);
 
     public float JumpRangeLy => Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpRangeLy;
 
