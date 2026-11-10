@@ -18,6 +18,10 @@ public partial class AudioManager : Node
     private ContentDatabase _db = null!;
     private readonly Dictionary<string, AudioStreamWav> _cache = [];
     private readonly ConcurrentQueue<(string Key, float[] Samples)> _readyMusic = new();
+    // Songs are a few megabytes each, so only the current place's moods are kept.
+    private readonly Dictionary<string, AudioStreamWav> _musicCache = [];
+    private string? _musicPlace;
+    private float _musicFadeSeconds = 2.5f;
     private readonly List<AudioStreamPlayer> _ui = [];
     private readonly List<AudioStreamPlayer3D> _world = [];
     private int _nextUi, _nextWorld;
@@ -87,10 +91,10 @@ public partial class AudioManager : Node
         return stream;
     }
 
-    private static AudioStreamWav ToStream(float[] samples, bool stereo, bool loop) => new()
+    private static AudioStreamWav ToStream(float[] samples, bool stereo, bool loop, int rate = Synth.SampleRate) => new()
     {
         Format = AudioStreamWav.FormatEnum.Format16Bits,
-        MixRate = Synth.SampleRate,
+        MixRate = rate,
         Stereo = stereo,
         Data = Synth.ToPcm16(samples),
         LoopMode = loop ? AudioStreamWav.LoopModeEnum.Forward : AudioStreamWav.LoopModeEnum.Disabled,
@@ -101,40 +105,54 @@ public partial class AudioManager : Node
     // Music --------------------------------------------------------------------------------
 
     /// <summary>
-    /// Plays a style's song for this place. Composing happens off the main thread; the new song
-    /// crossfades in when it's ready. Asking for what's already playing does nothing.
+    /// Plays a style's song for this place in a mood. Composing happens off the main thread; the new
+    /// song crossfades in when it's ready. A change of mood in the same place picks up at the same
+    /// point in the song, since the moods share their tempo and chords, so it sounds like the band
+    /// changing gear. Asking for what's already playing does nothing.
     /// </summary>
-    public void PlayMusic(string styleId, ulong seed)
+    public void PlayMusic(string styleId, ulong seed, Mood mood = Mood.Flight)
     {
         if (!_db.MusicStyles.TryGetValue(styleId, out var style)) style = _db.MusicStyles.GetValueOrDefault("human");
         if (style == null) return;
-        string key = $"music-{style.Id}-{seed}";
+        string place = $"music-{style.Id}-{seed}";
+        string key = $"{place}-{mood}";
         if (key == _musicKey || key == _pendingMusicKey) return;
+        if (place != _musicPlace)
+        {
+            // A new place: forget the old place's songs (the one playing keeps its stream).
+            _musicCache.Clear();
+            _musicPlace = place;
+        }
         _pendingMusicKey = key;
-        if (_cache.TryGetValue(key, out var cached)) { StartMusic(key, cached); return; }
-        Task.Run(() => _readyMusic.Enqueue((key, Composer.Render(Composer.Compose(style, seed)))));
+        if (_musicCache.TryGetValue(key, out var cached)) { StartMusic(key, cached); return; }
+        Task.Run(() => _readyMusic.Enqueue((key, Composer.Render(Composer.Compose(style, seed, mood)))));
     }
 
     private void StartMusic(string key, AudioStreamWav stream)
     {
         if (key != _pendingMusicKey) return;
-        _cache[key] = stream;
+        if (_musicPlace != null && key.StartsWith(_musicPlace)) _musicCache[key] = stream;
+        var previous = _aIsCurrent ? _musicA : _musicB;
+        bool sameSong = _musicKey != null && _musicPlace != null && _musicKey.StartsWith(_musicPlace) && previous.Playing;
+        float from = sameSong ? previous.GetPlaybackPosition() + (float)AudioServer.GetTimeSinceLastMix() : 0;
         _musicKey = key;
         _pendingMusicKey = null;
         _aIsCurrent = !_aIsCurrent;
         var player = _aIsCurrent ? _musicA : _musicB;
         player.Stream = stream;
-        player.Play();
+        player.Play(from);
         _musicFade = 0;
+        // Mood changes blend slowly; a new place crossfades a little quicker.
+        _musicFadeSeconds = sameSong ? 4f : 2.5f;
         UpdateMusicVolumes();
     }
 
     public override void _Process(double delta)
     {
-        while (_readyMusic.TryDequeue(out var ready)) StartMusic(ready.Key, ToStream(ready.Samples, stereo: true, loop: true));
+        while (_readyMusic.TryDequeue(out var ready)) StartMusic(ready.Key, ToStream(ready.Samples, stereo: true, loop: true, rate: Lofi.Rate));
         if (_musicFade < 1)
         {
-            _musicFade = Mathf.Min(1, _musicFade + (float)delta / 2.5f);
+            _musicFade = Mathf.Min(1, _musicFade + (float)delta / _musicFadeSeconds);
             UpdateMusicVolumes();
             if (_musicFade >= 1) (_aIsCurrent ? _musicB : _musicA).Stop();
         }

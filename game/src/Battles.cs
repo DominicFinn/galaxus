@@ -68,6 +68,7 @@ public partial class Main
         _battle.EnemySkillScale = GameSettings.Current.EnemySkill;
         _player.DamageTakenScale = GameSettings.Current.DamageTaken;
         _battleJob = job;
+        UpdateAudioForScreen();
         _battleCleanup = 0;
         SetWarp(1, "");
         _player.Target = null;
@@ -151,6 +152,7 @@ public partial class Main
         }
         _hud.Objectives = null;
         _battle = null;
+        UpdateAudioForScreen();
     }
 
     /// <summary>Everything worth pointing a gun at: enemies first, nearest first, then anyone else.</summary>

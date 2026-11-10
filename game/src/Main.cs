@@ -385,14 +385,21 @@ public partial class Main : Node3D
         if (_stationBody >= 0) _hud.Message($"IN ORBIT OF {_solar.Bodies[_stationBody].Name.ToUpperInvariant()}");
     }
 
-    /// <summary>Music follows the local owner's race; stations add machinery; flight adds the engine.</summary>
+    /// <summary>
+    /// Music follows the local owner's race, and its mood follows what you're doing: calm when
+    /// docked, a little more movement in flight, tenser in a battle. Stations add machinery; flight
+    /// adds the engine.
+    /// </summary>
     private void UpdateAudioForScreen()
     {
         var audio = AudioManager.Instance;
         if (audio == null || _sessionOrNull == null) return;
         var here = _session.Here;
         string style = _session.Galaxy.OwnerOf(here)?.RaceId ?? (here.Region == "rim" ? "dark-elf" : "human");
-        audio.PlayMusic(style, here.Seed % 3);
+        var mood = _battle != null ? Galaxus.Core.Audio.Mood.Combat
+            : _screen == Screen.Docked ? Galaxus.Core.Audio.Mood.Docked
+            : Galaxus.Core.Audio.Mood.Flight;
+        audio.PlayMusic(style, here.Seed % 3, mood);
         audio.SetAmbience(_screen == Screen.Docked ? here.Economy.ToString() : null, here.Seed);
         if (_screen != Screen.Flight) audio.SetEngine(null, 0, 0);
     }

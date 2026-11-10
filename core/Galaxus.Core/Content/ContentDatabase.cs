@@ -472,21 +472,28 @@ public sealed class ContentDatabase
         {
             string at = $"Music style '{style.Id}'";
             if (!Audio.Composer.Scales.TryGetValue(style.Scale, out var scale)) { p.Add($"{at}: scale '{style.Scale}' is unknown. Use one of {Join(Audio.Composer.Scales.Keys)}."); continue; }
-            if (style.Tempo.Length != 2 || style.Tempo[0] < 40 || style.Tempo[1] > 220 || style.Tempo[0] > style.Tempo[1]) p.Add($"{at}: tempo needs [min, max] between 40 and 220.");
-            if (style.Root is < 28 or > 64) p.Add($"{at}: root should be a MIDI note from 28 to 64.");
-            if (style.Progressions.Count == 0 || style.Progressions.Any(pr => pr.Length == 0 || pr.Any(d => d < 1 || d > scale.Length)))
-                p.Add($"{at}: progressions need degrees from 1 to {scale.Length}.");
-            foreach (var (name, voice) in new[] { ("lead", style.Lead), ("harmony", style.Harmony), ("bass", style.Bass), ("arp", style.Arp), ("pad", style.Pad) })
+            if (style.Tempo.Length != 2 || style.Tempo[0] < 50 || style.Tempo[1] > 120 || style.Tempo[0] > style.Tempo[1]) p.Add($"{at}: tempo needs [min, max] between 50 and 120.");
+            if (style.Root is < 33 or > 52) p.Add($"{at}: root should be a MIDI note from 33 to 52 (the bass register).");
+            if (style.Progressions.Count == 0 || style.Progressions.Any(pr => pr.Length is not (4 or 8) || pr.Any(d => d < 1 || d > scale.Length)))
+                p.Add($"{at}: progressions need four or eight chords, each a degree from 1 to {scale.Length}.");
+            if (style.Ninths is < 0 or > 1) p.Add($"{at}: ninths should be 0 to 1.");
+            if (style.Swing is < 0 or > 0.35f) p.Add($"{at}: swing should be 0 to 0.35.");
+            void Part(string name, Audio.PartDef part, HashSet<string> instruments, HashSet<string>? patterns)
             {
-                if (voice.Wave != "off" && !Audio.Synth.WaveNames.Contains(voice.Wave)) p.Add($"{at}: {name} wave '{voice.Wave}' is unknown.");
-                if (voice.Octave is < -1 or > 4) p.Add($"{at}: {name} octave should be -1 to 4.");
+                if (!instruments.Contains(part.Instrument)) p.Add($"{at}: {name} instrument '{part.Instrument}' is unknown. Use {Join(instruments)}.");
+                if (patterns != null && part.Pattern != "" && !patterns.Contains(part.Pattern)) p.Add($"{at}: {name} pattern '{part.Pattern}' is unknown. Use {Join(patterns)}.");
+                if (part.Volume is < 0 or > 2) p.Add($"{at}: {name} volume should be 0 to 2.");
+                if (part.Density is < 0 or > 1 || part.Tone is < 0 or > 1) p.Add($"{at}: {name} density and tone should be 0 to 1.");
             }
-            if (!Audio.Composer.BassPatterns.Contains(style.Bass.Pattern)) p.Add($"{at}: bass pattern '{style.Bass.Pattern}' is unknown. Use {Join(Audio.Composer.BassPatterns)}.");
-            if (!Audio.Composer.ArpPatterns.Contains(style.Arp.Pattern)) p.Add($"{at}: arp pattern '{style.Arp.Pattern}' is unknown.");
-            if (!Audio.Composer.HarmonyPatterns.Contains(style.Harmony.Pattern)) p.Add($"{at}: harmony pattern '{style.Harmony.Pattern}' is unknown.");
-            if (style.Drums.Kick is not ("four" or "two" or "half" or "off")) p.Add($"{at}: kick must be four, two, half or off.");
-            if (style.Drums.Snare is not ("backbeat" or "march" or "sparse" or "off")) p.Add($"{at}: snare must be backbeat, march, sparse or off.");
-            if (style.Drums.Hats is not ("eighth" or "sixteenth" or "quarter" or "off")) p.Add($"{at}: hats must be eighth, sixteenth, quarter or off.");
+            Part("keys", style.Keys, Audio.Lofi.KeysInstruments, Audio.Composer.KeysPatterns);
+            Part("bass", style.Bass, Audio.Lofi.BassInstruments, Audio.Composer.BassPatterns);
+            Part("lead", style.Lead, Audio.Lofi.LeadInstruments, null);
+            Part("pad", style.Pad, Audio.Lofi.PadInstruments, null);
+            Part("plucks", style.Plucks, Audio.Lofi.PluckInstruments, Audio.Composer.PluckPatterns);
+            if (!Audio.Lofi.DrumKits.Contains(style.Drums.Kit)) p.Add($"{at}: drum kit '{style.Drums.Kit}' is unknown. Use {Join(Audio.Lofi.DrumKits)}.");
+            if (style.Drums.Busy is < 0 or > 1 || style.Drums.Volume is < 0 or > 2) p.Add($"{at}: drums busy should be 0 to 1 and volume 0 to 2.");
+            var sp = style.Space;
+            if (new[] { sp.Shimmer, sp.Reverb, sp.Vinyl, sp.Hiss, sp.Wow, sp.Warmth }.Any(v => v is < 0 or > 1)) p.Add($"{at}: space values should be 0 to 1.");
         }
 
         foreach (var style in Portraits.Values)

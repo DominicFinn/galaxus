@@ -1,61 +1,82 @@
 namespace Galaxus.Core.Audio;
 
-/// <summary>A musical style from game/data/music: the rules the composer follows for one culture.</summary>
+/// <summary>
+/// A lo-fi music style from game/data/music: the rules the composer follows for one race or culture.
+/// Every style shares the same eight channels; the rules set the key, tempo, instruments, groove
+/// and how much space, tape and vinyl there is.
+/// </summary>
 public sealed class MusicStyleDef
 {
     public string Id { get; set; } = "";
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
-    /// <summary>Beats per minute, [min, max].</summary>
-    public int[] Tempo { get; set; } = [100, 120];
+    /// <summary>Beats per minute, [min, max]. Lo-fi sits around 60 to 90.</summary>
+    public int[] Tempo { get; set; } = [70, 80];
     /// <summary>Scale name, see Composer.Scales.</summary>
-    public string Scale { get; set; } = "aeolian";
-    /// <summary>MIDI note of the key's root, e.g. 45 for A2.</summary>
-    public int Root { get; set; } = 45;
-    /// <summary>Chord progressions as scale degrees (1 to 7), four chords of two bars each.</summary>
-    public List<int[]> Progressions { get; set; } = [[1, 6, 4, 5]];
-    public VoiceDef Lead { get; set; } = new() { Wave = "square25", Octave = 2 };
-    public VoiceDef Harmony { get; set; } = new() { Wave = "square50", Octave = 1, Volume = 0.5f };
-    public VoiceDef Bass { get; set; } = new() { Wave = "triangle", Octave = 0, Pattern = "root" };
-    public VoiceDef Arp { get; set; } = new() { Wave = "square12", Octave = 1, Pattern = "up" };
-    public VoiceDef Pad { get; set; } = new() { Wave = "triangle", Octave = 1, Volume = 0.4f };
+    public string Scale { get; set; } = "dorian";
+    /// <summary>MIDI note of the key's root in the bass register, e.g. 41 for F2.</summary>
+    public int Root { get; set; } = 41;
+    /// <summary>Chord progressions as scale degrees, one chord a bar, four or eight chords each.</summary>
+    public List<int[]> Progressions { get; set; } = [[2, 5, 1, 6]];
+    /// <summary>0 to 1: how often a chord gets a ninth on top of its seventh.</summary>
+    public float Ninths { get; set; } = 0.5f;
+    /// <summary>0 to 0.35: how late the off-beat eighths land.</summary>
+    public float Swing { get; set; } = 0.15f;
+    public PartDef Keys { get; set; } = new() { Instrument = "rhodes", Pattern = "comp" };
+    public PartDef Bass { get; set; } = new() { Instrument = "sub", Pattern = "lazy" };
+    public PartDef Lead { get; set; } = new() { Instrument = "flute", Density = 0.35f };
+    public PartDef Pad { get; set; } = new() { Instrument = "warm", Volume = 0.7f };
+    public PartDef Plucks { get; set; } = new() { Instrument = "kalimba", Pattern = "ostinato", Volume = 0.6f };
     public DrumsDef Drums { get; set; } = new();
-    /// <summary>0 to 1: how busy the melody is.</summary>
-    public float Density { get; set; } = 0.6f;
-    /// <summary>0 to 0.3: how much off-beat eighths are delayed.</summary>
-    public float Swing { get; set; }
+    public SpaceDef Space { get; set; } = new();
 }
 
-public sealed class VoiceDef
+public sealed class PartDef
 {
-    /// <summary>square12, square25, square50, triangle, saw, sine, noise, or "off".</summary>
-    public string Wave { get; set; } = "square25";
-    /// <summary>Octaves above the style's root.</summary>
-    public int Octave { get; set; }
-    public float Volume { get; set; } = 1f;
-    /// <summary>Bass: root, pulse, walk, offbeat, drone. Arp: up, down, updown, random, off. Harmony: thirds, sixths, off.</summary>
+    /// <summary>Which instrument plays the part; see the sets in <see cref="Lofi"/>. "off" leaves it out.</summary>
+    public string Instrument { get; set; } = "off";
+    /// <summary>Keys: comp, sustain, rolled. Bass: lazy, walk, sub, bounce. Plucks: ostinato, arp, sparse.</summary>
     public string Pattern { get; set; } = "";
-    /// <summary>Vibrato depth in percent of pitch.</summary>
-    public float Vibrato { get; set; }
+    public float Volume { get; set; } = 1f;
+    /// <summary>0 to 1: how busy the part is.</summary>
+    public float Density { get; set; } = 0.5f;
+    /// <summary>0 to 1: how bright the instrument sounds.</summary>
+    public float Tone { get; set; } = 0.5f;
 }
 
 public sealed class DrumsDef
 {
-    /// <summary>four, two, half, off.</summary>
-    public string Kick { get; set; } = "two";
-    /// <summary>backbeat, march, sparse, off.</summary>
-    public string Snare { get; set; } = "backbeat";
-    /// <summary>eighth, sixteenth, quarter, off.</summary>
-    public string Hats { get; set; } = "eighth";
-    /// <summary>An anvil-like metal hit every other bar.</summary>
-    public bool Metal { get; set; }
+    /// <summary>boom-bap, brushes, dusty, glitch or off.</summary>
+    public string Kit { get; set; } = "boom-bap";
     public float Volume { get; set; } = 1f;
+    /// <summary>0 to 1: extra kicks, ghost notes and fills.</summary>
+    public float Busy { get; set; } = 0.4f;
 }
 
+public sealed class SpaceDef
+{
+    /// <summary>0 to 1: the high shimmer that gives the sense of space.</summary>
+    public float Shimmer { get; set; } = 0.5f;
+    /// <summary>0 to 1: how big and how loud the reverb is.</summary>
+    public float Reverb { get; set; } = 0.6f;
+    /// <summary>0 to 1: vinyl crackle.</summary>
+    public float Vinyl { get; set; } = 0.4f;
+    /// <summary>0 to 1: tape hiss.</summary>
+    public float Hiss { get; set; } = 0.3f;
+    /// <summary>0 to 1: tape wobble.</summary>
+    public float Wow { get; set; } = 0.4f;
+    /// <summary>0 to 1: how much the top end is rolled off.</summary>
+    public float Warmth { get; set; } = 0.6f;
+}
+
+/// <summary>Where you are, which sets how much is going on in the music.</summary>
+public enum Mood { Docked, Flight, Combat }
+
 /// <summary>
-/// Writes and renders chiptune loops. Eight channels: lead, harmony, bass, arpeggio, pad, kick,
-/// snare and hats. Each song is 24 bars in an A, B, A shape, two bars per chord, and loops cleanly.
-/// The same style and seed always give the same song.
+/// Writes and renders lo-fi songs. Eight channels: keys, bass, lead, pad, drums, plucks, space and
+/// texture (tape and vinyl). A song is 44 bars: intro, A, B, A, a break, B, outro, and it loops
+/// cleanly back to the intro. The same style, seed and mood always give the same song, and the three
+/// moods of a style and seed share their key, tempo and chords, so they can crossfade.
 /// </summary>
 public static class Composer
 {
@@ -74,221 +95,484 @@ public static class Composer
         ["whole-tone"] = [0, 2, 4, 6, 8, 10],
     };
 
-    public static readonly HashSet<string> BassPatterns = ["root", "pulse", "walk", "offbeat", "drone"];
-    public static readonly HashSet<string> ArpPatterns = ["up", "down", "updown", "random", "off", ""];
-    public static readonly HashSet<string> HarmonyPatterns = ["thirds", "sixths", "off", ""];
+    public static readonly HashSet<string> KeysPatterns = ["comp", "sustain", "rolled"];
+    public static readonly HashSet<string> BassPatterns = ["lazy", "walk", "sub", "bounce"];
+    public static readonly HashSet<string> PluckPatterns = ["ostinato", "arp", "sparse"];
 
-    private const int Bars = 24;
+    public const int Keys = 0, Bass = 1, Lead = 2, Pad = 3, Drums = 4, Plucks = 5, Space = 6;
 
-    public sealed record Note(int Channel, float Beat, float Beats, float Midi, float Velocity);
+    /// <summary>A note. Drums use <paramref name="Piece"/> (see Lofi.Kick and friends) instead of a pitch.</summary>
+    public sealed record Note(int Channel, float Beat, float Beats, float Midi, float Velocity, int Piece = 0);
 
-    public sealed record Song(MusicStyleDef Style, int Tempo, List<Note> Notes)
+    public sealed record Section(string Name, int StartBar, int Bars, int Progression);
+
+    public sealed record Song(MusicStyleDef Style, Mood Mood, ulong Seed, int Tempo, List<Section> Sections, List<Note> Notes)
     {
+        public int Bars => Sections.Sum(s => s.Bars);
         public float SecondsPerBeat => 60f / Tempo;
         public float Seconds => Bars * 4 * SecondsPerBeat;
     }
 
-    private static int Degree(int[] scale, int root, int degree, int octave)
+    private static readonly (string Name, int Bars, int Progression)[] Form =
+        [("intro", 4, 0), ("a", 8, 0), ("b", 8, 1), ("a2", 8, 0), ("break", 4, 1), ("b2", 8, 1), ("outro", 4, 0)];
+
+    /// <summary>Composes a song. Moods change the arrangement, not the key, tempo or chords.</summary>
+    public static Song Compose(MusicStyleDef style, ulong seed, Mood mood = Mood.Flight)
+    {
+        // The shared material (tempo, chords, motifs) comes from the style and seed alone.
+        var rng = new Rng(seed ^ Rng.Hash("lofi:" + style.Id));
+        int[] scale = Scales[style.Scale];
+        int tempo = style.Tempo[0] + rng.Next(Math.Max(1, style.Tempo[1] - style.Tempo[0] + 1));
+        var progA = rng.Pick(style.Progressions);
+        var progB = style.Progressions.Count > 1 ? style.Progressions.First(p => p != progA) : Variation(progA);
+        int[][] progressions = [progA, progB];
+        var ninths = Enumerable.Range(0, 16).Select(_ => rng.NextFloat() < style.Ninths).ToArray();
+        var keysRhythms = Enumerable.Range(0, 4).Select(_ => KeysRhythm(rng)).ToArray();
+        var leadMotifs = new[] { Motif(rng, style.Lead.Density), Motif(rng, style.Lead.Density) };
+        var ostinatos = new[] { Ostinato(rng, style.Plucks.Density), Ostinato(rng, style.Plucks.Density) };
+        // Details that may differ between moods (humanising, fills) come from their own stream.
+        var feel = new Rng(seed ^ Rng.Hash($"lofi-feel:{style.Id}:{mood}"));
+
+        var notes = new List<Note>();
+        var sections = new List<Section>();
+        int bar = 0;
+        int[]? lastVoicing = null;
+        int leadDegree = 17;
+        foreach (var (name, bars, progIndex) in Form)
+        {
+            sections.Add(new Section(name, bar, bars, progIndex));
+            var prog = progressions[progIndex];
+            var parts = Arrangement(name, mood, style);
+            for (int b = 0; b < bars; b++, bar++)
+            {
+                float beat0 = bar * 4;
+                int chordIndex = b % prog.Length;
+                int degree = prog[chordIndex];
+                int nextDegree = prog[(b + 1) % prog.Length];
+                bool ninth = ninths[(progIndex * 8 + chordIndex) % ninths.Length];
+                var tones = ChordTones(scale, style.Root, degree, ninth);
+                bool lastBar = b == bars - 1;
+
+                if (parts.Keys)
+                {
+                    var voicing = Voice(tones, lastVoicing, style.Root + 22);
+                    lastVoicing = voicing;
+                    AddKeys(notes, style, voicing, beat0, keysRhythms[(bar / 2) % keysRhythms.Length], feel, mood);
+                }
+                if (parts.Bass) AddBass(notes, style, scale, tones, degree, nextDegree, beat0, mood, feel, parts.BassSustain);
+                if (parts.Pad) AddPad(notes, tones, beat0);
+                if (parts.Plucks) AddPlucks(notes, style, tones, beat0, ostinatos[progIndex], feel);
+                if (parts.Lead && b % 2 == 0)
+                    leadDegree = AddLead(notes, style, scale, prog, b, beat0, leadMotifs[progIndex], feel, leadDegree, mood);
+                if (parts.Drums != DrumLevel.None) AddDrums(notes, style, beat0, b, lastBar, parts.Drums, mood, feel);
+                if (parts.Shimmer && b % 4 == 0)
+                {
+                    float hold = Math.Min(4, bars - b) * 4 - 0.5f;
+                    int pc = ((tones[0] - style.Root) % 12 + 12) % 12;
+                    notes.Add(new Note(Space, beat0, hold, style.Root + 48 + pc, style.Space.Shimmer));
+                    notes.Add(new Note(Space, beat0 + 2, hold - 2, style.Root + 55 + pc, style.Space.Shimmer * 0.6f));
+                }
+            }
+        }
+        return new Song(style, mood, seed, tempo, sections, notes);
+    }
+
+    private enum DrumLevel { None, Light, Full }
+
+    private sealed record Parts(bool Keys, bool Bass, bool BassSustain, bool Lead, bool Pad, bool Plucks, bool Shimmer, DrumLevel Drums);
+
+    /// <summary>Which channels play in each section, by mood. Docked is sparse; combat keeps the drums going.</summary>
+    private static Parts Arrangement(string section, Mood mood, MusicStyleDef style)
+    {
+        bool calm = mood == Mood.Docked, tense = mood == Mood.Combat;
+        DrumLevel full = calm ? DrumLevel.Light : DrumLevel.Full;
+        return section switch
+        {
+            "intro" => new(true, tense, !tense, false, true, false, true, tense ? DrumLevel.Light : DrumLevel.None),
+            "a" => new(true, true, false, false, false, style.Plucks.Density > 0.6f, false, full),
+            "b" => new(true, true, false, !calm, true, true, false, full),
+            "a2" => new(true, true, false, true, false, false, false, full),
+            "break" => new(true, true, true, false, true, true, true, tense ? DrumLevel.Light : DrumLevel.None),
+            "b2" => new(true, true, false, true, true, true, !tense, full),
+            _ => new(true, true, true, false, true, false, true, tense ? DrumLevel.Light : DrumLevel.None),
+        };
+    }
+
+    // Harmony ------------------------------------------------------------------------------
+
+    private static int Pitch(int[] scale, int root, int degree)
     {
         int index = degree - 1;
         int octaves = (int)Math.Floor(index / (double)scale.Length);
         int step = ((index % scale.Length) + scale.Length) % scale.Length;
-        return root + 12 * (octave + octaves) + scale[step];
+        return root + 12 * octaves + scale[step];
     }
 
-    /// <summary>Scale degrees of the chord on a degree: stacked thirds for 7-note scales, neighbours for the rest.</summary>
-    private static int[] Chord(int[] scale, int degree) =>
-        scale.Length == 7 ? [degree, degree + 2, degree + 4] : [degree, degree + 1, degree + 2];
-
-    public static Song Compose(MusicStyleDef style, ulong seed)
+    /// <summary>The chord on a degree as MIDI notes: root, third, fifth, seventh and maybe the ninth.</summary>
+    private static int[] ChordTones(int[] scale, int root, int degree, bool ninth)
     {
-        var rng = new Rng(seed ^ Rng.Hash(style.Id));
-        var scale = Scales[style.Scale];
-        int tempo = style.Tempo[0] + rng.Next(Math.Max(1, style.Tempo[1] - style.Tempo[0] + 1));
-        var notes = new List<Note>();
+        var tones = new List<int> { degree, degree + 2, degree + 4, degree + 6 };
+        if (ninth) tones.Add(degree + 8);
+        return tones.Select(d => Pitch(scale, root, d)).ToArray();
+    }
 
-        var progA = rng.Pick(style.Progressions);
-        var progB = style.Progressions.Count > 1 ? style.Progressions.First(p => p != progA) : progA.Reverse().ToArray();
-        // A, B, A: eight bars each, two bars per chord.
-        int[] chordPerBar = Enumerable.Range(0, Bars).Select(bar =>
+    /// <summary>
+    /// A rootless voicing of the chord (the bass has the root) placed close to the last one, so the
+    /// keys move smoothly from chord to chord.
+    /// </summary>
+    private static int[] Voice(int[] tones, int[]? last, int centre)
+    {
+        var classes = tones.Skip(1).Select(t => t % 12).Distinct().ToArray();
+        float target = last != null ? (float)last.Average() : centre;
+        int[]? best = null;
+        float bestCost = float.MaxValue;
+        for (int low = centre - 8; low <= centre + 6; low++)
         {
-            var prog = bar / 8 == 1 ? progB : progA;
-            return prog[(bar % 8) / 2 % prog.Length];
-        }).ToArray();
-
-        var motifA = Motif(rng.Fork("motif-a"), style.Density);
-        var motifB = Motif(rng.Fork("motif-b"), style.Density);
-
-        for (int bar = 0; bar < Bars; bar++)
-        {
-            float beat0 = bar * 4;
-            int degree = chordPerBar[bar];
-            var chord = Chord(scale, degree);
-            int section = bar / 8;
-
-            // Lead: the section's motif, landing on chord tones, varied in the last bars of the reprise.
-            var motif = section == 1 ? motifB : motifA;
-            var barMotif = motif.Where(m => (int)(m.Beat / 4) == bar % 2).ToList();
-            bool vary = section == 2 && bar % 8 >= 6;
-            foreach (var (beat, length, step) in barMotif)
-            {
-                int target = chord[(step + (vary ? 1 : 0)) % chord.Length] + (step >= 3 ? 2 : 0);
-                float midi = Degree(scale, style.Root, target, style.Lead.Octave + 1);
-                notes.Add(new Note(0, beat0 + beat % 4 + Swing(style, beat), length, midi, 0.85f));
-                if (style.Harmony.Pattern is "thirds" or "sixths")
-                {
-                    int offset = style.Harmony.Pattern == "thirds" ? -2 : -5;
-                    notes.Add(new Note(1, beat0 + beat % 4 + Swing(style, beat), length, Degree(scale, style.Root, target + offset, style.Lead.Octave + 1), 0.6f));
-                }
-            }
-
-            AddBass(notes, style, scale, chord, beat0, rng);
-
-            // Arpeggio through the chord in sixteenths or eighths.
-            if (style.Arp.Pattern is not ("off" or ""))
-            {
-                var tones = chord.Concat(chord.Select(c => c + (scale.Length == 7 ? 7 : scale.Length))).ToArray();
-                for (int i = 0; i < 16; i++)
-                {
-                    int index = style.Arp.Pattern switch
-                    {
-                        "down" => tones.Length - 1 - i % tones.Length,
-                        "updown" => (i % (tones.Length * 2 - 2)) is var k && k < tones.Length ? k : tones.Length * 2 - 2 - k,
-                        "random" => rng.Next(tones.Length),
-                        _ => i % tones.Length,
-                    };
-                    notes.Add(new Note(3, beat0 + i * 0.25f, 0.2f, Degree(scale, style.Root, tones[index], style.Arp.Octave + 1), 0.5f));
-                }
-            }
-
-            // Pad: the chord held for the bar.
-            if (style.Pad.Wave != "off")
-                foreach (var tone in chord)
-                    notes.Add(new Note(4, beat0, 4, Degree(scale, style.Root, tone, style.Pad.Octave + 1), 0.4f));
-
-            AddDrums(notes, style.Drums, beat0, bar);
+            var voicing = classes.Select(pc => low + ((pc - low) % 12 + 12) % 12).OrderBy(n => n).ToArray();
+            float cost = MathF.Abs((float)voicing.Average() - target) + MathF.Abs((float)voicing.Average() - centre) * 0.3f;
+            if (cost < bestCost) { bestCost = cost; best = voicing; }
         }
-        return new Song(style, tempo, notes);
+        return best!;
     }
 
-    private static float Swing(MusicStyleDef style, float beat) => beat % 1 == 0.5f ? style.Swing * 0.5f : 0;
+    private static int[] Variation(int[] prog) => prog.Length >= 2 ? [.. prog[1..], prog[0]] : prog;
 
-    /// <summary>A two-bar melodic rhythm: start beat, length and which chord tone (0 to 4) to aim at.</summary>
-    private static List<(float Beat, float Length, int Step)> Motif(Rng rng, float density)
+    // Parts --------------------------------------------------------------------------------
+
+    private static float Swing(MusicStyleDef style, float beat)
     {
-        var motif = new List<(float, float, int)>();
-        float beat = 0;
-        while (beat < 8)
+        float frac = beat - MathF.Floor(beat);
+        if (MathF.Abs(frac - 0.5f) < 0.01f) return style.Swing * 0.5f;
+        if (MathF.Abs(frac - 0.25f) < 0.01f || MathF.Abs(frac - 0.75f) < 0.01f) return style.Swing * 0.25f;
+        return 0;
+    }
+
+    private static float[] KeysRhythm(Rng rng) => rng.Next(5) switch
+    {
+        0 => [0, 2.5f],
+        1 => [0, 1.5f, 3],
+        2 => [0, 3.5f],
+        3 => [0, 2],
+        _ => [0],
+    };
+
+    private static void AddKeys(List<Note> notes, MusicStyleDef style, int[] voicing, float beat0, float[] rhythm, Rng feel, Mood mood)
+    {
+        string pattern = style.Keys.Pattern;
+        float[] hits = pattern switch { "sustain" => [0], "rolled" => [0], _ => mood == Mood.Docked ? [rhythm[0]] : rhythm };
+        for (int h = 0; h < hits.Length; h++)
+        {
+            float start = hits[h] + Swing(style, hits[h]);
+            float end = h + 1 < hits.Length ? hits[h + 1] : 4;
+            float hold = MathF.Max(0.4f, end - hits[h] - 0.15f);
+            float vel = (h == 0 ? 0.7f : 0.55f) + feel.Range(-0.06f, 0.06f);
+            for (int n = 0; n < voicing.Length; n++)
+            {
+                float roll = pattern == "rolled" ? n * 0.09f : n * feel.Range(0.005f, 0.02f);
+                notes.Add(new Note(Keys, beat0 + start + roll + feel.Range(-0.01f, 0.01f), hold - roll, voicing[n], vel * (n == voicing.Length - 1 ? 1 : 0.85f)));
+            }
+        }
+    }
+
+    private static void AddBass(List<Note> notes, MusicStyleDef style, int[] scale, int[] tones, int degree, int nextDegree, float beat0, Mood mood, Rng feel, bool sustain)
+    {
+        int Low(int midi) => midi - style.Root > 9 ? midi - 12 : midi;
+        int root = Low(tones[0]), fifth = Low(tones[2]);
+        int next = Low(Pitch(scale, style.Root, nextDegree));
+        string pattern = sustain ? "sub" : mood switch
+        {
+            Mood.Docked when style.Bass.Pattern is "walk" or "bounce" => "lazy",
+            Mood.Combat when style.Bass.Pattern is "sub" => "lazy",
+            Mood.Combat when style.Bass.Pattern is "lazy" => "bounce",
+            _ => style.Bass.Pattern,
+        };
+        void Add(float beat, float beats, int midi, float vel) =>
+            notes.Add(new Note(Bass, beat0 + beat + Swing(style, beat), beats, midi, vel + feel.Range(-0.05f, 0.05f)));
+        switch (pattern)
+        {
+            case "sub":
+                Add(0, 3.85f, root, 0.85f);
+                break;
+            case "walk":
+                Add(0, 0.9f, root, 0.85f);
+                Add(1, 0.9f, Low(tones[1]), 0.7f);
+                Add(2, 0.9f, fifth, 0.75f);
+                Add(3, 0.9f, next + (next > root ? -1 : 1), 0.7f);
+                break;
+            case "bounce":
+                Add(0, 0.6f, root, 0.9f);
+                Add(0.75f, 0.4f, root, 0.6f);
+                Add(2, 0.6f, fifth, 0.8f);
+                Add(2.5f, 0.9f, root, 0.7f);
+                break;
+            default: // lazy
+                Add(0, 1.6f, root, 0.85f);
+                Add(2.5f, 1.1f, feel.NextFloat() < 0.6f ? root : fifth, 0.7f);
+                if (feel.NextFloat() < 0.35f) Add(3.5f, 0.4f, next + (next > root ? -2 : 2), 0.55f);
+                break;
+        }
+    }
+
+    private static void AddPad(List<Note> notes, int[] tones, float beat0)
+    {
+        notes.Add(new Note(Pad, beat0, 4.1f, tones[0] + 12, 0.7f));
+        notes.Add(new Note(Pad, beat0, 4.1f, tones[2] + 12, 0.55f));
+        notes.Add(new Note(Pad, beat0, 4.1f, tones[1] + 24, 0.5f));
+        notes.Add(new Note(Pad, beat0, 4.1f, tones[^1] + 24, 0.45f));
+    }
+
+    /// <summary>Eight eighth-note slots: which chord tone to play, or -1 to rest.</summary>
+    private static int[] Ostinato(Rng rng, float density)
+    {
+        var slots = new int[8];
+        for (int i = 0; i < 8; i++) slots[i] = i == 0 || rng.NextFloat() < 0.35f + density * 0.4f ? rng.Next(5) : -1;
+        return slots;
+    }
+
+    private static void AddPlucks(List<Note> notes, MusicStyleDef style, int[] tones, float beat0, int[] ostinato, Rng feel)
+    {
+        var upper = tones.Select(t => t + 24).Concat(tones.Take(2).Select(t => t + 36)).OrderBy(t => t).ToArray();
+        switch (style.Plucks.Pattern)
+        {
+            case "arp":
+                for (int i = 0; i < 8; i++)
+                {
+                    int idx = i < 4 ? i : 7 - i;
+                    float beat = i * 0.5f;
+                    notes.Add(new Note(Plucks, beat0 + beat + Swing(style, beat), 0.45f, upper[idx % upper.Length], 0.5f + feel.Range(-0.08f, 0.08f)));
+                }
+                break;
+            case "sparse":
+                int count = 1 + feel.Next(3);
+                for (int i = 0; i < count; i++)
+                {
+                    float beat = feel.Next(8) * 0.5f;
+                    notes.Add(new Note(Plucks, beat0 + beat + Swing(style, beat), 1, upper[feel.Next(upper.Length)] + 12, 0.45f));
+                }
+                break;
+            default:
+                for (int i = 0; i < 8; i++)
+                {
+                    if (ostinato[i] < 0) continue;
+                    float beat = i * 0.5f;
+                    notes.Add(new Note(Plucks, beat0 + beat + Swing(style, beat), 0.45f, upper[ostinato[i] % upper.Length], (i % 2 == 0 ? 0.55f : 0.42f) + feel.Range(-0.05f, 0.05f)));
+                }
+                break;
+        }
+    }
+
+    /// <summary>A two-bar melodic rhythm: start beat, length, and whether to land on a chord tone.</summary>
+    private static List<(float Beat, float Length, bool Strong)> Motif(Rng rng, float density)
+    {
+        var motif = new List<(float, float, bool)>();
+        float beat = rng.NextFloat() < 0.5f ? 0.5f : 0;
+        while (beat < 7)
         {
             float length = rng.Pick(new[] { 0.5f, 0.5f, 1f, 1f, 1.5f, 2f });
-            if (beat + length > 8) length = 8 - beat;
-            if (rng.NextFloat() < density || beat % 4 == 0) motif.Add((beat, length * 0.9f, rng.Next(5)));
-            beat += length;
+            if (rng.NextFloat() < 0.3f + density * 0.6f) motif.Add((beat, MathF.Min(length, 8 - beat) * 0.92f, beat % 2 == 0));
+            beat += length + (rng.NextFloat() < 0.4f - density * 0.3f ? 1 : 0);
+        }
+        // End the phrase on a held note.
+        if (motif.Count > 0)
+        {
+            var (b, _, s) = motif[^1];
+            motif[^1] = (b, MathF.Max(1.5f, 8 - b - 0.5f), s);
         }
         return motif;
     }
 
-    private static void AddBass(List<Note> notes, MusicStyleDef style, int[] scale, int[] chord, float beat0, Rng rng)
+    /// <summary>A two-bar phrase over the motif's rhythm: stepwise, landing on chord tones on the strong beats.</summary>
+    private static int AddLead(List<Note> notes, MusicStyleDef style, int[] scale, int[] prog, int barInSection, float beat0, List<(float Beat, float Length, bool Strong)> motif, Rng feel, int degree, Mood mood)
     {
-        float Root(int tone) => Degree(scale, style.Root, tone, style.Bass.Octave);
-        switch (style.Bass.Pattern)
+        float keep = mood == Mood.Docked ? 0.6f : 1;
+        foreach (var (beat, length, strong) in motif)
         {
-            case "pulse":
-                for (int i = 0; i < 8; i++) notes.Add(new Note(2, beat0 + i * 0.5f, 0.4f, Root(chord[0]), 0.9f));
-                break;
-            case "walk":
-                for (int i = 0; i < 4; i++) notes.Add(new Note(2, beat0 + i, 0.9f, Root(chord[i % chord.Length] + (i == 3 ? 1 : 0)), 0.9f));
-                break;
-            case "offbeat":
-                for (int i = 0; i < 4; i++) notes.Add(new Note(2, beat0 + i + 0.5f, 0.4f, Root(chord[0]), 0.9f));
-                break;
-            case "drone":
-                notes.Add(new Note(2, beat0, 4, Root(chord[0]), 0.8f));
-                break;
-            default: // root and fifth
-                notes.Add(new Note(2, beat0, 1.8f, Root(chord[0]), 0.9f));
-                notes.Add(new Note(2, beat0 + 2, 1.8f, Root(chord[^1]), 0.8f));
-                break;
+            if (feel.NextFloat() > keep) continue;
+            int chordDegree = prog[(barInSection + (beat >= 4 ? 1 : 0)) % prog.Length];
+            if (strong)
+            {
+                // Nearest chord tone (root, third or fifth) to where the melody is.
+                int best = degree, bestDistance = int.MaxValue;
+                foreach (int offset in new[] { 0, 2, 4 })
+                    for (int octave = 1; octave <= 3; octave++)
+                    {
+                        int candidate = chordDegree + offset + octave * scale.Length;
+                        int distance = Math.Abs(candidate - degree);
+                        if (distance < bestDistance) { bestDistance = distance; best = candidate; }
+                    }
+                degree = best;
+            }
+            else degree += feel.Pick(new[] { -2, -1, -1, 1, 1, 2 });
+            int low = 2 * scale.Length + 1, high = 3 * scale.Length + 3;
+            degree = Math.Clamp(degree, low, high);
+            int midi = Pitch(scale, style.Root, degree);
+            notes.Add(new Note(Lead, beat0 + beat + Swing(style, beat), length, midi, 0.6f + feel.Range(-0.08f, 0.08f)));
         }
+        return degree;
     }
 
-    private static void AddDrums(List<Note> notes, DrumsDef drums, float beat0, int bar)
+    private static void AddDrums(List<Note> notes, MusicStyleDef style, float beat0, int bar, bool lastBar, DrumLevel level, Mood mood, Rng feel)
     {
-        float[] kicks = drums.Kick switch { "four" => [0, 1, 2, 3], "two" => [0, 2], "half" => [0], _ => [] };
-        foreach (var k in kicks) notes.Add(new Note(5, beat0 + k, 0.3f, 0, drums.Volume));
-
-        float[] snares = drums.Snare switch
+        if (style.Drums.Kit == "off") return;
+        float busy = style.Drums.Busy + (mood == Mood.Combat ? 0.3f : mood == Mood.Docked ? -0.2f : 0);
+        float energy = level == DrumLevel.Light ? 0.6f : 1;
+        void Hit(int piece, float beat, float vel)
         {
-            "backbeat" => [1, 3],
-            "march" => bar % 2 == 1 ? [1, 2.75f, 3, 3.25f, 3.5f, 3.75f] : [1, 3],
-            "sparse" => bar % 2 == 1 ? [3] : [],
-            _ => [],
-        };
-        foreach (var s in snares) notes.Add(new Note(6, beat0 + s, 0.2f, 0, drums.Volume));
+            // Snares sit a touch behind the beat, which is half the lo-fi feel.
+            float late = piece is Lofi.Snare or Lofi.Brush ? 0.03f : 0;
+            notes.Add(new Note(Drums, beat0 + beat + Swing(style, beat) + late + feel.Range(-0.008f, 0.008f), 0.1f, 0, vel * energy * style.Drums.Volume * (1 + feel.Range(-0.08f, 0.08f)), piece));
+        }
+        string kit = style.Drums.Kit;
+        bool brushes = kit == "brushes" || (mood == Mood.Docked && level == DrumLevel.Light && kit == "boom-bap");
+        bool dropBeforeNext = lastBar && feel.NextFloat() < 0.5f;
 
-        float step = drums.Hats switch { "sixteenth" => 0.25f, "eighth" => 0.5f, "quarter" => 1f, _ => 0 };
-        if (step > 0) for (float h = 0; h < 4; h += step) notes.Add(new Note(7, beat0 + h, 0.05f, 0, drums.Volume * (h % 1 == 0 ? 1 : 0.6f)));
+        // Kick.
+        Hit(Lofi.Kick, 0, 0.9f);
+        if (!dropBeforeNext)
+        {
+            if (kit == "dusty") { Hit(Lofi.Kick, 2, 0.8f); if (feel.NextFloat() < busy) Hit(Lofi.Kick, 0.75f, 0.55f); }
+            else if (kit == "glitch") Hit(Lofi.Kick, 2.25f, 0.75f);
+            else Hit(Lofi.Kick, 2.5f, 0.75f);
+            if (level == DrumLevel.Full && feel.NextFloat() < busy * 0.6f) Hit(Lofi.Kick, 1.5f, 0.5f);
+        }
+        if (level == DrumLevel.Light && mood != Mood.Combat)
+        {
+            // Light drums: kick and a rim or brush on the backbeat, no hats.
+            Hit(brushes ? Lofi.Brush : Lofi.Rim, 1, 0.55f);
+            Hit(brushes ? Lofi.Brush : Lofi.Rim, 3, 0.55f);
+            return;
+        }
 
-        if (drums.Metal && bar % 2 == 1) notes.Add(new Note(7, beat0 + 3.5f, -1, 0, drums.Volume)); // length -1 marks the anvil
+        // Backbeat.
+        int back = brushes ? Lofi.Brush : Lofi.Snare;
+        Hit(back, 1, 0.8f);
+        if (!dropBeforeNext) Hit(back, 3, 0.8f);
+        if (feel.NextFloat() < busy * 0.5f) Hit(Lofi.Snare, 3.75f, 0.25f);
+
+        // Hats.
+        float step = kit == "glitch" || mood == Mood.Combat ? 0.25f : brushes ? 1 : 0.5f;
+        for (float h = 0; h < 4; h += step)
+        {
+            if (kit == "glitch" && feel.NextFloat() < 0.25f) continue;
+            float vel = h % 1 == 0 ? 0.55f : h % 0.5f == 0 ? 0.38f : 0.25f;
+            Hit(h == 3.5f && bar % 4 == 3 ? Lofi.OpenHat : Lofi.Hat, h, vel);
+        }
+        if (kit == "glitch" && bar % 4 == 3) for (int r = 0; r < 4; r++) Hit(Lofi.Hat, 3.5f + r * 0.125f, 0.2f + r * 0.05f);
     }
 
-    /// <summary>Renders a song to stereo interleaved samples that loop seamlessly.</summary>
-    public static float[] Render(Song song)
+    // Rendering ----------------------------------------------------------------------------
+
+    /// <summary>
+    /// Renders a song to stereo interleaved samples at <see cref="Lofi.Rate"/> that loop seamlessly.
+    /// <paramref name="solo"/> renders one channel alone, unmastered, for balancing the mix.
+    /// </summary>
+    public static float[] Render(Song song, int? solo = null)
     {
         var style = song.Style;
+        var space = style.Space;
         float spb = song.SecondsPerBeat;
-        int frames = (int)(song.Seconds * Synth.SampleRate);
-        // Render with a tail, then fold the tail back onto the start so notes ring across the loop point.
-        var buffer = new float[(frames + Synth.SampleRate * 2) * 2];
+        float loopSeconds = song.Seconds;
+        int frames = (int)(loopSeconds * Lofi.Rate);
+        int total = frames + Lofi.Rate * 6; // a tail for reverb and releases, folded back onto the start
+        var mix = new float[total * 2];
+        var send = new float[total];
+        var channel = new float[total];
 
-        var voices = new (VoiceDef Voice, Synth.Envelope Env, float Volume, float Pan)[]
+        // Kick envelope for side-chain ducking: other parts dip a little under each kick.
+        var kick = new float[total];
+        foreach (var n in song.Notes.Where(n => n.Channel == Drums && n.Piece == Lofi.Kick))
         {
-            (style.Lead, new(0.01f, 0.1f, 0.7f, 0.08f), 0.32f, -0.15f),
-            (style.Harmony, new(0.01f, 0.1f, 0.6f, 0.08f), 0.16f, 0.35f),
-            (style.Bass, new(0.005f, 0.06f, 0.8f, 0.05f), 0.4f, 0f),
-            (style.Arp, new(0.002f, 0.06f, 0.3f, 0.03f), 0.13f, 0.45f),
-            (style.Pad, new(0.35f, 0.3f, 0.8f, 0.6f), 0.09f, -0.4f),
-        };
-
-        foreach (var note in song.Notes)
-        {
-            float start = note.Beat * spb;
-            if (note.Channel < 5)
-            {
-                var (voice, env, volume, pan) = voices[note.Channel];
-                if (voice.Wave == "off") continue;
-                Synth.AddNote(buffer, start, note.Beats * spb, Synth.MidiToHz(note.Midi), Synth.ParseWave(voice.Wave), env,
-                    volume * voice.Volume * note.Velocity, pan, voice.Vibrato);
-            }
-            else Drum(buffer, note, start);
+            int at = (int)(n.Beat * spb * Lofi.Rate);
+            for (int i = Math.Max(0, -at); i < Lofi.Rate / 3 && at + i < total; i++)
+                kick[at + i] = MathF.Max(kick[at + i], MathF.Exp(-i / (0.12f * Lofi.Rate)) * MathF.Min(1, n.Velocity));
         }
 
+        // A whole number of cycles per loop, so modulation lines up when the song loops.
+        float Fit(float hz) => MathF.Max(1, MathF.Round(hz * loopSeconds)) / loopSeconds;
+        float warmth = space.Warmth;
+
+        //              channel  level  send   duck   pan    pan sway (Hz)  low-pass
+        var settings = new (int Ch, float Level, float Send, float Duck, float Pan, float Sway, float Cutoff)[]
+        {
+            (Keys,   0.40f * style.Keys.Volume,   0.30f, 0.25f, -0.05f, Fit(0.11f), 6000 - 2600 * warmth),
+            (Bass,   0.28f * style.Bass.Volume,   0.04f, 0.35f,  0f,    0,          900),
+            (Lead,   0.60f * style.Lead.Volume,   0.45f, 0.10f, -0.1f,  Fit(0.05f), 7000 - 2500 * warmth),
+            (Pad,    0.40f * style.Pad.Volume,    0.60f, 0.45f,  0.1f,  Fit(0.04f), 9000),
+            (Drums,  0.50f * style.Drums.Volume,  0.10f, 0f,     0f,    0,          9000 - 4000 * warmth),
+            (Plucks, 0.55f * style.Plucks.Volume, 0.50f, 0.20f,  0.3f,  Fit(0.07f), 8000 - 3000 * warmth),
+            (Space,  0.20f,                        1.00f, 0.30f,  0f,    Fit(0.03f), 9000),
+        };
+
+        foreach (var (ch, level, sendLevel, duck, pan, sway, cutoff) in settings)
+        {
+            var notes = song.Notes.Where(n => n.Channel == ch).ToList();
+            if (notes.Count == 0 || level <= 0 || (solo != null && solo != ch)) continue;
+            Array.Clear(channel);
+            foreach (var n in notes)
+            {
+                int start = (int)(n.Beat * spb * Lofi.Rate);
+                float hold = n.Beats * spb;
+                float hz = Lofi.MidiToHz(n.Midi);
+                switch (ch)
+                {
+                    case Keys: Lofi.Keys(style.Keys.Instrument, channel, start, hz, hold, n.Velocity, style.Keys.Tone); break;
+                    case Bass: Lofi.Bass(style.Bass.Instrument, channel, start, hz, hold, n.Velocity); break;
+                    case Lead: Lofi.Lead(style.Lead.Instrument, channel, start, hz, hold, n.Velocity); break;
+                    case Pad: Lofi.Pad(style.Pad.Instrument, channel, start, hz, hold, n.Velocity); break;
+                    case Drums: Lofi.Drum(style.Drums.Kit, n.Piece, channel, start, n.Velocity, (uint)(start * 2654435761u)); break;
+                    case Plucks: Lofi.Plucked(style.Plucks.Instrument, channel, start, hz, hold, n.Velocity); break;
+                    case Space: Lofi.Shimmer(channel, start, hz, hold, n.Velocity); break;
+                }
+            }
+            Lofi.LowPass(channel, cutoff);
+            for (int i = 0; i < total; i++)
+            {
+                float s = channel[i] * level * (1 - duck * kick[i]);
+                float p = pan + (sway > 0 ? 0.25f * MathF.Sin(MathF.Tau * sway * i / Lofi.Rate) : 0);
+                mix[i * 2] += s * MathF.Min(1, 1 - p);
+                mix[i * 2 + 1] += s * MathF.Min(1, 1 + p);
+                send[i] += s * sendLevel;
+            }
+        }
+
+        Lofi.Reverb(send, mix, size: 0.55f + 0.4f * space.Reverb, damp: 0.5f, wet: (0.35f + 0.65f * space.Reverb) * 2.5f);
+        Lofi.Wow(mix, space.Wow, Fit(0.4f), Fit(5.7f));
+
+        // Fold the tail back onto the start so it loops without a seam.
         var loop = new float[frames * 2];
-        Array.Copy(buffer, loop, loop.Length);
-        for (int i = 0; i < buffer.Length - loop.Length; i++) loop[i % loop.Length] += buffer[loop.Length + i];
-        Synth.Master(loop);
+        Array.Copy(mix, loop, loop.Length);
+        for (int i = loop.Length; i < mix.Length; i++) loop[i % loop.Length] += mix[i];
+
+        if (solo != null) return loop;
+        Lofi.Vinyl(loop, space.Vinyl, space.Hiss, (uint)(song.Seed ^ 0x51ab));
+        Lofi.Tone(loop, lowPass: 10500 - 4500 * warmth, highPass: 32);
+        Master(loop);
         return loop;
     }
 
-    private static void Drum(float[] buffer, Note note, float start)
+    /// <summary>
+    /// Brings every song to the same gentle loudness, with tape-style saturation and a soft ceiling,
+    /// so music sits under the game rather than on top of it.
+    /// </summary>
+    public static void Master(float[] buffer, float targetRms = 0.11f, float ceiling = 0.9f)
     {
-        float v = note.Velocity;
-        switch (note.Channel)
-        {
-            case 5: // kick: a falling sine thump
-                Synth.AddNote(buffer, start, 0.01f, 130, Wave.Sine, new(0.001f, 0.01f, 1f, 0.2f), 0.55f * v, 0, slideTo: 40);
-                break;
-            case 6: // snare: noise and a short body tone
-                Synth.AddNote(buffer, start, 0.01f, 0, Wave.Noise, new(0.001f, 0.01f, 1f, 0.14f), 0.25f * v, 0.05f, seed: 17);
-                Synth.AddNote(buffer, start, 0.01f, 190, Wave.Triangle, new(0.001f, 0.01f, 1f, 0.08f), 0.2f * v, 0);
-                break;
-            default:
-                if (note.Beats < 0) // anvil
-                    foreach (var (ratio, level) in new[] { (1f, 1f), (2.76f, 0.5f), (5.4f, 0.3f) })
-                        Synth.AddNote(buffer, start, 0.01f, 420 * ratio, Wave.Sine, new(0.001f, 0.01f, 1f, 0.5f), 0.12f * v * level, 0.2f);
-                else // hats: very short noise
-                    Synth.AddNote(buffer, start, 0.005f, 0, Wave.Noise, new(0.001f, 0.005f, 1f, 0.03f), 0.08f * v, 0.4f, seed: 29);
-                break;
-        }
+        double sum = 0;
+        for (int i = 0; i < buffer.Length; i++) sum += buffer[i] * buffer[i];
+        float rms = (float)Math.Sqrt(sum / Math.Max(1, buffer.Length));
+        float gain = rms > 1e-6f ? targetRms / rms : 1;
+        for (int i = 0; i < buffer.Length; i++) buffer[i] = ceiling * MathF.Tanh(buffer[i] * gain / ceiling);
+    }
+
+    /// <summary>A song as a 16-bit stereo WAV file, for listening outside the game.</summary>
+    public static byte[] ToWav(float[] stereo)
+    {
+        var pcm = Synth.ToPcm16(stereo);
+        using var stream = new MemoryStream();
+        using var w = new BinaryWriter(stream);
+        w.Write("RIFF"u8); w.Write(36 + pcm.Length); w.Write("WAVE"u8);
+        w.Write("fmt "u8); w.Write(16); w.Write((short)1); w.Write((short)2); w.Write(Lofi.Rate); w.Write(Lofi.Rate * 4); w.Write((short)4); w.Write((short)16);
+        w.Write("data"u8); w.Write(pcm.Length); w.Write(pcm);
+        w.Flush();
+        return stream.ToArray();
     }
 }
