@@ -53,3 +53,21 @@ These are best estimates, not tested figures.
 
 The export also makes **Galaxus Preview** for each platform (`build/GalaxusPreview-<platform>.zip`): the same game, opening straight into the ship and station viewer, for showing people the ships, warships and stations without playing. It's the same code with the `viewer` feature switched on in its export preset. The full game has the viewer too, under "Ships and stations" on the main menu, and `--viewer` opens it from the command line.
 
+
+## Publishing the web version to itch.io
+
+The web version lives at https://domfinn.itch.io/galaxus. Publishing a new build is one command:
+
+```sh
+tools/publish-itch.sh
+```
+
+It builds the fast web version (`tools/build-web-aot.sh`, a few minutes) and pushes it to the page's `web` channel with butler, itch's uploader. butler only sends what changed, the version shown on itch is the git commit, and players get the new build the next time they open the page. `--no-build` pushes the last build without rebuilding.
+
+One-off setup:
+
+1. Install butler from itch: https://itch.io/docs/butler/installing.html. It's a single program; put it somewhere on your `PATH`.
+2. Run `butler login` and approve it in the browser. butler keeps its own key, so nothing goes in the repo.
+3. The first push makes a new upload on the page. On the itch dashboard, edit the game, tick "This file will be played in the browser" on the new `web` upload, and delete the old hand-uploaded zip. Later pushes update that upload in place.
+
+The web build needs the machine set up for web exports (the community editor, its templates and the .NET web tools): see `docs/web-version.md` and `docs/web-aot.md`.
