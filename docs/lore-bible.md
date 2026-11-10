@@ -119,3 +119,7 @@ Write in British English. Plain sentences. No em dashes. Use credits ("cr") for 
 Back stories told from inside the setting, with the real history left unwritten: [lore/elves.md](lore/elves.md) for the light and dark elves, and [lore/origins.md](lore/origins.md) for the human single-origin rumour and how each race regards origins. [lore/orcs.md](lore/orcs.md) covers the orcs' imagined empire, the Old Horde, and their enormous Goddess.
 
 Human history, from the Scatter to the present, as each great power tells it: [lore/humans.md](lore/humans.md).
+
+A short summary of all of this, for writers who need the key history quickly: [lore/canon-digest.md](lore/canon-digest.md). Keep it in step with this file when either changes.
+
+Legends, the in-world stories that may not be true, and where they go: [lore/legends/README.md](lore/legends/README.md).

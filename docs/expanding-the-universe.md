@@ -371,32 +371,35 @@ Common causes:
 - **Undeclared variable.** You used `{place}` in a rule but left it out of `variables`.
 - **Id already exists.** Pick another id.
 
+To read your text back the way the game will write it, add `--samples`. After the checks it prints a few expansions of every grammar the mod adds, with stand-in names and places, and missions read in a different race's voice each time. `--samples=6` prints six of each. `--grammar=talk-orc,news-famine` prints samples of particular grammars instead, from the base game or a mod.
+
+```
+tools/validate-mods.sh my-mod --samples
+```
+
+To see a mod's ship or station, `tools/preview-hull.sh my-hull /tmp/my-hull.png` draws it from four angles, and `tools/play.sh -- --viewer=my-hull` opens it in the game's ship viewer. Both load the enabled mods in `mods/`.
+
 `tools/validate.sh` runs the whole test suite, which includes loading everything in `mods/`. Run it before you share a mod.
 
 ## Asking Claude to do it
 
-You don't need to write the files yourself. Claude Code can read the lore bible, write the files in the right shape and run the validation for you. Open Claude Code in the repository and paste a prompt like this, filling in the square brackets:
+You don't need to write the files yourself. Open Claude Code in the repository and say what you'd like to make, in your own words:
 
 ```
-I want to add a mod to Galaxus. Read docs/expanding-the-universe.md, docs/content-guide.md
-and docs/lore-bible.md first, and look at mods/example-free-traders as a pattern.
-
-Create a new mod in mods/[my-mod-name]/ with a mod.json. It should add:
-- [one or two minor factions, described in a sentence each]
-- [three missions in those factions' voices, described in a sentence each]
-- [an event, if you want one]
-- [any extra flavour, such as news lines or station names]
-
-Rules: add content only and never reuse an existing id, so prefix every id with
-"[prefix]-". No great powers, no new major races, and nothing from the lore bible's
-"Never write" list. British English, plain sentences, no em dashes, the tone described in
-the lore bible. Make the missions varied, with several title and briefing options each,
-and use #voice:opener#, #voice:payment# and the other voice rules in briefings.
-
-When you've written it, run tools/validate-mods.sh [my-mod-name] and fix every problem
-until it passes. Then run tools/validate.sh. Tell me what you added and anything in it
-that touches lore I should check.
+I want to make a mod about a cooperative of small haulers who distrust the shipping lines.
 ```
+
+```
+I want to add some lore about a station in the Shroud Arm.
+```
+
+The repository's `CLAUDE.md` points Claude at the `lore-with-claude` skill (`.claude/skills/lore-with-claude/SKILL.md`), so it already knows where the canon, the race voices and the mod files live. It talks the idea through with you before writing anything: what you want to make, which races and region, how they speak and what they change in play. Then it suggests whether the idea fits best as a mod, a legend or a change to canon, gives you a short plan and waits for your go-ahead.
+
+It also checks your role on the repository. Anyone can make mods and legends. Changes to the lore bible, `docs/lore/` and the core content in `game/data/` are for admins, so for anyone else Claude writes a mod, or prepares a pull request marked as a canon proposal if you'd like the idea in the base game.
+
+It can design ships and stations with you too, by talking through the shape, size, builder and colours, rendering the result and changing it until you like it. When it's finished it runs the checker, reads the generated text back in each race's voice and fixes anything that's wrong.
+
+Legends, the in-world stories that may not be true, are explained in [lore/legends/README.md](lore/legends/README.md).
 
 Tips:
 

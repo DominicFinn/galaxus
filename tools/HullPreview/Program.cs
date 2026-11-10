@@ -6,21 +6,27 @@ using Galaxus.Core.Content;
 // Renders a hull from four angles to a PNG with a small software rasteriser.
 // No Godot and no window, so it never takes focus.
 //
-//   dotnet run --project tools/HullPreview -- <data folder> <hull id> <output.png>
+//   dotnet run --project tools/HullPreview -- <data folder> <hull id> <output.png> [--mods=<mods folder>]
+//
+// With --mods, the enabled mods in that folder are loaded too, so a mod's hulls can be previewed.
 //
 // Layout: top left front three-quarter, top right side (nose left),
 // bottom left top-down (nose up), bottom right rear three-quarter.
 // The green ring in each view is the collision radius.
 
+string? modsFolder = args.FirstOrDefault(a => a.StartsWith("--mods="))?["--mods=".Length..];
+args = args.Where(a => !a.StartsWith("--mods=")).ToArray();
+
 // Optional fourth argument "single": one large front three-quarter view, for galleries.
 bool single = args.Length == 4 && args[3] == "single";
 if (args.Length is not (3 or 4))
 {
-    Console.Error.WriteLine("usage: HullPreview <data folder> <hull id> <output.png> [single]");
+    Console.Error.WriteLine("usage: HullPreview <data folder> <hull id> <output.png> [single] [--mods=<mods folder>]");
     return 2;
 }
 
-var db = ContentDatabase.Load(new DirectoryContentSource(args[0]), throwOnProblems: false);
+var mods = modsFolder == null ? [] : ModDiscovery.Find([modsFolder]);
+var db = ContentDatabase.Load(new DirectoryContentSource(args[0]), mods, throwOnProblems: false);
 string hullId = args[1];
 
 // "--portraits" draws a sheet of generated faces instead: a row per race, mixed jobs and genders.
