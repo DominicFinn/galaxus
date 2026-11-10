@@ -168,7 +168,7 @@ public sealed class Simulation(ContentDatabase db, Galaxy galaxy)
         var winner = rng.NextFloat() < oddsA ? a : b;
         if (front.Owner == winner.Id) return;
         var loser = Galaxy.Factions[front.Owner];
-        front.Owner = winner.Id;
+        front.TakenBy(winner.Id, Galaxy.Day);
         Galaxy.AddNews(front.Id, $"{front.Name} falls to {winner.Name}. {loser.Name} withdraws.");
         if (!Galaxy.OwnedBy(loser.Id).Any())
         {

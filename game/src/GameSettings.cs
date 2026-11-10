@@ -20,8 +20,8 @@ public sealed class GameSettings
     /// <summary>Window size as a multiple of 640x360.</summary>
     public int WindowScale { get; set; } = 2;
     public bool ShowHints { get; set; } = true;
-    /// <summary>0 easy, 1 normal, 2 hard: damage you take and how good enemy pilots are.</summary>
-    public int Difficulty { get; set; } = 1;
+    /// <summary>0 easy, 1 normal, 2 hard: damage you take and how good enemy pilots are. New players start on easy.</summary>
+    public int Difficulty { get; set; } = 0;
     public float DamageTaken => Difficulty switch { 0 => 0.55f, 1 => 0.85f, _ => 1f };
     public float EnemySkill => Difficulty switch { 0 => 0.6f, 1 => 0.9f, _ => 1.1f };
     /// <summary>Volumes, 0 to 1.</summary>

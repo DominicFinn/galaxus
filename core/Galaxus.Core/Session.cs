@@ -22,6 +22,36 @@ public sealed class Session
 
     public StarSystem Here => Galaxy.Systems[Career.SystemId];
 
+    /// <summary>
+    /// Easy difficulty, set by the game from the player's settings. Markets are kinder: a narrower
+    /// spread, faster recovery, and a dependable trade loop near the start.
+    /// </summary>
+    public bool Easy { get; set; }
+
+    /// <summary>Buys up to the requested tonnes here, tonne by tonne as stock runs down. Returns tonnes bought.</summary>
+    public int Buy(string commodityId, int tonnes)
+    {
+        var c = Db.Commodities[commodityId];
+        var (got, cost) = Market.BuyCost(this, Here, c, Math.Min(tonnes, Career.FreeCargo(Db)), Career.Credits);
+        if (got <= 0) return 0;
+        Career.Credits -= cost;
+        Career.Cargo[commodityId] = Career.Cargo.GetValueOrDefault(commodityId) + got;
+        Career.RecordTrade(Here.Id, commodityId, Galaxy.Day, Market.RecoveryHalfLife(Easy), got, 0);
+        return got;
+    }
+
+    /// <summary>Sells up to the requested tonnes here, the price easing as the market fills. Returns tonnes sold.</summary>
+    public int Sell(string commodityId, int tonnes)
+    {
+        int held = Career.Cargo.GetValueOrDefault(commodityId);
+        int sold = Math.Min(held, tonnes);
+        if (sold <= 0) return 0;
+        Career.Credits += Market.SaleValue(this, Here, Db.Commodities[commodityId], sold);
+        if (held == sold) Career.Cargo.Remove(commodityId); else Career.Cargo[commodityId] = held - sold;
+        Career.RecordTrade(Here.Id, commodityId, Galaxy.Day, Market.RecoveryHalfLife(Easy), 0, sold);
+        return sold;
+    }
+
     private Session(ContentDatabase db, Galaxy.Galaxy galaxy, GalaxySettings settings)
     {
         Db = db;
@@ -47,6 +77,10 @@ public sealed class Session
             .ThenBy(s => s.Id == tolland?.HomeSystem ? 1 : 0) // not the capital itself
             .First();
         session.Career.SystemId = start.Id;
+        session.Career.TradeRoute = Market.PickRoute(db, galaxy, start.Id);
+        TradeIntel.Note(session);
+        // You start knowing the prices at your trade partner, picked up on the docks.
+        if (session.Career.TradeRoute is { } route) TradeIntel.Note(session, galaxy.Systems[route.B]);
         return session;
     }
 
@@ -84,18 +118,11 @@ public sealed class Session
                 : o)
             .ToList();
 
-    /// <summary>Hulls for sale here: builders within one region of this system. Rim designs are never sold.</summary>
-    public List<HullDef> Shipyard()
-    {
-        if (Here.Stations.Count == 0) return [];
-        int here = Array.IndexOf(ContentRules.Regions, Here.Region);
-        return Db.Hulls.Values
-            .Where(h => h.Class != "drone" && h.ForSale && !h.IsCapital)
-            .Where(h => Db.Builders.TryGetValue(h.Builder, out var b) && b.Region != "rim"
-                        && Math.Abs(Array.IndexOf(ContentRules.Regions, b.Region) - here) <= 1)
-            .OrderBy(h => h.Price).ThenBy(h => h.Id, StringComparer.Ordinal)
-            .ToList();
-    }
+    /// <summary>Ships on sale here this week, at this yard's prices.</summary>
+    public List<ShipOffer> Shipyard() => Shipyards.Offers(this, Here);
+
+    /// <summary>What this yard will give for your current ship.</summary>
+    public int TradeInValue() => Shipyards.TradeIn(this, Here, Career.HullId);
 
     public float JumpRangeLy => Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpRangeLy;
 
@@ -202,6 +229,7 @@ public sealed class Session
         Simulation.Run(days);
         Career.SystemId = destination;
         var results = Career.Settle(Galaxy);
+        TradeIntel.Note(this);
         return new JumpReport(days, results, Galaxy.News.Where(n => n.Day > dayBefore).ToList());
     }
 
@@ -223,6 +251,7 @@ public sealed class Session
         }
 
         var news = Galaxy.News.Where(n => n.Day > dayBefore).TakeLast(Math.Max(0, Galaxy.News.Count - newsBefore)).ToList();
+        TradeIntel.Note(this);
         return new JumpReport(days, results, news);
     }
 }

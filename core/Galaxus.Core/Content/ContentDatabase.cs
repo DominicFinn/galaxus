@@ -316,6 +316,8 @@ public sealed class ContentDatabase
             if (hull.IsCapital && hull.ForSale) p.Add($"{at}: warships ({hull.Class}) must have \"forSale\": false.");
             if (hull.Hangar > 0 && hull.HangarHull == null) p.Add($"{at}: a hangar needs a hangarHull.");
             if (hull.HangarHull != null && !Hulls.ContainsKey(hull.HangarHull)) p.Add($"{at}: hangarHull '{hull.HangarHull}' isn't a known hull.");
+            if ((hull.PriceLow > 0 && hull.PriceLow > hull.Price) || (hull.PriceHigh > 0 && hull.PriceHigh < hull.Price))
+                p.Add($"{at}: priceLow and priceHigh should sit either side of price.");
             foreach (var slot in hull.Slots.Where(sl => sl.Turret && sl.Type != "weapon")) p.Add($"{at}: only weapon slots can be turrets.");
             if (hull.Mass <= 0) p.Add($"{at}: mass must be positive.");
             if (hull.BaseSpeed <= 0) p.Add($"{at}: baseSpeed must be positive.");
@@ -394,6 +396,8 @@ public sealed class ContentDatabase
             if (!ContentRules.CommodityCategories.Contains(c.Category)) p.Add($"{at}: category '{c.Category}' is unknown. Use one of {Join(ContentRules.CommodityCategories)}.");
             if (!ContentRules.Legalities.Contains(c.Legality)) p.Add($"{at}: legality must be legal, restricted or contraband.");
             if (c.BasePrice <= 0) p.Add($"{at}: basePrice must be positive.");
+            if (c.PriceLow > 0 && c.PriceLow > c.BasePrice) p.Add($"{at}: priceLow can't be above basePrice.");
+            if (c.PriceHigh > 0 && c.PriceHigh < c.BasePrice) p.Add($"{at}: priceHigh can't be below basePrice.");
         }
 
         foreach (var f in FactionTypes.Values)

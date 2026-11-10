@@ -250,6 +250,8 @@ public partial class Main : Node3D
 
     private void Resume()
     {
+        // The difficulty may have changed in Settings.
+        _session.Easy = GameSettings.Current.Difficulty == 0;
         _menu.Visible = false;
         if (_pauseReturn == Screen.Docked) Dock(); else SetScreen(_pauseReturn);
     }
@@ -257,6 +259,7 @@ public partial class Main : Node3D
     private void StartGame(Session session, string? startScreen)
     {
         _session = session;
+        _session.Easy = GameSettings.Current.Difficulty == 0;
 
         _effects = new Effects();
         AddChild(_effects);
@@ -443,7 +446,14 @@ public partial class Main : Node3D
     {
         if (_dockedAtFlagship) { LaunchFromFlagship(); _dockedAtFlagship = false; }
         else if (_dockedPort != null) LaunchFromPort(_dockedPort);
-        else _player.Respawn(_stationLocal + new NVector3(0, 0, _customStationRadius > 0 ? _customStationRadius * StationScale + 320 : 320), NQuaternion.Identity);
+        else
+        {
+            // Out of the hub on the +Z side, turned round so the nose points away from the station
+            // (a ship's forward is -Z), and drifting clear.
+            var outwards = NQuaternion.CreateFromAxisAngle(NVector3.UnitY, MathF.PI);
+            _player.Respawn(_stationLocal + new NVector3(0, 0, _customStationRadius > 0 ? _customStationRadius * StationScale + 320 : 320), outwards);
+            _player.Body.Velocity = _player.Body.Forward * 40;
+        }
         _throttle = 0.3f;
         _mouseStick = Vector2.Zero;
         SetScreen(Screen.Flight);

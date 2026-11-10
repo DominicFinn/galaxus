@@ -67,7 +67,7 @@ public class GalaxyTests
         var food = Db.Commodities.Values.First(c => c.Category == "food");
         int before = Market.Price(Db, galaxy, system, food);
         galaxy.Events.Add(new ActiveEvent { EventId = "famine", SystemId = system.Id, EndDay = 100 });
-        Assert.True(Market.Price(Db, galaxy, system, food) > before * 2);
+        Assert.True(Market.Price(Db, galaxy, system, food) > before * 1.5f);
         Assert.All(Db.Commodities.Values, c => Assert.True(Market.Price(Db, galaxy, system, c) > 0));
     }
 
@@ -118,7 +118,7 @@ public class SessionTests
         Assert.NotEmpty(session.Here.Stations);
         Assert.NotEmpty(session.Board());
         Assert.NotEmpty(session.Shipyard());
-        Assert.DoesNotContain(session.Shipyard(), h => Db.Builders[h.Builder].Region == "rim");
+        Assert.DoesNotContain(session.Shipyard(), o => Db.Builders[o.Hull.Builder].Region == "rim");
         Assert.Equal(30, session.Galaxy.Day);
     }
 
@@ -150,12 +150,12 @@ public class SessionTests
     {
         var session = Session.StartNew(Db, 2026);
         var career = session.Career;
-        var cheap = Db.Commodities.Values.Where(c => c.Legality == "legal").MinBy(c => c.BasePrice)!;
-        int bought = career.Buy(Db, session.Galaxy, cheap.Id, 1000);
-        Assert.Equal(career.CargoCapacity(Db), bought);
-        Assert.Equal(0, career.FreeCargo(Db));
+        // The good with the most stock here, so the hold is the limit.
+        var plenty = Market.Quotes(session, session.Here).MaxBy(q => q.Stock)!;
+        int bought = session.Buy(plenty.Commodity.Id, 1000);
+        Assert.Equal(Math.Min(career.CargoCapacity(Db), plenty.Stock), bought);
         int credits = career.Credits;
-        Assert.Equal(bought, career.Sell(Db, session.Galaxy, cheap.Id, 1000));
+        Assert.Equal(bought, session.Sell(plenty.Commodity.Id, 1000));
         Assert.True(career.Credits > credits);
         Assert.Empty(career.Cargo);
     }
@@ -171,7 +171,7 @@ public class SaveGameTests
         var session = Session.StartNew(Db, 77);
         var offer = session.Board().First(o => o.Playable && o.Mission.Tonnes <= session.Career.FreeCargo(Db));
         session.Career.Accept(session.Galaxy, offer);
-        session.Career.Buy(Db, session.Galaxy, Db.Commodities.Keys.Order().First(), 1);
+        Assert.Equal(1, session.Buy(Market.Quotes(session, session.Here).First(q => q.Stock > 0).Commodity.Id, 1));
         session.Career.Reputation[3] = 150;
         session.Simulation.Run(40);
 

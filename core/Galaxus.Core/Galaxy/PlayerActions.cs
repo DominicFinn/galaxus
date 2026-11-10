@@ -75,7 +75,7 @@ public static class PlayerImpact
 
         if (swing >= SuesForPeace)
         {
-            if (front.Owner == loser.Id) front.Owner = winner.Id;
+            if (front.Owner == loser.Id) front.TakenBy(winner.Id, galaxy.Day);
             galaxy.Conflicts.Remove(conflict);
             galaxy.Events.RemoveAll(e => e.SystemId == conflict.FrontSystem && Conflict.StageEvents.Contains(e.EventId)
                                          && ((e.FactionId == a.Id && e.RivalId == b.Id) || (e.FactionId == b.Id && e.RivalId == a.Id)));
@@ -84,7 +84,7 @@ public static class PlayerImpact
         }
         if (swing >= FrontFalls && front.Owner == loser.Id && conflict.Stage >= 1)
         {
-            front.Owner = winner.Id;
+            front.TakenBy(winner.Id, galaxy.Day);
             front.StateSince = galaxy.Day;
             conflict.Momentum *= 0.5f;
             Spread(galaxy, front.Id, winner, loser, $"{front.Name} falls to {winner.Name}. {loser.Name} pull back from the front.");

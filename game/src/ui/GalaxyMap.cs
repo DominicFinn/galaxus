@@ -66,6 +66,27 @@ public partial class GalaxyMap : Control
         _info.ScrollActive = false;
         _info.CustomMinimumSize = new Vector2(180, 0);
         box.AddChild(_info);
+
+        // Factions, or the trade overlay with a goods picker.
+        var modes = new HBoxContainer();
+        box.AddChild(modes);
+        _modePicker = new OptionButton { FocusMode = FocusModeEnum.None };
+        _modePicker.AddItem("Factions");
+        _modePicker.AddItem("Trade");
+        _modePicker.ItemSelected += i => { _tradeMode = i == 1; _goodsPicker.Visible = _tradeMode; RefreshTrade(); };
+        modes.AddChild(_modePicker);
+        _goodsPicker = new OptionButton { FocusMode = FocusModeEnum.None, Visible = false, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _goodsPicker.AddItem("Best runs");
+        foreach (var c in _session.Db.Commodities.Values.OrderBy(c => c.Name, StringComparer.Ordinal)) _goodsPicker.AddItem(c.Name);
+        _goodsPicker.ItemSelected += i =>
+        {
+            _tradeGoods = i == 0 ? null : _session.Db.Commodities.Values.OrderBy(c => c.Name, StringComparer.Ordinal).ElementAt((int)i - 1).Id;
+            RefreshTrade();
+        };
+        modes.AddChild(_goodsPicker);
+        // For screenshots: --map-mode=trade opens the trade overlay.
+        if (OS.GetCmdlineUserArgs().Contains("--map-mode=trade")) { _modePicker.Select(1); _tradeMode = true; _goodsPicker.Visible = true; }
+
         _jumpButton = Ui.Button("Jump", () => { if (_selected >= 0) _jump(_selected); });
         box.AddChild(_jumpButton);
         box.AddChild(Ui.Button("Close map (M)", () => _close()));
@@ -74,6 +95,76 @@ public partial class GalaxyMap : Control
     }
 
     private VBoxContainer _jobs = null!;
+
+    // Trade overlay --------------------------------------------------------------------------
+
+    private OptionButton _modePicker = null!, _goodsPicker = null!;
+    private bool _tradeMode;
+    private string? _tradeGoods;
+    private List<TradeRun> _runs = [];
+    private List<TradeDeal> _rumours = [];
+    private Dictionary<int, (SeenPrice Price, int Age)> _known = [];
+
+    /// <summary>Works out the overlay from what you know: prices seen, runs from here, word of jackpots.</summary>
+    private void RefreshTrade()
+    {
+        _runs = _tradeMode ? TradeIntel.Routes(_session, _tradeGoods) : [];
+        _rumours = _tradeMode ? TradeIntel.Rumours(_session) : [];
+        _known = _tradeMode && _tradeGoods != null
+            ? TradeIntel.Known(_session, _tradeGoods).ToDictionary(k => k.System.Id, k => (k.Price, k.AgeDays))
+            : [];
+        UpdateInfo();
+        QueueRedraw();
+    }
+
+    private string GoodsName(string id) => _session.Db.Commodities[id].Name;
+
+    private static string TrendText(float trend) =>
+        Math.Abs(trend) < 0.03f ? "steady" : $"{(trend > 0 ? "up" : "down")} {Math.Abs(trend) * 100:0}%";
+
+    /// <summary>The trade overlay's own panel text when nothing is picked: the best runs from here and any rumours.</summary>
+    private string TradeSummary()
+    {
+        var galaxy = _session.Galaxy;
+        var lines = new List<string>
+        {
+            $"[color=#{Ui.Hex(Ui.Amber)}]TRADE MAP[/color]",
+            _tradeGoods == null
+                ? "Lines show the best runs from here to markets you've seen. Pick goods to colour the map by price."
+                : $"{GoodsName(_tradeGoods)}: blue is cheap, amber is dear, at markets you've seen. Arrows show which way the price was moving.",
+        };
+        if (_runs.Count == 0) lines.Add("\nNo runs from here yet. Visit more markets to learn their prices.");
+        else
+        {
+            lines.Add("\nBest runs from here:");
+            foreach (var r in _runs)
+                lines.Add($"{GoodsName(r.CommodityId)} to {galaxy.Systems[r.To].Name}: {r.Tonnes} t, about {r.Profit:N0} cr in {r.Days} days" + (r.AgeDays > 7 ? $" ({r.AgeDays} days old)" : ""));
+        }
+        if (_rumours.Count > 0)
+        {
+            lines.Add($"\n[color=#{Ui.Hex(Ui.Amber)}]Word on the docks:[/color]");
+            foreach (var d in _rumours)
+                lines.Add($"{galaxy.Systems[d.Source].Name} has {GoodsName(d.CommodityId).ToLowerInvariant()} going cheap, and {galaxy.Systems[d.Destination].Name} is paying well for it. For a few more days.");
+        }
+        return string.Join("\n", lines);
+    }
+
+    /// <summary>A system's market as you know it: what's cheap there and what it pays well for.</summary>
+    private string MarketLines(StarSystem s)
+    {
+        var galaxy = _session.Galaxy;
+        SeenMarket? market = s.Id == _session.Career.SystemId && s.Stations.Count > 0
+            ? new SeenMarket(galaxy.Day, Market.Quotes(_session, s).ToDictionary(q => q.Commodity.Id, q => new SeenPrice(q.Buy, q.Sell, q.Stock, q.Wanted, q.Trend, q.Deal)))
+            : _session.Career.SeenMarkets.GetValueOrDefault(s.Id);
+        if (market == null) return s.Stations.Count > 0 ? "\nYou haven't seen this market. Visit it to learn its prices.\n" : "";
+        float Position(string id, int price) { var (low, high) = Market.Range(_session.Db.Commodities[id]); return (price - low) / (float)Math.Max(1, high - low); }
+        var cheap = market.Prices.Where(p => p.Value.Stock > 0).OrderBy(p => Position(p.Key, p.Value.Buy)).Take(4);
+        var dear = market.Prices.OrderByDescending(p => Position(p.Key, p.Value.Sell)).Take(4);
+        int age = galaxy.Day - market.Day;
+        return $"\n[color=#{Ui.Hex(Ui.Amber)}]Market[/color] ({(age == 0 ? "today" : $"{age} days ago")})\n" +
+               "Cheap: " + string.Join(", ", cheap.Select(p => $"{GoodsName(p.Key)} {p.Value.Buy:N0} ({TrendText(p.Value.Trend)})")) + "\n" +
+               "Pays well: " + string.Join(", ", dear.Select(p => $"{GoodsName(p.Key)} {p.Value.Sell:N0} ({TrendText(p.Value.Trend)})")) + "\n";
+    }
 
     /// <summary>Population, government and security, and whether it's a capital.</summary>
     private string ProfileLine(StarSystem s)
@@ -134,6 +225,7 @@ public partial class GalaxyMap : Control
         _selected = -1;
         _route = [];
         RebuildJobs();
+        RefreshTrade();
         if (_session.Career.ActiveJob is { } job && job.Offer.DestinationSystemId != _session.Career.SystemId)
         {
             Select(job.Offer.DestinationSystemId);
@@ -214,6 +306,13 @@ public partial class GalaxyMap : Control
     {
         var galaxy = _session.Galaxy;
         int id = _hovered >= 0 ? _hovered : _selected;
+        if (id < 0 && _tradeMode)
+        {
+            _info.Text = TradeSummary();
+            _jumpButton.Disabled = true;
+            _jumpButton.Text = "Jump";
+            return;
+        }
         if (id < 0)
         {
             _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]GALAXY MAP[/color]\nDay {galaxy.Day}. You are at {_session.Here.Name}.\n" +
@@ -260,7 +359,8 @@ public partial class GalaxyMap : Control
             (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here: {string.Join(", ", jobs.Select(j => j.Offer.DestinationStation).Distinct())}.[/color]\n" : "") +
             string.Concat(_session.Career.KnownLeads.Where(l => l.EndsWith($":{id}")).Select(l => $"[color=#{Ui.Hex(Ui.Red)}]Ask around here for {galaxy.Factions[int.Parse(l.Split(':')[0])].Name}.[/color]\n")) +
             (id == _session.Career.SystemId ? "You are here." : $"{route.Count - 1} gates, {days} days. {distanceLy:N0} ly." +
-                (distanceLy <= range ? $" In jump range ({Galaxus.Core.Session.JumpDays(distanceLy)} days)." : ""));
+                (distanceLy <= range ? $" In jump range ({Galaxus.Core.Session.JumpDays(distanceLy)} days)." : "")) +
+            (_tradeMode ? "\n" + MarketLines(s) : "");
 
         bool canJump = _selected >= 0 && _selected != _session.Career.SystemId && (_route.Count > 1 || distanceLy <= range);
         _jumpButton.Disabled = !canJump;
@@ -272,6 +372,25 @@ public partial class GalaxyMap : Control
         .Select(f => $"[color=#{f.Colour.TrimStart('#')}]{f.Name}[/color]"));
 
     private static string Capitalise(string s) => s.Length == 0 ? s : char.ToUpperInvariant(s[0]) + s[1..];
+
+    /// <summary>
+    /// A system's colour in the trade overlay: by the chosen good's price where you know it (blue
+    /// cheap, amber dear), green for any market you know when no good is picked, grey otherwise.
+    /// </summary>
+    private Color TradeColour(StarSystem s)
+    {
+        var grey = new Color(0.45f, 0.45f, 0.5f, s.Stations.Count > 0 ? 0.35f : 0.15f);
+        if (_tradeGoods == null)
+            return s.Id == _session.Career.SystemId || _session.Career.SeenMarkets.ContainsKey(s.Id) ? new Color(Ui.Green, 0.9f) : grey;
+        if (!_known.TryGetValue(s.Id, out var seen)) return grey;
+        var (low, high) = Market.Range(_session.Db.Commodities[_tradeGoods]);
+        float t = Math.Clamp((seen.Price.Sell - low) / (float)Math.Max(1, high - low), 0, 1);
+        var cheap = new Color(0.4f, 0.7f, 1f);
+        var dear = new Color(1f, 0.6f, 0.2f);
+        var c = cheap.Lerp(dear, t);
+        c.A = seen.Age > 14 ? 0.6f : 1f;
+        return c;
+    }
 
     public override void _Draw()
     {
@@ -301,8 +420,36 @@ public partial class GalaxyMap : Control
             Color c = s.Owner >= 0 ? Color.FromHtml(galaxy.Factions[s.Owner].Colour) : new Color(0.5f, 0.5f, 0.55f);
             if (s.Owner < 0) c.A = s.State == SystemState.Surveyed ? 0.5f : 0.25f;
             else if (!s.Settled) c.A = 0.6f;
+            if (_tradeMode) c = TradeColour(s);
             DrawRect(new Rect2(p - Vector2.One * dot / 2, Vector2.One * dot), c);
+            if (_tradeMode && _known.TryGetValue(s.Id, out var seen) && Math.Abs(seen.Price.Trend) >= 0.03f)
+            {
+                // A small arrow: up for rising, down for falling.
+                float y = seen.Price.Trend > 0 ? -1 : 1, h = dot + 4;
+                var tip = p + new Vector2(dot / 2 + 4, y * h * 0.6f);
+                DrawColoredPolygon([tip, tip + new Vector2(-3, -y * 4), tip + new Vector2(3, -y * 4)], seen.Price.Trend > 0 ? Ui.Amber : new Color(0.55f, 0.8f, 1f));
+            }
             if (galaxy.EventsIn(s.Id).Any() && _zoom > 0.5f) DrawArc(p, dot + 2, 0, Mathf.Tau, 12, new Color(Ui.Red, 0.6f), 1);
+        }
+
+        if (_tradeMode)
+        {
+            // The best runs from here, as cyan lines with what they'd make.
+            var cyan = new Color(0.4f, 0.9f, 1f, 0.85f);
+            foreach (var r in _runs)
+            {
+                var to = ToScreen(galaxy.Systems[r.To].Position);
+                DrawLine(ToScreen(_session.Here.Position), to, cyan, 1.5f);
+                DrawString(ThemeDB.FallbackFont, to + new Vector2(dot + 4, 10), $"+{r.Profit:N0} {GoodsName(r.CommodityId).ToLowerInvariant()}", HorizontalAlignment.Left, -1, 8, cyan);
+            }
+            // Jackpots you've heard of: amber rings at both ends.
+            foreach (var d in _rumours)
+                foreach (var (id, label) in new[] { (d.Source, "SURPLUS"), (d.Destination, "WANTED") })
+                {
+                    var at = ToScreen(galaxy.Systems[id].Position);
+                    DrawArc(at, dot + 6, 0, Mathf.Tau, 16, Ui.Amber, 1.5f);
+                    DrawString(ThemeDB.FallbackFont, at + new Vector2(dot + 8, -6), $"{label} {GoodsName(d.CommodityId).ToLowerInvariant()}", HorizontalAlignment.Left, -1, 8, Ui.Amber);
+                }
         }
 
         // Underworld leads you've been told about: a red diamond on the system.

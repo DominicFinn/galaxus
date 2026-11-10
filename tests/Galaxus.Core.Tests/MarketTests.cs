@@ -1,0 +1,223 @@
+using Galaxus.Core.Content;
+using Galaxus.Core.Galaxy;
+
+namespace Galaxus.Core.Tests;
+
+/// <summary>Living markets: limited stock, prices that move as you trade, jackpots and the Easy loop.</summary>
+public class MarketTests
+{
+    private static readonly ContentDatabase Db = ContentDatabase.Load(new DirectoryContentSource(ContentTests.DataFolder));
+
+    private static Session NewGame(ulong seed, bool easy = false)
+    {
+        var session = Session.StartNew(Db, seed);
+        session.Easy = easy;
+        session.Career.Credits = 1_000_000;
+        return session;
+    }
+
+    [Fact]
+    public void Stock_is_finite_and_recovers_over_days()
+    {
+        var session = NewGame(11);
+        var quote = Market.Quotes(session, session.Here).Where(q => q.Stock is > 0 and < 200).MaxBy(q => q.Stock)!;
+        var id = quote.Commodity.Id;
+        session.Career.Cargo.Clear();
+        // Buy it all out, a hold at a time.
+        int total = 0;
+        for (int i = 0; i < 50 && Market.Quote(session, session.Here, quote.Commodity).Stock > 0; i++)
+        {
+            total += session.Buy(id, 1000);
+            session.Career.Cargo.Clear();
+        }
+        Assert.InRange(total, quote.Stock - 1, quote.Stock + 1);
+        Assert.Equal(0, Market.Quote(session, session.Here, quote.Commodity).Stock);
+        Assert.Equal(0, session.Buy(id, 1));
+
+        session.Galaxy.Day += 6;
+        Assert.True(Market.Quote(session, session.Here, quote.Commodity).Stock > quote.Stock / 2);
+    }
+
+    [Fact]
+    public void Buying_raises_the_price_and_selling_a_lot_lowers_it()
+    {
+        var session = NewGame(12);
+        var quote = Market.Quotes(session, session.Here).Where(q => q.Stock >= 20).MaxBy(q => q.Stock)!;
+        var c = quote.Commodity;
+        session.Buy(c.Id, quote.Stock - 2);
+        Assert.True(Market.Quote(session, session.Here, c).Buy > quote.Buy);
+
+        // Dump a big load into a market that doesn't want much: each tonne fetches less.
+        var market = Market.Quotes(session, session.Here).First(q => q.Wanted is > 0 and < 60);
+        session.Career.Cargo[market.Commodity.Id] = market.Wanted * 3;
+        int first = Market.Quote(session, session.Here, market.Commodity).Sell;
+        session.Sell(market.Commodity.Id, market.Wanted * 3);
+        Assert.True(Market.Quote(session, session.Here, market.Commodity).Sell < first * 0.8f);
+    }
+
+    [Fact]
+    public void Prices_stay_in_range_without_events_and_drift_from_week_to_week()
+    {
+        var session = NewGame(13);
+        var galaxy = session.Galaxy;
+        galaxy.Events.Clear();
+        var markets = galaxy.Systems.Where(s => s.Stations.Count > 0).Take(30).ToList();
+        foreach (var system in markets)
+        foreach (var c in Market.Legal(Db, system, galaxy))
+        {
+            var (low, high) = Market.Range(c);
+            int price = Market.Price(Db, galaxy, system, c);
+            Assert.InRange(price, (int)(low * 0.95f), (int)(high * 1.05f));
+        }
+        int Week(int day) { galaxy.Day = day; return Market.Price(Db, galaxy, markets[0], Db.Commodities.Values.First(c => c.Legality == "legal")); }
+        var prices = Enumerable.Range(0, 8).Select(w => Week(100 + w * 7)).ToList();
+        Assert.True(prices.Distinct().Count() > 3, "Prices should drift week to week.");
+    }
+
+    [Fact]
+    public void Jackpots_turn_up_now_and_then_and_expire()
+    {
+        var galaxy = Session.StartNew(Db, 14).Galaxy;
+        var seen = new HashSet<TradeDeal>();
+        for (int day = 30; day < 130; day++)
+        {
+            var deals = Market.Deals(Db, galaxy, day).ToList();
+            Assert.All(deals, d => Assert.True(d.ActiveOn(day)));
+            Assert.All(deals, d => Assert.InRange(d.EndDay - d.StartDay, 4, 8));
+            foreach (var d in deals) seen.Add(d);
+        }
+        Assert.True(seen.Count >= 10, $"Only {seen.Count} jackpots in 100 days.");
+        // The source has plenty going cheap; the destination pays well over the odds.
+        var deal = seen.First(d => d.ActiveOn(60) || true);
+        galaxy.Day = deal.StartDay;
+        var c = Db.Commodities[deal.CommodityId];
+        var (low, high) = Market.Range(c);
+        Assert.True(Market.Price(Db, galaxy, galaxy.Systems[deal.Source], c) < Market.Price(Db, galaxy, galaxy.Systems[deal.Destination], c));
+    }
+
+    [Theory]
+    [InlineData(2026UL)]
+    [InlineData(31UL)]
+    [InlineData(99UL)]
+    public void On_easy_the_starting_loop_makes_steady_money(ulong seed)
+    {
+        var session = NewGame(seed, easy: true);
+        session.Career.Credits = 5_000;
+        var route = session.Career.TradeRoute!;
+        Assert.NotNull(route);
+        int start = session.Career.Credits;
+        int previous = start;
+        for (int trip = 0; trip < 4; trip++)
+        {
+            foreach (var (from, to, goods) in new[] { (route.A, route.B, route.GoodsAtoB), (route.B, route.A, route.GoodsBtoA) })
+            {
+                Assert.Equal(from, session.Career.SystemId);
+                session.Buy(goods, 1000);
+                Assert.NotNull(session.Jump(to));
+                session.Sell(goods, 1000);
+            }
+            Assert.True(session.Career.Credits > previous, $"Trip {trip} lost money: {previous} to {session.Career.Credits}.");
+            previous = session.Career.Credits;
+        }
+        Assert.True(session.Career.Credits > start * 1.5, $"Four round trips only took {start} to {session.Career.Credits}.");
+    }
+
+    [Fact]
+    public void Markets_are_the_same_after_a_save_and_load()
+    {
+        var session = NewGame(15);
+        var quote = Market.Quotes(session, session.Here).First(q => q.Stock > 10);
+        session.Buy(quote.Commodity.Id, 10);
+        var loaded = SaveGame.Load(Db, SaveGame.Save(session));
+        Assert.Equal(Market.Quotes(session, session.Here), Market.Quotes(loaded, loaded.Here));
+        Assert.Equal(session.Career.TradeRoute, loaded.Career.TradeRoute);
+    }
+
+    [Fact]
+    public void Shipyards_differ_between_systems_and_change_week_to_week()
+    {
+        var session = NewGame(16);
+        var galaxy = session.Galaxy;
+        var yards = galaxy.Systems.Where(s => s.Stations.Count > 0 && s.Settled).Take(40).ToList();
+        string Stock(StarSystem s) => string.Join(",", Shipyards.Offers(session, s).Select(o => o.Hull.Id));
+        Assert.True(yards.Select(Stock).Distinct().Count() > 10, "Shipyards should carry different ships.");
+
+        var here = session.Here;
+        var weeks = Enumerable.Range(0, 6).Select(w => { galaxy.Day = 100 + w * 7; return Stock(here); }).ToList();
+        Assert.True(weeks.Distinct().Count() > 1, "Stock should change from week to week.");
+
+        foreach (var s in yards)
+        foreach (var o in Shipyards.Offers(session, s))
+        {
+            var (low, high) = Shipyards.Range(o.Hull);
+            Assert.InRange(o.Price, low - 50, high + 50);
+            Assert.False(o.Hull.IsCapital || o.Hull.Class == "drone");
+        }
+    }
+
+    [Fact]
+    public void Big_stations_carry_more_ships_than_outposts()
+    {
+        var session = NewGame(17);
+        var galaxy = session.Galaxy;
+        double Average(StationSize size) => galaxy.Systems
+            .Where(s => s.Stations.Count > 0 && s.Settled && SystemProfiles.For(galaxy, s, Db).StationSize == size)
+            .Take(40).Select(s => Shipyards.Offers(session, s).Count).DefaultIfEmpty(0).Average();
+        Assert.True(Average(StationSize.Hub) > Average(StationSize.Outpost) + 1);
+    }
+
+    [Fact]
+    public void Buying_a_ship_uses_the_local_price_and_trade_in()
+    {
+        var session = NewGame(18);
+        var offer = session.Shipyard().First(o => o.Hull.Id != session.Career.HullId);
+        int tradeIn = session.TradeInValue();
+        int credits = session.Career.Credits;
+        Assert.Null(session.Career.CannotBuyShip(Db, offer, tradeIn));
+        session.Career.BuyShip(offer, tradeIn);
+        Assert.Equal(credits - offer.Price + tradeIn, session.Career.Credits);
+        Assert.Equal(offer.Hull.Id, session.Career.HullId);
+    }
+
+    [Fact]
+    public void You_remember_markets_you_visit_and_find_runs_between_them()
+    {
+        var session = NewGame(19, easy: true);
+        var route = session.Career.TradeRoute!;
+        // You start knowing your own market and your trade partner's, so the loop shows from day one.
+        Assert.True(session.Career.SeenMarkets.ContainsKey(route.A));
+        Assert.True(session.Career.SeenMarkets.ContainsKey(route.B));
+        Assert.Contains(TradeIntel.Routes(session), r => r.To == route.B);
+        session.Career.SeenMarkets.Remove(route.B);
+        Assert.DoesNotContain(TradeIntel.Routes(session), r => r.To == route.B);
+
+        // Visit the partner and come back: now the run there shows up, with a profit.
+        session.Jump(route.B);
+        Assert.True(session.Career.SeenMarkets.ContainsKey(route.B));
+        session.Jump(route.A);
+        var run = TradeIntel.Routes(session, route.GoodsAtoB).FirstOrDefault(r => r.To == route.B);
+        Assert.NotNull(run);
+        Assert.True(run!.Profit > 0 && run.Days > 0);
+        Assert.Equal(TradeIntel.Known(session, route.GoodsAtoB).Count, TradeIntel.Known(session, route.GoodsAtoB).Select(k => k.System.Id).Distinct().Count());
+
+        var loaded = SaveGame.Load(Db, SaveGame.Save(session));
+        Assert.Equal(session.Career.SeenMarkets.Keys.Order(), loaded.Career.SeenMarkets.Keys.Order());
+    }
+
+    [Fact]
+    public void You_hear_of_jackpots_within_a_few_jumps()
+    {
+        var session = NewGame(20);
+        var galaxy = session.Galaxy;
+        var heard = 0;
+        for (int day = galaxy.Day; day < galaxy.Day + 200 && heard == 0; day++)
+        {
+            galaxy.Day = day;
+            var near = galaxy.WithinJumps(session.Here.Id, TradeIntel.RumourJumps).Select(s => s.Id).Append(session.Here.Id).ToHashSet();
+            var rumours = TradeIntel.Rumours(session);
+            Assert.All(rumours, d => Assert.True(near.Contains(d.Source) || near.Contains(d.Destination)));
+            heard += rumours.Count;
+        }
+        Assert.True(heard > 0, "No jackpots within reach in 200 days.");
+    }
+}

@@ -69,6 +69,9 @@ public sealed class HullDef
     public string Class { get; set; } = "";
     public string Description { get; set; } = "";
     public int Price { get; set; }
+    /// <summary>The cheapest and dearest shipyards normally ask. Zero means 80% and 125% of the list price.</summary>
+    public int PriceLow { get; set; }
+    public int PriceHigh { get; set; }
     /// <summary>Mass in tonnes. Acceleration is engine thrust divided by mass.</summary>
     public float Mass { get; set; } = 20f;
     /// <summary>Top speed in m/s before engine and power modifiers.</summary>
