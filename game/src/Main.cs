@@ -2,17 +2,20 @@ using Godot;
 using Galaxus.Core;
 using Galaxus.Core.Content;
 using Galaxus.Core.Ships;
+using Galaxus.Ui;
 using NVector3 = System.Numerics.Vector3;
 using NQuaternion = System.Numerics.Quaternion;
 
 namespace Galaxus;
 
 /// <summary>
-/// First milestone: one flyable fighter, power distribution and target drones to shoot.
+/// The game: a living galaxy you travel by gate, stations you dock at for work, trade and ships,
+/// and flight with practice drones in each system.
 ///
 /// Debug arguments go after "--" on the command line:
 ///   --demo               fly and shoot automatically
 ///   --cockpit            start in the cockpit camera
+///   --screen=NAME        start on flight, station or map (default: docked at the station)
 ///   --screenshot=PATH    save a screenshot after --frames (default 180) frames, then quit
 ///   --preview=HULL_ID    show one hull from four angles instead of the game (for content work)
 /// </summary>
@@ -47,6 +50,20 @@ public partial class Main : Node3D
     private int _screenshotFrame = 180;
     private int _frame;
     private string? _previewHull;
+    private string _startScreen = "station";
+
+    private enum Screen { Flight, Docked, Map }
+
+    /// <summary>The station sits ahead of the arrival point in every system that has one.</summary>
+    private static readonly NVector3 StationPosition = new(0, 0, -1600);
+    private const float DockRange = 500f, DockSpeed = 80f;
+
+    private Session _session = null!;
+    private Screen _screen = Screen.Flight;
+    private Screen _mapReturn = Screen.Flight;
+    private StationScreen _stationScreen = null!;
+    private GalaxyMap _map = null!;
+    private MeshInstance3D? _stationNode;
 
     public override void _Ready()
     {
@@ -72,9 +89,7 @@ public partial class Main : Node3D
             return;
         }
 
-        _space = new Space();
-        AddChild(_space);
-        _space.Build(Rng.Hash("home-system"));
+        _session = Session.StartNew(_db, 2026);
 
         _effects = new Effects();
         AddChild(_effects);
@@ -82,7 +97,7 @@ public partial class Main : Node3D
         _camera = new Camera3D { Fov = 70, Near = 0.3f, Far = 150000, Current = true };
         AddChild(_camera);
 
-        _player = new Ship(1, "Kestrel", ShipFactory.Build(_db, "kestrel")) { Side = 0 };
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
         _world.Ships.Add(_player);
         AddVisual(_player);
 
@@ -103,8 +118,137 @@ public partial class Main : Node3D
         layer.AddChild(_hud);
         _hud.Message("F1 FOR CONTROLS");
 
-        if (!_demo && _screenshotPath == null) Input.MouseMode = Input.MouseModeEnum.Captured;
+        // Station and map screens sit above the HUD.
+        var uiLayer = new CanvasLayer { Layer = 2 };
+        AddChild(uiLayer);
+        _stationScreen = new StationScreen();
+        _stationScreen.Init(_session, Undock, () => OpenMap(), RefitShip);
+        uiLayer.AddChild(_stationScreen);
+        _map = new GalaxyMap();
+        _map.Init(_session, JumpTo, CloseMap);
+        uiLayer.AddChild(_map);
+
+        EnterSystem();
+        if (_demo || _startScreen == "flight") SetScreen(Screen.Flight);
+        else if (_startScreen == "map") OpenMap();
+        else Dock();
         UpdateCamera(1f, snap: true);
+    }
+
+    /// <summary>Builds the space for the current system: its sky, planet and station.</summary>
+    private void EnterSystem()
+    {
+        var here = _session.Here;
+        _space?.QueueFree();
+        _space = new Space();
+        AddChild(_space);
+        _space.Build(here.Seed);
+
+        _stationNode?.QueueFree();
+        _stationNode = null;
+        if (here.Stations.Count > 0)
+        {
+            var owner = _session.Galaxy.OwnerOf(here);
+            _stationNode = new MeshInstance3D
+            {
+                Mesh = MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f)),
+                Position = StationPosition.ToGodot(),
+            };
+            AddChild(_stationNode);
+        }
+
+        // Arrive facing the station, at rest, with the practice drones nearby.
+        _player.Respawn(NVector3.Zero, NQuaternion.Identity);
+        _throttle = 0;
+        foreach (var drone in _drones.Keys)
+        {
+            drone.Respawn(new NVector3(_rng.Range(-600, 600), _rng.Range(-200, 200), _rng.Range(-900, 300)), RandomOrientation());
+            _drones[drone].Anchor = NVector3.Zero;
+        }
+        foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
+        _world.Projectiles.Clear();
+        _hud.Location = $"{here.Name.ToUpperInvariant()}  DAY {_session.Galaxy.Day}";
+    }
+
+    private void SetScreen(Screen screen)
+    {
+        _screen = screen;
+        _stationScreen.Visible = screen == Screen.Docked;
+        _map.Visible = screen == Screen.Map;
+        _hud.Visible = screen == Screen.Flight;
+        if (!_demo && _screenshotPath == null)
+            Input.MouseMode = screen == Screen.Flight ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
+    }
+
+    private void Dock()
+    {
+        _stationScreen.Refresh();
+        SetScreen(Screen.Docked);
+    }
+
+    /// <summary>Leave the station pointing away from it, so you're clear of the hub.</summary>
+    private void Undock()
+    {
+        _player.Respawn(StationPosition + new NVector3(0, 0, 320), NQuaternion.Identity);
+        _throttle = 0.3f;
+        _mouseStick = Vector2.Zero;
+        SetScreen(Screen.Flight);
+        _hud.Message($"UNDOCKED FROM {_stationScreen.StationName.ToUpperInvariant()}");
+    }
+
+    private void OpenMap()
+    {
+        _mapReturn = _screen == Screen.Map ? _mapReturn : _screen;
+        _map.Open();
+        SetScreen(Screen.Map);
+    }
+
+    private void CloseMap()
+    {
+        if (_mapReturn == Screen.Docked) Dock(); else SetScreen(Screen.Flight);
+    }
+
+    /// <summary>Travel along the plotted route. Days pass, the galaxy moves on, and jobs settle on arrival.</summary>
+    private void JumpTo(int systemId)
+    {
+        var report = _session.Jump(systemId);
+        if (report == null) return;
+        EnterSystem();
+
+        string summary = $"Arrived at {_session.Here.Name} after {report.Days} days.";
+        foreach (var result in report.Results)
+            summary += result.Success
+                ? $" Job done: {result.Mission.Offer.Mission.Title}, +{result.Payment:N0} cr."
+                : $" Job failed: {result.Mission.Offer.Mission.Title}.";
+
+        if (_session.Here.Stations.Count > 0)
+        {
+            _stationScreen.Refresh(summary);
+            SetScreen(Screen.Docked);
+        }
+        else
+        {
+            SetScreen(Screen.Flight);
+            _hud.Message(summary.ToUpperInvariant());
+            _hud.Message("NO STATION IN THIS SYSTEM");
+        }
+    }
+
+    /// <summary>After buying a ship, swap the player's ship for the new one.</summary>
+    private void RefitShip()
+    {
+        var old = _player;
+        _world.Ships.Remove(old);
+        _visuals[old].QueueFree();
+        _visuals.Remove(old);
+
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
+        _player.Body.Position = old.Body.Position;
+        _player.Body.Orientation = old.Body.Orientation;
+        _player.Target = old.Target;
+        _world.Ships.Add(_player);
+        AddVisual(_player);
+        _hud.Player = _player;
     }
 
     private void ReadArguments()
@@ -116,6 +260,7 @@ public partial class Main : Node3D
             else if (arg.StartsWith("--screenshot=")) _screenshotPath = arg["--screenshot=".Length..];
             else if (arg.StartsWith("--frames=")) _screenshotFrame = int.Parse(arg["--frames=".Length..]);
             else if (arg.StartsWith("--preview=")) _previewHull = arg["--preview=".Length..];
+            else if (arg.StartsWith("--screen=")) _startScreen = arg["--screen=".Length..];
         }
     }
 
@@ -151,6 +296,13 @@ public partial class Main : Node3D
         }
         float dt = Mathf.Min((float)delta, 1 / 30f);
 
+        if (_screen != Screen.Flight)
+        {
+            HandleScreenKeys();
+            CaptureScreenshotIfAsked();
+            return;
+        }
+
         HandleCommands();
         if (_demo) DemoPilot(dt); else ReadFlightControls(dt);
         foreach (var (drone, brain) in _drones)
@@ -175,8 +327,30 @@ public partial class Main : Node3D
         _hud.Throttle = _throttle;
         _hud.Kills = _kills;
         _hud.Cockpit = _cockpit;
+        _hud.Prompt = DockPrompt();
 
         CaptureScreenshotIfAsked();
+    }
+
+    private string? DockPrompt()
+    {
+        if (_stationNode == null) return null;
+        float distance = NVector3.Distance(_player.Body.Position, StationPosition);
+        if (distance > DockRange * 3) return null;
+        if (distance > DockRange) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
+        return _player.Body.Speed > DockSpeed ? "SLOW DOWN TO DOCK" : "ENTER TO DOCK";
+    }
+
+    private bool CanDock => _stationNode != null
+                            && NVector3.Distance(_player.Body.Position, StationPosition) <= DockRange
+                            && _player.Body.Speed <= DockSpeed;
+
+    private void HandleScreenKeys()
+    {
+        if (Input.IsActionJustPressed(GameInput.Quit)) GetTree().Quit();
+        if (_screen == Screen.Map && (Input.IsActionJustPressed(GameInput.Map) || Input.IsActionJustPressed(GameInput.ReleaseMouse))) CloseMap();
+        else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.Map)) OpenMap();
+        else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.Dock)) Undock();
     }
 
     private void HandleCommands()
@@ -186,6 +360,8 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.Help)) _hud.ShowHelp = !_hud.ShowHelp;
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
         if (Input.IsActionJustPressed(GameInput.TargetNext)) _player.Target = NextTarget();
+        if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
+        if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { Dock(); return; }
 
         if (Input.IsActionJustPressed(GameInput.PipEngines)) _player.Power.Raise(ShipSystem.Engines);
         if (Input.IsActionJustPressed(GameInput.PipShields)) _player.Power.Raise(ShipSystem.Shields);

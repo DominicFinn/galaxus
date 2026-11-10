@@ -28,6 +28,10 @@ public partial class Hud : Control
     public int Kills { get; set; }
     public bool ShowHelp { get; set; }
     public bool Cockpit { get; set; }
+    /// <summary>Docking hint shown under the crosshair, or null.</summary>
+    public string? Prompt { get; set; }
+    /// <summary>Current system and day, shown top centre.</summary>
+    public string Location { get; set; } = "";
 
     public override void _Ready()
     {
@@ -64,6 +68,8 @@ public partial class Hud : Control
         DrawDefencePanel(size);
         DrawTargetPanel();
         DrawMessages(size);
+        Text(new Vector2(size.X / 2, 12), Location, Dim, HorizontalAlignment.Center);
+        if (Prompt != null) Text(new Vector2(size.X / 2, size.Y / 2 + 36), Prompt, Amber, HorizontalAlignment.Center);
         Text(new Vector2(size.X - 6, 12), $"DRONES DOWN {Kills}", Dim, HorizontalAlignment.Right);
         Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
         if (ShowHelp) DrawHelp(size);
@@ -244,6 +250,8 @@ public partial class Hud : Control
             "4 / D-PAD DOWN                balance power",
             "T / A                         next target",
             "V / Y                         chase or cockpit camera",
+            "ENTER / X                     dock when close and slow",
+            "M / START                     galaxy map",
             "ESC                           release mouse      F10  quit",
         ];
         var rect = new Rect2(size.X / 2 - 200, 70, 400, lines.Length * 11 + 16);

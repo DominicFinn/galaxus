@@ -102,6 +102,48 @@ public static class MeshFactory
         return mesh;
     }
 
+    /// <summary>
+    /// A station: a hub with a docking bay on its front face, spokes and a ring, built from the same
+    /// tapered boxes as ships so it shares their look. Owner colour picks out the ring.
+    /// </summary>
+    public static ArrayMesh BuildStation(Color ownerColour)
+    {
+        var shapes = new List<ShapeDef>
+        {
+            new() { Position = [0, 0, 0], Back = [60, 60], Front = [60, 60], Length = 90, Color = "hull" },
+            new() { Position = [0, 0, -50], Back = [36, 36], Front = [36, 36], Length = 10, Color = "trim" },
+            new() { Position = [0, 0, -55.5f], Back = [24, 10], Front = [24, 10], Length = 1, Color = "glow" },
+            new() { Position = [0, 0, 60], Back = [20, 20], Front = [44, 44], Length = 30, Color = "trim" },
+        };
+        const int segments = 12;
+        const float ringRadius = 150f;
+        for (int i = 0; i < segments; i++)
+        {
+            float angle = i * 360f / segments;
+            float rad = Mathf.DegToRad(angle);
+            float chord = 2 * ringRadius * Mathf.Sin(Mathf.Pi / segments) + 4;
+            shapes.Add(new ShapeDef
+            {
+                Position = [Mathf.Cos(rad) * ringRadius, Mathf.Sin(rad) * ringRadius, 0],
+                Back = [26, chord], Front = [26, chord], Length = 30, Roll = angle, Color = i % 3 == 0 ? "accent" : "hull",
+            });
+            if (i % 3 == 0)
+                shapes.Add(new ShapeDef
+                {
+                    Position = [Mathf.Cos(rad) * ringRadius * 0.55f, Mathf.Sin(rad) * ringRadius * 0.55f, 0],
+                    Back = [ringRadius * 0.85f, 8], Front = [ringRadius * 0.85f, 8], Length = 8, Roll = angle, Color = "trim",
+                });
+            shapes.Add(new ShapeDef
+            {
+                Position = [Mathf.Cos(rad) * (ringRadius + 13.5f), Mathf.Sin(rad) * (ringRadius + 13.5f), -12],
+                Back = [1.5f, 3], Front = [1.5f, 3], Length = 1, Roll = angle, Color = "glow",
+            });
+        }
+        var hull = new HullDef { Id = "station", Model = shapes };
+        var palette = new PaletteDef { Hull = "#8d939c", Accent = "#" + ownerColour.ToHtml(false), Trim = "#3c4048", Glow = "#ffe6a0" };
+        return BuildShip(hull, palette);
+    }
+
     public static Color ResolveColour(string name, PaletteDef palette) => Color.FromHtml(name switch
     {
         "hull" => palette.Hull,

@@ -2,7 +2,14 @@
 
 Working title for a PC space game in the spirit of Frontier: Elite II, with X-Wing style flight. The design brief is the [space game design foundation](https://claude.ai/artifact/UoqLkSwDvcejkPUDLuneeJ) doc.
 
-The first milestone is in: one flyable fighter with flight assist on and off, power distribution between engines, shields and weapons, and target drones to shoot.
+What's in so far:
+
+- Flight with flight assist on and off, power distribution between engines, shields and weapons, and practice drones to shoot.
+- A living galaxy of 1,400 systems in four spiral arms, with nine great powers and about 160 smaller factions. It runs day by day: factions expand, borders flare into disputes and wars, events break out and the news reports it.
+- Stations with a mission board, market, shipyard (88 ships from 11 builders), news feed and faction standing.
+- A galaxy map for travelling by gate. Time passes as you fly, and jobs pay out when you arrive.
+
+You start docked at a Tolland Compact colony in a small courier with 8,000 credits.
 
 ## Running it
 
@@ -35,6 +42,8 @@ Press F1 in game for the list.
 | Balance power | 4 | D-pad down |
 | Next target | T | A |
 | Chase or cockpit camera | V | Y |
+| Dock (when close and slow) and undock | Enter | X |
+| Galaxy map | M | Start |
 | Release mouse | Esc | |
 | Quit | F10 | |
 

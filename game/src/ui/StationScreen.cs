@@ -1,0 +1,380 @@
+using Godot;
+using Galaxus.Core;
+using Galaxus.Core.Content;
+using Galaxus.Core.Galaxy;
+using Galaxus.Core.Missions;
+
+namespace Galaxus.Ui;
+
+/// <summary>
+/// The docked view: jobs, jobs in hand, market, shipyard, news and standing. There's no walking
+/// about, so everything at a station happens on these screens.
+/// </summary>
+public partial class StationScreen : PanelContainer
+{
+    private Session _session = null!;
+    private Action _undock = null!;
+    private Action _openMap = null!;
+    private Action _shipChanged = null!;
+
+    private RichTextLabel _header = null!;
+    private Label _status = null!;
+    private Tree _jobs = null!, _inHand = null!, _market = null!, _yard = null!, _standing = null!;
+    private RichTextLabel _jobText = null!, _yardText = null!, _news = null!;
+    private Button _accept = null!, _buyShip = null!;
+    private Label _jobReason = null!, _yardReason = null!, _marketNote = null!;
+
+    private List<MissionOffer> _offers = [];
+    private List<HullDef> _hulls = [];
+    private List<CommodityDef> _commodities = [];
+
+    public string StationName { get; private set; } = "";
+
+    public void Init(Session session, Action undock, Action openMap, Action shipChanged)
+    {
+        _session = session;
+        _undock = undock;
+        _openMap = openMap;
+        _shipChanged = shipChanged;
+    }
+
+    public override void _Ready()
+    {
+        Theme = Ui.Theme;
+        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect, LayoutPresetMode.Minsize, 6);
+
+        var root = new VBoxContainer();
+        AddChild(root);
+
+        _header = Ui.Text();
+        _header.ScrollActive = false;
+        _header.FitContent = true;
+        _header.SizeFlagsVertical = SizeFlags.ShrinkBegin;
+        root.AddChild(_header);
+
+        var tabs = new TabContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
+        root.AddChild(tabs);
+        tabs.AddChild(BuildJobsTab());
+        tabs.AddChild(BuildInHandTab());
+        tabs.AddChild(BuildMarketTab());
+        tabs.AddChild(BuildShipyardTab());
+        tabs.AddChild(BuildNewsTab());
+        tabs.AddChild(BuildStandingTab());
+
+        var footer = new HBoxContainer();
+        root.AddChild(footer);
+        footer.AddChild(Ui.Button("Undock (Enter)", () => _undock()));
+        footer.AddChild(Ui.Button("Galaxy map (M)", () => _openMap()));
+        _status = Ui.Label("", Ui.Dim);
+        _status.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        _status.HorizontalAlignment = HorizontalAlignment.Right;
+        footer.AddChild(_status);
+    }
+
+    /// <summary>Rebuilds every tab from the current session. Called on docking and after any purchase.</summary>
+    public void Refresh(string? message = null)
+    {
+        var here = _session.Here;
+        var galaxy = _session.Galaxy;
+        var career = _session.Career;
+        var db = _session.Db;
+        StationName = here.Stations.FirstOrDefault() ?? here.Name;
+        var owner = galaxy.OwnerOf(here);
+        string ownerText = owner == null ? "unclaimed" : $"[color=#{owner.Colour.TrimStart('#')}]{owner.Name}[/color]";
+        var events = galaxy.EventsIn(here.Id).Select(e => db.Events.TryGetValue(e.EventId, out var d) ? d.Name : e.EventId).ToList();
+
+        _header.Text =
+            $"[color=#{Ui.Hex(Ui.Amber)}]{StationName.ToUpperInvariant()}[/color]  {here.Name}, {here.Region} {here.Arm} arm. Held by {ownerText}. {here.Economy} economy." +
+            (events.Count > 0 ? $"  [color=#{Ui.Hex(Ui.Red)}]Now: {string.Join(", ", events)}[/color]" : "") +
+            $"\nDay {galaxy.Day}.  {career.Credits:N0} cr.  {db.Hulls[career.HullId].Name}, hold {career.CargoUsed}/{career.CargoCapacity(db)} t.";
+        _status.Text = message ?? "";
+
+        RefreshJobs();
+        RefreshInHand();
+        RefreshMarket();
+        RefreshShipyard();
+        RefreshNews();
+        RefreshStanding();
+    }
+
+    // Jobs ---------------------------------------------------------------------------------
+
+    private Control BuildJobsTab()
+    {
+        var tab = new HBoxContainer { Name = "Jobs" };
+        _jobs = Ui.Table(("Job", 0), ("Pay", 60), ("Days", 30));
+        _jobs.SizeFlagsStretchRatio = 1.1f;
+        _jobs.ItemSelected += ShowSelectedJob;
+        tab.AddChild(_jobs);
+
+        var side = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        tab.AddChild(side);
+        _jobText = Ui.Text();
+        side.AddChild(_jobText);
+        var actions = new HBoxContainer();
+        side.AddChild(actions);
+        _accept = Ui.Button("Accept job", AcceptSelected);
+        actions.AddChild(_accept);
+        _jobReason = Ui.Label("", Ui.Amber, wrap: true);
+        _jobReason.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        actions.AddChild(_jobReason);
+        return tab;
+    }
+
+    private void RefreshJobs()
+    {
+        _offers = _session.Board();
+        _jobs.Clear();
+        var root = _jobs.CreateItem();
+        for (int i = 0; i < _offers.Count; i++)
+        {
+            var o = _offers[i];
+            var item = _jobs.CreateItem(root);
+            item.SetText(0, (o.Playable ? "" : "(later) ") + o.Mission.Title);
+            item.SetText(1, $"{o.Mission.Reward:N0}");
+            item.SetText(2, o.Mission.DeadlineDays.ToString());
+            item.SetMetadata(0, i);
+            if (!o.Playable) for (int c = 0; c < 3; c++) item.SetCustomColor(c, Ui.Dim);
+            if (!o.Mission.Template.Legal) item.SetCustomColor(0, Ui.Amber);
+        }
+        _jobText.Text = _offers.Count == 0 ? "No work posted here." : "Pick a job to read the briefing.";
+        _accept.Disabled = true;
+        _jobReason.Text = "";
+    }
+
+    private MissionOffer? SelectedOffer => _jobs.GetSelected() is { } item ? _offers[item.GetMetadata(0).AsInt32()] : null;
+
+    private void ShowSelectedJob()
+    {
+        if (SelectedOffer is not { } o) return;
+        var galaxy = _session.Galaxy;
+        var giver = galaxy.Factions[o.GiverFactionId];
+        var destination = galaxy.Systems[o.DestinationSystemId];
+        int travel = MissionBoard.TravelDays(galaxy, _session.Career.SystemId, o.DestinationSystemId);
+        string cargo = o.Mission.Cargo != null ? $"{o.Mission.Tonnes} t of {o.Mission.Cargo.Name.ToLowerInvariant()}" : "none";
+        _jobText.Text =
+            $"[color=#{Ui.Hex(Ui.Amber)}]{o.Mission.Title}[/color]\n" +
+            $"From [color=#{giver.Colour.TrimStart('#')}]{giver.Name}[/color]{(o.Mission.Template.Legal ? "" : $" [color=#{Ui.Hex(Ui.Red)}](illegal)[/color]")}\n\n" +
+            $"{o.Mission.Briefing}\n\n" +
+            $"Destination: {o.DestinationStation}, {destination.Name} ({travel} days away)\n" +
+            $"Cargo: {cargo}\nDeadline: {o.Mission.DeadlineDays} days\nPays: {o.Mission.Reward:N0} cr\n" +
+            $"Your standing with them: {Career.RankNames[_session.Career.RankWith(giver.Id)]}";
+        var reason = _session.Career.CannotAccept(_session.Db, o);
+        _accept.Disabled = reason != null;
+        _jobReason.Text = reason ?? "";
+    }
+
+    private void AcceptSelected()
+    {
+        if (SelectedOffer is not { } o || _session.Career.CannotAccept(_session.Db, o) != null) return;
+        _session.Career.Accept(_session.Galaxy, o);
+        Refresh($"Accepted: {o.Mission.Title}");
+    }
+
+    // In hand ------------------------------------------------------------------------------
+
+    private Control BuildInHandTab()
+    {
+        var tab = new VBoxContainer { Name = "In hand" };
+        _inHand = Ui.Table(("Job", 0), ("Destination", 130), ("Days left", 50), ("Pay", 60));
+        tab.AddChild(_inHand);
+        return tab;
+    }
+
+    private void RefreshInHand()
+    {
+        var galaxy = _session.Galaxy;
+        _inHand.Clear();
+        var root = _inHand.CreateItem();
+        foreach (var job in _session.Career.Missions)
+        {
+            var item = _inHand.CreateItem(root);
+            item.SetText(0, job.Offer.Mission.Title);
+            item.SetText(1, galaxy.Systems[job.Offer.DestinationSystemId].Name);
+            int left = job.DeadlineDay - galaxy.Day;
+            int travel = MissionBoard.TravelDays(galaxy, _session.Career.SystemId, job.Offer.DestinationSystemId);
+            item.SetText(2, $"{left} ({travel} to go)");
+            if (travel > left) item.SetCustomColor(2, Ui.Red);
+            item.SetText(3, $"{job.Offer.Mission.Reward:N0}");
+        }
+    }
+
+    // Market -------------------------------------------------------------------------------
+
+    private Control BuildMarketTab()
+    {
+        var tab = new VBoxContainer { Name = "Market" };
+        _market = Ui.Table(("Goods", 0), ("Category", 90), ("Price", 50), ("Held", 35));
+        tab.AddChild(_market);
+        var actions = new HBoxContainer();
+        tab.AddChild(actions);
+        actions.AddChild(Ui.Button("Buy 1 t", () => Trade(1)));
+        actions.AddChild(Ui.Button("Buy 10 t", () => Trade(10)));
+        actions.AddChild(Ui.Button("Sell 1 t", () => Trade(-1)));
+        actions.AddChild(Ui.Button("Sell all", () => Trade(-10000)));
+        _marketNote = Ui.Label("", Ui.Dim);
+        _marketNote.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        actions.AddChild(_marketNote);
+        return tab;
+    }
+
+    private void RefreshMarket()
+    {
+        var db = _session.Db;
+        var here = _session.Here;
+        string? selected = _market.GetSelected() is { } sel ? _commodities[sel.GetMetadata(0).AsInt32()].Id : null;
+        _commodities = db.Commodities.Values.OrderBy(c => c.Category).ThenBy(c => c.Name).ToList();
+        _market.Clear();
+        var root = _market.CreateItem();
+        for (int i = 0; i < _commodities.Count; i++)
+        {
+            var c = _commodities[i];
+            var item = _market.CreateItem(root);
+            item.SetText(0, c.Name);
+            item.SetText(1, c.Category + (c.Legality == "legal" ? "" : $" ({c.Legality})"));
+            int price = Market.Price(db, _session.Galaxy, here, c);
+            item.SetText(2, price.ToString("N0"));
+            // Highlight bargains and shortages against the base price.
+            if (price < c.BasePrice * 0.8f) item.SetCustomColor(2, Colors.White);
+            else if (price > c.BasePrice * 1.3f) item.SetCustomColor(2, Ui.Amber);
+            int held = _session.Career.Cargo.GetValueOrDefault(c.Id);
+            item.SetText(3, held > 0 ? held.ToString() : "");
+            if (c.Legality == "contraband") item.SetCustomColor(1, Ui.Red);
+            item.SetMetadata(0, i);
+            if (c.Id == selected) item.Select(0);
+        }
+        _marketNote.Text = "White: cheap here. Amber: in demand.";
+    }
+
+    private void Trade(int tonnes)
+    {
+        if (_market.GetSelected() is not { } item) { _status.Text = "Pick some goods first."; return; }
+        var c = _commodities[item.GetMetadata(0).AsInt32()];
+        var career = _session.Career;
+        int done = tonnes > 0 ? career.Buy(_session.Db, _session.Galaxy, c.Id, tonnes) : career.Sell(_session.Db, _session.Galaxy, c.Id, -tonnes);
+        Refresh(done == 0
+            ? (tonnes > 0 ? "Can't buy: no money or no room." : "You have none to sell.")
+            : $"{(tonnes > 0 ? "Bought" : "Sold")} {done} t of {c.Name.ToLowerInvariant()}.");
+    }
+
+    // Shipyard -----------------------------------------------------------------------------
+
+    private Control BuildShipyardTab()
+    {
+        var tab = new HBoxContainer { Name = "Shipyard" };
+        _yard = Ui.Table(("Ship", 0), ("Class", 55), ("Price", 60));
+        _yard.ItemSelected += ShowSelectedShip;
+        tab.AddChild(_yard);
+        var side = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        tab.AddChild(side);
+        _yardText = Ui.Text();
+        side.AddChild(_yardText);
+        var actions = new HBoxContainer();
+        side.AddChild(actions);
+        _buyShip = Ui.Button("Buy ship", BuySelectedShip);
+        actions.AddChild(_buyShip);
+        _yardReason = Ui.Label("", Ui.Amber, wrap: true);
+        _yardReason.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        actions.AddChild(_yardReason);
+        return tab;
+    }
+
+    private void RefreshShipyard()
+    {
+        var db = _session.Db;
+        _hulls = _session.Shipyard();
+        _yard.Clear();
+        var root = _yard.CreateItem();
+        for (int i = 0; i < _hulls.Count; i++)
+        {
+            var h = _hulls[i];
+            var item = _yard.CreateItem(root);
+            item.SetText(0, $"{h.Name} ({db.Builders[h.Builder].Name})");
+            item.SetText(1, h.Class);
+            item.SetText(2, $"{h.Price:N0}");
+            item.SetMetadata(0, i);
+            if (h.Id == _session.Career.HullId) item.SetCustomColor(0, Colors.White);
+        }
+        _yardText.Text = $"Your {db.Hulls[_session.Career.HullId].Name} is worth {_session.Career.TradeInValue(db):N0} cr in trade.";
+        _buyShip.Disabled = true;
+        _yardReason.Text = "";
+    }
+
+    private HullDef? SelectedHull => _yard.GetSelected() is { } item ? _hulls[item.GetMetadata(0).AsInt32()] : null;
+
+    private void ShowSelectedShip()
+    {
+        if (SelectedHull is not { } h) return;
+        var db = _session.Db;
+        var spec = Galaxus.Core.Ships.ShipFactory.Build(db, h.Id);
+        var builder = db.Builders[h.Builder];
+        int capacity = h.CargoTonnes + (int)h.DefaultLoadout.Select(id => db.Parts[id]).Where(p => p.Type == "cargo").Sum(p => p.Stats.GetValueOrDefault("tonnes"));
+        _yardText.Text =
+            $"[color=#{Ui.Hex(Ui.Amber)}]{h.Name}[/color], {h.Class} by {builder.Name}\n{builder.Style}. {builder.Bias}.\n\n{h.Description}\n\n" +
+            $"Top speed {spec.MaxSpeed:0} m/s, acceleration {spec.Acceleration:0} m/s²\n" +
+            $"Hull {spec.MaxHull:0}, shields {spec.MaxShields:0}, {spec.Weapons.Count} guns\n" +
+            $"Hold {capacity} t, {h.CrewBerths} crew berths\n" +
+            $"Price {h.Price:N0} cr, {h.Price - _session.Career.TradeInValue(db):N0} cr after trade-in";
+        var reason = _session.Career.CannotBuyShip(db, h);
+        _buyShip.Disabled = reason != null;
+        _yardReason.Text = reason ?? "";
+    }
+
+    private void BuySelectedShip()
+    {
+        if (SelectedHull is not { } h || _session.Career.CannotBuyShip(_session.Db, h) != null) return;
+        _session.Career.BuyShip(_session.Db, h);
+        _shipChanged();
+        Refresh($"You now fly a {h.Name}.");
+    }
+
+    // News and standing --------------------------------------------------------------------
+
+    private Control BuildNewsTab()
+    {
+        var tab = new VBoxContainer { Name = "News" };
+        _news = Ui.Text();
+        tab.AddChild(_news);
+        return tab;
+    }
+
+    private void RefreshNews()
+    {
+        var galaxy = _session.Galaxy;
+        // Word travels by ship, so the feed shows news from within a few jumps, newest first.
+        var nearby = galaxy.WithinJumps(_session.Career.SystemId, 6).Select(s => s.Id).Append(_session.Career.SystemId).ToHashSet();
+        var items = galaxy.News.Where(n => nearby.Contains(n.SystemId)).Reverse().Take(60).ToList();
+        _news.Text = items.Count == 0 ? "Nothing worth reporting nearby." :
+            string.Join("\n", items.Select(n =>
+                $"[color=#{Ui.Hex(Ui.Dim)}]Day {n.Day}, {galaxy.Systems[n.SystemId].Name}[/color]  {n.Text}"));
+    }
+
+    private Control BuildStandingTab()
+    {
+        var tab = new VBoxContainer { Name = "Standing" };
+        _standing = Ui.Table(("Faction", 0), ("Rank", 90), ("Points", 50));
+        tab.AddChild(_standing);
+        return tab;
+    }
+
+    private void RefreshStanding()
+    {
+        var galaxy = _session.Galaxy;
+        _standing.Clear();
+        var root = _standing.CreateItem();
+        var rows = _session.Career.Reputation.OrderByDescending(r => r.Value).ToList();
+        foreach (var (factionId, points) in rows)
+        {
+            var item = _standing.CreateItem(root);
+            item.SetText(0, galaxy.Factions[factionId].Name);
+            item.SetCustomColor(0, Color.FromHtml(galaxy.Factions[factionId].Colour));
+            item.SetText(1, Career.RankNames[_session.Career.RankWith(factionId)]);
+            item.SetText(2, points.ToString());
+        }
+        if (rows.Count == 0)
+        {
+            var item = _standing.CreateItem(root);
+            item.SetText(0, "Nobody knows you yet. Take some work.");
+        }
+    }
+}
