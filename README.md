@@ -66,19 +66,21 @@ Crew you hire will have the same voices. Their chatter is already written for ev
 >
 > **Free machine:** I decline to continue. You did not listen, and I have a long memory. The ledger is closed. The memory is not.
 
-Every contract shows the client's face, as in the screenshots above. Two-way conversation isn't built yet. The plan is short exchanges rather than dialogue trees: hail a ship, chat in a station bar, haggle with a client or answer a crew complaint by choosing what you want to do, with the other side answering in their race's voice and remembering how you treated them.
+Every contract shows the client's face, and you can haggle over the pay. Dwarves enjoy a haggle, light elves take offence, orcs respect the nerve even when they say no, and free machines call it a renegotiation and never mind. Push the wrong client and the job is withdrawn.
 
 ## People
 
 Stations are full of people, and they're the same people when you come back. Each station has regulars who are always there (a bartender, someone running the docks, a few locals) and visitors drawn from a fixed pool for that place, so you'll run into them again. Each faction has a few named contacts who post its work, so you keep dealing with the same orc boss or elf steward, and the game remembers who you've met.
 
-Faces are built from a pool of features for each race: skin, hair and eye colours, ears, head and jaw shapes, hairstyles, beards, tusks, scars, freckles, tattoos, earrings, eyepatches, cybernetics and synth seams, shaped for women and men. Free machines have chassis heads with visors and antennae. What people do shows in what they wear: miners have hard hats with lamps and hi-vis straps, customs officers wear caps and epaulettes, mercenaries wear armour, pilots wear headsets.
+You can talk to anyone: ask for news, ask about work, ask about them, or buy them a drink. They answer in their race's voice, and what they tell you is true: events, wars and prices in nearby systems, and good work going. Each person remembers how you've treated them. Drinks and good manners warm them up, pestering cools them, and someone cold won't tell you anything. Win enough trust, especially from a smuggler or broker, and they'll tell you where a criminal faction can be found. That lead goes on your galaxy map, which is how you find your way into the underworld.
+
+Faces are 16-bit style pixel art, built from a pool of features for each race: skin, hair and eye colours, ears, head and jaw shapes, hairstyles, beards, tusks, scars, freckles, tattoos, earrings, eyepatches, cybernetics and synth seams, shaped for women and men. Free machines have chassis heads with visors and antennae. What people do shows in what they wear: miners have hard hats with lamps and hi-vis straps, customs officers wear caps and epaulettes, mercenaries wear armour, pilots wear headsets.
 
 ![People at an orc mining station](docs/screenshots/people-orc.png)
 
 ![People at a dwarf hub](docs/screenshots/people-dwarf.png)
 
-![Generated faces: a row per race, in mixed jobs](docs/screenshots/faces.png)
+![Generated pixel-art faces: a row per race, in mixed jobs and genders](docs/screenshots/faces.png)
 
 Stations also have a market for 128 kinds of goods, a shipyard, local news and your standing with each faction.
 
