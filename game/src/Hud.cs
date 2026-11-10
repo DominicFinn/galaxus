@@ -10,11 +10,11 @@ namespace Galaxus;
 public partial class Hud : Control
 {
     private static readonly Color Green = new(0.45f, 1f, 0.55f);
-    private static readonly Color Dim = new(0.45f, 1f, 0.55f, 0.35f);
+    private static readonly Color Dim = new(0.55f, 1f, 0.62f, 0.62f);
     private static readonly Color Amber = new(1f, 0.75f, 0.3f);
     private static readonly Color Red = new(1f, 0.35f, 0.3f);
     private static readonly Color Blue = new(0.45f, 0.75f, 1f);
-    private static readonly Color Panel = new(0f, 0.05f, 0.02f, 0.55f);
+    private static readonly Color Panel = new(0f, 0.05f, 0.02f, 0.68f);
     private const int FontSize = 8;
 
     private readonly List<(string Text, float Age)> _messages = [];

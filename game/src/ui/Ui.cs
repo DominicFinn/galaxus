@@ -6,7 +6,7 @@ namespace Galaxus.Ui;
 public static class Ui
 {
     public static readonly Color Green = new(0.45f, 1f, 0.55f);
-    public static readonly Color Dim = new(0.45f, 1f, 0.55f, 0.45f);
+    public static readonly Color Dim = new(0.55f, 1f, 0.62f, 0.62f);
     public static readonly Color Amber = new(1f, 0.75f, 0.3f);
     public static readonly Color Red = new(1f, 0.4f, 0.35f);
     public static readonly Color Background = new(0.02f, 0.05f, 0.04f, 0.94f);

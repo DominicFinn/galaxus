@@ -210,7 +210,7 @@ A model is a list of tapered boxes. Each box runs along Z from a back face to a 
 
 A wing is a wide, flat box: large `back[0]` (span), small `back[1]` (thickness), positioned out to the side. An engine pod is a box with a glow plate behind it.
 
-Aim for 6 to 20 shapes. Read as a silhouette at 640x360: big clear shapes, a few colour breaks, engines that glow. Keep the whole model inside about 1.5 × radius (validation checks this). Fighters are 8 to 14 m long, couriers 12 to 20, explorers 25 to 40, gunships 30 to 45, miners 35 to 60, freighters 50 to 110.
+Aim for 6 to 20 shapes. Read as a silhouette at a distance: big clear shapes, a few colour breaks, engines that glow. Keep the whole model inside about 1.5 × radius (validation checks this). Fighters are 8 to 14 m long, couriers 12 to 20, explorers 25 to 40, gunships 30 to 45, miners 35 to 60, freighters 50 to 110.
 
 Builder looks:
 

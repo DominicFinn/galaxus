@@ -50,8 +50,8 @@ public partial class MenuScreen : Control
         _panel.AddChild(_items);
 
         _footer = Ui.Label("", Ui.Dim);
-        _footer.Position = new Vector2(8, 344);
         AddChild(_footer);
+        _footer.SetAnchorsAndOffsetsPreset(LayoutPreset.BottomLeft, LayoutPresetMode.KeepSize, 8);
     }
 
     public override void _Process(double delta) => _logo.Spin += (float)delta * 0.08f;

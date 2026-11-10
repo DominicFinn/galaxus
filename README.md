@@ -4,7 +4,7 @@
 
 Galaxus (a working title) is a space game for PC in the spirit of Frontier: Elite II, with X-Wing style flight. You're an independent captain who trades, takes jobs and picks sides in a galaxy that keeps running without you. The design brief is the [space game design foundation](https://claude.ai/artifact/UoqLkSwDvcejkPUDLuneeJ) doc.
 
-It's built to run on almost any computer: low-resolution pixel graphics, flat-shaded models and Godot's simplest renderer, with every ship, planet, name, mission and piece of music generated from data rather than drawn or recorded.
+It's built to run on almost any computer: flat-shaded low-poly models and Godot's simplest renderer, with every ship, planet, name, mission and piece of music generated from data rather than drawn or recorded.
 
 ![Title screen](docs/screenshots/title.png)
 
@@ -90,7 +90,7 @@ All sound and music is synthesised in code. The music is 8-channel chiptune comp
 
 The aim is to run on as many computers as possible.
 
-- **Graphics:** Godot's Compatibility renderer (OpenGL 3.3), drawn at 640x360 and scaled up. It's meant for integrated graphics and old laptops.
+- **Graphics:** Godot's Compatibility renderer (OpenGL 3.3) with flat-shaded low-poly models and light anti-aliasing. It's meant for integrated graphics and old laptops. Screens are laid out on a 640x360 grid and drawn at the window's full resolution, so text stays sharp at any size.
 - **.NET:** players don't need it. Exported builds carry their own copy of the .NET runtime, which adds a few tens of MB to the download.
 - **Operating systems:** Windows 10 and later, recent macOS, and 64-bit Linux including the Steam Deck. Windows 7 and 8 aren't supported by current .NET.
 - **Browser:** Godot can't export C# games to the web, so there's no browser version. The brief is PC only.
