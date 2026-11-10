@@ -11,6 +11,9 @@ public sealed class CommodityDef
     public string Category { get; set; } = "";
     /// <summary>Credits per tonne at a normal market.</summary>
     public int BasePrice { get; set; }
+    /// <summary>The cheapest and dearest it normally sells for. Zero means 60% and 155% of the base price.</summary>
+    public int PriceLow { get; set; }
+    public int PriceHigh { get; set; }
     /// <summary>legal, restricted (permit needed in some places) or contraband (illegal almost everywhere).</summary>
     public string Legality { get; set; } = "legal";
     public string Description { get; set; } = "";

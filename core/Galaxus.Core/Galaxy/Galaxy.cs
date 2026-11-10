@@ -29,6 +29,18 @@ public sealed class StarSystem
     public int SurveyedBy { get; set; } = -1;
     /// <summary>Day the state last changed, so growth takes time.</summary>
     public int StateSince { get; set; }
+    /// <summary>Day the current owner took the system from someone else, and who that was (-1 if never taken).</summary>
+    public int OwnerSince { get; set; }
+    public int PreviousOwner { get; set; } = -1;
+
+    /// <summary>Hands the system to a new owner after a takeover, remembering who held it and when.</summary>
+    public void TakenBy(int faction, int day)
+    {
+        if (Owner == faction) return;
+        PreviousOwner = Owner;
+        Owner = faction;
+        OwnerSince = day;
+    }
     public List<string> Stations { get; } = [];
     /// <summary>Gate links to other system ids.</summary>
     public List<int> Gates { get; } = [];

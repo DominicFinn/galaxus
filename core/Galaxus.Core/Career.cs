@@ -55,9 +55,6 @@ public sealed class Career
 
     public void Asked(string personId, int day) => Questions[personId] = $"{day}:{AskedToday(personId, day) + 1}";
 
-    /// <summary>Selling gets a little less than the asking price.</summary>
-    public const float SellFactor = 0.94f;
-
     public int RankWith(int faction) => Math.Clamp(Reputation.GetValueOrDefault(faction) / 100, 0, 4);
 
     public static readonly string[] RankNames = ["Unknown", "Contractor", "Trusted", "Commissioned", "Honoured"];
@@ -74,26 +71,30 @@ public sealed class Career
 
     public int FreeCargo(ContentDatabase db) => CargoCapacity(db) - CargoUsed;
 
-    /// <summary>Buys up to the requested tonnes at the local price. Returns tonnes bought.</summary>
-    public int Buy(ContentDatabase db, Galaxy.Galaxy galaxy, string commodityId, int tonnes)
+    /// <summary>
+    /// What you've bought from and sold to each market recently, by "systemId:commodityId". Markets
+    /// recover, so the effect fades: see <see cref="TradeEffect"/>.
+    /// </summary>
+    public Dictionary<string, TradeMark> Trades { get; } = [];
+
+    /// <summary>The start system's partner and goods for the dependable Easy trade loop.</summary>
+    public Galaxy.TradeRoute? TradeRoute { get; set; }
+
+    /// <summary>Tonnes you've taken from and put into a market, faded to the day.</summary>
+    public (float Bought, float Sold) TradeEffect(int systemId, string commodityId, int day, float halfLife)
     {
-        int price = Market.Price(db, galaxy, galaxy.Systems[SystemId], db.Commodities[commodityId]);
-        int affordable = Math.Min(tonnes, Math.Min(FreeCargo(db), Credits / Math.Max(1, price)));
-        if (affordable <= 0) return 0;
-        Credits -= affordable * price;
-        Cargo[commodityId] = Cargo.GetValueOrDefault(commodityId) + affordable;
-        return affordable;
+        if (!Trades.TryGetValue($"{systemId}:{commodityId}", out var mark)) return (0, 0);
+        float fade = MathF.Pow(0.5f, Math.Max(0, day - mark.Day) / halfLife);
+        return (mark.Bought * fade, mark.Sold * fade);
     }
 
-    /// <summary>Sells up to the requested tonnes at the local price less the market's cut. Returns tonnes sold.</summary>
-    public int Sell(ContentDatabase db, Galaxy.Galaxy galaxy, string commodityId, int tonnes)
+    /// <summary>Records a trade on top of what's left of earlier ones.</summary>
+    public void RecordTrade(int systemId, string commodityId, int day, float halfLife, int bought, int sold)
     {
-        int held = Cargo.GetValueOrDefault(commodityId);
-        int sold = Math.Min(held, tonnes);
-        if (sold <= 0) return 0;
-        Credits += (int)(sold * Market.Price(db, galaxy, galaxy.Systems[SystemId], db.Commodities[commodityId]) * SellFactor);
-        if (held == sold) Cargo.Remove(commodityId); else Cargo[commodityId] = held - sold;
-        return sold;
+        var (b, s) = TradeEffect(systemId, commodityId, day, halfLife);
+        Trades[$"{systemId}:{commodityId}"] = new TradeMark(b + bought, s + sold, day);
+        // Forget markets you haven't touched for a month; they've long since recovered.
+        foreach (var stale in Trades.Where(t => day - t.Value.Day > 30).Select(t => t.Key).ToList()) Trades.Remove(stale);
     }
 
     /// <summary>Trade-in value of the current ship: 60% of its list price.</summary>
@@ -179,3 +180,6 @@ public sealed class Career
         return results;
     }
 }
+
+/// <summary>Tonnes bought from and sold to one market, as they stood on a day.</summary>
+public sealed record TradeMark(float Bought, float Sold, int Day);

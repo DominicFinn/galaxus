@@ -22,6 +22,36 @@ public sealed class Session
 
     public StarSystem Here => Galaxy.Systems[Career.SystemId];
 
+    /// <summary>
+    /// Easy difficulty, set by the game from the player's settings. Markets are kinder: a narrower
+    /// spread, faster recovery, and a dependable trade loop near the start.
+    /// </summary>
+    public bool Easy { get; set; }
+
+    /// <summary>Buys up to the requested tonnes here, tonne by tonne as stock runs down. Returns tonnes bought.</summary>
+    public int Buy(string commodityId, int tonnes)
+    {
+        var c = Db.Commodities[commodityId];
+        var (got, cost) = Market.BuyCost(this, Here, c, Math.Min(tonnes, Career.FreeCargo(Db)), Career.Credits);
+        if (got <= 0) return 0;
+        Career.Credits -= cost;
+        Career.Cargo[commodityId] = Career.Cargo.GetValueOrDefault(commodityId) + got;
+        Career.RecordTrade(Here.Id, commodityId, Galaxy.Day, Market.RecoveryHalfLife(Easy), got, 0);
+        return got;
+    }
+
+    /// <summary>Sells up to the requested tonnes here, the price easing as the market fills. Returns tonnes sold.</summary>
+    public int Sell(string commodityId, int tonnes)
+    {
+        int held = Career.Cargo.GetValueOrDefault(commodityId);
+        int sold = Math.Min(held, tonnes);
+        if (sold <= 0) return 0;
+        Career.Credits += Market.SaleValue(this, Here, Db.Commodities[commodityId], sold);
+        if (held == sold) Career.Cargo.Remove(commodityId); else Career.Cargo[commodityId] = held - sold;
+        Career.RecordTrade(Here.Id, commodityId, Galaxy.Day, Market.RecoveryHalfLife(Easy), 0, sold);
+        return sold;
+    }
+
     private Session(ContentDatabase db, Galaxy.Galaxy galaxy, GalaxySettings settings)
     {
         Db = db;
@@ -47,6 +77,7 @@ public sealed class Session
             .ThenBy(s => s.Id == tolland?.HomeSystem ? 1 : 0) // not the capital itself
             .First();
         session.Career.SystemId = start.Id;
+        session.Career.TradeRoute = Market.PickRoute(db, galaxy, start.Id);
         return session;
     }
 

@@ -250,6 +250,8 @@ public partial class Main : Node3D
 
     private void Resume()
     {
+        // The difficulty may have changed in Settings.
+        _session.Easy = GameSettings.Current.Difficulty == 0;
         _menu.Visible = false;
         if (_pauseReturn == Screen.Docked) Dock(); else SetScreen(_pauseReturn);
     }
@@ -257,6 +259,7 @@ public partial class Main : Node3D
     private void StartGame(Session session, string? startScreen)
     {
         _session = session;
+        _session.Easy = GameSettings.Current.Difficulty == 0;
 
         _effects = new Effects();
         AddChild(_effects);

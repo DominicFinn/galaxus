@@ -354,7 +354,7 @@ public partial class StationScreen : PanelContainer
     private Control BuildMarketTab()
     {
         var tab = new VBoxContainer { Name = "Market" };
-        _market = Ui.Table(("Goods", 0), ("Category", 90), ("Price", 50), ("Held", 35));
+        _market = Ui.Table(("Goods", 0), ("Category", 80), ("Buy", 50), ("Sell", 50), ("Stock", 45), ("Week", 45), ("Held", 35));
         tab.AddChild(_market);
         var actions = new HBoxContainer();
         tab.AddChild(actions);
@@ -373,39 +373,61 @@ public partial class StationScreen : PanelContainer
         var db = _session.Db;
         var here = _session.Here;
         string? selected = _market.GetSelected() is { } sel ? _commodities[sel.GetMetadata(0).AsInt32()].Id : null;
-        _commodities = db.Commodities.Values.OrderBy(c => c.Category).ThenBy(c => c.Name).ToList();
+        var quotes = Market.Quotes(_session, here);
+        // Anything in the hold that isn't traded here still shows, so you know you can't sell it.
+        var traded = quotes.Select(q => q.Commodity.Id).ToHashSet();
+        var held = _session.Career.Cargo.Keys.Where(id => !traded.Contains(id)).Select(id => db.Commodities[id]).ToList();
+        _commodities = [.. quotes.Select(q => q.Commodity), .. held];
         _market.Clear();
         var root = _market.CreateItem();
         for (int i = 0; i < _commodities.Count; i++)
         {
             var c = _commodities[i];
+            var q = i < quotes.Count ? quotes[i] : null;
             var item = _market.CreateItem(root);
-            item.SetText(0, c.Name);
+            string deal = q is { Deal: true } ? (q.Stock > q.Wanted ? "  SURPLUS" : "  WANTED") : "";
+            item.SetText(0, c.Name + deal);
+            if (deal != "") item.SetCustomColor(0, Ui.Amber);
             item.SetText(1, c.Category + (c.Legality == "legal" ? "" : $" ({c.Legality})"));
-            int price = Market.Price(db, _session.Galaxy, here, c);
-            item.SetText(2, price.ToString("N0"));
-            // Highlight bargains and shortages against the base price.
-            if (price < c.BasePrice * 0.8f) item.SetCustomColor(2, Colors.White);
-            else if (price > c.BasePrice * 1.3f) item.SetCustomColor(2, Ui.Amber);
-            int held = _session.Career.Cargo.GetValueOrDefault(c.Id);
-            item.SetText(3, held > 0 ? held.ToString() : "");
             if (c.Legality == "contraband") item.SetCustomColor(1, Ui.Red);
+            if (q != null)
+            {
+                var (low, high) = Market.Range(c);
+                item.SetText(2, q.Stock > 0 ? q.Buy.ToString("N0") : "none");
+                item.SetText(3, q.Sell.ToString("N0"));
+                // White: cheap for this good. Amber: dear, worth bringing some here.
+                if (q.Stock > 0 && q.Buy < low + (high - low) * 0.3f) item.SetCustomColor(2, Colors.White);
+                if (q.Sell > low + (high - low) * 0.65f) item.SetCustomColor(3, Ui.Amber);
+                item.SetText(4, q.Stock.ToString("N0"));
+                item.SetText(5, Math.Abs(q.Trend) < 0.03f ? "steady" : $"{(q.Trend > 0 ? "+" : "")}{q.Trend * 100:0}%");
+                if (Math.Abs(q.Trend) >= 0.03f) item.SetCustomColor(5, q.Trend > 0 ? Ui.Amber : Colors.White);
+            }
+            else
+            {
+                item.SetText(2, "");
+                item.SetText(3, "not traded here");
+            }
+            int tonnes = _session.Career.Cargo.GetValueOrDefault(c.Id);
+            item.SetText(6, tonnes > 0 ? tonnes.ToString() : "");
             item.SetMetadata(0, i);
             if (c.Id == selected) item.Select(0);
         }
-        _marketNote.Text = "White: cheap here. Amber: in demand.";
+        _marketNote.Text = "Stock is limited and prices move as you trade. Markets recover over a few days.";
     }
 
     private void Trade(int tonnes)
     {
         if (_market.GetSelected() is not { } item) { _status.Text = "Pick some goods first."; return; }
         var c = _commodities[item.GetMetadata(0).AsInt32()];
-        var career = _session.Career;
-        int done = tonnes > 0 ? career.Buy(_session.Db, _session.Galaxy, c.Id, tonnes) : career.Sell(_session.Db, _session.Galaxy, c.Id, -tonnes);
+        bool tradedHere = Market.Legal(_session.Db, _session.Here, _session.Galaxy).Any(x => x.Id == c.Id);
+        if (!tradedHere) { AudioManager.Instance?.Ui("error"); Refresh($"No one here deals in {c.Name.ToLowerInvariant()}."); return; }
+        int credits = _session.Career.Credits;
+        int done = tonnes > 0 ? _session.Buy(c.Id, tonnes) : _session.Sell(c.Id, -tonnes);
+        int change = Math.Abs(_session.Career.Credits - credits);
         AudioManager.Instance?.Ui(done == 0 ? "error" : tonnes > 0 ? "confirm" : "paid");
         Refresh(done == 0
-            ? (tonnes > 0 ? "Can't buy: no money or no room." : "You have none to sell.")
-            : $"{(tonnes > 0 ? "Bought" : "Sold")} {done} t of {c.Name.ToLowerInvariant()}.");
+            ? (tonnes > 0 ? "Can't buy: none left, no money or no room." : "You have none to sell.")
+            : $"{(tonnes > 0 ? "Bought" : "Sold")} {done} t of {c.Name.ToLowerInvariant()} for {change:N0} cr.");
     }
 
     // Shipyard -----------------------------------------------------------------------------
