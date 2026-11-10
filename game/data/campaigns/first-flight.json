@@ -1,0 +1,71 @@
+[
+  {
+    "id": "first-flight",
+    "tutorial": true,
+    "name": "First Flight",
+    "power": "meridian-concord",
+    "rival": "grav-khanates",
+    "summary": "A short flying course aboard the Concord carrier Lodestar. Instructor Pell takes you through steering, gunnery, matching speed, the galaxy map and a small fight, one step at a time. Take it first if you are new to Galaxus.",
+    "hull": "mc-sentinel",
+    "credits": 3000,
+    "rank": 0,
+    "baseHull": "mc-mandate",
+    "baseName": "Lodestar",
+    "fleet": [
+      "mc-warrant"
+    ],
+    "textGrammar": "campaign-first-flight",
+    "steps": [
+      {
+        "id": "beacons",
+        "title": "Three Beacons",
+        "battle": "campaign-first-flight-1",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 500,
+        "briefing": "briefing-beacons",
+        "debrief": "debrief-beacons"
+      },
+      {
+        "id": "gunnery",
+        "title": "Practice Range",
+        "battle": "campaign-first-flight-2",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 1000,
+        "briefing": "briefing-gunnery",
+        "debrief": "debrief-gunnery"
+      },
+      {
+        "id": "alongside",
+        "title": "Alongside",
+        "battle": "campaign-first-flight-3",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 1000,
+        "briefing": "briefing-alongside",
+        "debrief": "debrief-alongside"
+      },
+      {
+        "id": "convoy",
+        "title": "Convoy Help",
+        "battle": "campaign-first-flight-4",
+        "where": "near",
+        "enemy": "pirates",
+        "reward": 2000,
+        "briefing": "briefing-convoy",
+        "debrief": "debrief-convoy"
+      },
+      {
+        "id": "final",
+        "title": "Final Check",
+        "battle": "campaign-first-flight-5",
+        "where": "base",
+        "enemy": "pirates",
+        "reward": 3000,
+        "briefing": "briefing-final",
+        "debrief": "debrief-final"
+      }
+    ]
+  }
+]

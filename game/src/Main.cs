@@ -20,6 +20,7 @@ namespace Galaxus;
 ///                        or show the title "menu" without the splash
 ///   --screenshot=PATH    save a screenshot after --frames (default 180) frames, then quit
 ///   --showcase=FOLDER    play a scripted tour and save README screenshots into FOLDER, then quit
+///   --battle=BATTLE      start straight into a set-piece battle preview (add --demo to let the autopilot fight)
 ///   --system=ID          with --screen, start in this system instead (for checking planets)
 ///   --preview=HULL_ID    show one hull from four angles instead of the game (for content work)
 /// </summary>
@@ -114,7 +115,9 @@ public partial class Main : Node3D
         {
             NewGame = () => Restart(Session.StartNew(_db, (ulong)DateTime.Now.Ticks)),
             NewCampaign = id => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id)),
-            Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Name).Select(c => (c.Id, c.Name, c.Summary)),
+            Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Tutorial ? 0 : 1).ThenBy(c => c.Name).Select(c => (c.Id, c.Tutorial ? $"Tutorial: {c.Name}" : c.Name, c.Summary)),
+            PreviewBattle = PreviewRequested,
+            PreviewBattles = PreviewBattles,
             Load = slot => Restart(SaveSlots.Read(_db, slot)),
             Save = slot => { SaveSlots.Write(slot, _session); },
             Resume = Resume,
@@ -123,11 +126,29 @@ public partial class Main : Node3D
         });
         menuLayer.AddChild(_menu);
 
+        if (_cliPreview != null && _pendingSession == null)
+        {
+            var id = _cliPreview;
+            _cliPreview = null;
+            if (_db.Battles.ContainsKey(id))
+            {
+                StartGame(PreviewSession(id), "flight");
+                StartPreviewBattle(id);
+                return;
+            }
+            GD.PushError($"No battle '{id}'.");
+        }
         if (_pendingSession != null)
         {
             var session = _pendingSession;
             _pendingSession = null;
-            StartGame(session, _startScreen);
+            if (_pendingPreview is { } preview)
+            {
+                _pendingPreview = null;
+                StartGame(session, "flight");
+                StartPreviewBattle(preview);
+            }
+            else StartGame(session, _startScreen);
         }
         else if (_demo || _startScreen is "flight" or "station" or "map")
         {
@@ -437,6 +458,7 @@ public partial class Main : Node3D
             else if (arg.StartsWith("--screen=")) _startScreen = arg["--screen=".Length..];
             else if (arg.StartsWith("--system=")) _startSystem = int.Parse(arg["--system=".Length..]);
             else if (arg.StartsWith("--showcase=")) { _showcaseDir = arg["--showcase=".Length..]; _startScreen = "flight"; }
+            else if (arg.StartsWith("--battle=")) _cliPreview = arg["--battle=".Length..];
         }
     }
 
@@ -539,6 +561,9 @@ public partial class Main : Node3D
         UpdateSystemView();
         UpdateNavHud();
         UpdateJobHud(delta);
+        StepPreview(delta);
+        if (_hud.ShowPerformance)
+            _hud.Performance = $"{Engine.GetFramesPerSecond():0} FPS   {_world.Ships.Count(sh => sh.Alive)} SHIPS   {_world.Projectiles.Count} SHOTS   {_visuals.Count} MODELS";
 
         UpdateCamera(dt);
         var dustVelocity = _cruising ? _player.Body.Forward.ToGodot() * 600 : _player.Body.Velocity.ToGodot();
@@ -591,6 +616,7 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.Quit)) GetTree().Quit();
         if (Input.IsActionJustPressed(GameInput.ReleaseMouse)) { OpenPause(); return; }
         if (Input.IsActionJustPressed(GameInput.Help)) _hud.ShowHelp = !_hud.ShowHelp;
+        if (Input.IsActionJustPressed(GameInput.Performance)) _hud.ShowPerformance = !_hud.ShowPerformance;
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
         if (Input.IsActionJustPressed(GameInput.TargetNext)) { _player.Target = NextTarget(); AudioManager.Instance?.Ui("lock"); }
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }

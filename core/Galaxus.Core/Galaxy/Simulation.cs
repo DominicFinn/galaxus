@@ -19,7 +19,29 @@ public sealed class Simulation(ContentDatabase db, Galaxy galaxy)
 
     public void Run(int days)
     {
-        for (int i = 0; i < days; i++) Tick();
+        for (int i = 0; i < days; i++)
+        {
+            Tick();
+            // Replaying a save: the player's actions land on the days they happened.
+            foreach (var action in _replay.Where(a => a.Day == Galaxy.Day).ToList())
+            {
+                PlayerImpact.Apply(Galaxy, action);
+                Galaxy.PlayerActions.Add(action);
+                _replay.Remove(action);
+            }
+        }
+    }
+
+    private readonly List<PlayerAction> _replay = [];
+
+    /// <summary>Queues saved actions to be applied as the simulation reaches their days.</summary>
+    public void Replay(IEnumerable<PlayerAction> actions) => _replay.AddRange(actions);
+
+    /// <summary>Something the player just did: applied now and remembered for the save.</summary>
+    public void Record(PlayerAction action)
+    {
+        PlayerImpact.Apply(Galaxy, action);
+        Galaxy.PlayerActions.Add(action);
     }
 
     public void Tick()
@@ -117,6 +139,8 @@ public sealed class Simulation(ContentDatabase db, Galaxy galaxy)
             float down = (a.Trait("honour") + b.Trait("honour")) * 0.06f + 0.03f;
             float roll = rng.NextFloat();
 
+            // Momentum fades as the war grinds on.
+            conflict.Momentum *= 0.92f;
             if (roll < up && conflict.Stage < 3) conflict.Stage++;
             else if (roll > 1 - down) conflict.Stage--;
             else continue;
@@ -139,7 +163,9 @@ public sealed class Simulation(ContentDatabase db, Galaxy galaxy)
     {
         var front = Galaxy.Systems[conflict.FrontSystem];
         if (front.Owner < 0) return;
-        var winner = rng.NextFloat() < 0.5f ? a : b;
+        // The side with the momentum is likelier to take the front.
+        float oddsA = Math.Clamp(0.5f + conflict.Momentum * 0.15f, 0.1f, 0.9f);
+        var winner = rng.NextFloat() < oddsA ? a : b;
         if (front.Owner == winner.Id) return;
         var loser = Galaxy.Factions[front.Owner];
         front.Owner = winner.Id;

@@ -34,6 +34,8 @@ public partial class Hud : Control
     public string Cruise { get; set; } = "";
     /// <summary>The active job and what to do next, shown top right. Empty for none.</summary>
     public string JobTitle { get; set; } = "";
+    public bool ShowPerformance { get; set; }
+    public string Performance { get; set; } = "";
     /// <summary>The battle's objectives while one is on, or null.</summary>
     public List<Galaxus.Core.Battles.BattleObjective>? Objectives { get; set; }
     /// <summary>All ships to mark on screen, and whether each is an enemy, a friend or neither.</summary>
@@ -119,6 +121,7 @@ public partial class Hud : Control
             Text(new Vector2(size.X - 6, 48), JobStep.ToUpperInvariant(), Green, HorizontalAlignment.Right);
             Text(new Vector2(size.X - 6, 58), "L NEXT JOB   M GALAXY MAP   N SYSTEM MAP", Dim, HorizontalAlignment.Right);
         }
+        if (ShowPerformance) Text(new Vector2(size.X / 2, size.Y - 132), Performance, Amber, HorizontalAlignment.Center);
         if (ShowHelp) DrawHelp(size);
     }
 

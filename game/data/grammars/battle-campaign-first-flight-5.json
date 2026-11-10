@@ -1,0 +1,32 @@
+[
+  {
+    "id": "battle-campaign-first-flight-5",
+    "description": "Final Check: briefing, radio calls and outcome text.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Two raiders are going to approach the {base}. A frigate flies with you. Use everything you have learned: lock, aim at the diamond, fire, and keep the frigate alive."
+      ],
+      "success": [
+        "The raiders are gone and the frigate is whole. {client} signs you off."
+      ],
+      "failure": [
+        "The frigate is lost. We will go over it again."
+      ],
+      "radio-frigate": [
+        "Pell: A frigate has joined you. She is on your side and a good deal tougher than you are. Stay near her.",
+        "Pell: Frigate on your wing. Let her draw fire if she can."
+      ],
+      "radio-raiders": [
+        "Pell: Two raiders ahead. T, aim, fire. You know how.",
+        "Pell: Here they come. Everything we have covered, in one go. I will keep quiet."
+      ]
+    }
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "battle-campaign-first-flight-3",
+    "description": "Alongside: briefing, radio calls and outcome text.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "A tender is under way near the {base}. Fly alongside, match her speed within 400 metres and hold for ten seconds. Press T to target her, then Tab to match her speed."
+      ],
+      "success": [
+        "Speed matched and held. That is how you park in motion."
+      ],
+      "failure": [
+        "The tender has gone on without you. We will try again."
+      ],
+      "radio-tender": [
+        "Pell: The tender ahead is moving. T to target her, then Tab matches your speed to hers. Fly close and keep the throttle steady.",
+        "Pell: Catch up with the tender, then press Tab. You take her speed. W and S nudge it if you drift."
+      ]
+    }
+  }
+]

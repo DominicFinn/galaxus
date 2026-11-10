@@ -1,0 +1,41 @@
+{
+  "id": "battle-job-raid-2",
+  "description": "Raid: Convoy Strike: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "An {enemy} supply convoy is crossing {system}. Four freighters, strong escort. Take the freighters.",
+      "Convoy strike. {client} wants the cargo ships stopped, whatever it costs.",
+      "Raid on a heavy convoy. Eight escorts, four haulers."
+    ],
+    "success": [
+      "Convoy destroyed. {client} pays in full, {captain}.",
+      "The freighters are burning. A clean strike.",
+      "The enemy supply line is cut for now."
+    ],
+    "failure": [
+      "The convoy gets through. {client} writes the raid off.",
+      "You are beaten back. The convoy sails on."
+    ],
+    "radio-convoy": [
+      "Convoy ahead. Four freighters, eight escorts.",
+      "There they are. Heavy escort. Go for the haulers.",
+      "Convoy in sight. Do not waste time on the guards."
+    ],
+    "radio-support": [
+      "More {enemy} fighters, right.",
+      "Reinforcements, right flank.",
+      "Four more ships closing on the right."
+    ],
+    "radio-picket": [
+      "Gunships behind you.",
+      "Bombers on your rear. Kill them.",
+      "Last group, astern. Five ships."
+    ]
+  }
+}

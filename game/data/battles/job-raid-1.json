@@ -1,0 +1,74 @@
+[
+  {
+    "id": "job-raid-1",
+    "name": "Raid: Depot Hit",
+    "kind": "job",
+    "jobType": "raid",
+    "scales": [
+      "skirmish"
+    ],
+    "reward": 14000,
+    "minRank": 0,
+    "textGrammar": "battle-job-raid-1",
+    "waves": [
+      {
+        "id": "depot",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "freighter",
+            "count": 3,
+            "tag": "depot"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 3,
+            "target": "depot"
+          }
+        ],
+        "radio": "radio-depot"
+      },
+      {
+        "id": "alarm",
+        "side": "enemy",
+        "after": "wave:depot",
+        "delay": 30,
+        "position": "left",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1
+          }
+        ],
+        "radio": "radio-alarm"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "hit",
+        "type": "destroy",
+        "tag": "depot",
+        "text": "Destroy the supply freighters"
+      },
+      {
+        "id": "guards",
+        "type": "destroy",
+        "wave": "depot",
+        "text": "Destroy the depot guards",
+        "optional": true
+      }
+    ]
+  }
+]

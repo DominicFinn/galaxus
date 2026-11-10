@@ -54,6 +54,8 @@ Travel is by the old elf gate network. Pick a destination and the map plots the 
 
 ## Ways to start
 
+New to it? Start with **Tutorial: First Flight**, a short campaign with an instructor that teaches flying, scanning, gunnery, matching speed, the galaxy map and a first fight, then lets you loose. Want a taste of the big fights? **Battle preview** drops you straight into any set piece in a good ship; when it's over you can fly it again or go back to the menu (F3 shows the frame rate and ship count, which makes it a handy test bench).
+
 Start as a free trader with a small ship and the whole galaxy, or enlist in a campaign. A campaign puts you in a great power's service, in their ship, with a base to return to: a flagship parked with its fleet. Dock with it for your orders, fly the mission, and come back for a debrief and the next. Missions build from reconnaissance (fly close to beacons and pickets and hold while you scan), refuelling a stranded ship while pirates close in, escorts and intercepts, up to a full battle at the end. The same galaxy carries on around you, and when the campaign is over you're free.
 
 - **The Concord Watch:** the Meridian Concord against the Grav Khanates, flying from the battlecruiser Sovereign Clause.
@@ -65,6 +67,8 @@ Start as a free trader with a small ship and the whole galaxy, or enlist in a ca
 ![Orders, taken aboard the flagship](docs/screenshots/campaign-orders.png)
 
 ## Battles and warships
+
+What you do changes the galaxy. Each war battle you fight pushes that war one way or the other: win enough and the front system falls to your side, and a run of defeats makes the losing side sue for peace. Hunting pirates drives them out of their haunts. Every turn makes the news at the front and in both sides' capitals, so you'll hear about it at stations across that part of the galaxy. Ordinary combat jobs (bounties, escorts, patrols, raids, claim-jumpers, guarding miners) are played out as battles too.
 
 The wars between factions are fought in set pieces, in the spirit of X-Wing and TIE Fighter. Factions at war post battles on job boards near their front lines; lawful factions post pirate hunts, the outer galaxy has rogue machines, and stations near trouble ask for defenders. Take one, fly to the system and head for the fighting, and the battle comes to you in waves: fighter screens, bomber runs on the warships, carriers launching their wings, cruisers jumping in, convoys trying to get clear. Command talks to you over the radio, the objectives sit on the HUD, and the job pays when you win, with a bonus for the optional objectives.
 
@@ -170,6 +174,8 @@ To develop, you need the .NET SDK (the project targets .NET 10) and Godot 4.7 .N
 tools/play.sh            # build and run
 tools/validate.sh        # check all content and run the tests
 ```
+
+To make standalone builds for Mac, Windows and Linux, see [docs/building.md](docs/building.md).
 
 On a Mac, `tools/make-launcher.sh` makes `~/Applications/Galaxus.app` with the Galaxus name and icon. It builds the latest code and runs the game, so you can keep it in the Dock. Logs go to `~/Library/Logs/Galaxus.log`.
 

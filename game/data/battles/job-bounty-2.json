@@ -1,0 +1,75 @@
+[
+  {
+    "id": "job-bounty-2",
+    "name": "Bounty: Runner",
+    "kind": "job",
+    "jobType": "bounty",
+    "scales": [
+      "skirmish"
+    ],
+    "reward": 14000,
+    "minRank": 0,
+    "textGrammar": "battle-job-bounty-2",
+    "waves": [
+      {
+        "id": "run",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "courier",
+            "count": 1,
+            "tag": "target",
+            "name": "Marta Quill"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 3,
+            "target": "target"
+          }
+        ],
+        "radio": "radio-run"
+      },
+      {
+        "id": "cover",
+        "side": "enemy",
+        "after": "wave:run",
+        "delay": 35,
+        "position": "left",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1
+          }
+        ],
+        "radio": "radio-cover"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the wanted smuggler Marta Quill"
+      },
+      {
+        "id": "guards",
+        "type": "destroy",
+        "wave": "run",
+        "text": "Destroy Quill's escorts",
+        "optional": true
+      }
+    ]
+  }
+]

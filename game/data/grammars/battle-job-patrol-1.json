@@ -1,0 +1,36 @@
+{
+  "id": "battle-job-patrol-1",
+  "description": "Patrol: Lane Sweep: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Three beacons on your beat. Fly close to each and hold. Report anything odd.",
+      "Routine patrol of {system}. Visit the beacons, log them, go home.",
+      "{client} wants the lane beacons checked. It should be dull."
+    ],
+    "success": [
+      "Beat complete. {client} logs the sweep and pays {captain}.",
+      "All beacons checked. Patrol ends.",
+      "Sweep finished, {system} is clear."
+    ],
+    "failure": [
+      "Patrol abandoned. The beacons go unchecked.",
+      "You are driven off the beat. {client} files a short report."
+    ],
+    "radio-beats": [
+      "First beacon is ahead. Close in and hold.",
+      "Beat begins. Beacon on the nose.",
+      "Beacons are marked on your display. Start with the nearest."
+    ],
+    "radio-trouble": [
+      "Contacts, far side. Three, closing. Not on the schedule.",
+      "Unidentified fighters. They are not friendly.",
+      "{enemy} ships have found your patrol. Deal with them."
+    ]
+  }
+}

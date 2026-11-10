@@ -1,0 +1,101 @@
+[
+  {
+    "id": "job-mining-2",
+    "name": "Mining: Quota Shift",
+    "kind": "job",
+    "jobType": "mining",
+    "scales": [
+      "skirmish"
+    ],
+    "reward": 12000,
+    "minRank": 0,
+    "textGrammar": "battle-job-mining-2",
+    "waves": [
+      {
+        "id": "crew",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "miner",
+            "count": 3,
+            "tag": "miners"
+          }
+        ],
+        "radio": "radio-crew"
+      },
+      {
+        "id": "pirates",
+        "side": "enemy",
+        "at": 45,
+        "position": "far",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-pirates"
+      },
+      {
+        "id": "pirates2",
+        "side": "enemy",
+        "at": 120,
+        "position": "right",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1
+          }
+        ],
+        "radio": "radio-pirates2"
+      },
+      {
+        "id": "pirates3",
+        "side": "enemy",
+        "at": 200,
+        "position": "behind",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-pirates3"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "guard",
+        "type": "protect",
+        "tag": "miners",
+        "text": "Keep the mining crew alive"
+      },
+      {
+        "id": "hold",
+        "type": "survive",
+        "seconds": 300,
+        "text": "Guard the miners until the quota is met"
+      }
+    ]
+  }
+]

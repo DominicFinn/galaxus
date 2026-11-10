@@ -1,0 +1,76 @@
+[
+  {
+    "id": "job-mining-1",
+    "name": "Mining: Watch the Seam",
+    "kind": "job",
+    "jobType": "mining",
+    "scales": [
+      "small"
+    ],
+    "reward": 6000,
+    "minRank": 0,
+    "textGrammar": "battle-job-mining-1",
+    "waves": [
+      {
+        "id": "crew",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1200,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "miner",
+            "count": 2,
+            "tag": "miners"
+          }
+        ],
+        "radio": "radio-crew"
+      },
+      {
+        "id": "pirates",
+        "side": "enemy",
+        "at": 40,
+        "position": "far",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-pirates"
+      },
+      {
+        "id": "pirates2",
+        "side": "enemy",
+        "at": 110,
+        "position": "left",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-pirates2"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "guard",
+        "type": "protect",
+        "tag": "miners",
+        "text": "Keep the mining crew alive"
+      },
+      {
+        "id": "hold",
+        "type": "survive",
+        "seconds": 180,
+        "text": "Guard the miners until the shift ends"
+      }
+    ]
+  }
+]

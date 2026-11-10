@@ -86,6 +86,8 @@ public sealed class Conflict
     /// <summary>0 dispute, 1 raids, 2 blockade, 3 open war.</summary>
     public int Stage { get; set; }
     public int FrontSystem { get; set; }
+    /// <summary>Which way the war is going: positive favours A. Moved by the player's battles; fades over time.</summary>
+    public float Momentum { get; set; }
     public int StartDay { get; init; }
     public bool Involves(int faction) => A == faction || B == faction;
 }
@@ -99,6 +101,8 @@ public sealed class Galaxy
     public List<Faction> Factions { get; } = [];
     public List<ActiveEvent> Events { get; } = [];
     public List<Conflict> Conflicts { get; } = [];
+    /// <summary>What the player has done to the galaxy, in order, so a save can replay it.</summary>
+    public List<PlayerAction> PlayerActions { get; } = [];
     public List<NewsItem> News { get; } = [];
     public int Day { get; set; }
 

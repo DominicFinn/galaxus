@@ -1,0 +1,36 @@
+{
+  "id": "battle-job-claim-jumping-2",
+  "description": "Claim Jump: Rich Strike: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "A rich strike in {system}, held by an armed crew. {client} wants it taken.",
+      "Claim jump. Three miners, four guards. Clear the seam.",
+      "Armed holders on the claim. Be quick, they will call for help."
+    ],
+    "success": [
+      "The seam is clear. {client} pays and moves in.",
+      "Claim taken. {captain} gets the fee.",
+      "The holders are gone."
+    ],
+    "failure": [
+      "The holders keep their seam.",
+      "You fail to clear the claim. {client} is displeased."
+    ],
+    "radio-claim": [
+      "Claim ahead. Three miners, four guards.",
+      "Holders. One gunship among the guards.",
+      "Targets in view. Mind the gunship."
+    ],
+    "radio-owners": [
+      "Reinforcements, astern. Four ships.",
+      "The holders called their friends.",
+      "More on the tail. Hit the miners and leave."
+    ]
+  }
+}

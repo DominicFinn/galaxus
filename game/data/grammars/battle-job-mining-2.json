@@ -1,0 +1,46 @@
+{
+  "id": "battle-job-mining-2",
+  "description": "Mining: Quota Shift: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Three miners on the quota shift in {system}. {enemy} know the hold is filling. Keep them off.",
+      "Quota shift. Five minutes of digging and a lot of raiders. {client} pays on a full hold.",
+      "Guard the crew. Raiders will come in waves."
+    ],
+    "success": [
+      "Quota met. {client} pays {captain} with a bonus.",
+      "Hold is full and the crew is whole.",
+      "Shift over. The ore is safe."
+    ],
+    "failure": [
+      "The crew is cut down. {client} abandons the seam.",
+      "A miner is lost and the quota with it."
+    ],
+    "radio-crew": [
+      "Crew is cutting. Stay with them.",
+      "Miners working. Keep clear of their cutters.",
+      "Quota shift begins. Eyes open."
+    ],
+    "radio-pirates": [
+      "Pirates, far side. Three.",
+      "{enemy} on the seam. Intercept.",
+      "Contact, far. They are heading for the miners."
+    ],
+    "radio-pirates2": [
+      "Second group, right. One gunship.",
+      "More raiders. Bomber among them.",
+      "Right side. They will go for the miners."
+    ],
+    "radio-pirates3": [
+      "Last group, astern. Gunships.",
+      "Bombers behind the crew.",
+      "They are making one more try. Behind you."
+    ]
+  }
+}

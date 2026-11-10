@@ -1,0 +1,111 @@
+[
+  {
+    "id": "job-patrol-1",
+    "name": "Patrol: Lane Sweep",
+    "kind": "job",
+    "jobType": "patrol",
+    "scales": [
+      "small"
+    ],
+    "reward": 6000,
+    "minRank": 0,
+    "textGrammar": "battle-job-patrol-1",
+    "waves": [
+      {
+        "id": "beats",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-a"
+          }
+        ],
+        "radio": "radio-beats"
+      },
+      {
+        "id": "beats2",
+        "side": "friend",
+        "at": 0,
+        "position": "right",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-b"
+          }
+        ]
+      },
+      {
+        "id": "beats3",
+        "side": "friend",
+        "at": 0,
+        "position": "left",
+        "distance": 7500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-c"
+          }
+        ]
+      },
+      {
+        "id": "trouble",
+        "side": "enemy",
+        "after": "objective:a",
+        "delay": 15,
+        "position": "far",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-trouble"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "a",
+        "type": "scan",
+        "tag": "beacon-a",
+        "seconds": 6,
+        "distance": 400,
+        "text": "Check the first beacon"
+      },
+      {
+        "id": "b",
+        "type": "scan",
+        "tag": "beacon-b",
+        "seconds": 6,
+        "distance": 400,
+        "text": "Check the second beacon"
+      },
+      {
+        "id": "c",
+        "type": "scan",
+        "tag": "beacon-c",
+        "seconds": 6,
+        "distance": 400,
+        "text": "Check the third beacon"
+      },
+      {
+        "id": "clear",
+        "type": "destroy",
+        "wave": "trouble",
+        "text": "Clear the intruders",
+        "optional": true
+      }
+    ]
+  }
+]

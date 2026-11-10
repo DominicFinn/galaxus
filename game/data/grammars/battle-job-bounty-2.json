@@ -1,0 +1,36 @@
+{
+  "id": "battle-job-bounty-2",
+  "description": "Bounty: Runner: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Marta Quill is trying to leave {system}. She is fast and she has guards. Do not let her reach the gate.",
+      "Quill is running. {client} would like her stopped, not chased.",
+      "Bounty on a runner. Cut her off, then deal with the guards."
+    ],
+    "success": [
+      "Quill is destroyed. The bounty is yours, {captain}.",
+      "Runner stopped. {client} pays and the lane is quieter.",
+      "Quill will not be running again. Payment is on its way."
+    ],
+    "failure": [
+      "Quill is through the gate. The bounty lapses.",
+      "She got away, and so did the {enemy} guards."
+    ],
+    "radio-run": [
+      "Quill's courier is burning for the gate. Escorts are in your way.",
+      "There she goes. Three guards between you and her.",
+      "Target is running. Get past the escorts or through them."
+    ],
+    "radio-cover": [
+      "More {enemy} ships, left. Four of them.",
+      "Quill's friends have arrived. One is a gunship.",
+      "Hostile reinforcements on the left. Keep the pressure on Quill."
+    ]
+  }
+}

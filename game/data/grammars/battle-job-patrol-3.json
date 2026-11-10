@@ -1,0 +1,51 @@
+{
+  "id": "battle-job-patrol-3",
+  "description": "Patrol: Fleet Picket: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Five beacons and a wing for company. {client} thinks the picket line in {system} is about to be tested.",
+      "Fleet picket. Check the line and hold it. Expect a large response.",
+      "Patrol in force. Fly the beat and do not let anything cut the line."
+    ],
+    "success": [
+      "Picket held and the line checked. {client} is satisfied.",
+      "All beacons clear and the {enemy} force broken. Well done, {captain}.",
+      "Beat complete. The line stands."
+    ],
+    "failure": [
+      "The picket collapses. {client} pulls back.",
+      "The beat is lost and the line with it."
+    ],
+    "radio-beats": [
+      "Five beacons on the line. Start ahead.",
+      "Picket duty. Close and hold at each beacon.",
+      "The line is marked. Nearest first."
+    ],
+    "radio-wing": [
+      "Three fighters formed on you.",
+      "Wing is with you. Stay together.",
+      "Friendly fighters on your wing."
+    ],
+    "radio-picket": [
+      "{enemy} picket, far side. Eight ships, two of them gunships.",
+      "Large contact. They mean to cut the line.",
+      "Heavy hostiles. Hold your ground."
+    ],
+    "radio-flank": [
+      "Five more, left.",
+      "Second wave, left flank.",
+      "More fighters, left. They are coming in fast."
+    ],
+    "radio-ship": [
+      "Frigate behind you. Do not let it reach the line.",
+      "Warship on the rear. It has escorts.",
+      "Enemy frigate, astern. Big guns."
+    ]
+  }
+}

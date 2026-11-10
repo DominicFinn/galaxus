@@ -24,6 +24,7 @@ public static class GameInput
     public const string Quit = "quit";
     public const string TimeFaster = "time_faster", TimeSlower = "time_slower";
     public const string NextJob = "next_job";
+    public const string Performance = "performance";
 
     public static void Register()
     {
@@ -59,6 +60,7 @@ public static class GameInput
         Bind(TimeFaster, keys: [Key.Period]);
         Bind(TimeSlower, keys: [Key.Comma]);
         Bind(NextJob, keys: [Key.L]);
+        Bind(Performance, keys: [Key.F3]);
     }
 
     private static void Bind(string action, Key[]? keys = null, JoyButton[]? buttons = null,

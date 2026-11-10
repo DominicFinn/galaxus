@@ -10,6 +10,9 @@ public sealed class MenuActions
     public required Action<string> NewCampaign { get; init; }
     /// <summary>The campaigns on offer: id, name and summary.</summary>
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> Campaigns { get; init; }
+    /// <summary>Starts a set-piece battle on its own, as a preview.</summary>
+    public required Action<string> PreviewBattle { get; init; }
+    public required Func<IEnumerable<(string Id, string Name, string Summary)>> PreviewBattles { get; init; }
     public required Action<string> Load { get; init; }
     public required Action<string> Save { get; init; }
     public required Action Resume { get; init; }
@@ -23,7 +26,7 @@ public sealed class MenuActions
 /// </summary>
 public partial class MenuScreen : Control
 {
-    private enum Page { Main, Load, Save, Settings, NewGame }
+    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result }
 
     private MenuActions _actions = null!;
     private Logo _logo = null!;
@@ -71,7 +74,7 @@ public partial class MenuScreen : Control
     {
         _page = page;
         foreach (var child in _items.GetChildren()) child.QueueFree();
-        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page == Page.NewGame ? 440 : 360, 0);
+        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews ? 440 : 360, 0);
         _footer.Text = "Galaxus is a working title. Early build.";
 
         switch (page)
@@ -81,6 +84,8 @@ public partial class MenuScreen : Control
             case Page.Save: BuildSlots(saving: true); break;
             case Page.Settings: BuildSettings(); break;
             case Page.NewGame: BuildNewGame(); break;
+            case Page.Previews: BuildPreviews(); break;
+            case Page.Result: BuildResult(); break;
         }
         // Centre the panel under the logo once its contents have sized it.
         CallDeferred(MethodName.CentrePanel);
@@ -118,6 +123,8 @@ public partial class MenuScreen : Control
     private void BuildNewGame()
     {
         Add(Ui.Label("NEW GAME", Ui.Amber));
+        Add(Ui.Button("Battle preview: jump straight into a set piece", () => ShowPage(Page.Previews)));
+        Add(Ui.Label(" ", Ui.Dim));
         Add(Ui.Label("Free trader: a small ship, a little money and the whole galaxy. Trade, take jobs, pick sides.", Ui.Dim, wrap: true));
         Add(Ui.Button("Start as a free trader", () => _actions.NewGame()));
         foreach (var (id, name, summary) in _actions.Campaigns())
@@ -128,6 +135,48 @@ public partial class MenuScreen : Control
             Add(Ui.Button($"Campaign: {name}", () => _actions.NewCampaign(campaignId)));
         }
         Add(Ui.Button("Back", () => ShowPage(_back)));
+    }
+
+    /// <summary>Set pieces to fly on their own: a quick taste of the battles, and a good test of how they run.</summary>
+    private void BuildPreviews()
+    {
+        Add(Ui.Label("BATTLE PREVIEW", Ui.Amber));
+        Add(Ui.Label("Start in the middle of a set piece. When it's over, the preview ends. F3 shows performance.", Ui.Dim, wrap: true));
+        var scroll = new ScrollContainer { CustomMinimumSize = new Vector2(420, 230) };
+        var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        scroll.AddChild(list);
+        foreach (var (id, name, summary) in _actions.PreviewBattles())
+        {
+            var battleId = id;
+            var button = Ui.Button($"{name}: {summary}", () => _actions.PreviewBattle(battleId));
+            button.Alignment = HorizontalAlignment.Left;
+            list.AddChild(button);
+        }
+        Add(scroll);
+        Add(Ui.Button("Back", () => ShowPage(Page.NewGame)));
+    }
+
+    private string _resultTitle = "", _resultText = "";
+    private Action? _again, _home;
+
+    /// <summary>The end of a preview: how it went, and what next.</summary>
+    public void ShowResult(string title, string text, Action again, Action home)
+    {
+        _resultTitle = title;
+        _resultText = text;
+        _again = again;
+        _home = home;
+        InGame = true;
+        Visible = true;
+        ShowPage(Page.Result);
+    }
+
+    private void BuildResult()
+    {
+        Add(Ui.Label(_resultTitle, Ui.Amber));
+        Add(Ui.Label(_resultText, Ui.Dim, wrap: true));
+        Add(Ui.Button("Fly it again", () => _again?.Invoke()));
+        Add(Ui.Button("Main menu", () => _home?.Invoke()));
     }
 
     private void BuildSlots(bool saving)

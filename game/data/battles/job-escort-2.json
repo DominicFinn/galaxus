@@ -1,0 +1,108 @@
+[
+  {
+    "id": "job-escort-2",
+    "name": "Escort: Lane Guard",
+    "kind": "job",
+    "jobType": "escort",
+    "scales": [
+      "skirmish"
+    ],
+    "reward": 14000,
+    "minRank": 0,
+    "textGrammar": "battle-job-escort-2",
+    "waves": [
+      {
+        "id": "convoy",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 700,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 4,
+            "tag": "convoy"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "guard",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 400,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "gunship",
+            "count": 2,
+            "target": "convoy"
+          }
+        ],
+        "radio": "radio-guard"
+      },
+      {
+        "id": "raiders",
+        "side": "enemy",
+        "at": 20,
+        "position": "ahead",
+        "distance": 5500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-raiders"
+      },
+      {
+        "id": "flank",
+        "side": "enemy",
+        "after": "wave:raiders",
+        "delay": 30,
+        "position": "left",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1
+          }
+        ],
+        "radio": "radio-flank"
+      },
+      {
+        "id": "last",
+        "side": "enemy",
+        "after": "wave:flank",
+        "delay": 40,
+        "position": "far",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-last"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "through",
+        "type": "escape",
+        "tag": "convoy",
+        "text": "Bring the convoy through to the gate"
+      }
+    ]
+  }
+]

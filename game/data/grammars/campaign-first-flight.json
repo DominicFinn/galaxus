@@ -1,0 +1,52 @@
+[
+  {
+    "id": "campaign-first-flight",
+    "description": "First Flight: the tutorial campaign's intro, outro, orders and debriefs.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "enemy",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "intro": [
+        "Welcome aboard the {base}, Captain {captain}. I am Instructor Maren Pell, and for the next little while I am the person who tells you which button to press.\n\nYou are now in the service of {client}. Nothing here is dangerous. We start with steering, then guns, then parking, then a short trip to another system. At any point you can press F1 to see every control.\n\nYou are reading the Orders tab. When you have finished, choose \"Take your orders\", press Enter to undock, and I will take it from there."
+      ],
+      "outro": [
+        "That is the course done, Captain {captain}. You can fly, shoot, match speed, read the galaxy map and look after a convoy, which is about everything I know.\n\nThe {base} will keep your bunk. From here the galaxy is yours: trade, take jobs, or find a war. Fly carefully. Press F1 whenever you need the controls again."
+      ],
+      "briefing-beacons": [
+        "Pell: First lesson, Captain {captain}. Undock with Enter. The course to the exercise is already set, so press J to engage the cruise drive and it will fly you there itself. That is the autopilot.\n\nOnce there, you will fly to three practice beacons. Steer with the mouse or the arrow keys, throttle with W and S, and X to stop. Get close, go slow and hold."
+      ],
+      "debrief-beacons": [
+        "Pell: Good. Cruise back with J and dock by flying within 700 metres below 80 metres per second and pressing Enter. The course home is set for you.\n\nNext is gunnery. You press T to target and Space to fire. I will explain the rest on the range."
+      ],
+      "briefing-gunnery": [
+        "Pell: Today you shoot at things that do not mind. Undock with Enter, press J to cruise to the range, and you will find five target drones.\n\nPress T to lock the nearest. Put your nose on the red diamond, which marks where your shots will land, and fire with Space or left click. Keys 1 to 4 move power between engines, shields and weapons."
+      ],
+      "debrief-gunnery": [
+        "Pell: Five out of five, and the drones are not even cross about it. Dock again with Enter once you are close and slow.\n\nNext we match speed with a moving ship. It is harder than it sounds and much more useful than shooting."
+      ],
+      "briefing-alongside": [
+        "Pell: A tender is under way near the {base}, and you are going to fly alongside her. Undock with Enter, press J to cruise out, then press T to target her.\n\nTab matches your speed to the target. Fly within 400 metres, press Tab, and hold there for ten seconds. W and S correct any drift."
+      ],
+      "debrief-alongside": [
+        "Pell: Neat. You will need that for docking at moving ships, boarding and refuelling. Cruise home with J and dock with Enter.\n\nNext you leave the system. There is a convoy in {system} with pirate trouble."
+      ],
+      "briefing-convoy": [
+        "Pell: Orders for {system}, Captain. It is another system, so we use the galaxy map. Undock with Enter, open the map with M and you will find the route already plotted. Press Jump and a few days pass on the way.\n\nA small convoy is under threat from two pirates. Protect it, and shoot the pirates with T, the red diamond and Space. Press . to speed time up and , to slow it down if the journey is dull."
+      ],
+      "debrief-convoy": [
+        "Pell: The convoy is safe and the pirates are not. Open the galaxy map with M, jump home, cruise back with J and dock with Enter.\n\nOne more check and then I can sign you off."
+      ],
+      "briefing-final": [
+        "Pell: Final examination, Captain {captain}. Undock with Enter and cruise out with J. A frigate from the {base} will fly with you, and two raiders will try their luck.\n\nEverything you have learned applies. T to lock, aim at the diamond, Space to fire, 1 to 4 for power. Keep the frigate alive."
+      ],
+      "debrief-final": [
+        "Pell: That will do nicely. Dock with Enter, and read the outro in the Orders tab. After that you are on your own, and I will not be giving you a mark. You passed."
+      ]
+    }
+  }
+]

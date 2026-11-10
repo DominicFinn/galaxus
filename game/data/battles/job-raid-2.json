@@ -1,0 +1,96 @@
+[
+  {
+    "id": "job-raid-2",
+    "name": "Raid: Convoy Strike",
+    "kind": "job",
+    "jobType": "raid",
+    "scales": [
+      "battle"
+    ],
+    "reward": 26000,
+    "minRank": 0,
+    "textGrammar": "battle-job-raid-2",
+    "waves": [
+      {
+        "id": "convoy",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 4,
+            "tag": "convoy"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 6,
+            "target": "convoy"
+          },
+          {
+            "role": "escort",
+            "class": "gunship",
+            "count": 2,
+            "target": "convoy"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "support",
+        "side": "enemy",
+        "after": "wave:convoy",
+        "delay": 30,
+        "position": "right",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-support"
+      },
+      {
+        "id": "picket",
+        "side": "enemy",
+        "after": "wave:support",
+        "delay": 40,
+        "position": "behind",
+        "distance": 7500,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-picket"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "hit",
+        "type": "destroy",
+        "tag": "convoy",
+        "text": "Destroy the enemy freighters"
+      },
+      {
+        "id": "guards",
+        "type": "destroy",
+        "wave": "convoy",
+        "text": "Destroy the convoy escort",
+        "optional": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "battle-campaign-first-flight-4",
+    "description": "Convoy Help: briefing, radio calls and outcome text.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "A small convoy in {system} has reported two pirates. Open the galaxy map with M, where the route is already plotted, and press Jump. When you arrive, drive the pirates off and keep the convoy alive."
+      ],
+      "success": [
+        "The pirates are gone and the convoy is moving. {client} pays {captain}."
+      ],
+      "failure": [
+        "The convoy is lost. {client} will want a word."
+      ],
+      "radio-convoy": [
+        "Pell: There is the convoy, and she is yours to look after. Two pirates are on their way. Stay close to her.",
+        "Pell: Convoy ahead. Keep your throttle up and keep yourself between her and anything hostile."
+      ],
+      "radio-pirates": [
+        "Pell: Two fighters, ahead. T to target, aim at the red diamond, Space to fire. Press 2 if you want more shield power.",
+        "Pell: Pirates, and not very good ones. T, aim at the diamond, fire. You turn quicker when you slow down."
+      ]
+    }
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "id": "battle-job-patrol-2",
+  "description": "Patrol: Border Beat: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Four beacons along the border of {system}. Check each. Things have been quiet and that is why {client} is nervous.",
+      "Border patrol. Hold at each beacon until it clears. Report contacts.",
+      "Fly the beat. {client} expects company."
+    ],
+    "success": [
+      "Patrol complete. The border is as you found it, mostly.",
+      "All four beacons clear. {client} pays.",
+      "Beat flown. Good work, {captain}."
+    ],
+    "failure": [
+      "The patrol is broken up. {client} will send someone else.",
+      "You fail to complete the beat."
+    ],
+    "radio-beats": [
+      "Four beacons to check. First is ahead.",
+      "Patrol begins. Hold close to each beacon.",
+      "Beat marked. Nearest beacon first."
+    ],
+    "radio-trouble": [
+      "Contacts on the far side. Five, one a gunship.",
+      "Hostiles on the border. They were waiting.",
+      "{enemy} wing on your beat. Do not let it stop the scan."
+    ],
+    "radio-more": [
+      "Three more, behind you.",
+      "They have a second group. Rear.",
+      "Reinforcements astern."
+    ]
+  }
+}

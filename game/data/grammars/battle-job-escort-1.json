@@ -1,0 +1,41 @@
+{
+  "id": "battle-job-escort-1",
+  "description": "Escort: Short Haul: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Two freighters, one gate. Keep them alive between here and there.",
+      "The haulers are yours in {system}. {enemy} ships are working this lane.",
+      "Escort duty. Stay close and be rude to anything that approaches."
+    ],
+    "success": [
+      "The freighters are through. {client} sends thanks and the fee.",
+      "Convoy delivered. Quiet on the way out, in the end.",
+      "Both haulers clear. Job done, {captain}."
+    ],
+    "failure": [
+      "The convoy is lost. {client} will not be renewing.",
+      "Freighter down. The run is a failure."
+    ],
+    "radio-convoy": [
+      "Convoy is formed on you. Gate bearing ahead.",
+      "Haulers are in position. Stay with them.",
+      "Both freighters ready. Do not leave them."
+    ],
+    "radio-raiders": [
+      "Raiders. Three fighters, ahead.",
+      "{enemy} fighters closing. Put yourself between.",
+      "Hostiles inbound. Protect the haulers."
+    ],
+    "radio-more": [
+      "Two more behind the convoy.",
+      "Second group, astern. Hurry.",
+      "More fighters on the tail. Do not let them near the freighters."
+    ]
+  }
+}

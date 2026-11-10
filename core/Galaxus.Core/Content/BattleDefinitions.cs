@@ -9,8 +9,12 @@ public sealed class BattleDef
 {
     public string Id { get; set; } = "";
     public string Name { get; set; } = "";
-    /// <summary>war (between two powers or factions at war), pirate, synth (rogue machines), defence (of a station), or campaign (only flown as part of a campaign, never posted on boards).</summary>
+    /// <summary>war (between two powers or factions at war), pirate, synth (rogue machines), defence (of a station), campaign (only flown as part of a campaign, never posted on boards), or job (the fight behind an ordinary job board job; see JobType).</summary>
     public string Kind { get; set; } = "war";
+    /// <summary>For kind "job": the mission type it plays out (bounty, escort, patrol, raid, claim-jumping, mining).</summary>
+    public string? JobType { get; set; }
+    /// <summary>For kind "job": the job scales it suits (small, skirmish, battle, war). Empty means any.</summary>
+    public List<string> Scales { get; set; } = [];
     /// <summary>For war battles: the conflict stages it's offered at: raids, blockade, war.</summary>
     public List<string> Stages { get; set; } = [];
     /// <summary>Base pay in credits, before the board scales it by danger and rank.</summary>
@@ -93,6 +97,8 @@ public sealed class ObjectiveDef
 public sealed class CampaignDef
 {
     public string Id { get; set; } = "";
+    /// <summary>A tutorial is listed first on the new game screen and teaches the controls as it goes.</summary>
+    public bool Tutorial { get; set; }
     public string Name { get; set; } = "";
     /// <summary>The great power you fly for.</summary>
     public string Power { get; set; } = "";

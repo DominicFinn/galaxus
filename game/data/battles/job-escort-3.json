@@ -1,0 +1,136 @@
+[
+  {
+    "id": "job-escort-3",
+    "name": "Escort: Fleet Convoy",
+    "kind": "job",
+    "jobType": "escort",
+    "scales": [
+      "battle",
+      "war"
+    ],
+    "reward": 32000,
+    "minRank": 0,
+    "textGrammar": "battle-job-escort-3",
+    "waves": [
+      {
+        "id": "convoy",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 900,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 6,
+            "tag": "convoy"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "guard",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 500,
+        "ships": [
+          {
+            "role": "escort",
+            "class": "frigate",
+            "count": 1,
+            "target": "convoy"
+          },
+          {
+            "role": "escort",
+            "class": "gunship",
+            "count": 2,
+            "target": "convoy"
+          }
+        ],
+        "radio": "radio-guard"
+      },
+      {
+        "id": "raiders",
+        "side": "enemy",
+        "at": 25,
+        "position": "ahead",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-raiders"
+      },
+      {
+        "id": "wings",
+        "side": "enemy",
+        "after": "wave:raiders",
+        "delay": 25,
+        "position": "left",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 5
+          }
+        ],
+        "radio": "radio-wings"
+      },
+      {
+        "id": "ship",
+        "side": "enemy",
+        "after": "wave:wings",
+        "delay": 30,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-ship"
+      },
+      {
+        "id": "sting",
+        "side": "enemy",
+        "after": "wave:ship",
+        "delay": 40,
+        "position": "behind",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3
+          }
+        ],
+        "radio": "radio-sting"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "through",
+        "type": "escape",
+        "tag": "convoy",
+        "text": "Bring the convoy through to the gate"
+      }
+    ]
+  }
+]

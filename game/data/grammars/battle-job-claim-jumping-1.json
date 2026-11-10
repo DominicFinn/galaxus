@@ -1,0 +1,36 @@
+{
+  "id": "battle-job-claim-jumping-1",
+  "description": "Claim Jump: Quiet Seam: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "There is a seam in {system} and someone is working it who should not be. Move them on.",
+      "Claim holders, two miners and two guards. {client} wants the seam empty.",
+      "A small job. Clear the claim."
+    ],
+    "success": [
+      "The claim is clear. {client} pays {captain} and sends in its own crew.",
+      "Seam cleared. {client} thanks you.",
+      "All gone. The seam is open."
+    ],
+    "failure": [
+      "The holders stay. {client} loses the seam.",
+      "You are driven off the claim."
+    ],
+    "radio-claim": [
+      "Miners on the seam. Two guards on watch.",
+      "Claim ahead. They have seen you.",
+      "Holders in view. Take the guards, then the miners."
+    ],
+    "radio-owners": [
+      "More of them coming from the right.",
+      "Friends of the holders, closing.",
+      "Two more fighters. They want the seam."
+    ]
+  }
+}

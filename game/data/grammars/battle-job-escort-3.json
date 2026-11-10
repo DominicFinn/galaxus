@@ -1,0 +1,56 @@
+{
+  "id": "battle-job-escort-3",
+  "description": "Escort: Fleet Convoy: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Six haulers and a frigate for cover. {enemy} will bring everything they have. Keep the line together.",
+      "Big convoy leaving {system}. {client} cannot afford to lose it.",
+      "Fleet convoy, escort duty. The frigate is yours to work with."
+    ],
+    "success": [
+      "Convoy through. {client} will remember who flew with it.",
+      "Gate reached with the line intact. Well done, {captain}.",
+      "The raiders are spent and the freight is safe."
+    ],
+    "failure": [
+      "The convoy is scattered. {client} counts what is left.",
+      "Escort failed. The lane belongs to {enemy} for now."
+    ],
+    "radio-convoy": [
+      "Six haulers formed. Gate bearing ahead.",
+      "Convoy ready. Slow and steady.",
+      "All freighters accounted for."
+    ],
+    "radio-guard": [
+      "Frigate and two gunships holding with the convoy.",
+      "Escort frigate on station. Use it.",
+      "Our frigate is with the line."
+    ],
+    "radio-raiders": [
+      "Raiders ahead, eight ships. Two are gunships.",
+      "Heavy contact, dead ahead.",
+      "{enemy} in strength. Break them up."
+    ],
+    "radio-wings": [
+      "Second wave, left. Five fighters.",
+      "More on the left. They want the haulers.",
+      "Fighters, left flank."
+    ],
+    "radio-ship": [
+      "Enemy frigate, far side, with escorts.",
+      "They have a warship. Keep clear of its guns.",
+      "Frigate contact. Do not let it near the line."
+    ],
+    "radio-sting": [
+      "Gunships behind the convoy.",
+      "Bombers on the tail.",
+      "Last group, astern. Hold them."
+    ]
+  }
+}

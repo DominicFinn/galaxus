@@ -58,6 +58,12 @@ public partial class Main
         var sides = BattleJobs.Sides(db, _session.Galaxy, job.Offer);
         var tags = Battle.NameTags(def, new Rng(Rng.Hash(job.Offer.Id + "tags")));
         var variables = new Dictionary<string, string>(job.Offer.Mission.Variables);
+        // Ordinary jobs name the contact as the client; in battle radio it's the faction you fly for.
+        variables["client"] = _session.Galaxy.Factions[job.Offer.GiverFactionId].Name;
+        variables["enemy"] = sides.EnemyName;
+        variables.TryAdd("system", _session.Here.Name);
+        variables.TryAdd("station", _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name);
+        variables.TryAdd("captain", _session.Career.Captain);
         _battle = new Battle(db, def, _world, _player, sides, new Rng(Rng.Hash(job.Offer.Id + _session.Galaxy.Day)), variables, tags);
         _battleJob = job;
         _battleCleanup = 0;
@@ -118,6 +124,8 @@ public partial class Main
         if (_battleJob == null || _battle == null) return;
         var result = _session.Career.FinishBattle(_battleJob, over.Won, _battle.BonusesEarned);
         Campaigns.Record(_session, _battleJob, over.Won);
+        if (_session.RecordBattle(_battleJob, over.Won) is { } action && action.Won)
+            _hud.Message("WORD OF THIS WILL SPREAD. CHECK THE NEWS WHEN YOU DOCK");
         if (Campaigns.Current(_session) != null && over.Won)
             _hud.Message(Campaigns.Finished(_session) ? "CAMPAIGN COMPLETE. REPORT TO THE FLAGSHIP" : "RETURN TO THE FLAGSHIP FOR YOUR DEBRIEF");
         _hud.Radio(over.Text, "friend");

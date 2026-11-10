@@ -1,0 +1,81 @@
+[
+  {
+    "id": "job-claim-jumping-2",
+    "name": "Claim Jump: Rich Strike",
+    "kind": "job",
+    "jobType": "claim-jumping",
+    "scales": [
+      "small",
+      "skirmish"
+    ],
+    "reward": 10000,
+    "minRank": 0,
+    "textGrammar": "battle-job-claim-jumping-2",
+    "waves": [
+      {
+        "id": "claim",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "holding",
+            "class": "miner",
+            "count": 3,
+            "tag": "jumpers"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 3,
+            "target": "jumpers"
+          },
+          {
+            "role": "escort",
+            "class": "gunship",
+            "count": 1,
+            "target": "jumpers"
+          }
+        ],
+        "radio": "radio-claim"
+      },
+      {
+        "id": "owners",
+        "side": "enemy",
+        "after": "wave:claim",
+        "delay": 35,
+        "position": "behind",
+        "distance": 5500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1
+          }
+        ],
+        "radio": "radio-owners"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "clear",
+        "type": "destroy",
+        "tag": "jumpers",
+        "text": "Destroy the claim jumpers' miners"
+      },
+      {
+        "id": "guards",
+        "type": "destroy",
+        "wave": "claim",
+        "text": "Destroy the claim guards",
+        "optional": true
+      }
+    ]
+  }
+]

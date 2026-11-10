@@ -1,0 +1,71 @@
+[
+  {
+    "id": "job-escort-1",
+    "name": "Escort: Short Haul",
+    "kind": "job",
+    "jobType": "escort",
+    "scales": [
+      "small"
+    ],
+    "reward": 7000,
+    "minRank": 0,
+    "textGrammar": "battle-job-escort-1",
+    "waves": [
+      {
+        "id": "convoy",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 600,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 2,
+            "tag": "convoy"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "raiders",
+        "side": "enemy",
+        "at": 25,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-raiders"
+      },
+      {
+        "id": "more",
+        "side": "enemy",
+        "after": "wave:raiders",
+        "delay": 30,
+        "position": "behind",
+        "distance": 5500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-more"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "through",
+        "type": "escape",
+        "tag": "convoy",
+        "text": "Bring the freighters through to the gate"
+      }
+    ]
+  }
+]

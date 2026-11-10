@@ -1,0 +1,36 @@
+{
+  "id": "battle-job-raid-1",
+  "description": "Raid: Depot Hit: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Three freighters parked at a depot in {system}. {client} wants them gone. The guards are awake.",
+      "Supply depot. Hit the freighters, then leave. Do not linger for the guards.",
+      "Raid on {enemy} supplies. Three hulls and a thin guard."
+    ],
+    "success": [
+      "Depot destroyed. {client} pays {captain} and asks no questions.",
+      "Supplies burning. A tidy job.",
+      "The depot is gone. Off you go."
+    ],
+    "failure": [
+      "The depot survives. {client} is not pleased.",
+      "The raid fails. {enemy} resupply on schedule."
+    ],
+    "radio-depot": [
+      "Depot ahead. Three freighters, three guards.",
+      "There it is. Freighters at rest, guards on watch.",
+      "Targets in view. Go for the haulers."
+    ],
+    "radio-alarm": [
+      "They called for help. Four ships, left.",
+      "Alarm raised. Reinforcements, left flank.",
+      "More {enemy} ships inbound. Finish the freighters."
+    ]
+  }
+}

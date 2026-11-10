@@ -76,7 +76,7 @@ public class GalaxyTests
     {
         var galaxy = GalaxyGenerator.Generate(Db, 5, Small);
         var career = new Career();
-        bool Fits(MissionOffer o, StarSystem s) => o.Playable && o.DestinationSystemId != s.Id && o.Mission.Tonnes <= career.CargoCapacity(Db);
+        bool Fits(MissionOffer o, StarSystem s) => o.Playable && o.BattleId == null && o.DestinationSystemId != s.Id && o.Mission.Tonnes <= career.CargoCapacity(Db);
         var start = galaxy.Systems.First(s => s.Settled && MissionBoard.For(Db, galaxy, s, "Ashby", career.RankWith).Any(o => Fits(o, s)));
         career.SystemId = start.Id;
 
@@ -126,7 +126,7 @@ public class SessionTests
     public void Jumping_takes_time_and_delivers_jobs()
     {
         var session = Session.StartNew(Db, 2026);
-        var offer = session.Board().First(o => o.Playable && o.DestinationSystemId != session.Career.SystemId
+        var offer = session.Board().First(o => o.Playable && o.BattleId == null && o.DestinationSystemId != session.Career.SystemId
                                               && o.Mission.Tonnes <= session.Career.FreeCargo(Db));
         session.Career.Accept(session.Galaxy, offer);
         int day = session.Galaxy.Day;

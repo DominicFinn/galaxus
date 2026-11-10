@@ -1,0 +1,215 @@
+[
+  {
+    "id": "job-patrol-3",
+    "name": "Patrol: Fleet Picket",
+    "kind": "job",
+    "jobType": "patrol",
+    "scales": [
+      "battle",
+      "war"
+    ],
+    "reward": 30000,
+    "minRank": 0,
+    "textGrammar": "battle-job-patrol-3",
+    "waves": [
+      {
+        "id": "beats",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 3000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-a"
+          }
+        ],
+        "radio": "radio-beats"
+      },
+      {
+        "id": "b2",
+        "side": "friend",
+        "at": 0,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-b"
+          }
+        ]
+      },
+      {
+        "id": "b3",
+        "side": "friend",
+        "at": 0,
+        "position": "above",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-c"
+          }
+        ]
+      },
+      {
+        "id": "b4",
+        "side": "friend",
+        "at": 0,
+        "position": "left",
+        "distance": 12000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-d"
+          }
+        ]
+      },
+      {
+        "id": "b5",
+        "side": "friend",
+        "at": 0,
+        "position": "far",
+        "distance": 14000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-e"
+          }
+        ]
+      },
+      {
+        "id": "wing",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 300,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-wing"
+      },
+      {
+        "id": "picket",
+        "side": "enemy",
+        "after": "objective:b",
+        "delay": 10,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-picket"
+      },
+      {
+        "id": "flank",
+        "side": "enemy",
+        "after": "wave:picket",
+        "delay": 25,
+        "position": "left",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 5
+          }
+        ],
+        "radio": "radio-flank"
+      },
+      {
+        "id": "ship",
+        "side": "enemy",
+        "after": "objective:d",
+        "delay": 5,
+        "position": "behind",
+        "distance": 10000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-ship"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "a",
+        "type": "scan",
+        "tag": "beacon-a",
+        "seconds": 6,
+        "distance": 500,
+        "text": "Check the first beacon"
+      },
+      {
+        "id": "b",
+        "type": "scan",
+        "tag": "beacon-b",
+        "seconds": 6,
+        "distance": 500,
+        "text": "Check the second beacon"
+      },
+      {
+        "id": "c",
+        "type": "scan",
+        "tag": "beacon-c",
+        "seconds": 6,
+        "distance": 500,
+        "text": "Check the third beacon"
+      },
+      {
+        "id": "d",
+        "type": "scan",
+        "tag": "beacon-d",
+        "seconds": 6,
+        "distance": 500,
+        "text": "Check the fourth beacon"
+      },
+      {
+        "id": "e",
+        "type": "scan",
+        "tag": "beacon-e",
+        "seconds": 6,
+        "distance": 500,
+        "text": "Check the fifth beacon"
+      },
+      {
+        "id": "clear",
+        "type": "destroy",
+        "wave": "picket",
+        "text": "Break the {enemy} picket",
+        "optional": true
+      }
+    ]
+  }
+]

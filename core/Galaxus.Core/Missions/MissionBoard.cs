@@ -65,9 +65,19 @@ public static class MissionBoard
                 client.Name);
             var mission = MissionGenerator.Generate(db, context, orng.Fork("mission"));
             if (mission == null) continue;
-            // Until combat traffic exists, keep only some of the jobs that can't be completed yet.
-            if (!TravelTypes.Contains(mission.Template.Type) && orng.NextFloat() > 0.3f) continue;
-            offers.Add(new MissionOffer($"{system.Id}-{week}-{i}", mission, giver.Id, system.Id, destination.Id, station, galaxy.Day, client.Id));
+            // Combat jobs are played out as a battle in the destination system.
+            string? battleId = null;
+            int enemy = -1;
+            if (!TravelTypes.Contains(mission.Template.Type))
+            {
+                var fits = db.Battles.Values.Where(b => b.Kind == "job" && b.JobType == mission.Template.Type
+                                                        && (b.Scales.Count == 0 || b.Scales.Contains(mission.Template.Scale)))
+                    .OrderBy(b => b.Id, StringComparer.Ordinal).ToList();
+                if (fits.Count == 0) continue;
+                battleId = orng.Pick(fits).Id;
+                enemy = Battles.BattleJobs.JobEnemy(galaxy, giver, destination, mission.Template.Type, orng);
+            }
+            offers.Add(new MissionOffer($"{system.Id}-{week}-{i}", mission, giver.Id, system.Id, destination.Id, station, galaxy.Day, client.Id, battleId, enemy));
         }
         offers.AddRange(Battles.BattleJobs.Offers(db, galaxy, system, captain, rankWith, rng.Fork("battles")));
         return offers;

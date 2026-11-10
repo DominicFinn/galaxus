@@ -1,0 +1,51 @@
+{
+  "id": "battle-job-escort-2",
+  "description": "Escort: Lane Guard: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Four freighters and a thin escort. {enemy} ships will try the lane. Do not let them.",
+      "Convoy leaving {system}. Two gunships are with you, the rest is your problem.",
+      "{client} needs the cargo delivered. Raiders have been warned of the sailing, so assume they know."
+    ],
+    "success": [
+      "All four haulers through. {client} pays {captain} in full.",
+      "Convoy delivered. A good day for the freight, a bad one for the raiders.",
+      "Gate reached. Nobody lost."
+    ],
+    "failure": [
+      "Too many freighters lost. {client} withholds the fee.",
+      "The convoy is broken. Raiders have the lane."
+    ],
+    "radio-convoy": [
+      "Four haulers formed. Gate is ahead.",
+      "Convoy ready. Keep the line tight.",
+      "All freighters accounted for. Move out."
+    ],
+    "radio-guard": [
+      "Two gunships on your wing, ordered to hold with the convoy.",
+      "Escort gunships are with you.",
+      "Gunships joined. They will cover the freighters."
+    ],
+    "radio-raiders": [
+      "Raiders, dead ahead. Four fighters.",
+      "{enemy} on the lane. Engage.",
+      "Contacts. They are coming for the haulers."
+    ],
+    "radio-flank": [
+      "Second group, left. One bomber among them.",
+      "Flanking raiders. Cover the freighters.",
+      "Bomber on the left. Kill it first."
+    ],
+    "radio-last": [
+      "Two gunships, long range. Do not let them in.",
+      "Last of them, far side.",
+      "Stragglers inbound, gunships."
+    ]
+  }
+}

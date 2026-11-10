@@ -514,7 +514,8 @@ public sealed class ContentDatabase
     }
 
     /// <summary>A grammar may only declare variables the game will actually supply.</summary>
-    public static readonly HashSet<string> BattleKinds = ["war", "pirate", "synth", "defence", "campaign"];
+    public static readonly HashSet<string> BattleKinds = ["war", "pirate", "synth", "defence", "campaign", "job"];
+    public static readonly HashSet<string> JobBattleTypes = ["bounty", "escort", "patrol", "raid", "claim-jumping", "mining"];
     public static readonly HashSet<string> BattleRoles = ["fighter", "bomber", "escort", "capital", "freighter", "interceptor", "holding"];
     public static readonly HashSet<string> BattlePositions = ["near", "ahead", "behind", "left", "right", "above", "far"];
     public static readonly HashSet<string> ObjectiveTypes = ["destroy", "protect", "survive", "escape", "scan", "rendezvous"];
@@ -556,6 +557,8 @@ public sealed class ContentDatabase
             if (!BattleKinds.Contains(b.Kind)) p.Add($"{at}: kind must be one of {string.Join(", ", BattleKinds)}.");
             foreach (var stage in b.Stages.Where(x => x is not ("raids" or "blockade" or "war"))) p.Add($"{at}: stage '{stage}' must be raids, blockade or war.");
             if (b.Kind == "war" && b.Stages.Count == 0) p.Add($"{at}: war battles need at least one stage.");
+            if (b.Kind == "job" && (b.JobType == null || !JobBattleTypes.Contains(b.JobType))) p.Add($"{at}: job battles need a jobType, one of {string.Join(", ", JobBattleTypes)}.");
+            foreach (var scale in b.Scales.Where(x => x is not ("small" or "skirmish" or "battle" or "war"))) p.Add($"{at}: scale '{scale}' must be small, skirmish, battle or war.");
             if (!Grammars.Contains(b.TextGrammar)) p.Add($"{at}: unknown text grammar '{b.TextGrammar}'.");
             else
                 foreach (var rule in new[] { "briefing", "success", "failure" })

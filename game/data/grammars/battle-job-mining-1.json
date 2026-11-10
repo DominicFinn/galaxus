@@ -1,0 +1,41 @@
+{
+  "id": "battle-job-mining-1",
+  "description": "Mining: Watch the Seam: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "The crew is working a seam in {system} and {enemy} ships keep turning up. Guard them until the shift is done.",
+      "Mining watch. Two miners, three hours of work. Well, three minutes of yours.",
+      "{client} needs the crew kept safe while they dig. Stay close."
+    ],
+    "success": [
+      "The shift ends and the hold is full. {client} pays {captain}.",
+      "Crew safe. Ore loaded. {client} sends thanks.",
+      "Good watch. The miners say so too."
+    ],
+    "failure": [
+      "A miner is lost. {client} ends the shift.",
+      "The crew is lost. {client} will not forget it."
+    ],
+    "radio-crew": [
+      "Miners are working. Stay close.",
+      "Crew at the seam. Keep watch.",
+      "They have the cutters out. Your job begins."
+    ],
+    "radio-pirates": [
+      "Pirates, far side. Two of them.",
+      "{enemy} fighters closing on the crew.",
+      "Contact. Two. They want the ore."
+    ],
+    "radio-pirates2": [
+      "Three more, left.",
+      "Second group. They did not learn.",
+      "More hostiles inbound, left."
+    ]
+  }
+}

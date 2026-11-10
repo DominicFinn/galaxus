@@ -1,0 +1,76 @@
+[
+  {
+    "id": "job-bounty-3",
+    "name": "Bounty: Hard Case",
+    "kind": "job",
+    "jobType": "bounty",
+    "scales": [
+      "small",
+      "skirmish"
+    ],
+    "reward": 11000,
+    "minRank": 0,
+    "textGrammar": "battle-job-bounty-3",
+    "waves": [
+      {
+        "id": "hunt",
+        "side": "enemy",
+        "at": 0,
+        "position": "right",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 1,
+            "tag": "target",
+            "name": "Orrin Hask"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 3,
+            "target": "target"
+          }
+        ],
+        "radio": "radio-hunt"
+      },
+      {
+        "id": "heavy",
+        "side": "enemy",
+        "after": "wave:hunt",
+        "delay": 45,
+        "position": "far",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-heavy"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the wanted pilot Orrin Hask"
+      },
+      {
+        "id": "guards",
+        "type": "destroy",
+        "wave": "hunt",
+        "text": "Destroy Hask's wingmen",
+        "optional": true
+      }
+    ]
+  }
+]

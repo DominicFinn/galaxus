@@ -51,10 +51,13 @@ public sealed class Session
     }
 
     /// <summary>Rebuilds a saved galaxy: same seed, simulated forward to the saved day, with the same deep-space stars registered.</summary>
-    public static Session Restore(ContentDatabase db, ulong seed, GalaxySettings settings, int day, IEnumerable<ulong>? deepKeys = null)
+    public static Session Restore(ContentDatabase db, ulong seed, GalaxySettings settings, int day, IEnumerable<ulong>? deepKeys = null,
+        IEnumerable<PlayerAction>? actions = null)
     {
         var session = new Session(db, GalaxyGenerator.Generate(db, seed, settings), settings);
         foreach (var key in deepKeys ?? []) session.Galaxy.Register(key);
+        // The player's actions are replayed on the days they happened, so the galaxy comes back the same.
+        session.Simulation.Replay(actions ?? []);
         session.Simulation.Run(day);
         return session;
     }
@@ -104,6 +107,35 @@ public sealed class Session
     /// (and any gate system within range) can be reached by a direct jump if it's within your
     /// jump drive's range. Returns null if neither works.
     /// </summary>
+    /// <summary>
+    /// A battle you fought changes the galaxy: wars swing, pirates are driven out, and the news
+    /// spreads. Previews don't count.
+    /// </summary>
+    public PlayerAction? RecordBattle(AcceptedMission job, bool won)
+    {
+        var offer = job.Offer;
+        if (offer.BattleId == null || offer.Id.StartsWith("preview-") || !Db.Battles.TryGetValue(offer.BattleId, out var def)) return null;
+        int enemy = offer.EnemyFactionId;
+        bool enemyIsFaction = enemy >= 0 && enemy < Galaxy.Factions.Count;
+        bool atWar = enemyIsFaction && Galaxy.Conflicts.Any(c => c.Involves(offer.GiverFactionId) && c.Involves(enemy));
+        string kind = def.Kind switch
+        {
+            "war" => "war",
+            "defence" => "defence",
+            "synth" => "synth",
+            _ when enemy == Battles.BattleJobs.RogueMachines => "synth",
+            _ when atWar && !Galaxy.Factions[enemy].Criminal => "war",
+            _ => "pirates",
+        };
+        // Set pieces move a war a lot; an ordinary job on the side, a little.
+        float weight = def.Kind is "war" or "campaign" or "defence"
+            ? Math.Clamp(def.Reward / 40000f, 0.6f, 4f)
+            : Math.Clamp(def.Reward / 60000f, 0.25f, 0.8f);
+        var action = new PlayerAction(Galaxy.Day, kind, offer.GiverFactionId, enemy, offer.DestinationSystemId, won, weight, Career.Captain);
+        Simulation.Record(action);
+        return action;
+    }
+
     /// <summary>Docking: jobs for this station are delivered.</summary>
     /// <remarks>
     /// Only a system's first orbital station is there to fly to, so any orbital station delivers

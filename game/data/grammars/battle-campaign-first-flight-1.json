@@ -1,0 +1,36 @@
+[
+  {
+    "id": "battle-campaign-first-flight-1",
+    "description": "Three Beacons: briefing, radio calls and outcome text.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Three practice beacons are set out around the {base}. Fly to within 600 metres of each and hold there for a few seconds. Steer with the mouse or the arrow keys, and use W and S for throttle. Nobody is shooting at you."
+      ],
+      "success": [
+        "All three beacons have reported. You can steer, speed up and slow down, which is most of the job."
+      ],
+      "failure": [
+        "The beacons are still unlogged. We will set them out again."
+      ],
+      "radio-near": [
+        "Pell: The first beacon is close, just off your nose. Steer with the mouse or the arrow keys, and set speed with W and S. Fly in gently and hold beside it.",
+        "Pell: Nearest beacon first. W for more speed, S for less, X for none at all. You need to be slow to be counted."
+      ],
+      "radio-ahead": [
+        "Pell: Second beacon, a good way ahead. Raise the throttle with W, point at it and go. Ease off with S as you get close, or you will sail past.",
+        "Pell: Another one straight ahead, on a long run. Slow down before you arrive, not after."
+      ],
+      "radio-side": [
+        "Pell: Last beacon, off to your right. Turn with the mouse, or yaw with A and D. Q and E roll the ship if you want to. Turn until it is ahead of you, then fly in.",
+        "Pell: The third is off to the right. Slower speeds turn tighter, so ease off the throttle first."
+      ]
+    }
+  }
+]

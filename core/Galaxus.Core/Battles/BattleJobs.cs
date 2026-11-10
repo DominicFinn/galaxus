@@ -112,6 +112,18 @@ public static class BattleJobs
         }
     }
 
+    /// <summary>
+    /// Who an ordinary combat job is against: raids hit whoever the giver is at war with; the rest
+    /// are pirates, the local gang if one haunts the destination.
+    /// </summary>
+    public static int JobEnemy(Galaxy.Galaxy galaxy, Faction giver, StarSystem destination, string type, Rng rng)
+    {
+        if (type == "raid" && galaxy.Conflicts.FirstOrDefault(c => c.Involves(giver.Id)) is { } war)
+            return war.A == giver.Id ? war.B : war.A;
+        var gang = galaxy.Factions.FirstOrDefault(f => f.Alive && f.Criminal && f.Id != giver.Id && f.Haunts.Contains(destination.Id));
+        return gang?.Id ?? Pirates;
+    }
+
     public static string EnemyName(Galaxy.Galaxy galaxy, int enemy) => enemy switch
     {
         RogueMachines => "the Unbound",

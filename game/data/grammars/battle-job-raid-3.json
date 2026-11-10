@@ -1,0 +1,41 @@
+{
+  "id": "battle-job-raid-3",
+  "description": "Raid: Fortified Depot: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "A fortified {enemy} depot in {system}: five freighters, a frigate and a full guard. {client} wants it gone.",
+      "Heavy raid. Take down the freighters. The frigate will not help you do it.",
+      "Depot assault. Expect a warship and a lot of fighters."
+    ],
+    "success": [
+      "Depot destroyed. {client} pays the war rate, {captain}.",
+      "Supplies gone, guard broken. A costly victory.",
+      "The depot is wreckage. {client} will want a longer report."
+    ],
+    "failure": [
+      "The depot holds. {client} withdraws the force.",
+      "The assault fails. The depot's guns are unharmed."
+    ],
+    "radio-depot": [
+      "Depot ahead. Five freighters, a frigate, ten escorts.",
+      "That is a lot of guns. Go for the freighters.",
+      "Contact. The frigate is covering the depot."
+    ],
+    "radio-reserve": [
+      "Reserves, left. Seven ships.",
+      "More fighters and gunships on the left.",
+      "They have a second wing. Left flank."
+    ],
+    "radio-cruiser": [
+      "Cruiser inbound, far side. Large.",
+      "Warship, big. It will arrive soon.",
+      "Cruiser on the way. Finish up."
+    ]
+  }
+}

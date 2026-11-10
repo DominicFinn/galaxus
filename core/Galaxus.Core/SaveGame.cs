@@ -15,7 +15,7 @@ namespace Galaxus.Core;
 /// </summary>
 public static class SaveGame
 {
-    public const int Version = 2;
+    public const int Version = 3;
 
     private static readonly JsonSerializerOptions Json = new() { WriteIndented = true };
 
@@ -29,6 +29,8 @@ public static class SaveGame
         public int Day { get; set; }
         /// <summary>Deep-space stars registered in this galaxy, in order, so their ids come back the same.</summary>
         public List<ulong> DeepKeys { get; set; } = [];
+        /// <summary>What the player has done to the galaxy, replayed on load on the same days.</summary>
+        public List<PlayerAction> Actions { get; set; } = [];
         public string Captain { get; set; } = "";
         public int Credits { get; set; }
         public int SystemId { get; set; }
@@ -90,6 +92,7 @@ public static class SaveGame
             MinorFactions = session.Settings.MinorFactions,
             Day = session.Galaxy.Day,
             DeepKeys = [.. session.Galaxy.DeepKeys],
+            Actions = [.. session.Galaxy.PlayerActions],
             Captain = c.Captain,
             Credits = c.Credits,
             SystemId = c.SystemId,
@@ -154,7 +157,7 @@ public static class SaveGame
         if (data.Version is < 1 or > Version) throw new InvalidDataException($"Save version {data.Version} can't be loaded by this build (expects {Version}).");
 
         var settings = new GalaxySettings { SystemCount = data.SystemCount, MinorFactions = data.MinorFactions };
-        var session = Session.Restore(db, data.Seed, settings, data.Day, data.DeepKeys);
+        var session = Session.Restore(db, data.Seed, settings, data.Day, data.DeepKeys, data.Actions);
         var c = session.Career;
         c.Captain = data.Captain;
         c.Credits = data.Credits;

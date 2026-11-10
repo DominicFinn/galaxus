@@ -1,0 +1,273 @@
+[
+  {
+    "id": "campaign-first-flight-1",
+    "name": "Three Beacons",
+    "kind": "campaign",
+    "reward": 500,
+    "minRank": 0,
+    "textGrammar": "battle-campaign-first-flight-1",
+    "waves": [
+      {
+        "id": "near",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 900,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon"
+          }
+        ],
+        "radio": "radio-near"
+      },
+      {
+        "id": "ahead",
+        "side": "friend",
+        "at": 20,
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon"
+          }
+        ],
+        "radio": "radio-ahead"
+      },
+      {
+        "id": "side",
+        "side": "friend",
+        "at": 40,
+        "position": "right",
+        "distance": 2000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon"
+          }
+        ],
+        "radio": "radio-side"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "scan",
+        "type": "scan",
+        "tag": "beacon",
+        "seconds": 4,
+        "distance": 600,
+        "text": "Fly within 600 m of each beacon and hold there"
+      }
+    ]
+  },
+  {
+    "id": "campaign-first-flight-2",
+    "name": "Practice Range",
+    "kind": "campaign",
+    "reward": 1000,
+    "minRank": 0,
+    "textGrammar": "battle-campaign-first-flight-2",
+    "waves": [
+      {
+        "id": "still",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 1800,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 3,
+            "tag": "still"
+          }
+        ],
+        "radio": "radio-still"
+      },
+      {
+        "id": "moving",
+        "side": "friend",
+        "after": "wave:still",
+        "delay": 5,
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "fighter",
+            "hull": "target-drone",
+            "count": 2,
+            "tag": "moving"
+          }
+        ],
+        "radio": "radio-moving"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "still",
+        "type": "destroy",
+        "tag": "still",
+        "text": "Destroy the three stationary drones"
+      },
+      {
+        "id": "moving",
+        "type": "destroy",
+        "tag": "moving",
+        "text": "Destroy the two moving drones"
+      }
+    ]
+  },
+  {
+    "id": "campaign-first-flight-3",
+    "name": "Alongside",
+    "kind": "campaign",
+    "reward": 1000,
+    "minRank": 0,
+    "textGrammar": "battle-campaign-first-flight-3",
+    "waves": [
+      {
+        "id": "tender",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 2000,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 1,
+            "tag": "tender"
+          }
+        ],
+        "radio": "radio-tender"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "match",
+        "type": "rendezvous",
+        "tag": "tender",
+        "seconds": 10,
+        "distance": 400,
+        "text": "Match speed with the tender and hold alongside for 10 seconds"
+      }
+    ]
+  },
+  {
+    "id": "campaign-first-flight-4",
+    "name": "Convoy Help",
+    "kind": "campaign",
+    "reward": 2000,
+    "minRank": 0,
+    "textGrammar": "battle-campaign-first-flight-4",
+    "waves": [
+      {
+        "id": "convoy",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1500,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 2,
+            "tag": "convoy"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "pirates",
+        "side": "enemy",
+        "at": 25,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-pirates"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "pirates",
+        "type": "destroy",
+        "wave": "pirates",
+        "text": "Destroy the two pirates"
+      },
+      {
+        "id": "keep",
+        "type": "protect",
+        "tag": "convoy",
+        "text": "Keep the convoy alive"
+      }
+    ]
+  },
+  {
+    "id": "campaign-first-flight-5",
+    "name": "Final Check",
+    "kind": "campaign",
+    "reward": 3000,
+    "minRank": 0,
+    "textGrammar": "battle-campaign-first-flight-5",
+    "waves": [
+      {
+        "id": "frigate",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1200,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "frigate"
+          }
+        ],
+        "radio": "radio-frigate"
+      },
+      {
+        "id": "raiders",
+        "side": "enemy",
+        "at": 15,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
+          }
+        ],
+        "radio": "radio-raiders"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "raiders",
+        "type": "destroy",
+        "wave": "raiders",
+        "text": "Destroy the raiders"
+      },
+      {
+        "id": "frigate",
+        "type": "protect",
+        "tag": "frigate",
+        "text": "Keep your frigate alive"
+      }
+    ]
+  }
+]

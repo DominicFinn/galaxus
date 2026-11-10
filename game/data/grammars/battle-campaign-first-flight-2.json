@@ -1,0 +1,32 @@
+[
+  {
+    "id": "battle-campaign-first-flight-2",
+    "description": "Practice Range: briefing, radio calls and outcome text.",
+    "variables": [
+      "base",
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Five target drones are set out for gunnery. Three sit still and two move. Press T to lock the nearest, aim at the red diamond and fire with Space or left click. The keys 1 to 4 move power between engines, shields and weapons."
+      ],
+      "success": [
+        "All five drones are down. That is the gunnery done."
+      ],
+      "failure": [
+        "The drones are still flying. We will reset the range."
+      ],
+      "radio-still": [
+        "Pell: Three drones ahead, not moving. T locks the nearest. Space or left click fires. Press 3 to send power to your weapons.",
+        "Pell: Targets in front of you. T picks the nearest one. Put your nose on it and hold Space."
+      ],
+      "radio-moving": [
+        "Pell: Two more, and these ones move. Aim at the red diamond, not at the drone. It shows where your shots will meet it. Press 4 to balance your power again.",
+        "Pell: Moving targets now. T locks, then put your nose on the red diamond and fire. If you keep missing, you are aiming at the drone."
+      ]
+    }
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "id": "battle-job-bounty-3",
+  "description": "Bounty: Hard Case: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Orrin Hask does not run. {client} would rather he did not stay either.",
+      "Hask is in {system} with a full wing. He will fight you.",
+      "Bounty on Orrin Hask. Expect a stand-up fight."
+    ],
+    "success": [
+      "Hask is down. {client} is pleased and says so, briefly.",
+      "Bounty collected. Hask's wing is scattered.",
+      "Orrin Hask is finished. Good shooting."
+    ],
+    "failure": [
+      "Hask held the field. The bounty stands.",
+      "You are driven off. Hask goes back to work."
+    ],
+    "radio-hunt": [
+      "Hask is turning in to meet you. Three wingmen.",
+      "He wants the fight. Give him one.",
+      "Target engaging. Keep your nose on the gunship."
+    ],
+    "radio-heavy": [
+      "Four more, far side. Gunships among them.",
+      "Hask had a reserve. Watch for bombers.",
+      "More {enemy} ships inbound, long range."
+    ]
+  }
+}

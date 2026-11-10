@@ -1,0 +1,36 @@
+{
+  "id": "battle-job-bounty-1",
+  "description": "Bounty: Lone Gun: radio lead-in, calls and sign-offs.",
+  "variables": [
+    "captain",
+    "client",
+    "enemy",
+    "system"
+  ],
+  "rules": {
+    "briefing": [
+      "Venn's transponder is live in {system}. He has two wingmen. Go and collect.",
+      "Bounty target is in {system}. Short job, if he stays where he is.",
+      "{client} wants Venn. Two escorts, one gunship, no patience."
+    ],
+    "success": [
+      "Venn is gone. Collect the bounty, {captain}.",
+      "Target confirmed destroyed. {client} will wire the payment.",
+      "That is Venn finished. Well flown."
+    ],
+    "failure": [
+      "Venn is still out there. The bounty stands, but you will not be claiming it today.",
+      "You are beaten off. Venn keeps flying."
+    ],
+    "radio-hunt": [
+      "Contact. Venn's gunship and two wingmen.",
+      "That is him. Gunship, with company.",
+      "Venn. He has seen you."
+    ],
+    "radio-backup": [
+      "Two more {enemy} ships coming up behind.",
+      "Venn called friends. Behind you.",
+      "Reinforcements, astern. Do not let them pin you."
+    ]
+  }
+}

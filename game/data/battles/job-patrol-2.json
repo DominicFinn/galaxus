@@ -1,0 +1,155 @@
+[
+  {
+    "id": "job-patrol-2",
+    "name": "Patrol: Border Beat",
+    "kind": "job",
+    "jobType": "patrol",
+    "scales": [
+      "skirmish"
+    ],
+    "reward": 12000,
+    "minRank": 0,
+    "textGrammar": "battle-job-patrol-2",
+    "waves": [
+      {
+        "id": "beats",
+        "side": "friend",
+        "at": 0,
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-a"
+          }
+        ],
+        "radio": "radio-beats"
+      },
+      {
+        "id": "b2",
+        "side": "friend",
+        "at": 0,
+        "position": "right",
+        "distance": 5500,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-b"
+          }
+        ]
+      },
+      {
+        "id": "b3",
+        "side": "friend",
+        "at": 0,
+        "position": "above",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-c"
+          }
+        ]
+      },
+      {
+        "id": "b4",
+        "side": "friend",
+        "at": 0,
+        "position": "left",
+        "distance": 10000,
+        "ships": [
+          {
+            "role": "holding",
+            "hull": "target-drone",
+            "count": 1,
+            "tag": "beacon-d"
+          }
+        ]
+      },
+      {
+        "id": "trouble",
+        "side": "enemy",
+        "after": "objective:b",
+        "delay": 10,
+        "position": "far",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 1
+          }
+        ],
+        "radio": "radio-trouble"
+      },
+      {
+        "id": "more",
+        "side": "enemy",
+        "after": "wave:trouble",
+        "delay": 35,
+        "position": "behind",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-more"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "a",
+        "type": "scan",
+        "tag": "beacon-a",
+        "seconds": 6,
+        "distance": 450,
+        "text": "Check the first beacon"
+      },
+      {
+        "id": "b",
+        "type": "scan",
+        "tag": "beacon-b",
+        "seconds": 6,
+        "distance": 450,
+        "text": "Check the second beacon"
+      },
+      {
+        "id": "c",
+        "type": "scan",
+        "tag": "beacon-c",
+        "seconds": 6,
+        "distance": 450,
+        "text": "Check the third beacon"
+      },
+      {
+        "id": "d",
+        "type": "scan",
+        "tag": "beacon-d",
+        "seconds": 6,
+        "distance": 450,
+        "text": "Check the fourth beacon"
+      },
+      {
+        "id": "clear",
+        "type": "destroy",
+        "wave": "trouble",
+        "text": "Drive off the raiders",
+        "optional": true
+      }
+    ]
+  }
+]
