@@ -143,6 +143,32 @@ public sealed class Galaxy
         return result;
     }
 
+    /// <summary>The quickest route by gate, as system ids from start to finish, or empty if unreachable.</summary>
+    public List<int> Route(int from, int to)
+    {
+        var best = new Dictionary<int, int> { [from] = 0 };
+        var previous = new Dictionary<int, int>();
+        var queue = new PriorityQueue<int, int>();
+        queue.Enqueue(from, 0);
+        while (queue.TryDequeue(out int id, out int days))
+        {
+            if (id == to) break;
+            if (days > best[id]) continue;
+            foreach (var n in Systems[id].Gates)
+            {
+                int d = days + TravelDays(id, n);
+                if (d < best.GetValueOrDefault(n, int.MaxValue)) { best[n] = d; previous[n] = id; queue.Enqueue(n, d); }
+            }
+        }
+        if (from != to && !previous.ContainsKey(to)) return [];
+        var route = new List<int> { to };
+        while (route[^1] != from) route.Add(previous[route[^1]]);
+        route.Reverse();
+        return route;
+    }
+
+    public int RouteDays(List<int> route) => route.Zip(route.Skip(1)).Sum(p => TravelDays(p.First, p.Second));
+
     /// <summary>Days to travel one gate link: one day per 40 light years, at least one.</summary>
     public int TravelDays(int from, int to) =>
         Math.Max(1, (int)MathF.Ceiling(Vector2.Distance(Systems[from].Position, Systems[to].Position) / 40f));

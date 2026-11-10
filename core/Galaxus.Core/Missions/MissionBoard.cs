@@ -49,7 +49,7 @@ public static class MissionBoard
             int travel = TravelDays(galaxy, system.Id, destination.Id);
 
             var context = new MissionContext(
-                new FactionInfo(giver.Name, giver.TypeId, giver.RaceId),
+                new FactionInfo(giver.Name, giver.TypeId, giver.RaceId, giver.Criminal),
                 system.Name,
                 $"{station}, {destination.Name}",
                 captain,
@@ -58,6 +58,8 @@ public static class MissionBoard
                 travel);
             var mission = MissionGenerator.Generate(db, context, orng.Fork("mission"));
             if (mission == null) continue;
+            // Until combat traffic exists, keep only some of the jobs that can't be completed yet.
+            if (!TravelTypes.Contains(mission.Template.Type) && orng.NextFloat() > 0.3f) continue;
             offers.Add(new MissionOffer($"{system.Id}-{week}-{i}", mission, giver.Id, system.Id, destination.Id, station, galaxy.Day));
         }
         return offers;

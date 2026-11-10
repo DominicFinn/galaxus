@@ -76,11 +76,12 @@ public class GalaxyTests
     {
         var galaxy = GalaxyGenerator.Generate(Db, 5, Small);
         var career = new Career();
-        var start = galaxy.Systems.First(s => s.Settled && MissionBoard.For(Db, galaxy, s, "Ashby", career.RankWith).Any(o => o.Playable && o.DestinationSystemId != s.Id));
+        bool Fits(MissionOffer o, StarSystem s) => o.Playable && o.DestinationSystemId != s.Id && o.Mission.Tonnes <= career.CargoCapacity(Db);
+        var start = galaxy.Systems.First(s => s.Settled && MissionBoard.For(Db, galaxy, s, "Ashby", career.RankWith).Any(o => Fits(o, s)));
         career.SystemId = start.Id;
 
         var offer = MissionBoard.For(Db, galaxy, start, "Ashby", career.RankWith)
-            .First(o => o.Playable && o.DestinationSystemId != start.Id && o.Mission.Tonnes <= career.CargoCapacity(Db));
+            .First(o => Fits(o, start));
         Assert.Null(career.CannotAccept(Db, offer));
         career.Accept(galaxy, offer);
 
@@ -101,5 +102,51 @@ public class GalaxyTests
         foreach (var offer in MissionBoard.For(Db, galaxy, system, "Ashby", _ => 4))
             Assert.True(offer.Mission.DeadlineDays >= MissionBoard.TravelDays(galaxy, system.Id, offer.DestinationSystemId),
                 $"{offer.Mission.Title}: {offer.Mission.DeadlineDays} days to make a {MissionBoard.TravelDays(galaxy, system.Id, offer.DestinationSystemId)}-day trip.");
+    }
+}
+
+public class SessionTests
+{
+    private static readonly ContentDatabase Db = ContentDatabase.Load(new DirectoryContentSource(ContentTests.DataFolder));
+
+    [Fact]
+    public void A_new_game_starts_docked_somewhere_with_work_and_ships()
+    {
+        var session = Session.StartNew(Db, 2026);
+        Assert.NotEmpty(session.Here.Stations);
+        Assert.NotEmpty(session.Board());
+        Assert.NotEmpty(session.Shipyard());
+        Assert.DoesNotContain(session.Shipyard(), h => Db.Builders[h.Builder].Region == "rim");
+        Assert.Equal(30, session.Galaxy.Day);
+    }
+
+    [Fact]
+    public void Jumping_takes_time_and_delivers_jobs()
+    {
+        var session = Session.StartNew(Db, 2026);
+        var offer = session.Board().First(o => o.Playable && o.DestinationSystemId != session.Career.SystemId
+                                              && o.Mission.Tonnes <= session.Career.FreeCargo(Db));
+        session.Career.Accept(session.Galaxy, offer);
+        int day = session.Galaxy.Day;
+
+        var report = session.Jump(offer.DestinationSystemId)!;
+        Assert.Equal(offer.DestinationSystemId, session.Career.SystemId);
+        Assert.Equal(day + report.Days, session.Galaxy.Day);
+        Assert.Contains(report.Results, r => r.Success && r.Mission.Offer.Id == offer.Id);
+    }
+
+    [Fact]
+    public void Trading_buys_and_sells_within_the_hold()
+    {
+        var session = Session.StartNew(Db, 2026);
+        var career = session.Career;
+        var cheap = Db.Commodities.Values.Where(c => c.Legality == "legal").MinBy(c => c.BasePrice)!;
+        int bought = career.Buy(Db, session.Galaxy, cheap.Id, 1000);
+        Assert.Equal(career.CargoCapacity(Db), bought);
+        Assert.Equal(0, career.FreeCargo(Db));
+        int credits = career.Credits;
+        Assert.Equal(bought, career.Sell(Db, session.Galaxy, cheap.Id, 1000));
+        Assert.True(career.Credits > credits);
+        Assert.Empty(career.Cargo);
     }
 }

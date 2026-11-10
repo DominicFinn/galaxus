@@ -3,7 +3,7 @@ using Galaxus.Core.Content;
 namespace Galaxus.Core.Missions;
 
 /// <summary>A faction as the mission board sees it.</summary>
-public sealed record FactionInfo(string Name, string TypeId, string RaceId);
+public sealed record FactionInfo(string Name, string TypeId, string RaceId, bool Criminal = false);
 
 /// <summary>Where and why a job is being offered.</summary>
 public sealed record MissionContext(
@@ -44,6 +44,8 @@ public static class MissionGenerator
     {
         var candidates = db.Missions.Values
             .Where(m => m.Givers.Count == 0 || m.Givers.Contains(context.Giver.TypeId))
+            // Open templates go to the obvious side of the law: criminals don't post patrols, lawful factions don't post smuggling.
+            .Where(m => m.Givers.Count > 0 || m.Legal != context.Giver.Criminal)
             .Where(m => m.Events.Count == 0 || (context.EventId != null && m.Events.Contains(context.EventId)))
             .Where(m => m.MinRank <= context.Rank)
             .OrderBy(m => m.Id, StringComparer.Ordinal)
@@ -66,7 +68,7 @@ public static class MissionGenerator
             var options = db.Commodities.Values.Where(c => template.CargoCategories.Contains(c.Category))
                 .OrderBy(c => c.Id, StringComparer.Ordinal).ToList();
             cargo = rng.Pick(options);
-            tonnes = 2 + rng.Next(31);
+            tonnes = 2 + (int)(29 * MathF.Pow(rng.NextFloat(), 2)); // mostly small loads, some big ones
         }
 
         float scale = template.Scale switch { "skirmish" => 1.5f, "battle" => 2.5f, "war" => 4f, _ => 1f };

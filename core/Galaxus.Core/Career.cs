@@ -20,6 +20,11 @@ public sealed class Career
     public HashSet<string> TakenOffers { get; } = [];
     /// <summary>Reputation per faction. Every 100 points is one rank, up to 4 (honoured).</summary>
     public Dictionary<int, int> Reputation { get; } = [];
+    /// <summary>Trade goods in the hold, tonnes by commodity id.</summary>
+    public Dictionary<string, int> Cargo { get; } = [];
+
+    /// <summary>Selling gets a little less than the asking price.</summary>
+    public const float SellFactor = 0.94f;
 
     public int RankWith(int faction) => Math.Clamp(Reputation.GetValueOrDefault(faction) / 100, 0, 4);
 
@@ -33,7 +38,51 @@ public sealed class Career
         return hull.CargoTonnes + (int)parts.Where(p => p.Type == "cargo").Sum(p => p.Stats.GetValueOrDefault("tonnes"));
     }
 
-    public int CargoUsed => Missions.Sum(m => m.Offer.Mission.Tonnes);
+    public int CargoUsed => Missions.Sum(m => m.Offer.Mission.Tonnes) + Cargo.Values.Sum();
+
+    public int FreeCargo(ContentDatabase db) => CargoCapacity(db) - CargoUsed;
+
+    /// <summary>Buys up to the requested tonnes at the local price. Returns tonnes bought.</summary>
+    public int Buy(ContentDatabase db, Galaxy.Galaxy galaxy, string commodityId, int tonnes)
+    {
+        int price = Market.Price(db, galaxy, galaxy.Systems[SystemId], db.Commodities[commodityId]);
+        int affordable = Math.Min(tonnes, Math.Min(FreeCargo(db), Credits / Math.Max(1, price)));
+        if (affordable <= 0) return 0;
+        Credits -= affordable * price;
+        Cargo[commodityId] = Cargo.GetValueOrDefault(commodityId) + affordable;
+        return affordable;
+    }
+
+    /// <summary>Sells up to the requested tonnes at the local price less the market's cut. Returns tonnes sold.</summary>
+    public int Sell(ContentDatabase db, Galaxy.Galaxy galaxy, string commodityId, int tonnes)
+    {
+        int held = Cargo.GetValueOrDefault(commodityId);
+        int sold = Math.Min(held, tonnes);
+        if (sold <= 0) return 0;
+        Credits += (int)(sold * Market.Price(db, galaxy, galaxy.Systems[SystemId], db.Commodities[commodityId]) * SellFactor);
+        if (held == sold) Cargo.Remove(commodityId); else Cargo[commodityId] = held - sold;
+        return sold;
+    }
+
+    /// <summary>Trade-in value of the current ship: 60% of its list price.</summary>
+    public int TradeInValue(ContentDatabase db) => db.Hulls[HullId].Price * 6 / 10;
+
+    /// <summary>Why the hull can't be bought, or null if it can.</summary>
+    public string? CannotBuyShip(ContentDatabase db, HullDef hull)
+    {
+        if (hull.Id == HullId) return "You already fly one.";
+        if (hull.Price - TradeInValue(db) > Credits) return $"You need {hull.Price - TradeInValue(db):N0} cr after trade-in.";
+        int capacity = hull.CargoTonnes + (int)hull.DefaultLoadout.Select(id => db.Parts[id]).Where(p => p.Type == "cargo").Sum(p => p.Stats.GetValueOrDefault("tonnes"));
+        if (capacity < CargoUsed) return $"Its hold is too small for your {CargoUsed} t of cargo.";
+        return null;
+    }
+
+    public void BuyShip(ContentDatabase db, HullDef hull)
+    {
+        Credits -= hull.Price - TradeInValue(db);
+        HullId = hull.Id;
+        Loadout = null;
+    }
 
     /// <summary>Why the job can't be taken, or null if it can.</summary>
     public string? CannotAccept(ContentDatabase db, MissionOffer offer)
