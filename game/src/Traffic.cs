@@ -118,6 +118,8 @@ public partial class Main
         var randomDir = NVector3.Normalize(new NVector3(_rng.Range(-1, 1), _rng.Range(-0.3f, 0.3f), _rng.Range(-1, 1)));
         bool departing = false;
         var pilot = new Pilot(role, _rng.Fork($"traffic-{ship.Id}")) { Player = _player };
+        if (role == PilotRole.Pirate) pilot.Skill *= GameSettings.Current.EnemySkill;
+        _player.DamageTakenScale = GameSettings.Current.DamageTaken;
         if (role == PilotRole.Freighter && nearStation)
         {
             departing = _rng.NextFloat() < 0.5f;

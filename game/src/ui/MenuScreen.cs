@@ -262,6 +262,7 @@ public partial class MenuScreen : Control
     {
         var s = GameSettings.Current;
         Add(Ui.Label("SETTINGS", Ui.Amber));
+        Add(Choice("Difficulty", ["Easy", "Normal", "Hard"], s.Difficulty, i => s.Difficulty = i));
         Add(Toggle("Fullscreen", s.Fullscreen, v => s.Fullscreen = v));
         Add(Choice("Window size", ["640 x 360", "1280 x 720", "1920 x 1080", "2560 x 1440"], s.WindowScale - 1, i => s.WindowScale = i + 1));
         Add(Slider("Mouse sensitivity", s.MouseSensitivity, 0.2f, 1.5f, v => s.MouseSensitivity = v));

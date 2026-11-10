@@ -14,27 +14,33 @@ public static class ShipGeometry
     public static List<ShipTriangle> Build(HullDef hull)
     {
         var triangles = new List<ShipTriangle>();
-        foreach (var shape in hull.Model)
+        // Shapes that sit flush on each other share faces, which flicker as the renderer can't
+        // tell which is in front. Each shape grows a hair more than the one before, so details
+        // listed later (glow strips, panels, cockpits) always sit just proud of what's under them.
+        float step = MathF.Max(0.004f, hull.Radius * 0.0004f);
+        for (int i = 0; i < hull.Model.Count; i++)
         {
-            AddTaperedBox(triangles, shape, mirrored: false);
-            if (shape.Mirror) AddTaperedBox(triangles, shape, mirrored: true);
+            var shape = hull.Model[i];
+            float grow = step * (i + 1);
+            AddTaperedBox(triangles, shape, mirrored: false, grow);
+            if (shape.Mirror) AddTaperedBox(triangles, shape, mirrored: true, grow);
         }
         return triangles;
     }
 
-    private static void AddTaperedBox(List<ShipTriangle> triangles, ShapeDef shape, bool mirrored)
+    private static void AddTaperedBox(List<ShipTriangle> triangles, ShapeDef shape, bool mirrored, float grow = 0)
     {
         float sign = mirrored ? -1 : 1;
         var centre = new Vector3(shape.Position[0] * sign, shape.Position[1], shape.Position[2]);
         var skew = new Vector2(shape.Skew[0] * sign, shape.Skew[1]);
         float roll = shape.Roll * MathF.PI / 180f * sign;
         float cos = MathF.Cos(roll), sin = MathF.Sin(roll);
-        float half = shape.Length / 2f;
+        float half = shape.Length / 2f + grow;
 
         // Back face sits towards +Z (the rear), front face towards -Z (the nose).
         Vector3 Corner(float[] face, float sx, float sy, Vector2 offset, float z)
         {
-            float x = sx * face[0] / 2f, y = sy * face[1] / 2f;
+            float x = sx * (face[0] / 2f + grow), y = sy * (face[1] / 2f + grow);
             var p = new Vector2(x * cos - y * sin, x * sin + y * cos) + offset;
             return centre + new Vector3(p.X, p.Y, z);
         }

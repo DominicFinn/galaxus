@@ -69,6 +69,8 @@ public sealed class Battle
     /// <summary>Every ship this battle has put into the world, so the game can give them visuals and clear them up.</summary>
     public List<Ship> Spawned { get; } = [];
     public string Name => Def.Name;
+    /// <summary>Scales enemy pilots' skill: the difficulty setting.</summary>
+    public float EnemySkillScale { get; set; } = 1f;
 
     /// <param name="variables">Grammar variables for radio and results: client, enemy, system, captain, station.</param>
     /// <param name="tagNames">Names for tagged warships ("flagship", "target"), fixed when the job was offered.</param>
@@ -183,6 +185,7 @@ public sealed class Battle
                     pilot.Assigned = targets[0];
                 if (wave.Side == "enemy") pilot.Skill = 0.3f + 0.08f * Def.MinRank + _rng.NextFloat() * 0.2f;
                 if (group.Skill is { } skill) pilot.Skill = skill;
+                if (wave.Side == "enemy") pilot.Skill *= EnemySkillScale;
 
                 _world.Ships.Add(ship);
                 Spawned.Add(ship);

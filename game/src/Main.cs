@@ -228,7 +228,12 @@ public partial class Main : Node3D
         _effects = new Effects();
         AddChild(_effects);
 
-        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId))
+        {
+            Side = 0,
+            DamageTakenScale = GameSettings.Current.DamageTaken,
+            AimAssist = true,
+        };
         _world.Ships.Add(_player);
         AddVisual(_player);
 
@@ -356,6 +361,7 @@ public partial class Main : Node3D
     private void Dock(string? arrival = null)
     {
         _timeWarp = 1;
+        _player.Resupply();
         _stationScreen.Port = _dockedAtFlagship && Campaigns.Current(_session) is { } campaign ? campaign.BaseName : _dockedPort?.Name;
         // Docking delivers any jobs for this station.
         string stationName = _dockedPort?.Name ?? _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
@@ -442,7 +448,9 @@ public partial class Main : Node3D
         _visuals[old].QueueFree();
         _visuals.Remove(old);
 
-        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 }
+        _player.DamageTakenScale = GameSettings.Current.DamageTaken;
+        _player.AimAssist = true;
         _player.Body.Position = old.Body.Position;
         _player.Body.Orientation = old.Body.Orientation;
         _player.Target = old.Target;
@@ -697,13 +705,14 @@ public partial class Main : Node3D
         }
 
         controls.Fire = Input.IsActionPressed(GameInput.Fire);
+        if (Input.IsActionJustPressed(GameInput.FireMissile)) controls.Missile = true;
     }
 
     /// <summary>Chases the current target and fires when lined up. Used for screenshots and soak tests.</summary>
     private void DemoPilot(float dt)
     {
         ref var controls = ref _player.Controls;
-        var target = _player.Target is { Alive: true } t ? t : (_player.Target = NearestTarget());
+        var target = _player.Target is { Alive: true } t && t.Side != _player.Side ? t : (_player.Target = NearestTarget());
         if (target == null) return;
 
         var weapon = _player.Spec.Weapons[0];
@@ -719,6 +728,7 @@ public partial class Main : Node3D
         controls.Flight.Assist = true;
         var local = NVector3.Normalize(_player.Body.ToLocal(aim));
         controls.Fire = local.Z < -0.995f && distance < weapon.Range;
+        if (_player.Locked && distance > 800 && _rng.NextFloat() < 0.01f) controls.Missile = true;
     }
 
     private void HandleEvents()
@@ -727,6 +737,12 @@ public partial class Main : Node3D
         {
             switch (e)
             {
+                case ShotFired fired when fired.Projectile.Kind == "missile" && fired.Projectile.Owner == _player:
+                    _effects.AddBolt(fired.Projectile);
+                    _fightCooldown = 8;
+                    AudioManager.Instance?.Ui("jump");
+                    _hud.Message($"MISSILE AWAY. {_player.MissilesLeft} LEFT");
+                    break;
                 case ShotFired fired:
                     if (fired.Projectile.Owner == _player) _fightCooldown = 8;
                     _effects.AddBolt(fired.Projectile);
@@ -781,7 +797,8 @@ public partial class Main : Node3D
         }
     }
 
-    private Ship? NearestTarget() => TargetCandidates().FirstOrDefault();
+    /// <summary>The nearest enemy, or failing that the nearest ship that isn't on your side (practice drones, traders). Never a friend.</summary>
+    private Ship? NearestTarget() => TargetCandidates().FirstOrDefault(s => s.Side != _player.Side);
 
     private Ship? NextTarget()
     {

@@ -78,6 +78,53 @@ public class BattleTests
     }
 
     [Fact]
+    public void A_missile_needs_a_lock_then_runs_its_target_down()
+    {
+        var world = new World();
+        var hunter = new Ship(1, "Hunter", ShipFactory.Build(Db, "kestrel")) { Side = 1 };
+        var prey = new Ship(2, "Prey", ShipFactory.Build(Db, "kestrel")) { Side = 2 };
+        prey.Body.Position = new Vector3(150, 80, -1800);
+        prey.Body.Velocity = new Vector3(60, 0, 0);
+        world.Ships.AddRange([hunter, prey]);
+        world.SetHostile(1, 2);
+        hunter.Target = prey;
+        Assert.True(hunter.MissilesLeft > 0);
+        int missiles = hunter.MissilesLeft;
+
+        // No lock yet: pressing does nothing.
+        hunter.Controls.Missile = true;
+        world.Step(1 / 30f);
+        Assert.Equal(missiles, hunter.MissilesLeft);
+
+        for (int i = 0; i < 60 && !hunter.Locked; i++) world.Step(1 / 30f);
+        Assert.True(hunter.Locked);
+        hunter.Controls.Missile = true;
+        world.Step(1 / 30f);
+        Assert.Equal(missiles - 1, hunter.MissilesLeft);
+
+        bool hit = false;
+        for (int i = 0; i < 400 && !hit; i++)
+        {
+            world.Step(1 / 30f);
+            hit = world.Events.Any(e => e is ShipHit h && h.Ship == prey && h.Projectile.Kind == "missile");
+        }
+        Assert.True(hit);
+    }
+
+    [Fact]
+    public void A_target_off_the_nose_never_locks()
+    {
+        var world = new World();
+        var hunter = new Ship(1, "Hunter", ShipFactory.Build(Db, "kestrel")) { Side = 1 };
+        var prey = new Ship(2, "Prey", ShipFactory.Build(Db, "kestrel")) { Side = 2 };
+        prey.Body.Position = new Vector3(1500, 0, 0);
+        world.Ships.AddRange([hunter, prey]);
+        hunter.Target = prey;
+        for (int i = 0; i < 120; i++) world.Step(1 / 30f);
+        Assert.False(hunter.Locked);
+    }
+
+    [Fact]
     public void Long_ships_can_be_hit_near_the_ends()
     {
         var hull = Db.Hulls.Values.OrderByDescending(h => h.Model.Count == 0 ? 0 : h.Model.Max(m => MathF.Abs(m.Position[2]) + m.Length / 2)).First();

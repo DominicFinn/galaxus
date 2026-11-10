@@ -60,10 +60,24 @@ public partial class Effects : Node3D
         if (_bolts.Remove(shot.Id, out var node)) node.QueueFree();
     }
 
+    private int _trailFrame;
+    private readonly StandardMaterial3D _smoke = MeshFactory.Unshaded(new Color(0.75f, 0.75f, 0.78f, 0.45f), transparent: true);
+    private readonly SphereMesh _puff = new() { Radius = 1.2f, Height = 2.4f, RadialSegments = 6, Rings = 3 };
+
     public void SyncBolts(IEnumerable<Projectile> shots)
     {
+        _trailFrame++;
         foreach (var shot in shots)
-            if (_bolts.TryGetValue(shot.Id, out var node)) PlaceBolt(node, shot);
+        {
+            if (!_bolts.TryGetValue(shot.Id, out var node)) continue;
+            PlaceBolt(node, shot);
+            // Missiles and torpedoes leave a fading smoke trail, so you can see one coming.
+            if (shot.Homing && (_trailFrame + shot.Id) % 2 == 0)
+            {
+                var puff = new MeshInstance3D { Mesh = _puff, MaterialOverride = _smoke, Position = shot.Position.ToGodot() };
+                Add(puff, 1.2f, (n, t) => n.Scale = Vector3.One * (1 + t * 2.5f) * (shot.Kind == "torpedo" ? 2.5f : 1f));
+            }
+        }
     }
 
     private static void PlaceBolt(MeshInstance3D node, Projectile shot)

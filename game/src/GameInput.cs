@@ -25,6 +25,7 @@ public static class GameInput
     public const string TimeFaster = "time_faster", TimeSlower = "time_slower";
     public const string NextJob = "next_job";
     public const string Performance = "performance";
+    public const string FireMissile = "fire_missile";
 
     public static void Register()
     {
@@ -61,6 +62,7 @@ public static class GameInput
         Bind(TimeSlower, keys: [Key.Comma]);
         Bind(NextJob, keys: [Key.L]);
         Bind(Performance, keys: [Key.F3]);
+        Bind(FireMissile, keys: [Key.B], mouse: [MouseButton.Right], axes: [(JoyAxis.TriggerLeft, 1)]);
     }
 
     private static void Bind(string action, Key[]? keys = null, JoyButton[]? buttons = null,

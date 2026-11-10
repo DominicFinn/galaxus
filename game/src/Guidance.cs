@@ -15,6 +15,8 @@ public partial class Main
     private Ship? _lastAttacker;
     private float _attackerShown;
     private float _hitMessageCooldown;
+    private bool _wasLocked;
+    private float _incomingBeep;
 
     private static readonly Color MarkRed = new(1f, 0.35f, 0.3f);
     private static readonly Color MarkGreen = new(0.45f, 1f, 0.55f);
@@ -40,6 +42,25 @@ public partial class Main
         _hud.Threat = "";
         if (_cruising || !_player.Alive) return;
         var me = _player.Body.Position;
+
+        // A tone when your missile lock completes.
+        if (_player.Locked && !_wasLocked) AudioManager.Instance?.Ui("lock");
+        _wasLocked = _player.Locked;
+
+        // Missiles coming for you: marked, warned about, and a beep that quickens as they close.
+        var incoming = _world.Projectiles.Where(p => p.Homing && p.Target == _player).OrderBy(p => NVector3.Distance(p.Position, me)).ToList();
+        if (incoming.Count > 0)
+        {
+            var nearestMissile = incoming[0];
+            float d = NVector3.Distance(nearestMissile.Position, me);
+            _hud.Marks.Add((nearestMissile.Position.ToGodot(), $"MISSILE {d:0} M", MarkRed));
+            _incomingBeep -= dt;
+            if (_incomingBeep <= 0)
+            {
+                AudioManager.Instance?.Ui("error");
+                _incomingBeep = Mathf.Clamp(d / 1500f, 0.15f, 1f);
+            }
+        }
 
         // Battle objectives: mark the nearest ship each pending objective is about.
         if (_battle is { Won: null } battle)
@@ -72,6 +93,14 @@ public partial class Main
                 if (_hud.Marks.Count < 5)
                     _hud.Marks.Add((target.Body.Position.ToGodot(), $"{verb} {target.Name.ToUpperInvariant()}{progress}", colour));
             }
+        }
+
+        if (incoming.Count > 0)
+        {
+            _hud.Threat = incoming.Count == 1
+                ? "MISSILE INCOMING. TURN HARD ACROSS ITS PATH, OR BOOST ENGINES (1) AND RUN."
+                : $"{incoming.Count} MISSILES INCOMING. TURN HARD AND KEEP TURNING.";
+            return;
         }
 
         // Threats: who's hostile and close, and what to do about it.
