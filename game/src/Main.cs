@@ -18,6 +18,7 @@ namespace Galaxus;
 ///   --screen=NAME        skip the menu and start a new game on flight, station or map;
 ///                        or show the title "menu" without the splash
 ///   --screenshot=PATH    save a screenshot after --frames (default 180) frames, then quit
+///   --system=ID          with --screen, start in this system instead (for checking planets)
 ///   --preview=HULL_ID    show one hull from four angles instead of the game (for content work)
 /// </summary>
 public partial class Main : Node3D
@@ -51,6 +52,7 @@ public partial class Main : Node3D
     private int _frame;
     private string? _previewHull;
     private string? _startScreen;
+    private int? _startSystem;
 
     private enum Screen { Flight, Docked, Map, Menu }
 
@@ -121,7 +123,11 @@ public partial class Main : Node3D
             StartGame(session, _startScreen);
         }
         else if (_demo || _startScreen is "flight" or "station" or "map")
-            StartGame(Session.StartNew(_db, 2026), _startScreen);
+        {
+            var session = Session.StartNew(_db, 2026);
+            if (_startSystem is { } id && id >= 0 && id < session.Galaxy.Systems.Count) session.Career.SystemId = id;
+            StartGame(session, _startScreen);
+        }
         else
             ShowTitle(splash: !_splashShown && _startScreen != "menu");
     }
@@ -347,6 +353,7 @@ public partial class Main : Node3D
             else if (arg.StartsWith("--frames=")) _screenshotFrame = int.Parse(arg["--frames=".Length..]);
             else if (arg.StartsWith("--preview=")) _previewHull = arg["--preview=".Length..];
             else if (arg.StartsWith("--screen=")) _startScreen = arg["--screen=".Length..];
+            else if (arg.StartsWith("--system=")) _startSystem = int.Parse(arg["--system=".Length..]);
         }
     }
 

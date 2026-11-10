@@ -119,7 +119,8 @@ public partial class Space : Node3D
         var prng = bodies.Fork("planet");
         Planet = system != null ? PlanetFactory.PickPlanet(system, prng) : (PlanetKind)prng.Next(9);
         var planet = PlanetFactory.BuildPlanet(Planet, prng.Fork("build"));
-        float angle = prng.Range(0.5f, 2.6f) * (prng.NextFloat() < 0.5f ? -1 : 1);
+        // Within about 60 degrees of the arrival heading, so you see it when you arrive.
+        float angle = prng.Range(0.35f, 1.05f) * (prng.NextFloat() < 0.5f ? -1 : 1);
         float distance = prng.Range(42000, 60000);
         planet.Position = new Vector3(Mathf.Sin(angle) * distance, prng.Range(-12000, 9000), -Mathf.Cos(angle) * distance);
         planet.RotationDegrees = new Vector3(prng.Range(-20, 20), prng.Range(0, 360), prng.Range(-15, 15));
