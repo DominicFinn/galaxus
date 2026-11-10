@@ -248,6 +248,7 @@ public partial class Main : Node3D
     private void EnterSystem()
     {
         var here = _session.Here;
+        _dockedPort = null;
         _space?.QueueFree();
         _space = new Space();
         AddChild(_space);
@@ -313,6 +314,7 @@ public partial class Main : Node3D
 
     private void Dock()
     {
+        _stationScreen.Port = _dockedPort?.Name;
         _stationScreen.Refresh();
         SetScreen(Screen.Docked);
         if (_showcaseDir == null) SaveSlots.Write(SaveSlots.Autosave, _session);
@@ -322,7 +324,8 @@ public partial class Main : Node3D
     /// <summary>Leave the station pointing away from it, so you're clear of the hub.</summary>
     private void Undock()
     {
-        _player.Respawn(_stationLocal + new NVector3(0, 0, 320), NQuaternion.Identity);
+        if (_dockedPort != null) LaunchFromPort(_dockedPort);
+        else _player.Respawn(_stationLocal + new NVector3(0, 0, 320), NQuaternion.Identity);
         _throttle = 0.3f;
         _mouseStick = Vector2.Zero;
         SetScreen(Screen.Flight);
@@ -519,6 +522,7 @@ public partial class Main : Node3D
 
     private string? DockPrompt()
     {
+        if (PortPrompt() is { } port) return port;
         if (_stationNode == null) return null;
         if (_cruising) return null;
         float distance = NVector3.Distance(_player.Body.Position, _stationLocal);
@@ -561,7 +565,8 @@ public partial class Main : Node3D
             _player.Controls.Flight.Assist = true;
             _hud.Message("MATCHING TARGET SPEED");
         }
-        if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { Dock(); return; }
+        if (Input.IsActionJustPressed(GameInput.Dock) && PortToDock is { } port) { _dockedPort = port; Dock(); return; }
+        if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { _dockedPort = null; Dock(); return; }
 
         if (Input.IsActionJustPressed(GameInput.PipEngines)) { _player.Power.Raise(ShipSystem.Engines); AudioManager.Instance?.Ui("pip-0"); }
         if (Input.IsActionJustPressed(GameInput.PipShields)) { _player.Power.Raise(ShipSystem.Shields); AudioManager.Instance?.Ui("pip-1"); }

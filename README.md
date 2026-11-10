@@ -28,9 +28,13 @@ You fly inside the real system. Planets are drawn at their true apparent size an
 
 ![The system map: orbits, planets, moons, a belt and the habitable zone](docs/screenshots/system-map.png)
 
-Rocky worlds have real ground: continents and seas, mountain chains, deserts with mesas and dunes, cratered moons, ice caps, lava seas. All of it comes from each world's seed whenever it's needed, so nothing is stored. Cruise slows as you get lower and drops you out a few kilometres above the highest peaks, and from there you can fly down to the surface. Some stations are surface ports standing on flat ground (amber on the system map). Landing pads at the ports are the next step.
+Rocky worlds have real ground: continents and seas, mountain chains, deserts with mesas and dunes, cratered moons, ice caps, lava seas. All of it comes from each world's seed whenever it's needed, so nothing is stored. Cruise slows as you get lower and drops you out a few kilometres above the highest peaks, and from there you can fly down to the surface. Some stations are surface ports on levelled ground (amber on the system map). Pick one on the system map and set a course: cruise drops you out above it, and you fly down, settle on the pad and press Enter to dock.
 
 ![Coming down over an Earth-like world: coast, land and sea](docs/screenshots/descent-high.png)
+
+![Three kilometres up](docs/screenshots/descent-low.png)
+
+![On approach to a surface port at dusk](docs/screenshots/port-approach.png)
 
 ![The system map with your ship marked and a surface port on the inner world](docs/screenshots/system-map-ports.png)
 

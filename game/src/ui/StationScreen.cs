@@ -42,6 +42,8 @@ public partial class StationScreen : PanelContainer
     private List<CommodityDef> _commodities = [];
 
     public string StationName { get; private set; } = "";
+    /// <summary>The surface port you're docked at, or null for the system's orbital station.</summary>
+    public string? Port { get; set; }
     public event Action? OpenSystemMapRequested;
 
     public void Init(Session session, Action undock, Action openMap, Action shipChanged)
@@ -95,7 +97,7 @@ public partial class StationScreen : PanelContainer
         var galaxy = _session.Galaxy;
         var career = _session.Career;
         var db = _session.Db;
-        StationName = here.Stations.FirstOrDefault() ?? here.Name;
+        StationName = Port ?? here.Stations.FirstOrDefault() ?? here.Name;
         var owner = galaxy.OwnerOf(here);
         string ownerText = owner == null ? "unclaimed" : $"[color=#{owner.Colour.TrimStart('#')}]{owner.Name}[/color]";
         var events = galaxy.EventsIn(here.Id).Select(e => db.Events.TryGetValue(e.EventId, out var d) ? d.Name : e.EventId).ToList();

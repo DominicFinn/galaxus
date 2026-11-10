@@ -144,6 +144,40 @@ public static class MeshFactory
         return BuildShip(hull, palette);
     }
 
+    /// <summary>
+    /// A surface port: a landing pad with edge lights, a control tower, hangars and tanks. Built
+    /// with +Y as up from the ground; the pad's top is 1.5 m above the origin.
+    /// </summary>
+    public static ArrayMesh BuildSurfacePort(Color ownerColour)
+    {
+        var shapes = new List<ShapeDef>
+        {
+            // The pad, its markings and a ring of lights.
+            new() { Position = [0, 0, 0], Back = [260, 3], Front = [260, 3], Length = 260, Color = "trim" },
+            new() { Position = [0, 1.6f, 0], Back = [70, 0.3f], Front = [70, 0.3f], Length = 70, Color = "accent" },
+            new() { Position = [0, 1.7f, 0], Back = [40, 0.3f], Front = [40, 0.3f], Length = 40, Color = "trim" },
+            // Hangars and the tower beside the pad.
+            new() { Position = [-205, 16, -40], Back = [90, 32], Front = [80, 28], Length = 150, Color = "hull" },
+            new() { Position = [-205, 16, 130], Back = [90, 32], Front = [80, 28], Length = 120, Color = "accent" },
+            new() { Position = [175, 35, -95], Back = [22, 70], Front = [16, 70], Length = 22, Color = "hull" },
+            new() { Position = [175, 74, -95], Back = [34, 8], Front = [34, 8], Length = 34, Color = "glow" },
+            new() { Position = [175, 80, -95], Back = [26, 4], Front = [26, 4], Length = 26, Color = "trim" },
+            // Fuel tanks.
+            new() { Position = [180, 12, 60], Back = [22, 24], Front = [22, 24], Length = 22, Color = "hull" },
+            new() { Position = [180, 12, 100], Back = [22, 24], Front = [22, 24], Length = 22, Color = "hull" },
+            new() { Position = [180, 12, 140], Back = [22, 24], Front = [22, 24], Length = 22, Color = "accent" },
+        };
+        for (int i = -4; i <= 4; i++)
+        {
+            float along = i * 30f;
+            foreach (var (x, z) in new[] { (along, -128f), (along, 128f), (-128f, along), (128f, along) })
+                shapes.Add(new ShapeDef { Position = [x, 2.2f, z], Back = [2.5f, 1.2f], Front = [2.5f, 1.2f], Length = 2.5f, Color = "glow" });
+        }
+        var hull = new HullDef { Id = "surface-port", Model = shapes };
+        var palette = new PaletteDef { Hull = "#a9a59c", Accent = "#" + ownerColour.ToHtml(false), Trim = "#3a3d42", Glow = "#ffe6a0" };
+        return BuildShip(hull, palette);
+    }
+
     public static Color ResolveColour(string name, PaletteDef palette) => Color.FromHtml(name switch
     {
         "hull" => palette.Hull,

@@ -74,4 +74,31 @@ public class TerrainTests
         }
         Assert.True(surface > total / 6, $"{surface} of {total} stations on the surface");
     }
+
+    [Fact]
+    public void Ground_is_level_at_a_port()
+    {
+        var body = new Body("Test", BodyKind.Terran, 1, 365, 0, 1, 1, 288, true, 21, -1);
+        var plain = new PlanetTerrain(body);
+        var site = plain.FindPortSite(new Rng(4));
+        var levelled = new PlanetTerrain(body, [site]);
+        // Points a kilometre apart near the pad are at the same height.
+        var up = Vector3.Normalize(site);
+        var side = Vector3.Normalize(Vector3.Cross(up, Vector3.UnitY));
+        float step = 1f / 6371f;
+        float a = levelled.HeightKm(up), b = levelled.HeightKm(up + side * step);
+        Assert.True(MathF.Abs(a - b) < 0.002f, $"{a} vs {b}");
+        Assert.False(levelled.Sample(site).Wet);
+    }
+
+    [Fact]
+    public void Close_up_ground_has_detail()
+    {
+        var terrain = new PlanetTerrain(BodyKind.Barren, 1700, 5);
+        var dir = Vector3.Normalize(new Vector3(0.3f, 0.4f, 0.8f));
+        var side = Vector3.Normalize(Vector3.Cross(dir, Vector3.UnitY));
+        // Over a few hundred metres the ground should rise and fall, not lie perfectly flat.
+        var heights = Enumerable.Range(0, 20).Select(i => terrain.HeightKm(dir + side * (i * 0.3f / 1700f))).ToList();
+        Assert.True(heights.Max() - heights.Min() > 0.005f);
+    }
 }

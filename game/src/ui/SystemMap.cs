@@ -129,12 +129,20 @@ public partial class SystemMap : Control
             float d = BodyScreen(i).DistanceTo(at);
             if (d < bestDistance) { bestDistance = d; best = i; }
         }
-        foreach (var site in _solar.Stations)
-            if (StationScreen(site.Body).DistanceTo(at) < 6 && _current) return -2;
+        if (!_current) return best;
+        for (int i = 0; i < _solar.Stations.Count; i++)
+        {
+            var site = _solar.Stations[i];
+            if (site.Surface && PortScreen(site.Body).DistanceTo(at) < 6) return NavPortBase - i;
+            if (!site.Surface && StationScreen(site.Body).DistanceTo(at) < 6) return -2;
+        }
         return best;
     }
 
     private Vector2 StationScreen(int body) => BodyScreen(body) + new Vector2(7, -7);
+    private Vector2 PortScreen(int body) => BodyScreen(body) + new Vector2(-7, 7);
+    /// <summary>Surface ports are selected as this minus their station index, matching the flight code's course targets.</summary>
+    private const int NavPortBase = -10;
 
     private void UpdateInfo()
     {
@@ -148,6 +156,18 @@ public partial class SystemMap : Control
                          $"{_solar.Planets.Count(b => b.Kind != BodyKind.Belt)} planets, {_solar.Bodies.Count(b => b.IsMoon)} moons.\n\n" +
                          "Click a body for details" + (_current ? " and to set a course." : ".");
             _course.Disabled = true;
+            return;
+        }
+        if (id <= NavPortBase)
+        {
+            var port = _solar.Stations[NavPortBase - id];
+            var world = _solar.Bodies[port.Body];
+            double lat = Math.Asin(Math.Clamp(port.Site.Y, -1, 1)) * 180 / Math.PI;
+            double lon = Math.Atan2(port.Site.Z, port.Site.X) * 180 / Math.PI;
+            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{port.Name.ToUpperInvariant()}[/color]\nSurface port on {world.Name}, " +
+                         $"{Math.Abs(lat):0}°{(lat >= 0 ? "N" : "S")} {Math.Abs(lon):0}°{(lon >= 0 ? "E" : "W")}.\n" +
+                         "Set a course and cruise in. You'll drop out above the port: fly down and land on the pad.";
+            _course.Disabled = !_current || _selected != id;
             return;
         }
         if (id == -2)
@@ -231,7 +251,7 @@ public partial class SystemMap : Control
             if (site.Surface)
             {
                 // Surface ports: an amber diamond on the planet's lower left.
-                var at = BodyScreen(site.Body) + new Vector2(-7, 7);
+                var at = PortScreen(site.Body);
                 DrawColoredPolygon([at + new Vector2(0, -3), at + new Vector2(3, 0), at + new Vector2(0, 3), at + new Vector2(-3, 0)], Ui.Amber);
             }
             else DrawRect(new Rect2(StationScreen(site.Body) - Vector2.One * 2, Vector2.One * 4), Ui.Green);
@@ -241,8 +261,10 @@ public partial class SystemMap : Control
         {
             int nav = _navTarget();
             if (nav >= 0) DrawArc(BodyScreen(nav), 8, 0, Mathf.Tau, 20, Ui.Amber, 1.5f);
+            if (nav <= NavPortBase) DrawArc(PortScreen(_solar.Stations[NavPortBase - nav].Body), 6, 0, Mathf.Tau, 16, Ui.Amber, 1.5f);
         }
         if (_selected >= 0) DrawArc(BodyScreen(_selected), 10, 0, Mathf.Tau, 20, Ui.Green, 1.5f);
+        if (_selected <= NavPortBase) DrawArc(PortScreen(_solar.Stations[NavPortBase - _selected].Body), 7, 0, Mathf.Tau, 16, Ui.Green, 1.5f);
         if (_current) DrawShip();
 
         DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 280, Size.Y - 8), $"Day {day}. Scroll to zoom, right-drag to pan, C to find your ship.", HorizontalAlignment.Left, -1, 8, Ui.Dim);

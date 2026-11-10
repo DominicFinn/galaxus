@@ -82,6 +82,20 @@ public sealed record SolarSystem(Star Star, List<Body> Bodies, List<StationSite>
     public double RadiusKm(int index) => Bodies[index].Kind == BodyKind.Belt ? 0 : Bodies[index].Radius * KmPerEarthRadius;
 
     public double StarRadiusKm => Star.Radius * KmPerSunRadius;
+
+    /// <summary>A body's terrain, with the ground levelled at its surface ports.</summary>
+    public PlanetTerrain TerrainFor(int index) =>
+        new(Bodies[index], Stations.Where(s => s.Surface && s.Body == index).Select(s => s.Site));
+
+    /// <summary>Where a surface port's pad is on a given day, in km from the star.</summary>
+    public (double X, double Y, double Z) PortPositionKm(StationSite port, double day, PlanetTerrain? terrain = null)
+    {
+        terrain ??= TerrainFor(port.Body);
+        var centre = PositionKm(port.Body, day);
+        var dir = System.Numerics.Vector3.Normalize(port.Site);
+        double r = RadiusKm(port.Body) + terrain.HeightKm(dir);
+        return (centre.X + dir.X * r, centre.Y + dir.Y * r, centre.Z + dir.Z * r);
+    }
 }
 
 /// <summary>

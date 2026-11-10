@@ -17,7 +17,8 @@ public partial class PlanetSurface : Node3D
     public PlanetTerrain Terrain { get; }
     private readonly double _radiusKm;
 
-    private readonly Patch _fine = new(sizeKm: 24, cells: 96, dropKm: 0, holeKm: 0, skirtKm: 1.5);
+    private readonly Patch _near = new(sizeKm: 3, cells: 96, dropKm: 0, holeKm: 0, skirtKm: 0.3);
+    private readonly Patch _fine = new(sizeKm: 24, cells: 96, dropKm: 0.015, holeKm: 2.7, skirtKm: 1.5);
     private readonly Patch _wide = new(sizeKm: 300, cells: 100, dropKm: 0.12, holeKm: 21, skirtKm: 8);
     private MeshInstance3D? _globe;
     private Task<FlatMeshBuilder>? _globeTask;
@@ -52,14 +53,13 @@ public partial class PlanetSurface : Node3D
         },
     };
 
-    public PlanetSurface(int bodyIndex, Body body)
+    public PlanetSurface(int bodyIndex, Body body, PlanetTerrain terrain)
     {
         BodyIndex = bodyIndex;
-        Terrain = new PlanetTerrain(body);
+        Terrain = terrain;
         _radiusKm = Terrain.RadiusKm;
         Name = $"Surface-{body.Name}";
         // The globe sits a few km under the patches so they always win where they overlap.
-        var terrain = Terrain;
         double radiusM = _radiusKm * 1000;
         _globeTask = Task.Run(() =>
         {
@@ -110,6 +110,7 @@ public partial class PlanetSurface : Node3D
 
         _wide.Update(this, Terrain, below, altitudeKm < 600, centreKm, playerKm, eye);
         _fine.Update(this, Terrain, below, altitudeKm < 60, centreKm, playerKm, eye);
+        _near.Update(this, Terrain, below, altitudeKm < 12, centreKm, playerKm, eye);
     }
 
     /// <summary>Ground height under a point, in km above the body's radius. Seas count as flat at sea level.</summary>
@@ -182,6 +183,8 @@ public partial class PlanetSurface : Node3D
             var points = new Vector3[n * n];
             var colours = new Color[n * n];
             var downs = new Vector3[n * n];
+            var wet = new bool[n * n];
+            var upAt = new Vector3(centre.X, centre.Y, centre.Z);
             for (int j = 0; j < n; j++)
             for (int i = 0; i < n; i++)
             {
@@ -193,10 +196,23 @@ public partial class PlanetSurface : Node3D
                 points[j * n + i] = new Vector3(
                     (float)((dir.X * k - origin.X) * 1000), (float)((dir.Y * k - origin.Y) * 1000), (float)((dir.Z * k - origin.Z) * 1000));
                 colours[j * n + i] = new Color(sample.R, sample.G, sample.B);
+                wet[j * n + i] = sample.Wet;
                 downs[j * n + i] = new Vector3(-dir.X, -dir.Y, -dir.Z) * (float)(skirtKm * 1000);
             }
 
             var inside = new Vector3(-centre.X, -centre.Y, -centre.Z) * (float)(r * 1000);
+
+            // Steep faces show bare rock, and every face gets a little shade from its slope, so
+            // the shape of the ground reads even in flat light.
+            Color Slope(Vector3 p, Vector3 q, Vector3 w, Color colour, bool isWet)
+            {
+                if (isWet) return colour;
+                var normal = (q - p).Cross(w - p).Normalized();
+                float flat = Mathf.Abs(normal.Dot(upAt));
+                var rock = new Color(0.45f, 0.41f, 0.37f);
+                var c = flat < 0.82f ? colour.Lerp(rock, Mathf.Clamp((0.82f - flat) * 4, 0, 1)) : colour;
+                return c * (0.78f + 0.22f * flat);
+            }
             var builder = new FlatMeshBuilder();
             double hole = holeKm / 2;
             for (int j = 0; j < cells; j++)
@@ -208,8 +224,8 @@ public partial class PlanetSurface : Node3D
                     if (Math.Abs(cx) < hole && Math.Abs(cy) < hole) continue;
                 }
                 int a = j * n + i, b = a + 1, c = a + n + 1, d = a + n;
-                builder.Triangle(points[a], points[b], points[c], colours[a], inside);
-                builder.Triangle(points[a], points[c], points[d], colours[c], inside);
+                builder.Triangle(points[a], points[b], points[c], Slope(points[a], points[b], points[c], colours[a], wet[a]), inside);
+                builder.Triangle(points[a], points[c], points[d], Slope(points[a], points[c], points[d], colours[c], wet[c]), inside);
             }
             // Skirts hang down from the edges to hide gaps against coarser ground.
             for (int e = 0; e < cells; e++)

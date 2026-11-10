@@ -44,6 +44,8 @@ public partial class Main
         _surface?.QueueFree();
         _surface = null;
         _terrains.Clear();
+        foreach (var (_, node) in _portNodes) node.QueueFree();
+        _portNodes.Clear();
         if (_starNode != null && IsInstanceValid(_starNode)) _starNode.QueueFree();
         _starNode = null;
 
@@ -113,7 +115,7 @@ public partial class Main
         if (surfaceMode && _surface?.BodyIndex != low)
         {
             _surface?.QueueFree();
-            _surface = new PlanetSurface(low, _solar.Bodies[low]);
+            _surface = new PlanetSurface(low, _solar.Bodies[low], TerrainOf(low));
             AddChild(_surface);
         }
         else if (!surfaceMode && _surface != null)
@@ -123,6 +125,7 @@ public partial class Main
         }
         foreach (var (index, node) in _bodyNodes) node.Visible = !(surfaceMode && index == low && _surface!.Ready);
         _surface?.UpdateView(_solar.PositionKm(low, Day), player, eye);
+        UpdatePorts(surfaceMode ? low : -1, player, eye);
 
         // In a world's air: haze and a sky that brightens with the sun.
         float air = 0, daylight = 0;
@@ -159,7 +162,7 @@ public partial class Main
         _cruising = true;
         _cruiseSpeed = 30;
         _landed = false;
-        _ignoreTargetDrop = NavTargetKm() is { } navAt && _navTarget >= 0 && DistanceKm(_cruiseKm, navAt) < CourseDropKm();
+        _ignoreTargetDrop = NavTargetKm() is { } navAt && _navTarget != NavStation && DistanceKm(_cruiseKm, navAt) < CourseDropKm();
         _player.Target = null;
         foreach (var drone in _drones.Keys) _visuals[drone].Visible = false;
         foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
@@ -227,16 +230,21 @@ public partial class Main
     }
 
     private double CourseDropKm() =>
-        _navTarget == NavStation ? StationDropKm * 2 : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
+        _navTarget == NavStation ? StationDropKm * 2
+        : _navTarget <= NavPortBase ? 25
+        : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
 
     private (double X, double Y, double Z)? NavTargetKm() => _navTarget switch
     {
         NavStation => _stationKm,
+        <= NavPortBase when -_navTarget + NavPortBase < _solar.Stations.Count =>
+            _solar.PortPositionKm(_solar.Stations[NavPortBase - _navTarget], Day, TerrainOf(_solar.Stations[NavPortBase - _navTarget].Body)),
         >= 0 when _navTarget < _solar.Bodies.Count => _solar.PositionKm(_navTarget, Day),
         _ => null,
     };
 
     private string NavName => _navTarget == NavStation ? _session.Here.Stations.FirstOrDefault() ?? "Station"
+        : _navTarget <= NavPortBase ? _solar.Stations[NavPortBase - _navTarget].Name
         : _navTarget >= 0 ? _solar.Bodies[_navTarget].Name : "";
 
     /// <summary>Sets a course from the system map.</summary>
@@ -252,11 +260,18 @@ public partial class Main
     /// <summary>Set when cruise starts inside the course's drop distance, so it carries on towards the ground.</summary>
     private bool _ignoreTargetDrop;
     private PlanetSurface? _surface;
+    /// <summary>Port models on the world you're low over, with the site each stands on.</summary>
+    private readonly List<(StationSite Site, MeshInstance3D Node)> _portNodes = [];
+    /// <summary>The surface port you're docked at, or null when docked in orbit.</summary>
+    private StationSite? _dockedPort;
+    /// <summary>Course targets for surface ports are encoded below this: -10 is the first station, -11 the second, and so on.</summary>
+    private const int NavPortBase = -10;
+    private const float PortDockRange = 220f, PortDockHeight = 45f, PortDockSpeed = 25f;
     private readonly Dictionary<int, PlanetTerrain> _terrains = [];
 
     private PlanetTerrain TerrainOf(int index)
     {
-        if (!_terrains.TryGetValue(index, out var terrain)) _terrains[index] = terrain = new PlanetTerrain(_solar.Bodies[index]);
+        if (!_terrains.TryGetValue(index, out var terrain)) _terrains[index] = terrain = _solar.TerrainFor(index);
         return terrain;
     }
 
@@ -403,6 +418,80 @@ public partial class Main
         _throttle = 0;
         _navTarget = -1;
         _hud.Message("SALVAGE CREW HAS PATCHED YOU UP");
+    }
+
+    /// <summary>Shows the ports on the world below, standing upright on their levelled ground.</summary>
+    private void UpdatePorts(int body, (double X, double Y, double Z) player, Vector3 eye)
+    {
+        if (_portNodes.Count > 0 && (body < 0 || _portNodes[0].Site.Body != body))
+        {
+            foreach (var (_, node) in _portNodes) node.QueueFree();
+            _portNodes.Clear();
+        }
+        if (body < 0) return;
+        if (_portNodes.Count == 0)
+        {
+            var owner = _session.Galaxy.OwnerOf(_session.Here);
+            var colour = owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f);
+            foreach (var site in _solar.Stations.Where(s => s.Surface && s.Body == body))
+            {
+                var node = new MeshInstance3D { Mesh = MeshFactory.BuildSurfacePort(colour) };
+                AddChild(node);
+                _portNodes.Add((site, node));
+            }
+        }
+        foreach (var (site, node) in _portNodes)
+        {
+            var at = _solar.PortPositionKm(site, Day, TerrainOf(body));
+            var offset = new Vector3((float)((at.X - player.X) * 1000), (float)((at.Y - player.Y) * 1000), (float)((at.Z - player.Z) * 1000));
+            node.Visible = offset.Length() < 120_000;
+            var up = new Vector3(site.Site.X, site.Site.Y, site.Site.Z).Normalized();
+            var forward = up.Cross(Mathf.Abs(up.Y) < 0.9f ? Vector3.Up : Vector3.Right).Normalized();
+            node.Transform = new Transform3D(Basis.LookingAt(forward, up), eye + offset);
+        }
+    }
+
+    /// <summary>The nearest surface port, how far you are from its pad sideways and above it.</summary>
+    private (StationSite Site, float Across, float Above)? NearestPort()
+    {
+        if (_surface == null || _cruising) return null;
+        var player = PlayerKm;
+        (StationSite, float, float)? best = null;
+        foreach (var site in _solar.Stations.Where(s => s.Surface && s.Body == _surface.BodyIndex))
+        {
+            var pad = _solar.PortPositionKm(site, Day, TerrainOf(site.Body));
+            var rel = new NVector3((float)((player.X - pad.X) * 1000), (float)((player.Y - pad.Y) * 1000), (float)((player.Z - pad.Z) * 1000));
+            var up = NVector3.Normalize(site.Site);
+            float above = NVector3.Dot(rel, up) - 1.5f;
+            float across = (rel - up * NVector3.Dot(rel, up)).Length();
+            if (best == null || across < best.Value.Item2) best = (site, across, above);
+        }
+        return best;
+    }
+
+    private string? PortPrompt()
+    {
+        if (NearestPort() is not { } port || port.Across > 8000) return null;
+        string name = port.Site.Name.ToUpperInvariant();
+        if (port.Across > PortDockRange || port.Above > PortDockHeight) return $"{name}  {FormatDistance(Math.Sqrt(port.Across * port.Across + port.Above * port.Above) / 1000)}";
+        return _player.Body.Speed > PortDockSpeed ? "SLOW DOWN TO LAND" : "ENTER TO DOCK";
+    }
+
+    private StationSite? PortToDock =>
+        NearestPort() is { } port && port.Across <= PortDockRange && port.Above <= PortDockHeight && _player.Body.Speed <= PortDockSpeed ? port.Site : null;
+
+    /// <summary>Leaving a surface port: on the pad, a little above it, level with the ground.</summary>
+    private void LaunchFromPort(StationSite site)
+    {
+        var pad = _solar.PortPositionKm(site, Day, TerrainOf(site.Body));
+        var up = NVector3.Normalize(site.Site);
+        _anchorKm = (pad.X + up.X * 0.03, pad.Y + up.Y * 0.03, pad.Z + up.Z * 0.03);
+        var godotUp = new Vector3(up.X, up.Y, up.Z);
+        var forward = godotUp.Cross(Mathf.Abs(godotUp.Y) < 0.9f ? Vector3.Up : Vector3.Right).Normalized();
+        var q = Basis.LookingAt(forward, godotUp).GetRotationQuaternion();
+        _player.Respawn(NVector3.Zero, new System.Numerics.Quaternion(q.X, q.Y, q.Z, q.W));
+        _landed = true;
+        _navTarget = -1;
     }
 
     /// <summary>HUD readout for cruise and course.</summary>

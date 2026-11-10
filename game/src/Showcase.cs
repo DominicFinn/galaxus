@@ -49,7 +49,11 @@ public partial class Main
             }),
             new("descent-low.png", 300, () =>
             {
-                if (PortWorld() is { } port) PlaceAbove(port.Body, SunlitSite(port.Body), 5, 28);
+                if (PortWorld() is { } port) PlaceAbove(port.Body, SunlitSite(port.Body), 3, 30);
+            }),
+            new("port-approach.png", 300, () =>
+            {
+                if (PortWorld() is { } port) ApproachPort(port.Body, port.Site, 2.2, 0.7);
             }),
             new("galaxy-deep-stars.png", 20, () =>
             {
@@ -140,6 +144,30 @@ public partial class Main
             if (!sample.Wet && sample.HeightKm > 0.8f && sample.Ground is not (Ground.Snow or Ground.Ice)) return dir;
         }
         return start;
+    }
+
+    /// <summary>Puts the ship a little way back from a surface port and above it, looking at the pad.</summary>
+    private void ApproachPort(int body, System.Numerics.Vector3 site, double backKm, double heightKm)
+    {
+        _cruising = false;
+        var terrain = TerrainOf(body);
+        var port = _solar.Stations.First(s => s.Surface && s.Site == site);
+        var pad = _solar.PortPositionKm(port, Day, terrain);
+        var centre = _solar.PositionKm(body, Day);
+        var up = System.Numerics.Vector3.Normalize(site);
+        var along = System.Numerics.Vector3.Normalize(System.Numerics.Vector3.Cross(up, System.Numerics.Vector3.UnitY));
+        double r = _solar.RadiusKm(body);
+        var startDir = System.Numerics.Vector3.Normalize(up * (float)r - along * (float)backKm);
+        double ground = Math.Max(0, terrain.HeightKm(startDir));
+        double k = r + Math.Max(ground, terrain.HeightKm(up)) + heightKm;
+        _anchorKm = (centre.X + startDir.X * k, centre.Y + startDir.Y * k, centre.Z + startDir.Z * k);
+        var forward = new Vector3((float)(pad.X - _anchorKm.X), (float)(pad.Y - _anchorKm.Y), (float)(pad.Z - _anchorKm.Z)).Normalized();
+        var q = Basis.LookingAt(forward, new Vector3(startDir.X, startDir.Y, startDir.Z)).GetRotationQuaternion();
+        _player.Respawn(System.Numerics.Vector3.Zero, new System.Numerics.Quaternion(q.X, q.Y, q.Z, q.W));
+        _throttle = 0;
+        _player.Target = null;
+        _holdStill = true;
+        foreach (var drone in _drones.Keys) drone.Body.Position = new System.Numerics.Vector3(0, 1e7f, 0);
     }
 
     /// <summary>Puts the ship above a point on a world, looking out towards the horizon.</summary>

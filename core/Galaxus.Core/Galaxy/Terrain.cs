@@ -101,8 +101,24 @@ public sealed class PlanetTerrain
     private readonly Noise3 _noise;
     private readonly Noise3 _detail;
     private readonly float _seaBias;
+    /// <summary>Flattened ground for surface ports: where, and the height it's levelled to.</summary>
+    private readonly List<(Vector3 Dir, float HeightKm)> _flats = [];
+
+    /// <summary>Ground is level within this distance of a port, blending back to natural ground by <see cref="FlatOuterKm"/>.</summary>
+    public const float FlatInnerKm = 1.6f, FlatOuterKm = 4.5f;
 
     public PlanetTerrain(Body body) : this(body.Kind, body.Radius * SolarSystem.KmPerEarthRadius, body.Seed) { }
+
+    /// <param name="ports">Directions of surface ports, where the ground is levelled for the pads.</param>
+    public PlanetTerrain(Body body, IEnumerable<Vector3> ports) : this(body)
+    {
+        foreach (var port in ports)
+        {
+            var dir = Vector3.Normalize(port);
+            float h = Shape(dir, out _, out _);
+            _flats.Add((dir, MathF.Max(h, 0.05f)));
+        }
+    }
 
     public PlanetTerrain(BodyKind kind, double radiusKm, ulong seed)
     {
@@ -117,21 +133,44 @@ public sealed class PlanetTerrain
         {
             BodyKind.Terran or BodyKind.Ocean => 9, BodyKind.Desert => 6, BodyKind.Barren => 7,
             BodyKind.Ice => 4, BodyKind.Molten => 5, BodyKind.Toxic => 5, _ => 0,
-        };
+        } + 1.2f; // allowing for the fine detail
     }
 
     /// <summary>Ground height in km at a direction from the centre (any length).</summary>
-    public float HeightKm(Vector3 direction) => Solid ? Shape(Vector3.Normalize(direction), out _, out _) : 0;
+    public float HeightKm(Vector3 direction)
+    {
+        if (!Solid) return 0;
+        var dir = Vector3.Normalize(direction);
+        return Levelled(dir, Shape(dir, out _, out _));
+    }
+
+    /// <summary>Blends ground towards a port's level near the port.</summary>
+    private float Levelled(Vector3 dir, float height)
+    {
+        foreach (var (site, level) in _flats)
+        {
+            float cos = Vector3.Dot(dir, site);
+            if (cos < 0.99f) continue;
+            float km = MathF.Acos(Math.Clamp(cos, -1, 1)) * (float)RadiusKm;
+            if (km >= FlatOuterKm) continue;
+            float t = Smooth(FlatOuterKm, FlatInnerKm, km);
+            height += (level - height) * t;
+        }
+        return height;
+    }
 
     public TerrainSample Sample(Vector3 direction)
     {
         var dir = Vector3.Normalize(direction);
         if (!Solid) return new TerrainSample(0, Ground.Rock, 0.5f, 0.5f, 0.5f);
-        float height = Shape(dir, out float ridge, out float moisture);
+        float height = Levelled(dir, Shape(dir, out float ridge, out float moisture));
         var ground = GroundAt(dir, height, ridge, moisture);
         var (r, g, b) = Colour(ground, height, moisture);
-        // A little fine variation so large areas don't look flat.
-        float grain = 1 + _detail.At(dir * 140) * 0.06f;
+        // Variation at a few scales so large areas don't look flat: broad patches of a few
+        // kilometres and fine mottling under a kilometre.
+        var km = dir * (float)RadiusKm;
+        float grain = (HasSea && height < 0) ? 1 + _detail.At(km / 30f) * 0.05f
+            : 1 + _detail.At(dir * 140) * 0.05f + _detail.At(km / 4f + new Vector3(9, 1, 4)) * 0.14f + _detail.At(km / 0.7f) * 0.08f;
         return new TerrainSample(height, ground, r * grain, g * grain, b * grain);
     }
 
@@ -143,6 +182,7 @@ public sealed class PlanetTerrain
         float hills = _noise.Fbm(dir * 9f + new Vector3(5, 5, 5), 5);
         float fine = _detail.Fbm(dir * 60f, 4);
         ridge = _noise.Ridged(dir * 4.2f + new Vector3(-7, 3, 2), 6);
+        float close = CloseDetail(dir, ridge);
 
         switch (Kind)
         {
@@ -150,7 +190,7 @@ public sealed class PlanetTerrain
             case BodyKind.Ocean:
             {
                 float mountains = ridge * ridge * land * Smooth(0.05f, 0.35f, continents + hills * 0.15f);
-                return continents * 4.5f + mountains * 8f + hills * 0.6f * land + fine * 0.15f;
+                return continents * 4.5f + mountains * 8f + hills * 0.6f * land + fine * 0.15f + close * land;
             }
             case BodyKind.Desert:
             {
@@ -159,23 +199,38 @@ public sealed class PlanetTerrain
                 float stepped = MathF.Floor(plateau * 2.5f) / 2.5f;
                 float mesa = plateau + (stepped - plateau) * Smooth(0.2f, 0.6f, hills + 0.4f);
                 float dunes = MathF.Sin(Vector3.Dot(dir, new Vector3(0.3f, 0.2f, 0.93f)) * 900 + fine * 6) * 0.04f;
-                return mesa + ridge * ridge * 3.5f + dunes;
+                return mesa + ridge * ridge * 3.5f + dunes + close;
             }
             case BodyKind.Barren:
             {
                 float maria = Smooth(-0.1f, 0.15f, continents) * 1.5f;
-                return maria + hills * 0.8f + ridge * 1.6f + Craters(dir, 3) + fine * 0.1f;
+                return maria + hills * 0.8f + ridge * 1.6f + Craters(dir, 4) + fine * 0.1f + close;
             }
             case BodyKind.Ice:
             {
                 float cracks = MathF.Pow(1 - MathF.Abs(_detail.At(dir * 18)), 12) * 0.6f;
-                return continents * 1.2f + hills * 0.4f + cracks + Craters(dir, 2) * 0.5f;
+                return continents * 1.2f + hills * 0.4f + cracks + Craters(dir, 3) * 0.5f + close * 0.5f;
             }
             case BodyKind.Molten:
-                return continents * 3f + ridge * 2.5f + hills * 0.6f + fine * 0.15f;
+                return continents * 3f + ridge * 2.5f + hills * 0.6f + fine * 0.15f + close;
             default: // Toxic
-                return continents * 3f + hills * 0.9f + ridge * 1.5f + fine * 0.1f;
+                return continents * 3f + hills * 0.9f + ridge * 1.5f + fine * 0.1f + close;
         }
+    }
+
+    /// <summary>
+    /// Detail at the scale you see when flying low: wavelengths of 24 km down to 400 m, set by real
+    /// distance on the ground so it's the same on a small moon and a big world. Rougher in mountains.
+    /// </summary>
+    private float CloseDetail(Vector3 dir, float ridge)
+    {
+        var km = dir * (float)RadiusKm;
+        float roughness = 0.35f + ridge * 1.3f;
+        float sum = _detail.At(km / 24f) * 0.7f
+                  + _detail.At(km / 6f + new Vector3(3.1f, 0, 0)) * 0.28f
+                  + _detail.At(km / 1.5f + new Vector3(0, 7.7f, 0)) * 0.09f
+                  + _detail.At(km / 0.4f + new Vector3(0, 0, 5.3f)) * 0.025f;
+        return sum * roughness;
     }
 
     /// <summary>Craters at several sizes: a bowl, a raised rim, and flat ground beyond.</summary>
