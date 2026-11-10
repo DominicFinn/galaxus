@@ -448,7 +448,7 @@ public partial class Main : Node3D
         _visuals[old].QueueFree();
         _visuals.Remove(old);
 
-        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 }
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
         _player.DamageTakenScale = GameSettings.Current.DamageTaken;
         _player.AimAssist = true;
         _player.Body.Position = old.Body.Position;
