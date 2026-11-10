@@ -17,3 +17,4 @@ TestResults/
 # Exported builds
 build/
 .nuget-web/
+game/nuget.config

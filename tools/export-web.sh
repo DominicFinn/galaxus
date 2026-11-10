@@ -13,11 +13,21 @@ fi
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="${WEB_OUT:-$ROOT/build/web}"
 mkdir -p "$OUT"
+# The fork's Godot packages share version numbers with the official ones, so the web export takes
+# them from their own source and cache. The config only exists while the export runs, so desktop
+# builds (here and in CI) never see it.
+GODOT_WEB_NUGET="${GODOT_WEB_NUGET:-$HOME/git/godot-dotnet-web/nuget-local}"
+[[ -d "$GODOT_WEB_NUGET" ]] || { echo "No fork NuGet packages at $GODOT_WEB_NUGET (set GODOT_WEB_NUGET)."; exit 1; }
+sed "s#GODOT_WEB_NUGET_PLACEHOLDER#$GODOT_WEB_NUGET#" "$ROOT/tools/web-nuget.config" > "$ROOT/game/nuget.config"
+cleanup() {
+  rm -f "$ROOT/game/nuget.config"
+  if [[ -f "$ROOT/game/export_presets.cfg.bak" ]]; then mv "$ROOT/game/export_presets.cfg.bak" "$ROOT/game/export_presets.cfg"; fi
+}
+trap cleanup EXIT
 cd "$ROOT/game"
 if [[ -n "${WEB_TEMPLATE:-}" ]]; then
   # Point the Web preset at the template for this export only, and put the preset back after.
   cp export_presets.cfg export_presets.cfg.bak
-  trap 'mv export_presets.cfg.bak export_presets.cfg' EXIT
   python3 - "$WEB_TEMPLATE" <<'PY'
 import sys
 lines = open("export_presets.cfg").read().split("\n")
