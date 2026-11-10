@@ -57,8 +57,8 @@ public partial class Main
             _incomingBeep -= dt;
             if (_incomingBeep <= 0)
             {
-                AudioManager.Instance?.Ui("error");
-                _incomingBeep = Mathf.Clamp(d / 1500f, 0.15f, 1f);
+                AudioManager.Instance?.Ui("missile");
+                _incomingBeep = Mathf.Clamp(d / 1500f, 0.3f, 1.2f);
             }
         }
 

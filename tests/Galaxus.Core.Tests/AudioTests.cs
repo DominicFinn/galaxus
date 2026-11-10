@@ -74,8 +74,33 @@ public class AudioTests
         [
             SoundBank.Explosion(1), SoundBank.ShieldHit(), SoundBank.HullHit(), SoundBank.Dock(), SoundBank.Undock(),
             SoundBank.Jump(), SoundBank.Click(), SoundBank.Confirm(), SoundBank.Error(), SoundBank.Paid(), SoundBank.Pip(1),
-            SoundBank.TargetLock(), SoundBank.StationAmbience("Industrial", 1), SoundBank.StationAmbience("HighTech", 2),
+            SoundBank.TargetLock(), SoundBank.MissileWarning(), SoundBank.StationAmbience("Industrial", 1), SoundBank.StationAmbience("HighTech", 2),
         ];
-        Assert.All(effects, e => Assert.InRange(Peak(e), 0.2f, 1f));
+        Assert.All(effects, e => Assert.InRange(Peak(e), 0.1f, 0.7f));
+    }
+
+    [Fact]
+    public void Interface_sounds_are_soft_and_quieter_than_big_moments()
+    {
+        float[][] ui = [SoundBank.Click(), SoundBank.Confirm(), SoundBank.Error(), SoundBank.Paid(), SoundBank.Pip(2), SoundBank.TargetLock(), SoundBank.MissileWarning()];
+        foreach (var sound in ui)
+        {
+            // No hard edges: a square wave jumps twice its height in one sample; these move far less.
+            float jump = sound.Zip(sound.Skip(1), (a, b) => MathF.Abs(b - a)).Max();
+            Assert.True(jump < Peak(sound) * 0.6f, $"A jump of {jump} against a peak of {Peak(sound)}.");
+            Assert.True(Peak(sound) < Peak(SoundBank.Explosion(1)));
+        }
+    }
+
+    [Fact]
+    public void Loops_join_without_a_click()
+    {
+        foreach (var loop in new[] { SoundBank.Engine("human"), SoundBank.Engine("orc"), SoundBank.Engine("dwarf"), SoundBank.StationAmbience("Mining", 3) })
+        {
+            // The join should be no bigger a step than the loop takes inside itself.
+            float seam = MathF.Abs(loop[0] - loop[^1]);
+            float largest = loop.Zip(loop.Skip(1), (a, b) => MathF.Abs(b - a)).Max();
+            Assert.True(seam <= largest, $"Seam {seam} against a largest step of {largest}.");
+        }
     }
 }

@@ -24,7 +24,15 @@ public partial class AudioManager : Node
     private float _musicFadeSeconds = 2.5f;
     private readonly List<AudioStreamPlayer> _ui = [];
     private readonly List<AudioStreamPlayer3D> _world = [];
+    // What each world voice is playing and how much it matters, so gunfire never cuts off an explosion.
+    private readonly int[] _worldPriority = new int[16];
+    private readonly ulong[] _worldStarted = new ulong[16];
     private int _nextUi, _nextWorld;
+    // When each sound last started, so a burst of the same sound doesn't stack into a roar.
+    private readonly Dictionary<string, ulong> _lastPlayed = [];
+    private readonly RandomNumberGenerator _vary = new();
+    // Music dips briefly under big moments (explosions, jumps) and comes back up.
+    private float _duck = 1f;
 
     private AudioStreamPlayer _musicA = null!, _musicB = null!, _ambience = null!, _engine = null!;
     private string? _musicKey, _pendingMusicKey, _ambienceKey, _engineRace;
@@ -47,6 +55,9 @@ public partial class AudioManager : Node
             AddChild(p);
             _world.Add(p);
         }
+        // A gentle limiter on everything, so a busy battle can't clip.
+        if (AudioServer.GetBusEffectCount(0) == 0)
+            AudioServer.AddBusEffect(0, new AudioEffectHardLimiter { CeilingDb = -1f, PreGainDb = 0f, Release = 0.2f });
         ApplyVolumes();
     }
 
@@ -78,7 +89,7 @@ public partial class AudioManager : Node
 
     private void UpdateMusicVolumes()
     {
-        float current = Music * MusicLevel * _musicFade, previous = Music * MusicLevel * (1 - _musicFade);
+        float current = Music * MusicLevel * _musicFade * _duck, previous = Music * MusicLevel * (1 - _musicFade) * _duck;
         (_aIsCurrent ? _musicA : _musicB).VolumeDb = Db(current);
         (_aIsCurrent ? _musicB : _musicA).VolumeDb = Db(previous);
     }
@@ -156,6 +167,27 @@ public partial class AudioManager : Node
             UpdateMusicVolumes();
             if (_musicFade >= 1) (_aIsCurrent ? _musicB : _musicA).Stop();
         }
+        if (_duck < 1)
+        {
+            _duck = Mathf.Min(1, _duck + (float)delta / 1.2f);
+            UpdateMusicVolumes();
+        }
+    }
+
+    /// <summary>Dips the music for a moment under something big.</summary>
+    private void Duck(float to)
+    {
+        _duck = Mathf.Min(_duck, to);
+        UpdateMusicVolumes();
+    }
+
+    /// <summary>True if this sound may start now: not if the same one started within the gap.</summary>
+    private bool Allowed(string key, float gapSeconds)
+    {
+        ulong now = Time.GetTicksMsec();
+        if (_lastPlayed.TryGetValue(key, out var last) && now - last < gapSeconds * 1000) return false;
+        _lastPlayed[key] = now;
+        return true;
     }
 
     // Ambience and engine ------------------------------------------------------------------
@@ -204,27 +236,64 @@ public partial class AudioManager : Node
             "pip-0" => Stream("pip-0", () => SoundBank.Pip(0)),
             "pip-1" => Stream("pip-1", () => SoundBank.Pip(1)),
             "pip-2" => Stream("pip-2", () => SoundBank.Pip(2)),
+            "missile" => Stream("missile", SoundBank.MissileWarning),
             _ => null,
         };
-        if (stream == null) return;
+        if (stream == null || !Allowed("ui-" + name, 0.06f)) return;
+        if (name == "jump") Duck(0.6f);
         var player = _ui[_nextUi++ % _ui.Count];
         player.Stream = stream;
+        player.PitchScale = 1;
         player.Play();
     }
 
-    public void Laser(Vector3 at, string race, float speed, float damage) =>
-        PlayAt(at, Stream($"laser-{race}-{(int)speed / 100}-{(int)damage / 4}", () => SoundBank.Laser(race, speed, damage)));
-
-    public void ShieldHit(Vector3 at) => PlayAt(at, Stream("shield-hit", SoundBank.ShieldHit));
-    public void HullHit(Vector3 at) => PlayAt(at, Stream("hull-hit", SoundBank.HullHit));
-    public void Explosion(Vector3 at) => PlayAt(at, Stream($"explosion-{_nextWorld % 3}", () => SoundBank.Explosion(_nextWorld % 3 + 1)), 1.5f);
-
-    private void PlayAt(Vector3 at, AudioStream stream, float level = 1f)
+    public void Laser(Vector3 at, string race, float speed, float damage)
     {
-        var player = _world[_nextWorld++ % _world.Count];
+        string key = $"laser-{race}-{(int)speed / 100}-{(int)damage / 4}";
+        if (!Allowed(key, 0.045f)) return;
+        PlayAt(at, Stream(key, () => SoundBank.Laser(race, speed, damage)), priority: 1, vary: 0.07f);
+    }
+
+    public void ShieldHit(Vector3 at)
+    {
+        if (Allowed("shield-hit", 0.07f)) PlayAt(at, Stream("shield-hit", SoundBank.ShieldHit), priority: 2, vary: 0.08f);
+    }
+
+    public void HullHit(Vector3 at)
+    {
+        if (Allowed("hull-hit", 0.07f)) PlayAt(at, Stream("hull-hit", SoundBank.HullHit), priority: 2, vary: 0.08f);
+    }
+
+    public void Explosion(Vector3 at)
+    {
+        if (!Allowed("explosion", 0.08f)) return;
+        int variant = _vary.RandiRange(1, 3);
+        PlayAt(at, Stream($"explosion-{variant}", () => SoundBank.Explosion(variant)), level: 1.4f, priority: 3, vary: 0.06f);
+        Duck(0.7f);
+    }
+
+    /// <summary>
+    /// Plays a sound in the world. Takes a free voice if there is one; otherwise the oldest of the
+    /// least important ones, or nothing if everything playing matters more than this.
+    /// </summary>
+    private void PlayAt(Vector3 at, AudioStream stream, float level = 1f, int priority = 1, float vary = 0)
+    {
+        int voice = -1;
+        for (int i = 0; i < _world.Count && voice < 0; i++)
+            if (!_world[i].Playing) voice = i;
+        if (voice < 0)
+        {
+            int lowest = _worldPriority.Min();
+            if (lowest > priority) return;
+            voice = Enumerable.Range(0, _world.Count).Where(i => _worldPriority[i] == lowest).MinBy(i => _worldStarted[i]);
+        }
+        var player = _world[voice];
         player.Stream = stream;
         player.GlobalPosition = at;
-        player.VolumeDb = Db(Sfx * level);
+        player.VolumeDb = Db(Sfx * level * (1 + _vary.RandfRange(-vary, vary)));
+        player.PitchScale = 1 + _vary.RandfRange(-vary, vary);
         player.Play();
+        _worldPriority[voice] = priority;
+        _worldStarted[voice] = Time.GetTicksMsec();
     }
 }
