@@ -66,7 +66,7 @@ It builds the fast web version (`tools/build-web-aot.sh`, a few minutes) and pus
 
 One-off setup:
 
-1. Install butler from itch: https://itch.io/docs/butler/installing.html. It's a single program; put it somewhere on your `PATH`.
+1. Install butler from itch: https://itch.io/docs/butler/installing.html. Keep its folder together (it needs the libraries beside it). The script finds it on your `PATH`, at `$BUTLER`, or in `~/git/butler-darwin-amd64`.
 2. Run `butler login` and approve it in the browser. butler keeps its own key, so nothing goes in the repo.
 3. The first push makes a new upload on the page. On the itch dashboard, edit the game, tick "This file will be played in the browser" on the new `web` upload, and delete the old hand-uploaded zip. Later pushes update that upload in place.
 
