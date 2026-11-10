@@ -98,6 +98,8 @@ public static class Composer
     public static readonly HashSet<string> KeysPatterns = ["comp", "sustain", "rolled"];
     public static readonly HashSet<string> BassPatterns = ["lazy", "walk", "sub", "bounce"];
     public static readonly HashSet<string> PluckPatterns = ["ostinato", "arp", "sparse"];
+    /// <summary>Lead: "step" moves mostly by step; "fanfare" leaps by fourths, fifths and octaves, with longer notes.</summary>
+    public static readonly HashSet<string> LeadPatterns = ["step", "fanfare"];
 
     public const int Keys = 0, Bass = 1, Lead = 2, Pad = 3, Drums = 4, Plucks = 5, Space = 6;
 
@@ -163,14 +165,15 @@ public static class Composer
                 if (parts.Pad) AddPad(notes, tones, beat0);
                 if (parts.Plucks) AddPlucks(notes, style, tones, beat0, ostinatos[progIndex], feel);
                 if (parts.Lead && b % 2 == 0)
-                    leadDegree = AddLead(notes, style, scale, prog, b, beat0, leadMotifs[progIndex], feel, leadDegree, mood);
+                    leadDegree = AddLead(notes, style, scale, prog, b, beat0, style.Lead.Pattern == "fanfare" ? Fanfare(leadMotifs[progIndex]) : leadMotifs[progIndex], feel, leadDegree, mood);
                 if (parts.Drums != DrumLevel.None) AddDrums(notes, style, beat0, b, lastBar, parts.Drums, mood, feel);
                 if (parts.Shimmer && b % 4 == 0)
                 {
                     float hold = Math.Min(4, bars - b) * 4 - 0.5f;
                     int pc = ((tones[0] - style.Root) % 12 + 12) % 12;
-                    notes.Add(new Note(Space, beat0, hold, style.Root + 48 + pc, style.Space.Shimmer));
-                    notes.Add(new Note(Space, beat0 + 2, hold - 2, style.Root + 55 + pc, style.Space.Shimmer * 0.6f));
+                    // Mid-high, not piercing: two octaves and a fifth above the bass.
+                    notes.Add(new Note(Space, beat0, hold, style.Root + 36 + pc, style.Space.Shimmer));
+                    notes.Add(new Note(Space, beat0 + 2, hold - 2, style.Root + 43 + pc, style.Space.Shimmer * 0.5f));
                 }
             }
         }
@@ -317,8 +320,8 @@ public static class Composer
     {
         notes.Add(new Note(Pad, beat0, 4.1f, tones[0] + 12, 0.7f));
         notes.Add(new Note(Pad, beat0, 4.1f, tones[2] + 12, 0.55f));
-        notes.Add(new Note(Pad, beat0, 4.1f, tones[1] + 24, 0.5f));
-        notes.Add(new Note(Pad, beat0, 4.1f, tones[^1] + 24, 0.45f));
+        notes.Add(new Note(Pad, beat0, 4.1f, tones[1] + 24, 0.45f));
+        notes.Add(new Note(Pad, beat0, 4.1f, tones[^1] + 12, 0.4f));
     }
 
     /// <summary>Eight eighth-note slots: which chord tone to play, or -1 to rest.</summary>
@@ -347,7 +350,7 @@ public static class Composer
                 for (int i = 0; i < count; i++)
                 {
                     float beat = feel.Next(8) * 0.5f;
-                    notes.Add(new Note(Plucks, beat0 + beat + Swing(style, beat), 1, upper[feel.Next(upper.Length)] + 12, 0.45f));
+                    notes.Add(new Note(Plucks, beat0 + beat + Swing(style, beat), 1, upper[feel.Next(upper.Length)], 0.45f));
                 }
                 break;
             default:
@@ -372,13 +375,26 @@ public static class Composer
             if (rng.NextFloat() < 0.3f + density * 0.6f) motif.Add((beat, MathF.Min(length, 8 - beat) * 0.92f, beat % 2 == 0));
             beat += length + (rng.NextFloat() < 0.4f - density * 0.3f ? 1 : 0);
         }
-        // End the phrase on a held note.
+        // End the phrase on a longer note, but never one that drones on.
         if (motif.Count > 0)
         {
             var (b, _, s) = motif[^1];
-            motif[^1] = (b, MathF.Max(1.5f, 8 - b - 0.5f), s);
+            motif[^1] = (b, Math.Clamp(8 - b - 0.5f, 1, 2.5f), s);
         }
         return motif;
+    }
+
+    /// <summary>A fanfare's rhythm: every other note of the motif (and all its strong ones), held until the next, so leaps ring out.</summary>
+    private static List<(float Beat, float Length, bool Strong)> Fanfare(List<(float Beat, float Length, bool Strong)> motif)
+    {
+        var kept = motif.Where((n, i) => i % 2 == 0 || n.Strong).ToList();
+        var result = new List<(float Beat, float Length, bool Strong)>();
+        for (int i = 0; i < kept.Count; i++)
+        {
+            float next = i + 1 < kept.Count ? kept[i + 1].Beat : 8;
+            result.Add((kept[i].Beat, MathF.Min(next - kept[i].Beat - 0.1f, 3f), true));
+        }
+        return result;
     }
 
     /// <summary>A two-bar phrase over the motif's rhythm: stepwise, landing on chord tones on the strong beats.</summary>
@@ -402,8 +418,11 @@ public static class Composer
                     }
                 degree = best;
             }
-            else degree += feel.Pick(new[] { -2, -1, -1, 1, 1, 2 });
-            int low = 2 * scale.Length + 1, high = 3 * scale.Length + 3;
+            else degree += style.Lead.Pattern == "fanfare"
+                ? feel.Pick(new[] { -3, -4, 3, 4, 3, 7, -7, 0 }) // fourths, fifths and octaves
+                : feel.Pick(new[] { -2, -1, -1, 1, 1, 2 });
+            // The melody sits around middle C, where a flute is mellow rather than shrill.
+            int low = scale.Length + 5, high = 2 * scale.Length + 4;
             degree = Math.Clamp(degree, low, high);
             int midi = Pitch(scale, style.Root, degree);
             notes.Add(new Note(Lead, beat0 + beat + Swing(style, beat), length, midi, 0.6f + feel.Range(-0.08f, 0.08f)));
@@ -414,6 +433,7 @@ public static class Composer
     private static void AddDrums(List<Note> notes, MusicStyleDef style, float beat0, int bar, bool lastBar, DrumLevel level, Mood mood, Rng feel)
     {
         if (style.Drums.Kit == "off") return;
+        if (style.Drums.Kit == "taiko") { AddTaiko(notes, style, beat0, lastBar, level, mood, feel); return; }
         float busy = style.Drums.Busy + (mood == Mood.Combat ? 0.3f : mood == Mood.Docked ? -0.2f : 0);
         float energy = level == DrumLevel.Light ? 0.6f : 1;
         void Hit(int piece, float beat, float vel)
@@ -460,6 +480,28 @@ public static class Composer
         if (kit == "glitch" && bar % 4 == 3) for (int r = 0; r < 4; r++) Hit(Lofi.Hat, 3.5f + r * 0.125f, 0.2f + r * 0.05f);
     }
 
+    /// <summary>
+    /// Taiko and frame drums: a big drum on the one, smaller drums rolling round it, and a roll into
+    /// the next section. No snare or hats.
+    /// </summary>
+    private static void AddTaiko(List<Note> notes, MusicStyleDef style, float beat0, bool lastBar, DrumLevel level, Mood mood, Rng feel)
+    {
+        float energy = (level == DrumLevel.Light ? 0.6f : 1) * style.Drums.Volume;
+        float busy = style.Drums.Busy + (mood == Mood.Combat ? 0.3f : mood == Mood.Docked ? -0.2f : 0);
+        void Hit(int piece, float beat, float vel) =>
+            notes.Add(new Note(Drums, beat0 + beat + Swing(style, beat) + feel.Range(-0.01f, 0.01f), 0.1f, 0, vel * energy * (1 + feel.Range(-0.1f, 0.1f)), piece));
+        Hit(Lofi.Kick, 0, 0.95f);
+        if (level == DrumLevel.Light) { Hit(Lofi.Tom, 2, 0.5f); return; }
+        Hit(Lofi.Kick, 2.5f, 0.6f);
+        Hit(Lofi.Tom, 1, 0.6f);
+        Hit(Lofi.Tom, 3, 0.65f);
+        if (feel.NextFloat() < 0.4f + busy) Hit(Lofi.Tom, 1.5f, 0.35f);
+        if (feel.NextFloat() < 0.4f + busy) Hit(Lofi.Tom, 3.5f, 0.45f);
+        if (feel.NextFloat() < busy) Hit(Lofi.Tom, 3.25f, 0.3f);
+        // Roll into the next section.
+        if (lastBar) for (int r = 0; r < 4; r++) Hit(Lofi.Tom, 3 + r * 0.25f, 0.35f + r * 0.12f);
+    }
+
     // Rendering ----------------------------------------------------------------------------
 
     /// <summary>
@@ -500,7 +542,7 @@ public static class Composer
             (Pad,    0.40f * style.Pad.Volume,    0.60f, 0.45f,  0.1f,  Fit(0.04f), 9000),
             (Drums,  0.50f * style.Drums.Volume,  0.10f, 0f,     0f,    0,          9000 - 4000 * warmth),
             (Plucks, 0.55f * style.Plucks.Volume, 0.50f, 0.20f,  0.3f,  Fit(0.07f), 8000 - 3000 * warmth),
-            (Space,  0.20f,                        1.00f, 0.30f,  0f,    Fit(0.03f), 9000),
+            (Space,  0.14f,                        1.00f, 0.30f,  0f,    Fit(0.03f), 2600),
         };
 
         foreach (var (ch, level, sendLevel, duck, pan, sway, cutoff) in settings)

@@ -12,10 +12,10 @@ public static class Lofi
 
     public static readonly HashSet<string> KeysInstruments = ["rhodes", "felt-piano", "glass", "organ", "off"];
     public static readonly HashSet<string> BassInstruments = ["sub", "round", "upright", "off"];
-    public static readonly HashSet<string> LeadInstruments = ["flute", "sine", "mellow", "bell", "off"];
+    public static readonly HashSet<string> LeadInstruments = ["flute", "sine", "mellow", "bell", "horn", "off"];
     public static readonly HashSet<string> PadInstruments = ["warm", "glass", "choir", "dark", "off"];
     public static readonly HashSet<string> PluckInstruments = ["kalimba", "koto", "harp", "bell", "off"];
-    public static readonly HashSet<string> DrumKits = ["boom-bap", "brushes", "dusty", "glitch", "off"];
+    public static readonly HashSet<string> DrumKits = ["boom-bap", "brushes", "dusty", "glitch", "taiko", "off"];
 
     private const float Tau = MathF.Tau;
 
@@ -37,7 +37,7 @@ public static class Lofi
         switch (instrument)
         {
             case "felt-piano": FeltPiano(buf, start, hz, hold, vel, tone); break;
-            case "glass": Fm(buf, start, hz, hold, vel, ratio: 2f, index: 0.8f + tone, indexDecay: 0.8f, decay: 3.5f, attack: 0.006f, release: 0.4f); break;
+            case "glass": Fm(buf, start, hz, hold, vel, ratio: 2f, index: 0.4f + 0.6f * tone, indexDecay: 0.5f, decay: 2.4f, attack: 0.006f, release: 0.4f); break;
             case "organ": Organ(buf, start, hz, hold, vel); break;
             case "off": break;
             default: Rhodes(buf, start, hz, hold, vel, tone); break;
@@ -165,7 +165,8 @@ public static class Lofi
     {
         switch (instrument)
         {
-            case "bell": Fm(buf, start, hz, hold, vel, ratio: 3.5f, index: 1.6f, indexDecay: 0.5f, decay: 1.8f, attack: 0.003f, release: 0.5f); break;
+            case "bell": Fm(buf, start, hz, hold, vel, ratio: 2f, index: 0.9f, indexDecay: 0.3f, decay: 1.1f, attack: 0.004f, release: 0.35f); break;
+            case "horn": Horn(buf, start, hz, hold, vel); break;
             case "off": break;
             default: Breath(buf, start, hz, hold, vel, instrument); break;
         }
@@ -193,11 +194,38 @@ public static class Lofi
                 breath += 0.15f * (Noise(ref noise) - breath);
                 s += breath * 0.35f * (0.4f + 0.6f * MathF.Exp(-t / 0.08f));
             }
-            float env = (1 - MathF.Exp(-t / attack)) * Release(t, hold, 0.14f);
+            // Held notes ease off like a player running out of breath, rather than holding flat.
+            float env = (1 - MathF.Exp(-t / attack)) * (0.55f + 0.45f * MathF.Exp(-t / 1.2f)) * Release(t, hold, 0.14f);
             if (start + i >= 0) buf[start + i] += s * env * vel * 0.5f;
             float depth = 0.0045f * MathF.Min(1, MathF.Max(0, (t - 0.25f) / 0.4f));
             phase = Wrap(phase + w * (1 + depth * MathF.Sin(vib)));
             vib = Wrap(vib + Tau * 5f / Rate);
+        }
+    }
+
+    /// <summary>
+    /// A soft, distant brass: two slightly detuned saws through a low-pass that opens as the note
+    /// swells, like a horn section heard from down the corridor.
+    /// </summary>
+    private static void Horn(float[] buf, int start, float hz, float hold, float vel)
+    {
+        int length = Samples(hold + 0.4f);
+        float p1 = 0, p2 = 0, lp1 = 0, lp2 = 0, vib = 0;
+        for (int i = 0; i < length && start + i < buf.Length; i++)
+        {
+            float t = i / (float)Rate;
+            float swell = (1 - MathF.Exp(-t / 0.12f)) * (0.75f + 0.25f * MathF.Exp(-t / 1.5f));
+            float env = swell * Release(t, hold, 0.25f);
+            float a = 1 - MathF.Exp(-Tau * (300 + 1300 * swell * vel) / Rate);
+            float x1 = p1 / Tau, x2 = p2 / Tau;
+            float s = (2 * x1 - 1 - PolyBlep(x1, hz / Rate)) + (2 * x2 - 1 - PolyBlep(x2, hz * 1.003f / Rate));
+            lp1 += a * (s - lp1);
+            lp2 += a * (lp1 - lp2);
+            if (start + i >= 0) buf[start + i] += lp2 * 0.45f * env * vel;
+            float depth = 0.003f * MathF.Min(1, MathF.Max(0, (t - 0.4f) / 0.5f));
+            p1 = Wrap(p1 + Tau * hz * (1 + depth * MathF.Sin(vib)) / Rate);
+            p2 = Wrap(p2 + Tau * hz * 1.003f * (1 + depth * MathF.Sin(vib)) / Rate);
+            vib = Wrap(vib + Tau * 4.8f / Rate);
         }
     }
 
@@ -209,7 +237,7 @@ public static class Lofi
         {
             case "koto": Pluck(buf, start, hz, hold, vel, brightness: 0.75f, sustain: 0.994f, gain: 0.9f); break;
             case "harp": Pluck(buf, start, hz, hold, vel, brightness: 0.45f, sustain: 0.997f, gain: 0.9f); break;
-            case "bell": Fm(buf, start, hz, hold, vel * 0.8f, ratio: 3.5f, index: 1.2f, indexDecay: 0.3f, decay: 1.4f, attack: 0.002f, release: 0.6f); break;
+            case "bell": Fm(buf, start, hz, hold, vel * 0.8f, ratio: 2f, index: 0.8f, indexDecay: 0.2f, decay: 1f, attack: 0.002f, release: 0.4f); break;
             case "off": break;
             default: Kalimba(buf, start, hz, vel); break;
         }
@@ -294,7 +322,7 @@ public static class Lofi
         float[] detune = [1f, 1.0042f, 0.9958f];
         Span<float> phases = stackalloc float[3];
         float lp1 = 0, lp2 = 0, lfo = 0;
-        var formants = instrument == "choir" ? (new Svf(650, 0.25f), new Svf(1080, 0.3f)) : (default(Svf), default(Svf));
+        var formants = instrument == "choir" ? (new Svf(480, 0.3f), new Svf(820, 0.45f)) : (default(Svf), default(Svf));
         float a = 1 - MathF.Exp(-Tau * cutoff / Rate);
         for (int i = 0; i < length && start + i < buf.Length; i++)
         {
@@ -305,14 +333,14 @@ public static class Lofi
                 float p = phases[v] / Tau;
                 float dt = hz * detune[v] / Rate;
                 s += instrument == "glass"
-                    ? MathF.Sin(phases[v]) + 0.3f * MathF.Sin(2 * phases[v]) + 0.1f * MathF.Sin(3 * phases[v])
+                    ? MathF.Sin(phases[v]) + 0.15f * MathF.Sin(2 * phases[v]) + 0.04f * MathF.Sin(3 * phases[v])
                     : 2 * p - 1 - PolyBlep(p, dt);
                 phases[v] = Wrap(phases[v] + Tau * dt);
             }
             s /= 3;
             if (instrument == "choir")
             {
-                s = formants.Item1.BandPass(s) * 1.5f + formants.Item2.BandPass(s);
+                s = formants.Item1.BandPass(s) * 1.5f + formants.Item2.BandPass(s) * 0.6f;
             }
             else if (instrument != "glass")
             {
@@ -336,8 +364,9 @@ public static class Lofi
         for (int i = 0; i < length && start + i < buf.Length; i++)
         {
             float t = i / (float)Rate;
-            float env = (1 - MathF.Exp(-t / 2.5f)) * Release(t, hold, 2.2f);
-            if (start + i >= 0) buf[start + i] += (MathF.Sin(p1) + MathF.Sin(p2)) * 0.3f * env * vel;
+            // Swells in, then slowly ebbs while held, so it never sits as a steady tone.
+            float env = (1 - MathF.Exp(-t / 2.5f)) * (0.35f + 0.65f * MathF.Exp(-t / 4f)) * Release(t, hold, 2.2f);
+            if (start + i >= 0) buf[start + i] += (MathF.Sin(p1) + MathF.Sin(p2)) * 0.22f * env * vel;
             p1 = Wrap(p1 + w1);
             p2 = Wrap(p2 + w2);
         }
@@ -345,12 +374,13 @@ public static class Lofi
 
     // Drums --------------------------------------------------------------------------------
 
-    public const int Kick = 1, Snare = 2, Rim = 3, Hat = 4, OpenHat = 5, Brush = 6;
+    public const int Kick = 1, Snare = 2, Rim = 3, Hat = 4, OpenHat = 5, Brush = 6, Tom = 7;
 
     /// <summary>One drum hit. Dusty kits are lower and heavier; glitch kits tighter and clickier.</summary>
     public static void Drum(string kit, int piece, float[] buf, int start, float vel, uint seed)
     {
-        bool heavy = kit == "dusty", tight = kit == "glitch";
+        bool heavy = kit is "dusty" or "taiko", tight = kit == "glitch";
+        bool taiko = kit == "taiko";
         uint noise = seed | 1;
         switch (piece)
         {
@@ -361,8 +391,9 @@ public static class Lofi
                 for (int i = 0; i < length && start + i < buf.Length; i++)
                 {
                     float t = i / (float)Rate;
-                    float f = (heavy ? 42 : 48) + (heavy ? 70 : 80) * MathF.Exp(-t / 0.035f);
-                    float s = MathF.Sin(phase) * MathF.Exp(-t / (heavy ? 0.32f : tight ? 0.16f : 0.22f));
+                    // A taiko is a big, low drum with a long, booming body.
+                    float f = taiko ? 52 + 45 * MathF.Exp(-t / 0.06f) : (heavy ? 42 : 48) + (heavy ? 70 : 80) * MathF.Exp(-t / 0.035f);
+                    float s = MathF.Sin(phase) * MathF.Exp(-t / (taiko ? 0.55f : heavy ? 0.32f : tight ? 0.16f : 0.22f));
                     s += Noise(ref noise) * 0.15f * MathF.Exp(-t / 0.002f);
                     if (start + i >= 0) buf[start + i] += MathF.Tanh(s * 1.4f) * vel * 0.7f;
                     phase = Wrap(phase + Tau * f / Rate);
@@ -381,6 +412,22 @@ public static class Lofi
                     s += MathF.Sin(body) * 0.5f * MathF.Exp(-t / 0.05f);
                     if (start + i >= 0) buf[start + i] += s * vel * 0.7f;
                     body = Wrap(body + Tau * (heavy ? 165 : 190) / Rate);
+                }
+                break;
+            }
+            case Tom:
+            {
+                // A frame drum or small taiko: a skin tone dropping in pitch with a soft thump.
+                float phase = 0, lp = 0;
+                int length = Samples(0.5f);
+                for (int i = 0; i < length && start + i < buf.Length; i++)
+                {
+                    float t = i / (float)Rate;
+                    float f = 95 + 60 * MathF.Exp(-t / 0.04f);
+                    lp += 0.2f * (Noise(ref noise) - lp);
+                    float s = MathF.Sin(phase) * MathF.Exp(-t / 0.22f) + lp * 0.5f * MathF.Exp(-t / 0.03f);
+                    if (start + i >= 0) buf[start + i] += s * vel * 0.7f;
+                    phase = Wrap(phase + Tau * f / Rate);
                 }
                 break;
             }

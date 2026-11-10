@@ -6,17 +6,17 @@
   {
     "id": "title",
     "name": "Title theme",
-    "description": "Slow and wide open: soft piano chords drifting over a deep shimmer.",
-    "tempo": [64, 70], "scale": "lydian", "root": 43,
-    "progressions": [[1, 2, 6, 5], [4, 3, 2, 2]],
-    "ninths": 0.8, "swing": 0.12,
-    "keys": { "instrument": "felt-piano", "pattern": "rolled", "tone": 0.4 },
+    "description": "Heroic and haunted at once: a distant horn calling out in wide leaps over deep taiko drums, a drone and a choir.",
+    "tempo": [70, 76], "scale": "dorian", "root": 38,
+    "progressions": [[1, 7, 4, 1], [1, 3, 7, 4]],
+    "ninths": 0.4, "swing": 0.08,
+    "keys": { "instrument": "felt-piano", "pattern": "sustain", "tone": 0.35, "volume": 0.8 },
     "bass": { "instrument": "sub", "pattern": "sub" },
-    "lead": { "instrument": "sine", "density": 0.25, "volume": 0.8 },
-    "pad": { "instrument": "glass", "volume": 0.8 },
-    "plucks": { "instrument": "harp", "pattern": "sparse", "volume": 0.6 },
-    "drums": { "kit": "brushes", "busy": 0.2, "volume": 0.7 },
-    "space": { "shimmer": 0.8, "reverb": 0.85, "vinyl": 0.3, "hiss": 0.3, "wow": 0.35, "warmth": 0.5 }
+    "lead": { "instrument": "horn", "pattern": "fanfare", "density": 0.45, "volume": 1.5 },
+    "pad": { "instrument": "choir", "volume": 0.45 },
+    "plucks": { "instrument": "koto", "pattern": "sparse", "density": 0.3, "volume": 0.5 },
+    "drums": { "kit": "taiko", "busy": 0.35, "volume": 0.9 },
+    "space": { "shimmer": 0.4, "reverb": 0.9, "vinyl": 0.25, "hiss": 0.3, "wow": 0.3, "warmth": 0.55 }
   },
   {
     "id": "human",
@@ -122,5 +122,35 @@
     "plucks": { "instrument": "bell", "pattern": "sparse", "density": 0.3, "volume": 0.5 },
     "drums": { "kit": "glitch", "busy": 0.2, "volume": 0.6 },
     "space": { "shimmer": 0.9, "reverb": 0.9, "vinyl": 0.1, "hiss": 0.3, "wow": 0.25, "warmth": 0.45 }
+  },
+  {
+    "id": "deep-space",
+    "name": "Deep space",
+    "description": "Nobody's space: slow swells, a deep bass, soft piano far away and no beat at all. Plays in unclaimed systems and among the stars between the gates.",
+    "tempo": [58, 64], "scale": "aeolian", "root": 38,
+    "progressions": [[1, 6, 3, 7], [4, 1, 6, 5]],
+    "ninths": 0.7, "swing": 0.1,
+    "keys": { "instrument": "felt-piano", "pattern": "sustain", "tone": 0.3, "volume": 0.8 },
+    "bass": { "instrument": "sub", "pattern": "sub" },
+    "lead": { "instrument": "off" },
+    "pad": { "instrument": "warm", "volume": 1.1 },
+    "plucks": { "instrument": "harp", "pattern": "sparse", "density": 0.2, "volume": 0.5 },
+    "drums": { "kit": "off" },
+    "space": { "shimmer": 0.7, "reverb": 0.95, "vinyl": 0.2, "hiss": 0.35, "wow": 0.4, "warmth": 0.65 }
+  },
+  {
+    "id": "drift",
+    "name": "Drift",
+    "description": "Cruising between places: a warm electric piano rolling over a soft, slow beat. Plays in quiet unclaimed systems.",
+    "tempo": [66, 72], "scale": "dorian", "root": 41,
+    "progressions": [[1, 4, 1, 7], [6, 4, 2, 5]],
+    "ninths": 0.7, "swing": 0.16,
+    "keys": { "instrument": "rhodes", "pattern": "rolled", "tone": 0.4 },
+    "bass": { "instrument": "round", "pattern": "sub" },
+    "lead": { "instrument": "sine", "density": 0.2, "volume": 0.7 },
+    "pad": { "instrument": "warm", "volume": 0.8 },
+    "plucks": { "instrument": "kalimba", "pattern": "sparse", "density": 0.3, "volume": 0.5 },
+    "drums": { "kit": "brushes", "busy": 0.15, "volume": 0.6 },
+    "space": { "shimmer": 0.6, "reverb": 0.85, "vinyl": 0.35, "hiss": 0.3, "wow": 0.45, "warmth": 0.6 }
   }
 ]

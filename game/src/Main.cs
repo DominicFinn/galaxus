@@ -398,7 +398,10 @@ public partial class Main : Node3D
         var audio = AudioManager.Instance;
         if (audio == null || _sessionOrNull == null) return;
         var here = _session.Here;
-        string style = _session.Galaxy.OwnerOf(here)?.RaceId ?? (here.Region == "rim" ? "dark-elf" : "human");
+        // Owned systems play their owner's race; nobody's space and the stars between the gates
+        // play the general space styles.
+        string style = _session.Galaxy.OwnerOf(here)?.RaceId
+            ?? (!here.IsGateSystem || here.Region == "rim" || here.Seed % 2 == 0 ? "deep-space" : "drift");
         var mood = _battle != null ? Galaxus.Core.Audio.Mood.Combat
             : _screen == Screen.Docked ? Galaxus.Core.Audio.Mood.Docked
             : Galaxus.Core.Audio.Mood.Flight;

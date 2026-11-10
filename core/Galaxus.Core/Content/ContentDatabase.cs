@@ -491,7 +491,7 @@ public sealed class ContentDatabase
             }
             Part("keys", style.Keys, Audio.Lofi.KeysInstruments, Audio.Composer.KeysPatterns);
             Part("bass", style.Bass, Audio.Lofi.BassInstruments, Audio.Composer.BassPatterns);
-            Part("lead", style.Lead, Audio.Lofi.LeadInstruments, null);
+            Part("lead", style.Lead, Audio.Lofi.LeadInstruments, Audio.Composer.LeadPatterns);
             Part("pad", style.Pad, Audio.Lofi.PadInstruments, null);
             Part("plucks", style.Plucks, Audio.Lofi.PluckInstruments, Audio.Composer.PluckPatterns);
             if (!Audio.Lofi.DrumKits.Contains(style.Drums.Kit)) p.Add($"{at}: drum kit '{style.Drums.Kit}' is unknown. Use {Join(Audio.Lofi.DrumKits)}.");
