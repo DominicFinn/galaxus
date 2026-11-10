@@ -22,6 +22,7 @@ public static class GameInput
     public const string Help = "help";
     public const string Dock = "dock", Map = "map", MatchSpeed = "match_speed", SystemMapKey = "system_map", Cruise = "cruise";
     public const string Quit = "quit";
+    public const string TimeFaster = "time_faster", TimeSlower = "time_slower";
 
     public static void Register()
     {
@@ -54,6 +55,8 @@ public static class GameInput
         Bind(SystemMapKey, keys: [Key.N]);
         Bind(Cruise, keys: [Key.J]);
         Bind(Quit, keys: [Key.F10]);
+        Bind(TimeFaster, keys: [Key.Period]);
+        Bind(TimeSlower, keys: [Key.Comma]);
     }
 
     private static void Bind(string action, Key[]? keys = null, JoyButton[]? buttons = null,

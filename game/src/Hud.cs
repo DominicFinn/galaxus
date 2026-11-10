@@ -287,6 +287,7 @@ public partial class Hud : Control
             "M / START                     galaxy map",
             "N                             system map: set a course",
             "J                             cruise drive on and off",
+            ".  ,                          speed time up, slow it down",
             "ESC                           pause menu, save and load      F10  quit",
         ];
         var rect = new Rect2(size.X / 2 - 200, 70, 400, lines.Length * 11 + 16);

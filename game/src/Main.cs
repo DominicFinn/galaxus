@@ -249,6 +249,7 @@ public partial class Main : Node3D
     {
         var here = _session.Here;
         _dockedPort = null;
+        _timeWarp = 1;
         _space?.QueueFree();
         _space = new Space();
         AddChild(_space);
@@ -314,6 +315,7 @@ public partial class Main : Node3D
 
     private void Dock()
     {
+        _timeWarp = 1;
         _stationScreen.Port = _dockedPort?.Name;
         _stationScreen.Refresh();
         SetScreen(Screen.Docked);
@@ -470,32 +472,41 @@ public partial class Main : Node3D
         if (_demo) DemoPilot(dt);
         else if (_holdStill) _player.Controls.Flight = new Galaxus.Core.Flight.FlightInput { Assist = true };
         else ReadFlightControls(dt);
-        if (!_cruising)
-            foreach (var (drone, brain) in _drones)
-            {
-                // Drones loosely follow the player so there's always something nearby to shoot.
-                brain.Anchor = NVector3.Lerp(brain.Anchor, _player.Body.Position + _player.Body.Forward * 450, dt * 0.2f);
-                brain.Think(drone, dt);
-            }
+        // Time acceleration runs the simulation several times a frame, so physics, the autopilot and
+        // collisions stay exactly as they would at normal speed.
+        int steps = _timeWarp;
+        for (int step = 0; step < steps; step++)
+        {
+            if (!_cruising)
+                foreach (var (drone, brain) in _drones)
+                {
+                    // Drones loosely follow the player so there's always something nearby to shoot.
+                    brain.Anchor = NVector3.Lerp(brain.Anchor, _player.Body.Position + _player.Body.Forward * 450, dt * 0.2f);
+                    brain.Think(drone, dt);
+                }
 
-        if (_cruising)
-        {
-            // In cruise the ship only turns; the system moves past instead.
-            StepCruise(dt);
-            _player.Controls.Fire = false;
-            _player.Controls.Flight.Throttle = 0;
-            foreach (var drone in _drones.Keys) drone.Body.Position = new NVector3(0, 1e7f, 0);
+            if (_cruising)
+            {
+                // In cruise the ship only turns; the system moves past instead.
+                StepCruise(dt);
+                _player.Controls.Fire = false;
+                _player.Controls.Flight.Throttle = 0;
+                foreach (var drone in _drones.Keys) drone.Body.Position = new NVector3(0, 1e7f, 0);
+            }
+            ApplyGravity(dt);
+            _world.Step(dt);
+            if (_cruising)
+            {
+                _player.Body.Position = NVector3.Zero;
+                _player.Body.Velocity = NVector3.Zero;
+            }
+            HandleEvents();
+            CheckCollisions();
+            HandleRespawns(dt);
+            _fightCooldown = Mathf.Max(0, _fightCooldown - dt);
+            if (_timeWarp > 1 && WarpBlocker() is { } reason) SetWarp(1, reason);
+            if (_timeWarp == 1) break;
         }
-        ApplyGravity(dt);
-        _world.Step(dt);
-        if (_cruising)
-        {
-            _player.Body.Position = NVector3.Zero;
-            _player.Body.Velocity = NVector3.Zero;
-        }
-        HandleEvents();
-        CheckCollisions();
-        HandleRespawns(dt);
 
         _effects.SyncBolts(_world.Projectiles);
         foreach (var visual in _visuals.Values) visual.Sync();
@@ -559,6 +570,8 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
         if (Input.IsActionJustPressed(GameInput.SystemMapKey)) { OpenSystemMap(); return; }
         if (Input.IsActionJustPressed(GameInput.Cruise)) ToggleCruise();
+        if (Input.IsActionJustPressed(GameInput.TimeFaster)) ChangeWarp(+1);
+        if (Input.IsActionJustPressed(GameInput.TimeSlower)) ChangeWarp(-1);
         if (Input.IsActionJustPressed(GameInput.MatchSpeed) && _player.Target is { Alive: true } match)
         {
             // Match the target's speed, so closing in is a matter of a little extra throttle.
@@ -648,6 +661,7 @@ public partial class Main : Node3D
             switch (e)
             {
                 case ShotFired fired:
+                    if (fired.Projectile.Owner == _player) _fightCooldown = 8;
                     _effects.AddBolt(fired.Projectile);
                     AudioManager.Instance?.Laser(fired.Projectile.Position.ToGodot(), fired.Projectile.Owner.Spec.Builder.Race,
                         fired.Projectile.Velocity.Length(), fired.Projectile.Damage);
@@ -656,6 +670,7 @@ public partial class Main : Node3D
                     _effects.RemoveBolt(expired.Projectile);
                     break;
                 case ShipHit hit:
+                    if (hit.Ship == _player || hit.Projectile.Owner == _player) _fightCooldown = 8;
                     _effects.RemoveBolt(hit.Projectile);
                     if (hit.Damage.ToHull > 0) { _effects.HullSpark(hit.Point.ToGodot()); AudioManager.Instance?.HullHit(hit.Point.ToGodot()); }
                     else { _effects.ShieldFlash(hit.Ship.Body.Position.ToGodot(), hit.Ship.Spec.Radius); AudioManager.Instance?.ShieldHit(hit.Point.ToGodot()); }

@@ -175,6 +175,7 @@ public partial class Main
     private void DropFromCruise()
     {
         _cruising = false;
+        SetWarp(1, "");
         var forward = _player.Body.Forward;
         if (_navTarget == NavStation || DistanceKm(_cruiseKm, _stationKm) < 50)
         {
@@ -444,8 +445,20 @@ public partial class Main
         if (!_landed)
         {
             _landed = true;
+            SetWarp(1, "");
             _hud.Message(ground.Wet ? $"SPLASHDOWN ON {name}" : $"TOUCHDOWN ON {name}");
         }
+    }
+
+    /// <summary>Your height above the ground of the world you're low over, or null if you're not low over one.</summary>
+    private double? HeightAboveGroundKm()
+    {
+        if (_surface == null) return null;
+        var here = PlayerKm;
+        var centre = _solar.PositionKm(_surface.BodyIndex, Day);
+        var up = Normalised((here.X - centre.X, here.Y - centre.Y, here.Z - centre.Z));
+        double altitude = DistanceKm(here, centre) - _solar.RadiusKm(_surface.BodyIndex);
+        return altitude - _surface.GroundKm(new NVector3((float)up.X, (float)up.Y, (float)up.Z));
     }
 
     /// <summary>Your ship is lost. After a moment you're patched up and put back beside the station.</summary>
@@ -455,6 +468,7 @@ public partial class Main
         _effects.Explosion(_player.Body.Position.ToGodot(), _player.Body.Velocity.ToGodot(), _player.Spec.Radius);
         AudioManager.Instance?.Explosion(_player.Body.Position.ToGodot());
         _hud.Message(reason);
+        SetWarp(1, "");
         _crashed = true;
         _player.Target = null;
         _respawnTimers[_player] = RespawnDelay;
@@ -553,7 +567,7 @@ public partial class Main
         if (target is { } t)
         {
             double d = DistanceKm(PlayerKm, t);
-            string eta = _cruising && _cruiseSpeed > 1 ? $"  ETA {Math.Max(1, d / Math.Max(_cruiseSpeed, 1)):0} S" : "";
+            string eta = _cruising && _cruiseSpeed > 1 ? $"  ETA {Math.Max(1, d / Math.Max(_cruiseSpeed, 1) / _timeWarp):0} S" : "";
             status = $"{status}{(status == "" ? "" : "   ")}{NavName.ToUpperInvariant()} {FormatDistance(d)}{eta}";
             _hud.NavPoint = WorldPointTowards(t);
             _hud.NavLabel = NavName.ToUpperInvariant();
@@ -577,6 +591,7 @@ public partial class Main
                 status = $"{status}{(status == "" ? "" : "   ")}ALT {FormatDistance(Math.Max(0, altitude - ground))}   GRAV {gees:0.00}G";
             }
         }
+        if (_timeWarp > 1) status = $"TIME x{_timeWarp}   {status}";
         _hud.Cruise = status;
     }
 

@@ -22,7 +22,7 @@ Every system has its own star and main world: gas giants with rings, airless cra
 
 Every system follows real astronomy. Its star has a real spectral class (mostly red and orange dwarfs, with yellow, white and the odd blue giant) with matching mass and brightness. Planets are spaced outwards and their type follows their temperature: molten worlds close in, Earth-like and ocean worlds in the habitable zone, gas and ice giants beyond the frost line, with moons and asteroid belts. Orbits follow Kepler's laws, so planets move round as the days pass. Settled worlds have names; the rest keep catalogue numbers.
 
-You fly inside the real system. Planets are drawn at their true apparent size and grow as you approach, and the light comes from the actual star. Set a course on the system map (N) and engage the cruise drive (J). With a course set it flies itself: it turns you to the target, builds to many times light speed once you're lined up, and drops you out beside your destination. Take the stick and you're flying again until you let go.
+You fly inside the real system. Planets are drawn at their true apparent size and grow as you approach, and the light comes from the actual star. Set a course on the system map (N) and engage the cruise drive (J). With a course set it flies itself: it turns you to the target, builds to many times light speed once you're lined up, and drops you out beside your destination. Take the stick and you're flying again until you let go. Long trips can be sped up to 20 times with the full stop key, and time drops back to normal by itself when you're in a fight, near a dock, low over the ground or arriving.
 
 ![Arriving in orbit of a world under a red dwarf](docs/screenshots/arrival.png)
 
