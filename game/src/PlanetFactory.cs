@@ -84,6 +84,46 @@ public static class PlanetFactory
         };
     }
 
+    /// <summary>
+    /// A real body in a system, at radius 1: solid worlds coloured and shaped by their terrain, so the
+    /// continents, seas and mountains you see from orbit are the ones you'll fly down to.
+    /// </summary>
+    public static Node3D BuildBody(Galaxus.Core.Galaxy.Body body, FlatMeshBuilder? triangles = null)
+    {
+        triangles ??= BodyTriangles(body);
+        if (triangles == null) return BuildPlanet(FromBody(body.Kind), new Rng(body.Seed), unit: true);
+        var mesh = new ArrayMesh();
+        triangles.AddTo(mesh, MeshFactory.LitMaterial);
+        var root = new Node3D();
+        root.AddChild(new MeshInstance3D { Mesh = mesh });
+        if (Atmosphere(FromBody(body.Kind)) is { } air)
+            root.AddChild(new MeshInstance3D { Mesh = AtmosphereMesh(1.06f, air) });
+        return root;
+    }
+
+    /// <summary>
+    /// The surface triangles for a solid body, or null for giants. Doesn't touch the engine, so many
+    /// bodies can be built at once on worker threads.
+    /// </summary>
+    public static FlatMeshBuilder? BodyTriangles(Galaxus.Core.Galaxy.Body body)
+    {
+        var terrain = new Galaxus.Core.Galaxy.PlanetTerrain(body);
+        if (!terrain.Solid) return null;
+        // Relief is raised well above true height so mountains show at the day and night line.
+        float exaggerate = 12f / (float)terrain.RadiusKm;
+        return MeshFactory.IcosphereTriangles(1, body.IsMoon ? 4 : 5,
+            dir =>
+            {
+                var t = terrain.Sample(new System.Numerics.Vector3(dir.X, dir.Y, dir.Z));
+                return new Color(t.R, t.G, t.B);
+            },
+            dir =>
+            {
+                var t = terrain.Sample(new System.Numerics.Vector3(dir.X, dir.Y, dir.Z));
+                return t.Wet ? 0 : Mathf.Max(0, t.HeightKm) * exaggerate;
+            });
+    }
+
     /// <summary>The planet node: surface, optional atmosphere shell, optional rings, and moons.</summary>
     /// <param name="unit">Build at radius 1 with no decorative moons, for real bodies the game scales itself.</param>
     public static Node3D BuildPlanet(PlanetKind kind, Rng rng, bool unit = false)
@@ -214,7 +254,7 @@ public static class PlanetFactory
         return 0;
     }
 
-    private static Color? Atmosphere(PlanetKind kind) => kind switch
+    public static Color? Atmosphere(PlanetKind kind) => kind switch
     {
         PlanetKind.Terran or PlanetKind.Ocean => new Color(0.45f, 0.65f, 1f, 0.28f),
         PlanetKind.Desert => new Color(0.95f, 0.7f, 0.45f, 0.18f),

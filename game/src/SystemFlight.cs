@@ -41,6 +41,9 @@ public partial class Main
     {
         foreach (var (_, node) in _bodyNodes) if (IsInstanceValid(node)) node.QueueFree();
         _bodyNodes.Clear();
+        _surface?.QueueFree();
+        _surface = null;
+        _terrains.Clear();
         if (_starNode != null && IsInstanceValid(_starNode)) _starNode.QueueFree();
         _starNode = null;
 
@@ -49,11 +52,18 @@ public partial class Main
         _starNode = new MeshInstance3D { Mesh = MeshFactory.Icosphere(1, 3, _ => disc, MeshFactory.Unshaded(disc)) };
         AddChild(_starNode);
 
+        // Terrain sampling is the slow part, so every body's surface is built at once across the cores.
+        var bodies = _solar.Bodies;
+        var triangles = new FlatMeshBuilder?[bodies.Count];
+        System.Threading.Tasks.Parallel.For(0, bodies.Count, i =>
+        {
+            if (bodies[i].Kind != BodyKind.Belt) triangles[i] = PlanetFactory.BodyTriangles(bodies[i]);
+        });
         for (int i = 0; i < _solar.Bodies.Count; i++)
         {
             var body = _solar.Bodies[i];
             if (body.Kind == BodyKind.Belt) continue;
-            var node = PlanetFactory.BuildPlanet(PlanetFactory.FromBody(body.Kind), new Rng(body.Seed), unit: true);
+            var node = PlanetFactory.BuildBody(body, triangles[i]);
             AddChild(node);
             _bodyNodes.Add((i, node));
         }
@@ -97,6 +107,37 @@ public partial class Main
         Place(_starNode!, (0, 0, 0), _solar.StarRadiusKm);
         foreach (var (index, node) in _bodyNodes) Place(node, _solar.PositionKm(index, Day), _solar.RadiusKm(index));
 
+        // Low over a world, draw it at true scale with terrain around you.
+        var (low, altitude) = NearestSolid(player);
+        bool surfaceMode = low >= 0 && altitude < SurfaceModeKm(low);
+        if (surfaceMode && _surface?.BodyIndex != low)
+        {
+            _surface?.QueueFree();
+            _surface = new PlanetSurface(low, _solar.Bodies[low]);
+            AddChild(_surface);
+        }
+        else if (!surfaceMode && _surface != null)
+        {
+            _surface.QueueFree();
+            _surface = null;
+        }
+        foreach (var (index, node) in _bodyNodes) node.Visible = !(surfaceMode && index == low && _surface!.Ready);
+        _surface?.UpdateView(_solar.PositionKm(low, Day), player, eye);
+
+        // In a world's air: haze and a sky that brightens with the sun.
+        float air = 0, daylight = 0;
+        Color airColour = Colors.Black;
+        if (surfaceMode && PlanetFactory.Atmosphere(PlanetFactory.FromBody(_solar.Bodies[low].Kind)) is { } c)
+        {
+            var centre = _solar.PositionKm(low, Day);
+            var up = Normalised((player.X - centre.X, player.Y - centre.Y, player.Z - centre.Z));
+            var sunward = Normalised((-player.X, -player.Y, -player.Z));
+            daylight = Mathf.Clamp((float)(up.X * sunward.X + up.Y * sunward.Y + up.Z * sunward.Z) * 2.5f + 0.3f, 0, 1);
+            air = Mathf.Clamp(1 - (float)altitude / 120f, 0, 1);
+            airColour = new Color(c.R, c.G, c.B);
+        }
+        _space.SetAir(airColour, air, daylight);
+
         var toStar = new Vector3((float)-player.X, (float)-player.Y, (float)-player.Z);
         var (_, light, energy, _) = PlanetFactory.StarLook(PlanetFactory.FromStar(_solar.Star.Class));
         _space.FaceStar(toStar, light, energy);
@@ -117,6 +158,8 @@ public partial class Main
         _cruiseKm = PlayerKm;
         _cruising = true;
         _cruiseSpeed = 30;
+        _landed = false;
+        _ignoreTargetDrop = NavTargetKm() is { } navAt && _navTarget >= 0 && DistanceKm(_cruiseKm, navAt) < CourseDropKm();
         _player.Target = null;
         foreach (var drone in _drones.Keys) _visuals[drone].Visible = false;
         foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
@@ -154,11 +197,14 @@ public partial class Main
     {
         var target = NavTargetKm();
         double distance = target is { } t ? DistanceKm(_cruiseKm, t) : double.MaxValue;
-        double dropAt = _navTarget == NavStation ? StationDropKm * 2 : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
+        double dropAt = CourseDropKm();
 
         double wanted = target != null
             ? Math.Clamp((distance - dropAt) / 4.0, 20, MaxCruiseKmS)
             : Math.Max(0.05f, _throttle) * 2_000_000;
+        // Near a world, cruise slows with height so you can come down to the ground.
+        var (near, altitude) = NearestSolid(_cruiseKm);
+        if (near >= 0) wanted = Math.Min(wanted, Math.Max(1.5, altitude * 2.5));
         _cruiseSpeed = wanted > _cruiseSpeed ? Math.Min(wanted, _cruiseSpeed * (1 + 2.4 * dt) + 5) : wanted;
 
         // With a course set, the ship turns towards it unless you're steering.
@@ -175,10 +221,13 @@ public partial class Main
         var forward = _player.Body.Forward;
         var next = (_cruiseKm.X + forward.X * _cruiseSpeed * dt, _cruiseKm.Y + forward.Y * _cruiseSpeed * dt, _cruiseKm.Z + forward.Z * _cruiseSpeed * dt);
         // A course target is dropped at further out than the safety margin, so it's handled first.
-        if (target != null && distance < dropAt) { DropFromCruise(); return; }
+        if (target != null && distance < dropAt && !_ignoreTargetDrop) { DropFromCruise(); return; }
         if (CruiseBlocked(_cruiseKm, next)) return;
         _cruiseKm = next;
     }
+
+    private double CourseDropKm() =>
+        _navTarget == NavStation ? StationDropKm * 2 : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
 
     private (double X, double Y, double Z)? NavTargetKm() => _navTarget switch
     {
@@ -199,9 +248,43 @@ public partial class Main
 
     private bool _crashed;
     private bool _lowWarned;
+    private bool _landed;
+    /// <summary>Set when cruise starts inside the course's drop distance, so it carries on towards the ground.</summary>
+    private bool _ignoreTargetDrop;
+    private PlanetSurface? _surface;
+    private readonly Dictionary<int, PlanetTerrain> _terrains = [];
+
+    private PlanetTerrain TerrainOf(int index)
+    {
+        if (!_terrains.TryGetValue(index, out var terrain)) _terrains[index] = terrain = new PlanetTerrain(_solar.Bodies[index]);
+        return terrain;
+    }
+
+    /// <summary>Below this height a world is drawn at true scale with terrain around you.</summary>
+    private double SurfaceModeKm(int index) => Math.Min(_solar.RadiusKm(index) * 0.6, 3000);
+
+    /// <summary>The solid body you're closest to the surface of, and your height above its datum.</summary>
+    private (int Index, double AltitudeKm) NearestSolid((double X, double Y, double Z) at)
+    {
+        int best = -1;
+        double lowest = double.MaxValue;
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+        {
+            var kind = _solar.Bodies[i].Kind;
+            if (kind is BodyKind.Belt or BodyKind.GasGiant or BodyKind.IceGiant) continue;
+            double altitude = DistanceKm(at, _solar.PositionKm(i, Day)) - _solar.RadiusKm(i);
+            if (altitude < lowest) { lowest = altitude; best = i; }
+        }
+        return (best, lowest);
+    }
 
     /// <summary>How close cruise lets you get to a body before dropping you out: a margin above the surface.</summary>
-    private double CruiseSafetyKm(int index) => _solar.RadiusKm(index) + Math.Max(_solar.RadiusKm(index) * 0.15, 300);
+    private double CruiseSafetyKm(int index)
+    {
+        var body = _solar.Bodies[index];
+        if (body.Kind is BodyKind.GasGiant or BodyKind.IceGiant) return _solar.RadiusKm(index) + Math.Max(_solar.RadiusKm(index) * 0.15, 300);
+        return _solar.RadiusKm(index) + TerrainOf(index).MaxHeightKm + 5;
+    }
 
     /// <summary>
     /// Stops a cruise move short of anything in the way. Checks the whole move, so a fast frame can't
@@ -256,18 +339,47 @@ public partial class Main
         }
 
         var here = PlayerKm;
-        double lowest = double.MaxValue;
-        string lowestName = "";
-        for (int i = 0; i < _solar.Bodies.Count; i++)
-        {
-            if (_solar.Bodies[i].Kind == BodyKind.Belt) continue;
-            double altitude = DistanceKm(here, _solar.PositionKm(i, Day)) - _solar.RadiusKm(i);
-            if (altitude < lowest) { lowest = altitude; lowestName = _solar.Bodies[i].Name; }
-        }
         if (DistanceKm(here, (0, 0, 0)) < _solar.StarRadiusKm * 1.05) { Crash("BURNED UP IN THE STAR"); return; }
-        if (lowest < 0) { Crash($"CRASHED INTO {lowestName.ToUpperInvariant()}"); return; }
-        if (lowest < 20 && !_lowWarned) { _hud.Message($"WARNING: {lowestName.ToUpperInvariant()} {FormatDistance(lowest)} BELOW"); _lowWarned = true; }
-        if (lowest > 40) _lowWarned = false;
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+            if (_solar.Bodies[i].Kind is BodyKind.GasGiant or BodyKind.IceGiant
+                && DistanceKm(here, _solar.PositionKm(i, Day)) < _solar.RadiusKm(i) * 0.98)
+            { Crash($"CRUSHED IN THE ATMOSPHERE OF {_solar.Bodies[i].Name.ToUpperInvariant()}"); return; }
+
+        var (index, datumKm) = NearestSolid(here);
+        if (index < 0 || datumKm > TerrainOf(index).MaxHeightKm + 2) { _landed = false; return; }
+
+        // Close to the ground: check against the real terrain below.
+        var centre = _solar.PositionKm(index, Day);
+        var upD = Normalised((here.X - centre.X, here.Y - centre.Y, here.Z - centre.Z));
+        var up = new NVector3((float)upD.X, (float)upD.Y, (float)upD.Z);
+        var ground = TerrainOf(index).Sample(up);
+        double groundKm = ground.Wet ? 0 : ground.HeightKm;
+        double heightM = (datumKm - groundKm) * 1000 - _player.Spec.Radius;
+        string name = _solar.Bodies[index].Name.ToUpperInvariant();
+        if (heightM < 300 && !_lowWarned && !_landed) { _hud.Message($"WARNING: GROUND {heightM:0} M BELOW"); _lowWarned = true; }
+        if (heightM > 600) _lowWarned = false;
+        if (heightM >= 0) { if (heightM > 5) _landed = false; return; }
+
+        float descent = -NVector3.Dot(_player.Body.Velocity, up);
+        if (descent > 25 || (ground.Wet && descent > 8))
+        {
+            Crash(ground.Ground switch
+            {
+                Ground.Lava => $"LOST IN THE LAVA OF {name}",
+                Ground.Sea or Ground.DeepSea => $"CRASHED INTO THE SEA ON {name}",
+                _ => $"CRASHED INTO {name}",
+            });
+            return;
+        }
+        // A gentle touchdown: stand on the ground, sliding to a stop.
+        _player.Body.Position += up * (float)-heightM;
+        if (descent > 0) _player.Body.Velocity += up * descent;
+        _player.Body.Velocity *= 0.9f;
+        if (!_landed)
+        {
+            _landed = true;
+            _hud.Message(ground.Wet ? $"SPLASHDOWN ON {name}" : $"TOUCHDOWN ON {name}");
+        }
     }
 
     /// <summary>Your ship is lost. After a moment you're patched up and put back beside the station.</summary>
@@ -310,6 +422,19 @@ public partial class Main
         {
             _hud.NavPoint = null;
             if (!_cruising) status = "N SYSTEM MAP   J CRUISE";
+        }
+        if (_surface != null)
+        {
+            var here = PlayerKm;
+            var (low, altitude) = NearestSolid(here);
+            if (low == _surface.BodyIndex)
+            {
+                // Height above the ground below, not above sea level.
+                var centre = _solar.PositionKm(low, Day);
+                var up = Normalised((here.X - centre.X, here.Y - centre.Y, here.Z - centre.Z));
+                double ground = _surface.GroundKm(new NVector3((float)up.X, (float)up.Y, (float)up.Z));
+                status = $"{status}{(status == "" ? "" : "   ")}ALT {FormatDistance(Math.Max(0, altitude - ground))}";
+            }
         }
         _hud.Cruise = status;
     }

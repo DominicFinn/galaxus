@@ -1,0 +1,105 @@
+// EXAMPLE MOD. Text for the three missions. Each needs title, briefing, success and failure.
+// "#voice:opener#" and friends pull in the client race's own way of speaking.
+[
+  {
+    "id": "eft-mission-pooled-hold",
+    "description": "Carrying a cooperative's pooled goods.",
+    "variables": ["client", "faction", "destination", "cargo", "tonnes", "reward", "deadline"],
+    "rules": {
+      "title": ["Pooled hold for {destination}", "{tonnes} t of {cargo} for the cooperative", "A shared load to {destination}"],
+      "scene": [
+        "The members each put a few tonnes in one hold so that nobody pays for a full ship.",
+        "Eight small captains, one shared order, and a hold with exactly enough room.",
+        "The cooperative bought {cargo} together. Now it needs someone to carry it."
+      ],
+      "task": [
+        "Take {tonnes} t of {cargo} to {destination} within {deadline}.",
+        "Deliver the {cargo} to {destination}, split between the members there, inside {deadline}.",
+        "Haul {tonnes} t of {cargo} to {destination}. {deadline}, and every member is counting."
+      ],
+      "note": [
+        "Every crate is labelled with its owner. Please don't mix them up.",
+        "The books are open if you'd like to see them. Most carriers don't ask.",
+        "Nobody here can afford to lose a share, so go carefully."
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #voice:payment#",
+        "#voice:opener# #task# #note# #voice:payment# #voice:closer#",
+        "#voice:opener# #scene# #task# #note# #voice:payment#"
+      ],
+      "success": [
+        "The members collect their shares and check each label twice. {faction} pays {reward}.",
+        "Every crate reaches its owner. {faction} pays {reward} and offers you a seat at the table.",
+        "The count is right, which pleases the cooperative more than the {cargo}. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The hold arrived late and half the members had already sold their shares on. {faction} pays nothing.",
+        "The count was short and the arguing will take longer than the flight did. {faction} withholds {reward}.",
+        "{faction} lost the shared order, and now has to divide the loss among its members. Nobody is pleased."
+      ]
+    }
+  },
+  {
+    "id": "eft-mission-beacon-parts",
+    "description": "Carrying spare parts to a volunteer beacon crew.",
+    "variables": ["client", "faction", "destination", "reward", "deadline", "system"],
+    "rules": {
+      "title": ["Parts for a failing beacon", "Spares for the beacon at {destination}", "Keep the lamp lit"],
+      "scene": [
+        "The beacon at {destination} has been dimming for a month and the owners haven't answered a single message.",
+        "Half the traffic through {destination} steers by one beacon, and it is running on a patched power cell.",
+        "Nobody remembers who owns the beacon at {destination}. The volunteers are the ones who climb it."
+      ],
+      "task": [
+        "Carry a sealed crate of spares to {destination} within {deadline}.",
+        "Bring the spare parts to {destination} in {deadline}. They are small and they are fragile.",
+        "Get this crate to the crew at {destination} before the beacon fails. {deadline}."
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #voice:payment#",
+        "#voice:opener# #scene# #task# #voice:urgency# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The crew fits the new cell before you've left the dock, and the beacon comes up steady. {faction} pays {reward}.",
+        "Ships are using the beacon again by the evening. {faction} pays {reward}.",
+        "The volunteers cheer, which is a lot of noise for six people. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The beacon went dark before the crate arrived. {faction} pays nothing and puts a lamp in the window.",
+        "The parts reached {destination} too late to matter. {faction} withholds {reward}.",
+        "The crate was damaged on the way, and the cell inside no longer holds a charge. {faction} pays nothing."
+      ]
+    }
+  },
+  {
+    "id": "eft-mission-toll-relief",
+    "description": "Supplies for a port that the toll dispute has left short.",
+    "variables": ["client", "faction", "destination", "cargo", "tonnes", "reward", "deadline", "system"],
+    "rules": {
+      "title": ["Supplies past the toll", "Stock for {destination}", "{tonnes} t of {cargo} for a short port"],
+      "scene": [
+        "The toll dispute has kept the haulers away and {destination} is running out of everyday goods.",
+        "Free captains are refusing to pay the new fee, so {destination} is getting nothing.",
+        "The shops at {destination} are half empty, and the cooperative would rather help than gloat."
+      ],
+      "task": [
+        "Bring {tonnes} t of {cargo} to {destination} within {deadline}. The cooperative will cover the fee.",
+        "Deliver {tonnes} t of {cargo} to {destination} in {deadline}.",
+        "Run {tonnes} t of {cargo} to {destination}. You'll pay no toll, because we've settled it."
+      ],
+      "briefing": [
+        "#voice:opener# #scene# #task# #voice:payment#",
+        "#voice:opener# #task# #scene# #voice:warning# #voice:payment#"
+      ],
+      "success": [
+        "The shelves at {destination} fill again. {faction} pays {reward}.",
+        "The goods are unloaded without a word about tolls. {faction} pays {reward}.",
+        "Word gets round the port that the cooperative came through. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The stock arrived after the dispute had moved on. {faction} pays nothing.",
+        "The shortfall at {destination} got worse. {faction} withholds {reward}."
+      ]
+    }
+  }
+]

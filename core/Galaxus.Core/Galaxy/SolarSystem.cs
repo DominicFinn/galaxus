@@ -48,8 +48,11 @@ public sealed record Body(
     public bool IsMoon => Parent >= 0;
 }
 
-/// <summary>A station and the body it orbits.</summary>
-public sealed record StationSite(string Name, int Body);
+/// <summary>
+/// A station and the body it belongs to: in orbit, or a surface port standing on the ground at
+/// <see cref="Site"/>, a direction from the body's centre.
+/// </summary>
+public sealed record StationSite(string Name, int Body, bool Surface = false, System.Numerics.Vector3 Site = default);
 
 public sealed record SolarSystem(Star Star, List<Body> Bodies, List<StationSite> Stations)
 {
@@ -231,7 +234,15 @@ public static class SolarSystems
             if (index < 0) index = Pick(b => !b.IsMoon && b.Kind is not (BodyKind.GasGiant or BodyKind.IceGiant or BodyKind.Belt));
             if (index < 0) index = Pick(b => !b.IsMoon);
             if (index < 0) index = 0;
-            sites.Add(new StationSite(name, index));
+            // The first station is always in orbit, where you arrive. Later ones on solid worlds are
+            // often surface ports, put on flat dry ground.
+            var body = bodies[index];
+            var terrain = new PlanetTerrain(body);
+            var portRng = rng.Fork("port-" + name);
+            if (sites.Count > 0 && terrain.Solid && body.Kind != BodyKind.Molten && portRng.NextFloat() < 0.7f)
+                sites.Add(new StationSite(name, index, true, terrain.FindPortSite(portRng)));
+            else
+                sites.Add(new StationSite(name, index));
         }
         return sites;
 

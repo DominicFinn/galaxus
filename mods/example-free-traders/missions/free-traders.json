@@ -1,0 +1,48 @@
+// EXAMPLE MOD. Mission templates. "givers" are faction type ids; these use the example's own two.
+[
+  {
+    "id": "eft-pooled-hold",
+    "name": "Pooled hold",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": ["eft-lane-cooperative"],
+    "events": [],
+    "cargoCategories": ["food", "consumer", "machinery"],
+    "minRank": 0,
+    "baseReward": 3200,
+    "complications": ["ambush-on-route", "extra-stop-extra-pickup", "client-lies-money", "deadline-gate-queue"],
+    "followUps": [],
+    "textGrammar": "eft-mission-pooled-hold"
+  },
+  {
+    "id": "eft-beacon-parts",
+    "name": "Beacon spares",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": ["eft-beacon-keepers"],
+    "events": [],
+    "cargoCategories": ["machinery"],
+    "minRank": 0,
+    "baseReward": 2200,
+    "complications": ["bad-intel-stale-charts", "deadline-client-panics", "rim-signal-interference"],
+    "followUps": [],
+    "textGrammar": "eft-mission-beacon-parts"
+  },
+  {
+    "id": "eft-toll-relief",
+    "name": "Toll dispute relief",
+    "type": "delivery",
+    "scale": "small",
+    "legal": true,
+    "givers": ["eft-lane-cooperative"],
+    "events": ["eft-toll-dispute"],
+    "cargoCategories": ["food", "consumer"],
+    "minRank": 0,
+    "baseReward": 3800,
+    "complications": ["cargo-is-stolen", "rival-bid-outbid", "deadline-gate-queue"],
+    "followUps": [],
+    "textGrammar": "eft-mission-toll-relief"
+  }
+]

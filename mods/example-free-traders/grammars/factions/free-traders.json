@@ -1,0 +1,35 @@
+// EXAMPLE MOD. Name grammars for the two faction types. Faction names get {place}, {founder} and {race}.
+[
+  {
+    "id": "eft-names-lane-cooperative",
+    "description": "Names for lane cooperatives.",
+    "variables": ["place", "founder"],
+    "rules": {
+      "name": [
+        "#lane# #kind#",
+        "#lane# #kind#",
+        "{place} #kind#",
+        "{place} #lane# #kind#",
+        "The #lane# Hands",
+        "{founder}'s #kind#"
+      ],
+      "lane": ["Open Lane", "Free Lane", "Long Haul", "Common Hold", "Shared Hold", "Square Deal", "Fair Berth", "Plain Rate"],
+      "kind": ["Cooperative", "Cooperative", "Haulers' Cooperative", "Mutual", "Captains' Mutual", "Owners' Table"]
+    }
+  },
+  {
+    "id": "eft-names-beacon-keepers",
+    "description": "Names for beacon keeper outfits.",
+    "variables": ["place"],
+    "rules": {
+      "name": [
+        "#light# #kind#",
+        "{place} #kind#",
+        "{place} #light# #kind#",
+        "The #light# Watch"
+      ],
+      "light": ["Steady Light", "Lamp and Lane", "Low Beacon", "Kept Light", "Patient Lamp", "Last Lamp"],
+      "kind": ["Keepers", "Beacon Keepers", "Volunteers", "Relay Society", "Maintenance Society"]
+    }
+  }
+]

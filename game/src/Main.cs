@@ -82,7 +82,8 @@ public partial class Main : Node3D
         try
         {
             // The preview only needs one hull, so it shouldn't be blocked by problems elsewhere.
-            _db = ContentDatabase.Load(new GodotContentSource(), throwOnProblems: _previewHull == null);
+            _db = ModDiscovery.Load(new GodotContentSource(), ModRoots.Find(), throwOnProblems: _previewHull == null);
+            foreach (var mod in _db.LoadedMods) GD.Print($"Loaded mod: {mod}");
             foreach (var problem in _db.Problems) GD.Print($"Content problem: {problem}");
         }
         catch (ContentException e)
@@ -463,7 +464,9 @@ public partial class Main : Node3D
         }
 
         HandleCommands();
-        if (_demo) DemoPilot(dt); else ReadFlightControls(dt);
+        if (_demo) DemoPilot(dt);
+        else if (_holdStill) _player.Controls.Flight = new Galaxus.Core.Flight.FlightInput { Assist = true };
+        else ReadFlightControls(dt);
         if (!_cruising)
             foreach (var (drone, brain) in _drones)
             {

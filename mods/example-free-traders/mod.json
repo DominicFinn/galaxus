@@ -1,0 +1,7 @@
+{
+  "name": "Example: Free Traders",
+  "author": "Galaxus team",
+  "description": "EXAMPLE MOD. Shows how to add minor factions, missions, an event and extra grammar options. Copy this folder to start your own, or set \"enabled\": false to switch it off.",
+  "version": "1.0.0",
+  "enabled": true
+}

@@ -1,0 +1,23 @@
+// EXAMPLE MOD. News lines for the toll dispute. Events need start, ongoing and end.
+{
+  "id": "eft-news-toll-dispute",
+  "description": "News lines for the lane toll dispute.",
+  "variables": ["system", "faction"],
+  "rules": {
+    "start": [
+      "{system} has started charging independent haulers a lane fee. Several captains say they'll fly round it.",
+      "A new toll at {system} has the free captains muttering. {faction} calls it a reasonable cost of doing business.",
+      "Notice posted at {system}: independent traders now pay to dock. The posting is longer than the explanation."
+    ],
+    "ongoing": [
+      "Shelves at {system} are thinning as haulers avoid the new toll.",
+      "Prices for everyday goods are climbing at {system}. The port says the toll is under review. It has said so for a while.",
+      "Captains are queueing outside {system} and arguing about whether to pay."
+    ],
+    "end": [
+      "{system} has dropped its lane fee. Nobody is claiming credit.",
+      "The toll at {system} was quietly withdrawn. Traffic is expected to recover.",
+      "{faction} and the haulers have settled at {system}. Both sides say they won."
+    ]
+  }
+}

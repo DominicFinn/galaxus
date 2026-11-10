@@ -36,6 +36,27 @@ public partial class Main
                 ToggleCruise();
             }),
             new("planet-approach.png", 420, () => { }),
+            new("system-map-ports.png", 30, () =>
+            {
+                if (PortWorld() is { } port) GoTo(port.System.Id);
+                SetScreen(Screen.Flight);
+                OpenSystemMap();
+            }),
+            new("descent-high.png", 240, () =>
+            {
+                CloseSystemMap();
+                if (PortWorld() is { } port) PlaceAbove(port.Body, SunlitSite(port.Body), 260, 35);
+            }),
+            new("descent-low.png", 300, () =>
+            {
+                if (PortWorld() is { } port) PlaceAbove(port.Body, SunlitSite(port.Body), 5, 28);
+            }),
+            new("galaxy-deep-stars.png", 20, () =>
+            {
+                _holdStill = false;
+                OpenMap();
+                _map.SetView(420f, _session.Here.Position);
+            }),
             new("galaxy-map.png", 20, () =>
             {
                 _demo = false; _cockpit = false;
@@ -80,6 +101,66 @@ public partial class Main
         }
         _showcaseIndex = -1;
         _showcaseWait = 0;
+    }
+
+    /// <summary>Ignores the controls, so a fixed view isn't steered by wherever the mouse happens to be.</summary>
+    private bool _holdStill;
+
+    private (StarSystem System, int Body, System.Numerics.Vector3 Site)? _portWorld;
+
+    /// <summary>A system with a surface port on an Earth-like world, for the descent shots.</summary>
+    private (StarSystem System, int Body, System.Numerics.Vector3 Site)? PortWorld()
+    {
+        if (_portWorld != null) return _portWorld;
+        foreach (var s in _session.Galaxy.Systems.Where(s => s.Stations.Count > 1
+                     && SolarSystems.StarFor(s.Seed).Class is StarClass.G or StarClass.F or StarClass.K))
+        {
+            var solar = SolarSystems.For(s, _db.Grammars);
+            var port = solar.Stations.FirstOrDefault(p => p.Surface && solar.Bodies[p.Body].Kind == BodyKind.Terran)
+                    ?? solar.Stations.FirstOrDefault(p => p.Surface && solar.Bodies[p.Body].Kind is BodyKind.Ocean or BodyKind.Desert);
+            if (port != null) return _portWorld = (s, port.Body, port.Site);
+        }
+        return null;
+    }
+
+    /// <summary>A point on a world with the sun fairly low in the sky, so the ground shows its shape.</summary>
+    private System.Numerics.Vector3 SunlitSite(int body)
+    {
+        var c = _solar.PositionKm(body, Day);
+        var toStar = System.Numerics.Vector3.Normalize(new System.Numerics.Vector3((float)-c.X, (float)-c.Y, (float)-c.Z));
+        var side = System.Numerics.Vector3.Normalize(System.Numerics.Vector3.Cross(toStar, System.Numerics.Vector3.UnitY));
+        var start = System.Numerics.Vector3.Normalize(toStar + side * 1.1f + System.Numerics.Vector3.UnitY * 0.3f);
+        // Look nearby for land with some height to it, rather than open sea.
+        var terrain = new PlanetTerrain(_solar.Bodies[body]);
+        var rng = new Galaxus.Core.Rng(9);
+        for (int i = 0; i < 400; i++)
+        {
+            var dir = System.Numerics.Vector3.Normalize(start + new System.Numerics.Vector3(rng.Range(-1, 1), rng.Range(-1, 1), rng.Range(-1, 1)) * (0.05f + i * 0.002f));
+            var sample = terrain.Sample(dir);
+            if (!sample.Wet && sample.HeightKm > 0.8f && sample.Ground is not (Ground.Snow or Ground.Ice)) return dir;
+        }
+        return start;
+    }
+
+    /// <summary>Puts the ship above a point on a world, looking out towards the horizon.</summary>
+    private void PlaceAbove(int body, System.Numerics.Vector3 site, double altitudeKm, float pitchDownDegrees)
+    {
+        _cruising = false;
+        var centre = _solar.PositionKm(body, Day);
+        var terrain = new PlanetTerrain(_solar.Bodies[body]);
+        var sample = terrain.Sample(site);
+        double r = _solar.RadiusKm(body) + (sample.Wet ? 0 : sample.HeightKm) + altitudeKm;
+        _anchorKm = (centre.X + site.X * r, centre.Y + site.Y * r, centre.Z + site.Z * r);
+        var up = new Vector3(site.X, site.Y, site.Z).Normalized();
+        var along = up.Cross(Mathf.Abs(up.Y) < 0.9f ? Vector3.Up : Vector3.Right).Normalized();
+        var forward = along.Rotated(up.Cross(along).Normalized(), Mathf.DegToRad(pitchDownDegrees));
+        var q = Basis.LookingAt(forward, up).GetRotationQuaternion();
+        _player.Respawn(System.Numerics.Vector3.Zero, new System.Numerics.Quaternion(q.X, q.Y, q.Z, q.W));
+        _throttle = 0;
+        _player.Controls.Flight.Throttle = 0;
+        _player.Target = null;
+        _holdStill = true;
+        foreach (var drone in _drones.Keys) drone.Body.Position = new System.Numerics.Vector3(0, 1e7f, 0);
     }
 
     /// <summary>Moves the player to a system without passing time, for the tour.</summary>

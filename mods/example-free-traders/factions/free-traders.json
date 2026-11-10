@@ -1,0 +1,38 @@
+// EXAMPLE MOD. Two minor faction types. The simulation rolls actual factions from these,
+// naming each one from the grammar in grammars/factions/free-traders.json.
+[
+  {
+    "id": "eft-lane-cooperative",
+    "name": "Lane cooperative",
+    "description": "Independent captains who pool hold space, fuel buys and legal fees so that none of them has to sign with a shipping line.",
+    "races": [],
+    "tiers": ["minor"],
+    "criminal": false,
+    "traits": {
+      "aggression": [0.0, 0.2],
+      "greed": [0.3, 0.6],
+      "expansion": [0.1, 0.4],
+      "paranoia": [0.3, 0.6],
+      "honour": [0.6, 0.9],
+      "piety": [0.0, 0.2]
+    },
+    "nameGrammar": "eft-names-lane-cooperative"
+  },
+  {
+    "id": "eft-beacon-keepers",
+    "name": "Beacon keepers",
+    "description": "A volunteer outfit that maintains the nav beacons between gates when the owners have stopped paying for them. Underfunded, stubborn and well liked.",
+    "races": [],
+    "tiers": ["minor"],
+    "criminal": false,
+    "traits": {
+      "aggression": [0.0, 0.1],
+      "greed": [0.0, 0.3],
+      "expansion": [0.1, 0.3],
+      "paranoia": [0.2, 0.5],
+      "honour": [0.7, 1.0],
+      "piety": [0.2, 0.5]
+    },
+    "nameGrammar": "eft-names-beacon-keepers"
+  }
+]

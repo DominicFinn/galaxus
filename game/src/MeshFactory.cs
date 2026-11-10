@@ -154,7 +154,16 @@ public static class MeshFactory
     });
 
     /// <summary>A subdivided icosahedron, flat shaded, with a colour chosen per face.</summary>
-    public static ArrayMesh Icosphere(float radius, int subdivisions, Func<Vector3, Color> colourAt, Material? material = null)
+    /// <param name="heightAt">Optional relief: how far to push each vertex out, as a fraction of the radius.</param>
+    public static ArrayMesh Icosphere(float radius, int subdivisions, Func<Vector3, Color> colourAt, Material? material = null, Func<Vector3, float>? heightAt = null)
+    {
+        var mesh = new ArrayMesh();
+        IcosphereTriangles(radius, subdivisions, colourAt, heightAt).AddTo(mesh, material ?? LitMaterial);
+        return mesh;
+    }
+
+    /// <summary>The triangles of an icosphere, without touching the engine, so it can be built on a worker thread.</summary>
+    public static FlatMeshBuilder IcosphereTriangles(float radius, int subdivisions, Func<Vector3, Color> colourAt, Func<Vector3, float>? heightAt = null)
     {
         float t = (1f + Mathf.Sqrt(5f)) / 2f;
         var vertices = new List<Vector3>
@@ -193,15 +202,14 @@ public static class MeshFactory
             faces = next;
         }
 
+        if (heightAt != null)
+            for (int i = 0; i < vertices.Count; i++) vertices[i] *= 1 + heightAt(vertices[i]);
         var builder = new FlatMeshBuilder();
         foreach (var (a, b, c) in faces)
         {
             var centre = (vertices[a] + vertices[b] + vertices[c]) / 3f;
             builder.Triangle(vertices[a] * radius, vertices[b] * radius, vertices[c] * radius, colourAt(centre.Normalized()), Vector3.Zero);
         }
-
-        var mesh = new ArrayMesh();
-        builder.AddTo(mesh, material ?? LitMaterial);
-        return mesh;
+        return builder;
     }
 }

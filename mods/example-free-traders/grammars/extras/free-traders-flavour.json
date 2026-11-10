@@ -1,0 +1,24 @@
+// EXAMPLE MOD. A grammar with the same id as a base one ADDS to it. New rules are added and new
+// options join existing rules. Nothing already there is changed or removed.
+[
+  {
+    "id": "news-trade-boom",
+    "description": "Extra trade boom news.",
+    "variables": ["system", "faction"],
+    "rules": {
+      "ongoing": [
+        "Independent captains at {system} say the boom is real, and that the cooperatives are the only ones sharing it."
+      ]
+    }
+  },
+  {
+    "id": "news-fuel-shortage",
+    "description": "Extra fuel shortage news.",
+    "variables": ["system", "faction"],
+    "rules": {
+      "ongoing": [
+        "A volunteer beacon crew at {system} is sleeping in the tank farm to keep the pumps from being stripped."
+      ]
+    }
+  }
+]

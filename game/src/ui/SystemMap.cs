@@ -171,12 +171,14 @@ public partial class SystemMap : Control
             _ => "Desert world",
         };
         string orbit = b.IsMoon ? $"Moon of {_solar.Bodies[b.Parent].Name}, {b.Orbit * 1000:N0} km out" : $"{b.Orbit:0.00} AU from the star";
-        var stations = _solar.Stations.Where(s => s.Body == id).Select(s => s.Name).ToList();
+        var stations = _solar.Stations.Where(s => s.Body == id && !s.Surface).Select(s => s.Name).ToList();
+        var ports = _solar.Stations.Where(s => s.Body == id && s.Surface).Select(s => s.Name).ToList();
         _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{b.Name.ToUpperInvariant()}[/color]\n{kind}{(b.Habitable ? ", habitable" : "")}.\n" +
                      $"{orbit}. Year {b.PeriodDays:N0} days.\n" +
                      $"Radius {b.Radius * SolarSystem.KmPerEarthRadius:N0} km. {b.Temperature - 273:N0} °C.\n" +
                      (b.IsMoon ? "" : $"{_solar.MoonsOf(id).Count()} moons.\n") +
-                     (stations.Count > 0 ? $"Stations: {string.Join(", ", stations)}" : "");
+                     (stations.Count > 0 ? $"Stations in orbit: {string.Join(", ", stations)}\n" : "") +
+                     (ports.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]Surface ports: {string.Join(", ", ports)}[/color]" : "");
         _course.Disabled = !_current || _selected != id;
     }
 
@@ -225,7 +227,15 @@ public partial class SystemMap : Control
         }
 
         foreach (var site in _solar.Stations)
-            DrawRect(new Rect2(StationScreen(site.Body) - Vector2.One * 2, Vector2.One * 4), Ui.Green);
+        {
+            if (site.Surface)
+            {
+                // Surface ports: an amber diamond on the planet's lower left.
+                var at = BodyScreen(site.Body) + new Vector2(-7, 7);
+                DrawColoredPolygon([at + new Vector2(0, -3), at + new Vector2(3, 0), at + new Vector2(0, 3), at + new Vector2(-3, 0)], Ui.Amber);
+            }
+            else DrawRect(new Rect2(StationScreen(site.Body) - Vector2.One * 2, Vector2.One * 4), Ui.Green);
+        }
 
         if (_current)
         {

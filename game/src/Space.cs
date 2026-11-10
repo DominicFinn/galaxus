@@ -81,6 +81,25 @@ public partial class Space : Node3D
     public DirectionalLight3D Sun { get; private set; } = null!;
 
     /// <summary>Points the sunlight away from the star, as seen from the player.</summary>
+    private Godot.Environment? _environment;
+
+    /// <summary>
+    /// Air around you when low over a world: haze on distant ground and a tinted sky. Amount 0 is
+    /// space, 1 is down at the surface in daylight. Dust is hidden in air, where it would look like stars.
+    /// </summary>
+    public void SetAir(Color air, float amount, float daylight)
+    {
+        if (_environment == null) return;
+        bool on = amount > 0.01f;
+        _environment.FogEnabled = on;
+        if (_dust != null) _dust.Visible = !on;
+        if (!on) return;
+        _environment.FogLightColor = air * (0.25f + 0.75f * daylight);
+        _environment.FogLightEnergy = 1;
+        _environment.FogDensity = 0.000006f * amount;
+        _environment.FogSkyAffect = amount * (0.3f + 0.7f * daylight);
+    }
+
     public void FaceStar(Vector3 towardsStar, Color colour, float energy)
     {
         if (towardsStar.LengthSquared() < 1e-6f) return;
@@ -108,6 +127,7 @@ public partial class Space : Node3D
             AmbientLightEnergy = 0.35f,
             TonemapMode = Godot.Environment.ToneMapper.Linear,
         };
+        _environment = environment;
         AddChild(new WorldEnvironment { Environment = environment });
 
         // The star: its colour tints the light on everything in the system.

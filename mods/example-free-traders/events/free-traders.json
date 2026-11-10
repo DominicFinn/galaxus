@@ -1,0 +1,9 @@
+// EXAMPLE MOD. An event creates work: missions list it in their "events" field.
+{
+  "id": "eft-toll-dispute",
+  "name": "Lane toll dispute",
+  "description": "A port starts charging independent haulers a new lane fee. Captains stop coming, and the port runs short of everyday goods.",
+  "durationDays": [12, 35],
+  "commodityDemand": { "food": 1.4, "consumer": 1.5, "machinery": 1.2 },
+  "newsGrammar": "eft-news-toll-dispute"
+}

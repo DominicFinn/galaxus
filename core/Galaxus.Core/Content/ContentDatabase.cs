@@ -68,7 +68,17 @@ public sealed class ContentDatabase
     /// Loads and validates everything. Throws ContentException listing every problem found, unless
     /// throwOnProblems is false, in which case the problems are left in Problems (used by tools).
     /// </summary>
-    public static ContentDatabase Load(IContentSource source, bool throwOnProblems = true)
+    public static ContentDatabase Load(IContentSource source, bool throwOnProblems = true) =>
+        Load(source, [], throwOnProblems);
+
+    /// <summary>Names of the mods that were loaded, in load order.</summary>
+    public List<string> LoadedMods { get; } = [];
+
+    /// <summary>
+    /// Loads the base content, then adds each mod's content in the order given (callers pass them
+    /// alphabetically). Mods can add content but not replace it. Problems name the mod and file.
+    /// </summary>
+    public static ContentDatabase Load(IContentSource source, IReadOnlyList<ModSource> mods, bool throwOnProblems = true)
     {
         var db = new ContentDatabase();
         var problems = new List<string>();
@@ -89,10 +99,18 @@ public sealed class ContentDatabase
 
         var grammars = new Dictionary<string, GrammarDef>();
         LoadInto(source, "grammars", grammars, g => g.Id, problems);
-        foreach (var grammar in grammars.Values) db.Grammars.Add(grammar);
         db.Grammars.RegisterAlias(ContentRules.VoiceAlias, ContentRules.MissionVoiceRules);
 
-        problems.AddRange(db.Validate());
+        var origins = new Dictionary<string, string>();
+        foreach (var mod in mods)
+        {
+            db.LoadedMods.Add(mod.Name);
+            db.AddMod(mod, grammars, origins, problems);
+        }
+        foreach (var grammar in grammars.Values) db.Grammars.Add(grammar);
+
+        var validation = db.Validate();
+        problems.AddRange(validation.Select(v => AttributeToMod(v, origins)));
         if (problems.Count > 0 && throwOnProblems) throw new ContentException(problems);
         db.Problems.AddRange(problems);
         return db;
@@ -132,6 +150,114 @@ public sealed class ContentDatabase
                 else if (!target.TryAdd(id, item))
                     problems.Add($"{path}: duplicate id '{id}'.");
             }
+        }
+    }
+
+    /// <summary>Folders a mod may add to. Powers are left out: the great powers belong to the base game.</summary>
+    public static readonly string[] ModFolders =
+        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "music", "portraits", "people", "grammars"];
+
+    private static readonly System.Text.RegularExpressions.Regex OwnerPattern =
+        new(@"^(?:Grammar|[A-Z][A-Za-z]*(?: [a-z]+)?) '([^']+)'", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+    private void AddMod(ModSource mod, Dictionary<string, GrammarDef> grammars, Dictionary<string, string> origins, List<string> problems)
+    {
+        string at = $"Mod '{mod.Name}'";
+        foreach (var path in mod.Source.ListJsonFiles("powers"))
+            problems.Add($"{at}, file '{path}': mods can't add great powers. Remove the powers folder; use a minor faction type instead.");
+
+        AddFromMod(mod, "races", Races, r => r.Id, origins, problems);
+        AddFromMod(mod, "builders", Builders, b => b.Id, origins, problems);
+        AddFromMod(mod, "hulls", Hulls, h => h.Id, origins, problems);
+        AddFromMod(mod, "parts", Parts, x => x.Id, origins, problems);
+        AddFromMod(mod, "commodities", Commodities, c => c.Id, origins, problems);
+        AddFromMod(mod, "factions", FactionTypes, f => f.Id, origins, problems);
+        AddFromMod(mod, "events", Events, e => e.Id, origins, problems);
+        AddFromMod(mod, "missions", Missions, m => m.Id, origins, problems);
+        AddFromMod(mod, "complications", Complications, c => c.Id, origins, problems);
+        AddFromMod(mod, "music", MusicStyles, m => m.Id, origins, problems);
+        AddFromMod(mod, "portraits", Portraits, x => x.Race, origins, problems);
+        AddFromMod(mod, "people", Roles, r => r.Id, origins, problems);
+
+        // Grammars: new ids are added. An existing id may only gain rules and extra options.
+        foreach (var path in mod.Source.ListJsonFiles("grammars"))
+        {
+            foreach (var g in ReadFile<GrammarDef>(mod.Source, path, problems, $"{at}, file '{path}'"))
+            {
+                string where = $"{at}, file '{path}'";
+                if (string.IsNullOrWhiteSpace(g.Id)) { problems.Add($"{where}: a grammar has no id."); continue; }
+                if (!IsValidId(g.Id)) { problems.Add($"{where}: id '{g.Id}' should be lower-case words joined by hyphens."); continue; }
+                if (!grammars.TryGetValue(g.Id, out var existing))
+                {
+                    grammars[g.Id] = g;
+                    origins[g.Id] = where;
+                    continue;
+                }
+                foreach (var v in g.Variables.Where(v => !existing.Variables.Contains(v)))
+                    problems.Add($"{where}: grammar '{g.Id}' declares {{{v}}}, but the grammar it extends doesn't supply that variable.");
+                foreach (var (rule, options) in g.Rules)
+                {
+                    if (!existing.Rules.TryGetValue(rule, out var list)) existing.Rules[rule] = list = [];
+                    // Repeats are allowed on purpose: they make an option more likely.
+                    list.AddRange(options);
+                }
+                origins.TryGetValue("extended:" + g.Id, out var by);
+                origins["extended:" + g.Id] = by == null ? mod.Name : by + ", " + mod.Name;
+            }
+        }
+    }
+
+    private static void AddFromMod<T>(ModSource mod, string folder, Dictionary<string, T> target, Func<T, string> idOf,
+        Dictionary<string, string> origins, List<string> problems)
+    {
+        foreach (var path in mod.Source.ListJsonFiles(folder))
+        {
+            string where = $"Mod '{mod.Name}', file '{path}'";
+            foreach (var item in ReadFile<T>(mod.Source, path, problems, where))
+            {
+                string id = idOf(item);
+                if (string.IsNullOrWhiteSpace(id)) problems.Add($"{where}: an entry has no id.");
+                else if (!IsValidId(id)) problems.Add($"{where}: id '{id}' should be lower-case words joined by hyphens.");
+                else if (target.ContainsKey(id))
+                    problems.Add($"{where}: id '{id}' already exists in the base game or an earlier mod. Mods can add content but not replace it; give yours a different id (a short prefix for your mod helps).");
+                else
+                {
+                    target.Add(id, item);
+                    origins[id] = where;
+                }
+            }
+        }
+    }
+
+    /// <summary>Adds the mod and file to a validation problem when it is about something a mod added.</summary>
+    private static string AttributeToMod(string problem, Dictionary<string, string> origins)
+    {
+        var match = OwnerPattern.Match(problem);
+        if (!match.Success) return problem;
+        string id = match.Groups[1].Value;
+        if (origins.TryGetValue(id, out var where)) return $"{where}: {problem}";
+        if (problem.StartsWith("Grammar '") && origins.TryGetValue("extended:" + id, out var mods))
+            return $"{problem} (grammar extended by mod {mods}; check the options it added)";
+        return problem;
+    }
+
+    private static List<T> ReadFile<T>(IContentSource source, string path, List<string> problems, string label)
+    {
+        try
+        {
+            using var doc = JsonDocument.Parse(source.ReadText(path), new JsonDocumentOptions
+            {
+                CommentHandling = JsonCommentHandling.Skip,
+                AllowTrailingCommas = true,
+            });
+            return doc.RootElement.ValueKind == JsonValueKind.Array
+                ? doc.RootElement.Deserialize<List<T>>(Json) ?? []
+                : [doc.RootElement.Deserialize<T>(Json)!];
+        }
+        catch (JsonException e)
+        {
+            problems.Add($"{label}: invalid JSON ({e.Message})");
+            return [];
         }
     }
 

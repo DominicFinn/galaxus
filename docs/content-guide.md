@@ -4,6 +4,8 @@ Everything the game knows about races, ship builders, hulls, parts and generated
 
 Run `tools/validate.sh` after any change. It loads every file, checks every reference, expands every grammar and fails with a list of problems. Content isn't done until it passes.
 
+To add content without editing the base game, make a mod instead. See [expanding-the-universe.md](expanding-the-universe.md), which covers the mod folder layout, a walkthrough for factions and missions, and a prompt for asking Claude to write one.
+
 ## The setting in brief
 
 **Read docs/lore-bible.md before writing anything.** It's the canon: regions, arms, powers, what nobody knows and what must never be written. The short version:
