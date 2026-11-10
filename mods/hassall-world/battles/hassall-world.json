@@ -135,7 +135,7 @@
     ],
     "objectives": [
       { "id": "hold", "type": "survive", "seconds": 450, "text": "Hold Hassall World until the raid breaks" },
-      { "id": "flag", "type": "protect", "tag": "flagship", "text": "Keep Hassall World in one piece" },
+      { "id": "flag", "type": "protect", "tag": "flagship", "text": "Keep the {base} and its computers in one piece" },
       { "id": "target", "type": "destroy", "tag": "target", "text": "Destroy the khanate cruiser {target}", "optional": true }
     ]
   }

@@ -1,6 +1,5 @@
-// Hassall World. Mods can't place fixed systems or stations on the generated map, so Hassall
-// World is the campaign base (an old carrier bolted to a rock, which Hassall calls a station)
-// and Bridgeford 421 is named in the story text only.
+// Hassall World. The station and Bridgeford 421 are a landmark (landmarks/bridgeford.json).
+// The campaign base is Big Iron, Hassall's old carrier moored alongside, full of his computers.
 [
   {
     "id": "hw-hassall-world",
@@ -12,7 +11,8 @@
     "credits": 6000,
     "rank": 1,
     "baseHull": "tw-caravan",
-    "baseName": "Hassall World",
+    "baseName": "Big Iron",
+    "baseLandmark": "hw-bridgeford",
     "fleet": ["tw-posse", "tw-homesteader", "tw-longhaul"],
     "textGrammar": "hw-campaign",
     "steps": [

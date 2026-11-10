@@ -130,15 +130,15 @@
     "variables": ["captain", "client", "enemy", "system", "base", "target"],
     "rules": {
       "briefing": [
-        "A khanate fleet from {enemy} is coming for {base}. Hold the station until the raid breaks. Keep it in one piece.",
-        "The 'weather' has come to {base}. Two frigates, four fighters and you. Hold until they give up."
+        "A khanate fleet from {enemy} is coming for Hassall World and the computers aboard the {base}. Hold until the raid breaks. Keep the {base} in one piece.",
+        "The 'weather' has come to Hassall World. Two frigates, four fighters and you. Keep the {base} alive until they give up."
       ],
       "success": [
-        "{base} holds. Hassall pays {captain} three times over and calls it a historic storm.",
+        "Hassall World and the {base} hold. Hassall pays {captain} three times over and calls it a historic storm.",
         "The raid is broken and the station stands. Hassall pays handsomely. The synths on the lower deck are already telling the story."
       ],
       "failure": [
-        "{base} is badly holed and its computers are gone. Hassall pays nothing. He has nothing left to pay with.",
+        "The {base} is badly holed and its computers are gone. Hassall pays nothing. He has nothing left to pay with.",
         "The station fell. The synths remember Ted, and now they'll remember this."
       ],
       "radio-station": [

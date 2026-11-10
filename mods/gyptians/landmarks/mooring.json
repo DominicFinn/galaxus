@@ -1,0 +1,12 @@
+[
+  {
+    "id": "gy-the-mooring",
+    "systemName": "Last Leaving",
+    "stationName": "The Mooring",
+    "region": "outer",
+    "arm": "shroud",
+    "ownerFactionType": "gy-gyptian-fleet",
+    "economy": "Frontier",
+    "description": "The Gyptians' home port, a ring station where their fleets gather between journeys. They say it is only a stop on the road back to Gyptian."
+  }
+]

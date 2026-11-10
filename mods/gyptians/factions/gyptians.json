@@ -17,6 +17,8 @@
       "honour": [0.6, 0.9],
       "piety": [0.3, 0.6]
     },
-    "nameGrammar": "gy-names-fleet"
+    "nameGrammar": "gy-names-fleet",
+    "builder": "gyptian-yards",
+    "stationHull": "gy-homecoming"
   }
 ]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "hw-bridgeford",
+    "systemName": "Bridgeford 421",
+    "stationName": "Hassall World",
+    "region": "outer",
+    "arm": "tolland",
+    "ownerFactionType": "tolland-compact",
+    "economy": "HighTech",
+    "description": "Hassall World, a station run by an eccentric computer engineer and crewed mostly by synths and robots. Buyers of computer equipment always welcome. Orcs, according to the owner, do not exist."
+  }
+]
