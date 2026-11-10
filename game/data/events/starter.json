@@ -1,10 +1,514 @@
 [
   {
+    "id": "mining-rush",
+    "name": "Mining rush",
+    "description": "A rich strike sends prospectors and hardware buyers flooding into a system.",
+    "durationDays": [
+      15,
+      40
+    ],
+    "commodityDemand": {
+      "ore": 0.6,
+      "machinery": 1.8,
+      "industrial": 1.5,
+      "food": 1.3,
+      "fuel": 1.3
+    },
+    "newsGrammar": "news-mining-rush"
+  },
+  {
+    "id": "trade-boom",
+    "name": "Trade boom",
+    "description": "Cargo, credits and traffic surge through a system.",
+    "durationDays": [
+      20,
+      50
+    ],
+    "commodityDemand": {
+      "consumer": 1.4,
+      "luxury": 1.5,
+      "machinery": 1.3,
+      "technology": 1.3,
+      "fuel": 1.2
+    },
+    "newsGrammar": "news-trade-boom"
+  },
+  {
+    "id": "market-crash",
+    "name": "Market crash",
+    "description": "Confidence collapses and prices lurch across a system's exchanges.",
+    "durationDays": [
+      15,
+      45
+    ],
+    "commodityDemand": {
+      "luxury": 0.5,
+      "technology": 0.7,
+      "consumer": 0.7,
+      "machinery": 0.8,
+      "data": 1.3
+    },
+    "newsGrammar": "news-market-crash"
+  },
+  {
+    "id": "fuel-shortage",
+    "name": "Fuel shortage",
+    "description": "A refinery fault or blocked tanker lane leaves a system short of fuel.",
+    "durationDays": [
+      10,
+      35
+    ],
+    "commodityDemand": {
+      "fuel": 3.0,
+      "industrial": 1.2,
+      "consumer": 0.9
+    },
+    "newsGrammar": "news-fuel-shortage"
+  },
+  {
+    "id": "strike",
+    "name": "Dock strike",
+    "description": "Dockworkers and yard crews down tools and cargo stops moving.",
+    "durationDays": [
+      7,
+      25
+    ],
+    "commodityDemand": {
+      "machinery": 1.3,
+      "industrial": 1.3,
+      "consumer": 1.2,
+      "food": 1.2
+    },
+    "newsGrammar": "news-strike"
+  },
+  {
     "id": "famine",
     "name": "Famine",
     "description": "A harvest failure or a broken supply line leaves a system short of food.",
-    "durationDays": [20, 60],
-    "commodityDemand": { "food": 3.0, "medical": 1.8, "luxury": 0.5 },
+    "durationDays": [
+      20,
+      60
+    ],
+    "commodityDemand": {
+      "food": 3.0,
+      "water": 1.3,
+      "medical": 1.8,
+      "luxury": 0.5
+    },
     "newsGrammar": "news-famine"
+  },
+  {
+    "id": "plague",
+    "name": "Plague",
+    "description": "A fast-spreading illness closes ports and empties pharmacies.",
+    "durationDays": [
+      20,
+      55
+    ],
+    "commodityDemand": {
+      "medical": 3.0,
+      "food": 1.3,
+      "water": 1.2,
+      "consumer": 0.7,
+      "luxury": 0.6
+    },
+    "newsGrammar": "news-plague"
+  },
+  {
+    "id": "reactor-failure",
+    "name": "Reactor failure",
+    "description": "A station or colony power plant fails and the lights start going out.",
+    "durationDays": [
+      8,
+      25
+    ],
+    "commodityDemand": {
+      "machinery": 2.2,
+      "industrial": 1.6,
+      "fuel": 1.4,
+      "technology": 1.3
+    },
+    "newsGrammar": "news-reactor-failure"
+  },
+  {
+    "id": "solar-flare",
+    "name": "Solar flare",
+    "description": "A violent flare cripples electronics and grounds ships in a system.",
+    "durationDays": [
+      3,
+      12
+    ],
+    "commodityDemand": {
+      "technology": 1.6,
+      "machinery": 1.5,
+      "data": 1.3,
+      "fuel": 1.1
+    },
+    "newsGrammar": "news-solar-flare"
+  },
+  {
+    "id": "habitat-breach",
+    "name": "Habitat breach",
+    "description": "A hull failure in a major habitat leaves thousands short of air and shelter.",
+    "durationDays": [
+      7,
+      25
+    ],
+    "commodityDemand": {
+      "industrial": 2.0,
+      "metals": 1.7,
+      "medical": 1.8,
+      "machinery": 1.5,
+      "water": 1.3
+    },
+    "newsGrammar": "news-habitat-breach"
+  },
+  {
+    "id": "election",
+    "name": "Election",
+    "description": "A system or faction votes and the whole district holds its breath.",
+    "durationDays": [
+      8,
+      20
+    ],
+    "commodityDemand": {
+      "luxury": 1.2,
+      "consumer": 1.2,
+      "data": 1.4,
+      "weapons": 0.9
+    },
+    "newsGrammar": "news-election"
+  },
+  {
+    "id": "coup",
+    "name": "Coup",
+    "description": "Armed officers seize a system's government overnight.",
+    "durationDays": [
+      8,
+      30
+    ],
+    "commodityDemand": {
+      "weapons": 2.0,
+      "medical": 1.4,
+      "luxury": 0.7,
+      "food": 1.2,
+      "data": 1.5
+    },
+    "newsGrammar": "news-coup"
+  },
+  {
+    "id": "succession-dispute",
+    "name": "Succession dispute",
+    "description": "Two claimants contest the leadership of a house, hold or firm.",
+    "durationDays": [
+      15,
+      45
+    ],
+    "commodityDemand": {
+      "weapons": 1.4,
+      "luxury": 0.8,
+      "data": 1.3,
+      "consumer": 0.9
+    },
+    "newsGrammar": "news-succession-dispute"
+  },
+  {
+    "id": "peace-treaty",
+    "name": "Peace treaty",
+    "description": "Rivals sign a treaty and trade resumes across a closed border.",
+    "durationDays": [
+      20,
+      50
+    ],
+    "commodityDemand": {
+      "consumer": 1.3,
+      "luxury": 1.3,
+      "weapons": 0.6,
+      "machinery": 1.2,
+      "fuel": 1.1
+    },
+    "newsGrammar": "news-peace-treaty"
+  },
+  {
+    "id": "embargo",
+    "name": "Embargo",
+    "description": "A power cuts off trade with a rival and every smuggler takes notice.",
+    "durationDays": [
+      20,
+      60
+    ],
+    "commodityDemand": {
+      "technology": 1.5,
+      "luxury": 1.5,
+      "machinery": 1.4,
+      "consumer": 1.3,
+      "weapons": 1.2
+    },
+    "newsGrammar": "news-embargo"
+  },
+  {
+    "id": "independence-movement",
+    "name": "Independence movement",
+    "description": "A colony or hold agitates to break from its patron power.",
+    "durationDays": [
+      20,
+      60
+    ],
+    "commodityDemand": {
+      "weapons": 1.5,
+      "data": 1.4,
+      "medical": 1.2,
+      "luxury": 0.8,
+      "consumer": 0.9
+    },
+    "newsGrammar": "news-independence-movement"
+  },
+  {
+    "id": "border-dispute",
+    "name": "Border dispute",
+    "description": "Two powers argue over where a line runs and who owns the rocks on it.",
+    "durationDays": [
+      15,
+      45
+    ],
+    "commodityDemand": {
+      "weapons": 1.4,
+      "fuel": 1.3,
+      "machinery": 1.2,
+      "ore": 1.2
+    },
+    "newsGrammar": "news-border-dispute"
+  },
+  {
+    "id": "raids",
+    "name": "Raids",
+    "description": "Armed bands hit outlying stations and convoys.",
+    "durationDays": [
+      15,
+      40
+    ],
+    "commodityDemand": {
+      "weapons": 1.5,
+      "medical": 1.3,
+      "industrial": 1.3,
+      "consumer": 1.1,
+      "food": 1.2
+    },
+    "newsGrammar": "news-raids"
+  },
+  {
+    "id": "blockade",
+    "name": "Blockade",
+    "description": "A fleet closes the gates into a system and holds traffic hostage.",
+    "durationDays": [
+      10,
+      35
+    ],
+    "commodityDemand": {
+      "food": 1.8,
+      "fuel": 2.0,
+      "medical": 1.6,
+      "weapons": 1.4,
+      "machinery": 1.3,
+      "luxury": 0.7
+    },
+    "newsGrammar": "news-blockade"
+  },
+  {
+    "id": "open-war",
+    "name": "Open war",
+    "description": "Two powers go to war and fleets move through a system.",
+    "durationDays": [
+      30,
+      90
+    ],
+    "commodityDemand": {
+      "weapons": 3.0,
+      "fuel": 1.8,
+      "metals": 1.6,
+      "medical": 1.8,
+      "machinery": 1.4,
+      "luxury": 0.6,
+      "consumer": 0.8
+    },
+    "newsGrammar": "news-open-war"
+  },
+  {
+    "id": "pirate-surge",
+    "name": "Pirate surge",
+    "description": "A new pirate fleet turns a trade lane into a hunting ground.",
+    "durationDays": [
+      15,
+      40
+    ],
+    "commodityDemand": {
+      "weapons": 1.4,
+      "consumer": 1.2,
+      "luxury": 1.2,
+      "fuel": 1.1,
+      "medical": 1.1
+    },
+    "newsGrammar": "news-pirate-surge"
+  },
+  {
+    "id": "mercenary-uprising",
+    "name": "Mercenary uprising",
+    "description": "Unpaid hired guns seize a station and make demands.",
+    "durationDays": [
+      10,
+      35
+    ],
+    "commodityDemand": {
+      "weapons": 1.6,
+      "food": 1.2,
+      "medical": 1.3,
+      "luxury": 0.8,
+      "data": 1.2
+    },
+    "newsGrammar": "news-mercenary-uprising"
+  },
+  {
+    "id": "crackdown",
+    "name": "Law crackdown",
+    "description": "Enforcers sweep a system for contraband and wanted captains.",
+    "durationDays": [
+      10,
+      30
+    ],
+    "commodityDemand": {
+      "narcotics": 2.0,
+      "weapons": 1.3,
+      "data": 1.2,
+      "luxury": 0.9
+    },
+    "newsGrammar": "news-crackdown"
+  },
+  {
+    "id": "amnesty",
+    "name": "Amnesty",
+    "description": "A power forgives old crimes and sends bounty hunters home.",
+    "durationDays": [
+      10,
+      25
+    ],
+    "commodityDemand": {
+      "consumer": 1.1,
+      "luxury": 1.1,
+      "weapons": 0.8
+    },
+    "newsGrammar": "news-amnesty"
+  },
+  {
+    "id": "synth-registry-sweep",
+    "name": "Synth registry sweep",
+    "description": "Authorities check every synth in a system against the registry.",
+    "durationDays": [
+      10,
+      30
+    ],
+    "commodityDemand": {
+      "technology": 1.2,
+      "data": 1.5,
+      "consumer": 0.9
+    },
+    "newsGrammar": "news-synth-registry-sweep"
+  },
+  {
+    "id": "gate-warden-drive",
+    "name": "Gate warden inspection drive",
+    "description": "Wardens double the scans at the gates, hunting rim tech.",
+    "durationDays": [
+      10,
+      30
+    ],
+    "commodityDemand": {
+      "rim-tech": 2.0,
+      "technology": 1.3,
+      "elder-artefacts": 1.5,
+      "data": 1.3
+    },
+    "newsGrammar": "news-gate-warden-drive"
+  },
+  {
+    "id": "rim-incident",
+    "name": "Rim incident",
+    "description": "Something happens out past the last good gate and nobody agrees what.",
+    "durationDays": [
+      10,
+      40
+    ],
+    "commodityDemand": {
+      "rim-tech": 1.8,
+      "elder-artefacts": 1.6,
+      "data": 1.5,
+      "technology": 1.2,
+      "fuel": 1.2
+    },
+    "newsGrammar": "news-rim-incident"
+  },
+  {
+    "id": "ships-going-quiet",
+    "name": "Ships going quiet",
+    "description": "Vessels stop answering calls on a rim route.",
+    "durationDays": [
+      15,
+      50
+    ],
+    "commodityDemand": {
+      "rim-tech": 1.5,
+      "data": 1.4,
+      "fuel": 1.2,
+      "weapons": 1.1
+    },
+    "newsGrammar": "news-ships-going-quiet"
+  },
+  {
+    "id": "elder-machine-waking",
+    "name": "Elder machine stirring",
+    "description": "A dormant machine shows signs of life near a gate or a dead world.",
+    "durationDays": [
+      10,
+      40
+    ],
+    "commodityDemand": {
+      "technology": 1.5,
+      "elder-artefacts": 2.0,
+      "rim-tech": 1.5,
+      "data": 1.6
+    },
+    "newsGrammar": "news-elder-machine-waking"
+  },
+  {
+    "id": "unexplained-signal",
+    "name": "Unexplained signal",
+    "description": "A repeating transmission is picked up, with no source anyone can name.",
+    "durationDays": [
+      10,
+      35
+    ],
+    "commodityDemand": {
+      "data": 2.0,
+      "technology": 1.3,
+      "rim-tech": 1.4,
+      "elder-artefacts": 1.3
+    },
+    "newsGrammar": "news-unexplained-signal"
+  },
+  {
+    "id": "rim-refugee-wave",
+    "name": "Refugee wave from the rim",
+    "description": "Ships full of people arrive from beyond the last good gate.",
+    "durationDays": [
+      15,
+      45
+    ],
+    "commodityDemand": {
+      "food": 1.8,
+      "water": 1.5,
+      "medical": 1.8,
+      "consumer": 1.2,
+      "luxury": 0.7
+    },
+    "newsGrammar": "news-rim-refugee-wave"
   }
 ]

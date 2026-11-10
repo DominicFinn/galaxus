@@ -1,4 +1,330 @@
 [
-  { "id": "ambush-on-route", "name": "Ambush", "description": "Someone knows your route and is waiting on it.", "effect": "ambush", "weight": 3, "textGrammar": "complication-ambush" },
-  { "id": "cargo-is-stolen", "name": "Stolen cargo", "description": "The cargo belongs to someone else, and they want it back.", "effect": "stolen-cargo", "weight": 1, "textGrammar": "complication-stolen-cargo" }
+  {
+    "id": "ambush-on-route",
+    "name": "Ambush",
+    "description": "Someone knows your route and is waiting on it.",
+    "effect": "ambush",
+    "weight": 4,
+    "textGrammar": "complication-ambush-on-route"
+  },
+  {
+    "id": "ambush-creditors",
+    "name": "Creditors in the dark",
+    "description": "The client owes money to people who do not ask politely.",
+    "effect": "ambush",
+    "weight": 3,
+    "textGrammar": "complication-ambush-creditors"
+  },
+  {
+    "id": "ambush-rival-crew",
+    "name": "Hired guns",
+    "description": "A rival has paid a crew to make sure you do not arrive.",
+    "effect": "ambush",
+    "weight": 3,
+    "textGrammar": "complication-ambush-rival-crew"
+  },
+  {
+    "id": "ambush-wreck-bait",
+    "name": "Wreck bait",
+    "description": "A distress call is bait, and the trap is already sprung.",
+    "effect": "ambush",
+    "weight": 2,
+    "textGrammar": "complication-ambush-wreck-bait"
+  },
+  {
+    "id": "cargo-is-stolen",
+    "name": "Stolen cargo",
+    "description": "The cargo belongs to someone else, and they want it back.",
+    "effect": "stolen-cargo",
+    "weight": 3,
+    "textGrammar": "complication-cargo-is-stolen"
+  },
+  {
+    "id": "stolen-hold-seal",
+    "name": "Seal of the holds",
+    "description": "The cargo carries a dwarf hold's seal and the hold is looking for it.",
+    "effect": "stolen-cargo",
+    "weight": 2,
+    "textGrammar": "complication-stolen-hold-seal"
+  },
+  {
+    "id": "stolen-impounded",
+    "name": "Impounded goods",
+    "description": "Customs seized the cargo, and someone quietly took it back out.",
+    "effect": "stolen-cargo",
+    "weight": 2,
+    "textGrammar": "complication-stolen-impounded"
+  },
+  {
+    "id": "stolen-insured",
+    "name": "Insured twice",
+    "description": "The cargo was reported lost and paid out, so someone needs it to stay lost.",
+    "effect": "stolen-cargo",
+    "weight": 1,
+    "textGrammar": "complication-stolen-insured"
+  },
+  {
+    "id": "client-lies-money",
+    "name": "The money isn't there",
+    "description": "The client promised more than they can pay.",
+    "effect": "client-lies",
+    "weight": 4,
+    "textGrammar": "complication-client-lies-money"
+  },
+  {
+    "id": "client-lies-proxy",
+    "name": "Someone else's job",
+    "description": "The client is acting for a very different party.",
+    "effect": "client-lies",
+    "weight": 3,
+    "textGrammar": "complication-client-lies-proxy"
+  },
+  {
+    "id": "client-lies-danger",
+    "name": "The quiet route",
+    "description": "The client knew the job was dangerous and said it wasn't.",
+    "effect": "client-lies",
+    "weight": 3,
+    "textGrammar": "complication-client-lies-danger"
+  },
+  {
+    "id": "client-lies-purpose",
+    "name": "Not what was said",
+    "description": "The job is a different job than described.",
+    "effect": "client-lies",
+    "weight": 3,
+    "textGrammar": "complication-client-lies-purpose"
+  },
+  {
+    "id": "rival-bid-outbid",
+    "name": "Undercut",
+    "description": "A rival captain bids for the same contract and offers to do it cheaper.",
+    "effect": "rival-bid",
+    "weight": 3,
+    "textGrammar": "complication-rival-bid-outbid"
+  },
+  {
+    "id": "rival-bid-double-sold",
+    "name": "Sold twice",
+    "description": "The client has promised the same job to two captains.",
+    "effect": "rival-bid",
+    "weight": 2,
+    "textGrammar": "complication-rival-bid-double-sold"
+  },
+  {
+    "id": "rival-bid-poached",
+    "name": "Poached",
+    "description": "A faction leans on the client to hand the job to their own ship.",
+    "effect": "rival-bid",
+    "weight": 2,
+    "textGrammar": "complication-rival-bid-poached"
+  },
+  {
+    "id": "fugitive-stowaway",
+    "name": "Stowaway",
+    "description": "Someone is aboard who should not be, and others are looking for them.",
+    "effect": "fugitive",
+    "weight": 3,
+    "textGrammar": "complication-fugitive-stowaway"
+  },
+  {
+    "id": "fugitive-wanted",
+    "name": "Wanted charge",
+    "description": "Someone connected to the job is wanted by the law.",
+    "effect": "fugitive",
+    "weight": 2,
+    "textGrammar": "complication-fugitive-wanted"
+  },
+  {
+    "id": "fugitive-debtor",
+    "name": "Runaway debtor",
+    "description": "Whoever is being moved is in debt and the lender is close.",
+    "effect": "fugitive",
+    "weight": 2,
+    "textGrammar": "complication-fugitive-debtor"
+  },
+  {
+    "id": "fugitive-witness",
+    "name": "The witness",
+    "description": "Someone aboard saw something they shouldn't have, and powerful people want it forgotten.",
+    "effect": "fugitive",
+    "weight": 1,
+    "textGrammar": "complication-fugitive-witness"
+  },
+  {
+    "id": "double-cross-ambush-pay",
+    "name": "Paid to lose you",
+    "description": "The client has taken payment from your enemies.",
+    "effect": "double-cross",
+    "weight": 2,
+    "textGrammar": "complication-double-cross-ambush-pay"
+  },
+  {
+    "id": "double-cross-withheld",
+    "name": "Terms changed",
+    "description": "The client rewrites the deal at the last moment.",
+    "effect": "double-cross",
+    "weight": 2,
+    "textGrammar": "complication-double-cross-withheld"
+  },
+  {
+    "id": "double-cross-fall-guy",
+    "name": "The fall guy",
+    "description": "You were hired to take the blame.",
+    "effect": "double-cross",
+    "weight": 1,
+    "textGrammar": "complication-double-cross-fall-guy"
+  },
+  {
+    "id": "contraband-sealed-case",
+    "name": "The sealed case",
+    "description": "An unlisted sealed case turns up aboard.",
+    "effect": "hidden-contraband",
+    "weight": 3,
+    "textGrammar": "complication-contraband-sealed-case"
+  },
+  {
+    "id": "contraband-rim-tech",
+    "name": "Rim tech",
+    "description": "A part of the ship has been swapped for something from beyond the firewall.",
+    "effect": "hidden-contraband",
+    "weight": 2,
+    "textGrammar": "complication-contraband-rim-tech"
+  },
+  {
+    "id": "contraband-passenger-bag",
+    "name": "Borrowed luggage",
+    "description": "A package you were asked to mind is not what it seemed.",
+    "effect": "hidden-contraband",
+    "weight": 2,
+    "textGrammar": "complication-contraband-passenger-bag"
+  },
+  {
+    "id": "deadline-gate-queue",
+    "name": "Gate backlog",
+    "description": "A gate closure or queue eats the time you had.",
+    "effect": "deadline-cut",
+    "weight": 3,
+    "textGrammar": "complication-deadline-gate-queue"
+  },
+  {
+    "id": "deadline-client-panics",
+    "name": "Moved up",
+    "description": "The client needs it sooner than agreed.",
+    "effect": "deadline-cut",
+    "weight": 3,
+    "textGrammar": "complication-deadline-client-panics"
+  },
+  {
+    "id": "deadline-old-news",
+    "name": "Late word",
+    "description": "The deadline has partly passed already, because news travels slowly.",
+    "effect": "deadline-cut",
+    "weight": 2,
+    "textGrammar": "complication-deadline-old-news"
+  },
+  {
+    "id": "extra-stop-inspection",
+    "name": "Inspection detour",
+    "description": "A blockade or inspection forces a stop on the way.",
+    "effect": "extra-stop",
+    "weight": 3,
+    "textGrammar": "complication-extra-stop-inspection"
+  },
+  {
+    "id": "extra-stop-extra-pickup",
+    "name": "One more thing",
+    "description": "The client asks you to collect something else on the way.",
+    "effect": "extra-stop",
+    "weight": 2,
+    "textGrammar": "complication-extra-stop-extra-pickup"
+  },
+  {
+    "id": "extra-stop-stranded",
+    "name": "Stranded ship",
+    "description": "A ship in trouble asks for help and cannot be left.",
+    "effect": "extra-stop",
+    "weight": 2,
+    "textGrammar": "complication-extra-stop-stranded"
+  },
+  {
+    "id": "bad-intel-stale-charts",
+    "name": "Old charts",
+    "description": "The information you were given is out of date.",
+    "effect": "bad-intel",
+    "weight": 3,
+    "textGrammar": "complication-bad-intel-stale-charts"
+  },
+  {
+    "id": "bad-intel-wrong-place",
+    "name": "Wrong place",
+    "description": "The location you were sent to is wrong.",
+    "effect": "bad-intel",
+    "weight": 2,
+    "textGrammar": "complication-bad-intel-wrong-place"
+  },
+  {
+    "id": "bad-intel-defended",
+    "name": "Not so quiet",
+    "description": "The target is far better defended than anyone said.",
+    "effect": "bad-intel",
+    "weight": 2,
+    "textGrammar": "complication-bad-intel-defended"
+  },
+  {
+    "id": "rival-offer-bribe",
+    "name": "A better offer",
+    "description": "A rival offers more to drop the job.",
+    "effect": "rival-offer",
+    "weight": 3,
+    "textGrammar": "complication-rival-offer-bribe"
+  },
+  {
+    "id": "rival-offer-turncoat",
+    "name": "Change sides",
+    "description": "A faction offers to buy the job's outcome.",
+    "effect": "rival-offer",
+    "weight": 2,
+    "textGrammar": "complication-rival-offer-turncoat"
+  },
+  {
+    "id": "rival-offer-partner",
+    "name": "Share the work",
+    "description": "A rival proposes joining forces.",
+    "effect": "rival-offer",
+    "weight": 2,
+    "textGrammar": "complication-rival-offer-partner"
+  },
+  {
+    "id": "rim-signal-own-voice",
+    "name": "Your own voice",
+    "description": "A ship answers your hail with your own voice.",
+    "effect": "rim-signal",
+    "weight": 1,
+    "textGrammar": "complication-rim-signal-own-voice"
+  },
+  {
+    "id": "rim-signal-interference",
+    "name": "Dead air",
+    "description": "Interference swallows the ship for a while.",
+    "effect": "rim-signal",
+    "weight": 1,
+    "textGrammar": "complication-rim-signal-interference"
+  },
+  {
+    "id": "rim-signal-gate",
+    "name": "Odd gate",
+    "description": "A gate behaves wrongly as you pass.",
+    "effect": "rim-signal",
+    "weight": 1,
+    "textGrammar": "complication-rim-signal-gate"
+  },
+  {
+    "id": "rim-signal-missing",
+    "name": "Ghost transponder",
+    "description": "You pick up the transponder of a ship that is already lost.",
+    "effect": "rim-signal",
+    "weight": 1,
+    "textGrammar": "complication-rim-signal-missing"
+  }
 ]

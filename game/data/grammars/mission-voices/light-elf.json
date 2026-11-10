@@ -1,0 +1,163 @@
+{
+  "id": "mission-voice-light-elf",
+  "description": "Light elf clients: formal, proud, condescending, evasive. They offer commissions as favours.",
+  "variables": [
+    "captain",
+    "client",
+    "faction",
+    "reward",
+    "deadline"
+  ],
+  "rules": {
+    "opener": [
+      "#l-hail# #l-intro#",
+      "#l-hail# #l-frame#",
+      "#l-intro# #l-frame#",
+      "#l-hail#"
+    ],
+    "l-hail": [
+      "Good day, Captain {captain}.",
+      "I greet you, Captain.",
+      "Ah. You are punctual. How refreshing.",
+      "Forgive the summons, {captain}.",
+      "You are the captain I was told of. Do sit.",
+      "I shall be plain, as I am told humans prefer.",
+      "Well met, {captain}.",
+      "One hopes the journey here was tolerable.",
+      "I trust I need not explain who I am.",
+      "Captain. You will forgive me if I do not rise."
+    ],
+    "l-intro": [
+      "I am {client}, of {faction}.",
+      "{faction} has seen fit to approach you.",
+      "My house has a matter that requires an outside hand.",
+      "I speak for {faction}, in a rather limited capacity.",
+      "I am {client}. The name will mean something to those who matter.",
+      "This is a commission, not a favour, though you may feel otherwise.",
+      "We rarely engage outsiders. Consider yourself noted."
+    ],
+    "l-frame": [
+      "The matter is simple, and I shall explain it slowly.",
+      "I shall spare you the history. You would not follow it.",
+      "I require something done properly, which is rare.",
+      "It is a modest affair, but not a trivial one.",
+      "Do attend carefully.",
+      "I will say only what you need, and perhaps a little less.",
+      "It concerns an arrangement of long standing."
+    ],
+    "urgency": [
+      "#l-clock# #l-stakes#",
+      "#l-clock#",
+      "#l-stakes#",
+      "#l-clock# #l-clock2#"
+    ],
+    "l-clock": [
+      "Time is not unlimited, however it may appear to you.",
+      "You have {deadline}. I should not like to be disappointed.",
+      "The matter must conclude within {deadline}.",
+      "{deadline}, Captain. Not a moment beyond.",
+      "Haste is vulgar, but lateness is worse. {deadline}.",
+      "I would have it settled in {deadline}.",
+      "The appointed period is {deadline}.",
+      "We are already later than I would wish."
+    ],
+    "l-clock2": [
+      "Do try to be prompt.",
+      "I trust that is clear.",
+      "I do not repeat myself.",
+      "Humans are so seldom early.",
+      "I shall be counting, if you are not."
+    ],
+    "l-stakes": [
+      "There are those who would be embarrassed by a delay.",
+      "Certain parties are watching, and keeping their opinions to themselves.",
+      "A matter of standing depends on it.",
+      "I would not like it said that my house was slow.",
+      "Old arrangements have a way of lapsing at inconvenient hours.",
+      "It would reflect poorly on all of us."
+    ],
+    "payment": [
+      "#l-offer# #l-terms#",
+      "#l-offer#",
+      "#l-offer# #l-barb#",
+      "#l-terms#"
+    ],
+    "l-offer": [
+      "You will be compensated with {reward}, which I believe is generous.",
+      "{reward}. I consider that fair, and you may consider it likewise.",
+      "The fee is {reward}. I do not bargain.",
+      "{faction} will see you receive {reward}.",
+      "I am prepared to offer {reward}.",
+      "There is {reward} for your trouble.",
+      "You will find {reward} entirely adequate.",
+      "Your remuneration is {reward}, as befits the task."
+    ],
+    "l-terms": [
+      "It will be settled in good order, upon completion.",
+      "I shall pay when satisfied, not before.",
+      "Payment follows proof, as is proper.",
+      "I do not renege, whatever you have heard.",
+      "Do not ask for an advance. It is unbecoming.",
+      "The sum will be delivered discreetly."
+    ],
+    "l-barb": [
+      "I imagine that is more than you are used to.",
+      "It is, I am told, a respectable sum among your kind.",
+      "You need not thank me.",
+      "I am aware it is less than the work deserves. Be gracious about it."
+    ],
+    "warning": [
+      "#l-caution# #l-conseq#",
+      "#l-caution#",
+      "#l-conseq#",
+      "#l-caution# #l-caution2#"
+    ],
+    "l-caution": [
+      "Be discreet. Our affairs are not for public conversation.",
+      "Do not ask who else has an interest. You would not like the answer.",
+      "Some will wish to know what you carry. Disappoint them.",
+      "Avoid undue attention.",
+      "You will be watched, I think. Carry on regardless.",
+      "Do not mention my name to anyone of consequence.",
+      "There are old quarrels in play that do not concern you.",
+      "I advise you not to be curious."
+    ],
+    "l-caution2": [
+      "Curiosity has ended better careers than yours.",
+      "Silence costs nothing.",
+      "I do not require your opinion on the matter.",
+      "Some knowledge is better left where it lies."
+    ],
+    "l-conseq": [
+      "Should you fail, I shall be disappointed, and I am rarely merely that.",
+      "I will not intervene on your behalf.",
+      "My patience is considerable, but it has a floor.",
+      "Do not expect my house to acknowledge you in public.",
+      "A failure will be remembered.",
+      "If you speak out of turn, the commission lapses."
+    ],
+    "closer": [
+      "#l-send#",
+      "#l-send# #l-part#",
+      "#l-part#"
+    ],
+    "l-send": [
+      "You may go.",
+      "That will be all.",
+      "I shall expect results.",
+      "Do not keep me waiting.",
+      "Fair stars, Captain.",
+      "Farewell, then.",
+      "Good day, Captain {captain}.",
+      "I thank you, for what that is worth."
+    ],
+    "l-part": [
+      "I will not say it twice.",
+      "Try to be worthy of the trust.",
+      "I have faith, though it is thin.",
+      "Do prove me wrong about your kind.",
+      "The door is behind you.",
+      "We shall speak again, should you succeed."
+    ]
+  }
+}

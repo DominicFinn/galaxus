@@ -1,0 +1,163 @@
+{
+  "id": "mission-voice-orc",
+  "description": "Orc clients: blunt, loud, boastful. Short sentences, big claims, honour and pay stated plainly.",
+  "variables": [
+    "captain",
+    "client",
+    "faction",
+    "reward",
+    "deadline"
+  ],
+  "rules": {
+    "opener": [
+      "#o-hail# #o-intro#",
+      "#o-hail# #o-frame#",
+      "#o-intro# #o-frame#",
+      "#o-hail#"
+    ],
+    "o-hail": [
+      "Oi, {captain}!",
+      "You! Captain! Come here.",
+      "Ha! You look like you can take a job.",
+      "Sit down, small captain.",
+      "{captain}! I heard you're not afraid.",
+      "Good, you came.",
+      "Listen up.",
+      "I do not like talking. Listen.",
+      "Hah! You made it past my guards.",
+      "Captain! Let me look at you."
+    ],
+    "o-intro": [
+      "I'm {client}, best of {faction}, ask anyone.",
+      "I am {client}. My name is known.",
+      "{faction} needs a hard hand, so here I am.",
+      "I'm {client}. I have done bigger things than this.",
+      "My name is {client} and I've never lost a fight I wanted.",
+      "I lead the loud end of {faction}.",
+      "I'm {client}. I don't do forms."
+    ],
+    "o-frame": [
+      "I have a job. It's good.",
+      "I need something done. Fast and loud.",
+      "It's easy for me, but I'm busy.",
+      "It's a good job for someone brave. Or stupid.",
+      "I'd do it myself, but I'm too important.",
+      "Here is the thing.",
+      "Here's what I want."
+    ],
+    "urgency": [
+      "#o-clock# #o-stakes#",
+      "#o-clock#",
+      "#o-stakes#",
+      "#o-clock# #o-clock2#"
+    ],
+    "o-clock": [
+      "You have {deadline}. Use it.",
+      "{deadline}! Not one hour more.",
+      "Do it in {deadline}, or I'll get angry.",
+      "I want it done in {deadline}.",
+      "{deadline}. Move!",
+      "Be quick. {deadline}.",
+      "No time to sit about. {deadline}.",
+      "I have no patience. {deadline}."
+    ],
+    "o-clock2": [
+      "Faster is better.",
+      "Run your engines hot.",
+      "Don't dawdle.",
+      "Only the slow come last.",
+      "Ha! You'll make it."
+    ],
+    "o-stakes": [
+      "Slow means shame.",
+      "If you're late, I look weak, and I never look weak.",
+      "My rivals are laughing already.",
+      "If it takes longer, it costs me a fight.",
+      "The best ones don't wait.",
+      "I won't have it said we were slow."
+    ],
+    "payment": [
+      "#o-offer# #o-terms#",
+      "#o-offer#",
+      "#o-offer# #o-boast#",
+      "#o-terms#"
+    ],
+    "o-offer": [
+      "I pay {reward}. That's good money.",
+      "{reward}. Hard coin, no tricks.",
+      "You get {reward}.",
+      "There's {reward} for you.",
+      "I'm giving {reward}. Don't spend it all in one bar.",
+      "{reward}! More than your last captain paid.",
+      "It pays {reward}, and I always pay.",
+      "{reward}. You'll see I'm generous."
+    ],
+    "o-terms": [
+      "I pay when it's done.",
+      "No lies, no tricks.",
+      "Do the work. Get the coin.",
+      "I keep my word, ask anyone.",
+      "My word is better than paper.",
+      "You'll get it in my hands, not in a drawer."
+    ],
+    "o-boast": [
+      "Nobody pays better, and I've checked.",
+      "I'm richer than I look.",
+      "Do well and you'll drink on me.",
+      "You'll tell your friends about it."
+    ],
+    "warning": [
+      "#o-caution# #o-conseq#",
+      "#o-caution#",
+      "#o-conseq#",
+      "#o-caution# #o-caution2#"
+    ],
+    "o-caution": [
+      "There will be a fight.",
+      "Some will try to stop you. Stop them first.",
+      "Don't trust anyone smaller than you.",
+      "Watch out for liars.",
+      "Keep your guns hot.",
+      "Not everyone likes me. They'll like you less.",
+      "Expect trouble. I do.",
+      "It will not be quiet."
+    ],
+    "o-caution2": [
+      "Good. I like trouble.",
+      "It'll make a good story.",
+      "Hit them first.",
+      "Hah, you'll enjoy it."
+    ],
+    "o-conseq": [
+      "If you run away, I'll find you.",
+      "Fail and I'll be very loud about it.",
+      "Cross me and see what happens.",
+      "Don't take my coin and sleep.",
+      "I don't forgive cowards.",
+      "Betray me and my whole clan will know."
+    ],
+    "closer": [
+      "#o-send#",
+      "#o-send# #o-part#",
+      "#o-part#"
+    ],
+    "o-send": [
+      "Go!",
+      "Now. Go.",
+      "Make me proud.",
+      "Hah! Off you go.",
+      "Bring me a good story.",
+      "Do it loud.",
+      "Show them what you're made of.",
+      "Go on, then."
+    ],
+    "o-part": [
+      "I'll have a drink waiting.",
+      "I'll be watching.",
+      "Don't die. It's bad for business.",
+      "Win, and I'll sing about you.",
+      "Do not make me regret it.",
+      "Strong engines, {captain}!"
+    ]
+  }
+}

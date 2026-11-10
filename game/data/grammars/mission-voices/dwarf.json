@@ -1,0 +1,165 @@
+{
+  "id": "mission-voice-dwarf",
+  "description": "Dwarf clients: contractual, pay-focused, dry. They put terms in writing and check the fine print.",
+  "variables": [
+    "captain",
+    "client",
+    "faction",
+    "reward",
+    "deadline"
+  ],
+  "rules": {
+    "opener": [
+      "#w-hail# #w-intro#",
+      "#w-hail# #w-frame#",
+      "#w-intro# #w-frame#",
+      "#w-hail#"
+    ],
+    "w-hail": [
+      "Captain {captain}. Pull up a stool.",
+      "Well met. Let's talk terms.",
+      "Aye, you'll do. Sit.",
+      "Good. You read contracts?",
+      "Morning, Captain. Mind the ledger on the table.",
+      "I heard you take honest work.",
+      "Right then, Captain.",
+      "Good day. Don't touch the samples.",
+      "You've the look of someone who reads the small print.",
+      "Captain. I'm {client}, and I like things in writing."
+    ],
+    "w-intro": [
+      "I'm {client} of {faction}.",
+      "{client}, for {faction}. Our word is good.",
+      "{faction} wants a job done properly.",
+      "I handle the contracts for {faction}. Mind the clauses.",
+      "I'm {client}. I've paid every debt I owe.",
+      "My family's been in {faction} longer than your ship's been in the yards.",
+      "I'm {client}. I'm told I haggle, which is a rude word for being careful."
+    ],
+    "w-frame": [
+      "Here's the work.",
+      "The job is plain and the terms are plainer.",
+      "I'll lay it out, clause by clause.",
+      "I need a job done, and done right.",
+      "It's honest, and I've written it down.",
+      "There's no tricks in it. I checked.",
+      "It's a fair piece of work."
+    ],
+    "urgency": [
+      "#w-clock# #w-stakes#",
+      "#w-clock#",
+      "#w-stakes#",
+      "#w-clock# #w-clock2#"
+    ],
+    "w-clock": [
+      "The term is {deadline}.",
+      "You have {deadline}, and the contract says so.",
+      "It's {deadline}, and that's generous.",
+      "{deadline}, no extensions, in writing.",
+      "The schedule is {deadline}.",
+      "The work's due in {deadline}.",
+      "I've given you {deadline}. Don't spend it all.",
+      "Delivery inside {deadline}, or penalties apply."
+    ],
+    "w-clock2": [
+      "Don't test the penalty clause.",
+      "Late work is poor work.",
+      "I do not pay for tardiness.",
+      "I've seen what slow costs.",
+      "I trust we understand each other."
+    ],
+    "w-stakes": [
+      "Every day late costs me coin.",
+      "Others are waiting on my word.",
+      "I've promised a buyer, and I keep promises.",
+      "Late goods rot, and so do reputations.",
+      "I'm bound by my own deadlines.",
+      "A delay cuts the profit, and the profit is thin."
+    ],
+    "payment": [
+      "#w-offer# #w-terms#",
+      "#w-offer#",
+      "#w-offer# #w-extra#",
+      "#w-terms#"
+    ],
+    "w-offer": [
+      "It pays {reward}, in full.",
+      "{reward}, which is the agreed rate.",
+      "The fee is {reward}. I've checked the sums twice.",
+      "I'll pay {reward}.",
+      "{reward} on completion.",
+      "You'll be paid {reward}, and not a coin less.",
+      "The price is {reward}. That's honest.",
+      "{faction} will pay {reward}."
+    ],
+    "w-terms": [
+      "Paid on completion, as the contract says.",
+      "It's all in writing, signed.",
+      "I don't pay on promises.",
+      "You'll be paid, to the coin.",
+      "No hidden fees on my side.",
+      "No advances, no arguments.",
+      "I'll count it out in front of you.",
+      "I won't be talked down, and I won't talk you down."
+    ],
+    "w-extra": [
+      "There's a bonus if it's clean.",
+      "A bonus applies if the goods are sound.",
+      "You'll find we pay on time, which is rare.",
+      "Ask around. I pay."
+    ],
+    "warning": [
+      "#w-caution# #w-conseq#",
+      "#w-caution#",
+      "#w-conseq#",
+      "#w-caution# #w-caution2#"
+    ],
+    "w-caution": [
+      "Check your hull before you go.",
+      "Read the terms.",
+      "Mind the fine print.",
+      "Watch for others who'd like a cut.",
+      "Don't take shortcuts.",
+      "If it feels wrong, it is.",
+      "Keep your own receipts.",
+      "Cheap fuel's a false saving."
+    ],
+    "w-caution2": [
+      "I've seen it go wrong.",
+      "Trust, but count.",
+      "A good tool breaks when it's mishandled.",
+      "You're not the first I've told."
+    ],
+    "w-conseq": [
+      "Break the terms and the fee goes with them.",
+      "Damage is on your account, not mine.",
+      "I don't pay for broken goods.",
+      "If you lose it, you owe it.",
+      "If it goes wrong, the contract says who pays.",
+      "Don't expect an inch of slack beyond the clauses."
+    ],
+    "closer": [
+      "#w-send#",
+      "#w-send# #w-part#",
+      "#w-part#"
+    ],
+    "w-send": [
+      "That's the deal.",
+      "Shake on it.",
+      "Sign here.",
+      "We're agreed, then.",
+      "Good. Go to it.",
+      "Off with you.",
+      "Well, that's that.",
+      "I'll hold you to it."
+    ],
+    "w-part": [
+      "Honest work, honestly done.",
+      "Don't make me chase the fee, or the goods.",
+      "A fair deal, Captain.",
+      "Do it right and we'll deal again.",
+      "Stone doesn't lie, and neither do I.",
+      "Mind the weld seams on your way out."
+    ]
+  }
+}

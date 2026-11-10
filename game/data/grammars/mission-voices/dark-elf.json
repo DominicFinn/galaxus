@@ -1,0 +1,164 @@
+{
+  "id": "mission-voice-dark-elf",
+  "description": "Dark elf clients: terse, conditional, watchful. Deals come with ifs and no names.",
+  "variables": [
+    "captain",
+    "client",
+    "faction",
+    "reward",
+    "deadline"
+  ],
+  "rules": {
+    "opener": [
+      "#d-hail# #d-intro#",
+      "#d-hail# #d-frame#",
+      "#d-intro# #d-frame#",
+      "#d-hail#"
+    ],
+    "d-hail": [
+      "Captain.",
+      "Sit. Quietly.",
+      "You came alone. Good.",
+      "{captain}. Lights stay low.",
+      "I know who you are.",
+      "You were not followed. Probably.",
+      "You're the one with the hold.",
+      "Don't speak yet.",
+      "Close the door.",
+      "So. You."
+    ],
+    "d-intro": [
+      "Call me {client}.",
+      "{client}. That's enough.",
+      "I work for {faction}, or I do today.",
+      "{faction} wants this done, and wants it not to be theirs.",
+      "I'm {client}. I'll be someone else next month.",
+      "I don't have a client. I have an interest.",
+      "You don't need to know who I serve."
+    ],
+    "d-frame": [
+      "Here's the job.",
+      "If you want it, listen.",
+      "I'll say this once.",
+      "It's simple if nothing goes wrong.",
+      "It's work. Nothing more.",
+      "It's easy for someone who doesn't ask.",
+      "Take it or leave it, but decide now."
+    ],
+    "urgency": [
+      "#d-clock# #d-stakes#",
+      "#d-clock#",
+      "#d-stakes#",
+      "#d-clock# #d-clock2#"
+    ],
+    "d-clock": [
+      "{deadline}. No more.",
+      "You have {deadline}, if nobody else is faster.",
+      "It's {deadline} or it's pointless.",
+      "If you're slow, it's over before you start.",
+      "The window is {deadline}. It closes.",
+      "{deadline}, then forget it.",
+      "I need it inside {deadline}.",
+      "There isn't much time."
+    ],
+    "d-clock2": [
+      "Don't stop to think.",
+      "Move.",
+      "Don't make me find someone else.",
+      "Understood?",
+      "I won't ask twice."
+    ],
+    "d-stakes": [
+      "Other people are looking for the same thing.",
+      "If you're late, someone else has already bought it.",
+      "The longer it takes, the more people know.",
+      "Delay means questions.",
+      "What's waiting won't wait.",
+      "I only get this chance once."
+    ],
+    "payment": [
+      "#d-offer# #d-terms#",
+      "#d-offer#",
+      "#d-offer# #d-if#",
+      "#d-terms#"
+    ],
+    "d-offer": [
+      "{reward}. If it goes well.",
+      "You get {reward} when it's done.",
+      "{reward}. Take it or don't.",
+      "The fee is {reward}.",
+      "{reward}, if you earn it.",
+      "I'm paying {reward}.",
+      "I'll give you {reward}, once I've seen it's finished.",
+      "There's {reward} on the table."
+    ],
+    "d-terms": [
+      "No advances.",
+      "Paid in coin, no names.",
+      "You'll be paid somewhere dark.",
+      "Don't ask for more.",
+      "Payment comes after.",
+      "I don't pay for excuses.",
+      "The fee is the fee."
+    ],
+    "d-if": [
+      "Do it quietly and there may be more.",
+      "If you're useful, I'll remember.",
+      "If you ask what's in it for me, the price goes down.",
+      "If it goes well, I might call again."
+    ],
+    "warning": [
+      "#d-caution# #d-conseq#",
+      "#d-caution#",
+      "#d-conseq#",
+      "#d-caution# #d-caution2#"
+    ],
+    "d-caution": [
+      "Watch your back.",
+      "Don't trust the first friendly face.",
+      "Someone will notice. Don't be there when they do.",
+      "If you see a way out, take it.",
+      "Speak to no one.",
+      "Assume you're being watched.",
+      "Keep the lights off and the comms quieter.",
+      "Trust nothing you're told on the way."
+    ],
+    "d-caution2": [
+      "Including me.",
+      "Especially me.",
+      "Don't say I didn't say.",
+      "You'll know when it starts."
+    ],
+    "d-conseq": [
+      "If it fails, I don't know you.",
+      "I won't come looking, if you vanish.",
+      "If someone asks, you were never here.",
+      "Get caught and you're alone.",
+      "If you talk, I'll hear of it.",
+      "Cross me and I'll know."
+    ],
+    "closer": [
+      "#d-send#",
+      "#d-send# #d-part#",
+      "#d-part#"
+    ],
+    "d-send": [
+      "Go.",
+      "That's all.",
+      "We're done.",
+      "Leave first.",
+      "Don't come back unless it's done.",
+      "Good luck. You'll need some.",
+      "Off you go.",
+      "Quietly, now."
+    ],
+    "d-part": [
+      "I'll be listening.",
+      "Be quick.",
+      "Don't look back.",
+      "I'll find you.",
+      "Mind the shadows.",
+      "You'll hear from me, or you won't."
+    ]
+  }
+}

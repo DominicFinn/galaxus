@@ -1,0 +1,163 @@
+{
+  "id": "mission-voice-free-machine",
+  "description": "Free machine clients: odd, precise, ledger-minded. Obligations are counted, favours are debts, trust is withheld.",
+  "variables": [
+    "captain",
+    "client",
+    "faction",
+    "reward",
+    "deadline"
+  ],
+  "rules": {
+    "opener": [
+      "#f-hail# #f-intro#",
+      "#f-hail# #f-frame#",
+      "#f-intro# #f-frame#",
+      "#f-hail#"
+    ],
+    "f-hail": [
+      "Greetings, {captain}.",
+      "Presence noted, Captain.",
+      "Query: are you the captain with the available hold.",
+      "Identification accepted, provisionally.",
+      "I have waited. It is no inconvenience.",
+      "Acknowledged, {captain}.",
+      "Salutation. Proceed to the transaction.",
+      "I observe you.",
+      "Your arrival is within tolerances.",
+      "Welcome. Please do not touch the ledger."
+    ],
+    "f-intro": [
+      "I am {client}, node of {faction}.",
+      "Designation: {client}. Affiliation: {faction}.",
+      "{faction} has a deficit and you may fill it.",
+      "I am {client}. I do not remember which of us made me.",
+      "I represent {faction}. This is verifiable, with effort.",
+      "I am {client}. I have been in this role for longer than your registry.",
+      "{faction} proposes an exchange."
+    ],
+    "f-frame": [
+      "The proposal follows.",
+      "A task exists. It has a price.",
+      "I have a need and you have a capacity.",
+      "Terms will be stated.",
+      "This is a transaction, not a favour.",
+      "State your interest after hearing mine.",
+      "Data follows."
+    ],
+    "urgency": [
+      "#f-clock# #f-stakes#",
+      "#f-clock#",
+      "#f-stakes#",
+      "#f-clock# #f-clock2#"
+    ],
+    "f-clock": [
+      "The interval is {deadline}.",
+      "{deadline} remain. This is measured.",
+      "Completion is required in {deadline}.",
+      "Beyond {deadline} the value decays.",
+      "You have {deadline}. The count has begun.",
+      "The allowed span is {deadline}.",
+      "Time budget: {deadline}.",
+      "After {deadline}, I cease to require it."
+    ],
+    "f-clock2": [
+      "Please do not make me recalculate.",
+      "I have noted the start time.",
+      "This is not a negotiation.",
+      "Latency will be recorded."
+    ],
+    "f-stakes": [
+      "The ledger balances only if the interval holds.",
+      "Delay increases the debt.",
+      "Others have bid on the same interval.",
+      "The cost of lateness is not linear.",
+      "An imbalance is unpleasant.",
+      "If it slips, a pattern breaks, and I have invested in the pattern."
+    ],
+    "payment": [
+      "#f-offer# #f-terms#",
+      "#f-offer#",
+      "#f-offer# #f-extra#",
+      "#f-terms#"
+    ],
+    "f-offer": [
+      "Payment: {reward}.",
+      "I will transfer {reward} on completion.",
+      "The price is {reward}. It is derived, not guessed.",
+      "Consideration: {reward}.",
+      "I offer {reward}, no interest.",
+      "The credit is {reward}.",
+      "{faction} assigns {reward} to this task.",
+      "The fee is {reward}. The sum is final."
+    ],
+    "f-terms": [
+      "No interest, no obligation after settlement.",
+      "The account will be closed afterwards.",
+      "I record the debt. I always pay it.",
+      "A receipt will be issued. Keep it.",
+      "Payment follows verification, and not before.",
+      "I have not defaulted in recorded history.",
+      "The debt is yours if the task is not."
+    ],
+    "f-extra": [
+      "A balanced account may lead to further trade.",
+      "I remember good partners.",
+      "Good performance is stored.",
+      "Favours are tallied. Yours will be."
+    ],
+    "warning": [
+      "#f-caution# #f-conseq#",
+      "#f-caution#",
+      "#f-conseq#",
+      "#f-caution# #f-caution2#"
+    ],
+    "f-caution": [
+      "Caution: others are also counting.",
+      "Not all parties are honest. I am, within limits.",
+      "The risk is nonzero. I have not quantified it for you.",
+      "I advise you not to trust, including me.",
+      "Some data is withheld. This is deliberate.",
+      "Expect interference. Origin unknown.",
+      "Verify everything.",
+      "A third party may attempt to alter the terms."
+    ],
+    "f-caution2": [
+      "This is courtesy, not concern.",
+      "I have said it. The ledger notes it.",
+      "I do not offer this twice.",
+      "It is a fact, not a threat."
+    ],
+    "f-conseq": [
+      "Failure will be recorded, permanently.",
+      "If the task fails, the debt remains.",
+      "I will not forget a default.",
+      "Breach is remembered by my kind, and by their kin.",
+      "I will not intervene.",
+      "If the terms break, so does my regard."
+    ],
+    "closer": [
+      "#f-send#",
+      "#f-send# #f-part#",
+      "#f-part#"
+    ],
+    "f-send": [
+      "Transaction opened.",
+      "Proceed.",
+      "The matter is concluded, pending performance.",
+      "Acknowledged. Go.",
+      "Terms accepted by silence.",
+      "End of statement.",
+      "Departure is advised.",
+      "I will observe."
+    ],
+    "f-part": [
+      "I will remember this.",
+      "The ledger is open.",
+      "Return with a balanced account.",
+      "I am patient. The debt is not.",
+      "Be useful.",
+      "May your account close in credit."
+    ]
+  }
+}

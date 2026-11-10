@@ -1,12 +1,174 @@
 {
   "id": "mission-voice-human",
-  "description": "How human clients phrase contracts. Every mission voice needs opener, urgency, payment, warning and closer.",
-  "variables": ["captain", "reward", "deadline"],
+  "description": "How human clients phrase contracts: businesslike, a little bureaucratic, mindful of paperwork and liability.",
+  "variables": [
+    "captain",
+    "client",
+    "faction",
+    "reward",
+    "deadline"
+  ],
   "rules": {
-    "opener": ["Captain {captain}, thanks for coming.", "Right, let's keep this short.", "You're the captain with the free hold? Good."],
-    "urgency": ["Time matters on this one.", "We needed this done yesterday."],
-    "payment": ["It pays {reward} on delivery.", "{reward}, paid when it's done. Standard terms."],
-    "warning": ["Keep your transponder clean.", "Don't take the scenic route."],
-    "closer": ["Safe flying.", "Good luck out there."]
+    "opener": [
+      "#h-hail# #h-intro#",
+      "#h-hail# #h-frame#",
+      "#h-intro# #h-frame#",
+      "#h-hail#"
+    ],
+    "h-hail": [
+      "Captain {captain}, thanks for coming.",
+      "Right, let's keep this short.",
+      "You're the captain with the free hold? Good.",
+      "Captain {captain}. Please, sit.",
+      "Thanks for making time, Captain.",
+      "Ah, {captain}. You came recommended.",
+      "Morning, Captain. Or evening. I've lost track.",
+      "I'll be brief, Captain {captain}.",
+      "Good. You're on time.",
+      "Captain {captain}, I'll get to the point."
+    ],
+    "h-intro": [
+      "I'm {client}, with {faction}.",
+      "{client}, representing {faction}.",
+      "I act for {faction}, and I'm authorised to agree terms.",
+      "I'm {client}. {faction} has a job that needs an outside hand.",
+      "My name's {client}. I'm told you don't ask more questions than you need to.",
+      "{faction} would rather not use its own people for this.",
+      "I handle contracts for {faction}, and this one is on my desk."
+    ],
+    "h-frame": [
+      "Here's the situation.",
+      "I'll give you the short version.",
+      "This is a plain job, and I'd like it to stay plain.",
+      "The details are in the file, but here's what matters.",
+      "There's a form for this, but I'll just tell you.",
+      "I need something done and I need someone reliable.",
+      "I'd call it routine, though nothing is routine lately.",
+      "We have a problem, and you can fix it."
+    ],
+    "urgency": [
+      "#h-clock# #h-stakes#",
+      "#h-clock#",
+      "#h-stakes#",
+      "#h-clock# #h-clock2#"
+    ],
+    "h-clock": [
+      "Time matters on this one.",
+      "We needed this done yesterday.",
+      "You have {deadline}.",
+      "The window is {deadline}, and it won't be extended.",
+      "I can give you {deadline}, no more.",
+      "Our schedule allows {deadline}.",
+      "It has to be done within {deadline}.",
+      "The clock started before I called you.",
+      "{deadline} is the limit, Captain.",
+      "We're already behind."
+    ],
+    "h-clock2": [
+      "Please plan accordingly.",
+      "I'd rather not explain a delay upstairs.",
+      "Don't leave it to the last day.",
+      "Late is as good as failed, on paper.",
+      "Allow for the usual port delays.",
+      "I've padded nothing."
+    ],
+    "h-stakes": [
+      "People are waiting on this.",
+      "A delay costs me more than it costs you.",
+      "If it slips, it goes to my superiors, and then to yours.",
+      "There's an audit coming.",
+      "A lot rests on the timing.",
+      "I'd like this closed before the quarter ends.",
+      "Someone has to sign off on it, and they leave soon.",
+      "The longer it takes, the worse it looks."
+    ],
+    "payment": [
+      "#h-offer# #h-terms#",
+      "#h-offer#",
+      "#h-offer# #h-bonus#",
+      "#h-terms#"
+    ],
+    "h-offer": [
+      "It pays {reward} on delivery.",
+      "{reward}, paid when it's done. Standard terms.",
+      "The fee is {reward}.",
+      "{faction} will pay {reward} on completion.",
+      "I can authorise {reward}.",
+      "You'll receive {reward}.",
+      "The rate is {reward}, fixed.",
+      "We're offering {reward}, which is fair."
+    ],
+    "h-terms": [
+      "Payment is on confirmation.",
+      "I'll need a signature first.",
+      "It clears within the hour of completion.",
+      "No advances, I'm afraid.",
+      "Paid through the usual channel.",
+      "It's all in writing.",
+      "You'll get a receipt.",
+      "There's no haggling room, but there is no catch either."
+    ],
+    "h-bonus": [
+      "Do it cleanly and I'll mention you for the next contract.",
+      "I may be able to find a little extra for a tidy result.",
+      "Do well and there's repeat work.",
+      "I keep a list of captains I trust."
+    ],
+    "warning": [
+      "#h-caution# #h-conseq#",
+      "#h-caution#",
+      "#h-conseq#",
+      "#h-caution# #h-caution2#"
+    ],
+    "h-caution": [
+      "Keep your transponder clean.",
+      "Don't take the scenic route.",
+      "Stay off the main lanes if you can.",
+      "Keep this off open channels.",
+      "You may meet interference.",
+      "Watch who you talk to in port.",
+      "Not everyone will want this finished.",
+      "Check your insurance first.",
+      "Don't improvise.",
+      "Keep records of everything."
+    ],
+    "h-caution2": [
+      "I'd rather not hear about it from the news.",
+      "If something looks wrong, it probably is.",
+      "Report in if the plan changes.",
+      "Use your judgement, within reason."
+    ],
+    "h-conseq": [
+      "We can't cover losses.",
+      "Don't expect {faction} to vouch for you if it goes wrong.",
+      "I can't help you if the port authority gets involved.",
+      "I'll have to disown the whole thing, officially.",
+      "If it goes badly, we never met.",
+      "Breach of terms voids the fee.",
+      "I'm not liable for what happens out there."
+    ],
+    "closer": [
+      "#h-send#",
+      "#h-send# #h-part#",
+      "#h-part#"
+    ],
+    "h-send": [
+      "Safe flying.",
+      "Good luck out there.",
+      "Don't let me down.",
+      "That's all.",
+      "Off you go, then.",
+      "I'll be at my desk.",
+      "Stay in touch.",
+      "Thank you, Captain."
+    ],
+    "h-part": [
+      "I'll expect your report.",
+      "Let's both get what we need from this.",
+      "Call if there's a problem. Preferably early.",
+      "Make it quick and make it quiet.",
+      "I look forward to closing the file.",
+      "Do right by me and I'll do right by you."
+    ]
   }
 }

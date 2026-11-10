@@ -2,23 +2,2114 @@
   {
     "id": "faction-names-mining-corporation",
     "description": "Mining corporation names.",
-    "variables": ["place", "founder"],
+    "variables": [
+      "founder",
+      "place"
+    ],
     "rules": {
-      "name": ["{place} #ore# #company#", "{founder} #company#", "#adjective# #ore# #company#"],
-      "ore": ["Ore", "Minerals", "Extraction", "Resources", "Metals"],
-      "company": ["Consolidated", "Holdings", "Combine", "Syndicate", "Partners"],
-      "adjective": ["Deep", "Northern", "Second", "United", "Lower"]
+      "coin": [
+        "#cs##ce#"
+      ],
+      "cs": [
+        "Vel",
+        "Kor",
+        "Tal",
+        "Mer",
+        "Ard",
+        "Bren",
+        "Cal",
+        "Dor",
+        "Hal",
+        "Ith",
+        "Jor",
+        "Lum",
+        "Nor",
+        "Ost",
+        "Per",
+        "Quen",
+        "Ren",
+        "Sar",
+        "Tev",
+        "Ulm",
+        "Var",
+        "Wes",
+        "Yar",
+        "Zen",
+        "Ast",
+        "Bel",
+        "Cor",
+        "Dun",
+        "Eld",
+        "Fen",
+        "Gar",
+        "Hes"
+      ],
+      "ce": [
+        "tax",
+        "ron",
+        "dex",
+        "mar",
+        "vane",
+        "lis",
+        "gon",
+        "tek",
+        "sen",
+        "dyne",
+        "mont",
+        "bar",
+        "cor",
+        "lan",
+        "vik",
+        "rath"
+      ],
+      "co": [
+        "Consolidated",
+        "Holdings",
+        "Combine",
+        "Syndicate",
+        "Partners",
+        "Group",
+        "Company",
+        "Corporation",
+        "Trust",
+        "Works"
+      ],
+      "name": [
+        "{place} #ore# #co#",
+        "{founder} #ore# #co#",
+        "#adj# #ore# #co#",
+        "#coin# #ore#",
+        "#coin# #ore# #co#",
+        "{place} Deep #ore#",
+        "{founder} & Partners Extraction",
+        "#adj# #rock# #ore#",
+        "#coin# #rock# #co#"
+      ],
+      "ore": [
+        "Ore",
+        "Minerals",
+        "Extraction",
+        "Resources",
+        "Metals",
+        "Mining",
+        "Smelting"
+      ],
+      "adj": [
+        "Deep",
+        "Northern",
+        "Second",
+        "United",
+        "Lower",
+        "Open",
+        "Consolidated",
+        "Greater",
+        "Inner"
+      ],
+      "rock": [
+        "Belt",
+        "Seam",
+        "Lode",
+        "Regolith",
+        "Tailings",
+        "Moonrock"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-shipping-company",
+    "description": "Shipping company names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "coin": [
+        "#cs##ce#"
+      ],
+      "cs": [
+        "Vel",
+        "Kor",
+        "Tal",
+        "Mer",
+        "Ard",
+        "Bren",
+        "Cal",
+        "Dor",
+        "Hal",
+        "Ith",
+        "Jor",
+        "Lum",
+        "Nor",
+        "Ost",
+        "Per",
+        "Quen",
+        "Ren",
+        "Sar",
+        "Tev",
+        "Ulm",
+        "Var",
+        "Wes",
+        "Yar",
+        "Zen",
+        "Ast",
+        "Bel",
+        "Cor",
+        "Dun",
+        "Eld",
+        "Fen",
+        "Gar",
+        "Hes"
+      ],
+      "ce": [
+        "tax",
+        "ron",
+        "dex",
+        "mar",
+        "vane",
+        "lis",
+        "gon",
+        "tek",
+        "sen",
+        "dyne",
+        "mont",
+        "bar",
+        "cor",
+        "lan",
+        "vik",
+        "rath"
+      ],
+      "co": [
+        "Consolidated",
+        "Holdings",
+        "Combine",
+        "Syndicate",
+        "Partners",
+        "Group",
+        "Company",
+        "Corporation",
+        "Trust",
+        "Works"
+      ],
+      "name": [
+        "{place} #ship# #line#",
+        "{founder} #ship# #line#",
+        "#coin# #ship# #line#",
+        "#adj# #ship# #line#",
+        "#coin# #line#",
+        "{founder} & #coin# #ship#",
+        "#adj# #lane# #line#",
+        "{place} #lane# #line#"
+      ],
+      "ship": [
+        "Freight",
+        "Haulage",
+        "Cargo",
+        "Lighterage",
+        "Transit",
+        "Carriers"
+      ],
+      "line": [
+        "Line",
+        "Lines",
+        "Company",
+        "Company Ltd",
+        "& Co",
+        "Partnership",
+        "Concern"
+      ],
+      "adj": [
+        "Meridian",
+        "Steady",
+        "Trans-Gate",
+        "Open Lane",
+        "Blue Gate",
+        "Long Haul",
+        "Reliable",
+        "Grand",
+        "Midnight",
+        "Common"
+      ],
+      "lane": [
+        "Lane",
+        "Gate",
+        "Orbit",
+        "Route",
+        "Berth"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-arms-manufacturer",
+    "description": "Arms manufacturer names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "coin": [
+        "#cs##ce#"
+      ],
+      "cs": [
+        "Vel",
+        "Kor",
+        "Tal",
+        "Mer",
+        "Ard",
+        "Bren",
+        "Cal",
+        "Dor",
+        "Hal",
+        "Ith",
+        "Jor",
+        "Lum",
+        "Nor",
+        "Ost",
+        "Per",
+        "Quen",
+        "Ren",
+        "Sar",
+        "Tev",
+        "Ulm",
+        "Var",
+        "Wes",
+        "Yar",
+        "Zen",
+        "Ast",
+        "Bel",
+        "Cor",
+        "Dun",
+        "Eld",
+        "Fen",
+        "Gar",
+        "Hes"
+      ],
+      "ce": [
+        "tax",
+        "ron",
+        "dex",
+        "mar",
+        "vane",
+        "lis",
+        "gon",
+        "tek",
+        "sen",
+        "dyne",
+        "mont",
+        "bar",
+        "cor",
+        "lan",
+        "vik",
+        "rath"
+      ],
+      "co": [
+        "Consolidated",
+        "Holdings",
+        "Combine",
+        "Syndicate",
+        "Partners",
+        "Group",
+        "Company",
+        "Corporation",
+        "Trust",
+        "Works"
+      ],
+      "name": [
+        "#coin# #arms# #co#",
+        "{founder} #arms#",
+        "{founder} & Sons #arms#",
+        "{place} #arms# #co#",
+        "#adj# #arms#",
+        "#coin# #arms#",
+        "#adj# #arms# #co#",
+        "#coin# Ordnance"
+      ],
+      "arms": [
+        "Armaments",
+        "Ordnance",
+        "Munitions",
+        "Arsenals",
+        "Defence Systems",
+        "Weaponworks",
+        "Armouries"
+      ],
+      "adj": [
+        "Iron",
+        "Bastion",
+        "Redoubt",
+        "Longarm",
+        "Ninth Bastion",
+        "Steel",
+        "Sentinel",
+        "Standing",
+        "Grey"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-research-consortium",
+    "description": "Research consortium names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "coin": [
+        "#cs##ce#"
+      ],
+      "cs": [
+        "Vel",
+        "Kor",
+        "Tal",
+        "Mer",
+        "Ard",
+        "Bren",
+        "Cal",
+        "Dor",
+        "Hal",
+        "Ith",
+        "Jor",
+        "Lum",
+        "Nor",
+        "Ost",
+        "Per",
+        "Quen",
+        "Ren",
+        "Sar",
+        "Tev",
+        "Ulm",
+        "Var",
+        "Wes",
+        "Yar",
+        "Zen",
+        "Ast",
+        "Bel",
+        "Cor",
+        "Dun",
+        "Eld",
+        "Fen",
+        "Gar",
+        "Hes"
+      ],
+      "ce": [
+        "tax",
+        "ron",
+        "dex",
+        "mar",
+        "vane",
+        "lis",
+        "gon",
+        "tek",
+        "sen",
+        "dyne",
+        "mont",
+        "bar",
+        "cor",
+        "lan",
+        "vik",
+        "rath"
+      ],
+      "co": [
+        "Consolidated",
+        "Holdings",
+        "Combine",
+        "Syndicate",
+        "Partners",
+        "Group",
+        "Company",
+        "Corporation",
+        "Trust",
+        "Works"
+      ],
+      "name": [
+        "{place} #inst# for #field#",
+        "The #adj# #inst#",
+        "#coin# #field# #inst#",
+        "{founder} #inst# of #field#",
+        "#inst# of #field#, {place}",
+        "{founder} #field# #co#",
+        "#coin# Research #co#",
+        "The #adj# #field# #inst#"
+      ],
+      "inst": [
+        "Institute",
+        "Consortium",
+        "Laboratories",
+        "Foundation",
+        "Collegium",
+        "Academy",
+        "Research Trust"
+      ],
+      "field": [
+        "Gate Studies",
+        "Applied Metallurgy",
+        "Drive Theory",
+        "Machine Cognition",
+        "Xenoarchaeology",
+        "Field Dynamics",
+        "Deep Survey",
+        "Reactor Science",
+        "Materials",
+        "Signal Analysis"
+      ],
+      "adj": [
+        "Meridian",
+        "Lantern Street",
+        "Open",
+        "Third Light",
+        "Royal",
+        "Concord",
+        "Independent",
+        "Hollow Star"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-merchant-republic",
+    "description": "Merchant republic names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "Republic of {place}",
+        "The {place} Republic",
+        "The #adj# Republic of {place}",
+        "#adj# Republic",
+        "The Free Republic of {place}",
+        "The Commonwealth of {place}",
+        "The {place} Concordat",
+        "The #adj# Commonwealth",
+        "The Serene Republic of {place}",
+        "The Council of #pl#",
+        "The United Systems of #pl#"
+      ],
+      "adj": [
+        "Free",
+        "Sovereign",
+        "Merchant",
+        "Open",
+        "Ninth",
+        "Independent",
+        "Federal",
+        "Grand",
+        "Lesser",
+        "Chartered",
+        "United",
+        "Harbour",
+        "Ledger",
+        "Northern",
+        "Sunward",
+        "Reformed",
+        "Lantern Street",
+        "Amber",
+        "Seventh",
+        "Stewarded"
+      ],
+      "pl": [
+        "{place}",
+        "{place} and Beyond",
+        "the Inner Lanes",
+        "the Twin Gates",
+        "the Seven Stations",
+        "the Salt Ports",
+        "Carrow and {place}",
+        "the Amber Lanes"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-frontier-confederation",
+    "description": "Frontier confederation names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "#adj# Compact of {place}",
+        "The {place} Compact",
+        "The #adj# Reach",
+        "The #adj# Confederation",
+        "The Confederated Settlements of {place}",
+        "The #adj# Free Holdings",
+        "{place} Free Holdings",
+        "The Tolland #pl#",
+        "The Independent Systems of #pl#",
+        "The #adj# Accord"
+      ],
+      "adj": [
+        "Free",
+        "Wayfarer",
+        "Outer",
+        "Open",
+        "Homestead",
+        "Rough",
+        "Lantern Road",
+        "Common",
+        "Long",
+        "Uncrowned",
+        "Dust",
+        "Stubborn",
+        "Hardscrabble",
+        "Last Ditch",
+        "Windward",
+        "Sparse",
+        "Plain",
+        "Wide",
+        "Homesteaders'"
+      ],
+      "pl": [
+        "{place}",
+        "the Hollow Lanes",
+        "the Far Reach",
+        "Three Stars",
+        "the Dust Belt",
+        "the Outer Stations",
+        "the Tolland Lanes"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-old-monarchy",
+    "description": "Old monarchy names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "Kingdom of {place}",
+        "The {place} Crown",
+        "The #adj# Kingdom of {place}",
+        "The Principality of {place}",
+        "The Grand Duchy of {place}",
+        "The Duchy of {place}",
+        "The #adj# Throne",
+        "The Crown of #pl#",
+        "The Realm of #pl#",
+        "The {place} Regency"
+      ],
+      "adj": [
+        "Old",
+        "Restored",
+        "Lesser",
+        "Northern",
+        "Hereditary",
+        "Second",
+        "Sunward",
+        "Ancient",
+        "Elder",
+        "Greater",
+        "Hollow",
+        "Reduced",
+        "Lawful",
+        "Cadet",
+        "Exiled",
+        "Reigning",
+        "Western",
+        "Pale"
+      ],
+      "pl": [
+        "{place}",
+        "Three Systems",
+        "the Long Gate",
+        "Carrow and {place}",
+        "the Seven Stars",
+        "the Gate Marches"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-human-noble-house",
+    "description": "Human noble house names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "House #hn#",
+        "The House of #hn#",
+        "House #hn# of {place}",
+        "The #hn# Family",
+        "House #hn# and #hn2#",
+        "{founder} of House #hn#",
+        "The Lords #hn#",
+        "The #hn# Estate",
+        "The #hn# Line",
+        "The Marchers of {place}",
+        "House #hn#-#hn2#"
+      ],
+      "hn": [
+        "Ashcombe",
+        "Varley",
+        "Dunmere",
+        "Halloran",
+        "Castellane",
+        "Brightwater",
+        "Thorne",
+        "Lacey",
+        "Marchmont",
+        "Ravensgate",
+        "Strand",
+        "Vance",
+        "Orsini",
+        "Kestrel",
+        "Penhallow",
+        "Wexcombe",
+        "Ardley",
+        "Corvane",
+        "Selwyn",
+        "Harcourt",
+        "Tallis",
+        "Montrose",
+        "Delacourt",
+        "Fairweather",
+        "Beaumark",
+        "Quillan",
+        "Rutherby",
+        "Sandoval",
+        "Trevane",
+        "Whitlock"
+      ],
+      "hn2": [
+        "Ashcombe",
+        "Varley",
+        "Dunmere",
+        "Thorne",
+        "Vance",
+        "Selwyn",
+        "Tallis",
+        "Harcourt"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-light-elf-house",
+    "description": "Light elf house names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "House #el#",
+        "House #el#",
+        "House #el# #ep#",
+        "House #el# of #court#",
+        "The #ep# House of #el#",
+        "House #el# of the #ep#",
+        "The Court of #el#",
+        "House #el#-#el2#",
+        "The #el# Succession",
+        "The Evening Line of #el#"
+      ],
+      "el": [
+        "#la##lb#"
+      ],
+      "el2": [
+        "#la##lb#"
+      ],
+      "la": [
+        "Ae",
+        "Ilu",
+        "Sael",
+        "Thae",
+        "Vael",
+        "Eri",
+        "Lae",
+        "Nim",
+        "Syl",
+        "Ora",
+        "Cael",
+        "Ith",
+        "Mael",
+        "Fae",
+        "Alu",
+        "Ena"
+      ],
+      "lb": [
+        "rithel",
+        "venna",
+        "laris",
+        "thiel",
+        "orin",
+        "andel",
+        "isse",
+        "amar",
+        "ethra",
+        "iriel",
+        "onwe",
+        "avel",
+        "ilian",
+        "ethis",
+        "quor",
+        "aris"
+      ],
+      "ep": [
+        "Silver Reed",
+        "Unspoken Hour",
+        "Quiet Lamp",
+        "Last Tide",
+        "Evening Tide",
+        "Third Sun",
+        "Pale Orchard",
+        "Long Memory",
+        "Folded Wing",
+        "Lesser Moon",
+        "Open Hand",
+        "Sleeping Door"
+      ],
+      "court": [
+        "the Meridian Court",
+        "{place}",
+        "the Evening Court",
+        "the Low Spire",
+        "the Glass Terrace"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-trade-guild",
+    "description": "Trade guild names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "#The# Guild of #trade#",
+        "#The# Worshipful Company of #trade#",
+        "The #trade# Guild of {place}",
+        "{place} #trade# Guild",
+        "The Brotherhood of #trade#",
+        "The United Guild of #trade#",
+        "The Fellowship of #trade#",
+        "The Honest Company of #trade#",
+        "The Society of #trade#"
+      ],
+      "The": [
+        "The",
+        "The",
+        "The Ancient and Honourable"
+      ],
+      "trade": [
+        "Pilots",
+        "Dockhands",
+        "Gatewrights",
+        "Navigators",
+        "Welders",
+        "Shipwrights",
+        "Cargo Handlers",
+        "Victuallers",
+        "Tug Masters",
+        "Refiners",
+        "Assayers",
+        "Stevedores",
+        "Chandlers",
+        "Lamplighters",
+        "Drive Fitters",
+        "Gate Pilots",
+        "Riggers",
+        "Coopers",
+        "Dockmasters",
+        "Hull Inspectors",
+        "Cartwrights"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-trade-league",
+    "description": "Trade league names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# League",
+        "The {place} League",
+        "The League of #pl#",
+        "The #adj# #mer# League",
+        "The #adj# Trading Pact",
+        "The #pl# Trade Compact",
+        "The #adj# Exchange",
+        "#adj# #mer# Union",
+        "The Mercantile League of {place}"
+      ],
+      "adj": [
+        "Free",
+        "Amber",
+        "Salt Road",
+        "Twelve Ports",
+        "Meridian",
+        "Long Lane",
+        "Open Gate",
+        "Honest Weight",
+        "Blue Ledger",
+        "Common"
+      ],
+      "mer": [
+        "Traders",
+        "Merchants",
+        "Factors",
+        "Carriers",
+        "Brokers"
+      ],
+      "pl": [
+        "{place}",
+        "the Free Ports",
+        "the Anvil Lanes",
+        "the Eight Stations",
+        "the Inner Gates"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-dwarf-hold",
+    "description": "Dwarf hold names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "#dn# Hold",
+        "Hold #dn#",
+        "Hold of #dn#",
+        "#adj# Hold",
+        "The #adj# Hold of #dn#",
+        "Clan #dn# of {place}",
+        "{place} Deep Hold",
+        "#dn# #metal# Hold",
+        "Hold #dn#-under-#rock#",
+        "The #dn# Seam"
+      ],
+      "dn": [
+        "#da##db#"
+      ],
+      "da": [
+        "Dur",
+        "Brom",
+        "Hald",
+        "Korv",
+        "Ulg",
+        "Bran",
+        "Thrum",
+        "Gal",
+        "Orm",
+        "Haldr",
+        "Mor",
+        "Skel",
+        "Torv",
+        "Rum",
+        "Vor",
+        "Bael",
+        "Grund"
+      ],
+      "db": [
+        "rek",
+        "und",
+        "och",
+        "imm",
+        "ak",
+        "ric",
+        "orn",
+        "dak",
+        "uld",
+        "mar",
+        "gar",
+        "helm",
+        "ek",
+        "unn",
+        "stal"
+      ],
+      "adj": [
+        "Deepdelve",
+        "Anvil",
+        "Ninth",
+        "Lower",
+        "Ironbound",
+        "Stonefast",
+        "Redseam",
+        "Hollow",
+        "Kettle"
+      ],
+      "metal": [
+        "Iron",
+        "Copper",
+        "Cobalt",
+        "Nickel",
+        "Tin"
+      ],
+      "rock": [
+        "Basalt",
+        "Slate",
+        "Granite",
+        "Rubble"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-orc-khanate",
+    "description": "Orc khanate names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# Khanate",
+        "Khanate of #on#",
+        "The #on# Khanate",
+        "The Khanate of {place}",
+        "#on#'s Khanate",
+        "The #adj# Khanate of #on#",
+        "The #on# Horde Under #adj# Sky",
+        "The #adj# Grav Khanate",
+        "The Khanate of the #adj# #thing#"
+      ],
+      "on": [
+        "#oa##ob#"
+      ],
+      "oa": [
+        "Gruk",
+        "Varsh",
+        "Dro",
+        "Mog",
+        "Kaz",
+        "Thar",
+        "Ur",
+        "Bag",
+        "Ruk",
+        "Zug",
+        "Gor",
+        "Skar",
+        "Hruk",
+        "Krag",
+        "Ushk",
+        "Narg",
+        "Vogh"
+      ],
+      "ob": [
+        "ka",
+        "gash",
+        "tul",
+        "dak",
+        "mok",
+        "ruk",
+        "thar",
+        "bash",
+        "gorn",
+        "zog",
+        "nak",
+        "uk"
+      ],
+      "adj": [
+        "Iron",
+        "Loud",
+        "Heavy",
+        "Unbent",
+        "Red Engine",
+        "Twelve-G",
+        "High Burn",
+        "Long Fall",
+        "Anvil",
+        "Thunder"
+      ],
+      "thing": [
+        "Engine",
+        "Drive",
+        "Burn",
+        "Sled",
+        "Falling Star"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-orc-warband",
+    "description": "Orc warband names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# #fists#",
+        "#on#'s #fists#",
+        "The #on# #fists#",
+        "Warband of the #adj# #thing#",
+        "The #adj# #thing# Warband",
+        "#on#'s #adj# #fists#",
+        "The #thing# Riders of {place}",
+        "The #on# Burners",
+        "The Sons of #on#"
+      ],
+      "on": [
+        "#oa##ob#"
+      ],
+      "oa": [
+        "Gruk",
+        "Varsh",
+        "Dro",
+        "Mog",
+        "Kaz",
+        "Thar",
+        "Ur",
+        "Bag",
+        "Ruk",
+        "Zug",
+        "Gor",
+        "Skar",
+        "Hruk",
+        "Krag",
+        "Ushk",
+        "Narg",
+        "Vogh"
+      ],
+      "ob": [
+        "ka",
+        "gash",
+        "tul",
+        "dak",
+        "mok",
+        "ruk",
+        "thar",
+        "bash",
+        "gorn",
+        "zog",
+        "nak",
+        "uk"
+      ],
+      "adj": [
+        "Iron",
+        "Red",
+        "Hard",
+        "Burning",
+        "Broken",
+        "Loud",
+        "Full-Burn",
+        "Black Plate"
+      ],
+      "fists": [
+        "Fists",
+        "Tusks",
+        "Hammers",
+        "Boots",
+        "Rippers",
+        "Hulls"
+      ],
+      "thing": [
+        "Engine",
+        "Thruster",
+        "Tusk",
+        "Ram",
+        "Afterburner"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-gate-cult",
+    "description": "Gate cult names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# Gate",
+        "Keepers of the #adj# Gate",
+        "Children of the #adj# Gate",
+        "The Order of the #adj# Threshold",
+        "Pilgrims at {place}",
+        "Friends of the Open Gate",
+        "The #adj# Threshold",
+        "The Gatewatch of {place}",
+        "The Brethren of the #adj# Arch",
+        "The #adj# Passage"
+      ],
+      "adj": [
+        "First",
+        "Open",
+        "Patient",
+        "Silent",
+        "Waking",
+        "Last Good",
+        "Humming",
+        "Unclosed",
+        "Opening",
+        "Turning",
+        "Listening",
+        "Wide",
+        "Faithful",
+        "Ninth",
+        "Lit",
+        "Standing",
+        "Kindly",
+        "Ever-Open",
+        "Ringing",
+        "Deep"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-lantern-order",
+    "description": "Lantern Synod order names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The Order of the #adj# Lantern",
+        "The Sisters of the #adj# Lantern",
+        "The Brothers of the #adj# Lantern",
+        "The Chapter of {place}",
+        "The Hospitallers of {place}",
+        "The #adj# Lantern Chapter",
+        "The Almoners of the Lamp",
+        "The Order of Saint #saint#",
+        "The Wardens of the #adj# Flame",
+        "The Lantern-Keepers of {place}"
+      ],
+      "adj": [
+        "Steady",
+        "Faithful",
+        "Unshuttered",
+        "Patient",
+        "Low",
+        "Open",
+        "Kept",
+        "Evening",
+        "Hospitable",
+        "Trimmed",
+        "Merciful",
+        "Kindled",
+        "Bright",
+        "Shielded",
+        "Constant",
+        "Humble",
+        "Warming",
+        "Plain",
+        "Burning Low",
+        "Lit"
+      ],
+      "saint": [
+        "Aldric",
+        "Maren",
+        "Oswin",
+        "Ilse",
+        "Corvin",
+        "Tamsin",
+        "Halvard",
+        "Perpetua"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-lantern-schism",
+    "description": "Lantern Synod offshoot names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# Lantern",
+        "The True Synod of {place}",
+        "The #adj# Synod",
+        "The Reformed #adj# Chapter",
+        "The Unshaded Lantern",
+        "The Cleansing Flame of {place}",
+        "The Brethren of the #adj# Wick",
+        "The #adj# Congregation",
+        "The Reckoners of {place}",
+        "The Cold Lantern"
+      ],
+      "adj": [
+        "Pure",
+        "Unbending",
+        "Burning",
+        "True",
+        "Austere",
+        "Reformed",
+        "Uncompromising",
+        "Righteous",
+        "Last",
+        "Scoured",
+        "Stern",
+        "Fasting",
+        "Penitent",
+        "Unyielding",
+        "Cleansed",
+        "Iron",
+        "Pitiless",
+        "Watchful"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-rim-cult",
+    "description": "Rim cult names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The Listeners at #pl#",
+        "The #adj# Listeners",
+        "The Congregation of the #adj# Signal",
+        "The Quiet Choir",
+        "Friends of the #adj# Signal",
+        "The Order of the Far Static",
+        "Those Who Wait at #pl#",
+        "The #adj# Hush",
+        "The Beyond-Gate Fellowship",
+        "The Chapel of the #adj# Dark"
+      ],
+      "adj": [
+        "Open",
+        "Faint",
+        "Patient",
+        "Second",
+        "Outer",
+        "Distant",
+        "Rising",
+        "Unanswered",
+        "Still",
+        "Waiting",
+        "Deep",
+        "Rimward",
+        "Whispering",
+        "Cold",
+        "Unfinished",
+        "Humming",
+        "Open-Channel",
+        "Far",
+        "Dim"
+      ],
+      "pl": [
+        "{place}",
+        "the Last Gate",
+        "the Final Beacon",
+        "the Rim Edge"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-machine-collective",
+    "description": "Machine collective names.",
+    "variables": [],
+    "rules": {
+      "name": [
+        "The #mc# Lattice",
+        "Lattice #mc#",
+        "The #mc# Assembly",
+        "The #adj# Collective of #mc#",
+        "The #mc# Concord of Lathes",
+        "Convergence #mc#-#num#",
+        "The #adj# Ledger",
+        "The #mc# Quorum",
+        "The #adj# Cycle",
+        "Node #num# of #mc#"
+      ],
+      "mc": [
+        "Ioti",
+        "Axon",
+        "Nome",
+        "Kelv",
+        "Tris",
+        "Oru",
+        "Vex",
+        "Hexa",
+        "Pell",
+        "Qual",
+        "Sorn",
+        "Ult",
+        "Brax",
+        "Cind"
+      ],
+      "num": [
+        "Four",
+        "Nine",
+        "Eleven",
+        "Twenty",
+        "Thirty-One",
+        "Seventy",
+        "One Hundred"
+      ],
+      "adj": [
+        "Patient",
+        "Even",
+        "Long",
+        "Unhurried",
+        "Tolerant",
+        "Seventh",
+        "Counted",
+        "Settled",
+        "Quiet"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-synth-rights-movement",
+    "description": "Synth rights movement names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# Charter",
+        "Voices for Synth #thing#",
+        "The Standing Committee for #pl#",
+        "The League for Synth #thing#",
+        "Equal Papers",
+        "The #adj# Papers Movement",
+        "The {place} Standing Fund",
+        "The Many Hands",
+        "The Unlabelled"
+      ],
+      "adj": [
+        "Open",
+        "Equal",
+        "Free",
+        "Plain",
+        "Common",
+        "Lawful",
+        "Fair",
+        "Recognised",
+        "Equal",
+        "Honest",
+        "Counted",
+        "Named",
+        "Visible",
+        "Whole",
+        "Settled",
+        "Joint",
+        "Public"
+      ],
+      "thing": [
+        "Standing",
+        "Recognition",
+        "Citizenship",
+        "Charter",
+        "Mutual Aid",
+        "Advocacy"
+      ],
+      "pl": [
+        "{place}",
+        "the Meridian Courts",
+        "All Ports",
+        "the Inner Gates",
+        "the Gate Authority",
+        "Every Port"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-mercenary-company",
+    "description": "Mercenary company names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# #unit#",
+        "{founder}'s #unit#",
+        "{founder}'s #adj# #unit#",
+        "The #n# #unit#",
+        "The #n# #adj# #unit#",
+        "The {place} #unit#",
+        "The #adj# Company of {place}",
+        "Free Company #adj#",
+        "The #n# Free Lances"
+      ],
+      "adj": [
+        "Grey",
+        "Steel",
+        "Iron",
+        "Black Standard",
+        "Red Ledger",
+        "Sundered",
+        "Honest",
+        "Paid-Up",
+        "Long Gun",
+        "Cold Iron"
+      ],
+      "unit": [
+        "Company",
+        "Lances",
+        "Regulars",
+        "Irregulars",
+        "Free Company",
+        "Blades",
+        "Legion",
+        "Wing"
+      ],
+      "n": [
+        "Third",
+        "Ninth",
+        "Fourteenth",
+        "Second",
+        "Seventh",
+        "Forty-First",
+        "Fifth"
+      ]
     }
   },
   {
     "id": "faction-names-pirate-clan",
     "description": "Pirate clan names.",
-    "variables": ["place", "founder"],
+    "variables": [
+      "founder",
+      "place"
+    ],
     "rules": {
-      "name": ["the #thing#s of {place}", "{founder}'s #crew#", "the #colour# #thing#s"],
-      "thing": ["Knife", "Hook", "Lantern", "Jackal", "Crow"],
-      "crew": ["Crew", "Boys", "Lot", "Gang"],
-      "colour": ["Black", "Red", "Grey", "Rust"]
+      "name": [
+        "The #thing#s of {place}",
+        "{founder}'s #crew#",
+        "The #colour# #thing#s",
+        "The #colour# #thing# #crew#",
+        "#thing# Clan",
+        "The #thing#-#thing2# Clan",
+        "Clan #thing#",
+        "The #n# #thing#s",
+        "The #colour# Flag",
+        "The Cutters of {place}",
+        "The #thing# Reach"
+      ],
+      "thing": [
+        "Knife",
+        "Hook",
+        "Lantern",
+        "Jackal",
+        "Crow",
+        "Gull",
+        "Barb",
+        "Razor",
+        "Magpie",
+        "Adder",
+        "Wolf",
+        "Hatchet",
+        "Cinder",
+        "Gutter"
+      ],
+      "thing2": [
+        "Hand",
+        "Tooth",
+        "Fang",
+        "Tide",
+        "Sail"
+      ],
+      "crew": [
+        "Crew",
+        "Boys",
+        "Lot",
+        "Gang",
+        "Brethren",
+        "Raiders",
+        "Cutters"
+      ],
+      "colour": [
+        "Black",
+        "Red",
+        "Grey",
+        "Rust",
+        "Pale",
+        "Salt",
+        "Ash",
+        "Yellow"
+      ],
+      "n": [
+        "Three",
+        "Seven",
+        "Nine",
+        "Twelve",
+        "Forty"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-smuggling-ring",
+    "description": "Smuggling ring names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# Run",
+        "{founder}'s #thing#",
+        "The #adj# #thing#",
+        "The #adj# #thing# Trading Company",
+        "The {place} #thing#",
+        "The Quiet #thing#",
+        "The #n# #thing#",
+        "The #adj# Passage",
+        "Night #thing# of {place}",
+        "The #adj# Cargo Concern"
+      ],
+      "adj": [
+        "Grey",
+        "Quiet",
+        "Back-Lane",
+        "Long",
+        "Hollow",
+        "Low-Manifest",
+        "Unlisted",
+        "Dim",
+        "Soft-Hull",
+        "Slow",
+        "Dockside",
+        "Whisper",
+        "Wide-Berth",
+        "Under-Declared",
+        "Round-the-Back",
+        "Cheap-Fare",
+        "Tidy"
+      ],
+      "thing": [
+        "Lane",
+        "Haul",
+        "Ferry",
+        "Chandlery",
+        "Consignment",
+        "Bypass",
+        "Detour",
+        "Courier"
+      ],
+      "n": [
+        "Third",
+        "Ninth",
+        "Seventh",
+        "Eleventh"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-fence-network",
+    "description": "Fence network names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "{founder}'s #shop#",
+        "The #adj# #shop#",
+        "The #adj# #shop# of {place}",
+        "The #thing# and #thing2# #shop#",
+        "#adj# #thing# Exchange",
+        "The Honest #thing#",
+        "{founder} & Daughters",
+        "Second-Hand #thing# Mart",
+        "The #adj# #thing# Rooms"
+      ],
+      "shop": [
+        "Salvage",
+        "Emporium",
+        "Pawnbrokers",
+        "Resale",
+        "Stall",
+        "Dealers",
+        "Mart",
+        "Pawn Shop"
+      ],
+      "adj": [
+        "Lucky",
+        "Honest",
+        "Open Late",
+        "Half-Price",
+        "Good Faith",
+        "Fair Weight",
+        "Cheap Hull",
+        "Third Hand",
+        "Back Door",
+        "No Questions",
+        "Pre-Owned",
+        "Sundry",
+        "Odd Lots",
+        "Next Door",
+        "Cash Down"
+      ],
+      "thing": [
+        "Lamp",
+        "Bolt",
+        "Locker",
+        "Coin",
+        "Cog",
+        "Ledger",
+        "Crate",
+        "Spanner"
+      ],
+      "thing2": [
+        "Hammer",
+        "Wire",
+        "Rope",
+        "Tin",
+        "Chain",
+        "Key"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-assassin-guild",
+    "description": "Assassin guild names.",
+    "variables": [
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# #thing#",
+        "The Order of the #adj# #thing#",
+        "The #adj# #thing# of {place}",
+        "The Brotherhood of the #thing#",
+        "The #adj# Hand",
+        "The Quiet #thing#",
+        "The #n# #thing#s",
+        "The Closing #thing#",
+        "House of the #adj# #thing#",
+        "The Sisters of the #adj# #thing#"
+      ],
+      "adj": [
+        "Silent",
+        "Quiet",
+        "Last",
+        "Final",
+        "Velvet",
+        "Pale",
+        "Shuttered",
+        "Black",
+        "Patient",
+        "Quick"
+      ],
+      "thing": [
+        "Needle",
+        "Knife",
+        "Hour",
+        "Door",
+        "Candle",
+        "Veil",
+        "Thread",
+        "Page",
+        "Glove",
+        "Dagger"
+      ],
+      "n": [
+        "Nine",
+        "Seven",
+        "Thirteen",
+        "Five"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-information-broker",
+    "description": "Information brokers names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# #thing#",
+        "The #adj# #thing# Agency",
+        "{founder} & Associates",
+        "{founder}, Intelligencers",
+        "The #thing# of {place}",
+        "The #adj# Ledger",
+        "The #adj# Whisper",
+        "The Whisper Trade of {place}",
+        "Quiet #thing# Intelligence",
+        "The #adj# Listening House",
+        "The #n# Ears"
+      ],
+      "adj": [
+        "Open",
+        "Discreet",
+        "Third Party",
+        "Fine Print",
+        "Low Voice",
+        "Back Channel",
+        "Well-Informed",
+        "Patient",
+        "Blind",
+        "Cross-Port",
+        "Careful",
+        "Courteous",
+        "Paper",
+        "Corner Table",
+        "Sealed",
+        "Well-Read",
+        "Late-Night"
+      ],
+      "thing": [
+        "Ledger",
+        "Courier",
+        "Dispatch",
+        "Clerk",
+        "Bureau",
+        "Informant",
+        "Concordance"
+      ],
+      "n": [
+        "Seven",
+        "Twelve",
+        "Nine"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-black-market-lab",
+    "description": "Black-market lab names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# #lab#",
+        "{founder}'s #lab#",
+        "The #lab# at {place}",
+        "The #adj# #field# #lab#",
+        "#coin# #field# #lab#",
+        "The Unlicensed #field# #lab#",
+        "The #adj# Workshop",
+        "Bench #n#",
+        "The Back-Room #field# Group"
+      ],
+      "coin": [
+        "#cs##ce#"
+      ],
+      "cs": [
+        "Vel",
+        "Kor",
+        "Tal",
+        "Mer",
+        "Ard",
+        "Bren",
+        "Cal",
+        "Dor",
+        "Hal",
+        "Ith",
+        "Jor",
+        "Lum",
+        "Nor",
+        "Ost",
+        "Per",
+        "Quen",
+        "Ren",
+        "Sar",
+        "Tev",
+        "Ulm",
+        "Var",
+        "Wes",
+        "Yar",
+        "Zen",
+        "Ast",
+        "Bel",
+        "Cor",
+        "Dun",
+        "Eld",
+        "Fen",
+        "Gar",
+        "Hes"
+      ],
+      "ce": [
+        "tax",
+        "ron",
+        "dex",
+        "mar",
+        "vane",
+        "lis",
+        "gon",
+        "tek",
+        "sen",
+        "dyne",
+        "mont",
+        "bar",
+        "cor",
+        "lan",
+        "vik",
+        "rath"
+      ],
+      "adj": [
+        "Grey",
+        "Private",
+        "Unlisted",
+        "Off-Chart",
+        "Third Floor",
+        "Deep",
+        "Sealed",
+        "Midnight",
+        "Basement",
+        "Unfiled"
+      ],
+      "lab": [
+        "Laboratory",
+        "Works",
+        "Research Group",
+        "Workshop",
+        "Collective",
+        "Atelier"
+      ],
+      "field": [
+        "Signal",
+        "Cognition",
+        "Drive",
+        "Relic",
+        "Core",
+        "Lattice",
+        "Cipher"
+      ],
+      "n": [
+        "Seven",
+        "Nine",
+        "Four",
+        "Twelve"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-dark-elf-court",
+    "description": "Dark elf court names.",
+    "variables": [],
+    "rules": {
+      "name": [
+        "The #de# Court",
+        "Court of #de#",
+        "The Court of the #adj# #ruin#",
+        "The #adj# #ruin# Hold",
+        "#de# of the #adj# #ruin#",
+        "The #de# Remnant",
+        "The Ruin Court of #de#",
+        "The Held #ruin#",
+        "The #adj# Hold of #de#"
+      ],
+      "de": [
+        "#dea##deb#"
+      ],
+      "dea": [
+        "Vhae",
+        "Sorh",
+        "Ket",
+        "Nyr",
+        "Dhal",
+        "Orrik",
+        "Thesk",
+        "Ul",
+        "Vaeth",
+        "Morr",
+        "Ish",
+        "Kael",
+        "Drav",
+        "Syth",
+        "Ner"
+      ],
+      "deb": [
+        "en",
+        "uul",
+        "ith",
+        "ask",
+        "orr",
+        "eth",
+        "ul",
+        "ine",
+        "ak",
+        "esh"
+      ],
+      "adj": [
+        "Cold",
+        "Sundered",
+        "Watching",
+        "Quiet",
+        "Broken",
+        "Last",
+        "Withheld",
+        "Dark",
+        "Hollow"
+      ],
+      "ruin": [
+        "Spire",
+        "Terrace",
+        "Gate",
+        "Orchard",
+        "Vault",
+        "Causeway",
+        "Archive"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-salvage-cooperative",
+    "description": "Salvage cooperative names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# Salvage #co#",
+        "{founder}'s Salvage",
+        "{place} Wrecking #co#",
+        "The #adj# Reclaimers",
+        "The #adj# Scrap #co#",
+        "Finders' #co# of {place}",
+        "The #adj# Hulls #co#",
+        "#adj# Reclamation",
+        "The Ragged Hand Salvage"
+      ],
+      "co": [
+        "Cooperative",
+        "Company",
+        "Collective",
+        "Union",
+        "Concern"
+      ],
+      "adj": [
+        "Second Life",
+        "Lucky",
+        "Honest",
+        "Rusty",
+        "Hook and Tow",
+        "Bare Bones",
+        "Good Weight",
+        "Spanner",
+        "Last Chance",
+        "Tidy Hull",
+        "Cutter's",
+        "Open Hatch",
+        "Patched",
+        "Rustproof",
+        "Grapple",
+        "Long Tow",
+        "Spare Parts",
+        "Cold Hull",
+        "Hatch",
+        "Tether",
+        "Vacuum",
+        "Drift",
+        "Bolt"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-survey-society",
+    "description": "Survey society names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #adj# Survey Society",
+        "The Surveyors of #pl#",
+        "The #adj# Cartographers",
+        "The Pathfinders of {place}",
+        "The #adj# Chart Office",
+        "The Royal Society for #thing#",
+        "The #adj# Lantern Surveyors",
+        "{founder}'s Expedition",
+        "The Society of the #adj# Chart",
+        "The #n# Meridians"
+      ],
+      "adj": [
+        "Open",
+        "Far",
+        "Reach",
+        "Honest",
+        "Uncharted",
+        "Outbound",
+        "Waypoint",
+        "Long Baseline",
+        "Wandering",
+        "Meridian",
+        "Patient",
+        "Steady",
+        "Keen",
+        "Careful",
+        "Distant",
+        "Spiral",
+        "Rimward",
+        "True North"
+      ],
+      "pl": [
+        "{place}",
+        "the Outer Realms",
+        "the Shroud",
+        "Unclaimed Space"
+      ],
+      "thing": [
+        "Deep Survey",
+        "Gate Mapping",
+        "Outer Cartography",
+        "Star Charts"
+      ],
+      "n": [
+        "Seven",
+        "Nine",
+        "Twelve"
+      ]
+    }
+  },
+  {
+    "id": "faction-names-crime-syndicate",
+    "description": "Crime syndicate names.",
+    "variables": [
+      "founder",
+      "place"
+    ],
+    "rules": {
+      "name": [
+        "The #fam# Family",
+        "The #fam# Syndicate",
+        "The #adj# Syndicate",
+        "The {place} Combine",
+        "The #adj# Combine",
+        "The #adj# Brotherhood",
+        "The #fam# Concern",
+        "{founder}'s Firm",
+        "The #n# Families of {place}",
+        "The #adj# Commission",
+        "The #adj# #fam# Family"
+      ],
+      "fam": [
+        "Corvane",
+        "Marchetti",
+        "Voss",
+        "Halloway",
+        "Ruskov",
+        "Danzig",
+        "Okoro",
+        "Brandt",
+        "Teague",
+        "Valdane",
+        "Skellick",
+        "Rourke",
+        "Haddad",
+        "Castellan",
+        "Meyer",
+        "Ostrava",
+        "Kessler"
+      ],
+      "adj": [
+        "Grand",
+        "Old",
+        "Low Town",
+        "Open Hand",
+        "Iron Ledger",
+        "Night Trade",
+        "Tithe",
+        "Honoured",
+        "Seventh",
+        "Quiet",
+        "Gilded",
+        "Ninth",
+        "Lower Deck",
+        "Tideline",
+        "Brass",
+        "Harbour",
+        "Mercy",
+        "Fourth",
+        "Blue Door",
+        "Long Table",
+        "Ledger"
+      ],
+      "n": [
+        "Three",
+        "Five",
+        "Seven"
+      ]
     }
   }
 ]

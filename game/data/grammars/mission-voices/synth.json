@@ -1,0 +1,161 @@
+{
+  "id": "mission-voice-synth",
+  "description": "Synth clients: careful, precise, polite, used to being doubted. They state limits and risks openly.",
+  "variables": [
+    "captain",
+    "client",
+    "faction",
+    "reward",
+    "deadline"
+  ],
+  "rules": {
+    "opener": [
+      "#s-hail# #s-intro#",
+      "#s-hail# #s-frame#",
+      "#s-intro# #s-frame#",
+      "#s-hail#"
+    ],
+    "s-hail": [
+      "Hello, Captain {captain}.",
+      "Thank you for coming. I know it was short notice.",
+      "Good day. I appreciate your time.",
+      "Captain. I'll be careful with my words.",
+      "I'm glad you looked at me, and not at my plating.",
+      "Please, sit, if you like.",
+      "Hello. I hope you don't mind being asked.",
+      "Captain {captain}, I'll be as clear as I can.",
+      "Thank you for hearing me out.",
+      "I know how this looks, so let me start plainly."
+    ],
+    "s-intro": [
+      "I'm {client}, working with {faction}.",
+      "My name is {client}. I have papers if you want them.",
+      "I act for {faction}, and I can show you the authorisation.",
+      "I'm {client}. I've been careful about whom I ask.",
+      "{faction} has asked me to find someone steady.",
+      "I'm {client}. I'm not here to cause trouble, whatever you may have been told.",
+      "I work for {faction}. I'd rather say so than have you wonder."
+    ],
+    "s-frame": [
+      "Here is the task.",
+      "I'll set out what I know, and what I don't.",
+      "It's a straightforward request, I think.",
+      "I'd like to be exact about what's needed.",
+      "I'll explain it once and then answer questions.",
+      "I have a request, and some honesty about it.",
+      "It's not complicated, though it isn't nothing."
+    ],
+    "urgency": [
+      "#s-clock# #s-stakes#",
+      "#s-clock#",
+      "#s-stakes#",
+      "#s-clock# #s-clock2#"
+    ],
+    "s-clock": [
+      "The timing is {deadline}, as precisely as I can say it.",
+      "I have {deadline} to work with, and so do you.",
+      "It should be finished within {deadline}.",
+      "I'd be grateful if it were done in {deadline}.",
+      "The window is {deadline}. I've checked it twice.",
+      "We have {deadline}.",
+      "My records give us {deadline}.",
+      "The deadline is {deadline}. I'm sorry it isn't longer."
+    ],
+    "s-clock2": [
+      "Please tell me early if that won't work.",
+      "I'd rather hear about a delay than discover it.",
+      "I've allowed some margin, though not much.",
+      "I can't offer more time, I'm afraid."
+    ],
+    "s-stakes": [
+      "People are depending on it, and I'd rather not guess how many.",
+      "A delay would be hard to explain, and harder to repair.",
+      "It matters more than the form suggests.",
+      "I've been careful so that it could be on time.",
+      "There's very little room for error.",
+      "I'm aware I'm asking a lot."
+    ],
+    "payment": [
+      "#s-offer# #s-terms#",
+      "#s-offer#",
+      "#s-offer# #s-extra#",
+      "#s-terms#"
+    ],
+    "s-offer": [
+      "The fee is {reward}.",
+      "I can offer {reward}.",
+      "You'll be paid {reward}, and I have it set aside.",
+      "{reward} on completion, which I hope is fair.",
+      "The agreed sum is {reward}.",
+      "I'm authorised to pay {reward}.",
+      "{faction} will provide {reward}.",
+      "It pays {reward}. I'd like to say more, but that is accurate."
+    ],
+    "s-terms": [
+      "I'll pay it promptly, and I'll provide a receipt.",
+      "The payment is documented and traceable.",
+      "I won't ask you to take it on trust.",
+      "I'll pay what I promised, in full.",
+      "I can show you the account first.",
+      "You'll receive it as soon as the work is verified."
+    ],
+    "s-extra": [
+      "I'd also be glad to give a reference.",
+      "If it goes smoothly, there may be more such work.",
+      "I remember who treats me fairly.",
+      "I'm told that matters."
+    ],
+    "warning": [
+      "#s-caution# #s-conseq#",
+      "#s-caution#",
+      "#s-conseq#",
+      "#s-caution# #s-caution2#"
+    ],
+    "s-caution": [
+      "Please be careful. Not everyone will be kind.",
+      "You may be searched. I'm sorry.",
+      "There are risks I can't fully list.",
+      "Some will not like who hired you.",
+      "Keep your papers in order.",
+      "I can't promise the route is clear.",
+      "Not all of the people involved are honest.",
+      "There may be questions at ports."
+    ],
+    "s-caution2": [
+      "I'd rather you knew now.",
+      "I'm used to that, though I wouldn't wish it on you.",
+      "I'm telling you because you deserve to know.",
+      "Please don't take it personally."
+    ],
+    "s-conseq": [
+      "If it goes wrong, I'll understand, but I may not be able to help.",
+      "I won't blame you, though others might.",
+      "If something changes, please tell me promptly.",
+      "I cannot protect you from the consequences, only warn you.",
+      "If you can't continue, say so before it's too late."
+    ],
+    "closer": [
+      "#s-send#",
+      "#s-send# #s-part#",
+      "#s-part#"
+    ],
+    "s-send": [
+      "Thank you, Captain.",
+      "I appreciate it.",
+      "Safe travels.",
+      "Please take care.",
+      "Thank you for not asking me to step aside.",
+      "That's everything, I believe.",
+      "I'll be here.",
+      "Good luck."
+    ],
+    "s-part": [
+      "I'll be hoping for the best.",
+      "Please contact me if anything is unclear.",
+      "I'll note your name, kindly.",
+      "I do appreciate being treated as a person.",
+      "Take as much care as I would.",
+      "I hope we can speak again."
+    ]
+  }
+}

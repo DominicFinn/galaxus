@@ -1,14 +1,792 @@
 [
   {
-    "id": "news-famine",
-    "description": "News lines for a famine.",
-    "variables": ["system", "faction"],
+    "id": "news-mining-rush",
+    "description": "News lines for mining rush.",
+    "variables": [
+      "system",
+      "faction"
+    ],
     "rules": {
-      "start": ["Food shortages reported in {system} as #cause#.", "{faction} declares a food emergency in {system}."],
-      "ongoing": ["Ration queues lengthen in {system}. Food prices have #risen#.", "Relief convoys still needed in {system}, says {faction}."],
-      "end": ["Food supplies in {system} recover after weeks of shortage.", "{faction} lifts the food emergency in {system}."],
-      "cause": ["crop blight spreads through the farm domes", "a supply convoy fails to arrive", "hydroponics plants break down"],
-      "risen": ["tripled", "doubled", "climbed for a fourth week"]
+      "start": [
+        "Assay offices in {system} report a rich new seam. Claim stakes are going fast.",
+        "{faction} opens {system} to prospectors after a major ore strike.",
+        "Spacer rumour: a hauler cleared a year's pay from one hold of ore at {system}. Everyone is heading there."
+      ],
+      "ongoing": [
+        "Drills, pumps and crew rations are short in {system}. Ore prices keep falling as the belts fill.",
+        "Claim disputes multiply in {system} as the rush continues, says {faction}.",
+        "Bulletin: {system} is full. Berths cost double and the bar tabs are worse."
+      ],
+      "end": [
+        "The big seam at {system} has thinned. Prospectors are drifting away.",
+        "{faction} closes new claims in {system}. The rush is over.",
+        "Rumour has it the {system} strike was half salted. Nobody is admitting to buying in."
+      ]
+    }
+  },
+  {
+    "id": "news-trade-boom",
+    "description": "News lines for trade boom.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Traffic through {system} is up by half, says {faction}. Docking queues are forming.",
+        "Trade bulletin: new contracts signed at {system}. Every hold in the district is spoken for.",
+        "{faction} cuts port dues at {system} and the freighters pour in."
+      ],
+      "ongoing": [
+        "Warehouse space at {system} is scarce. Buyers are paying well for anything that arrives.",
+        "{faction} reports record tonnage through {system} for a third week.",
+        "Bulletin: dockhands at {system} are on double shifts and still behind."
+      ],
+      "end": [
+        "Traffic at {system} eases to normal. The boom has run its course.",
+        "{faction} restores standard port dues at {system}.",
+        "Trade bulletin: margins at {system} are back to ordinary."
+      ]
+    }
+  },
+  {
+    "id": "news-market-crash",
+    "description": "News lines for market crash.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Exchange at {system} suspends trading after a sharp fall. {faction} urges calm.",
+        "Bulletin: three trading houses at {system} have failed. Buyers are staying home.",
+        "Spacer rumour: nobody at {system} will honour a credit chit this week."
+      ],
+      "ongoing": [
+        "Luxury goods are piling up unsold at {system}. Factors are offering terms.",
+        "{faction} guarantees deposits at {system}, but few believe it.",
+        "Bulletin: cargo contracts at {system} are being cancelled in bulk."
+      ],
+      "end": [
+        "Trading resumes at {system}. Prices are low but steady.",
+        "{faction} declares the {system} exchange sound again.",
+        "Bulletin: {system} buyers are back and hunting bargains."
+      ]
+    }
+  },
+  {
+    "id": "news-fuel-shortage",
+    "description": "News lines for fuel shortage.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Fuel depots at {system} are running dry, says {faction}. Rationing begins at once.",
+        "Bulletin: refinery fire at {system}. Tankers diverted elsewhere.",
+        "Spacer rumour: don't land at {system} unless you can leave on what you've got."
+      ],
+      "ongoing": [
+        "Fuel queues at {system} stretch for hours. Black market prices keep rising.",
+        "{faction} limits fuel sales to essential traffic at {system}.",
+        "Bulletin: ships are being stranded at {system} with empty tanks."
+      ],
+      "end": [
+        "Fuel tankers reach {system}. Rationing is lifted.",
+        "{faction} reopens the refinery at {system}.",
+        "Bulletin: {system} pumps are flowing again. Prices fall back."
+      ]
+    }
+  },
+  {
+    "id": "news-strike",
+    "description": "News lines for dock strike.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Dockworkers at {system} walk out over pay. {faction} calls the action illegal.",
+        "Bulletin: strike at {system}. Cranes are idle and holds are sealed.",
+        "Spacer rumour: the {system} dockers want hazard pay and mean it."
+      ],
+      "ongoing": [
+        "Ships queue at {system} with nobody to unload them. Pickets hold the gates.",
+        "{faction} threatens to bring in synth labour at {system}. Talks stall.",
+        "Bulletin: perishables are spoiling in holds at {system}."
+      ],
+      "end": [
+        "Strike at {system} ends with a pay deal. Cranes are moving again.",
+        "{faction} and the dockers settle at {system} after a long argument.",
+        "Bulletin: pickets gone from {system}. Backlog expected for a week."
+      ]
+    }
+  },
+  {
+    "id": "news-famine",
+    "description": "News lines for famine.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Food shortages reported in {system} as #cause#.",
+        "{faction} declares a food emergency in {system}.",
+        "Spacer rumour: the grain stores at {system} are empty and nobody will say so."
+      ],
+      "ongoing": [
+        "Ration queues lengthen in {system}. Food prices have #risen#.",
+        "Relief convoys still needed in {system}, says {faction}.",
+        "Bulletin: hungry crowds outside the {system} grain office. Guards doubled."
+      ],
+      "end": [
+        "Food supplies in {system} recover after weeks of shortage.",
+        "{faction} lifts the food emergency in {system}.",
+        "Bulletin: the first full grain freighter in a month docks at {system}."
+      ],
+      "cause": [
+        "crop blight spreads through the farm domes",
+        "a supply convoy fails to arrive",
+        "hydroponics plants break down"
+      ],
+      "risen": [
+        "tripled",
+        "doubled",
+        "climbed for a fourth week"
+      ]
+    }
+  },
+  {
+    "id": "news-plague",
+    "description": "News lines for plague.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "{faction} reports a fever outbreak in {system}. Docks are under quarantine.",
+        "Bulletin: medical wards at {system} are full. Ships are being turned away.",
+        "Spacer rumour: don't breathe the air at {system}. Not for a while."
+      ],
+      "ongoing": [
+        "Quarantine holds at {system}. Medicine is rationed and prices are climbing.",
+        "{faction} asks for doctors and filters for {system}.",
+        "Bulletin: crews are paid triple to unload at the {system} quarantine ring."
+      ],
+      "end": [
+        "{faction} lifts the quarantine at {system}. The fever has burned out.",
+        "Bulletin: docks at {system} reopen. Medical stores are bare.",
+        "Spacer rumour: {system} is clean again, and everyone there is very tired."
+      ]
+    }
+  },
+  {
+    "id": "news-reactor-failure",
+    "description": "News lines for reactor failure.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Main reactor at {system} has scrammed. {faction} is running on batteries.",
+        "Bulletin: power failing across {system}. Engineers wanted at any rate.",
+        "Spacer rumour: the {system} reactor was overdue a service by about nine years."
+      ],
+      "ongoing": [
+        "Rolling blackouts at {system}. Spare coils and fuel rods fetch any price.",
+        "{faction} appeals for reactor parts at {system}.",
+        "Bulletin: {system} habitats are on emergency heat. Crews are working in shifts."
+      ],
+      "end": [
+        "Power restored at {system}. {faction} thanks the engineers.",
+        "Bulletin: reactor at {system} back online. Nobody is trusting it yet.",
+        "Lights on again at {system}. The parts shortage may take longer."
+      ]
+    }
+  },
+  {
+    "id": "news-solar-flare",
+    "description": "News lines for solar flare.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Solar flare hits {system}. Navigation and comms are down, warns {faction}.",
+        "Bulletin: all traffic at {system} grounded until the radiation falls.",
+        "Spacer rumour: the sun at {system} sneezed and took every sensor with it."
+      ],
+      "ongoing": [
+        "Radiation levels at {system} remain high. Burned-out sensors are in demand.",
+        "{faction} advises shielded transit only at {system}.",
+        "Bulletin: ships at {system} are flying blind and paying for the privilege."
+      ],
+      "end": [
+        "Radiation at {system} drops to safe levels. Traffic resumes.",
+        "{faction} lifts the flare warning for {system}.",
+        "Bulletin: repair yards at {system} report a month of backlog."
+      ]
+    }
+  },
+  {
+    "id": "news-habitat-breach",
+    "description": "News lines for habitat breach.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Hull breach at a ring habitat in {system}. {faction} is evacuating the lower decks.",
+        "Bulletin: decompression disaster at {system}. Rescue ships called for.",
+        "Spacer rumour: a seam gave way at {system} and the repair budget was spent on a statue."
+      ],
+      "ongoing": [
+        "Hull plate and sealant are scarce at {system}. Survivors are housed in cargo bays.",
+        "{faction} orders safety inspections across {system}. Contractors are overwhelmed.",
+        "Bulletin: {system} repair crews are working round the clock."
+      ],
+      "end": [
+        "{faction} declares the {system} habitat sealed and safe.",
+        "Bulletin: displaced residents return to {system}. Claims are still pending.",
+        "Rebuilding at {system} is done. The plate, they say, is thicker now."
+      ]
+    }
+  },
+  {
+    "id": "news-election",
+    "description": "News lines for election.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "{faction} calls an election at {system}. Posters cover every bulkhead.",
+        "Bulletin: polls open at {system}. Expect delays at every dock.",
+        "Spacer rumour: the {system} vote has been decided already. Only the count is left."
+      ],
+      "ongoing": [
+        "Rallies fill the concourses of {system}. Printing and data brokers are busy.",
+        "{faction} deploys observers at {system} polling stations.",
+        "Bulletin: ballot disputes at {system}. Lawyers are in demand."
+      ],
+      "end": [
+        "Results declared at {system}. {faction} accepts the outcome, mostly.",
+        "Bulletin: new administration sworn in at {system}. Tariffs under review.",
+        "The {system} election is over. The losers say they will be back."
+      ]
+    }
+  },
+  {
+    "id": "news-coup",
+    "description": "News lines for coup.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Troops have seized the administration at {system}. {faction} is not answering calls.",
+        "Bulletin: gunfire in the {system} government quarter. Ports sealed.",
+        "Spacer rumour: the old guard at {system} woke up one morning and found the new guard in their chairs."
+      ],
+      "ongoing": [
+        "Curfew at {system}. Arms dealers are doing well and everyone else is not.",
+        "{faction} denounces the junta at {system} and waits for allies.",
+        "Bulletin: ships leaving {system} are being searched twice."
+      ],
+      "end": [
+        "The new regime at {system} announces itself stable. Ports reopen.",
+        "{faction} restores order at {system}. The old ministers are not seen.",
+        "Bulletin: {system} pays its first port dues to the new government."
+      ]
+    }
+  },
+  {
+    "id": "news-succession-dispute",
+    "description": "News lines for succession dispute.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "{faction} has two heirs and one throne at {system}. Courts are in uproar.",
+        "Bulletin: the late head of {faction} left conflicting wills. {system} divides.",
+        "Spacer rumour: both heirs at {system} are hiring. Neither is paying on time."
+      ],
+      "ongoing": [
+        "Lawyers and retainers crowd {system}. Private guards are in demand.",
+        "{faction} offices at {system} are now split down the corridor.",
+        "Bulletin: contracts at {system} are frozen until someone is confirmed in charge."
+      ],
+      "end": [
+        "{faction} settles its succession at {system}. One claimant is abroad on pressing business.",
+        "Bulletin: coronation at {system}. Guests are asked to disregard the previous ceremony.",
+        "The dispute at {system} ends in a marriage, a payment and a long silence."
+      ]
+    }
+  },
+  {
+    "id": "news-peace-treaty",
+    "description": "News lines for peace treaty.",
+    "variables": [
+      "system",
+      "faction",
+      "rival"
+    ],
+    "rules": {
+      "start": [
+        "{faction} and {rival} sign a treaty at {system}. Border patrols stand down.",
+        "Bulletin: peace declared between {faction} and {rival}. {system} to host the first joint market.",
+        "Spacer rumour: {faction} and {rival} shook hands at {system}. Nobody is sure who blinked."
+      ],
+      "ongoing": [
+        "Cargo between {faction} and {rival} flows through {system} at last. Arms prices are slumping.",
+        "Joint patrols from {faction} and {rival} cruise past {system}. They are polite.",
+        "Bulletin: tariff schedules at {system} rewritten for the new peace."
+      ],
+      "end": [
+        "The treaty between {faction} and {rival} lapses at {system}. Both blame the other.",
+        "Bulletin: peace between {faction} and {rival} holds, and {system} gets quiet again.",
+        "The border at {system} becomes ordinary, which is how treaties are meant to end."
+      ]
+    }
+  },
+  {
+    "id": "news-embargo",
+    "description": "News lines for embargo.",
+    "variables": [
+      "system",
+      "faction",
+      "rival"
+    ],
+    "rules": {
+      "start": [
+        "{faction} announces an embargo on {rival} goods at {system}. Cargo inspections begin.",
+        "Bulletin: no {rival} cargo may enter {system}. Customs officers are doubling up.",
+        "Spacer rumour: the embargo at {system} has a hole in it, and it is exactly ship sized."
+      ],
+      "ongoing": [
+        "Banned goods fetch triple at {system}. Customs patrols are thick.",
+        "{faction} seizes another {rival} freighter near {system}.",
+        "Bulletin: smugglers at {system} are said to be making a fortune and a few enemies."
+      ],
+      "end": [
+        "{faction} lifts the embargo on {rival} at {system}. Customs queues shrink.",
+        "Bulletin: embargo ends at {system}. The smugglers are looking for new work.",
+        "The ban on {rival} goods at {system} is over, and the {system} bars are quieter for it."
+      ]
+    }
+  },
+  {
+    "id": "news-independence-movement",
+    "description": "News lines for independence movement.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Demonstrators at {system} demand independence from {faction}. Garrison is on alert.",
+        "Bulletin: the {system} assembly votes to secede from {faction}.",
+        "Spacer rumour: {system} has a new flag, and nobody can agree on the colours."
+      ],
+      "ongoing": [
+        "{faction} tightens its grip on {system}. Banned pamphlets sell for a premium.",
+        "Volunteers drill on the docks at {system}. Gun runners are welcome, no questions.",
+        "Bulletin: customs checks at {system} now ask which flag you serve."
+      ],
+      "end": [
+        "{faction} grants {system} self rule. Both sides claim a victory.",
+        "Bulletin: the {system} movement is crushed. {faction} keeps the garrison.",
+        "Independence at {system} is recognised by {faction}. Port dues get complicated."
+      ]
+    }
+  },
+  {
+    "id": "news-border-dispute",
+    "description": "News lines for border dispute.",
+    "variables": [
+      "system",
+      "faction",
+      "rival"
+    ],
+    "rules": {
+      "start": [
+        "{faction} and {rival} trade notes over the boundary near {system}. Patrols reinforced.",
+        "Bulletin: {faction} survey ships found in {rival} space at {system}.",
+        "Spacer rumour: both {faction} and {rival} claim {system}, and both have the guns to say so."
+      ],
+      "ongoing": [
+        "Warships from {faction} and {rival} shadow each other at {system}. Charter rates are up.",
+        "Border checks at {system} delay every hold.",
+        "Bulletin: a {faction} patrol fired a warning shot at {system}. {rival} fired two."
+      ],
+      "end": [
+        "{faction} and {rival} agree a survey line at {system}. Marker buoys go up.",
+        "Bulletin: the {system} dispute goes to arbitration. Patrols withdraw.",
+        "Nobody at {system} seems to have won, which is considered a fair result."
+      ]
+    }
+  },
+  {
+    "id": "news-raids",
+    "description": "News lines for raids.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Raiders hit three outposts near {system}. {faction} promises a response.",
+        "Bulletin: convoy escorts required at {system}. Insurance rates doubled.",
+        "Spacer rumour: the raiders around {system} know your cargo before you do."
+      ],
+      "ongoing": [
+        "Raids continue near {system}. {faction} patrols are stretched thin.",
+        "Escort contracts are paying well at {system}. Several captains haven't come back.",
+        "Bulletin: another hauler lost near {system}. Survivors report no markings."
+      ],
+      "end": [
+        "{faction} destroys a raider base near {system}. Insurers cut their rates.",
+        "Bulletin: raids at {system} stop as suddenly as they began.",
+        "The raiders near {system} have moved on, spacers say. Somebody else's problem now."
+      ]
+    }
+  },
+  {
+    "id": "news-blockade",
+    "description": "News lines for blockade.",
+    "variables": [
+      "system",
+      "faction",
+      "rival"
+    ],
+    "rules": {
+      "start": [
+        "{faction} warships close the gates at {system}. {rival} traffic is turned back.",
+        "Bulletin: {system} is blockaded. No cargo in, no cargo out.",
+        "Spacer rumour: {faction} says it is an inspection drive. The guns say otherwise."
+      ],
+      "ongoing": [
+        "The blockade at {system} tightens. Supplies are thin and runners are well paid.",
+        "{faction} stops another freighter at {system}. The crew are held.",
+        "Bulletin: shelves at {system} are emptying. Blockade runners are asking for danger money."
+      ],
+      "end": [
+        "{faction} withdraws its fleet from {system}. The gates reopen.",
+        "Bulletin: blockade at {system} lifted after talks with {rival}.",
+        "Cargo floods into {system} as the blockade ends. The warehouses are not ready."
+      ]
+    }
+  },
+  {
+    "id": "news-open-war",
+    "description": "News lines for open war.",
+    "variables": [
+      "system",
+      "faction",
+      "rival"
+    ],
+    "rules": {
+      "start": [
+        "{faction} declares war on {rival}. {system} lies on the front.",
+        "Bulletin: fleets engaged at {system}. {faction} claims first blood.",
+        "The 3rd Fleet of {faction} broke at {system} despite a daring strike on {rival}'s carrier."
+      ],
+      "ongoing": [
+        "Fighting continues at {system}. Both sides want hulls, ammunition and anyone with a gun.",
+        "{faction} calls up reserves at {system}. {rival} does the same.",
+        "Bulletin: casualty lists from {system} grow. The medical ships cannot keep up."
+      ],
+      "end": [
+        "{faction} and {rival} agree a ceasefire at {system}. The dead are counted.",
+        "Bulletin: war ends at {system}. {faction} keeps the station, {rival} keeps its grudge.",
+        "Armistice signed at {system}. Arms prices fall by half overnight."
+      ]
+    }
+  },
+  {
+    "id": "news-pirate-surge",
+    "description": "News lines for pirate surge.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Pirate fleet reported near {system}. {faction} warns all traffic.",
+        "Bulletin: three freighters missing off {system}. Wreckage points to a pirate wing.",
+        "Spacer rumour: the pirates around {system} have a flagship and a printed tariff."
+      ],
+      "ongoing": [
+        "Convoys at {system} wait days for an escort. Bounties are up.",
+        "{faction} offers a reward for the pirate captain at {system}.",
+        "Bulletin: pirates at {system} took a luxury liner last night. They returned the band."
+      ],
+      "end": [
+        "{faction} breaks the pirate fleet at {system}. Traffic resumes.",
+        "Bulletin: pirate surge at {system} fades. Rumour says a bigger buyer hired them away.",
+        "The pirate flagship at {system} was found drifting and empty. Nobody is asking too hard."
+      ]
+    }
+  },
+  {
+    "id": "news-mercenary-uprising",
+    "description": "News lines for mercenary uprising.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Mercenaries have taken the station at {system}, claiming unpaid wages from {faction}.",
+        "Bulletin: contract company mutinies at {system}. {faction} refuses to negotiate.",
+        "Spacer rumour: nobody at {system} has been paid since the spring and the guns were never handed back."
+      ],
+      "ongoing": [
+        "The mutineers at {system} hold the docks. Supplies get through at a price.",
+        "{faction} considers sending marines to {system}. Cheaper to pay, say the clerks.",
+        "Bulletin: bargaining at {system} goes on. Both sides say the other is being unreasonable."
+      ],
+      "end": [
+        "{faction} pays the arrears at {system}. The mercenaries ship out.",
+        "Bulletin: marines retake the station at {system}. Few mercenaries survive.",
+        "The {system} uprising ends with a signed contract, a big cheque and no apologies."
+      ]
+    }
+  },
+  {
+    "id": "news-crackdown",
+    "description": "News lines for law crackdown.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "{faction} launches a security sweep at {system}. Hold scans on every dock.",
+        "Bulletin: patrols at {system} are boarding without notice.",
+        "Spacer rumour: customs at {system} are meeting a quota and you look like part of it."
+      ],
+      "ongoing": [
+        "Fines and seizures rise at {system}. Contraband prices climb with the risk.",
+        "{faction} posts new wanted lists at {system}.",
+        "Bulletin: {system} jail is full. The courts have a queue."
+      ],
+      "end": [
+        "{faction} ends the sweep at {system}. Patrols go back to normal.",
+        "Bulletin: security at {system} relaxed after the quota was met.",
+        "The crackdown at {system} is over. The back-room bars are open again."
+      ]
+    }
+  },
+  {
+    "id": "news-amnesty",
+    "description": "News lines for amnesty.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "{faction} declares a general amnesty at {system}. Old warrants are void.",
+        "Bulletin: pardons offered at {system} to anyone who walks in and signs.",
+        "Spacer rumour: the {system} amnesty is a trick to find who's still out there."
+      ],
+      "ongoing": [
+        "Fugitives line the registry office at {system}. Bounty hunters are not pleased.",
+        "{faction} lists the crimes that remain outside the amnesty at {system}. The list is long.",
+        "Bulletin: {system} bars are busy with people who used to avoid them."
+      ],
+      "end": [
+        "The amnesty at {system} closes. {faction} resumes arrests.",
+        "Bulletin: amnesty ended at {system}. Those who didn't sign are on the new list.",
+        "{faction} says the {system} amnesty was a success. Nobody argues."
+      ]
+    }
+  },
+  {
+    "id": "news-synth-registry-sweep",
+    "description": "News lines for synth registry sweep.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "{faction} orders every synth in {system} to present for registry checks.",
+        "Bulletin: synth registration drive at {system}. Unlicensed minds will be held.",
+        "Spacer rumour: they are scanning synths at {system} and nobody will say what they're looking for."
+      ],
+      "ongoing": [
+        "Synth crews at {system} are being held at the docks. Shipowners want replacements.",
+        "{faction} detains a hundred synths at {system} for further checks.",
+        "Bulletin: registration offices at {system} are overrun. The synths wait very patiently."
+      ],
+      "end": [
+        "The registry sweep at {system} ends. {faction} says no irregularities were found.",
+        "Bulletin: synths released at {system} after checks. Some did not return to their ships.",
+        "{faction} closes the {system} registry drive and refuses to publish the figures."
+      ]
+    }
+  },
+  {
+    "id": "news-gate-warden-drive",
+    "description": "News lines for gate warden inspection drive.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Gate wardens at {system} announce a rim tech inspection drive. Every hold will be opened.",
+        "{faction} backs the warden sweep at {system}. The Lantern Synod is pleased.",
+        "Bulletin: all vessels at {system} subject to deep scan. Delays expected."
+      ],
+      "ongoing": [
+        "Wardens at {system} seize another cargo of unlicensed salvage.",
+        "{faction} offers a reward for tips on rim cargo at {system}.",
+        "Bulletin: scans at {system} take hours. Salvage buyers have gone quiet."
+      ],
+      "end": [
+        "The warden drive at {system} ends. Seizures are listed as significant.",
+        "Bulletin: gate scans at {system} return to normal.",
+        "The wardens leave {system} with their scanners and two sealed crates."
+      ]
+    }
+  },
+  {
+    "id": "news-rim-incident",
+    "description": "News lines for rim incident.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Survey crews report an incident near {system}. {faction} will not describe it.",
+        "Bulletin: all traffic beyond {system} advised to turn back. No reason given.",
+        "Spacer rumour: something happened out past {system} and the people who saw it are not talking."
+      ],
+      "ongoing": [
+        "{faction} restricts rim passage from {system}. Salvagers go anyway.",
+        "Strange reports from beyond {system} continue. Nobody has proof.",
+        "Bulletin: ships leaving {system} for the rim are paid double and trusted half."
+      ],
+      "end": [
+        "{faction} lifts the rim advisory at {system}. No explanation is offered.",
+        "Bulletin: the incident near {system} is declared closed.",
+        "The rim traffic at {system} resumes. The crews that went out first have not been back."
+      ]
+    }
+  },
+  {
+    "id": "news-ships-going-quiet",
+    "description": "News lines for ships going quiet.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Four ships have stopped reporting on the {system} route. {faction} is investigating.",
+        "Bulletin: freighter lost contact near {system}. Search under way.",
+        "Spacer rumour: ships keep going quiet past {system}, and the quiet ones are the lucky ones."
+      ],
+      "ongoing": [
+        "Insurers at {system} refuse cover for the rim route. Convoys are forming.",
+        "Search ships from {faction} find nothing near {system}.",
+        "Bulletin: another call goes unanswered on the {system} lane."
+      ],
+      "end": [
+        "Traffic on the {system} route resumes. Two lost ships return, with no log.",
+        "Bulletin: {faction} closes its inquiry at {system}.",
+        "The quiet on the {system} lane has lifted. Spacers don't trust it."
+      ]
+    }
+  },
+  {
+    "id": "news-elder-machine-waking",
+    "description": "News lines for elder machine stirring.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Sensors at {system} detect power in a machine that has been cold since before records.",
+        "Bulletin: {faction} scientists report movement inside the old works at {system}.",
+        "Spacer rumour: the old thing at {system} turned its head. Nobody is going back to check."
+      ],
+      "ongoing": [
+        "Scholars and scrap dealers converge on {system}. {faction} sets a cordon.",
+        "Readings at {system} keep changing. {faction} insists there is no danger.",
+        "Bulletin: strange lights over the dead works at {system}."
+      ],
+      "end": [
+        "The machine at {system} goes dark again. {faction} reopens the site.",
+        "Bulletin: nothing found at {system}. The cordon is lifted.",
+        "The old works at {system} sleep. The cordon has gone, the questions haven't."
+      ]
+    }
+  },
+  {
+    "id": "news-unexplained-signal",
+    "description": "News lines for unexplained signal.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "A repeating signal has been logged at {system}. {faction} cannot place its source.",
+        "Bulletin: listeners at {system} report a pattern no one has decoded.",
+        "Spacer rumour: the {system} signal sounds like counting."
+      ],
+      "ongoing": [
+        "Data brokers at {system} pay well for fresh recordings.",
+        "{faction} denies the {system} signal is important.",
+        "Bulletin: cryptographers at {system} fail again. The signal repeats."
+      ],
+      "end": [
+        "The signal at {system} stops without warning. Recordings are selling anyway.",
+        "Bulletin: {faction} declares the {system} signal a natural effect.",
+        "Nothing on the {system} bands for six days. The listeners are still listening."
+      ]
+    }
+  },
+  {
+    "id": "news-rim-refugee-wave",
+    "description": "News lines for refugee wave from the rim.",
+    "variables": [
+      "system",
+      "faction"
+    ],
+    "rules": {
+      "start": [
+        "Refugee ships from the rim arrive at {system}. {faction} sets up reception camps.",
+        "Bulletin: hundreds of families docked at {system}, saying only that they had to leave.",
+        "Spacer rumour: the people arriving at {system} won't say what they were running from."
+      ],
+      "ongoing": [
+        "{faction} struggles to feed and house the arrivals at {system}. Volunteers are welcome.",
+        "Wardens at {system} screen every arrival. The queue runs for days.",
+        "Bulletin: relief cargo at {system} is in short supply. Charity ships are making runs."
+      ],
+      "end": [
+        "{faction} resettles the last refugees from {system}. The camps close.",
+        "Bulletin: arrivals at {system} drop to a trickle.",
+        "The rim ships stopped coming to {system}. The last captains said the road behind them was empty."
+      ]
     }
   }
 ]

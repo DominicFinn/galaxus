@@ -4,19 +4,1234 @@
     "name": "Mining corporation",
     "description": "A company that claims belts and moons and strips them. Greedy, expansive and litigious.",
     "races": [],
-    "tiers": ["minor", "regional"],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
     "criminal": false,
-    "traits": { "aggression": [0.2, 0.5], "greed": [0.6, 1.0], "expansion": [0.6, 1.0], "paranoia": [0.2, 0.5], "honour": [0.2, 0.6], "piety": [0.0, 0.2] },
+    "traits": {
+      "aggression": [
+        0.2,
+        0.5
+      ],
+      "greed": [
+        0.6,
+        1
+      ],
+      "expansion": [
+        0.6,
+        1
+      ],
+      "paranoia": [
+        0.2,
+        0.5
+      ],
+      "honour": [
+        0.2,
+        0.6
+      ],
+      "piety": [
+        0,
+        0.2
+      ]
+    },
     "nameGrammar": "faction-names-mining-corporation"
+  },
+  {
+    "id": "shipping-company",
+    "name": "Shipping company",
+    "description": "A freight line running scheduled cargo between stations. Cautious with money, fussy about contracts and insurance.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.05,
+        0.3
+      ],
+      "greed": [
+        0.5,
+        0.9
+      ],
+      "expansion": [
+        0.4,
+        0.8
+      ],
+      "paranoia": [
+        0.2,
+        0.5
+      ],
+      "honour": [
+        0.4,
+        0.8
+      ],
+      "piety": [
+        0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-shipping-company"
+  },
+  {
+    "id": "arms-manufacturer",
+    "name": "Arms manufacturer",
+    "description": "Makes weapons and sells them to whoever pays. Does not ask what they are for.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.3,
+        0.7
+      ],
+      "greed": [
+        0.6,
+        1
+      ],
+      "expansion": [
+        0.4,
+        0.8
+      ],
+      "paranoia": [
+        0.4,
+        0.7
+      ],
+      "honour": [
+        0.2,
+        0.6
+      ],
+      "piety": [
+        0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-arms-manufacturer"
+  },
+  {
+    "id": "research-consortium",
+    "name": "Research consortium",
+    "description": "A body of labs and sponsors chasing patents and gate lore. Curious, well funded, careful with what it publishes.",
+    "races": [
+      "human",
+      "light-elf",
+      "dwarf"
+    ],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.0,
+        0.2
+      ],
+      "greed": [
+        0.4,
+        0.8
+      ],
+      "expansion": [
+        0.3,
+        0.7
+      ],
+      "paranoia": [
+        0.4,
+        0.8
+      ],
+      "honour": [
+        0.4,
+        0.8
+      ],
+      "piety": [
+        0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-research-consortium"
+  },
+  {
+    "id": "merchant-republic",
+    "name": "Merchant republic",
+    "description": "A human republic governed by guilds, councils and old money. Orderly and slow, with strong views on tariffs.",
+    "races": [
+      "human"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.4
+      ],
+      "greed": [
+        0.4,
+        0.8
+      ],
+      "expansion": [
+        0.4,
+        0.8
+      ],
+      "paranoia": [
+        0.3,
+        0.6
+      ],
+      "honour": [
+        0.4,
+        0.8
+      ],
+      "piety": [
+        0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-merchant-republic"
+  },
+  {
+    "id": "frontier-confederation",
+    "name": "Frontier confederation",
+    "description": "A loose confederation of settlements that agree on little except distrusting the core.",
+    "races": [
+      "human"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.2,
+        0.5
+      ],
+      "greed": [
+        0.3,
+        0.7
+      ],
+      "expansion": [
+        0.4,
+        0.8
+      ],
+      "paranoia": [
+        0.4,
+        0.7
+      ],
+      "honour": [
+        0.3,
+        0.7
+      ],
+      "piety": [
+        0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-frontier-confederation"
+  },
+  {
+    "id": "old-monarchy",
+    "name": "Old monarchy",
+    "description": "A human crown with a long pedigree and a short treasury. Proud, formal and expensive to offend.",
+    "races": [
+      "human"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.2,
+        0.6
+      ],
+      "greed": [
+        0.3,
+        0.6
+      ],
+      "expansion": [
+        0.3,
+        0.7
+      ],
+      "paranoia": [
+        0.3,
+        0.6
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.1,
+        0.5
+      ]
+    },
+    "nameGrammar": "faction-names-old-monarchy"
+  },
+  {
+    "id": "human-noble-house",
+    "name": "Human noble house",
+    "description": "A landed human family with ships, debts and a long list of slights remembered.",
+    "races": [
+      "human"
+    ],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.2,
+        0.5
+      ],
+      "greed": [
+        0.3,
+        0.7
+      ],
+      "expansion": [
+        0.3,
+        0.7
+      ],
+      "paranoia": [
+        0.4,
+        0.7
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.0,
+        0.4
+      ]
+    },
+    "nameGrammar": "faction-names-human-noble-house"
+  },
+  {
+    "id": "light-elf-house",
+    "name": "Light elf house",
+    "description": "One of the lesser houses of the Eleven, or a cadet line that wants to be. Formal, secretive and patient.",
+    "races": [
+      "light-elf"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.4
+      ],
+      "greed": [
+        0.3,
+        0.6
+      ],
+      "expansion": [
+        0.2,
+        0.6
+      ],
+      "paranoia": [
+        0.5,
+        0.9
+      ],
+      "honour": [
+        0.6,
+        1
+      ],
+      "piety": [
+        0.1,
+        0.5
+      ]
+    },
+    "nameGrammar": "faction-names-light-elf-house"
+  },
+  {
+    "id": "trade-guild",
+    "name": "Trade guild",
+    "description": "A craft or trade association that sets standards, prices and who gets to work. Slow to move and slow to forgive.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.0,
+        0.3
+      ],
+      "greed": [
+        0.4,
+        0.8
+      ],
+      "expansion": [
+        0.2,
+        0.6
+      ],
+      "paranoia": [
+        0.3,
+        0.6
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-trade-guild"
+  },
+  {
+    "id": "trade-league",
+    "name": "Trade league",
+    "description": "A pact of traders who share lanes, ports and prices. Strong on contracts, ruthless to defectors.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.4
+      ],
+      "greed": [
+        0.6,
+        1
+      ],
+      "expansion": [
+        0.5,
+        0.9
+      ],
+      "paranoia": [
+        0.2,
+        0.5
+      ],
+      "honour": [
+        0.4,
+        0.8
+      ],
+      "piety": [
+        0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-trade-league"
+  },
+  {
+    "id": "dwarf-hold",
+    "name": "Dwarf hold",
+    "description": "A hollowed asteroid run by a clan of dwarves. Craft, contracts and heavy debts to anyone who breaks one.",
+    "races": [
+      "dwarf"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.4
+      ],
+      "greed": [
+        0.5,
+        0.9
+      ],
+      "expansion": [
+        0.3,
+        0.7
+      ],
+      "paranoia": [
+        0.3,
+        0.6
+      ],
+      "honour": [
+        0.7,
+        1
+      ],
+      "piety": [
+        0.0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-dwarf-hold"
+  },
+  {
+    "id": "orc-khanate",
+    "name": "Orc khanate",
+    "description": "A rival khanate of the heavy worlds. Raids, trades and feuds in roughly equal parts, and wins by speed.",
+    "races": [
+      "orc"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.4,
+        0.8
+      ],
+      "greed": [
+        0.3,
+        0.7
+      ],
+      "expansion": [
+        0.5,
+        0.9
+      ],
+      "paranoia": [
+        0.2,
+        0.5
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-orc-khanate"
+  },
+  {
+    "id": "orc-warband",
+    "name": "Orc warband",
+    "description": "A band of orcs around a loud captain and a louder ship. Fast, proud and quick to take offence.",
+    "races": [
+      "orc"
+    ],
+    "tiers": [
+      "minor"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.5,
+        0.9
+      ],
+      "greed": [
+        0.3,
+        0.7
+      ],
+      "expansion": [
+        0.3,
+        0.7
+      ],
+      "paranoia": [
+        0.1,
+        0.4
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-orc-warband"
+  },
+  {
+    "id": "gate-cult",
+    "name": "Gate cult",
+    "description": "A group that venerates the gates as holy and wants closer access to them. Gentle in word, stubborn in practice.",
+    "races": [
+      "human",
+      "light-elf",
+      "dwarf"
+    ],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.0,
+        0.4
+      ],
+      "greed": [
+        0.0,
+        0.3
+      ],
+      "expansion": [
+        0.2,
+        0.6
+      ],
+      "paranoia": [
+        0.4,
+        0.8
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.7,
+        1
+      ]
+    },
+    "nameGrammar": "faction-names-gate-cult"
+  },
+  {
+    "id": "lantern-order",
+    "name": "Lantern Synod order",
+    "description": "A chapter or order within the Lantern Synod. Charitable and rigid, with a long list of things it will not carry.",
+    "races": [
+      "human"
+    ],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.4
+      ],
+      "greed": [
+        0.0,
+        0.3
+      ],
+      "expansion": [
+        0.3,
+        0.7
+      ],
+      "paranoia": [
+        0.4,
+        0.7
+      ],
+      "honour": [
+        0.6,
+        1
+      ],
+      "piety": [
+        0.8,
+        1
+      ]
+    },
+    "nameGrammar": "faction-names-lantern-order"
+  },
+  {
+    "id": "lantern-schism",
+    "name": "Lantern Synod offshoot",
+    "description": "A breakaway congregation that decided the Synod was too soft on rim tech. Zealous and short of friends.",
+    "races": [
+      "human"
+    ],
+    "tiers": [
+      "minor"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.3,
+        0.8
+      ],
+      "greed": [
+        0.0,
+        0.3
+      ],
+      "expansion": [
+        0.2,
+        0.6
+      ],
+      "paranoia": [
+        0.6,
+        1
+      ],
+      "honour": [
+        0.4,
+        0.8
+      ],
+      "piety": [
+        0.8,
+        1
+      ]
+    },
+    "nameGrammar": "faction-names-lantern-schism"
+  },
+  {
+    "id": "rim-cult",
+    "name": "Rim cult",
+    "description": "People who listen for signals from beyond the last good gate and think someone is speaking. Quiet, patient and hard to talk out of it.",
+    "races": [
+      "human",
+      "synth",
+      "light-elf",
+      "dark-elf"
+    ],
+    "tiers": [
+      "minor"
+    ],
+    "criminal": true,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.5
+      ],
+      "greed": [
+        0.0,
+        0.3
+      ],
+      "expansion": [
+        0.2,
+        0.6
+      ],
+      "paranoia": [
+        0.7,
+        1
+      ],
+      "honour": [
+        0.2,
+        0.6
+      ],
+      "piety": [
+        0.5,
+        1
+      ]
+    },
+    "nameGrammar": "faction-names-rim-cult"
+  },
+  {
+    "id": "machine-collective",
+    "name": "Machine collective",
+    "description": "A free machine community that trades with all and trusts none. Precise, patient and hard to read.",
+    "races": [
+      "free-machine"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.0,
+        0.3
+      ],
+      "greed": [
+        0.3,
+        0.7
+      ],
+      "expansion": [
+        0.3,
+        0.7
+      ],
+      "paranoia": [
+        0.5,
+        0.9
+      ],
+      "honour": [
+        0.6,
+        1
+      ],
+      "piety": [
+        0.0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-machine-collective"
+  },
+  {
+    "id": "synth-rights-movement",
+    "name": "Synth rights movement",
+    "description": "A movement fighting for the legal standing of synths. Principled, harassed and quietly worried who is in the room.",
+    "races": [
+      "synth"
+    ],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.5
+      ],
+      "greed": [
+        0.0,
+        0.3
+      ],
+      "expansion": [
+        0.2,
+        0.6
+      ],
+      "paranoia": [
+        0.5,
+        0.9
+      ],
+      "honour": [
+        0.6,
+        1
+      ],
+      "piety": [
+        0.0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-synth-rights-movement"
+  },
+  {
+    "id": "mercenary-company",
+    "name": "Mercenary company",
+    "description": "Soldiers and pilots for hire. Reliable until the contract expires and often afterwards.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.4,
+        0.8
+      ],
+      "greed": [
+        0.5,
+        0.9
+      ],
+      "expansion": [
+        0.3,
+        0.6
+      ],
+      "paranoia": [
+        0.3,
+        0.6
+      ],
+      "honour": [
+        0.4,
+        0.9
+      ],
+      "piety": [
+        0.0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-mercenary-company"
   },
   {
     "id": "pirate-clan",
     "name": "Pirate clan",
     "description": "Raiders working from hidden bases. Some are little more than a family with guns.",
     "races": [],
-    "tiers": ["minor"],
+    "tiers": [
+      "minor"
+    ],
     "criminal": true,
-    "traits": { "aggression": [0.6, 1.0], "greed": [0.6, 1.0], "expansion": [0.1, 0.4], "paranoia": [0.5, 0.9], "honour": [0.0, 0.5], "piety": [0.0, 0.3] },
+    "traits": {
+      "aggression": [
+        0.6,
+        1
+      ],
+      "greed": [
+        0.6,
+        1
+      ],
+      "expansion": [
+        0.1,
+        0.4
+      ],
+      "paranoia": [
+        0.5,
+        0.9
+      ],
+      "honour": [
+        0,
+        0.5
+      ],
+      "piety": [
+        0,
+        0.3
+      ]
+    },
     "nameGrammar": "faction-names-pirate-clan"
+  },
+  {
+    "id": "smuggling-ring",
+    "name": "Smuggling ring",
+    "description": "A ring that moves goods past customs, wardens and tariffs. Careful, discreet and open to any race with a hold.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": true,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.5
+      ],
+      "greed": [
+        0.6,
+        1
+      ],
+      "expansion": [
+        0.3,
+        0.6
+      ],
+      "paranoia": [
+        0.6,
+        1
+      ],
+      "honour": [
+        0.2,
+        0.7
+      ],
+      "piety": [
+        0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-smuggling-ring"
+  },
+  {
+    "id": "fence-network",
+    "name": "Fence network",
+    "description": "Buyers and sellers of whatever fell off somewhere else. Friendly, well connected and hard to find twice.",
+    "races": [],
+    "tiers": [
+      "minor"
+    ],
+    "criminal": true,
+    "traits": {
+      "aggression": [
+        0.0,
+        0.3
+      ],
+      "greed": [
+        0.7,
+        1
+      ],
+      "expansion": [
+        0.2,
+        0.5
+      ],
+      "paranoia": [
+        0.6,
+        1
+      ],
+      "honour": [
+        0.2,
+        0.7
+      ],
+      "piety": [
+        0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-fence-network"
+  },
+  {
+    "id": "assassin-guild",
+    "name": "Assassin guild",
+    "description": "A professional order of killers. Strict about contracts, discreet about everything else.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": true,
+    "traits": {
+      "aggression": [
+        0.4,
+        0.8
+      ],
+      "greed": [
+        0.4,
+        0.8
+      ],
+      "expansion": [
+        0.1,
+        0.4
+      ],
+      "paranoia": [
+        0.7,
+        1
+      ],
+      "honour": [
+        0.5,
+        1
+      ],
+      "piety": [
+        0,
+        0.4
+      ]
+    },
+    "nameGrammar": "faction-names-assassin-guild"
+  },
+  {
+    "id": "information-broker",
+    "name": "Information brokers",
+    "description": "People who sell what ships heard, saw or suspect. Smooth, polite and keeping a ledger on everyone, you included.",
+    "races": [],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": true,
+    "traits": {
+      "aggression": [
+        0.0,
+        0.3
+      ],
+      "greed": [
+        0.6,
+        1
+      ],
+      "expansion": [
+        0.2,
+        0.5
+      ],
+      "paranoia": [
+        0.7,
+        1
+      ],
+      "honour": [
+        0.3,
+        0.8
+      ],
+      "piety": [
+        0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-information-broker"
+  },
+  {
+    "id": "black-market-lab",
+    "name": "Black-market lab",
+    "description": "A hidden lab working on rim tech that wardens would confiscate and the Synod would burn. Curious and careless of the risk.",
+    "races": [
+      "human",
+      "dwarf",
+      "light-elf",
+      "synth"
+    ],
+    "tiers": [
+      "minor"
+    ],
+    "criminal": true,
+    "traits": {
+      "aggression": [
+        0.1,
+        0.4
+      ],
+      "greed": [
+        0.5,
+        0.9
+      ],
+      "expansion": [
+        0.2,
+        0.5
+      ],
+      "paranoia": [
+        0.7,
+        1
+      ],
+      "honour": [
+        0.1,
+        0.5
+      ],
+      "piety": [
+        0,
+        0.1
+      ]
+    },
+    "nameGrammar": "faction-names-black-market-lab"
+  },
+  {
+    "id": "dark-elf-court",
+    "name": "Dark elf court",
+    "description": "A dark elf holding in the ruins of the empire. A web of grudges with a few ships attached.",
+    "races": [
+      "dark-elf"
+    ],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.2,
+        0.5
+      ],
+      "greed": [
+        0.2,
+        0.6
+      ],
+      "expansion": [
+        0.1,
+        0.4
+      ],
+      "paranoia": [
+        0.7,
+        1
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.1,
+        0.5
+      ]
+    },
+    "nameGrammar": "faction-names-dark-elf-court"
+  },
+  {
+    "id": "salvage-cooperative",
+    "name": "Salvage cooperative",
+    "description": "A crew-owned outfit that strips wrecks and ruins. Practical, tough and always one good find from solvent.",
+    "races": [],
+    "tiers": [
+      "minor"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.2,
+        0.5
+      ],
+      "greed": [
+        0.5,
+        0.9
+      ],
+      "expansion": [
+        0.3,
+        0.6
+      ],
+      "paranoia": [
+        0.4,
+        0.7
+      ],
+      "honour": [
+        0.4,
+        0.8
+      ],
+      "piety": [
+        0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-salvage-cooperative"
+  },
+  {
+    "id": "survey-society",
+    "name": "Survey society",
+    "description": "A society of cartographers and explorers who chart unclaimed systems and argue about who found what first.",
+    "races": [
+      "human",
+      "light-elf",
+      "dwarf",
+      "synth"
+    ],
+    "tiers": [
+      "minor",
+      "regional"
+    ],
+    "criminal": false,
+    "traits": {
+      "aggression": [
+        0.0,
+        0.3
+      ],
+      "greed": [
+        0.2,
+        0.6
+      ],
+      "expansion": [
+        0.5,
+        0.9
+      ],
+      "paranoia": [
+        0.2,
+        0.5
+      ],
+      "honour": [
+        0.5,
+        0.9
+      ],
+      "piety": [
+        0.0,
+        0.2
+      ]
+    },
+    "nameGrammar": "faction-names-survey-society"
+  },
+  {
+    "id": "crime-syndicate",
+    "name": "Crime syndicate",
+    "description": "A sprawling criminal organisation with legal fronts and its own law. Can grow large enough to rival a state.",
+    "races": [
+      "human",
+      "orc",
+      "dwarf"
+    ],
+    "tiers": [
+      "minor",
+      "regional",
+      "great"
+    ],
+    "criminal": true,
+    "traits": {
+      "aggression": [
+        0.4,
+        0.8
+      ],
+      "greed": [
+        0.7,
+        1
+      ],
+      "expansion": [
+        0.5,
+        0.9
+      ],
+      "paranoia": [
+        0.6,
+        1
+      ],
+      "honour": [
+        0.2,
+        0.7
+      ],
+      "piety": [
+        0,
+        0.3
+      ]
+    },
+    "nameGrammar": "faction-names-crime-syndicate"
   }
 ]

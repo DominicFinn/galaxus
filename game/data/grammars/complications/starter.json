@@ -1,20 +1,1484 @@
 [
   {
-    "id": "complication-ambush",
-    "description": "Text for an ambush on the route.",
-    "variables": ["destination", "client"],
+    "id": "complication-ambush-on-route",
+    "description": "Text for the 'Ambush' complication.",
+    "variables": [
+      "client",
+      "destination"
+    ],
     "rules": {
-      "reveal": ["Contacts on scanner near {destination}. They were waiting for you.", "Three ships drop out of cruise ahead. Somebody sold your route."],
-      "aftermath": ["Someone talked. {client} swears it wasn't them.", "The ambushers knew your cargo manifest. That's worth asking {client} about."]
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Contacts on scanner near {destination}.",
+        "Three ships drop out of cruise dead ahead.",
+        "The scanner lights up with hulls that were not there a minute ago."
+      ],
+      "turn": [
+        "They were waiting for you.",
+        "Somebody sold your route.",
+        "They have your heading and your speed, which nobody should."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Someone talked. {client} swears it wasn't them.",
+        "The ambushers knew the schedule. That's worth asking {client} about.",
+        "Pirates do not turn up this prepared by luck."
+      ],
+      "close": [
+        "You keep the receipts and the dents.",
+        "Check the transponder logs before you take another job.",
+        "Word of it will be in the next system before you are."
+      ]
     }
   },
   {
-    "id": "complication-stolen-cargo",
-    "description": "Text for discovering the cargo was stolen.",
-    "variables": ["cargo", "faction"],
+    "id": "complication-ambush-creditors",
+    "description": "Text for the 'Creditors in the dark' complication.",
+    "variables": [
+      "client"
+    ],
     "rules": {
-      "reveal": ["A port scan flags your {cargo} as stolen property. You are now wanted.", "The {cargo} carries the serials of a convoy that went missing last week."],
-      "aftermath": ["{faction} won't be offering you work for a while.", "You were the delivery, and also the scapegoat."]
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A hail comes in on an open channel, polite and very calm.",
+        "Two ships take position either side of you and match your speed.",
+        "A tug-class hull cuts across your path and does not apologise."
+      ],
+      "turn": [
+        "They are not pirates. They are collectors, and they think {client} is aboard or paying you.",
+        "They want to know where {client}'s money has gone, and they have brought guns to ask.",
+        "They hold a paper claim on everything {client} owns, and you are carrying some of it."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "{client} left out that the debts were this old, or this armed.",
+        "The collectors have your ship's registry now. They will remember.",
+        "Nobody mentioned creditors in the briefing. {client} had a lot of unmentioned things."
+      ],
+      "close": [
+        "Ask for danger pay next time, in writing.",
+        "At least the collectors were tidy about it.",
+        "{client} sends their regrets. Regrets don't repair hulls."
+      ]
+    }
+  },
+  {
+    "id": "complication-ambush-rival-crew",
+    "description": "Text for the 'Hired guns' complication.",
+    "variables": [
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Fast ships, no markings, closing from the {system} lane.",
+        "A burst of drive flare off the starboard quarter. Someone has been following for a while.",
+        "Your scanner picks up a wing of light fighters that did not come from {system}."
+      ],
+      "turn": [
+        "Their lead pilot says only: 'Nothing personal. Somebody else wants this job.'",
+        "They go for your engines first. They want you late, not necessarily dead.",
+        "They fly like people paid by the day, careful and not willing to die for it."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Someone bought this ambush. Somebody with money wanted you out of the way.",
+        "The pilots were hired talent. The one who hired them is still out there.",
+        "A rival knew you had the job before you left dock."
+      ],
+      "close": [
+        "Make a note of whoever gained from it.",
+        "Wages for hired guns run out faster than grudges do.",
+        "You will see that wing again."
+      ]
+    }
+  },
+  {
+    "id": "complication-ambush-wreck-bait",
+    "description": "Text for the 'Wreck bait' complication.",
+    "variables": [
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A distress beacon wakes on your channel, weak and repeating.",
+        "A drifting hull shows on scanner near {destination}, lights dark, hatch open.",
+        "A ship begs for help on a frequency only spacers use."
+      ],
+      "turn": [
+        "The hull is a decoy. The engines you hear powering up belong to the crew hiding behind it.",
+        "Whoever is calling is not stranded. They are fishing, and you are the catch.",
+        "As you slow to help, three more signatures come alive around the wreck."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "It is an old pirate trick. It still works because spacers still stop.",
+        "Next time somebody calls for help, be sure first. Then be sure again.",
+        "The hull was real once. Its crew was not aboard."
+      ],
+      "close": [
+        "Even so, you slowed down. Most captains would.",
+        "The beacon is still out there, calling.",
+        "Nobody can say how many ships have answered it."
+      ]
+    }
+  },
+  {
+    "id": "complication-cargo-is-stolen",
+    "description": "Text for the 'Stolen cargo' complication.",
+    "variables": [
+      "cargo",
+      "client",
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A port scan flags your {cargo} as stolen property.",
+        "The {cargo} carries serials that match a convoy reported missing.",
+        "A customs officer holds up a scanner reading and says nothing for a long time."
+      ],
+      "turn": [
+        "You are now wanted.",
+        "Somebody listed you as the thief, and the paperwork is very good.",
+        "The real owner has already filed, and {faction} takes theft seriously."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "{faction} won't be offering you work for a while.",
+        "You were the delivery, and also the scapegoat.",
+        "Whoever stole it is two systems away and richer."
+      ],
+      "close": [
+        "Check serials before you load next time.",
+        "{client} claims to have bought the lot in good faith.",
+        "The cargo is somebody's, just not {client}'s."
+      ]
+    }
+  },
+  {
+    "id": "complication-stolen-hold-seal",
+    "description": "Text for the 'Seal of the holds' complication.",
+    "variables": [
+      "cargo",
+      "client"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Under the crate wrap, a hold seal. It was meant to be scraped off.",
+        "A dwarf inspector at the dock turns your {cargo} over and reads the stamp aloud.",
+        "The manifest says one thing. The stamp on the {cargo} says a hold in the Drift, and a lot number that was reported lost."
+      ],
+      "turn": [
+        "Holds register everything, and they never forget a lot number.",
+        "A dwarf reads a stamp the way other people read a confession.",
+        "The hold has already filed a claim with the Gate Authority."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "The hold wants its goods back and an apology in writing.",
+        "Dwarves sue slowly and exactly. Expect a letter.",
+        "{client} bought the {cargo} off a man with a good smile and no receipts."
+      ],
+      "close": [
+        "Contracts are sacred, and you broke one without knowing it.",
+        "The seal will outlast the paperwork.",
+        "The hold lost the shipment months ago and has been counting ever since."
+      ]
+    }
+  },
+  {
+    "id": "complication-stolen-impounded",
+    "description": "Text for the 'Impounded goods' complication.",
+    "variables": [
+      "cargo",
+      "client",
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "An enforcement cutter hails you with a seizure order, apologetic and firm.",
+        "Your scanner finds a seized-goods tag under a layer of fresh paint.",
+        "A patrol officer reads the lot code and then reads it again."
+      ],
+      "turn": [
+        "The {cargo} was impounded by {faction} and spirited out of the yard before the paperwork closed.",
+        "It was never legally released. Someone just wrote 'released' on it.",
+        "You are carrying property that the state believes it still owns."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "The yard clerk who signed it out has vanished.",
+        "{faction} wants an explanation. You have one, and no one believes it.",
+        "It was a clever fraud. You were the transport."
+      ],
+      "close": [
+        "The only winner is the clerk, who is not on any manifest.",
+        "Keep your copy of the contract. It is your best defence.",
+        "{client} had a very good story prepared."
+      ]
+    }
+  },
+  {
+    "id": "complication-stolen-insured",
+    "description": "Text for the 'Insured twice' complication.",
+    "variables": [
+      "cargo",
+      "client",
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "An insurer's investigator is waiting at {destination}.",
+        "A message from a claims office finds you first.",
+        "Your scan comes back clean, which is odd, because the {cargo} has already been paid out."
+      ],
+      "turn": [
+        "The {cargo} was written off as lost in transit. Somebody collected, then sold it again.",
+        "If it arrives, the claim is fraud and the fraudster is whoever signed the manifest.",
+        "Its owner would rather it stayed at the bottom of a gravity well."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "The investigator wants a statement and your ship logs.",
+        "You were hired to move evidence of a crime that you didn't commit.",
+        "{client} has gone very quiet."
+      ],
+      "close": [
+        "Insurers are patient. They will find the others involved.",
+        "Keep copies of everything.",
+        "Not your fraud. Still your name on the form."
+      ]
+    }
+  },
+  {
+    "id": "complication-client-lies-money",
+    "description": "Text for the 'The money isn't there' complication.",
+    "variables": [
+      "captain",
+      "client",
+      "deadline",
+      "destination",
+      "reward"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "You reach {destination} and ask for payment.",
+        "The transfer bounces with a polite error code.",
+        "At the handover, {client}'s representative hands you a smaller case than you were promised."
+      ],
+      "turn": [
+        "#voice:payment# It turns out they meant a different number.",
+        "The account is real. The funds in it are not.",
+        "'Of course you'll be paid,' says the representative. 'Eventually.'"
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "{client} owes you the reward, and you are not the only one waiting.",
+        "You can chase them, or you can write it off.",
+        "Lesson recorded: ask for half up front."
+      ],
+      "close": [
+        "The reward will come late or never.",
+        "Collecting will cost more than it's worth.",
+        "There are other captains in the queue ahead of you."
+      ]
+    }
+  },
+  {
+    "id": "complication-client-lies-proxy",
+    "description": "Text for the 'Someone else's job' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Something about the handover at {destination} is off.",
+        "The contact at {destination} does not know {client}.",
+        "A second party appears and asks, politely, why you're doing this."
+      ],
+      "turn": [
+        "{client} was a front. The real employer is {faction}, and they didn't want it known.",
+        "The person who hired you is a broker, and the person who pays is someone you would have refused.",
+        "Your client's name was borrowed. The real one is worse."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Nothing illegal, as far as you can tell. Nothing honest either.",
+        "You did the work. Nobody asked you to like who it was for.",
+        "{faction} now knows your ship, your name and your rates."
+      ],
+      "close": [
+        "The money cleared, which is something.",
+        "You will be asked back. You may not want to be.",
+        "Expect a handshake from people who don't shake hands."
+      ]
+    }
+  },
+  {
+    "id": "complication-client-lies-danger",
+    "description": "Text for the 'The quiet route' complication.",
+    "variables": [
+      "captain",
+      "client",
+      "deadline",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "The route is not what you were told.",
+        "The trouble starts a jump early.",
+        "You find the first wreck an hour out of {system}."
+      ],
+      "turn": [
+        "Others have run this route before you. None of them are still running it.",
+        "{client} said the lane was clear. The lane has a toll collector and a gun.",
+        "The danger was real, known and left out of the briefing."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "{client} did not warn you because they could not afford a captain who would say no.",
+        "The reward was fair for the job you were told about, and unfair for this one.",
+        "A competent captain checks the route. You did. The route changed."
+      ],
+      "close": [
+        "Add a risk fee to your next quote.",
+        "Ask other captains before you sign.",
+        "#voice:closer#"
+      ]
+    }
+  },
+  {
+    "id": "complication-client-lies-purpose",
+    "description": "Text for the 'Not what was said' complication.",
+    "variables": [
+      "client",
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "The briefing and the situation at {destination} do not match.",
+        "You find out what the job is really for.",
+        "A passing comment from a dock worker rearranges everything you thought you knew."
+      ],
+      "turn": [
+        "{client} wanted it done as a cover for something else.",
+        "It was never a simple run. It was a distraction, and you were a decent one.",
+        "What you carried or did was not the point. Where you were seen was the point."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Somewhere else, {client} got what they wanted while all eyes were on you.",
+        "You can't prove it. You also can't forget it.",
+        "The reward looks smaller now, and the favour looks bigger."
+      ],
+      "close": [
+        "Don't take the next offer from {client} without asking why.",
+        "Everyone has a reason. Few share it.",
+        "At least the pay is real."
+      ]
+    }
+  },
+  {
+    "id": "complication-rival-bid-outbid",
+    "description": "Text for the 'Undercut' complication.",
+    "variables": [
+      "client",
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Word reaches you at the dock: another captain has been in to see {client}.",
+        "A rival's ship sits at the next berth with its engines already warm.",
+        "A message from {client} arrives in the middle of your preparations."
+      ],
+      "turn": [
+        "They have offered to do the job for less, and {client} has noticed.",
+        "They are heading for {destination} now, and the first one there gets paid.",
+        "It is a race, and the winner is the one who gets the signature."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Whoever arrives second goes home with an empty hold and a story.",
+        "{client} loves a bidding war. It saves them money.",
+        "Nobody likes being the one who lost."
+      ],
+      "close": [
+        "Rivals have long memories.",
+        "There is always another captain.",
+        "You know their name now."
+      ]
+    }
+  },
+  {
+    "id": "complication-rival-bid-double-sold",
+    "description": "Text for the 'Sold twice' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "reward"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A second ship docks at {destination} at the same time as you.",
+        "The contact looks from you to the other captain, and then at the floor.",
+        "Two sets of papers, the same signature, and one reward between them."
+      ],
+      "turn": [
+        "{client} sold the contract twice and hoped one of you wouldn't arrive.",
+        "Neither of you is lying, which makes it worse.",
+        "There is one payment, and it's {reward}."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You and the other captain split a drink and a grievance.",
+        "The pay may be halved. Or one of you finishes first.",
+        "{client} says it was a misunderstanding."
+      ],
+      "close": [
+        "Misunderstandings cost money.",
+        "You made a friend, possibly.",
+        "Do not work for {client} again without a deposit."
+      ]
+    }
+  },
+  {
+    "id": "complication-rival-bid-poached",
+    "description": "Text for the 'Poached' complication.",
+    "variables": [
+      "client",
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A {faction} ship has taken your berth.",
+        "A faction officer appears with a letter of preference.",
+        "The dock has been politely cleared, and you are no longer first in line."
+      ],
+      "turn": [
+        "{faction} has leaned on {client}. The job will be done by one of their own.",
+        "They'd rather not be seen blocking you, so they have simply arrived first.",
+        "They have more guns than you, and better manners."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You did the work anyway, or you did not. Either way, {faction} will remember.",
+        "A competitor with a flag is hard to beat.",
+        "{client} apologised. It cost them nothing."
+      ],
+      "close": [
+        "Fly under a different flag next time.",
+        "Politics eats jobs.",
+        "It is not personal, which is worse."
+      ]
+    }
+  },
+  {
+    "id": "complication-fugitive-stowaway",
+    "description": "Text for the 'Stowaway' complication.",
+    "variables": [
+      "destination",
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A noise in the service crawlway. Not a rat.",
+        "The life support readout shows one more body than you carried.",
+        "Your crew drags someone out of a locker near the airlock."
+      ],
+      "turn": [
+        "They are running from {faction}, and will not say why.",
+        "They are begging you not to dock at {destination}.",
+        "There's a bounty on them. The sum is not small."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "They went their own way at the next port. You never learned their name.",
+        "{faction} knows they were on your ship.",
+        "It was kinder than it was smart."
+      ],
+      "close": [
+        "You will be remembered by someone, for something.",
+        "Either you did a good deed or a stupid one.",
+        "Nobody has put a price on you. Yet."
+      ]
+    }
+  },
+  {
+    "id": "complication-fugitive-wanted",
+    "description": "Text for the 'Wanted charge' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A scan at {destination} flags a name on your manifest.",
+        "A patrol hails you and asks to see your papers in particular.",
+        "A wanted notice in the port feed carries a face you recognise."
+      ],
+      "turn": [
+        "{faction} has a warrant out for someone you are moving.",
+        "The person you are here for is wanted. You are now an accessory.",
+        "{client} left out the charges."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You can hand them over or run. Each costs something.",
+        "Whatever {client} promised, the law does not care.",
+        "The reward was good. The record is not."
+      ],
+      "close": [
+        "Never ask a client about a charge you do not want to hear.",
+        "The paperwork will chase you for weeks.",
+        "It was only ever a matter of time."
+      ]
+    }
+  },
+  {
+    "id": "complication-fugitive-debtor",
+    "description": "Text for the 'Runaway debtor' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A very patient man is waiting for you at {destination}.",
+        "A lender's ship has been following you since {system}.",
+        "A message arrives for someone who is meant to be unnamed."
+      ],
+      "turn": [
+        "The one in your care owes a lot, to someone who has run out of patience.",
+        "They have run before. This time they ran onto your ship.",
+        "{client} didn't mention that anyone would be chasing."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "A debt is not a crime. It still gets people hurt.",
+        "You can leave them to the lender or you can stand in the way.",
+        "The lender is polite about it. That is the frightening part."
+      ],
+      "close": [
+        "Debts follow people better than ships do.",
+        "You gave them a head start.",
+        "They will remember the kindness."
+      ]
+    }
+  },
+  {
+    "id": "complication-fugitive-witness",
+    "description": "Text for the 'The witness' complication.",
+    "variables": [
+      "destination",
+      "faction",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "An unlisted ship follows your wake out of {system} and keeps its distance.",
+        "Someone aboard is sweating through every scan.",
+        "A long-range hail offers you a fortune to turn back."
+      ],
+      "turn": [
+        "They saw something at {destination}. The people who would prefer they hadn't are very near.",
+        "They know a name. The name belongs to {faction}.",
+        "They are the only living witness, and you are the only ship."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You can protect them, or you can sell them. You made your choice.",
+        "{faction} won't forget how you answered.",
+        "Some jobs turn into a fight for the right reasons."
+      ],
+      "close": [
+        "Better to see nothing and say less.",
+        "A quiet life is not on offer.",
+        "Make sure you can still explain it later."
+      ]
+    }
+  },
+  {
+    "id": "complication-double-cross-ambush-pay",
+    "description": "Text for the 'Paid to lose you' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "reward"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Docking at {destination}, you find the berth guarded and the guards not looking at you.",
+        "The handover is a trap.",
+        "{client}'s contact is smiling too widely."
+      ],
+      "turn": [
+        "The job was a pretext. The real buyer was someone who wants your ship.",
+        "{client} sold you out for more than {reward}.",
+        "Whoever is waiting at {destination} was told exactly when you would arrive."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "{client} thinks you will not come back. They are mistaken.",
+        "You walked out of it. Barely.",
+        "The reward is gone. The grudge isn't."
+      ],
+      "close": [
+        "You will see {client} again, in their own time.",
+        "Keep your wits and your ship.",
+        "Betrayal is simply another line on the invoice."
+      ]
+    }
+  },
+  {
+    "id": "complication-double-cross-withheld",
+    "description": "Text for the 'Terms changed' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "reward"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "The reward is on the table at {destination}, and it is not {reward}.",
+        "{client}'s agent slides a revised contract across the desk.",
+        "A small clause you didn't write has appeared in your copy."
+      ],
+      "turn": [
+        "The new figure is smaller. 'Costs,' they say. 'Unforeseen.'",
+        "They hold your cargo, passengers or goods until you sign.",
+        "Whatever you do, you do it under their guns."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You signed, or you did not. Either way, someone made a point.",
+        "The price of integrity is occasionally a lot.",
+        "{client} is not the type to apologise."
+      ],
+      "close": [
+        "Read the amendments. Then read them again.",
+        "Take your evidence to whoever will listen.",
+        "It is a mean trick, and it works often."
+      ]
+    }
+  },
+  {
+    "id": "complication-double-cross-fall-guy",
+    "description": "Text for the 'The fall guy' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "faction",
+      "reward"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "The job goes without a hitch, which should have worried you.",
+        "As you undock from {destination}, the alarms start.",
+        "A patrol cutter closes before you clear the lane."
+      ],
+      "turn": [
+        "Someone planted evidence. Your ship's name is all over it.",
+        "{client} needed a scapegoat, and your transponder was handy.",
+        "Whatever happened at {destination}, it was blamed on you."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "{faction} has your name now. You will have to clear it.",
+        "The real culprit has {reward} of yours and a good alibi.",
+        "It is hard to prove a negative."
+      ],
+      "close": [
+        "Always keep logs. Always.",
+        "Some jobs exist only to be blamed on someone.",
+        "A clear conscience is not the same as a clear record."
+      ]
+    }
+  },
+  {
+    "id": "complication-contraband-sealed-case",
+    "description": "Text for the 'The sealed case' complication.",
+    "variables": [
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A deckhand finds a sealed case behind a service panel.",
+        "A gate warden's scan picks up a shape that is not on your manifest.",
+        "Something in the ship is warm when it should be cold."
+      ],
+      "turn": [
+        "The case isn't on any manifest. It holds goods that are illegal on this side of the gate.",
+        "Someone hid it aboard to ride through the gate unchecked.",
+        "Whatever is in it, it is worth a great deal to someone."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You can dump it, report it or deliver it. Each has a price.",
+        "It was planted by someone who knew your route.",
+        "{faction} would pay well to learn where it came from."
+      ],
+      "close": [
+        "Check every panel before departure.",
+        "Nobody claimed it. Nobody will.",
+        "A smuggler's gift, and a smuggler's problem."
+      ]
+    }
+  },
+  {
+    "id": "complication-contraband-rim-tech",
+    "description": "Text for the 'Rim tech' complication.",
+    "variables": [],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A gate warden's scan lingers on your engine bay.",
+        "A diagnostic reports a component that is not in your ship's specification.",
+        "Your engineer asks quietly whether you have been refitted."
+      ],
+      "turn": [
+        "There is rim tech aboard, built into the hull where nobody would look.",
+        "It is old and elegant and it does not belong on a ship this side of the last good gate.",
+        "The Lantern Synod will pay a lot to learn how it got there."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Nobody can say who put it there.",
+        "You stripped it out. The ship runs worse, and you sleep better.",
+        "The warden pretended not to see. That was a kindness, or a mark."
+      ],
+      "close": [
+        "Some questions are better not asked.",
+        "Rim tech is never just rim tech.",
+        "You will be scanned twice as hard from now on."
+      ]
+    }
+  },
+  {
+    "id": "complication-contraband-passenger-bag",
+    "description": "Text for the 'Borrowed luggage' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A customs officer at {destination} asks to open a small bag.",
+        "A sniffer drone circles you at the dock and settles over one locker.",
+        "A routine inspection takes much longer than it should."
+      ],
+      "turn": [
+        "Inside is something very illegal, and it has your signature on the loading slip.",
+        "It was given to you by someone at {system} who said it was a favour.",
+        "The goods are worth more than the job itself."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You talked your way out, mostly.",
+        "{client} claims to know nothing, and sounds convincing.",
+        "The officer let you go with a warning and a fine."
+      ],
+      "close": [
+        "Never take a bag from a stranger.",
+        "A fine is cheaper than a cell.",
+        "You will be searched again."
+      ]
+    }
+  },
+  {
+    "id": "complication-deadline-gate-queue",
+    "description": "Text for the 'Gate backlog' complication.",
+    "variables": [
+      "deadline",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "The gate at {system} is closed for inspection.",
+        "A queue of waiting ships stretches back from the gate mouth.",
+        "A notice goes up at the gate: delays of unknown length."
+      ],
+      "turn": [
+        "You have {deadline} on the clock and no way through.",
+        "The Gate Authority will not say when it will reopen.",
+        "You can wait, or you can pay for a slot, or you can find another way round."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You made it, or you did not. In either case, the Gate Authority sent a bill.",
+        "Gates keep their own time and answer to no schedule.",
+        "The delay cost you time and a little pride."
+      ],
+      "close": [
+        "Factor in gate delays next time.",
+        "Nobody has ever got a refund from the Authority.",
+        "Some of the queue got through. Some turned round."
+      ]
+    }
+  },
+  {
+    "id": "complication-deadline-client-panics",
+    "description": "Text for the 'Moved up' complication.",
+    "variables": [
+      "captain",
+      "client",
+      "deadline",
+      "reward",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A message from {client} reaches you at {system}.",
+        "Another ship brings word from {client}, nine days old.",
+        "{client}'s agent catches you at the dock."
+      ],
+      "turn": [
+        "#voice:urgency# The deadline has moved up.",
+        "It has been cut to less than you have left, and there is no appeal.",
+        "Something has changed on their side, and they will not tell you what."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You pushed the drive and paid for it later.",
+        "The reward holds, but the margin does not.",
+        "{client} did not say thank you."
+      ],
+      "close": [
+        "Ask what changed. Ask early.",
+        "Drive wear is a cost too.",
+        "Some clients live in a permanent hurry."
+      ]
+    }
+  },
+  {
+    "id": "complication-deadline-old-news",
+    "description": "Text for the 'Late word' complication.",
+    "variables": [
+      "client",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Word reaches you by a passing freighter.",
+        "A courier ship brings the latest from {client}.",
+        "The newsfeed at {system} is days old and says something about your contract."
+      ],
+      "turn": [
+        "The brief you were working from was out of date. You have far less time than you thought.",
+        "Nobody told you the job changed, because nobody could.",
+        "There is no faster-than-light radio, and that is an old problem."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "There is nobody to blame, which is the annoying part.",
+        "You did what you could with what you had.",
+        "Distance makes liars of honest people."
+      ],
+      "close": [
+        "Every plan is a few days old by the time you act.",
+        "The galaxy is wide and slow.",
+        "Carry some slack."
+      ]
+    }
+  },
+  {
+    "id": "complication-extra-stop-inspection",
+    "description": "Text for the 'Inspection detour' complication.",
+    "variables": [
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A {faction} patrol orders you to stop at a station off your route.",
+        "Flags at the gate: all ships to the checkpoint.",
+        "A military cutter blocks the lane and gestures to a nearby dock."
+      ],
+      "turn": [
+        "You are held while they go through the ship, slowly and in great detail.",
+        "The inspection finds nothing. It also takes a day.",
+        "It is routine, they say. They say that to everyone."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You lost time and some patience.",
+        "{faction} stamped your papers and moved on.",
+        "Nobody explained the reason, and you did not ask."
+      ],
+      "close": [
+        "Bring good paperwork.",
+        "Law thins at the edge and thickens at checkpoints.",
+        "The delay was within the contract. Only just."
+      ]
+    }
+  },
+  {
+    "id": "complication-extra-stop-extra-pickup",
+    "description": "Text for the 'One more thing' complication.",
+    "variables": [
+      "client",
+      "destination",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A message from {client} arrives mid-route.",
+        "{client} calls with a request that cannot be refused politely.",
+        "At {system}, a contact flags you down."
+      ],
+      "turn": [
+        "They want you to stop and pick up one more thing before {destination}.",
+        "It is a small favour, and an unpaid one.",
+        "They say it is on the way. It is not."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "It took time and it cost fuel.",
+        "You collected it. You decided not to ask what it was.",
+        "{client} says thanks, and means it, a little."
+      ],
+      "close": [
+        "Extra stops should come with extra pay.",
+        "Say no sometimes.",
+        "Favours are the currency of people with no money."
+      ]
+    }
+  },
+  {
+    "id": "complication-extra-stop-stranded",
+    "description": "Text for the 'Stranded ship' complication.",
+    "variables": [
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A ship with a failed drive hails you near {system}.",
+        "A tow request on a frequency you cannot ignore.",
+        "A freighter drifts dead in the lane, hazard lights flashing."
+      ],
+      "turn": [
+        "The captain asks you to tow them to the nearest port, or to carry a spare part.",
+        "It is a real emergency. You can tell from the voices.",
+        "They have little to offer except gratitude and a story."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "It cost time. It may even have saved lives.",
+        "They said they would remember you.",
+        "You will be told this story at a bar one day."
+      ],
+      "close": [
+        "Space is large and cold. Be kind where you can.",
+        "The gratitude was genuine.",
+        "The clock kept running regardless."
+      ]
+    }
+  },
+  {
+    "id": "complication-bad-intel-stale-charts",
+    "description": "Text for the 'Old charts' complication.",
+    "variables": [
+      "client",
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "The charts for {destination} are months old.",
+        "What {client} told you about {destination} no longer holds.",
+        "You arrive and find the system has changed hands."
+      ],
+      "turn": [
+        "Someone else claimed it since. They do not welcome visitors.",
+        "There is a new station, a new tariff and a new set of guns.",
+        "The people you were told to find are gone."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You made the best of it.",
+        "Old information is worse than none.",
+        "The galaxy keeps moving whether or not you do."
+      ],
+      "close": [
+        "Check the charts. Then check who made them.",
+        "Everything is out of date by the time it is written.",
+        "It could have been worse."
+      ]
+    }
+  },
+  {
+    "id": "complication-bad-intel-wrong-place",
+    "description": "Text for the 'Wrong place' complication.",
+    "variables": [
+      "client",
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "There is nothing at the coordinates {client} gave you.",
+        "The scan at {destination} shows empty space.",
+        "The station you were sent to does not answer."
+      ],
+      "turn": [
+        "Either the numbers were wrong or somebody wanted you looking in the wrong place.",
+        "You are in the right system and the wrong half of it.",
+        "There is nobody here, and there never was."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "It took time to find the right place.",
+        "You are still not sure whether it was a mistake.",
+        "Cheap intelligence has cost you."
+      ],
+      "close": [
+        "Question your sources.",
+        "Maps lie. People lie more.",
+        "The galaxy is mostly empty, and today it felt like it."
+      ]
+    }
+  },
+  {
+    "id": "complication-bad-intel-defended",
+    "description": "Text for the 'Not so quiet' complication.",
+    "variables": [
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Scans at {destination} read far more hulls than expected.",
+        "The 'quiet backwater' turns out to have a navy picket.",
+        "A defence grid you had not been told about comes alive."
+      ],
+      "turn": [
+        "Whoever supplied the briefing was out of date, or lying, or paid to be wrong.",
+        "You were told lightly guarded. It's not.",
+        "The job just got harder, and the reward did not change."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You adjusted, or you ran.",
+        "Someone should hear about this.",
+        "It was close."
+      ],
+      "close": [
+        "Bring more firepower than the briefing says.",
+        "A cheap tip is the most expensive kind.",
+        "Intelligence is only worth what you pay for it."
+      ]
+    }
+  },
+  {
+    "id": "complication-rival-offer-bribe",
+    "description": "Text for the 'A better offer' complication.",
+    "variables": [
+      "client"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A message reaches you, unsigned but well funded.",
+        "At the dock a stranger orders two drinks and sits down.",
+        "A courier brings a sealed offer."
+      ],
+      "turn": [
+        "Walk away from {client}'s contract and keep a share of the reward as a gift.",
+        "They will pay you more to do nothing than {client} will to do the work.",
+        "They want you to fail, and they will pay well for it."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You took it, or you didn't. Both have consequences.",
+        "Loyalty is a currency too.",
+        "The offer stood for exactly as long as you needed to doubt it."
+      ],
+      "close": [
+        "Nobody makes an offer like that for nothing.",
+        "Remember who asked.",
+        "It is a fair price for a clean conscience."
+      ]
+    }
+  },
+  {
+    "id": "complication-rival-offer-turncoat",
+    "description": "Text for the 'Change sides' complication.",
+    "variables": [
+      "client",
+      "faction"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A {faction} envoy requests a private word.",
+        "A {faction} ship hails you with a polite request.",
+        "You are invited to dinner by someone with a flag."
+      ],
+      "turn": [
+        "They will pay you to hand the result to them instead of {client}.",
+        "{faction} wants what you are carrying or what you know, and they are generous.",
+        "Refusing is possible. It will not be comfortable."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You made your choice.",
+        "{client} may find out, or may not.",
+        "{faction} is a useful friend and a dangerous one."
+      ],
+      "close": [
+        "Choose your friends carefully.",
+        "Reputation is slow to build.",
+        "The money is real. So is the risk."
+      ]
+    }
+  },
+  {
+    "id": "complication-rival-offer-partner",
+    "description": "Text for the 'Share the work' complication.",
+    "variables": [
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Another captain pulls alongside and asks for a word.",
+        "A hail comes in from a ship headed for {destination}.",
+        "A rival you know is waiting in the lane."
+      ],
+      "turn": [
+        "They want to split the reward and take the risk together.",
+        "They will cover the dangerous half if you cover the rest.",
+        "It is an honest offer from an honest rival, which is rare."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "It worked, or it didn't.",
+        "You split the reward and the grievance.",
+        "It is nice, now and then, to have company."
+      ],
+      "close": [
+        "Not everyone is an enemy.",
+        "Keep an eye on them anyway.",
+        "Cooperation is rarer than it looks."
+      ]
+    }
+  },
+  {
+    "id": "complication-rim-signal-own-voice",
+    "description": "Text for the 'Your own voice' complication.",
+    "variables": [
+      "captain",
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A hail comes in from nowhere on the channel you were using.",
+        "The comm crackles near {system}.",
+        "A ship you cannot see answers your call sign."
+      ],
+      "turn": [
+        "It is your voice. It says what you were about to say.",
+        "It uses your name, {captain}, and the pitch of your own breath.",
+        "It stops mid-sentence, as if it had heard enough."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Nobody else heard it. You checked.",
+        "You logged it and it was gone from the log in the morning.",
+        "Nothing came of it. That is the part you keep returning to."
+      ],
+      "close": [
+        "The recorder was empty.",
+        "You told no one.",
+        "It did not come again. You stay off that channel."
+      ]
+    }
+  },
+  {
+    "id": "complication-rim-signal-interference",
+    "description": "Text for the 'Dead air' complication.",
+    "variables": [],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "Every screen shows static at once.",
+        "The comms drop to a low, regular pulse.",
+        "Instruments freeze and then drift, all in agreement."
+      ],
+      "turn": [
+        "The static has a rhythm. It is not random. It is not a language either.",
+        "Your crew stops speaking, one by one, and nobody notices.",
+        "It lasts exactly as long as it takes you to start to worry."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "Afterwards the clocks disagree by a few minutes.",
+        "Nobody can say what it was.",
+        "You are careful not to ask the engineer."
+      ],
+      "close": [
+        "The ship is fine. The ship is always fine.",
+        "It is quiet out here, and not always empty.",
+        "You did not mention it at port."
+      ]
+    }
+  },
+  {
+    "id": "complication-rim-signal-gate",
+    "description": "Text for the 'Odd gate' complication.",
+    "variables": [
+      "system"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "The gate at {system} lights up before you have asked it to.",
+        "The gate ring dims and brightens in a slow cycle.",
+        "The gate passes you through and then shows a second, empty arrival."
+      ],
+      "turn": [
+        "It opens to a place that is not on your route, and then it opens to the right one.",
+        "The warden's console says no traffic. You are in the traffic.",
+        "For a moment you can see something else on the far side. Then you cannot."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "The Gate Authority has no record of anything unusual.",
+        "Gates do things nobody understands. This was one of them.",
+        "You did not slow down. You are glad you didn't."
+      ],
+      "close": [
+        "The gate was never the problem.",
+        "It looked at you, if a gate can.",
+        "You will take another route next time."
+      ]
+    }
+  },
+  {
+    "id": "complication-rim-signal-missing",
+    "description": "Text for the 'Ghost transponder' complication.",
+    "variables": [
+      "destination"
+    ],
+    "rules": {
+      "reveal": [
+        "#lead# #turn#"
+      ],
+      "lead": [
+        "A transponder pings on your scanner, clear and strong.",
+        "The registry says the ship was lost a year ago.",
+        "A familiar hull-ident appears off {destination} and stays on your tail."
+      ],
+      "turn": [
+        "The ship is not there. The signal is. It follows you the whole way.",
+        "It answers every hail with the same four words.",
+        "When you finally turn to look, the scanner is empty and the log is full."
+      ],
+      "aftermath": [
+        "#note# #close#"
+      ],
+      "note": [
+        "You reported it. They said it was a ghost signal, and left it at that.",
+        "Another captain heard it too, they said, in the same lane.",
+        "There are a lot of missing ships on the rim, and not all of them stay missing."
+      ],
+      "close": [
+        "Some signals are better ignored.",
+        "It was never found.",
+        "You take the long way round now."
+      ]
     }
   }
 ]
