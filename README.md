@@ -10,6 +10,7 @@ What's in so far:
 - A galaxy map for travelling by gate. Time passes as you fly, and jobs pay out when you arrive.
 
 - A title screen with save slots, an autosave each time you dock, and settings for the window, mouse and pitch inversion.
+- Sound and music, all synthesised in code with no audio files. Chiptune music is composed per race from styles in game/data/music, engines and guns sound different by the builder's race, stations hum and clank by their economy, and battles are heard in 3D.
 - Every system looks different: its star's colour and its main world, from gas giants with rings to airless cratered rock, ice, lava, desert, ocean and toxic worlds, with moons.
 
 A new game starts docked at a Tolland Compact colony in a small courier with 8,000 credits. There's a printable control sheet in [docs/controls.pdf](docs/controls.pdf).

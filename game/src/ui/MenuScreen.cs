@@ -139,6 +139,9 @@ public partial class MenuScreen : Control
         Add(Toggle("Invert mouse pitch", s.InvertMouse, v => s.InvertMouse = v));
         Add(Toggle("Invert keys and stick pitch", s.InvertStick, v => s.InvertStick = v));
         Add(Toggle("Show control hints", s.ShowHints, v => s.ShowHints = v));
+        Add(Slider("Master volume", s.MasterVolume, 0, 1, v => { s.MasterVolume = v; AudioManager.Instance?.ApplyVolumes(); }));
+        Add(Slider("Music", s.MusicVolume, 0, 1, v => { s.MusicVolume = v; AudioManager.Instance?.ApplyVolumes(); }));
+        Add(Slider("Sound effects", s.SfxVolume, 0, 1, v => { s.SfxVolume = v; AudioManager.Instance?.ApplyVolumes(); }));
         Add(Ui.Button("Back", () => { s.Save(); ShowPage(_back); }));
     }
 

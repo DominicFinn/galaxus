@@ -48,6 +48,7 @@ public sealed class ContentDatabase
     public Dictionary<string, MissionTemplateDef> Missions { get; } = [];
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
     public Dictionary<string, PowerDef> Powers { get; } = [];
+    public Dictionary<string, Audio.MusicStyleDef> MusicStyles { get; } = [];
     public GrammarLibrary Grammars { get; } = new();
 
     /// <summary>Problems found while loading. Only filled when loaded with throwOnProblems: false.</summary>
@@ -79,6 +80,7 @@ public sealed class ContentDatabase
         LoadInto(source, "missions", db.Missions, m => m.Id, problems);
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
         LoadInto(source, "powers", db.Powers, p => p.Id, problems);
+        LoadInto(source, "music", db.MusicStyles, m => m.Id, problems);
 
         var grammars = new Dictionary<string, GrammarDef>();
         LoadInto(source, "grammars", grammars, g => g.Id, problems);
@@ -303,6 +305,27 @@ public sealed class ContentDatabase
             if (!ContentRules.Regions.Contains(power.Region)) p.Add($"{at}: region must be one of {Join(ContentRules.Regions)}.");
             if (power.Systems < 1) p.Add($"{at}: needs at least one system.");
             if (!IsHexColour(power.Colour)) p.Add($"{at}: colour '{power.Colour}' is not #rrggbb.");
+        }
+
+        foreach (var style in MusicStyles.Values)
+        {
+            string at = $"Music style '{style.Id}'";
+            if (!Audio.Composer.Scales.TryGetValue(style.Scale, out var scale)) { p.Add($"{at}: scale '{style.Scale}' is unknown. Use one of {Join(Audio.Composer.Scales.Keys)}."); continue; }
+            if (style.Tempo.Length != 2 || style.Tempo[0] < 40 || style.Tempo[1] > 220 || style.Tempo[0] > style.Tempo[1]) p.Add($"{at}: tempo needs [min, max] between 40 and 220.");
+            if (style.Root is < 28 or > 64) p.Add($"{at}: root should be a MIDI note from 28 to 64.");
+            if (style.Progressions.Count == 0 || style.Progressions.Any(pr => pr.Length == 0 || pr.Any(d => d < 1 || d > scale.Length)))
+                p.Add($"{at}: progressions need degrees from 1 to {scale.Length}.");
+            foreach (var (name, voice) in new[] { ("lead", style.Lead), ("harmony", style.Harmony), ("bass", style.Bass), ("arp", style.Arp), ("pad", style.Pad) })
+            {
+                if (voice.Wave != "off" && !Audio.Synth.WaveNames.Contains(voice.Wave)) p.Add($"{at}: {name} wave '{voice.Wave}' is unknown.");
+                if (voice.Octave is < -1 or > 4) p.Add($"{at}: {name} octave should be -1 to 4.");
+            }
+            if (!Audio.Composer.BassPatterns.Contains(style.Bass.Pattern)) p.Add($"{at}: bass pattern '{style.Bass.Pattern}' is unknown. Use {Join(Audio.Composer.BassPatterns)}.");
+            if (!Audio.Composer.ArpPatterns.Contains(style.Arp.Pattern)) p.Add($"{at}: arp pattern '{style.Arp.Pattern}' is unknown.");
+            if (!Audio.Composer.HarmonyPatterns.Contains(style.Harmony.Pattern)) p.Add($"{at}: harmony pattern '{style.Harmony.Pattern}' is unknown.");
+            if (style.Drums.Kick is not ("four" or "two" or "half" or "off")) p.Add($"{at}: kick must be four, two, half or off.");
+            if (style.Drums.Snare is not ("backbeat" or "march" or "sparse" or "off")) p.Add($"{at}: snare must be backbeat, march, sparse or off.");
+            if (style.Drums.Hats is not ("eighth" or "sixteenth" or "quarter" or "off")) p.Add($"{at}: hats must be eighth, sixteenth, quarter or off.");
         }
 
         if (Missions.Count > 0)

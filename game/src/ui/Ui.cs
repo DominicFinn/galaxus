@@ -74,6 +74,7 @@ public static class Ui
     public static Button Button(string text, Action onPressed)
     {
         var button = new Button { Text = text, FocusMode = Control.FocusModeEnum.None };
+        button.Pressed += () => AudioManager.Instance?.Ui("click");
         button.Pressed += onPressed;
         return button;
     }

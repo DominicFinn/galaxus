@@ -98,6 +98,9 @@ public partial class Main : Node3D
             return;
         }
 
+        var audio = new AudioManager();
+        audio.Init(_db);
+        AddChild(audio);
         GameSettings.Load();
         _camera = new Camera3D { Fov = 70, Near = 0.3f, Far = 150000, Current = true };
         AddChild(_camera);
@@ -141,6 +144,7 @@ public partial class Main : Node3D
         _camera.Rotation = new Vector3(0, 0, 0);
         _menu.Open(inGame: false);
         Input.MouseMode = Input.MouseModeEnum.Visible;
+        AudioManager.Instance?.PlayMusic("title", 1);
 
         if (splash)
         {
@@ -257,6 +261,18 @@ public partial class Main : Node3D
         _hud.Message($"{_space.Star.ToString().ToUpperInvariant()} STAR, {SpacedName(_space.Planet)} WORLD");
     }
 
+    /// <summary>Music follows the local owner's race; stations add machinery; flight adds the engine.</summary>
+    private void UpdateAudioForScreen()
+    {
+        var audio = AudioManager.Instance;
+        if (audio == null || _sessionOrNull == null) return;
+        var here = _session.Here;
+        string style = _session.Galaxy.OwnerOf(here)?.RaceId ?? (here.Region == "rim" ? "dark-elf" : "human");
+        audio.PlayMusic(style, here.Seed % 3);
+        audio.SetAmbience(_screen == Screen.Docked ? here.Economy.ToString() : null, here.Seed);
+        if (_screen != Screen.Flight) audio.SetEngine(null, 0, 0);
+    }
+
     private static string SpacedName(PlanetKind kind) =>
         string.Concat(kind.ToString().Select((c, i) => i > 0 && char.IsUpper(c) ? " " + c : c.ToString())).ToUpperInvariant();
 
@@ -267,6 +283,7 @@ public partial class Main : Node3D
         _map.Visible = screen == Screen.Map;
         _hud.Visible = screen == Screen.Flight;
         if (screen != Screen.Menu) _menu.Visible = false;
+        UpdateAudioForScreen();
         if (!_demo && _screenshotPath == null)
             Input.MouseMode = screen == Screen.Flight ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
     }
@@ -276,6 +293,7 @@ public partial class Main : Node3D
         _stationScreen.Refresh();
         SetScreen(Screen.Docked);
         SaveSlots.Write(SaveSlots.Autosave, _session);
+        AudioManager.Instance?.Ui("dock");
     }
 
     /// <summary>Leave the station pointing away from it, so you're clear of the hub.</summary>
@@ -285,6 +303,7 @@ public partial class Main : Node3D
         _throttle = 0.3f;
         _mouseStick = Vector2.Zero;
         SetScreen(Screen.Flight);
+        AudioManager.Instance?.Ui("undock");
         _hud.Message($"UNDOCKED FROM {_stationScreen.StationName.ToUpperInvariant()}");
     }
 
@@ -306,6 +325,7 @@ public partial class Main : Node3D
         var report = _session.Jump(systemId);
         if (report == null) return;
         EnterSystem();
+        AudioManager.Instance?.Ui(report.Results.Any(r => r.Success) ? "paid" : "jump");
 
         string summary = $"Arrived at {_session.Here.Name} after {report.Days} days.";
         foreach (var result in report.Results)
@@ -429,6 +449,10 @@ public partial class Main : Node3D
         _hud.Kills = _kills;
         _hud.Cockpit = _cockpit;
         _hud.Prompt = DockPrompt();
+        var flightStats = _player.CurrentFlightStats();
+        AudioManager.Instance?.SetEngine(_player.Spec.Builder.Race,
+            _player.Controls.Flight.Assist ? _throttle : Mathf.Abs(_player.Controls.Flight.Thrust),
+            _player.Body.Speed / Mathf.Max(flightStats.MaxSpeed, 1));
 
         CaptureScreenshotIfAsked();
     }
@@ -462,14 +486,14 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.ReleaseMouse)) { OpenPause(); return; }
         if (Input.IsActionJustPressed(GameInput.Help)) _hud.ShowHelp = !_hud.ShowHelp;
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
-        if (Input.IsActionJustPressed(GameInput.TargetNext)) _player.Target = NextTarget();
+        if (Input.IsActionJustPressed(GameInput.TargetNext)) { _player.Target = NextTarget(); AudioManager.Instance?.Ui("lock"); }
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
         if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { Dock(); return; }
 
-        if (Input.IsActionJustPressed(GameInput.PipEngines)) _player.Power.Raise(ShipSystem.Engines);
-        if (Input.IsActionJustPressed(GameInput.PipShields)) _player.Power.Raise(ShipSystem.Shields);
-        if (Input.IsActionJustPressed(GameInput.PipWeapons)) _player.Power.Raise(ShipSystem.Weapons);
-        if (Input.IsActionJustPressed(GameInput.PipBalance)) _player.Power.Balance();
+        if (Input.IsActionJustPressed(GameInput.PipEngines)) { _player.Power.Raise(ShipSystem.Engines); AudioManager.Instance?.Ui("pip-0"); }
+        if (Input.IsActionJustPressed(GameInput.PipShields)) { _player.Power.Raise(ShipSystem.Shields); AudioManager.Instance?.Ui("pip-1"); }
+        if (Input.IsActionJustPressed(GameInput.PipWeapons)) { _player.Power.Raise(ShipSystem.Weapons); AudioManager.Instance?.Ui("pip-2"); }
+        if (Input.IsActionJustPressed(GameInput.PipBalance)) { _player.Power.Balance(); AudioManager.Instance?.Ui("pip-1"); }
 
         if (Input.IsActionJustPressed(GameInput.FlightAssist))
         {
@@ -546,18 +570,21 @@ public partial class Main : Node3D
             {
                 case ShotFired fired:
                     _effects.AddBolt(fired.Projectile);
+                    AudioManager.Instance?.Laser(fired.Projectile.Position.ToGodot(), fired.Projectile.Owner.Spec.Builder.Race,
+                        fired.Projectile.Velocity.Length(), fired.Projectile.Damage);
                     break;
                 case ProjectileExpired expired:
                     _effects.RemoveBolt(expired.Projectile);
                     break;
                 case ShipHit hit:
                     _effects.RemoveBolt(hit.Projectile);
-                    if (hit.Damage.ToHull > 0) _effects.HullSpark(hit.Point.ToGodot());
-                    else _effects.ShieldFlash(hit.Ship.Body.Position.ToGodot(), hit.Ship.Spec.Radius);
+                    if (hit.Damage.ToHull > 0) { _effects.HullSpark(hit.Point.ToGodot()); AudioManager.Instance?.HullHit(hit.Point.ToGodot()); }
+                    else { _effects.ShieldFlash(hit.Ship.Body.Position.ToGodot(), hit.Ship.Spec.Radius); AudioManager.Instance?.ShieldHit(hit.Point.ToGodot()); }
                     break;
                 case ShipDestroyed destroyed:
                     var ship = destroyed.Ship;
                     _effects.Explosion(ship.Body.Position.ToGodot(), ship.Body.Velocity.ToGodot(), ship.Spec.Radius);
+                    AudioManager.Instance?.Explosion(ship.Body.Position.ToGodot());
                     if (destroyed.By == _player)
                     {
                         _kills++;

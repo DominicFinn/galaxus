@@ -20,6 +20,10 @@ public sealed class GameSettings
     /// <summary>Window size as a multiple of 640x360.</summary>
     public int WindowScale { get; set; } = 2;
     public bool ShowHints { get; set; } = true;
+    /// <summary>Volumes, 0 to 1.</summary>
+    public float MasterVolume { get; set; } = 0.8f;
+    public float MusicVolume { get; set; } = 0.6f;
+    public float SfxVolume { get; set; } = 0.8f;
 
     public static GameSettings Current { get; private set; } = new();
 
@@ -48,6 +52,10 @@ public sealed class GameSettings
     {
         MouseSensitivity = Mathf.Clamp(MouseSensitivity, 0.2f, 1.5f);
         WindowScale = Math.Clamp(WindowScale, 1, 4);
+        MasterVolume = Mathf.Clamp(MasterVolume, 0, 1);
+        MusicVolume = Mathf.Clamp(MusicVolume, 0, 1);
+        SfxVolume = Mathf.Clamp(SfxVolume, 0, 1);
+        AudioManager.Instance?.ApplyVolumes();
         if (DisplayServer.GetName() == "headless") return;
         if (Fullscreen) DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
         else

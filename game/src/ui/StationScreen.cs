@@ -168,6 +168,7 @@ public partial class StationScreen : PanelContainer
     {
         if (SelectedOffer is not { } o || _session.Career.CannotAccept(_session.Db, o) != null) return;
         _session.Career.Accept(_session.Galaxy, o);
+        AudioManager.Instance?.Ui("confirm");
         Refresh($"Accepted: {o.Mission.Title}");
     }
 
@@ -252,6 +253,7 @@ public partial class StationScreen : PanelContainer
         var c = _commodities[item.GetMetadata(0).AsInt32()];
         var career = _session.Career;
         int done = tonnes > 0 ? career.Buy(_session.Db, _session.Galaxy, c.Id, tonnes) : career.Sell(_session.Db, _session.Galaxy, c.Id, -tonnes);
+        AudioManager.Instance?.Ui(done == 0 ? "error" : tonnes > 0 ? "confirm" : "paid");
         Refresh(done == 0
             ? (tonnes > 0 ? "Can't buy: no money or no room." : "You have none to sell.")
             : $"{(tonnes > 0 ? "Bought" : "Sold")} {done} t of {c.Name.ToLowerInvariant()}.");
@@ -324,6 +326,7 @@ public partial class StationScreen : PanelContainer
     {
         if (SelectedHull is not { } h || _session.Career.CannotBuyShip(_session.Db, h) != null) return;
         _session.Career.BuyShip(_session.Db, h);
+        AudioManager.Instance?.Ui("paid");
         _shipChanged();
         Refresh($"You now fly a {h.Name}.");
     }
