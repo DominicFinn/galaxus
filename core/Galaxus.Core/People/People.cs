@@ -1,5 +1,6 @@
 using Galaxus.Core.Content;
 using Galaxus.Core.Galaxy;
+using System.Numerics;
 using Galaxus.Core.Portraits;
 
 namespace Galaxus.Core.People;
@@ -162,6 +163,24 @@ public static class PeopleDirectory
         var style = db.Portraits.GetValueOrDefault(person.RaceId) ?? db.Portraits.Values.First();
         string? colour = person.FactionId >= 0 ? galaxy.Factions[person.FactionId].Colour : null;
         return PortraitBuilder.Build(style, person.Seed, colour, AttireFor(db, person), person.Gender);
+    }
+
+    private static readonly Dictionary<string, Vector4[]> PaintedCache = [];
+
+    /// <summary>
+    /// The person's portrait in the painted, sculpted style (SculptedPortrait), as RGBA pixels.
+    /// Cached, since each takes a moment to render.
+    /// </summary>
+    public static Vector4[] Painted(ContentDatabase db, Galaxy.Galaxy galaxy, Person person)
+    {
+        string key = $"{galaxy.Seed}:{person.Id}";
+        lock (PaintedCache)
+            if (PaintedCache.TryGetValue(key, out var cached)) return cached;
+        var style = db.Portraits.GetValueOrDefault(person.RaceId) ?? db.Portraits.Values.First();
+        string? colour = person.FactionId >= 0 ? galaxy.Factions[person.FactionId].Colour : null;
+        var pixels = SculptedPortrait.Render(SculptedPortrait.Describe(style, person.Seed, colour, AttireFor(db, person), person.Gender));
+        lock (PaintedCache) PaintedCache[key] = pixels;
+        return pixels;
     }
 
     /// <summary>A line of greeting in the person's race's voice, the same each time you meet them that day.</summary>

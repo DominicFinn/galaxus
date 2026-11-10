@@ -162,7 +162,7 @@ public partial class StationScreen : PanelContainer
         tab.AddChild(side);
         var client = new HBoxContainer();
         side.AddChild(client);
-        _clientFace = new PortraitView { CustomMinimumSize = new Vector2(50, 60) };
+        _clientFace = new PortraitView { CustomMinimumSize = new Vector2(60, 70) };
         client.AddChild(_clientFace);
         _clientName = Ui.Label("", Ui.Amber, wrap: true);
         _clientName.SizeFlagsHorizontal = SizeFlags.ExpandFill;
@@ -199,7 +199,7 @@ public partial class StationScreen : PanelContainer
             if (!o.Mission.Template.Legal) item.SetCustomColor(0, Ui.Amber);
         }
         _jobText.Text = _offers.Count == 0 ? "No work posted here." : "Pick a job to read the briefing.";
-        _clientFace.Show([]);
+        _clientFace.Clear();
         _clientName.Text = "";
         _accept.Disabled = true;
         _haggle.Disabled = true;
@@ -226,7 +226,7 @@ public partial class StationScreen : PanelContainer
         var person = o.ClientId == null ? null : PeopleDirectory.Contacts(_session.Db, galaxy, giver).FirstOrDefault(c => c.Id == o.ClientId);
         if (person != null)
         {
-            _clientFace.Show(PeopleDirectory.Portrait(_session.Db, galaxy, person));
+            _clientFace.ShowPerson(_session.Db, galaxy, person);
             _clientName.Text = $"{person.Name}\n{RoleName(person)}, {RaceName(person)}" + (_session.Career.MetPeople.Contains(person.Id) ? "\nYou've worked together before." : "");
         }
         var reason = _session.Career.CannotAccept(_session.Db, o);
@@ -432,7 +432,7 @@ public partial class StationScreen : PanelContainer
         tab.AddChild(side);
         var header = new HBoxContainer();
         side.AddChild(header);
-        _personFace = new PortraitView { CustomMinimumSize = new Vector2(80, 95) };
+        _personFace = new PortraitView { CustomMinimumSize = new Vector2(96, 112) };
         header.AddChild(_personFace);
         _personDetails = Ui.Label("", Ui.Green, wrap: true);
         _personDetails.SizeFlagsHorizontal = SizeFlags.ExpandFill;
@@ -473,7 +473,7 @@ public partial class StationScreen : PanelContainer
             if (p.Regular) item.SetCustomColor(0, Colors.White);
         }
         _shownPerson = null;
-        _personFace.Show([]);
+        _personFace.Clear();
         _personDetails.Text = "";
         _topics.Visible = false;
         _personText.Text = _here.Count == 0 ? "Nobody about." : "Regulars are in white. Pick someone to talk to them.";
@@ -485,7 +485,7 @@ public partial class StationScreen : PanelContainer
         var p = _here[item.GetMetadata(0).AsInt32()];
         if (_shownPerson == p.Id) return;
         _shownPerson = p.Id;
-        _personFace.Show(PeopleDirectory.Portrait(_session.Db, _session.Galaxy, p));
+        _personFace.ShowPerson(_session.Db, _session.Galaxy, p);
         _topics.Visible = true;
         if (!_transcripts.ContainsKey(p.Id))
             _transcripts[p.Id] = [$"[color=#{Ui.Hex(Ui.Amber)}]{p.Name}:[/color] {Conversation.Greeting(_session, p)}"];
