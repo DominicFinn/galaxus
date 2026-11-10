@@ -69,15 +69,61 @@ public partial class GalaxyMap : Control
         _jumpButton = Ui.Button("Jump", () => { if (_selected >= 0) _jump(_selected); });
         box.AddChild(_jumpButton);
         box.AddChild(Ui.Button("Close map (M)", () => _close()));
+        _jobs = new VBoxContainer();
+        box.AddChild(_jobs);
+    }
+
+    private VBoxContainer _jobs = null!;
+
+    /// <summary>Your jobs as buttons: click one to make it the active job and plot its route.</summary>
+    private void RebuildJobs()
+    {
+        foreach (var child in _jobs.GetChildren()) child.QueueFree();
+        var career = _session.Career;
+        if (career.Missions.Count == 0) return;
+        _jobs.AddChild(Ui.Label("Your jobs (click to follow):", Ui.Amber));
+        var active = career.ActiveJob;
+        foreach (var job in career.Missions.OrderBy(m => m.DeadlineDay))
+        {
+            var system = _session.Galaxy.Systems[job.Offer.DestinationSystemId];
+            int left = job.DeadlineDay - _session.Galaxy.Day;
+            string title = job.Offer.Mission.Title.Length > 24 ? job.Offer.Mission.Title[..23] + "…" : job.Offer.Mission.Title;
+            string text = $"{(job == active ? "> " : "  ")}{title}: {system.Name}, {left}d";
+            var j = job;
+            var button = Ui.Button(text, () =>
+            {
+                career.ActiveJobId = j.Offer.Id;
+                RebuildJobs();
+                if (j.Offer.DestinationSystemId != career.SystemId) Select(j.Offer.DestinationSystemId);
+                else { _selected = -1; _route = []; UpdateInfo(); QueueRedraw(); }
+            });
+            button.Alignment = HorizontalAlignment.Left;
+            _jobs.AddChild(button);
+        }
+    }
+
+    private void Select(int id)
+    {
+        _selected = id;
+        _route = id >= 0 ? _session.Galaxy.Route(_session.Career.SystemId, id) : [];
+        UpdateInfo();
+        QueueRedraw();
     }
 
     /// <summary>Opens centred on the player with nothing selected.</summary>
+    /// <summary>Opens centred on the player, with the active job's destination already selected and routed.</summary>
     public void Open()
     {
         _centre = _session.Here.Position;
         _zoom = 1.2f;
         _selected = -1;
         _route = [];
+        RebuildJobs();
+        if (_session.Career.ActiveJob is { } job && job.Offer.DestinationSystemId != _session.Career.SystemId)
+        {
+            Select(job.Offer.DestinationSystemId);
+            _centre = (_session.Here.Position + _session.Galaxy.Systems[job.Offer.DestinationSystemId].Position) / 2;
+        }
         UpdateInfo();
         QueueRedraw();
     }
@@ -194,7 +240,7 @@ public partial class GalaxyMap : Control
             (owner != null ? $"Held by [color=#{owner.Colour.TrimStart('#')}]{owner.Name}[/color].\n" : "Unclaimed.\n") +
             (s.Stations.Count > 0 ? $"Stations: {string.Join(", ", s.Stations)}\n" : "No stations.\n") +
             (events.Any() ? $"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]\n" : "") +
-            (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here.[/color]\n" : "") +
+            (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here: {string.Join(", ", jobs.Select(j => j.Offer.DestinationStation).Distinct())}.[/color]\n" : "") +
             string.Concat(_session.Career.KnownLeads.Where(l => l.EndsWith($":{id}")).Select(l => $"[color=#{Ui.Hex(Ui.Red)}]Ask around here for {galaxy.Factions[int.Parse(l.Split(':')[0])].Name}.[/color]\n")) +
             (id == _session.Career.SystemId ? "You are here." : $"{route.Count - 1} gates, {days} days. {distanceLy:N0} ly." +
                 (distanceLy <= range ? $" In jump range ({Galaxus.Core.Session.JumpDays(distanceLy)} days)." : ""));
@@ -275,6 +321,13 @@ public partial class GalaxyMap : Control
 
         foreach (var job in _session.Career.Missions)
             DrawArc(ToScreen(galaxy.Systems[job.Offer.DestinationSystemId].Position), dot + 4, 0, Mathf.Tau, 16, Ui.Amber, 1);
+        if (_session.Career.ActiveJob is { } activeJob)
+        {
+            // The active job: a heavier ring and a label, so it stands out from the rest.
+            var at = ToScreen(galaxy.Systems[activeJob.Offer.DestinationSystemId].Position);
+            DrawArc(at, dot + 10, 0, Mathf.Tau, 24, Ui.Amber, 2);
+            DrawString(ThemeDB.FallbackFont, at + new Vector2(dot + 12, 4), "JOB", HorizontalAlignment.Left, -1, 9, Ui.Amber);
+        }
 
         DrawArc(ToScreen(_session.Here.Position), dot + 5, 0, Mathf.Tau, 20, Colors.White, 1.5f);
         if (_selected >= 0) DrawArc(ToScreen(galaxy.Systems[_selected].Position), dot + 7, 0, Mathf.Tau, 20, Ui.Green, 1.5f);

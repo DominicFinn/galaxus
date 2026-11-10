@@ -313,11 +313,18 @@ public partial class Main : Node3D
             Input.MouseMode = screen == Screen.Flight ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
     }
 
-    private void Dock()
+    private void Dock(string? arrival = null)
     {
         _timeWarp = 1;
         _stationScreen.Port = _dockedPort?.Name;
-        _stationScreen.Refresh();
+        // Docking delivers any jobs for this station.
+        string stationName = _dockedPort?.Name ?? _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
+        var delivered = _session.Dock(stationName);
+        string summary = arrival ?? "";
+        foreach (var result in delivered)
+            summary += $" Job done: {result.Mission.Offer.Mission.Title}, +{result.Payment:N0} cr.";
+        if (delivered.Count > 0) AudioManager.Instance?.Ui("paid");
+        _stationScreen.Refresh(summary.Trim() == "" ? null : summary.Trim());
         SetScreen(Screen.Docked);
         if (_showcaseDir == null) SaveSlots.Write(SaveSlots.Autosave, _session);
         AudioManager.Instance?.Ui("dock");
@@ -333,6 +340,7 @@ public partial class Main : Node3D
         SetScreen(Screen.Flight);
         AudioManager.Instance?.Ui("undock");
         _hud.Message($"UNDOCKED FROM {_stationScreen.StationName.ToUpperInvariant()}");
+        CourseForJob();
     }
 
     private void OpenMap()
@@ -367,19 +375,13 @@ public partial class Main : Node3D
         var report = _session.Jump(systemId);
         if (report == null) return;
         EnterSystem();
-        AudioManager.Instance?.Ui(report.Results.Any(r => r.Success) ? "paid" : "jump");
+        AudioManager.Instance?.Ui("jump");
 
         string summary = $"Arrived at {_session.Here.Name} after {report.Days} days.";
-        foreach (var result in report.Results)
-            summary += result.Success
-                ? $" Job done: {result.Mission.Offer.Mission.Title}, +{result.Payment:N0} cr."
-                : $" Job failed: {result.Mission.Offer.Mission.Title}.";
+        foreach (var result in report.Results.Where(r => !r.Success))
+            summary += $" Job failed: {result.Mission.Offer.Mission.Title}.";
 
-        if (_session.Here.Stations.Count > 0)
-        {
-            _stationScreen.Refresh(summary);
-            SetScreen(Screen.Docked);
-        }
+        if (_session.Here.Stations.Count > 0) Dock(summary);
         else
         {
             SetScreen(Screen.Flight);
@@ -514,6 +516,7 @@ public partial class Main : Node3D
         foreach (var drone in _drones.Keys) _visuals[drone].Visible = !_cruising;
         UpdateSystemView();
         UpdateNavHud();
+        UpdateJobHud(delta);
 
         UpdateCamera(dt);
         var dustVelocity = _cruising ? _player.Body.Forward.ToGodot() * 600 : _player.Body.Velocity.ToGodot();
@@ -570,6 +573,7 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
         if (Input.IsActionJustPressed(GameInput.SystemMapKey)) { OpenSystemMap(); return; }
         if (Input.IsActionJustPressed(GameInput.Cruise)) ToggleCruise();
+        if (Input.IsActionJustPressed(GameInput.NextJob)) CycleJob();
         if (Input.IsActionJustPressed(GameInput.TimeFaster)) ChangeWarp(+1);
         if (Input.IsActionJustPressed(GameInput.TimeSlower)) ChangeWarp(-1);
         if (Input.IsActionJustPressed(GameInput.MatchSpeed) && _player.Target is { Alive: true } match)

@@ -87,7 +87,9 @@ public class GalaxyTests
 
         int credits = career.Credits;
         career.SystemId = offer.DestinationSystemId;
-        var results = career.Settle(galaxy);
+        // Arriving isn't enough: the job is delivered by docking at its station.
+        Assert.Empty(career.Settle(galaxy));
+        var results = career.Settle(galaxy, offer.DestinationStation);
         Assert.Single(results);
         Assert.True(results[0].Success);
         Assert.Equal(credits + offer.Mission.Reward, career.Credits);
@@ -129,10 +131,18 @@ public class SessionTests
         session.Career.Accept(session.Galaxy, offer);
         int day = session.Galaxy.Day;
 
+        Assert.Equal(offer.Id, session.Career.ActiveJob!.Offer.Id);
+        Assert.StartsWith("Jump to", session.NextStep(session.Career.ActiveJob));
+
         var report = session.Jump(offer.DestinationSystemId)!;
         Assert.Equal(offer.DestinationSystemId, session.Career.SystemId);
         Assert.Equal(day + report.Days, session.Galaxy.Day);
-        Assert.Contains(report.Results, r => r.Success && r.Mission.Offer.Id == offer.Id);
+        Assert.DoesNotContain(report.Results, r => r.Success);
+        Assert.Matches("^(Dock|Land)", session.NextStep(session.Career.ActiveJob!));
+
+        var delivered = session.Dock(offer.DestinationStation);
+        Assert.Contains(delivered, r => r.Success && r.Mission.Offer.Id == offer.Id);
+        Assert.Null(session.Career.ActiveJob);
     }
 
     [Fact]

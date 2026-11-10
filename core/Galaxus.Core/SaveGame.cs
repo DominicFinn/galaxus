@@ -45,6 +45,7 @@ public static class SaveGame
         public Dictionary<string, float> Haggled { get; set; } = [];
         public List<string> WithdrawnOffers { get; set; } = [];
         public List<SavedMission> Missions { get; set; } = [];
+        public string? ActiveJob { get; set; }
     }
 
     public sealed class SavedMission
@@ -98,6 +99,7 @@ public static class SaveGame
             KnownLeads = [.. c.KnownLeads],
             Haggled = new(c.Haggled),
             WithdrawnOffers = [.. c.WithdrawnOffers],
+            ActiveJob = c.ActiveJobId,
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -167,6 +169,7 @@ public static class SaveGame
             var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay, m.ClientId);
             c.Missions.Add(new AcceptedMission(offer, m.AcceptedDay, m.DeadlineDay));
         }
+        c.ActiveJobId = data.ActiveJob;
         return session;
     }
 }

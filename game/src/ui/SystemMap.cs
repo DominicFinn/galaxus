@@ -66,6 +66,13 @@ public partial class SystemMap : Control
         _pxPerAu = Mathf.Min(Size.X, Size.Y) * 0.44f / Mathf.Max(outer, 0.1f);
         _pan = new Vector2(60, 0);
         _selected = -1;
+        // In the active job's system, start with its station selected, ready to set a course.
+        if (current && _session.Career.ActiveJob is { } job && job.Offer.DestinationSystemId == system.Id)
+        {
+            int index = _solar.Stations.FindIndex(st => st.Name == job.Offer.DestinationStation);
+            if (index >= 0) _selected = _solar.Stations[index].Surface ? NavPortBase - index : -2;
+            else if (_solar.Stations.Count > 0) _selected = -2;
+        }
         UpdateInfo();
         QueueRedraw();
     }
@@ -154,7 +161,8 @@ public partial class SystemMap : Control
                          $"{star.Description}, {star.Temperature:N0} K, {star.Mass:0.00} solar masses, {star.Luminosity:0.###} times the Sun's light.\n" +
                          $"Habitable zone {star.HabitableInner:0.00} to {star.HabitableOuter:0.00} AU. Frost line {star.FrostLine:0.0} AU.\n" +
                          $"{_solar.Planets.Count(b => b.Kind != BodyKind.Belt)} planets, {_solar.Bodies.Count(b => b.IsMoon)} moons.\n\n" +
-                         "Click a body for details" + (_current ? " and to set a course." : ".");
+                         "Click a body for details" + (_current ? " and to set a course." : ".") +
+                         (_session.Career.ActiveJob is { } job ? $"\n\n[color=#{Ui.Hex(Ui.Amber)}]Job: {job.Offer.Mission.Title}[/color]\n{_session.NextStep(job)}" : "");
             _course.Disabled = true;
             return;
         }
@@ -265,6 +273,18 @@ public partial class SystemMap : Control
         }
         if (_selected >= 0) DrawArc(BodyScreen(_selected), 10, 0, Mathf.Tau, 20, Ui.Green, 1.5f);
         if (_selected <= NavPortBase) DrawArc(PortScreen(_solar.Stations[NavPortBase - _selected].Body), 7, 0, Mathf.Tau, 16, Ui.Green, 1.5f);
+        if (_session.Career.ActiveJob is { } activeJob && activeJob.Offer.DestinationSystemId == _system.Id)
+        {
+            int index = _solar.Stations.FindIndex(st => st.Name == activeJob.Offer.DestinationStation);
+            if (index < 0) index = 0;
+            if (index < _solar.Stations.Count)
+            {
+                var site = _solar.Stations[index];
+                var at = site.Surface ? PortScreen(site.Body) : StationScreen(site.Body);
+                DrawArc(at, 9, 0, Mathf.Tau, 20, Ui.Amber, 2);
+                DrawString(ThemeDB.FallbackFont, at + new Vector2(11, -6), $"JOB: {site.Name}", HorizontalAlignment.Left, -1, 9, Ui.Amber);
+            }
+        }
         if (_current) DrawShip();
 
         DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 280, Size.Y - 8), $"Day {day}. Scroll to zoom, right-drag to pan, C to find your ship.", HorizontalAlignment.Left, -1, 8, Ui.Dim);

@@ -32,6 +32,9 @@ public partial class Hud : Control
     public string? Prompt { get; set; }
     /// <summary>Cruise and course readout, shown under the location.</summary>
     public string Cruise { get; set; } = "";
+    /// <summary>The active job and what to do next, shown top right. Empty for none.</summary>
+    public string JobTitle { get; set; } = "";
+    public string JobStep { get; set; } = "";
     /// <summary>Where the course target is, in render space, for the nav marker. Null hides it.</summary>
     public Vector3? NavPoint { get; set; }
     public string NavLabel { get; set; } = "";
@@ -79,6 +82,12 @@ public partial class Hud : Control
         if (Prompt != null) Text(new Vector2(size.X / 2, size.Y / 2 + 36), Prompt, Amber, HorizontalAlignment.Center);
         Text(new Vector2(size.X - 6, 12), $"DRONES DOWN {Kills}", Dim, HorizontalAlignment.Right);
         if (GameSettings.Current.ShowHints) Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
+        if (JobTitle != "")
+        {
+            Text(new Vector2(size.X - 6, 38), $"JOB: {JobTitle.ToUpperInvariant()}", Amber, HorizontalAlignment.Right);
+            Text(new Vector2(size.X - 6, 48), JobStep.ToUpperInvariant(), Green, HorizontalAlignment.Right);
+            Text(new Vector2(size.X - 6, 58), "L NEXT JOB   M GALAXY MAP   N SYSTEM MAP", Dim, HorizontalAlignment.Right);
+        }
         if (ShowHelp) DrawHelp(size);
     }
 
@@ -287,6 +296,7 @@ public partial class Hud : Control
             "M / START                     galaxy map",
             "N                             system map: set a course",
             "J                             cruise drive on and off",
+            "L                             cycle which job you're following",
             ".  ,                          speed time up, slow it down",
             "ESC                           pause menu, save and load      F10  quit",
         ];

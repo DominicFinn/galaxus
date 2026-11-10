@@ -104,6 +104,55 @@ public sealed class Session
     /// (and any gate system within range) can be reached by a direct jump if it's within your
     /// jump drive's range. Returns null if neither works.
     /// </summary>
+    /// <summary>Docking: jobs for this station are delivered.</summary>
+    /// <remarks>
+    /// Only a system's first orbital station is there to fly to, so any orbital station delivers
+    /// jobs for the system's orbital stations. Surface ports need that port.
+    /// </remarks>
+    public List<MissionResult> Dock(string station)
+    {
+        var ports = SurfacePorts(Here);
+        bool orbital = !ports.Contains(station);
+        return Career.Settle(Galaxy, station, wanted => wanted == station || (orbital && !ports.Contains(wanted)));
+    }
+
+    private HashSet<string> SurfacePorts(StarSystem system) =>
+        SolarSystems.For(system, Db.Grammars).Stations.Where(s => s.Surface).Select(s => s.Name).ToHashSet();
+
+    /// <summary>What to do next for a job, in a line: where to go, how long it takes, how long is left.</summary>
+    public string NextStep(AcceptedMission job, string? dockedAt = null)
+    {
+        var offer = job.Offer;
+        int left = job.DeadlineDay - Galaxy.Day;
+        string due = left <= 0 ? "due today" : left == 1 ? "1 day left" : $"{left} days left";
+        var destination = Galaxy.Systems[offer.DestinationSystemId];
+        if (offer.DestinationSystemId != Career.SystemId)
+        {
+            float distance = Galaxy.DistanceLy(Career.SystemId, offer.DestinationSystemId);
+            int days;
+            string how;
+            if (distance <= JumpRangeLy) { days = JumpDays(distance); how = "a direct jump"; }
+            else
+            {
+                var route = Here.IsGateSystem && destination.IsGateSystem ? Galaxy.Route(Career.SystemId, offer.DestinationSystemId) : [];
+                if (route.Count < 2) return $"Get to {destination.Name}: out of jump range and off the gates. {due}.";
+                days = Galaxy.RouteDays(route);
+                how = route.Count == 2 ? "1 gate" : $"{route.Count - 1} gates";
+            }
+            string late = days > left ? " You won't make it in time." : "";
+            return $"Jump to {destination.Name}: {how}, {days} days. {Capital(due)}.{late}";
+        }
+        var solar = SolarSystems.For(Here, Db.Grammars);
+        var port = solar.Stations.FirstOrDefault(s => s.Surface && s.Name == offer.DestinationStation);
+        if (port != null)
+            return dockedAt == port.Name
+                ? $"You're at {port.Name}."
+                : $"Land at {port.Name}, a surface port on {solar.Bodies[port.Body].Name}. Set a course on the system map. {Capital(due)}.";
+        return $"Dock at the station in orbit. {Capital(due)}.";
+    }
+
+    private static string Capital(string text) => text.Length == 0 ? text : char.ToUpperInvariant(text[0]) + text[1..];
+
     public JumpReport? Jump(int destination)
     {
         float distance = Galaxy.DistanceLy(Career.SystemId, destination);

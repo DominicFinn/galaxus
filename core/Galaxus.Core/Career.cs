@@ -17,6 +17,12 @@ public sealed class Career
     public string HullId { get; set; } = "hc-sparrow";
     public List<string>? Loadout { get; set; }
     public List<AcceptedMission> Missions { get; } = [];
+    /// <summary>The job you're working on, which the maps and HUD guide you to. Null picks the most urgent.</summary>
+    public string? ActiveJobId { get; set; }
+
+    /// <summary>The job you're working on: the one you chose, or else the one due soonest.</summary>
+    public AcceptedMission? ActiveJob =>
+        Missions.FirstOrDefault(m => m.Offer.Id == ActiveJobId) ?? Missions.OrderBy(m => m.DeadlineDay).FirstOrDefault();
     public HashSet<string> TakenOffers { get; } = [];
     /// <summary>Reputation per faction. Every 100 points is one rank, up to 4 (honoured).</summary>
     public Dictionary<int, int> Reputation { get; } = [];
@@ -118,16 +124,24 @@ public sealed class Career
         TakenOffers.Add(offer.Id);
         if (offer.ClientId != null) MetPeople.Add(offer.ClientId);
         Missions.Add(new AcceptedMission(offer, galaxy.Day, galaxy.Day + offer.Mission.DeadlineDays));
+        ActiveJobId ??= offer.Id;
     }
 
-    /// <summary>Pays out jobs whose destination is here, and fails any that ran out of time.</summary>
-    public List<MissionResult> Settle(Galaxy.Galaxy galaxy)
+    /// <summary>
+    /// Pays out jobs for the station you've docked at, and fails any that ran out of time. With no
+    /// station (in transit) only deadlines are checked. If a job's station has gone, any station in
+    /// its system will do.
+    /// </summary>
+    /// <param name="sameStop">Whether docking here counts as reaching a given station; by default only the same name does.</param>
+    public List<MissionResult> Settle(Galaxy.Galaxy galaxy, string? dockedAt = null, Func<string, bool>? sameStop = null)
     {
         var results = new List<MissionResult>();
         foreach (var job in Missions.ToList())
         {
             var mission = job.Offer.Mission;
-            if (job.Offer.DestinationSystemId == SystemId && galaxy.Day <= job.DeadlineDay)
+            bool rightStation = dockedAt != null && ((sameStop?.Invoke(job.Offer.DestinationStation) ?? dockedAt == job.Offer.DestinationStation)
+                                || !galaxy.Systems[SystemId].Stations.Contains(job.Offer.DestinationStation));
+            if (job.Offer.DestinationSystemId == SystemId && rightStation && galaxy.Day <= job.DeadlineDay)
             {
                 Credits += mission.Reward;
                 Reputation[job.Offer.GiverFactionId] = Reputation.GetValueOrDefault(job.Offer.GiverFactionId) + 20 + mission.Reward / 500;
@@ -141,6 +155,7 @@ public sealed class Career
                 results.Add(new MissionResult(job, false, mission.FailureText, 0));
             }
         }
+        if (ActiveJobId != null && Missions.All(m => m.Offer.Id != ActiveJobId)) ActiveJobId = Missions.OrderBy(m => m.DeadlineDay).FirstOrDefault()?.Offer.Id;
         return results;
     }
 }
