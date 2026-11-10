@@ -16,4 +16,4 @@ if [[ "${1:-}" != "--no-build" ]]; then "$ROOT/tools/build-web-aot.sh"; fi
 [[ -f "$ROOT/build/web-aot/index.html" ]] || { echo "No web build in build/web-aot."; exit 1; }
 VERSION="$(git -C "$ROOT" describe --tags --always --dirty)"
 "$BUTLER" push "$ROOT/build/web-aot" "$TARGET" --userversion "$VERSION"
-"$BUTLER" status "${TARGET%%:*}"
+"$BUTLER" status "$TARGET"
