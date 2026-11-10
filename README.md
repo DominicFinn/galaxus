@@ -12,11 +12,15 @@ It's built to run on almost any computer: flat-shaded low-poly models and Godot'
 
 Flight assist holds your speed and keeps you travelling where the nose points; switch it off and the drives just push. Your pilot's g-tolerance limits how hard you can turn at speed, so you turn tightest at lower throttle. Six power pips are shared between engines, shields and weapons.
 
+Fights are dogfights. Guns swing a few degrees onto your target, and the red diamond shows where to aim. Fighters carry homing missiles: hold the target near your nose until the ring closes and turns red, then fire; when one is coming for you, the HUD marks it and beeps faster as it closes, and the answer is to turn hard. Enemy pilots take a moment to pick you up, fire in bursts, break when you get on their tail, and get better the more dangerous they are. Wingmen fly with you in battles. Difficulty (Easy, Normal, Hard) is in Settings. V switches between the chase camera and the cockpit.
+
 Every system has its own star and main world: gas giants with rings, airless cratered moons, ice, lava, desert, ocean and toxic worlds.
 
-![Combat near a ringed gas giant](docs/screenshots/flight-combat.png)
+![A missile lock on a fighter in the dogfight simulator](docs/screenshots/dogfight.png)
 
-![Cockpit view](docs/screenshots/cockpit.png)
+![From the cockpit, in a furball with four wingmen](docs/screenshots/cockpit-battle.png)
+
+![Cockpit view near a red dwarf's world](docs/screenshots/cockpit.png)
 
 ## Solar systems
 
@@ -27,6 +31,8 @@ You fly inside the real system. Planets are drawn at their true apparent size an
 ![Arriving in orbit of a world under a red dwarf](docs/screenshots/arrival.png)
 
 ![The system map: orbits, planets, moons, a belt and the habitable zone](docs/screenshots/system-map.png)
+
+![The autopilot at many times light speed, on course for a planet](docs/screenshots/cruise.png)
 
 Rocky worlds have real ground: continents and seas, mountain chains, deserts with mesas and dunes, cratered moons, ice caps, lava seas. All of it comes from each world's seed whenever it's needed, so nothing is stored. Cruise slows as you get lower and drops you out a few kilometres above the highest peaks, and from there you fly down under the world's real gravity. Some stations are surface ports on levelled ground (amber on the system map). Pick one on the system map and set a course: cruise drops you out above it, and you fly down, settle on the pad and press Enter to dock.
 
@@ -62,6 +68,10 @@ Start as a free trader with a small ship and the whole galaxy, or enlist in a ca
 - **The Iron Tithe:** the Grav Khanates against the Hold League, from the Skullfang.
 - **The Long Road:** the Tolland Compact on the frontier, against pirates and the Unbound, from the Hard Reckoning.
 
+![New game: tutorial, free trader, campaign, dogfight simulator, battle preview](docs/screenshots/menu-newgame.png)
+
+![The dogfight simulator's drills](docs/screenshots/menu-simulator.png)
+
 ![Your base: the Sovereign Clause and her fleet](docs/screenshots/campaign-fleet.png)
 
 ![Orders, taken aboard the flagship](docs/screenshots/campaign-orders.png)
@@ -76,7 +86,13 @@ Every great power has a navy of its own design: frigates, cruisers, Star Destroy
 
 ![A fleet engagement: the Meridian Concord line forms up as the Grav Khanates close](docs/screenshots/battle-opening.png)
 
-![Plasma fire across the gap between the two lines](docs/screenshots/battle-fleet.png)
+![The Meridian Concord line forms on the Thunderhead, with objectives and markers on the HUD](docs/screenshots/battle-fleet.png)
+
+The HUD keeps you oriented: the ship each objective is about is bracketed and labelled (protect, destroy, scan, escort, match speed), with arrows at the screen edge when it's behind you, distances and time left on the objectives list, and a line saying who is shooting at you and what to do about it.
+
+![Holding the line: protect the Indomitable, with the countdown running](docs/screenshots/battle-markers.png)
+
+![A carrier strike: escort the bombers in on the carrier Far Light](docs/screenshots/carrier-strike.png)
 
 ## Traffic, stations and systems
 
@@ -150,7 +166,15 @@ Stations also have a market for 128 kinds of goods, a shipyard, local news and y
 
 88 ships from 11 builders, each with its own look: Concord navy white and blue, sleek Directorate black and gold, rugged Tolland frontier rust, Synod cathedral spires, slender light elf blades, chunky dwarf slabs, orc ships that are mostly engine, asymmetric free machine lattices, re-forged dark elf hulls from the rim, and the Breakers' Guild's patchwork salvage. Ships are built from data as flat-shaded shapes, so a new ship needs no art files.
 
+Warships come on top of that: every great power has a frigate, cruiser, battlecruiser and carrier of its own design, pirates fly salvaged warships, and the Unbound fly grown ones.
+
 ![A selection of ships](docs/screenshots/ship-gallery.png)
+
+The **Ships and stations** viewer, on the main menu, shows every ship, warship and station: turn it, zoom in, read its numbers, and put a fighter alongside a warship for scale. There's also a separate **Galaxus Preview** build that opens straight into it (see [docs/building.md](docs/building.md)).
+
+![The viewer with a Meridian Concord battlecruiser](docs/screenshots/viewer-warship.png)
+
+![An orc Skullbasher in the viewer](docs/screenshots/viewer-fighter.png)
 
 ## Sound
 
@@ -196,6 +220,7 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Zero throttle | X | Right stick click |
 | Thrusters up, down, left, right | R, F, Z, C | |
 | Fire | Space, left click | Right trigger |
+| Fire a missile (once locked) | B, right click | Left trigger |
 | Flight assist on or off | G | B |
 | Power to engines, shields, weapons | 1, 2, 3 | D-pad up, left, right |
 | Balance power | 4 | D-pad down |
@@ -204,10 +229,17 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Dock (when close and slow) and undock | Enter | X |
 | Galaxy map | M | Start |
 | System map: set a course | N | |
-| Cruise drive on and off | J | |
+| System map: find your ship | C | |
+| Cruise drive on and off (with a course set, it flies itself) | J | |
+| Speed time up, slow it down | Full stop, comma | |
+| Follow your next job | L | |
 | Match target speed | Tab | Left stick click |
-| Pause menu: save, load, settings | Esc | |
+| Pause menu: save, load, settings (difficulty is in Settings) | Esc | |
+| Controls on screen | F1 | Back |
+| Frame rate and ship count | F3 | |
 | Quit | F10 | |
+
+Cruise, the system map, time and job switching have no controller buttons yet ([issue 6](https://github.com/DominicFinn/galaxus/issues/6)).
 
 ## Lore
 

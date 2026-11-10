@@ -11,7 +11,7 @@ namespace Galaxus;
 /// </summary>
 public partial class Viewer : Node3D
 {
-    private sealed record Entry(string Category, string Name, Func<Node3D> Build, string Info, float Radius);
+    private sealed record Entry(string Category, string Name, Func<Node3D> Build, string Info, float Radius, string? Id = null);
 
     private readonly ContentDatabase _db;
     private readonly Camera3D _camera;
@@ -50,8 +50,19 @@ public partial class Viewer : Node3D
         AddChild(_pivot);
         CollectEntries();
         BuildUi();
-        _category.Select(0);
-        ShowCategory(0);
+        // --viewer=ID opens on a particular hull (for screenshots).
+        var wanted = OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--viewer="))?["--viewer=".Length..];
+        var start = wanted != null ? _entries.FirstOrDefault(e => e.Id == wanted) : null;
+        int category = start != null ? _categories.IndexOf(start.Category) : 0;
+        _category.Select(category);
+        ShowCategory(category);
+        if (start != null)
+        {
+            int index = _shown.IndexOf(start);
+            _list.Select(index);
+            Show(index);
+            _showScale.ButtonPressed = OS.GetCmdlineUserArgs().Contains("--scale");
+        }
     }
 
     private void CollectEntries()
@@ -63,7 +74,7 @@ public partial class Viewer : Node3D
             string category = hull.Class == "drone" ? "Drones and beacons" : warship ? $"Warships: {BuilderName(hull.Builder)}" : $"Ships: {BuilderName(hull.Builder)}";
             var h = hull;
             _entries.Add(new Entry(category, hull.Name, () => new MeshInstance3D { Mesh = MeshFactory.BuildShip(h, _db.Builders[h.Builder].Palette) },
-                ShipInfo(hull), MathF.Max(hull.Radius, HalfLength(hull))));
+                ShipInfo(hull), MathF.Max(hull.Radius, HalfLength(hull)), hull.Id));
         }
         var owner = new Color(0.3f, 0.5f, 0.85f);
         foreach (var (size, scale, label, note) in new[]
@@ -118,7 +129,7 @@ public partial class Viewer : Node3D
         };
         if (spec.Weapons.Count > 0)
             lines.Add("Weapons: " + string.Join(", ", spec.Weapons.GroupBy(w => $"{w.Name} ({w.Kind})").Select(g => g.Count() > 1 ? $"{g.Count()} x {g.Key}" : g.Key)) + ".");
-        if (hull.CargoTonnes > 0) lines.Add($"Hold {hull.CargoTonnes} t.  Jump range {spec.JumpRangeLy:0} ly.");
+        if (hull.CargoTonnes > 0) lines.Add(spec.JumpRangeLy > 0 ? $"Hold {hull.CargoTonnes:N0} t.  Jump range {spec.JumpRangeLy:0} ly." : $"Hold {hull.CargoTonnes:N0} t.");
         if (hull.Hangar > 0) lines.Add($"Flight deck: {hull.Hangar} {(_db.Hulls.TryGetValue(hull.HangarHull ?? "", out var f) ? f.Name : "fighters")}.");
         if (hull.Dockable) lines.Add("Big enough to dock with, like a station.");
         lines.Add(hull.ForSale ? $"For sale: {hull.Price:N0} cr." : "Not for sale.");
@@ -239,11 +250,15 @@ public partial class Viewer : Node3D
         // Turns slowly on its own until you take hold of it.
         _idle += (float)delta;
         if (_idle > 3) _yaw += (float)delta * 0.15f;
-        _distance = Mathf.Lerp(_distance, _radius * 2.6f * _zoom + 6, (float)delta * 6);
+        float frame = _scaleModel != null ? 3.4f : 2.8f;
+        _distance = Mathf.Lerp(_distance, _radius * frame * _zoom + 6, (float)delta * 6);
         var offset = new Vector3(Mathf.Sin(_yaw) * Mathf.Cos(_pitch), Mathf.Sin(_pitch), Mathf.Cos(_yaw) * Mathf.Cos(_pitch)) * _distance;
-        var centre = _scaleModel != null ? new Vector3(_radius * 0.5f, 0, 0) : Vector3.Zero;
+        var centre = Vector3.Zero;
         _camera.GlobalPosition = centre + offset;
         _camera.LookAt(centre, Vector3.Up);
+        // Shift the picture right so the model sits in the open space beside the list, not behind it.
+        _camera.HOffset = -_distance * 0.2f;
+        _camera.VOffset = _distance * 0.07f;
         _camera.Far = MathF.Max(150000, _distance * 10);
         _camera.Near = MathF.Max(0.3f, _distance * 0.002f);
     }

@@ -433,9 +433,10 @@ public partial class Hud : Control
             "M / START                     galaxy map",
             "N                             system map: set a course",
             "J                             cruise drive on and off",
-            "B, RIGHT CLICK                fire a missile once locked",
+            "B / RIGHT CLICK / LT          fire a missile once locked",
             "L                             cycle which job you're following",
             ".  ,                          speed time up, slow it down",
+            "F1  this list    F3  frame rate and ship count    C  (system map) find your ship",
             "ESC                           pause menu, save and load      F10  quit",
         ];
         var rect = new Rect2(size.X / 2 - 200, 70, 400, lines.Length * 11 + 16);

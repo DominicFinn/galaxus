@@ -120,7 +120,7 @@ public partial class Main : Node3D
         AddChild(_camera);
 
         // The ship and station viewer: from the menu, with --viewer, or as the Galaxus Preview build.
-        bool standaloneViewer = OS.HasFeature("viewer") || OS.GetCmdlineUserArgs().Contains("--viewer");
+        bool standaloneViewer = OS.HasFeature("viewer") || OS.GetCmdlineUserArgs().Any(a => a == "--viewer" || a.StartsWith("--viewer="));
         if (_pendingViewer || standaloneViewer)
         {
             _pendingViewer = false;
