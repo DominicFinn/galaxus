@@ -1,7 +1,6 @@
 # Godot
 .godot/
 *.import
-export_presets.cfg
 /game/android/
 
 # .NET
@@ -14,3 +13,6 @@ TestResults/
 
 # OS
 .DS_Store
+
+# Exported builds
+build/
