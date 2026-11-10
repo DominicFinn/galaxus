@@ -2,7 +2,7 @@
 
 # Galaxus
 
-Galaxus (a working title) is a space game for PC in the spirit of Frontier: Elite II, with X-Wing style flight. You're an independent captain who trades, takes jobs and picks sides in a galaxy that keeps running without you. The design brief is the [space game design foundation](https://claude.ai/artifact/UoqLkSwDvcejkPUDLuneeJ) doc.
+Galaxus (a working title) is a space game for PC in the spirit of Frontier: Elite II, with X-Wing style flight. You're an independent captain who trades, takes jobs and picks sides in a galaxy that keeps running without you. The design brief is in [docs/design-brief.md](docs/design-brief.md).
 
 It's built to run on almost any computer: flat-shaded low-poly models and Godot's simplest renderer, with every ship, planet, name, mission and piece of music generated from data rather than drawn or recorded.
 

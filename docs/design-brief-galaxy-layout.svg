@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 296" font-family="Helvetica, Arial, sans-serif" font-size="13" role="img" aria-label="Risk and reward rise towards the rim, where a firewall holds the AI back">
+<rect width="760" height="296" fill="#ffffff"/>
+<defs><marker id="map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a949e"/></marker></defs>
+<text x="24" y="34" font-size="15" font-weight="600" fill="#1c2124">Risk and reward rise towards the rim, where a firewall holds the AI back</text>
+<rect x="24" y="64" width="216" height="104" rx="8" fill="none" stroke="#8a949e" stroke-width="1.25"/><text x="36" y="88" font-weight="600" fill="#1c2124">Core</text><text x="36" y="104" font-size="11.5" fill="#1c2124">Humans, the dominant power</text><text x="36" y="120" font-size="11.5" fill="#1c2124">Light elf enclaves</text><text x="36" y="136" font-size="11.5" fill="#1c2124">Busiest markets</text><text x="36" y="152" font-size="11.5" fill="#1c2124">Safest, but crowded</text>
+<rect x="256" y="64" width="216" height="104" rx="8" fill="none" stroke="#8a949e" stroke-width="1.25"/><text x="268" y="88" font-weight="600" fill="#1c2124">Outer realms</text><text x="268" y="104" font-size="11.5" fill="#1c2124">Ruins of the elf empire</text><text x="268" y="120" font-size="11.5" fill="#1c2124">Dark elves and elder machines</text><text x="268" y="136" font-size="11.5" fill="#1c2124">Strange wrecks to salvage</text><text x="268" y="152" font-size="11.5" fill="#1c2124">Better tech, richer rewards</text>
+<rect x="520" y="64" width="216" height="104" rx="8" fill="none" stroke="#8a949e" stroke-width="1.25"/><text x="532" y="88" font-weight="600" fill="#1c2124">Rim</text><text x="532" y="104" font-size="11.5" fill="#1c2124">The AI</text><text x="532" y="120" font-size="11.5" fill="#1c2124">Builds synths and sends them in</text><text x="532" y="136" font-size="11.5" fill="#1c2124">Ships go quiet out here</text>
+<line x1="496" x2="496" y1="56" y2="176" stroke="#d0702a" stroke-width="2" stroke-dasharray="6 4"/>
+<path d="M520 140H474" fill="none" stroke="#8a949e" stroke-width="1.25" marker-end="url(#map-arrow)"/>
+<text x="496" y="200" text-anchor="middle" font-weight="600" fill="#1c2124">Gate firewall</text>
+<text x="496" y="216" text-anchor="middle" font-size="11.5" fill="#5b6468">AI code is blocked, synths get through</text>
+<line x1="24" x2="734" y1="252" y2="252" stroke="#8a949e" stroke-width="1.25" marker-end="url(#map-arrow)"/>
+<text x="24" y="272" font-size="11.5" fill="#5b6468">Safer and crowded</text>
+<text x="736" y="272" text-anchor="end" font-size="11.5" fill="#5b6468">Stranger, richer and more dangerous</text>
+</svg>
