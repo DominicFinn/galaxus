@@ -104,7 +104,8 @@ public partial class Main
         }
 
         // Threats: who's hostile and close, and what to do about it.
-        var hostiles = _world.Ships.Where(s => s.Alive && s != _player && _world.Hostile(_player, s)
+        // Only armed ships count as a threat: an unarmed practice drone you've shot at isn't attacking you.
+        var hostiles = _world.Ships.Where(s => s.Alive && s != _player && _world.Hostile(_player, s) && s.Spec.Weapons.Count > 0
                                                && NVector3.Distance(s.Body.Position, me) < 8000).ToList();
         if (hostiles.Count == 0) return;
         var nearest = hostiles.OrderBy(s => NVector3.Distance(s.Body.Position, me)).First();

@@ -61,6 +61,15 @@ public partial class Main : Node3D
 
     /// <summary>A session to start when the scene reloads (New game, Continue, Load).</summary>
     private static Session? _pendingSession;
+    private MeshInstance3D? _cockpitFrame;
+
+    /// <summary>The cockpit frame for the ship you're flying, hung off the camera.</summary>
+    private void BuildCockpit()
+    {
+        _cockpitFrame?.QueueFree();
+        _cockpitFrame = Cockpit.Build(_player.Spec.Builder.Palette);
+        _camera.AddChild(_cockpitFrame);
+    }
     private static bool _pendingViewer;
     private static bool _splashShown;
     private MenuScreen _menu = null!;
@@ -248,6 +257,7 @@ public partial class Main : Node3D
         };
         _world.Ships.Add(_player);
         AddVisual(_player);
+        BuildCockpit();
 
         for (int i = 0; i < DroneCount; i++)
         {
@@ -463,6 +473,7 @@ public partial class Main : Node3D
         _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
         _player.DamageTakenScale = GameSettings.Current.DamageTaken;
         _player.AimAssist = true;
+        BuildCockpit();
         _player.Body.Position = old.Body.Position;
         _player.Body.Orientation = old.Body.Orientation;
         _player.Target = old.Target;
@@ -830,6 +841,7 @@ public partial class Main : Node3D
     private void UpdateCamera(float dt, bool snap = false)
     {
         var shipTransform = Interop.TransformOf(_player.Body);
+        if (_cockpitFrame != null) _cockpitFrame.Visible = _cockpit && _screen == Screen.Flight;
         if (_cockpit)
         {
             _camera.GlobalTransform = shipTransform.TranslatedLocal(new Vector3(0, 1.0f, -1.6f));
