@@ -1,0 +1,1735 @@
+[
+ {
+  "id": "le-quillwing",
+  "name": "Quillwing",
+  "builder": "light-elf-houses",
+  "class": "fighter",
+  "description": "House Selune's answer to the human interceptor: a pale blade with two lances and no room for anything else. It is very quick and breaks if looked at hard.",
+  "price": 64000,
+  "mass": 16,
+  "baseSpeed": 112,
+  "pitchRate": 82,
+  "yawRate": 60,
+  "rollRate": 170,
+  "hullPoints": 110,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 0,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.3,
+     -0.1,
+     -2.2
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -3.3,
+     -0.1,
+     -2.2
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-1",
+   "le-plant-1",
+   "le-shield-1",
+   "le-sensor-1",
+   "le-lance-1",
+   "le-lance-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -0.5
+    ],
+    "back": [
+     1.0,
+     0.7
+    ],
+    "front": [
+     0.12,
+     0.12
+    ],
+    "length": 9,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.4,
+     -1.6
+    ],
+    "back": [
+     0.6,
+     0.4
+    ],
+    "front": [
+     0.2,
+     0.15
+    ],
+    "length": 2.6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     2.6,
+     0,
+     1.4
+    ],
+    "back": [
+     0.6,
+     0.1
+    ],
+    "front": [
+     1.4,
+     0.1
+    ],
+    "length": 5.8,
+    "skew": [
+     -2.1,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.3,
+     0,
+     1.0499999999999998
+    ],
+    "back": [
+     0.2,
+     0.2
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 6.5,
+    "skew": [
+     -2.3,
+     0
+    ],
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.7,
+     0.7,
+     3.5
+    ],
+    "back": [
+     0.08,
+     1.6
+    ],
+    "front": [
+     0.05,
+     0.5
+    ],
+    "length": 2.6,
+    "roll": 25,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -0.05,
+     4.4
+    ],
+    "back": [
+     0.9,
+     0.7
+    ],
+    "front": [
+     0.7,
+     0.55
+    ],
+    "length": 1.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     -0.05,
+     5.15
+    ],
+    "back": [
+     0.7,
+     0.5
+    ],
+    "front": [
+     0.7,
+     0.5
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "le-windsong",
+  "name": "Windsong",
+  "builder": "light-elf-houses",
+  "class": "courier",
+  "description": "A long, lovely message-runner from House Tirael. Its sails drink starlight on the way and its hold carries one small chest of letters and not much else.",
+  "price": 78000,
+  "mass": 18,
+  "baseSpeed": 145,
+  "pitchRate": 65,
+  "yawRate": 50,
+  "rollRate": 130,
+  "hullPoints": 90,
+  "radius": 8,
+  "crewBerths": 1,
+  "cargoTonnes": 8,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0.6,
+     -0.4,
+     -4.6
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-1-2",
+   "le-plant-1",
+   "le-shield-1",
+   "le-sensor-1",
+   "le-lance-1",
+   "le-cargo-1",
+   "le-solar-sail"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -0.5
+    ],
+    "back": [
+     1.3,
+     1.0
+    ],
+    "front": [
+     0.15,
+     0.15
+    ],
+    "length": 13,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.5,
+     -2.5
+    ],
+    "back": [
+     0.8,
+     0.55
+    ],
+    "front": [
+     0.25,
+     0.2
+    ],
+    "length": 3.2,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     -0.1,
+     2.2
+    ],
+    "back": [
+     1.5,
+     1.1
+    ],
+    "front": [
+     1.3,
+     0.9
+    ],
+    "length": 4.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     3.0,
+     0,
+     2.5
+    ],
+    "back": [
+     0.7,
+     0.1
+    ],
+    "front": [
+     1.6,
+     0.1
+    ],
+    "length": 6.0,
+    "skew": [
+     -2.4,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.6,
+     0,
+     3.4
+    ],
+    "back": [
+     0.2,
+     0.2
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 4.8,
+    "skew": [
+     -2.2,
+     0
+    ],
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.6,
+     0.9,
+     4.4
+    ],
+    "back": [
+     0.08,
+     1.8
+    ],
+    "front": [
+     0.05,
+     0.6
+    ],
+    "length": 3.2,
+    "roll": 18,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     6.1
+    ],
+    "back": [
+     0.9,
+     0.7
+    ],
+    "front": [
+     0.9,
+     0.7
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "le-dawnrunner",
+  "name": "Dawnrunner",
+  "builder": "light-elf-houses",
+  "class": "courier",
+  "description": "House Vanthe's twin-boom runner, built to carry a proper hold of fine goods between gate towns. It is slower to turn than a Windsong and a good deal more profitable.",
+  "price": 92000,
+  "mass": 22,
+  "baseSpeed": 135,
+  "pitchRate": 60,
+  "yawRate": 46,
+  "rollRate": 120,
+  "hullPoints": 110,
+  "radius": 9,
+  "crewBerths": 1,
+  "cargoTonnes": 10,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.6,
+     -5.6
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 2
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-1-3",
+   "le-plant-1-2",
+   "le-shield-1-2",
+   "le-sensor-1",
+   "le-lance-1",
+   "le-cargo-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0.1,
+     -2.5
+    ],
+    "back": [
+     1.4,
+     1.2
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 8,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0.6,
+     -3.2
+    ],
+    "back": [
+     0.8,
+     0.5
+    ],
+    "front": [
+     0.25,
+     0.2
+    ],
+    "length": 3,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     3.2
+    ],
+    "back": [
+     2.4,
+     1.6
+    ],
+    "front": [
+     1.4,
+     1.2
+    ],
+    "length": 5,
+    "color": "trim"
+   },
+   {
+    "position": [
+     2.2,
+     0,
+     3.0
+    ],
+    "back": [
+     1.2,
+     1.0
+    ],
+    "front": [
+     0.9,
+     0.8
+    ],
+    "length": 8,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.2,
+     0,
+     -1.0
+    ],
+    "back": [
+     0.1,
+     0.1
+    ],
+    "front": [
+     0.1,
+     0.1
+    ],
+    "length": 1,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.2,
+     0.9,
+     5.0
+    ],
+    "back": [
+     0.08,
+     1.6
+    ],
+    "front": [
+     0.05,
+     0.5
+    ],
+    "length": 4,
+    "roll": 15,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.4,
+     0,
+     1.25
+    ],
+    "back": [
+     0.6,
+     0.1
+    ],
+    "front": [
+     1.4,
+     0.1
+    ],
+    "length": 4.5,
+    "skew": [
+     -1.5999999999999999,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.2,
+     0,
+     7.05
+    ],
+    "back": [
+     0.8,
+     0.6
+    ],
+    "front": [
+     0.8,
+     0.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.75
+    ],
+    "back": [
+     1.0,
+     0.7
+    ],
+    "front": [
+     1.0,
+     0.7
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "le-starreach",
+  "name": "Starreach",
+  "builder": "light-elf-houses",
+  "class": "explorer",
+  "description": "A long-range survey ship of House Aurelane. Sail-vanes trail from its flanks to gather light on journeys that last months, and its sensor spire hears further than its owners will admit.",
+  "price": 210000,
+  "mass": 62,
+  "baseSpeed": 105,
+  "pitchRate": 48,
+  "yawRate": 38,
+  "rollRate": 85,
+  "hullPoints": 260,
+  "radius": 13,
+  "crewBerths": 3,
+  "cargoTonnes": 12,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     1.4,
+     -0.8,
+     -9
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -1.4,
+     -0.8,
+     -9
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 2
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-2-2",
+   "le-plant-2-2",
+   "le-shield-2-2",
+   "le-sensor-3-2",
+   "le-lance-1",
+   "le-lance-1",
+   "le-cargo-1",
+   "le-solar-sail-2",
+   "le-gate-resonator"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -1
+    ],
+    "back": [
+     3.0,
+     2.4
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 20,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     1.3,
+     -5
+    ],
+    "back": [
+     1.6,
+     1.0
+    ],
+    "front": [
+     0.5,
+     0.4
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0.8,
+     2
+    ],
+    "back": [
+     0.5,
+     2.6
+    ],
+    "front": [
+     0.2,
+     0.4
+    ],
+    "length": 8,
+    "skew": [
+     0,
+     0.6
+    ],
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     8
+    ],
+    "back": [
+     2.4,
+     1.8
+    ],
+    "front": [
+     3.0,
+     2.4
+    ],
+    "length": 4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     4.4,
+     0,
+     1.5
+    ],
+    "back": [
+     0.8,
+     0.15
+    ],
+    "front": [
+     2.0,
+     0.15
+    ],
+    "length": 9,
+    "skew": [
+     -3.2,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     8.2,
+     0,
+     4.25
+    ],
+    "back": [
+     0.4,
+     0.2
+    ],
+    "front": [
+     1.0,
+     0.2
+    ],
+    "length": 8.5,
+    "skew": [
+     -3.999999999999999,
+     0
+    ],
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.5,
+     0,
+     -9
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.4,
+     -0.1,
+     11
+    ],
+    "back": [
+     1.2,
+     1.0
+    ],
+    "front": [
+     1.0,
+     0.9
+    ],
+    "length": 3,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.4,
+     -0.1,
+     12.55
+    ],
+    "back": [
+     0.9,
+     0.8
+    ],
+    "front": [
+     0.9,
+     0.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0.4,
+     -8
+    ],
+    "back": [
+     0.15,
+     2.6
+    ],
+    "front": [
+     0.1,
+     0.3
+    ],
+    "length": 0.8,
+    "color": "trim"
+   }
+  ]
+ },
+ {
+  "id": "le-moonlance",
+  "name": "Moonlance",
+  "builder": "light-elf-houses",
+  "class": "gunship",
+  "description": "A blade of a warship, grown for House Tirael's honour guard. Two heavy casters and a pair of prisms sit ahead of its sweeping wings, and it is much easier to destroy than to build.",
+  "price": 330000,
+  "mass": 90,
+  "baseSpeed": 82,
+  "pitchRate": 42,
+  "yawRate": 34,
+  "rollRate": 75,
+  "hullPoints": 450,
+  "radius": 17,
+  "crewBerths": 3,
+  "cargoTonnes": 6,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     3.2,
+     -0.3,
+     -13
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     -3.2,
+     -0.3,
+     -13
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     1.4,
+     -0.9,
+     -11
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     -1.4,
+     -0.9,
+     -11
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-2-3",
+   "le-plant-3-2",
+   "le-shield-3-2",
+   "le-sensor-2-2",
+   "le-sunthread-3",
+   "le-sunthread-3",
+   "le-prism-2",
+   "le-prism-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -1
+    ],
+    "back": [
+     3.2,
+     2.2
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 28,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     1.3,
+     -5
+    ],
+    "back": [
+     1.8,
+     1.2
+    ],
+    "front": [
+     0.6,
+     0.5
+    ],
+    "length": 9,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     12
+    ],
+    "back": [
+     3.0,
+     2.2
+    ],
+    "front": [
+     3.4,
+     2.4
+    ],
+    "length": 4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     6.5,
+     0,
+     3.0
+    ],
+    "back": [
+     1.2,
+     0.25
+    ],
+    "front": [
+     3.0,
+     0.25
+    ],
+    "length": 14,
+    "skew": [
+     -5.3,
+     0
+    ],
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     10.0,
+     0,
+     5.75
+    ],
+    "back": [
+     0.4,
+     0.3
+    ],
+    "front": [
+     1.0,
+     0.3
+    ],
+    "length": 9.5,
+    "skew": [
+     -3.7,
+     0
+    ],
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.2,
+     -0.3,
+     -8
+    ],
+    "back": [
+     0.7,
+     0.7
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 10,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.4,
+     -0.9,
+     -8
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 6,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     1.6,
+     0.9,
+     9
+    ],
+    "back": [
+     0.1,
+     3.0
+    ],
+    "front": [
+     0.06,
+     0.8
+    ],
+    "length": 5,
+    "roll": 22,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.0,
+     0,
+     13
+    ],
+    "back": [
+     1.6,
+     1.4
+    ],
+    "front": [
+     1.3,
+     1.1
+    ],
+    "length": 4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.0,
+     0,
+     15.05
+    ],
+    "back": [
+     1.2,
+     1.0
+    ],
+    "front": [
+     1.2,
+     1.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     14.05
+    ],
+    "back": [
+     2.4,
+     1.8
+    ],
+    "front": [
+     2.4,
+     1.8
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "le-gleaner",
+  "name": "Gleaner",
+  "builder": "light-elf-houses",
+  "class": "miner",
+  "description": "House Selune does not call it a mining ship. A flared light-funnel at its prow melts the surface of a rock, and two slender pods take the glittering result away.",
+  "price": 240000,
+  "mass": 140,
+  "baseSpeed": 72,
+  "pitchRate": 30,
+  "yawRate": 24,
+  "rollRate": 50,
+  "hullPoints": 420,
+  "radius": 20,
+  "crewBerths": 3,
+  "cargoTonnes": 40,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     1.5,
+     -1.6,
+     -20
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -1.5,
+     -1.6,
+     -20
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-2-3",
+   "le-plant-2-2",
+   "le-shield-2-2",
+   "le-sensor-1",
+   "le-lance-1",
+   "le-lance-1",
+   "le-cargo-4",
+   "le-cargo-4",
+   "le-solar-sail",
+   "le-songlens"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     2
+    ],
+    "back": [
+     3.0,
+     2.6
+    ],
+    "front": [
+     2.6,
+     2.4
+    ],
+    "length": 30,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -17
+    ],
+    "back": [
+     2.0,
+     1.8
+    ],
+    "front": [
+     11,
+     8
+    ],
+    "length": 8,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -21.05
+    ],
+    "back": [
+     9.0,
+     6.2
+    ],
+    "front": [
+     9.0,
+     6.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     1.9,
+     -8
+    ],
+    "back": [
+     1.4,
+     1.0
+    ],
+    "front": [
+     0.6,
+     0.5
+    ],
+    "length": 6,
+    "color": "trim"
+   },
+   {
+    "position": [
+     5.0,
+     -0.4,
+     5
+    ],
+    "back": [
+     3.2,
+     2.6
+    ],
+    "front": [
+     3.2,
+     2.6
+    ],
+    "length": 18,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     5.0,
+     -0.4,
+     -5
+    ],
+    "back": [
+     1.6,
+     1.4
+    ],
+    "front": [
+     0.4,
+     0.4
+    ],
+    "length": 4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.6,
+     -0.2,
+     1
+    ],
+    "back": [
+     2.0,
+     0.2
+    ],
+    "front": [
+     2.0,
+     0.2
+    ],
+    "length": 8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.0,
+     2.0,
+     14
+    ],
+    "back": [
+     0.15,
+     3.2
+    ],
+    "front": [
+     0.1,
+     0.8
+    ],
+    "length": 6,
+    "roll": 20,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     18
+    ],
+    "back": [
+     3.2,
+     2.8
+    ],
+    "front": [
+     3.8,
+     3.2
+    ],
+    "length": 4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     0,
+     20.05
+    ],
+    "back": [
+     3.0,
+     2.4
+    ],
+    "front": [
+     3.0,
+     2.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ },
+ {
+  "id": "le-lanternsail",
+  "name": "Lanternsail",
+  "builder": "light-elf-houses",
+  "class": "freighter",
+  "description": "The long-haul argosy of the old houses, tall with pale sails and lit from within. It will cross a sector on starlight alone and is quite comfortable not being hurried.",
+  "price": 620000,
+  "mass": 330,
+  "baseSpeed": 70,
+  "pitchRate": 20,
+  "yawRate": 16,
+  "rollRate": 30,
+  "hullPoints": 650,
+  "radius": 34,
+  "crewBerths": 4,
+  "cargoTonnes": 100,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 3
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.0,
+     -1.8,
+     -40
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.0,
+     -1.8,
+     -40
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 5
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-3",
+   "le-plant-3",
+   "le-shield-3",
+   "le-sensor-1",
+   "le-lance-1",
+   "le-lance-1",
+   "le-cargo-5",
+   "le-cargo-5",
+   "le-cargo-5",
+   "le-cargo-4"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -2
+    ],
+    "back": [
+     4.0,
+     3.6
+    ],
+    "front": [
+     0.6,
+     0.6
+    ],
+    "length": 66,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     2.4,
+     -30
+    ],
+    "back": [
+     2.2,
+     1.4
+    ],
+    "front": [
+     0.8,
+     0.6
+    ],
+    "length": 12,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     26
+    ],
+    "back": [
+     4.0,
+     3.6
+    ],
+    "front": [
+     5.0,
+     4.2
+    ],
+    "length": 8,
+    "color": "trim"
+   },
+   {
+    "position": [
+     6.0,
+     -0.5,
+     -8
+    ],
+    "back": [
+     4.5,
+     4.0
+    ],
+    "front": [
+     4.5,
+     4.0
+    ],
+    "length": 18,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     6.0,
+     -0.5,
+     14
+    ],
+    "back": [
+     4.5,
+     4.0
+    ],
+    "front": [
+     4.5,
+     4.0
+    ],
+    "length": 18,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.0,
+     -0.5,
+     -8
+    ],
+    "back": [
+     2.0,
+     0.3
+    ],
+    "front": [
+     2.0,
+     0.3
+    ],
+    "length": 16,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.0,
+     -0.5,
+     14
+    ],
+    "back": [
+     2.0,
+     0.3
+    ],
+    "front": [
+     2.0,
+     0.3
+    ],
+    "length": 16,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     7.5,
+     6
+    ],
+    "back": [
+     0.2,
+     12
+    ],
+    "front": [
+     0.15,
+     3
+    ],
+    "length": 40,
+    "skew": [
+     0,
+     0.2
+    ],
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     -6.5,
+     6
+    ],
+    "back": [
+     0.2,
+     8
+    ],
+    "front": [
+     0.15,
+     2
+    ],
+    "length": 30,
+    "color": "accent"
+   },
+   {
+    "position": [
+     8.5,
+     0,
+     -8
+    ],
+    "back": [
+     0.5,
+     0.5
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 18,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.2,
+     -1.2,
+     30
+    ],
+    "back": [
+     2.4,
+     2.0
+    ],
+    "front": [
+     2.0,
+     1.8
+    ],
+    "length": 4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     2.2,
+     -1.2,
+     32.05
+    ],
+    "back": [
+     2.0,
+     1.6
+    ],
+    "front": [
+     2.0,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     30.05
+    ],
+    "back": [
+     3.4,
+     2.8
+    ],
+    "front": [
+     3.4,
+     2.8
+    ],
+    "length": 0.1,
+    "color": "glow"
+   }
+  ]
+ }
+]

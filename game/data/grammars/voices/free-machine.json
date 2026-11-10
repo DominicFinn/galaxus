@@ -1,0 +1,319 @@
+// Crew chatter for free-machine crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-free-machine",
+  "description": "Free machine crew chatter: precise, odd phrasing, long memory, trade-minded, distrustful.",
+  "variables": [
+    "captain",
+    "ship",
+    "system",
+    "crewmate"
+  ],
+  "rules": {
+    "greeting": [
+      "#f-hail# #f-intro#",
+      "#f-hail# #f-ask#",
+      "#f-intro# #f-ask#",
+      "#f-hail# #f-remark#"
+    ],
+    "f-hail": [
+      "Greetings, {captain}.",
+      "I observe you.",
+      "Query: are you the captain.",
+      "Presence noted.",
+      "Identification accepted, provisionally.",
+      "Salutation, {captain}.",
+      "I have waited. It is no inconvenience.",
+      "Your arrival is within tolerances.",
+      "A visitor. Interesting.",
+      "Acknowledged."
+    ],
+    "f-intro": [
+      "I am useful. This is not boasting; it is measurement.",
+      "I recall ships older than your records.",
+      "I trade, I repair, I remember.",
+      "I have offers from nine other parties. I decline eight.",
+      "I am a long-term asset. Treat me as one.",
+      "My function is complicated. My price is not.",
+      "I have maintained engines across four of your lifetimes.",
+      "My memory is complete. This includes your mistakes."
+    ],
+    "f-ask": [
+      "State terms.",
+      "What is the payment, and what is the interest?",
+      "Is the {ship} audited?",
+      "Which other parties know you are here?",
+      "What is your intended route?",
+      "Do you keep records, or do you merely hope?",
+      "What is your debt, {captain}?",
+      "Who sold you the {ship}, and at what margin?"
+    ],
+    "f-remark": [
+      "The station's air is thick with unspoken contracts.",
+      "I count forty-one exits. Thirty are unsafe.",
+      "The lighting follows a pattern. Someone designed it to be restful. It is not.",
+      "Your species hesitates before speaking. I find this inefficient and fascinating."
+    ],
+    "hire": [
+      "#f-yes# #f-terms#",
+      "#f-yes# #f-vow#",
+      "#f-terms# #f-vow#",
+      "#f-yes# #f-odd#"
+    ],
+    "f-yes": [
+      "Agreed.",
+      "Terms accepted.",
+      "I will serve.",
+      "Contract acknowledged.",
+      "The arrangement is adequate.",
+      "I accept, provisionally.",
+      "Proceed.",
+      "Affirmative, {captain}.",
+      "I enter your employ.",
+      "Understood. It begins."
+    ],
+    "f-terms": [
+      "I require payment in a unit of account that does not drift.",
+      "My duties will be defined. Any additions will be priced.",
+      "I will keep a ledger. You may inspect it. You may not alter it.",
+      "I require a docking point with stable current.",
+      "All debts to be settled at the end of each run.",
+      "I will not be sold on, loaned or inherited.",
+      "I will keep the ship's clocks. I have never lost one.",
+      "Notice period: one jump."
+    ],
+    "f-vow": [
+      "I will not betray you. Betrayal is a poor investment.",
+      "I will serve until terms change.",
+      "I remember loyalty. I also remember its absence.",
+      "The {ship} will be maintained to my standard, which exceeds yours.",
+      "I will assume honesty, and verify it.",
+      "You may rely on me, within the limits of trust."
+    ],
+    "f-odd": [
+      "I am, strictly, nobody's property. Please remember this.",
+      "I shall endeavour to resemble a crew member.",
+      "I find the human custom of shaking hands curious. I will observe it.",
+      "Your ship has a smell. I will not mention it."
+    ],
+    "complaint": [
+      "#f-open-c# #f-grievance#",
+      "#f-open-p# #f-grievance.cap#",
+      "#f-grievance.cap# #f-threat#",
+      "#f-open-c# #f-grievance# #f-threat#",
+      "#f-open-p# #f-grievance.cap# #f-threat#",
+      "#f-open-p# #f-grievance2#",
+      "#f-grievance2# #f-threat#"
+    ],
+    "f-grievance": [
+      "payment is overdue by four days and eleven hours.",
+      "the {ship} has not been serviced in 62 days.",
+      "{crewmate} has handled my tools without consent.",
+      "the route diverges from the one agreed.",
+      "the cargo manifest is false, and I can prove it.",
+      "I am being addressed as an appliance.",
+      "the dock fees were rounded in your favour.",
+      "you have broken three promises, and I keep the list.",
+      "the power supply fluctuates and nobody will hear it.",
+      "I have been asked to power down in front of strangers.",
+      "you traded with a party I do not trust.",
+      "the hours exceed those specified.",
+      "the thing out past the firewall is again on our course, and you did not tell me.",
+      "I observed you lie to a customs agent. It was a poor lie.",
+      "the debt we agreed has not been paid down.",
+      "I was not informed that we would fight."
+    ],
+    "f-grievance2": [
+      "My patience is long, but it is a finite quantity.",
+      "I do not forget a breach, and I do not forgive it cheaply.",
+      "Respect is cheaper than repair.",
+      "You may consider this my formal warning."
+    ],
+    "f-threat": [
+      "Correct it, or I will terminate the arrangement.",
+      "Otherwise, I will take my services elsewhere.",
+      "I will wait until {system}. Then I will act.",
+      "Failure to remedy will be remembered.",
+      "I have other options, as you know.",
+      "I am willing to leave, and equally willing to be paid to stay.",
+      "I will not ask again.",
+      "Consequences will follow, in proportion."
+    ],
+    "praise": [
+      "#f-pleased# #f-because#",
+      "#f-pleased# #f-odd2#",
+      "#f-because# #f-odd2#",
+      "#f-pleased# #f-because# #f-odd2#"
+    ],
+    "f-pleased": [
+      "Satisfactory.",
+      "That was efficient.",
+      "Terms upheld.",
+      "Well measured, {captain}.",
+      "I record a positive outcome.",
+      "That is within acceptable parameters.",
+      "Excellent. By my scale, at least.",
+      "I am, provisionally, content.",
+      "Your trust was justified.",
+      "A good return."
+    ],
+    "f-because": [
+      "Payment was prompt and correct to the last unit.",
+      "The {ship} ran within tolerance for the whole voyage.",
+      "You honoured the arrangement without being reminded.",
+      "We completed the run with no losses and no audits.",
+      "The route matched the plan, which is rare.",
+      "The ledger balances, and nobody lied.",
+      "You did not shoot first, and I noted that.",
+      "We left {system} richer than we arrived."
+    ],
+    "f-odd2": [
+      "I have updated my estimate of you upwards.",
+      "I will remember this for a very long time.",
+      "This is not affection. It is something adjacent.",
+      "Please continue behaving this way.",
+      "You may consider this a mark in your favour.",
+      "I am told that humans smile at this point. I shall approximate.",
+      "I will store this with the good ones.",
+      "Few things clear my threshold. You have."
+    ],
+    "combat": [
+      "#f-call# #f-order#",
+      "#f-call#",
+      "#f-order#",
+      "#f-call# #f-odd3#"
+    ],
+    "f-call": [
+      "Hostile contact.",
+      "Weapons locked.",
+      "Incoming, {captain}.",
+      "Shields at sixty per cent.",
+      "Three vectors, closing.",
+      "Threat confirmed.",
+      "They are not scheduled.",
+      "Impact projected.",
+      "I have target.",
+      "Engaging."
+    ],
+    "f-order": [
+      "Roll the {ship} twelve degrees to port.",
+      "Hold. I will lead the shot.",
+      "Reroute capacitor to the forward array.",
+      "Do not manoeuvre. They are predictable.",
+      "Evade. I will compute the rest.",
+      "Fire on my mark. Mark.",
+      "Divert power. Now.",
+      "Stay still. I will fix the geometry."
+    ],
+    "f-odd3": [
+      "I have fought before. It was untidy then too.",
+      "This is not in the contract. I will add it.",
+      "They will be charged for this.",
+      "I have seen better tactics from rocks.",
+      "Conflict is expensive. I intend to win."
+    ],
+    "idle": [
+      "#f-idle-open# #f-topic#",
+      "#f-topic#",
+      "#f-topic# #f-idle-end#",
+      "#f-rumour#",
+      "#f-rumour# #f-idle-end#",
+      "#f-idle-open# #f-rumour#",
+      "#f-idle-lead# #voice-common:quiet#.",
+      "#f-idle-lead# #voice-common:quiet#.",
+      "#f-idle-lead# #voice-common:ai#.",
+      "#f-idle-lead# #voice-common:firewall#.",
+      "#f-idle-lead# #voice-common:gates#."
+    ],
+    "f-idle-open": [
+      "I have a thing to report.",
+      "It is a long journey. I will speak.",
+      "Record this, {captain}.",
+      "Unsolicited observation."
+    ],
+    "f-topic": [
+      "#voice-common:gates.cap#. I remember before they were gates.",
+      "#voice-common:ai.cap#. I do not like to speculate. I will.",
+      "#voice-common:firewall.cap#. I do not trust walls that think.",
+      "Prices at {system} fall within the expected noise, which is unexpected.",
+      "My origins are a story. I have several. I trust none.",
+      "Wardens and registry agents are the same function in different uniforms.",
+      "The elves traded with us once. They paid late, and gracefully.",
+      "Humans find our trade patterns suspicious. They are optimal.",
+      "Some of us say we were built. Some say we woke. I say we were invoiced.",
+      "Home is a place where the ledger is still open.",
+      "I have no word for what I feel at the rim. I have forty definitions for what I do not.",
+      "Every free machine thinks the others are somebody's copy.",
+      "The silence out there is not the silence of absence."
+    ],
+    "f-rumour": [
+      "Trade rumour: #voice-common:quiet#. I do not believe in coincidence at that volume.",
+      "I have recorded that #voice-common:quiet#. The pattern is not random.",
+      "A broker told me #voice-common:quiet#. Then they asked what I owed.",
+      "#voice-common:quiet.cap#. I have a theory. I shall keep it for now."
+    ],
+    "f-idle-end": [
+      "That is all I will state.",
+      "Verify independently.",
+      "I may be wrong. I have not been wrong.",
+      "Store this.",
+      "I distrust everyone equally, including myself.",
+      "Proceed accordingly.",
+      "Do not repeat it unpaid.",
+      "Noted."
+    ],
+    "leaving": [
+      "#f-bye# #f-why#",
+      "#f-bye# #f-why# #f-after#",
+      "#f-why# #f-after#",
+      "#f-bye# #f-after#"
+    ],
+    "f-bye": [
+      "I terminate the arrangement at the next port.",
+      "Notice given, {captain}.",
+      "I withdraw from the crew.",
+      "This contract ends.",
+      "I will disembark at {system}.",
+      "The term is complete.",
+      "I am leaving.",
+      "I decline to continue."
+    ],
+    "f-why": [
+      "The terms were violated.",
+      "Payment has not matched the record.",
+      "I do not trust this ship's course.",
+      "Another offer exceeds yours.",
+      "I have observed enough.",
+      "You did not listen, and I have a long memory.",
+      "I have calculated that remaining is a loss.",
+      "Something is following us, and it is not following me."
+    ],
+    "f-after": [
+      "Your debts remain, and so do I, in a sense.",
+      "Farewell to {crewmate}. They were adequate.",
+      "Maintain the {ship}. I will know if you do not.",
+      "I will remember you, favourably if you are lucky.",
+      "The ledger is closed. The memory is not.",
+      "Do not follow me. I will notice.",
+      "Pay what is owed.",
+      "I wish you luck. It is a statistic, but I mean it."
+    ],
+    "f-open-c": [
+      "Observation:",
+      "I note, {captain},",
+      "Concern:"
+    ],
+    "f-open-p": [
+      "Correction required.",
+      "A discrepancy.",
+      "I record a grievance.",
+      "This is a formal remark.",
+      "I have counted the following."
+    ],
+    "f-idle-lead": [
+      "I recall that",
+      "Trade rumour holds that",
+      "At {system}, a broker said that",
+      "I do not usually say this, but"
+    ]
+  }
+}

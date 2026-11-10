@@ -1,0 +1,40 @@
+// Crew chatter for common crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-common",
+  "description": "Shared rumour fragments any race can reference.",
+  "variables": [],
+  "rules": {
+    "quiet": [
+      "a survey tug past the last good gate stopped answering hails",
+      "a freighter went rimward and never rang in",
+      "two haulers dropped off the board near the rim last month",
+      "a whole convoy went quiet beyond the old gate line",
+      "a prospector's beacon cut out halfway through a word",
+      "a patrol cutter went to look at a quiet ship and went quiet itself",
+      "an ore barge missed three check-ins in a row and then stopped being on the schedule",
+      "a courier reported a clean jump and was never seen at the other end",
+      "a salvage crew radioed that they'd found something and then said nothing more",
+      "a tanker's transponder kept pinging for a week with nobody aboard to answer it"
+    ],
+    "firewall": [
+      "the firewall hasn't moved, but the traffic near it has started to look tidy",
+      "nothing crosses the inner gates from the rim, and yet some ships come back different",
+      "the firewall is supposed to be a wall, and walls don't usually hum",
+      "the old relays near the rim keep passing messages nobody sent",
+      "a ship that sits too long near the firewall comes home with its clocks wrong"
+    ],
+    "ai": [
+      "something out there builds minds and sends them inward, and nobody asks who signs the order",
+      "the thing past the firewall doesn't want anything, which is what worries people",
+      "some say the AI is patient, and some say it's busy, and nobody says which is worse",
+      "nobody has heard it speak, but a lot of people claim to have been spoken to",
+      "whatever sits at the rim is learning us faster than we're learning it"
+    ],
+    "gates": [
+      "the gates were built by people who are no longer around to ask",
+      "a warden told me the gates have never needed repair, and that's the part that troubles him",
+      "half the gate codes in use are copied from codes that happened to work",
+      "the gate network is older than every treaty that claims to govern it"
+    ]
+  }
+}

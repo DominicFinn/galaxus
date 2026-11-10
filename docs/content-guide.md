@@ -143,7 +143,7 @@ Modifier and bias keys: `speed`, `acceleration`, `agility`, `hull`, `shields`, `
   "hullPoints": 450,
   "radius": 16,                   // collision sphere, metres
   "crewBerths": 3,
-  "cargoTonnes": 120,
+  "cargoTonnes": 120,            // fixed hold; fitted cargo racks add to it
   "slots": [
     { "type": "engine", "size": 2 },
     { "type": "weapon", "size": 1, "position": [-3, 0, -6] }
@@ -201,10 +201,9 @@ Builder looks:
 - Orc yards: oversized engines (often bigger than the cockpit), crude, spiky, front-heavy rams.
 - Free machine foundries: no cockpit, odd lattices and offset blocks, purple and acid-green glow.
 
-Check every model with the preview tool, which renders four views to a PNG:
+Check every model with the preview tool. It draws four views to a PNG without opening a window: front three-quarter (top left), side with the nose left (top right), top-down with the nose up (bottom left) and rear three-quarter (bottom right). The green ring is the collision radius.
 
 ```
-dotnet build game/Galaxus.csproj
 tools/preview-hull.sh dw-anvil /tmp/dw-anvil.png
 ```
 

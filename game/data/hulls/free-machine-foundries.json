@@ -1,0 +1,1764 @@
+[
+ {
+  "id": "fm-residue",
+  "name": "Residue Nine",
+  "builder": "free-machine-foundries",
+  "class": "fighter",
+  "description": "A needle with one side missing. It flies as though the missing half were still there.",
+  "price": 54000,
+  "mass": 18,
+  "baseSpeed": 115,
+  "pitchRate": 80,
+  "yawRate": 58,
+  "rollRate": 160,
+  "hullPoints": 115,
+  "radius": 7,
+  "crewBerths": 0,
+  "cargoTonnes": 3,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.0,
+     0.4,
+     -3.9
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.2,
+     -0.3,
+     -3.4
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "fm-drive-1-1",
+   "fm-plant-1-1",
+   "fm-shield-1-1",
+   "fm-sensor-1-1",
+   "fm-coil-1-1",
+   "fm-phase-1-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -0.5
+    ],
+    "back": [
+     1.8,
+     1.4
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 9,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     3.8
+    ],
+    "back": [
+     1.8,
+     1.8
+    ],
+    "front": [
+     1.4,
+     1.4
+    ],
+    "length": 2.4,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.05
+    ],
+    "back": [
+     1.4,
+     1.4
+    ],
+    "front": [
+     1.4,
+     1.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.0,
+     0.4,
+     0.2
+    ],
+    "back": [
+     1.6,
+     1.2
+    ],
+    "front": [
+     1.2,
+     0.9
+    ],
+    "length": 3.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     2.0,
+     0.4,
+     -2.6
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 2.6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     2.0,
+     0.4,
+     1.75
+    ],
+    "back": [
+     1.0,
+     0.8
+    ],
+    "front": [
+     1.0,
+     0.8
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -2.2,
+     -0.3,
+     -0.8
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 5.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     -2.2,
+     -0.3,
+     1.75
+    ],
+    "back": [
+     0.3,
+     0.3
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0.8
+    ],
+    "back": [
+     5.0,
+     0.25
+    ],
+    "front": [
+     4.0,
+     0.25
+    ],
+    "length": 1.2,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0.9,
+     2.0
+    ],
+    "back": [
+     0.12,
+     1.2
+    ],
+    "front": [
+     0.12,
+     0.4
+    ],
+    "length": 2.5,
+    "skew": [
+     0,
+     0.3
+    ],
+    "color": "accent"
+   }
+  ]
+ },
+ {
+  "id": "fm-tessera",
+  "name": "Tessera Four",
+  "builder": "free-machine-foundries",
+  "class": "courier",
+  "description": "A spindle with two unmatched holds slung off it. The balance is correct, which no one finds reassuring.",
+  "price": 68000,
+  "mass": 18,
+  "baseSpeed": 145,
+  "pitchRate": 65,
+  "yawRate": 50,
+  "rollRate": 130,
+  "hullPoints": 95,
+  "radius": 9,
+  "crewBerths": 0,
+  "cargoTonnes": 12,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 1
+   },
+   {
+    "type": "powerPlant",
+    "size": 1
+   },
+   {
+    "type": "shield",
+    "size": 1
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -0.8,
+     -6.6
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "fm-drive-1-1",
+   "fm-plant-1-1",
+   "fm-shield-1-1",
+   "fm-sensor-1-1",
+   "fm-shear-1-1",
+   "fm-cargo-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     1.4,
+     1.4
+    ],
+    "front": [
+     0.3,
+     0.3
+    ],
+    "length": 13,
+    "color": "hull"
+   },
+   {
+    "position": [
+     2.0,
+     0,
+     1.5
+    ],
+    "back": [
+     2.6,
+     2.4
+    ],
+    "front": [
+     2.6,
+     2.4
+    ],
+    "length": 4.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     2.0,
+     0,
+     -0.6
+    ],
+    "back": [
+     1.0,
+     1.0
+    ],
+    "front": [
+     0.6,
+     0.6
+    ],
+    "length": 0.5,
+    "color": "accent"
+   },
+   {
+    "position": [
+     -1.8,
+     -0.8,
+     -0.5
+    ],
+    "back": [
+     1.6,
+     1.4
+    ],
+    "front": [
+     1.6,
+     1.4
+    ],
+    "length": 2.2,
+    "color": "hull"
+   },
+   {
+    "position": [
+     -1.8,
+     -0.8,
+     1.7
+    ],
+    "back": [
+     1.1,
+     1.0
+    ],
+    "front": [
+     1.1,
+     1.0
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     5.6
+    ],
+    "back": [
+     2.0,
+     2.0
+    ],
+    "front": [
+     2.0,
+     2.0
+    ],
+    "length": 1.6,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     6.45
+    ],
+    "back": [
+     1.6,
+     1.6
+    ],
+    "front": [
+     1.6,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     1.2,
+     3.0
+    ],
+    "back": [
+     0.12,
+     1.8
+    ],
+    "front": [
+     0.12,
+     0.4
+    ],
+    "length": 3.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     -0.8,
+     -4.2
+    ],
+    "back": [
+     0.35,
+     0.35
+    ],
+    "front": [
+     0.2,
+     0.2
+    ],
+    "length": 4.2,
+    "color": "accent"
+   },
+   {
+    "position": [
+     2.0,
+     1.4,
+     1.5
+    ],
+    "back": [
+     1.8,
+     0.15
+    ],
+    "front": [
+     1.8,
+     0.15
+    ],
+    "length": 3.0,
+    "color": "accent"
+   }
+  ]
+ },
+ {
+  "id": "fm-argand",
+  "name": "Argand Reach",
+  "builder": "free-machine-foundries",
+  "class": "explorer",
+  "description": "A long survey lattice with one dish held out to the side. It listens in a direction the foundry has not disclosed.",
+  "price": 185000,
+  "mass": 55,
+  "baseSpeed": 105,
+  "pitchRate": 46,
+  "yawRate": 36,
+  "rollRate": 85,
+  "hullPoints": 250,
+  "radius": 15,
+  "crewBerths": 1,
+  "cargoTonnes": 16,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     2.2,
+     -1.5,
+     -13.5
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.2,
+     -1.5,
+     -12.5
+    ]
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "fm-drive-2-1",
+   "fm-plant-2-1",
+   "fm-shield-2-1",
+   "fm-sensor-3-1",
+   "fm-phase-1-1",
+   "fm-coil-1-1",
+   "fm-util-nanite",
+   "fm-util-glass"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -2
+    ],
+    "back": [
+     3.0,
+     2.4
+    ],
+    "front": [
+     1.2,
+     1.0
+    ],
+    "length": 22,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     11
+    ],
+    "back": [
+     4.0,
+     3.4
+    ],
+    "front": [
+     3.6,
+     3.0
+    ],
+    "length": 4.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     13.05
+    ],
+    "back": [
+     3.0,
+     2.6
+    ],
+    "front": [
+     3.0,
+     2.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -4
+    ],
+    "back": [
+     9.0,
+     0.3
+    ],
+    "front": [
+     9.0,
+     0.3
+    ],
+    "length": 0.6,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     1
+    ],
+    "back": [
+     6.0,
+     0.3
+    ],
+    "front": [
+     6.0,
+     0.3
+    ],
+    "length": 0.6,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     6
+    ],
+    "back": [
+     11.0,
+     0.3
+    ],
+    "front": [
+     11.0,
+     0.3
+    ],
+    "length": 0.6,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     7.0,
+     2.5,
+     -8
+    ],
+    "back": [
+     6.0,
+     0.4
+    ],
+    "front": [
+     6.0,
+     0.4
+    ],
+    "length": 0.8,
+    "roll": 20,
+    "color": "accent"
+   },
+   {
+    "position": [
+     4.0,
+     1.6,
+     -8
+    ],
+    "back": [
+     4.0,
+     0.3
+    ],
+    "front": [
+     3.0,
+     0.3
+    ],
+    "length": 0.5,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     7.0,
+     2.5,
+     -8.5
+    ],
+    "back": [
+     0.8,
+     0.8
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 0.2,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -4.2,
+     -1.0,
+     2
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     2.2,
+     2.2
+    ],
+    "length": 8.0,
+    "color": "hull"
+   },
+   {
+    "position": [
+     -4.2,
+     -1.0,
+     6.05
+    ],
+    "back": [
+     1.6,
+     1.6
+    ],
+    "front": [
+     1.6,
+     1.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     2.2,
+     -1.5,
+     -11
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 5.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     -2.2,
+     -1.5,
+     -9.5
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 6.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     -1.4,
+     -4
+    ],
+    "back": [
+     4.4,
+     0.3
+    ],
+    "front": [
+     4.4,
+     0.3
+    ],
+    "length": 0.5,
+    "color": "#3c4150"
+   }
+  ]
+ },
+ {
+  "id": "fm-corollary",
+  "name": "Corollary",
+  "builder": "free-machine-foundries",
+  "class": "gunship",
+  "description": "Two weapon blocks of different sizes held on a common core. The firing solutions are computed for each side separately.",
+  "price": 330000,
+  "mass": 95,
+  "baseSpeed": 85,
+  "pitchRate": 42,
+  "yawRate": 33,
+  "rollRate": 72,
+  "hullPoints": 440,
+  "radius": 19,
+  "crewBerths": 0,
+  "cargoTonnes": 5,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 3
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 2
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     7.0,
+     0,
+     -12.2
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     8.4,
+     0.8,
+     -11.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     5.6,
+     -0.8,
+     -11.0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 3,
+    "position": [
+     -7.0,
+     -0.5,
+     -8.4
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 2,
+    "position": [
+     0,
+     1.2,
+     -12.0
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "fm-drive-2-3",
+   "fm-plant-3-2",
+   "fm-shield-3-2",
+   "fm-sensor-2-2",
+   "fm-coil-2-2",
+   "fm-coil-2-2",
+   "fm-coil-2-2",
+   "fm-phase-3-2",
+   "fm-shear-2-2"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     7.0,
+     4.0
+    ],
+    "front": [
+     4.0,
+     3.0
+    ],
+    "length": 22,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     12.5
+    ],
+    "back": [
+     6.0,
+     4.0
+    ],
+    "front": [
+     5.5,
+     3.6
+    ],
+    "length": 5.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     15.05
+    ],
+    "back": [
+     4.6,
+     3.0
+    ],
+    "front": [
+     4.6,
+     3.0
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     7.0,
+     0,
+     -4
+    ],
+    "back": [
+     4.0,
+     3.0
+    ],
+    "front": [
+     3.0,
+     2.4
+    ],
+    "length": 14,
+    "color": "hull"
+   },
+   {
+    "position": [
+     7.0,
+     0,
+     -11.5
+    ],
+    "back": [
+     1.2,
+     1.2
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 1.4,
+    "color": "accent"
+   },
+   {
+    "position": [
+     8.4,
+     0.8,
+     -9.5
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 3.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     5.6,
+     -0.8,
+     -9.5
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 3.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     7.0,
+     0,
+     3.05
+    ],
+    "back": [
+     2.6,
+     2.0
+    ],
+    "front": [
+     2.6,
+     2.0
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -7.0,
+     -0.5,
+     0
+    ],
+    "back": [
+     4.2,
+     3.4
+    ],
+    "front": [
+     3.4,
+     3.0
+    ],
+    "length": 14,
+    "color": "hull"
+   },
+   {
+    "position": [
+     -7.0,
+     -0.5,
+     -8.0
+    ],
+    "back": [
+     1.8,
+     1.8
+    ],
+    "front": [
+     0.8,
+     0.8
+    ],
+    "length": 2.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     -7.0,
+     -0.5,
+     7.05
+    ],
+    "back": [
+     2.8,
+     2.2
+    ],
+    "front": [
+     2.8,
+     2.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     3.8,
+     0,
+     2
+    ],
+    "back": [
+     2.4,
+     0.5
+    ],
+    "front": [
+     2.4,
+     0.5
+    ],
+    "length": 1.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     -3.8,
+     -0.5,
+     -1
+    ],
+    "back": [
+     2.4,
+     0.5
+    ],
+    "front": [
+     2.4,
+     0.5
+    ],
+    "length": 1.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     2.8,
+     4
+    ],
+    "back": [
+     0.2,
+     3.0
+    ],
+    "front": [
+     0.2,
+     0.6
+    ],
+    "length": 8,
+    "skew": [
+     0,
+     0.4
+    ],
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     1.2,
+     -10
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 4.0,
+    "color": "accent"
+   }
+  ]
+ },
+ {
+  "id": "fm-quarry",
+  "name": "Quarry Lemma",
+  "builder": "free-machine-foundries",
+  "class": "miner",
+  "description": "A cutter head on a bare frame, with ore bins hung on whichever side had room. It sorts as it digs.",
+  "price": 240000,
+  "mass": 130,
+  "baseSpeed": 75,
+  "pitchRate": 30,
+  "yawRate": 24,
+  "rollRate": 50,
+  "hullPoints": 420,
+  "radius": 22,
+  "crewBerths": 0,
+  "cargoTonnes": 70,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 2
+   },
+   {
+    "type": "powerPlant",
+    "size": 2
+   },
+   {
+    "type": "shield",
+    "size": 2
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     0,
+     -1.2,
+     -23.5
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   },
+   {
+    "type": "utility",
+    "size": 1
+   },
+   {
+    "type": "utility",
+    "size": 1
+   }
+  ],
+  "defaultLoadout": [
+   "fm-drive-2-3",
+   "fm-plant-2-2",
+   "fm-shield-2-2",
+   "fm-sensor-1-1",
+   "fm-shear-1-2",
+   "fm-cargo-3",
+   "fm-cargo-3",
+   "fm-util-nanite",
+   "fm-util-ledger"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -19
+    ],
+    "back": [
+     8.0,
+     8.0
+    ],
+    "front": [
+     1.0,
+     1.0
+    ],
+    "length": 8,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -19
+    ],
+    "back": [
+     8.0,
+     8.0
+    ],
+    "front": [
+     1.0,
+     1.0
+    ],
+    "length": 8,
+    "roll": 45,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -4
+    ],
+    "back": [
+     7.0,
+     6.0
+    ],
+    "front": [
+     7.0,
+     6.0
+    ],
+    "length": 22,
+    "color": "hull"
+   },
+   {
+    "position": [
+     6.0,
+     -1.0,
+     2
+    ],
+    "back": [
+     5.0,
+     5.0
+    ],
+    "front": [
+     5.0,
+     5.0
+    ],
+    "length": 14,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     6.0,
+     -1.0,
+     9.05
+    ],
+    "back": [
+     3.6,
+     3.6
+    ],
+    "front": [
+     3.6,
+     3.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -5.5,
+     1.0,
+     -1
+    ],
+    "back": [
+     4.0,
+     6.0
+    ],
+    "front": [
+     4.0,
+     6.0
+    ],
+    "length": 9,
+    "color": "hull"
+   },
+   {
+    "position": [
+     -5.5,
+     1.0,
+     3.55
+    ],
+    "back": [
+     2.6,
+     4.6
+    ],
+    "front": [
+     2.6,
+     4.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     13
+    ],
+    "back": [
+     8.0,
+     7.0
+    ],
+    "front": [
+     7.0,
+     6.0
+    ],
+    "length": 6,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     16.05
+    ],
+    "back": [
+     6.0,
+     5.0
+    ],
+    "front": [
+     6.0,
+     5.0
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     3.0,
+     4.5,
+     -8
+    ],
+    "back": [
+     0.6,
+     0.6
+    ],
+    "front": [
+     0.6,
+     0.6
+    ],
+    "length": 10,
+    "color": "accent"
+   },
+   {
+    "position": [
+     3.0,
+     4.0,
+     -14
+    ],
+    "back": [
+     0.5,
+     1.6
+    ],
+    "front": [
+     0.5,
+     0.5
+    ],
+    "length": 2,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     -1.2,
+     -20
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 7,
+    "color": "accent"
+   }
+  ]
+ },
+ {
+  "id": "fm-aggregate",
+  "name": "Aggregate",
+  "builder": "free-machine-foundries",
+  "class": "freighter",
+  "description": "A truss with cargo blocks added as the load required, none of them matching. Nothing aboard needs to be reached.",
+  "price": 620000,
+  "mass": 300,
+  "baseSpeed": 70,
+  "pitchRate": 20,
+  "yawRate": 16,
+  "rollRate": 32,
+  "hullPoints": 700,
+  "radius": 38,
+  "crewBerths": 0,
+  "cargoTonnes": 150,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 3
+   },
+   {
+    "type": "powerPlant",
+    "size": 3
+   },
+   {
+    "type": "shield",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 1
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     -2.0,
+     -2.0,
+     -41.5
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 1,
+    "position": [
+     3.0,
+     -1.0,
+     -41.5
+    ]
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "cargo",
+    "size": 4
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   },
+   {
+    "type": "cargo",
+    "size": 3
+   }
+  ],
+  "defaultLoadout": [
+   "fm-drive-3-1",
+   "fm-plant-3-1",
+   "fm-shield-3-1",
+   "fm-sensor-1-1",
+   "fm-shear-1-1",
+   "fm-coil-1-1",
+   "fm-cargo-4",
+   "fm-cargo-4",
+   "fm-cargo-3",
+   "fm-cargo-3"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0
+    ],
+    "back": [
+     4.0,
+     4.0
+    ],
+    "front": [
+     4.0,
+     4.0
+    ],
+    "length": 70,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -34
+    ],
+    "back": [
+     5.0,
+     5.0
+    ],
+    "front": [
+     1.5,
+     1.5
+    ],
+    "length": 10,
+    "color": "accent"
+   },
+   {
+    "position": [
+     7.0,
+     1.0,
+     -18
+    ],
+    "back": [
+     8.0,
+     7.0
+    ],
+    "front": [
+     8.0,
+     7.0
+    ],
+    "length": 12,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     -7.0,
+     -1.0,
+     -8
+    ],
+    "back": [
+     9.0,
+     8.0
+    ],
+    "front": [
+     9.0,
+     8.0
+    ],
+    "length": 14,
+    "color": "hull"
+   },
+   {
+    "position": [
+     7.0,
+     -1.0,
+     8
+    ],
+    "back": [
+     9.0,
+     9.0
+    ],
+    "front": [
+     9.0,
+     9.0
+    ],
+    "length": 12,
+    "color": "hull"
+   },
+   {
+    "position": [
+     -7.0,
+     1.0,
+     20
+    ],
+    "back": [
+     7.0,
+     7.0
+    ],
+    "front": [
+     7.0,
+     7.0
+    ],
+    "length": 10,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -18
+    ],
+    "back": [
+     9.0,
+     0.4
+    ],
+    "front": [
+     9.0,
+     0.4
+    ],
+    "length": 1.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -8
+    ],
+    "back": [
+     10.0,
+     0.4
+    ],
+    "front": [
+     10.0,
+     0.4
+    ],
+    "length": 1.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     8
+    ],
+    "back": [
+     10.0,
+     0.4
+    ],
+    "front": [
+     10.0,
+     0.4
+    ],
+    "length": 1.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     20
+    ],
+    "back": [
+     8.0,
+     0.4
+    ],
+    "front": [
+     8.0,
+     0.4
+    ],
+    "length": 1.0,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     32
+    ],
+    "back": [
+     10.0,
+     8.0
+    ],
+    "front": [
+     9.0,
+     7.0
+    ],
+    "length": 8,
+    "color": "#3c4150"
+   },
+   {
+    "position": [
+     0,
+     0,
+     36.05
+    ],
+    "back": [
+     8.0,
+     6.0
+    ],
+    "front": [
+     8.0,
+     6.0
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     7.0,
+     -4.55,
+     8
+    ],
+    "back": [
+     2.0,
+     0.1
+    ],
+    "front": [
+     2.0,
+     0.1
+    ],
+    "length": 10,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     3.5,
+     0
+    ],
+    "back": [
+     0.3,
+     3.0
+    ],
+    "front": [
+     0.3,
+     1.0
+    ],
+    "length": 50,
+    "color": "accent"
+   },
+   {
+    "position": [
+     -2.0,
+     -2.0,
+     -40
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 3.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     3.0,
+     -1.0,
+     -40
+    ],
+    "back": [
+     0.4,
+     0.4
+    ],
+    "front": [
+     0.25,
+     0.25
+    ],
+    "length": 3.0,
+    "color": "accent"
+   }
+  ]
+ }
+]

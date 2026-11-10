@@ -1,25 +1,39 @@
 {
   "id": "models-human-corporate",
-  "description": "Human corporate model names: a bird or animal with a model number.",
+  "description": "Human corporate model names: an animal with a mark, a series number or a yard designation.",
   "rules": {
     "model": [
-      "#animal# #number#",
+      "#animal# #roman#",
+      "#animal# #roman#",
+      "#animal# #roman#",
+      "#animal# #letter#",
+      "#animal# #series#",
+      "#animal# #series#",
+      "#animal# Mk #digit#",
+      "#animal# #variant#",
+      "#animal# #roman# #variant#",
+      "#animal#-#series#",
+      "#yard# #animal#",
+      "#yard# #animal# #roman#",
+      "#animal# #series##letter#",
       "#animal#"
     ],
     "animal": [
-      "Kestrel",
-      "Heron",
-      "Mule",
-      "Swift",
-      "Badger",
-      "Osprey"
+      "Kestrel", "Heron", "Mule", "Swift", "Badger", "Osprey", "Sparrow", "Albatross", "Mastiff", "Plover",
+      "Curlew", "Harrier", "Ox", "Wren", "Stoat", "Marten", "Otter", "Ferret", "Lapwing", "Tern",
+      "Petrel", "Gannet", "Cormorant", "Shrike", "Merlin", "Buzzard", "Magpie", "Rook", "Jackdaw", "Starling",
+      "Bison", "Yak", "Heifer", "Drover", "Terrier", "Whippet", "Collie", "Hound", "Lurcher", "Pointer",
+      "Stork", "Crane", "Egret", "Avocet", "Dunlin", "Sandpiper", "Godwit", "Teal", "Pintail", "Widgeon",
+      "Heron", "Nightjar", "Swallow", "Martin", "Pipit", "Linnet", "Skylark", "Lark", "Dipper", "Kite",
+      "Warthog", "Vole", "Hare", "Beaver", "Mole", "Weasel", "Hedgehog", "Dormouse", "Newt", "Toad",
+      "Carthorse", "Shire", "Clydesdale", "Donkey", "Mare", "Pony", "Ram", "Billy", "Tup", "Wether"
     ],
-    "number": [
-      "II",
-      "III",
-      "IV",
-      "S",
-      "LX"
-    ]
+    "roman": ["II", "III", "IV", "V", "VI", "VII", "VIII", "X"],
+    "letter": ["S", "L", "X", "R", "C", "T", "D", "M", "E", "H"],
+    "digit": ["2", "3", "4", "5", "6", "7"],
+    "series": ["#hundred#", "#hundred#", "#hundred##hundred#"],
+    "hundred": ["100", "120", "150", "200", "220", "250", "300", "320", "350", "400", "450", "500", "550", "600", "750", "800"],
+    "variant": ["Long Range", "Light", "Heavy", "Patrol", "Utility", "Plus", "Lx", "Mk Ib", "Survey", "Standard", "Cargo", "Escort", "Open Market", "Fleet", "Gate Class"],
+    "yard": ["Corporate", "Meridian", "Ashdown", "Colony", "Transit", "Consolidated", "Charter", "Frontier", "Union", "Halden", "Arden", "Greyline"]
   }
 }

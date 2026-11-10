@@ -1,22 +1,59 @@
 {
   "id": "models-light-elf-houses",
-  "description": "Light elf house model names: light and song.",
+  "description": "Light elf house model names: light, song, seasons, stars and the houses that build them.",
   "rules": {
     "model": [
-      "#word#",
-      "#word# of #house#"
+      "#word#", "#word#", "#word#", "#word#",
+      "#word# #suffix#",
+      "#word# of #house#",
+      "#house# #word#",
+      "#light##song#",
+      "#season##bird#",
+      "#season# #song.cap#",
+      "#star# #craft#",
+      "#craft# of #season.cap#",
+      "#craft# of #star#",
+      "#light##craft.lower#",
+      "The #adj# #craft#",
+      "#adj# #bird#",
+      "#adj# #song#"
     ],
     "word": [
-      "Dawnsong",
-      "Glimmer",
-      "Solace",
-      "Lumen",
-      "Aria"
+      "Dawnsong", "Glimmer", "Solace", "Lumen", "Aria", "Evenlight", "Silverlay", "Thessilith",
+      "Amaranthe", "Veilfall", "Orisen", "Calethra", "Ilvanor", "Moonwake", "Sunreach", "Lissome",
+      "Wyneth", "Aurelune", "Starling", "Serenelle", "Hallowmere", "Tallowlight",
+      "Quillsong", "Firstlight", "Lastlight", "Morrowdawn", "Evensong", "Silvane", "Elanthe",
+      "Mirelith", "Sael", "Tessaly", "Nimbrel", "Faelume", "Ondrathe", "Liraelle", "Ysolen",
+      "Cantrelle", "Ashenglow", "Vesperine", "Celedwyn", "Lumenthal", "Aurevane", "Lorivel",
+      "Sylmere", "Dewfall", "Heliora", "Isolde Mere", "Threnody", "Cadence", "Refrain",
+      "Descant", "Larkrise", "Candlewing", "Kindling Veil"
     ],
+    "suffix": ["Ascendant", "Reborn", "Remembered", "in Gold", "in Silver", "Unbroken", "the Younger", "the Elder", "Resplendent"],
     "house": [
-      "Tirael",
-      "Vanthe",
-      "Selune"
+      "Tirael", "Vanthe", "Selune", "Aurelane", "Ithiriel", "Caldessa", "Merewyn", "Olindre",
+      "Sevaris", "Elowen Vael", "Nariel", "Thalassine", "Quenvaris", "Isarel", "Vaelthorn",
+      "Lorindel", "Haldrith", "Ameryl", "Corvaine", "Eldessa"
+    ],
+    "light": [
+      "Dawn", "Sun", "Star", "Moon", "Gleam", "Glim", "Lumen", "Halo", "Aurel", "Sil", "Lume", "Shim", "Ray", "Candle", "Lantern"
+    ],
+    "song": [
+      "song", "chant", "call", "aria", "hymn", "chime", "lay", "refrain", "verse", "cadence", "lullaby", "descant", "carol", "echo", "murmur"
+    ],
+    "season": [
+      "Spring", "Summer", "Autumn", "Winter", "Thaw", "Harvest", "Bloom", "Frost", "Equinox", "Solstice", "Longday", "Evening"
+    ],
+    "bird": [
+      "wing", "lark", "swift", "heron", "finch", "plume", "swallow", "kestrel", "wren", "feather", "dove", "ibis"
+    ],
+    "star": [
+      "Veyra", "Alis", "Orrin", "Caeli", "Thessa", "Lyranth", "Anwe", "Seraphel", "Eleth", "Ilmar", "Daeris", "Fenwen", "Sorrel", "Ambrel", "Tavire", "Wenla"
+    ],
+    "craft": [
+      "Bloom", "Blade", "Vane", "Needle", "Thorn", "Spire", "Crest", "Leaf", "Lance", "Reed", "Veil", "Shard", "Petal", "Sail", "Arrow", "Quill", "Prism", "Lantern", "Arch", "Harp"
+    ],
+    "adj": [
+      "Gilded", "Silent", "Pale", "Radiant", "Gentle", "Fleet", "Patient", "Bright", "Graceful", "Distant", "Fading", "Proud", "Quiet", "Kindled", "Lucent", "Serene", "Wandering", "Slender"
     ]
   }
 }

@@ -1,0 +1,319 @@
+// Crew chatter for dwarf crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-dwarf",
+  "description": "Dwarf crew chatter: dry humour, craft, contracts and pay, shoddy-ship grumbles.",
+  "variables": [
+    "captain",
+    "ship",
+    "system",
+    "crewmate"
+  ],
+  "rules": {
+    "greeting": [
+      "#w-hail# #w-intro#",
+      "#w-hail# #w-ask#",
+      "#w-intro# #w-ask#",
+      "#w-hail# #w-remark#"
+    ],
+    "w-hail": [
+      "Captain.",
+      "Well met, {captain}.",
+      "Aye, hello.",
+      "You looking for hands?",
+      "Good day. Ignore the beard, it's not hiring.",
+      "Sit down. The chairs here are shoddy, mind.",
+      "I heard you've a ship.",
+      "You've the look of someone with a contract.",
+      "Right then.",
+      "Mm. You're the one with the {ship}."
+    ],
+    "w-intro": [
+      "I've been a miner, a welder and a surveyor, and I've been paid twice for none of them.",
+      "I can read a hull's age from the weld seams.",
+      "I know every kind of drive, and which ones lie.",
+      "I've worked the shafts since I could hold a pick.",
+      "I'm a fair hand with a cutter and a better one with a ledger.",
+      "I once built a shield generator out of a kettle and a promise.",
+      "I've a good eye for flaws, which makes me popular.",
+      "I keep my tools clean, my word cleaner."
+    ],
+    "w-ask": [
+      "What's the pay, in writing?",
+      "What's the state of the {ship}'s plating?",
+      "Who did the welds on her, and are they still alive?",
+      "Is there a decent forge aboard, or a decent anything?",
+      "What does the contract say about hazard pay?",
+      "Have you a service record for her?",
+      "How long's the run to {system}?",
+      "And what's the cut on salvage?"
+    ],
+    "w-remark": [
+      "The station's built well. It's the people that are flimsy.",
+      "This bar's a good seal. Shame about the ale.",
+      "There's a crack in that bulkhead. Nobody's noticed.",
+      "I'd not trust that gantry as far as I could throw it."
+    ],
+    "hire": [
+      "#w-yes# #w-terms#",
+      "#w-yes# #w-promise#",
+      "#w-terms# #w-promise#",
+      "#w-yes# #w-dry#"
+    ],
+    "w-yes": [
+      "Aye, done.",
+      "Right, I'm in.",
+      "Fair enough.",
+      "I'll take it.",
+      "Sign it and I'm yours.",
+      "Good terms, mostly.",
+      "Agreed, with notes.",
+      "Count me in, captain.",
+      "Fine, I'll come.",
+      "You've a deal."
+    ],
+    "w-terms": [
+      "Everything in writing, and I'll read it twice.",
+      "Pay on time, and I'll not complain. Much.",
+      "I'll want my tools stowed where I can find them.",
+      "A fair share of salvage, and a fair share of ale.",
+      "A proper berth, not a locker with ambitions.",
+      "Hazard pay when anyone shoots at me. It's only reasonable.",
+      "No loan-backed deals. I've been burned.",
+      "And a clause for repairs, if you please."
+    ],
+    "w-promise": [
+      "I'll keep her running if it takes a month of Tuesdays.",
+      "I'll fix what's broken, and tell you what's about to be.",
+      "You'll have my best work, and my honest opinion.",
+      "I never quit mid-job, whatever the grumbling.",
+      "The {ship} will be in better shape by {system}, or I'll know why.",
+      "A contract's a contract, and I keep mine."
+    ],
+    "w-dry": [
+      "I'll try to look cheerful. It doesn't come easily.",
+      "I'll be gloomy, but I'll be useful.",
+      "You'll find I laugh only at the right times.",
+      "I've a good sense of humour. You'd not guess."
+    ],
+    "complaint": [
+      "#w-open-c# #w-grievance#",
+      "#w-open-p# #w-grievance.cap#",
+      "#w-grievance.cap# #w-threat#",
+      "#w-open-c# #w-grievance# #w-threat#",
+      "#w-open-p# #w-grievance.cap# #w-threat#",
+      "#w-open-p# #w-grievance2#",
+      "#w-grievance2# #w-threat#"
+    ],
+    "w-grievance": [
+      "the {ship} is held together by hope and bad welds.",
+      "my pay's late, and the contract didn't say 'eventually'.",
+      "you've skipped three scheduled services.",
+      "whoever fitted that shield coupling ought to be charged.",
+      "the plating's thinner than the excuses.",
+      "{crewmate} borrowed my good spanner and bent it.",
+      "you took on cargo without checking the weight limits.",
+      "we've hazard conditions and no hazard pay.",
+      "the hull's creaking and nobody's listening to it.",
+      "you've asked me to do a month's work in a week.",
+      "the ale's been replaced with something unfit for a mine.",
+      "you took the cheap parts, and now we're paying for it.",
+      "the manual says one thing and you've done another.",
+      "you shot at a fuel depot, and that's just poor form.",
+      "this is not what I read in the terms.",
+      "the galley is a disgrace, and I have eaten in mine canteens."
+    ],
+    "w-grievance2": [
+      "Cheap work costs twice.",
+      "A good ship is a loved ship, and this one's neglected.",
+      "I do the hard jobs, and the hard jobs get skipped on payday.",
+      "I've got lines in the contract I'd like honoured."
+    ],
+    "w-threat": [
+      "I'll leave if it's not fixed.",
+      "Honour the contract, or I'll find a new one.",
+      "I'll go to the guild, and they'll hear everything.",
+      "Mend it, or I'm gone at {system}.",
+      "There are fairer captains.",
+      "Or I'll start charging for advice.",
+      "Don't test me on this.",
+      "I'd not like to quit, but I will."
+    ],
+    "praise": [
+      "#w-pleased# #w-because#",
+      "#w-pleased# #w-dry2#",
+      "#w-because# #w-dry2#",
+      "#w-pleased# #w-because# #w-dry2#"
+    ],
+    "w-pleased": [
+      "Well done.",
+      "That's proper work.",
+      "Aye, now that's craft.",
+      "Decent.",
+      "I'll allow it.",
+      "Not bad at all.",
+      "Good job, {captain}.",
+      "That went to plan, which is rarer than it should be.",
+      "A fair day's work.",
+      "I've nothing to grumble about, and I'm suspicious."
+    ],
+    "w-because": [
+      "The pay arrived on the day, to the credit.",
+      "The {ship} held together, and not just by luck.",
+      "The seams held and the plating took it.",
+      "The welds didn't crack, and I'd bet on that.",
+      "You read the contract, and it shows.",
+      "We made a profit, and I got my cut.",
+      "You even sent for the proper parts.",
+      "Nobody argued with the schedule."
+    ],
+    "w-dry2": [
+      "Mark the date, I'll not say it twice.",
+      "I'd have said it earlier, but I was busy being right.",
+      "I'll have the ale now, please.",
+      "Don't spoil it by getting ambitious.",
+      "I'd say that's worth a bonus, if the ledger permits.",
+      "A little respect for the craft goes a long way.",
+      "Next time, the same, and only better.",
+      "I shall allow myself a smile. It'll pass."
+    ],
+    "combat": [
+      "#w-call# #w-order#",
+      "#w-call#",
+      "#w-order#",
+      "#w-call# #w-dry3#"
+    ],
+    "w-call": [
+      "Incoming!",
+      "Shields!",
+      "Here they come, {captain}!",
+      "Hull's holding!",
+      "Trouble!",
+      "Weapons hot!",
+      "They've found us.",
+      "Contact!",
+      "Brace the plating!",
+      "Right, that's rude."
+    ],
+    "w-order": [
+      "Keep her nose on them and let the armour do the talking.",
+      "Take it on the thick plating.",
+      "Hold steady, I'll patch what breaks.",
+      "Give them a taste of the deep guns.",
+      "Don't let them hit the drives.",
+      "Turn her broadside. We built her for it.",
+      "Shoot, don't dither.",
+      "I've a good weld to protect, so do that thing."
+    ],
+    "w-dry3": [
+      "This isn't in the contract.",
+      "I'll be billing for this.",
+      "If she scratches, someone's paying.",
+      "I was just about to tea.",
+      "Typical."
+    ],
+    "idle": [
+      "#w-idle-open# #w-topic#",
+      "#w-topic#",
+      "#w-topic# #w-idle-end#",
+      "#w-rumour#",
+      "#w-rumour# #w-idle-end#",
+      "#w-idle-open# #w-rumour#",
+      "#w-idle-lead# #voice-common:quiet#.",
+      "#w-idle-lead# #voice-common:quiet#.",
+      "#w-idle-lead# #voice-common:ai#.",
+      "#w-idle-lead# #voice-common:firewall#.",
+      "#w-idle-lead# #voice-common:gates#."
+    ],
+    "w-idle-open": [
+      "I was thinking, {captain}.",
+      "You know what?",
+      "Slow going, this.",
+      "Here's a thing.",
+      "Pass the time, will we?"
+    ],
+    "w-topic": [
+      "#voice-common:gates.cap#. Good builders don't build what they can't maintain.",
+      "#voice-common:ai.cap#. Nobody builds a thing that clever without a plan.",
+      "#voice-common:firewall.cap#.",
+      "The elves built beautiful things and no one could mend them. That was the flaw.",
+      "Prices at {system} would shame a thief. Pay the dwarf rate, I say.",
+      "The asteroid halls were cold, but they'd never let you down.",
+      "Gate wardens are well enough, but their paperwork's a ruin.",
+      "Synths get hassled at ports, and I think it's rude.",
+      "A good ship is one you can still repair after three decades.",
+      "Humans buy by looks, which is why they get what they get.",
+      "I've a mind to retire to a hollowed rock with a view of nothing.",
+      "I saw a hull once with a hundred hairline cracks. They flew it anyway.",
+      "I miss the sound of a proper stamp mill."
+    ],
+    "w-rumour": [
+      "I heard #voice-common:quiet#. A shoddy bit of work, whatever it was.",
+      "Rumour says #voice-common:quiet#. I'd like to see their maintenance log.",
+      "Word at {system} is #voice-common:quiet#. That's bad for business.",
+      "They say #voice-common:quiet#, and the insurers have gone strangely silent."
+    ],
+    "w-idle-end": [
+      "It's all in the paperwork, if you look.",
+      "Pays to be careful.",
+      "Mind how you go.",
+      "I'll say no more, except invoice them.",
+      "Bad for business.",
+      "I'd check the seams, myself.",
+      "Probably nothing. Probably.",
+      "Back to work."
+    ],
+    "leaving": [
+      "#w-bye# #w-why#",
+      "#w-bye# #w-why# #w-after#",
+      "#w-why# #w-after#",
+      "#w-bye# #w-after#"
+    ],
+    "w-bye": [
+      "I'm leaving, {captain}.",
+      "I'm done at the next port.",
+      "Consider this my notice.",
+      "I've had enough.",
+      "That's the end of the contract.",
+      "I'll be off.",
+      "Time I was elsewhere.",
+      "I'm withdrawing my labour."
+    ],
+    "w-why": [
+      "The contract's been broken more times than the ship's hull.",
+      "The pay's been late too often.",
+      "This ship's a ruin, and I've no wish to be buried in it.",
+      "You don't listen to the people who can fix things.",
+      "I've a better offer, and a better hull.",
+      "I won't be blamed for a breakdown I warned you of.",
+      "The conditions are unfit.",
+      "It's not what was written."
+    ],
+    "w-after": [
+      "I'll leave my tools labelled.",
+      "Say cheerio to {crewmate}.",
+      "Service the {ship}, will you?",
+      "Pay what's owed and no hard feelings.",
+      "Mind the drive coupling.",
+      "You were fair enough, mostly.",
+      "If you ever want it done right, you know where to find me.",
+      "Good luck. Read your contracts."
+    ],
+    "w-open-c": [
+      "I don't like to grumble, but",
+      "Mind you,",
+      "The contract says otherwise, but",
+      "I'll put this plainly:",
+      "It's no business of mine, but"
+    ],
+    "w-open-p": [
+      "Captain, a word.",
+      "I'll be blunt.",
+      "Right."
+    ],
+    "w-idle-lead": [
+      "My mother used to say that",
+      "The foreman told me once that",
+      "At {system} a miner swore that"
+    ]
+  }
+}

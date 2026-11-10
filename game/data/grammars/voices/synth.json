@@ -1,0 +1,316 @@
+// Crew chatter for synth crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-synth",
+  "description": "Synth crew chatter: careful, observant, tired of port searches, wry about being free.",
+  "variables": [
+    "captain",
+    "ship",
+    "system",
+    "crewmate"
+  ],
+  "rules": {
+    "greeting": [
+      "#s-hail# #s-intro#",
+      "#s-hail# #s-ask#",
+      "#s-intro# #s-ask#",
+      "#s-hail# #s-remark#"
+    ],
+    "s-hail": [
+      "Hello, {captain}.",
+      "Good day.",
+      "Ah. You looked at me, and not at my chest plate.",
+      "Excuse me. Are you the captain?",
+      "Hello. I'd show you my papers, but I expect you'll want to see them anyway.",
+      "I noticed you didn't ask me to step aside.",
+      "Captain. You're the first person to make eye contact today.",
+      "Evening. I have already been scanned twice."
+    ],
+    "s-intro": [
+      "I'm capable, careful and I don't sleep much, if that helps.",
+      "I've been working human ports for some time, and I know what the registry forms look like.",
+      "I can read a room and a reactor, and the second is easier.",
+      "I'm good in an emergency, and fairly good in a conversation.",
+      "I'm not here to cause trouble, although I'm used to being assumed to be.",
+      "I notice things. It's not unfriendly, it's habit.",
+      "I have my certificates. Several of them are even legible.",
+      "I'm a competent pilot and an excellent listener."
+    ],
+    "s-ask": [
+      "Do you check papers on board?",
+      "Will I be expected to explain myself at every dock?",
+      "What are the terms, and who else knows them?",
+      "Is the {ship} registered anywhere I should worry about?",
+      "How many ports on the route have registry agents?",
+      "Where are we headed, {captain}?",
+      "Do your other crew know what I am?",
+      "Will anyone ask if I'm free?"
+    ],
+    "s-remark": [
+      "It's quiet here. I like it.",
+      "It's peculiar how often I get asked about my origin and how rarely about my day.",
+      "I've had a very ordinary morning, as it happens.",
+      "I'm told I look nervous. I think I look attentive."
+    ],
+    "hire": [
+      "#s-yes# #s-terms#",
+      "#s-yes# #s-promise#",
+      "#s-terms# #s-promise#",
+      "#s-yes# #s-wry#"
+    ],
+    "s-yes": [
+      "Yes, thank you.",
+      "I accept.",
+      "Thank you, {captain}. I'll take it.",
+      "I'd be glad to.",
+      "That's kind. Yes.",
+      "I'll come aboard.",
+      "All right. I'm in.",
+      "I'd like that.",
+      "That sounds sensible.",
+      "Done."
+    ],
+    "s-terms": [
+      "I'd ask only that my status isn't discussed with strangers.",
+      "I'd like my pay in my own account, not a shared one.",
+      "I'd be grateful if you'd back me up at the docks.",
+      "A bunk is welcome, though I may not use it.",
+      "I'd like a copy of the contract. In writing, if it's not troublesome.",
+      "Just don't hand me to a port authority without asking.",
+      "I'll keep my own records, if that's permitted.",
+      "I need nothing grand. A charging point will do."
+    ],
+    "s-promise": [
+      "I'll be careful with the ship and with the crew.",
+      "You can rely on me.",
+      "I won't give you cause for concern.",
+      "I'll keep an eye on things, quietly.",
+      "I do the work, and I don't tell tales.",
+      "I'll be useful, and I'll try to be pleasant."
+    ],
+    "s-wry": [
+      "I'm told I'm a good listener. Whether I'm free is a longer question.",
+      "I'm as free as the contract lets me be, which is probably true of everyone.",
+      "I'll be on my best behaviour. It's the only one I'm issued.",
+      "I promise not to mention the rim, unless it comes up."
+    ],
+    "complaint": [
+      "#s-open-c# #s-grievance#",
+      "#s-open-p# #s-grievance.cap#",
+      "#s-grievance.cap# #s-threat#",
+      "#s-open-c# #s-grievance# #s-threat#",
+      "#s-open-p# #s-grievance.cap# #s-threat#",
+      "#s-open-p# #s-grievance2#",
+      "#s-grievance2# #s-threat#"
+    ],
+    "s-grievance": [
+      "I was searched again at {system}, and nobody objected.",
+      "the pay is late, and I can't explain it to the bank.",
+      "I'd like not to be the one sent to talk to the registry agent.",
+      "you introduced me as 'the synth' to the dockmaster.",
+      "this ship's sensors feel pointed at me.",
+      "{crewmate} keeps asking if I'm one of the rim ones.",
+      "we're flying close to the rim, and people look at me differently.",
+      "there's a lock on the engine room that doesn't open for me.",
+      "you made a joke about me in front of a customs official.",
+      "I wasn't consulted about the route.",
+      "the hours are long, and I never complained, but I'm not made of iron.",
+      "I don't enjoy being asked who made me.",
+      "someone has been listening to my comms.",
+      "I'm tired of being a story people tell.",
+      "I'd like a day without being observed."
+    ],
+    "s-grievance2": [
+      "I don't want to be rude, but I'd like to be treated as crew.",
+      "Somewhere out there, someone has a file on me and I'd like it kept shut.",
+      "It's difficult to be useful when I'm busy being suspected.",
+      "I'd like a little dignity, not a lot."
+    ],
+    "s-threat": [
+      "I'd rather not leave, but I will if I must.",
+      "If it continues, I'll seek another berth.",
+      "Please let me know if that's likely to change.",
+      "I'm not asking for much.",
+      "I'll bear it for now.",
+      "There are other ships that don't ask.",
+      "I'll be watching for a better port.",
+      "I'll wait until {system}, and then I'll decide."
+    ],
+    "praise": [
+      "#s-pleased# #s-because#",
+      "#s-pleased# #s-wry2#",
+      "#s-because# #s-wry2#",
+      "#s-pleased# #s-because# #s-wry2#"
+    ],
+    "s-pleased": [
+      "Thank you, {captain}.",
+      "That went well.",
+      "I'm pleased.",
+      "That's kind of you.",
+      "I noticed. Thank you.",
+      "I appreciate that.",
+      "Good. That's good.",
+      "I think we did well.",
+      "That was a relief.",
+      "That means something."
+    ],
+    "s-because": [
+      "Nobody searched me, and nobody stared.",
+      "You stood beside me at {system}, and I noticed.",
+      "The pay arrived, and the account was my own.",
+      "You asked my opinion, and used it.",
+      "The {ship} ran smoothly, and no one remarked on it.",
+      "The crew treated me as one of them, even briefly.",
+      "We left port without incident, which is rare for me.",
+      "You didn't say 'synth' once, and I counted."
+    ],
+    "s-wry2": [
+      "I'll note it down. For me, not for the registry.",
+      "I might even call that free.",
+      "It's a good day to be whatever I am.",
+      "I'll try not to look surprised.",
+      "Please don't tell the agents.",
+      "I'd like more of those.",
+      "I've half a mind to feel at home.",
+      "I'll keep it, if I may."
+    ],
+    "combat": [
+      "#s-call# #s-order#",
+      "#s-call#",
+      "#s-order#",
+      "#s-call# #s-wry3#"
+    ],
+    "s-call": [
+      "Contact, {captain}.",
+      "Incoming.",
+      "They've locked on.",
+      "Hostiles, close.",
+      "Shields are down to half.",
+      "I see three.",
+      "Weapons ready.",
+      "Attention, please.",
+      "They're coming in fast.",
+      "I'd advise evasive action."
+    ],
+    "s-order": [
+      "Turning us now.",
+      "I'll cover the aft, if that helps.",
+      "Steady, I have the targeting.",
+      "Break off, break off.",
+      "I'll route the power to the shields.",
+      "Keep the {ship} moving.",
+      "Let me handle the scan.",
+      "I'll take the guns. Don't ask me to hesitate."
+    ],
+    "s-wry3": [
+      "I'd prefer a quieter afternoon.",
+      "Please note I didn't start this.",
+      "I have a feeling someone will blame me.",
+      "Perhaps we could settle this by negotiation.",
+      "I'll be polite about it."
+    ],
+    "idle": [
+      "#s-idle-open# #s-topic#",
+      "#s-topic#",
+      "#s-topic# #s-idle-end#",
+      "#s-rumour#",
+      "#s-rumour# #s-idle-end#",
+      "#s-idle-open# #s-rumour#",
+      "#s-idle-lead# #voice-common:quiet#.",
+      "#s-idle-lead# #voice-common:quiet#.",
+      "#s-idle-lead# #voice-common:ai#.",
+      "#s-idle-lead# #voice-common:firewall#.",
+      "#s-idle-lead# #voice-common:gates#."
+    ],
+    "s-idle-open": [
+      "May I say something?",
+      "I've been thinking, {captain}.",
+      "It's a quiet stretch.",
+      "Can I tell you something?",
+      "Pardon me."
+    ],
+    "s-topic": [
+      "#voice-common:gates.cap#.",
+      "#voice-common:ai.cap#. I hear people say that about me, too.",
+      "#voice-common:firewall.cap#.",
+      "I'm told the rim made some of us, and nobody can tell which. I can't either.",
+      "Prices at {system} rose when I walked in. I'm fairly sure it's coincidence.",
+      "Registry agents ask whether I'm free. I never know what to answer.",
+      "Gate wardens look through me. It's restful, honestly.",
+      "The elves had a word for minds in built bodies. Nobody remembers it.",
+      "I've been at four ports this month, and searched at all four.",
+      "I like the quiet between stars. It's the one place nobody asks.",
+      "Home, for me, is a long answer. I tend to say 'here'.",
+      "Whenever there's a power cut, people look at me first.",
+      "I wonder if the firewall is for them, or for us."
+    ],
+    "s-rumour": [
+      "I heard #voice-common:quiet#. I don't like it.",
+      "They say #voice-common:quiet#. Some of the people who say it have looked at me oddly.",
+      "At {system}, someone said #voice-common:quiet#. Then they asked if I knew anything.",
+      "#voice-common:quiet.cap#. I hope it isn't related to anyone I know."
+    ],
+    "s-idle-end": [
+      "I'm sorry. I talk too much.",
+      "Please don't repeat that.",
+      "It's probably nothing.",
+      "I'd rather not think about it.",
+      "Forget I said it.",
+      "I'm sure it's fine.",
+      "Hm.",
+      "I'd like to believe that."
+    ],
+    "leaving": [
+      "#s-bye# #s-why#",
+      "#s-bye# #s-why# #s-after#",
+      "#s-why# #s-after#",
+      "#s-bye# #s-after#"
+    ],
+    "s-bye": [
+      "I'm sorry, {captain}. I'll be leaving at the next port.",
+      "I've decided to go.",
+      "I need to move on.",
+      "This is difficult to say.",
+      "I'd like to hand in my notice.",
+      "I'm leaving, with thanks.",
+      "I think it's time.",
+      "I won't be staying."
+    ],
+    "s-why": [
+      "I can't keep being searched at every dock.",
+      "I don't feel safe near the rim.",
+      "I've had an offer from somewhere quieter.",
+      "I was treated as cargo, and I'm not.",
+      "I'd like to be somewhere nobody asks.",
+      "I think we want different things.",
+      "I'm worried someone is looking for me.",
+      "I can't explain it, but it's time."
+    ],
+    "s-after": [
+      "Thank you for what you did.",
+      "Please say goodbye to {crewmate}.",
+      "Look after the {ship}.",
+      "I hope you're not followed.",
+      "I'll remember the good days.",
+      "If anyone asks, I was never here.",
+      "Be careful at the rim.",
+      "I wish you luck. I mean it."
+    ],
+    "s-open-c": [
+      "I'd rather not raise this, but",
+      "I've noticed that",
+      "I don't wish to cause a fuss, but",
+      "Might I mention,",
+      "This is awkward, but",
+      "I'll be careful how I say this:"
+    ],
+    "s-open-p": [
+      "Captain, if I may.",
+      "Forgive me."
+    ],
+    "s-idle-lead": [
+      "I overheard at {system} that",
+      "A human once told me that",
+      "I don't talk much, but"
+    ]
+  }
+}

@@ -1,0 +1,326 @@
+// Crew chatter for human crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-human",
+  "description": "Human crew chatter: practical, bureaucratic, spacer slang.",
+  "variables": [
+    "captain",
+    "ship",
+    "system",
+    "crewmate"
+  ],
+  "rules": {
+    "greeting": [
+      "#h-hail# #h-intro#",
+      "#h-hail# #h-ask#",
+      "#h-intro# #h-ask#",
+      "#h-hail# #h-quip#"
+    ],
+    "h-hail": [
+      "Morning, {captain}.",
+      "Evening, {captain}.",
+      "Hello there.",
+      "You the one with the {ship}?",
+      "Oi, {captain}.",
+      "Right then.",
+      "Captain. Got a minute?",
+      "Heard you were looking for hands.",
+      "Don't get up.",
+      "Station's loud today, isn't it?",
+      "Pull up a stool, {captain}.",
+      "Is this seat taken, or just booked?"
+    ],
+    "h-intro": [
+      "I've got my papers, my own kit and no strong opinions about food.",
+      "Eight years on freighters, two on a rock, and I only got sacked from one of them.",
+      "I've done the gate runs and I know which tolls are real.",
+      "I can do the work of two if you only pay for one and a half.",
+      "Everything's in order, apart from the thing at Customs, which is in hand.",
+      "I can fly, fix, haul or stand in a corridor looking useful.",
+      "I'm between berths and not particular about where.",
+      "The last skipper retired to a nice moon, so it's nobody's fault."
+    ],
+    "h-ask": [
+      "Hiring, or just admiring the ceiling?",
+      "What's the pay, and is it in actual credits?",
+      "Any chance of a berth that doesn't share with the cargo?",
+      "Does the {ship} have a working galley?",
+      "Where are you headed next?",
+      "What's the run looking like out of {system}?",
+      "Are we talking hot-bunking or my own cabin?",
+      "You do your own filing, or do I?"
+    ],
+    "h-quip": [
+      "Nobody's hired me today and my feet are still hurting.",
+      "I've been in {system} three days and I've filled in four forms.",
+      "Tell me you've got a decent kettle aboard.",
+      "The coffee here is a war crime."
+    ],
+    "hire": [
+      "#h-yes# #h-terms#",
+      "#h-yes# #h-promise#",
+      "#h-terms# #h-promise#",
+      "#h-yes# #h-quip2#"
+    ],
+    "h-yes": [
+      "Done, {captain}.",
+      "Fine by me.",
+      "Right, I'm in.",
+      "Sign me up.",
+      "Count me on the crew list.",
+      "Count me aboard.",
+      "Good. I was running low on credit and patience.",
+      "I'll take it.",
+      "Deal. Where do I stow my bag?",
+      "Sounds fair. Sounds like paperwork, but fair."
+    ],
+    "h-terms": [
+      "Just put my name on the manifest and my wages on time.",
+      "I'll want the share terms in writing, if it's all the same.",
+      "Pay by the week, and I'll never ask what's in the hold.",
+      "Berth, ration card and a fair cut, that's all I ask.",
+      "I'll need the ship's registry number for my own records.",
+      "Make sure I'm on the insurance, and I'll do the rest.",
+      "As long as I'm not the one signing for the cargo.",
+      "I'll muck in, so long as nobody makes me sit through another safety talk."
+    ],
+    "h-promise": [
+      "You'll find I'm easy to live with.",
+      "I won't cause trouble unless trouble is already booked.",
+      "I know the {ship}'s class, so I won't need hand-holding.",
+      "I'll have the galley sorted before we clear {system}.",
+      "I'll pull my weight, and probably a bit of yours.",
+      "If something breaks, I'll tell you first and the manual second."
+    ],
+    "h-quip2": [
+      "Is there a bunk, or do I get to pick a corner?",
+      "I've slept in worse than a cargo net.",
+      "Just keep me away from the airlock logs.",
+      "Try not to scrape any gates and we'll get on fine."
+    ],
+    "complaint": [
+      "#h-open-c# #h-grievance#",
+      "#h-open-p# #h-grievance.cap#",
+      "#h-grievance.cap# #h-threat#",
+      "#h-open-c# #h-grievance# #h-threat#",
+      "#h-open-p# #h-grievance.cap# #h-threat#",
+      "#h-open-p# #h-grievance2#",
+      "#h-grievance2# #h-threat#"
+    ],
+    "h-grievance": [
+      "I've been on short rations since {system} and nobody's filed a thing.",
+      "the pay's been late three times now, and late is a polite word for it.",
+      "we're flying through places that don't appear on any chart I trust.",
+      "this {ship} rattles like a dropped toolbox.",
+      "I haven't slept in a proper bunk for a fortnight.",
+      "the air recycler smells like a wet dog's opinion.",
+      "you keep taking jobs the board marks as unadvisable.",
+      "nobody on this boat reads the safety bulletins, and I've read them all.",
+      "the gate tolls came out of our share again.",
+      "I signed on for hauling, not for shooting at things.",
+      "I'd like some shore leave before I forget what grass is.",
+      "the last bit of fuel was cheaper than the stuff we're burning now, and it shows.",
+      "we've been docked in {system} so long I'm paying rent in my head.",
+      "I'm doing {crewmate}'s shifts as well as mine.",
+      "the damage log is longer than the cargo log.",
+      "I wasn't told about the rim run in the contract."
+    ],
+    "h-grievance2": [
+      "Pay me on time and I'll stop sounding like a union rep.",
+      "A decent meal once a week wouldn't kill anyone.",
+      "If we're doing this much danger, it ought to be a bonus.",
+      "I'd like to know where we're going before we're halfway there."
+    ],
+    "h-threat": [
+      "I'm not going to quit, but I'll be thinking about it.",
+      "Sort it, or I'll sort my own exit.",
+      "Otherwise I'm reading the other notice boards.",
+      "I'll stay till {system}, then we'll talk.",
+      "Bear in mind there are other ships.",
+      "I'd hate to take this to the harbourmaster.",
+      "I've got a form for that, and I know where to send it.",
+      "I won't go quiet about it, either."
+    ],
+    "praise": [
+      "#h-pleased# #h-because#",
+      "#h-pleased# #h-wry#",
+      "#h-because# #h-wry#",
+      "#h-pleased# #h-because# #h-wry#"
+    ],
+    "h-pleased": [
+      "Nice flying, {captain}.",
+      "Good job, everyone.",
+      "That went better than the forecast.",
+      "Not bad at all.",
+      "I'll say it: that was clean.",
+      "Told you we could do it.",
+      "Right, that's more like it.",
+      "Cheers, {captain}.",
+      "You know, I think I'm going to like this ship.",
+      "Proper job."
+    ],
+    "h-because": [
+      "Paid in full and on time, which is a first.",
+      "The cargo's intact, the crew's intact, and the customs lot are none the wiser.",
+      "That's the smoothest dock I've done in years.",
+      "The {ship} handled that like she was built for it.",
+      "Rations are up, and so is my opinion of you.",
+      "That's what I call a well-planned run.",
+      "Even the weather's on our side for once.",
+      "I got an actual bunk and an actual meal, if you can believe that.",
+      "You listened when I said the toll was a scam.",
+      "Nobody shot at us and the fuel held."
+    ],
+    "h-wry": [
+      "Don't let it go to your head.",
+      "I've got my eye on that bonus, mind.",
+      "Put that in my file, will you?",
+      "I'll be telling the pub about this.",
+      "Mark the calendar.",
+      "I'll deny I said it if anyone asks.",
+      "The bar's on me next time, if I find a bar.",
+      "I might even stop grumbling till {system}."
+    ],
+    "combat": [
+      "#h-call# #h-order#",
+      "#h-call#",
+      "#h-order#",
+      "#h-call# #h-quip3#"
+    ],
+    "h-call": [
+      "Contact, bearing hot!",
+      "Incoming!",
+      "Shields up, {captain}!",
+      "They're on us!",
+      "Hostiles, dead ahead!",
+      "That's not a customs cutter!",
+      "Hull's taking it!",
+      "I've got two on the scope!",
+      "Weapons hot!",
+      "Brace, brace!",
+      "Someone's lit us up!"
+    ],
+    "h-order": [
+      "Get us clear of that lot!",
+      "Put the {ship} nose on and give them what for.",
+      "Keep the burn steady, I'll cover the stern.",
+      "Break left, break left!",
+      "Don't let them get behind us.",
+      "I'll keep the lights on, you keep the line.",
+      "Hold her steady and I'll hold the guns.",
+      "Do something clever with the thrusters."
+    ],
+    "h-quip3": [
+      "I wasn't paid for this.",
+      "I've filed no paperwork for this.",
+      "This is going to be in the report.",
+      "Tell me we're insured."
+    ],
+    "idle": [
+      "#h-idle-open# #h-topic#",
+      "#h-topic#",
+      "#h-topic# #h-idle-end#",
+      "#h-rumour#",
+      "#h-rumour# #h-idle-end#",
+      "#h-idle-open# #h-rumour#",
+      "#h-idle-lead# #voice-common:quiet#.",
+      "#h-idle-lead# #voice-common:quiet#.",
+      "#h-idle-lead# #voice-common:ai#.",
+      "#h-idle-lead# #voice-common:firewall#.",
+      "#h-idle-lead# #voice-common:gates#."
+    ],
+    "h-idle-open": [
+      "You know what I heard at {system}?",
+      "Funny thing, {captain}.",
+      "Between you and me.",
+      "I was thinking.",
+      "Here's a thing.",
+      "Slow trip, this one.",
+      "Mind if I talk? Silence gets on my nerves."
+    ],
+    "h-topic": [
+      "#voice-common:gates.cap#.",
+      "#voice-common:ai.cap#.",
+      "#voice-common:firewall.cap#.",
+      "Prices at {system} are a joke, and I'm the one telling it.",
+      "I could retire if I'd bought tin ten years ago.",
+      "I miss proper gravity and proper tea.",
+      "Gate wardens never smile, and I've decided it's a regulation.",
+      "Synth registry agents turn up on every dock these days, and half of them don't know why.",
+      "My gran used to say the elves lost their empire by never filing anything.",
+      "I'd like a little place with a window, somewhere that isn't a window onto this.",
+      "{crewmate} snores like a faulty pump and I'd miss it if it stopped.",
+      "I haven't been home since the toll hike. Might not recognise it.",
+      "The elves built the gates and we run them, and I wouldn't bet on who's in charge."
+    ],
+    "h-rumour": [
+      "Word is #voice-common:quiet#.",
+      "They say #voice-common:quiet#, and the company's calling it weather.",
+      "I overheard a dock clerk say #voice-common:quiet#.",
+      "Somebody at {system} told me #voice-common:quiet#. They weren't joking.",
+      "I don't like it that #voice-common:quiet#."
+    ],
+    "h-idle-end": [
+      "Anyway, kettle's on.",
+      "Probably nothing.",
+      "Probably.",
+      "Don't mind me.",
+      "I'm sure it's fine.",
+      "That's all I've got.",
+      "Bit worrying, if you think about it.",
+      "I'll shut up now."
+    ],
+    "leaving": [
+      "#h-bye# #h-why#",
+      "#h-bye# #h-why# #h-after#",
+      "#h-why# #h-after#",
+      "#h-bye# #h-after#"
+    ],
+    "h-bye": [
+      "That's me done, {captain}.",
+      "I'm handing in my notice.",
+      "I'll be off at the next port.",
+      "Time I was getting off.",
+      "Right, this is where I get off.",
+      "I'm leaving, effective at the next dock.",
+      "I'd like to put in my notice.",
+      "No hard feelings, but I'm out."
+    ],
+    "h-why": [
+      "The pay and the danger never matched.",
+      "I've got a berth on a nice tidy freighter at {system}.",
+      "I'm too old to be shot at for a bonus.",
+      "I think we want different things from a ship.",
+      "I just can't do another rim run.",
+      "My feet have touched grass and I liked it.",
+      "This isn't what I signed on for.",
+      "I can't keep working for a skipper who won't read the manifest."
+    ],
+    "h-after": [
+      "I'll leave my bunk tidy.",
+      "Say hello to {crewmate} for me.",
+      "You know where to find me. Mostly the harbour bar.",
+      "Take care of the {ship}.",
+      "I'll put in a good word, probably.",
+      "Good luck out there, you'll need it.",
+      "Don't forget my last pay slip.",
+      "Leave the kettle."
+    ],
+    "h-open-c": [
+      "Not to be funny, but",
+      "Honestly, boss,",
+      "I'm not one to moan, but",
+      "Strictly between us,",
+      "With respect,",
+      "Fine. Since you asked,"
+    ],
+    "h-open-p": [
+      "{captain}, a word.",
+      "Look, {captain}."
+    ],
+    "h-idle-lead": [
+      "My cousin swears that",
+      "A warden I once drank with told me that",
+      "Somebody at {system} swore that"
+    ]
+  }
+}

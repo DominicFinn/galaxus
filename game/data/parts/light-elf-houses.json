@@ -1,0 +1,1386 @@
+[
+ {
+  "id": "le-drive-1",
+  "name": "Sunthread drive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 9000,
+  "description": "A slim drive that burns clean and quiet. It spins up faster than a human drive twice its weight.",
+  "stats": {
+   "thrust": 700,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "le-drive-1-2",
+  "name": "Sunthread drive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 14400,
+  "description": "Mk II retunes the lattice so the flame runs a little hotter and a little whiter.",
+  "stats": {
+   "thrust": 760,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "le-drive-1-3",
+  "name": "Sunthread drive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 23050,
+  "description": "The third retuning of the Sunthread. House engineers say it hums a half-tone higher.",
+  "stats": {
+   "thrust": 820,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "le-drive-2",
+  "name": "Wisp drive Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 27000,
+  "description": "A twin-vane drive for light hulls. It trades a robust casing for a lot less mass.",
+  "stats": {
+   "thrust": 1800,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "le-drive-2-2",
+  "name": "Wisp drive Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 43200,
+  "description": "The vanes are rewoven for a sharper burn. Handle it gently on the pad.",
+  "stats": {
+   "thrust": 1940,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "le-drive-2-3",
+  "name": "Wisp drive Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 69100,
+  "description": "Gold-filament coils replace the silver, and the thrust climbs accordingly.",
+  "stats": {
+   "thrust": 2100,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "le-drive-3",
+  "name": "Swiftbough drive Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 81000,
+  "description": "A mid-weight drive cut from a single grown crystal core, as the old houses made them.",
+  "stats": {
+   "thrust": 4500,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "le-drive-3-2",
+  "name": "Swiftbough drive Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 129600,
+  "description": "A refined Swiftbough with a tighter exhaust cone and a thinner housing.",
+  "stats": {
+   "thrust": 4860,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "le-drive-3-3",
+  "name": "Swiftbough drive Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 207350,
+  "description": "The finest Swiftbough a house will sell outside its own kin.",
+  "stats": {
+   "thrust": 5250,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "le-drive-4",
+  "name": "Gatebreath drive Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 243000,
+  "description": "A long-throat drive for large hulls. Elegant, and a good deal lighter than it looks.",
+  "stats": {
+   "thrust": 9000,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "le-drive-4-2",
+  "name": "Gatebreath drive Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 388800,
+  "description": "Resonance rings reduce the shudder at full burn. Still not for rough docking.",
+  "stats": {
+   "thrust": 9720,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "le-drive-4-3",
+  "name": "Gatebreath drive Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 622100,
+  "description": "Its exhaust is nearly colourless at full burn, which some captains find unsettling.",
+  "stats": {
+   "thrust": 10500,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "le-drive-5",
+  "name": "Skyloom drive Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 729000,
+  "description": "A great slender drive for the long freight-sails of the houses. It takes a breath before it answers.",
+  "stats": {
+   "thrust": 16000,
+   "speedFactor": 1.01
+  }
+ },
+ {
+  "id": "le-drive-5-2",
+  "name": "Skyloom drive Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 1166400,
+  "description": "Reworked ring spacing gives a cleaner thrust curve across the burn.",
+  "stats": {
+   "thrust": 17280,
+   "speedFactor": 1.04
+  }
+ },
+ {
+  "id": "le-drive-5-3",
+  "name": "Skyloom drive Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 1866250,
+  "description": "A house heirloom pattern, built to order and rarely replaced.",
+  "stats": {
+   "thrust": 18660,
+   "speedFactor": 1.07
+  }
+ },
+ {
+  "id": "le-plant-1",
+  "name": "Dawncell plant Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 7500,
+  "description": "A palm-sized solar cell that drinks starlight and gives back six pips.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 57,
+   "capacitorRecharge": 13.2
+  }
+ },
+ {
+  "id": "le-plant-1-2",
+  "name": "Dawncell plant Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 12000,
+  "description": "Mk II widens the collector petals. Capacitor charge returns noticeably faster in sunlight.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 63,
+   "capacitorRecharge": 14.5
+  }
+ },
+ {
+  "id": "le-plant-1-3",
+  "name": "Dawncell plant Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 19200,
+  "description": "A third-generation Dawncell, still no heavier than a sealed book.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 69,
+   "capacitorRecharge": 16.0
+  }
+ },
+ {
+  "id": "le-plant-2",
+  "name": "Lightwell plant Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 22500,
+  "description": "A bloom of thin collector fins around a small core. Quick to charge, quick to run dry.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 86,
+   "capacitorRecharge": 18.5
+  }
+ },
+ {
+  "id": "le-plant-2-2",
+  "name": "Lightwell plant Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 36000,
+  "description": "Finer fins and a better-cooled core. Houses fit it to couriers and explorers.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 94,
+   "capacitorRecharge": 20.3
+  }
+ },
+ {
+  "id": "le-plant-2-3",
+  "name": "Lightwell plant Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 57600,
+  "description": "The collector fins are gilded to shed heat, which is also why it costs so much.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 103,
+   "capacitorRecharge": 22.4
+  }
+ },
+ {
+  "id": "le-plant-3",
+  "name": "Starbloom plant Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 67500,
+  "description": "A medium plant for gunships and long-range hulls. Its collectors fold flat under fire.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 128,
+   "capacitorRecharge": 25.9
+  }
+ },
+ {
+  "id": "le-plant-3-2",
+  "name": "Starbloom plant Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 108000,
+  "description": "The core now holds a bigger charge before it sheds the excess.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 141,
+   "capacitorRecharge": 28.5
+  }
+ },
+ {
+  "id": "le-plant-3-3",
+  "name": "Starbloom plant Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 172800,
+  "description": "Tuned by a Selune artisan and priced like it.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 155,
+   "capacitorRecharge": 31.3
+  }
+ },
+ {
+  "id": "le-plant-4",
+  "name": "Heliarch plant Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 202500,
+  "description": "A broad solar array wrapped round a slim core. Mind the fins when docking.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 192,
+   "capacitorRecharge": 36.2
+  }
+ },
+ {
+  "id": "le-plant-4-2",
+  "name": "Heliarch plant Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 324000,
+  "description": "A steadier core and better heat paths. Recharge is generous in bright systems.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 212,
+   "capacitorRecharge": 39.8
+  }
+ },
+ {
+  "id": "le-plant-4-3",
+  "name": "Heliarch plant Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 518400,
+  "description": "Its petals track the nearest star on their own, without being asked.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 233,
+   "capacitorRecharge": 43.8
+  }
+ },
+ {
+  "id": "le-plant-5",
+  "name": "Sunheart plant Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 607500,
+  "description": "The great plant of the freight-sails. Vast, pale and surprisingly light.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 289,
+   "capacitorRecharge": 50.7
+  }
+ },
+ {
+  "id": "le-plant-5-2",
+  "name": "Sunheart plant Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 972000,
+  "description": "A revised core keeps the sail-load steady across long hauls.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 317,
+   "capacitorRecharge": 55.8
+  }
+ },
+ {
+  "id": "le-plant-5-3",
+  "name": "Sunheart plant Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 1555200,
+  "description": "A plant that charges from the faintest star. The old houses called it patience made solid.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 349,
+   "capacitorRecharge": 61.4
+  }
+ },
+ {
+  "id": "le-shield-1",
+  "name": "Veilglass Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 6500,
+  "description": "A thin film of woven light. It recovers quickly but holds little.",
+  "stats": {
+   "capacity": 70,
+   "recharge": 7.5,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "le-shield-1-2",
+  "name": "Veilglass Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 10400,
+  "description": "A tighter weave. It still breaks early and still returns early.",
+  "stats": {
+   "capacity": 77,
+   "recharge": 8.2,
+   "rechargeDelay": 2.5
+  }
+ },
+ {
+  "id": "le-shield-1-3",
+  "name": "Veilglass Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 16650,
+  "description": "A third weave from the Tirael looms; it recovers almost before the hit has stopped ringing.",
+  "stats": {
+   "capacity": 85,
+   "recharge": 9.1,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "le-shield-2",
+  "name": "Mirrorveil Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 19500,
+  "description": "A twin-layer veil for small ships. Quick to rebuild, soon exhausted.",
+  "stats": {
+   "capacity": 158,
+   "recharge": 16.9,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "le-shield-2-2",
+  "name": "Mirrorveil Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 31200,
+  "description": "The outer layer is lengthened to shed glancing fire.",
+  "stats": {
+   "capacity": 174,
+   "recharge": 18.6,
+   "rechargeDelay": 2.5
+  }
+ },
+ {
+  "id": "le-shield-2-3",
+  "name": "Mirrorveil Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 49900,
+  "description": "A fine veil, and a costly one. Heavy weapons go through it rather easily.",
+  "stats": {
+   "capacity": 192,
+   "recharge": 20.4,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "le-shield-3",
+  "name": "Silverfall Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 58500,
+  "description": "A falling curtain of light fed by a slim emitter ring.",
+  "stats": {
+   "capacity": 334,
+   "recharge": 35.6,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "le-shield-3-2",
+  "name": "Silverfall Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 93600,
+  "description": "Better emitter spacing gives it more depth and a shorter pause before recovery.",
+  "stats": {
+   "capacity": 368,
+   "recharge": 39.2,
+   "rechargeDelay": 2.5
+  }
+ },
+ {
+  "id": "le-shield-3-3",
+  "name": "Silverfall Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 149750,
+  "description": "The ring is cut with a house crest; it does nothing for the shield but captains like it.",
+  "stats": {
+   "capacity": 405,
+   "recharge": 43.1,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "le-shield-4",
+  "name": "Aegis of Dawn Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 175500,
+  "description": "A great curved screen of pale light. It shrugs off small fire and nothing bigger.",
+  "stats": {
+   "capacity": 616,
+   "recharge": 65.6,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "le-shield-4-2",
+  "name": "Aegis of Dawn Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 280800,
+  "description": "A refined screen with a faster recharge between volleys.",
+  "stats": {
+   "capacity": 678,
+   "recharge": 72.2,
+   "rechargeDelay": 2.5
+  }
+ },
+ {
+  "id": "le-shield-4-3",
+  "name": "Aegis of Dawn Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 449300,
+  "description": "Built for houses that expect to be shot at only rarely and politely.",
+  "stats": {
+   "capacity": 745,
+   "recharge": 79.4,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "le-shield-5",
+  "name": "Lanternward Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 526500,
+  "description": "A broad lantern-shaped field that spreads the load over a wide surface.",
+  "stats": {
+   "capacity": 1056,
+   "recharge": 112.5,
+   "rechargeDelay": 2.6
+  }
+ },
+ {
+  "id": "le-shield-5-2",
+  "name": "Lanternward Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 842400,
+  "description": "The field is retuned to refill briskly once the shooting stops.",
+  "stats": {
+   "capacity": 1162,
+   "recharge": 123.8,
+   "rechargeDelay": 2.5
+  }
+ },
+ {
+  "id": "le-shield-5-3",
+  "name": "Lanternward Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 1347850,
+  "description": "The largest veil the houses build, and the thinnest for its size.",
+  "stats": {
+   "capacity": 1278,
+   "recharge": 136.1,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "le-sensor-1",
+  "name": "Listening glass Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 3500,
+  "description": "A small crystal lens that hears the faint song of other ships' drives.",
+  "stats": {
+   "range": 6500
+  }
+ },
+ {
+  "id": "le-sensor-1-2",
+  "name": "Listening glass Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 5600,
+  "description": "A sharper lens grown on a cooler cut.",
+  "stats": {
+   "range": 7500
+  }
+ },
+ {
+  "id": "le-sensor-1-3",
+  "name": "Listening glass Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 8950,
+  "description": "The lens has been polished by hand, which accounts for the price.",
+  "stats": {
+   "range": 8500
+  }
+ },
+ {
+  "id": "le-sensor-2",
+  "name": "Far-seeing lens Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 10500,
+  "description": "A paired-lens suite that reaches well past what its size suggests.",
+  "stats": {
+   "range": 9500
+  }
+ },
+ {
+  "id": "le-sensor-2-2",
+  "name": "Far-seeing lens Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 16800,
+  "description": "A wider aperture and a calmer filter.",
+  "stats": {
+   "range": 10500
+  }
+ },
+ {
+  "id": "le-sensor-2-3",
+  "name": "Far-seeing lens Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 26900,
+  "description": "Resolves a lit window at the far end of a system, or so the house claims.",
+  "stats": {
+   "range": 11500
+  }
+ },
+ {
+  "id": "le-sensor-3",
+  "name": "Starcaller array Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 31500,
+  "description": "A latticework dish of silver ribs. It sees much and survives little.",
+  "stats": {
+   "range": 12500
+  }
+ },
+ {
+  "id": "le-sensor-3-2",
+  "name": "Starcaller array Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 50400,
+  "description": "The ribs are doubled and the filter retuned for deep-system work.",
+  "stats": {
+   "range": 13500
+  }
+ },
+ {
+  "id": "le-sensor-3-3",
+  "name": "Starcaller array Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 80650,
+  "description": "Houses say it can tell a gate's mood from three jumps off.",
+  "stats": {
+   "range": 14500
+  }
+ },
+ {
+  "id": "le-cargo-1",
+  "name": "Willow rack",
+  "type": "cargo",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 1800,
+  "description": "Slatted racks that fold down when empty, light and tidy.",
+  "stats": {
+   "tonnes": 8
+  }
+ },
+ {
+  "id": "le-cargo-2",
+  "name": "Reed hold",
+  "type": "cargo",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 3950,
+  "description": "A woven hold of pale composite, strong for its weight and no more.",
+  "stats": {
+   "tonnes": 16
+  }
+ },
+ {
+  "id": "le-cargo-3",
+  "name": "Lantern hold",
+  "type": "cargo",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 8700,
+  "description": "A lit, ventilated bay for goods the houses would rather not see crushed.",
+  "stats": {
+   "tonnes": 32
+  }
+ },
+ {
+  "id": "le-cargo-4",
+  "name": "Long hold",
+  "type": "cargo",
+  "size": 4,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 19150,
+  "description": "A slender hold running the keel, with a rail for house-sealed crates.",
+  "stats": {
+   "tonnes": 64
+  }
+ },
+ {
+  "id": "le-cargo-5",
+  "name": "Grand hold",
+  "type": "cargo",
+  "size": 5,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 42150,
+  "description": "A broad hold of pale ribs, packed with careful ceremony.",
+  "stats": {
+   "tonnes": 128
+  }
+ },
+ {
+  "id": "le-lance-1",
+  "name": "Lance Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 5500,
+  "color": "#7fe8ff",
+  "description": "A fine, fast bolt that flies true to long range. It needs a steady hand.",
+  "stats": {
+   "damage": 7.0,
+   "fireRate": 5.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-1-2",
+  "name": "Lance Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 8800,
+  "color": "#7fe8ff",
+  "description": "Mk II tightens the focus again, and the bolt lands where it was aimed.",
+  "stats": {
+   "damage": 7.7,
+   "fireRate": 5.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-1-3",
+  "name": "Lance Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 14100,
+  "color": "#7fe8ff",
+  "description": "The best lance a house will sell to a stranger.",
+  "stats": {
+   "damage": 8.5,
+   "fireRate": 5.0,
+   "energyPerShot": 2.0,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-2",
+  "name": "Twin Lance Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 16500,
+  "color": "#7fe8ff",
+  "description": "A two-barrel lance for light gunships. Each shot is crisp and cheap.",
+  "stats": {
+   "damage": 14.0,
+   "fireRate": 4.0,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-2-2",
+  "name": "Twin Lance Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 26400,
+  "color": "#7fe8ff",
+  "description": "Longer barrels, slightly harder bolts.",
+  "stats": {
+   "damage": 15.4,
+   "fireRate": 4.0,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-2-3",
+  "name": "Twin Lance Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 42250,
+  "color": "#7fe8ff",
+  "description": "A drawn-out lance with a pale gold muzzle ring.",
+  "stats": {
+   "damage": 16.9,
+   "fireRate": 4.0,
+   "energyPerShot": 3.6,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-3",
+  "name": "Grand Lance Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 49500,
+  "color": "#7fe8ff",
+  "description": "A heavy lance that fires a bolt the length of an arm. It scarcely needs to lead a target.",
+  "stats": {
+   "damage": 28.0,
+   "fireRate": 3.2,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-3-2",
+  "name": "Grand Lance Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 79200,
+  "color": "#7fe8ff",
+  "description": "A heavy lance with improved focus crystals.",
+  "stats": {
+   "damage": 30.8,
+   "fireRate": 3.2,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-lance-3-3",
+  "name": "Grand Lance Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 126700,
+  "color": "#7fe8ff",
+  "description": "A house duelling-lance scaled up for ships. Its report is almost musical.",
+  "stats": {
+   "damage": 33.9,
+   "fireRate": 3.2,
+   "energyPerShot": 6.5,
+   "projectileSpeed": 1700,
+   "range": 2600
+  }
+ },
+ {
+  "id": "le-prism-1",
+  "name": "Prism emitter Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 5500,
+  "color": "#ffd86b",
+  "description": "A faceted emitter that scatters its light into a rapid stream. Short range, easy on power.",
+  "stats": {
+   "damage": 3.5,
+   "fireRate": 11.0,
+   "energyPerShot": 1.5,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-1-2",
+  "name": "Prism emitter Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 8800,
+  "color": "#ffd86b",
+  "description": "Cleaner facets and a hotter flash.",
+  "stats": {
+   "damage": 3.9,
+   "fireRate": 11.0,
+   "energyPerShot": 1.5,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-1-3",
+  "name": "Prism emitter Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 14100,
+  "color": "#ffd86b",
+  "description": "The facets are cut in threes, so the stream sings as it fires.",
+  "stats": {
+   "damage": 4.2,
+   "fireRate": 11.0,
+   "energyPerShot": 1.5,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-2",
+  "name": "Twin Prism emitter Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 16500,
+  "color": "#ffd86b",
+  "description": "A bigger prism with a spun mount. It sprays fast and sips energy.",
+  "stats": {
+   "damage": 7.0,
+   "fireRate": 8.8,
+   "energyPerShot": 2.7,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-2-2",
+  "name": "Twin Prism emitter Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 26400,
+  "color": "#ffd86b",
+  "description": "A re-cut prism with a narrower beam.",
+  "stats": {
+   "damage": 7.7,
+   "fireRate": 8.8,
+   "energyPerShot": 2.7,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-2-3",
+  "name": "Twin Prism emitter Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 42250,
+  "color": "#ffd86b",
+  "description": "Its stream throws coloured shadows across the hull at close range.",
+  "stats": {
+   "damage": 8.5,
+   "fireRate": 8.8,
+   "energyPerShot": 2.7,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-3",
+  "name": "Grand Prism emitter Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 49500,
+  "color": "#ffd86b",
+  "description": "A full prism cluster for gunships. It chews through shields at close quarters.",
+  "stats": {
+   "damage": 14.0,
+   "fireRate": 7.04,
+   "energyPerShot": 4.9,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-3-2",
+  "name": "Grand Prism emitter Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 79200,
+  "color": "#ffd86b",
+  "description": "A tuned cluster with better heat paths.",
+  "stats": {
+   "damage": 15.4,
+   "fireRate": 7.04,
+   "energyPerShot": 4.9,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-prism-3-3",
+  "name": "Grand Prism emitter Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 126700,
+  "color": "#ffd86b",
+  "description": "A house heirloom pattern that costs more than the ship that carries it should.",
+  "stats": {
+   "damage": 16.9,
+   "fireRate": 7.04,
+   "energyPerShot": 4.9,
+   "projectileSpeed": 1200,
+   "range": 1500
+  }
+ },
+ {
+  "id": "le-sunthread-1",
+  "name": "Sunthread caster Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 5500,
+  "color": "#fff2b0",
+  "description": "A slow caster that spins a single bright thread of light across great distances.",
+  "stats": {
+   "damage": 22.0,
+   "fireRate": 1.6,
+   "energyPerShot": 5.0,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-1-2",
+  "name": "Sunthread caster Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 8800,
+  "color": "#fff2b0",
+  "description": "The thread is tighter and carries further.",
+  "stats": {
+   "damage": 24.2,
+   "fireRate": 1.6,
+   "energyPerShot": 5.0,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-1-3",
+  "name": "Sunthread caster Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 14100,
+  "color": "#fff2b0",
+  "description": "Each shot takes a breath to gather. The house calls this restraint.",
+  "stats": {
+   "damage": 26.6,
+   "fireRate": 1.6,
+   "energyPerShot": 5.0,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-2",
+  "name": "Twin Sunthread caster Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 16500,
+  "color": "#fff2b0",
+  "description": "A slow, heavy thread that reaches very far and hurts a good deal on arrival.",
+  "stats": {
+   "damage": 44.0,
+   "fireRate": 1.28,
+   "energyPerShot": 9.0,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-2-2",
+  "name": "Twin Sunthread caster Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 26400,
+  "color": "#fff2b0",
+  "description": "A steadier gather and a longer reach.",
+  "stats": {
+   "damage": 48.4,
+   "fireRate": 1.28,
+   "energyPerShot": 9.0,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-2-3",
+  "name": "Twin Sunthread caster Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 42250,
+  "color": "#fff2b0",
+  "description": "Fires like a held note, and lands like a closed door.",
+  "stats": {
+   "damage": 53.2,
+   "fireRate": 1.28,
+   "energyPerShot": 9.0,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-3",
+  "name": "Grand Sunthread caster Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 49500,
+  "color": "#fff2b0",
+  "description": "A gunship caster that draws on the plant for every shot. It is formidable and demanding.",
+  "stats": {
+   "damage": 88.0,
+   "fireRate": 1.02,
+   "energyPerShot": 16.2,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-3-2",
+  "name": "Grand Sunthread caster Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 79200,
+  "color": "#fff2b0",
+  "description": "Improved gather coils shorten the pause between shots.",
+  "stats": {
+   "damage": 96.8,
+   "fireRate": 1.02,
+   "energyPerShot": 16.2,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-sunthread-3-3",
+  "name": "Grand Sunthread caster Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "light-elf-houses",
+  "price": 126700,
+  "color": "#fff2b0",
+  "description": "The great sunthread of the old line-ships, rebuilt for modern hulls.",
+  "stats": {
+   "damage": 106.5,
+   "fireRate": 1.02,
+   "energyPerShot": 16.2,
+   "projectileSpeed": 2400,
+   "range": 3600
+  }
+ },
+ {
+  "id": "le-solar-sail",
+  "name": "Solar sail",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 12000,
+  "description": "A gossamer sail that unfolds in open space. Adds starlight recharge but folds away in combat.",
+  "stats": {
+   "starRecharge": 0.25,
+   "deployTime": 4
+  }
+ },
+ {
+  "id": "le-solar-sail-2",
+  "name": "Great solar sail",
+  "type": "utility",
+  "size": 2,
+  "mark": 2,
+  "builder": "light-elf-houses",
+  "price": 20000,
+  "description": "A wider sail with gold-thread edging. It charges well near a bright star and tears easily.",
+  "stats": {
+   "starRecharge": 0.45,
+   "deployTime": 5
+  }
+ },
+ {
+  "id": "le-gate-resonator",
+  "name": "Gate resonator",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 15000,
+  "description": "A tuned crystal that listens for gate harmonics. It shortens the approach to a gate and says nothing about how.",
+  "stats": {
+   "gateApproach": 0.85,
+   "gateFuelSaving": 0.1
+  }
+ },
+ {
+  "id": "le-songlens",
+  "name": "Songlens",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "light-elf-houses",
+  "price": 9000,
+  "description": "A small lens that picks out ship signatures a little earlier. The elves hear it as a note, and so can you if you stand still.",
+  "stats": {
+   "contactWarning": 1.2,
+   "sensorRange": 0.1
+  }
+ }
+]

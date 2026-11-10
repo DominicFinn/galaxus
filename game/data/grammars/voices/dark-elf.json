@@ -1,0 +1,321 @@
+// Crew chatter for dark-elf crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-dark-elf",
+  "description": "Dark elf crew chatter: terse, watchful, dry, hinting at what they know of the rim.",
+  "variables": [
+    "captain",
+    "ship",
+    "system",
+    "crewmate"
+  ],
+  "rules": {
+    "greeting": [
+      "#d-hail# #d-intro#",
+      "#d-hail# #d-ask#",
+      "#d-intro# #d-ask#",
+      "#d-hail# #d-remark#"
+    ],
+    "d-hail": [
+      "Captain.",
+      "You, then.",
+      "I saw you come in.",
+      "{captain}.",
+      "You were watching the door.",
+      "You pay, or you ask?",
+      "Sit. Or stand. I'm watching either way.",
+      "Lights are low in here. Good.",
+      "Don't turn round.",
+      "A ship with that registry. Interesting."
+    ],
+    "d-intro": [
+      "I know the dark side of most systems.",
+      "I've stayed alive somewhere you'd call a ruin.",
+      "I see more than I mention.",
+      "I'm good with sensors and better with silence.",
+      "I've been to the rim. Came back.",
+      "I don't talk much. I listen, which is cheaper.",
+      "I can find the way out of any room.",
+      "I carry nothing I can't leave behind."
+    ],
+    "d-ask": [
+      "What are you carrying?",
+      "Where to?",
+      "Any friends I should know about?",
+      "Do I get a locked door?",
+      "What's in {system} that you want?",
+      "Who else is aboard?",
+      "How much of this is legal?",
+      "And who's paying, really?"
+    ],
+    "d-remark": [
+      "Quiet station. Too quiet.",
+      "Everyone here is looking at someone else.",
+      "The air tastes of recycled lies.",
+      "I'd leave soon, if I were you."
+    ],
+    "hire": [
+      "#d-yes# #d-terms#",
+      "#d-yes# #d-warn#",
+      "#d-terms# #d-warn#",
+      "#d-yes# #d-hint#"
+    ],
+    "d-yes": [
+      "Fine.",
+      "I'm in.",
+      "All right.",
+      "You'll do.",
+      "Agreed.",
+      "Done.",
+      "I'll come.",
+      "Why not.",
+      "I've heard worse offers.",
+      "Hm. Yes."
+    ],
+    "d-terms": [
+      "Pay me clean and on time.",
+      "I keep my own hours.",
+      "No questions about where I've been.",
+      "I sleep light. Don't test it.",
+      "Don't read my files.",
+      "I'll take the watch nobody else wants.",
+      "A cabin with a lock. That's all.",
+      "The pay's secondary, {captain}. Don't tell the others."
+    ],
+    "d-warn": [
+      "Don't ask what I know, and I won't ask what you do.",
+      "If I go quiet, it's not a fault.",
+      "You'll see little of me, and that's the idea.",
+      "I'll tell you what you need, when you need it.",
+      "Keep the lights low and we'll do well.",
+      "Look after the {ship}. She'll look after you, up to a point."
+    ],
+    "d-hint": [
+      "Some of the places you'll want to go are closer than the charts say.",
+      "The rim isn't empty. It just keeps its own counsel.",
+      "I've got a good idea of where the quiet ships end up.",
+      "You'd be surprised what grows in the dark."
+    ],
+    "complaint": [
+      "#d-open-c# #d-grievance#",
+      "#d-open-p# #d-grievance.cap#",
+      "#d-grievance.cap# #d-threat#",
+      "#d-open-c# #d-grievance# #d-threat#",
+      "#d-open-p# #d-grievance.cap# #d-threat#",
+      "#d-open-p# #d-grievance2#",
+      "#d-grievance2# #d-threat#"
+    ],
+    "d-grievance": [
+      "you leave the lights on all night.",
+      "nobody's paid me since {system}.",
+      "the engines are too loud for hiding.",
+      "you're flying where we'll be seen.",
+      "{crewmate} is talking too much to the wrong people.",
+      "this contract smells like a trap.",
+      "the cabin has no lock.",
+      "we docked at {system} and told everyone our route.",
+      "I don't like the cargo, or the buyer.",
+      "nobody explained the job, and I can guess why.",
+      "the ship's log is too accurate, and someone will read it.",
+      "you trusted that broker, and I didn't.",
+      "we keep running the same lane. Someone's learning it.",
+      "you didn't ask me about the signal.",
+      "there's a heat signature trailing us and nobody's mentioned it.",
+      "I wasn't told we'd be fighting.",
+      "The pay doesn't cover being this careful."
+    ],
+    "d-grievance2": [
+      "Pay up, or I'll be gone before the lights come on.",
+      "I can live with danger. Not with stupidity.",
+      "It's not the pay, it's the noise.",
+      "I've seen what happens to ships like this."
+    ],
+    "d-threat": [
+      "I'll leave without a word.",
+      "You won't see me go.",
+      "Fix it.",
+      "Or I'll get off at {system}.",
+      "I'm not asking twice.",
+      "There are other captains, and quieter.",
+      "Think about it.",
+      "Don't make me count the exits."
+    ],
+    "praise": [
+      "#d-pleased# #d-because#",
+      "#d-pleased# #d-dry#",
+      "#d-because# #d-dry#",
+      "#d-pleased# #d-because# #d-dry#"
+    ],
+    "d-pleased": [
+      "Good.",
+      "Not bad.",
+      "That'll do.",
+      "Clean.",
+      "Better.",
+      "Hm. Impressive.",
+      "I noticed.",
+      "You're learning.",
+      "Well, well.",
+      "A quiet success."
+    ],
+    "d-because": [
+      "Nobody saw us, and nobody will.",
+      "We left no trail worth the name.",
+      "You paid on time, and no one asked why.",
+      "The {ship} ran dark just as she should.",
+      "No shots, no scans, no witnesses.",
+      "You trusted my read, and it held.",
+      "{system} will remember nothing, which is perfect.",
+      "You've kept your head and your mouth shut."
+    ],
+    "d-dry": [
+      "Don't spoil it.",
+      "Say nothing to anyone.",
+      "Keep it that way.",
+      "I'll tell you if that changes.",
+      "Even I'm half surprised.",
+      "I'll remember this, quietly.",
+      "Someone's watching, and they approve.",
+      "Not a word."
+    ],
+    "combat": [
+      "#d-call# #d-order#",
+      "#d-call#",
+      "#d-order#",
+      "#d-call# #d-dry2#"
+    ],
+    "d-call": [
+      "Contact.",
+      "They found us.",
+      "Shields.",
+      "Three, bearing red.",
+      "Behind us.",
+      "Hostiles, closing.",
+      "Silent running's over.",
+      "I knew it.",
+      "Incoming.",
+      "Down, now.",
+      "They're loud. Good."
+    ],
+    "d-order": [
+      "Cut the engines and let them overshoot.",
+      "Hit the weak side.",
+      "Put the {ship} behind that rock.",
+      "Don't give them a clear shot.",
+      "I'll take the scope, you take the stick.",
+      "Go dark.",
+      "Fire when they're close.",
+      "Now, {captain}. Now."
+    ],
+    "d-dry2": [
+      "Told you.",
+      "Expected.",
+      "Always the same.",
+      "They're amateurs.",
+      "Somebody sent them."
+    ],
+    "idle": [
+      "#d-idle-open# #d-topic#",
+      "#d-topic#",
+      "#d-topic# #d-idle-end#",
+      "#d-rumour#",
+      "#d-rumour# #d-idle-end#",
+      "#d-idle-open# #d-rumour#",
+      "#d-idle-lead# #voice-common:quiet#.",
+      "#d-idle-lead# #voice-common:quiet#.",
+      "#d-idle-lead# #voice-common:ai#.",
+      "#d-idle-lead# #voice-common:firewall#.",
+      "#d-idle-lead# #voice-common:gates#."
+    ],
+    "d-idle-open": [
+      "You wanted to talk?",
+      "Quiet out there.",
+      "Here's something.",
+      "I'll say one thing.",
+      "I walked the old corridors once."
+    ],
+    "d-topic": [
+      "#voice-common:gates.cap#.",
+      "#voice-common:ai.cap#. Nobody believes me.",
+      "#voice-common:firewall.cap#.",
+      "The elders left a lot of doors, and not all of them are locked.",
+      "The rim isn't empty. It's just not interested in you.",
+      "Prices at {system}? A trap for people who still believe in markets.",
+      "Gate wardens see everything and check nothing. I like them.",
+      "Synth agents at the docks aren't looking for synths. Not really.",
+      "The old empire fell because someone stopped listening. Or someone began.",
+      "Home is a ruin that still has the lights on.",
+      "People ask if we made a deal. We say we stayed. They hear what they want.",
+      "Some stations out there keep humming even when nobody's powering them.",
+      "You'd be surprised how many people leave the rim and bring nothing back."
+    ],
+    "d-rumour": [
+      "#voice-common:quiet.cap#. I know where, roughly.",
+      "I've heard #voice-common:quiet#. It isn't news to me.",
+      "They say #voice-common:quiet#. They don't say it quietly enough.",
+      "You know #voice-common:quiet#? Ask what they were carrying."
+    ],
+    "d-idle-end": [
+      "Forget I said it.",
+      "That's all.",
+      "Don't ask.",
+      "I might be wrong.",
+      "I'm rarely wrong.",
+      "Keep your eyes open.",
+      "You didn't hear it here.",
+      "Never mind."
+    ],
+    "leaving": [
+      "#d-bye# #d-why#",
+      "#d-bye# #d-why# #d-after#",
+      "#d-why# #d-after#",
+      "#d-bye# #d-after#"
+    ],
+    "d-bye": [
+      "I'm off at the next port.",
+      "I'm done, {captain}.",
+      "This is where I leave.",
+      "You'll find my bunk empty.",
+      "I leave at {system}.",
+      "Time to go.",
+      "I've decided.",
+      "Consider this my notice."
+    ],
+    "d-why": [
+      "You were too loud.",
+      "Too many eyes on this ship.",
+      "I know where this ends, and I'm not going.",
+      "The pay was never the point, and it wasn't enough.",
+      "You didn't listen.",
+      "It's turning bad, and I can smell it.",
+      "Somebody's looking for me, and it isn't you.",
+      "This isn't my fight."
+    ],
+    "d-after": [
+      "Watch your back.",
+      "Don't look for me.",
+      "Mind the {ship}.",
+      "Say nothing of where I went.",
+      "I'd keep clear of the rim, if I were you.",
+      "Luck. You'll want it.",
+      "{crewmate} knows how to reach me. Barely.",
+      "You were all right, for a captain."
+    ],
+    "d-open-c": [
+      "Noted, and now spoken:"
+    ],
+    "d-open-p": [
+      "{captain}.",
+      "Listen.",
+      "A note.",
+      "Don't take this wrong.",
+      "I'll say this once.",
+      "You asked.",
+      "Two things."
+    ],
+    "d-idle-lead": [
+      "Someone told me that",
+      "Not for the log, but",
+      "I'll tell you, since we're far from anyone, that"
+    ]
+  }
+}

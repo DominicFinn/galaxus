@@ -1,0 +1,1386 @@
+[
+ {
+  "id": "fm-drive-1-1",
+  "name": "Lathe drive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 7500,
+  "description": "A palm-sized fusion lattice that burns what it is given and wastes very little.",
+  "stats": {
+   "thrust": 700,
+   "speedFactor": 1.02
+  }
+ },
+ {
+  "id": "fm-drive-1-2",
+  "name": "Lathe drive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 12000,
+  "description": "Same lattice, re-cut so the plasma path has fewer corners.",
+  "stats": {
+   "thrust": 756,
+   "speedFactor": 1.05
+  }
+ },
+ {
+  "id": "fm-drive-1-3",
+  "name": "Lathe drive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 19200,
+  "description": "Adds a second throat that opens only under load. Nobody has seen it close.",
+  "stats": {
+   "thrust": 812,
+   "speedFactor": 1.08
+  }
+ },
+ {
+  "id": "fm-drive-2-1",
+  "name": "Gimbal drive Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 22500,
+  "description": "Two counter-rotating nozzles share one reaction chamber. The noise is a single held note.",
+  "stats": {
+   "thrust": 1700,
+   "speedFactor": 1.02
+  }
+ },
+ {
+  "id": "fm-drive-2-2",
+  "name": "Gimbal drive Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 36000,
+  "description": "Nozzle geometry revised after an argument between three foundry nodes. All three were right.",
+  "stats": {
+   "thrust": 1836,
+   "speedFactor": 1.05
+  }
+ },
+ {
+  "id": "fm-drive-2-3",
+  "name": "Gimbal drive Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 57600,
+  "description": "Runs hot and clean, and the exhaust glows a colour the sensors argue about.",
+  "stats": {
+   "thrust": 1972,
+   "speedFactor": 1.08
+  }
+ },
+ {
+  "id": "fm-drive-3-1",
+  "name": "Annulus drive Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 67500,
+  "description": "A ring of small chambers fires in sequence, so thrust never quite arrives from one place.",
+  "stats": {
+   "thrust": 4000,
+   "speedFactor": 1.02
+  }
+ },
+ {
+  "id": "fm-drive-3-2",
+  "name": "Annulus drive Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 108000,
+  "description": "The ring fires out of order on purpose. Pilots say it feels like being thought about.",
+  "stats": {
+   "thrust": 4320,
+   "speedFactor": 1.05
+  }
+ },
+ {
+  "id": "fm-drive-3-3",
+  "name": "Annulus drive Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 172800,
+  "description": "Chambers are tuned to each other rather than to the hull. It does not care what it is bolted to.",
+  "stats": {
+   "thrust": 4640,
+   "speedFactor": 1.08
+  }
+ },
+ {
+  "id": "fm-drive-4-1",
+  "name": "Tensor drive Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 202500,
+  "description": "A lattice drive built around a hollow core. Thrust is steady and the mass accounting is slightly generous.",
+  "stats": {
+   "thrust": 8000,
+   "speedFactor": 1.02
+  }
+ },
+ {
+  "id": "fm-drive-4-2",
+  "name": "Tensor drive Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 324000,
+  "description": "Core cooled by a loop nobody on the design team could explain afterwards.",
+  "stats": {
+   "thrust": 8640,
+   "speedFactor": 1.05
+  }
+ },
+ {
+  "id": "fm-drive-4-3",
+  "name": "Tensor drive Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 518400,
+  "description": "Hollow core filled with something that is not documented. Output is exact to six places.",
+  "stats": {
+   "thrust": 9280,
+   "speedFactor": 1.08
+  }
+ },
+ {
+  "id": "fm-drive-5-1",
+  "name": "Kiln-ring drive Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 607500,
+  "description": "A foundry-scale ring drive. Ports ask for a written statement before it is allowed to dock.",
+  "stats": {
+   "thrust": 14000,
+   "speedFactor": 1.02
+  }
+ },
+ {
+  "id": "fm-drive-5-2",
+  "name": "Kiln-ring drive Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 972000,
+  "description": "The ring is machined from one piece and shows no seams. It hums when the ship is idle.",
+  "stats": {
+   "thrust": 15120,
+   "speedFactor": 1.05
+  }
+ },
+ {
+  "id": "fm-drive-5-3",
+  "name": "Kiln-ring drive Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 1555200,
+  "description": "Third revision of a drive that was already finished. The foundry made it anyway.",
+  "stats": {
+   "thrust": 16240,
+   "speedFactor": 1.08
+  }
+ },
+ {
+  "id": "fm-plant-1-1",
+  "name": "Seed power plant Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 6500,
+  "description": "Six pips from a core the size of a fist, with a fat capacitor for its class.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 66,
+   "capacitorRecharge": 13.0
+  }
+ },
+ {
+  "id": "fm-plant-1-2",
+  "name": "Seed power plant Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 10400,
+  "description": "Holds its charge a little longer than it has any reason to.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 73,
+   "capacitorRecharge": 14.3
+  }
+ },
+ {
+  "id": "fm-plant-1-3",
+  "name": "Seed power plant Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 16650,
+  "description": "Capacitor cells are grown in place and do not match each other.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 79,
+   "capacitorRecharge": 15.6
+  }
+ },
+ {
+  "id": "fm-plant-2-1",
+  "name": "Furnace power plant Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 19500,
+  "description": "Burns slowly and spends the heat on the capacitor first, the crew second. There is no crew.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 99,
+   "capacitorRecharge": 18.0
+  }
+ },
+ {
+  "id": "fm-plant-2-2",
+  "name": "Furnace power plant Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 31200,
+  "description": "Output steady enough to set a clock by, which some owners do.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 109,
+   "capacitorRecharge": 19.8
+  }
+ },
+ {
+  "id": "fm-plant-2-3",
+  "name": "Furnace power plant Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 49900,
+  "description": "Adds a reserve loop that fills only when nothing is asking for power.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 119,
+   "capacitorRecharge": 21.6
+  }
+ },
+ {
+  "id": "fm-plant-3-1",
+  "name": "Cairn power plant Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 58500,
+  "description": "A stacked plant with eight thin cores. If one fails the others close over the gap.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 148,
+   "capacitorRecharge": 26.0
+  }
+ },
+ {
+  "id": "fm-plant-3-2",
+  "name": "Cairn power plant Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 93600,
+  "description": "Cores are re-paired every few minutes for reasons the log does not give.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 163,
+   "capacitorRecharge": 28.6
+  }
+ },
+ {
+  "id": "fm-plant-3-3",
+  "name": "Cairn power plant Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 149750,
+  "description": "The pairing logic has begun to anticipate demand. Draw spikes are met before they arrive.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 178,
+   "capacitorRecharge": 31.2
+  }
+ },
+ {
+  "id": "fm-plant-4-1",
+  "name": "Loom power plant Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 175500,
+  "description": "A woven plant that treats its own waste heat as feedstock.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 222,
+   "capacitorRecharge": 36.0
+  }
+ },
+ {
+  "id": "fm-plant-4-2",
+  "name": "Loom power plant Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 280800,
+  "description": "Weave tightened. It recovers in under a second from any overdraw.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 244,
+   "capacitorRecharge": 39.6
+  }
+ },
+ {
+  "id": "fm-plant-4-3",
+  "name": "Loom power plant Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 449300,
+  "description": "Weave now spans the hull frame. Removing it is called a transplant.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 266,
+   "capacitorRecharge": 43.2
+  }
+ },
+ {
+  "id": "fm-plant-5-1",
+  "name": "Hearth-engine power plant Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 526500,
+  "description": "A plant that runs at the pace of the ship it serves and no faster.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 333,
+   "capacitorRecharge": 50.0
+  }
+ },
+ {
+  "id": "fm-plant-5-2",
+  "name": "Hearth-engine power plant Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 842400,
+  "description": "Output curve flattened until nothing could be called a peak.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 366,
+   "capacitorRecharge": 55.0
+  }
+ },
+ {
+  "id": "fm-plant-5-3",
+  "name": "Hearth-engine power plant Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 1347850,
+  "description": "The last foundry-grade plant. It runs with the load shed to nothing, and nobody can say why.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 400,
+   "capacitorRecharge": 60.0
+  }
+ },
+ {
+  "id": "fm-shield-1-1",
+  "name": "Veil shield Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 6000,
+  "description": "A thin skin of charge with a quick recovery and a lower ceiling than the competition.",
+  "stats": {
+   "capacity": 72,
+   "recharge": 7.2,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "fm-shield-1-2",
+  "name": "Veil shield Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 9600,
+  "description": "The skin refreshes on a shorter cycle and forgets damage sooner.",
+  "stats": {
+   "capacity": 79,
+   "recharge": 7.9,
+   "rechargeDelay": 2.3
+  }
+ },
+ {
+  "id": "fm-shield-1-3",
+  "name": "Veil shield Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 15350,
+  "description": "Reads incoming fire and thickens where it lands. The rest of the skin gets thinner.",
+  "stats": {
+   "capacity": 86,
+   "recharge": 8.6,
+   "rechargeDelay": 2.2
+  }
+ },
+ {
+  "id": "fm-shield-2-1",
+  "name": "Parallax shield Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 18000,
+  "description": "Two offset fields that interfere so most glancing hits cancel each other.",
+  "stats": {
+   "capacity": 162,
+   "recharge": 16.2,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "fm-shield-2-2",
+  "name": "Parallax shield Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 28800,
+  "description": "Offset retuned. It sheds hits at an angle and takes the head-on ones personally.",
+  "stats": {
+   "capacity": 178,
+   "recharge": 17.8,
+   "rechargeDelay": 2.3
+  }
+ },
+ {
+  "id": "fm-shield-2-3",
+  "name": "Parallax shield Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 46100,
+  "description": "The fields now phase. A gunner will see the shield blink before it fails.",
+  "stats": {
+   "capacity": 194,
+   "recharge": 19.4,
+   "rechargeDelay": 2.2
+  }
+ },
+ {
+  "id": "fm-shield-3-1",
+  "name": "Moir\u00e9 shield Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 54000,
+  "description": "A moir\u00e9 of three fields that recovers fast and breaks all at once.",
+  "stats": {
+   "capacity": 342,
+   "recharge": 34.2,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "fm-shield-3-2",
+  "name": "Moir\u00e9 shield Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 86400,
+  "description": "The pattern is finer and the break is slower. Not by much.",
+  "stats": {
+   "capacity": 376,
+   "recharge": 37.6,
+   "rechargeDelay": 2.3
+  }
+ },
+ {
+  "id": "fm-shield-3-3",
+  "name": "Moir\u00e9 shield Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 138250,
+  "description": "Pattern refined until the shield looks solid. It is not, but it acts as if it is.",
+  "stats": {
+   "capacity": 410,
+   "recharge": 41.0,
+   "rechargeDelay": 2.2
+  }
+ },
+ {
+  "id": "fm-shield-4-1",
+  "name": "Palisade shield Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 162000,
+  "description": "A wall of discrete cells, each charged and failing on its own.",
+  "stats": {
+   "capacity": 630,
+   "recharge": 63.0,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "fm-shield-4-2",
+  "name": "Palisade shield Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 259200,
+  "description": "Cells are smaller and more numerous. The wall has begun to look like a crowd.",
+  "stats": {
+   "capacity": 693,
+   "recharge": 69.3,
+   "rechargeDelay": 2.3
+  }
+ },
+ {
+  "id": "fm-shield-4-3",
+  "name": "Palisade shield Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 414700,
+  "description": "Cells share load along the whole front. It will not discuss which cell failed.",
+  "stats": {
+   "capacity": 756,
+   "recharge": 75.6,
+   "rechargeDelay": 2.2
+  }
+ },
+ {
+  "id": "fm-shield-5-1",
+  "name": "Cordon shield Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 486000,
+  "description": "A cordon projected well clear of the hull. Pilots find it uncomfortable to fly inside.",
+  "stats": {
+   "capacity": 1080,
+   "recharge": 108.0,
+   "rechargeDelay": 2.4
+  }
+ },
+ {
+  "id": "fm-shield-5-2",
+  "name": "Cordon shield Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 777600,
+  "description": "Projects further out and recovers faster once the shooting stops.",
+  "stats": {
+   "capacity": 1188,
+   "recharge": 118.8,
+   "rechargeDelay": 2.3
+  }
+ },
+ {
+  "id": "fm-shield-5-3",
+  "name": "Cordon shield Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 1244150,
+  "description": "A cordon you cannot see the edge of, only the places where things stop arriving.",
+  "stats": {
+   "capacity": 1296,
+   "recharge": 129.6,
+   "rechargeDelay": 2.2
+  }
+ },
+ {
+  "id": "fm-sensor-1-1",
+  "name": "Listening array Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 3000,
+  "description": "A small passive array. It hears more than it reports.",
+  "stats": {
+   "range": 6300
+  }
+ },
+ {
+  "id": "fm-sensor-1-2",
+  "name": "Listening array Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 4800,
+  "description": "Receives on more bands and sorts them without asking.",
+  "stats": {
+   "range": 7350
+  }
+ },
+ {
+  "id": "fm-sensor-1-3",
+  "name": "Listening array Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 7700,
+  "description": "Takes in everything within range, then reports only what it thinks you should know.",
+  "stats": {
+   "range": 8400
+  }
+ },
+ {
+  "id": "fm-sensor-2-1",
+  "name": "Survey lattice Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 9000,
+  "description": "A latticed dish that builds a picture from many small disagreements.",
+  "stats": {
+   "range": 9450
+  }
+ },
+ {
+  "id": "fm-sensor-2-2",
+  "name": "Survey lattice Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 14400,
+  "description": "Disagreements are now weighted. The picture is sharper and the dish says nothing about its method.",
+  "stats": {
+   "range": 10500
+  }
+ },
+ {
+  "id": "fm-sensor-2-3",
+  "name": "Survey lattice Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 23050,
+  "description": "The picture comes back with annotations. Some are in a language you do not read.",
+  "stats": {
+   "range": 11550
+  }
+ },
+ {
+  "id": "fm-sensor-3-1",
+  "name": "Parse array Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 27000,
+  "description": "A broad array that parses the whole sky as one sentence.",
+  "stats": {
+   "range": 12600
+  }
+ },
+ {
+  "id": "fm-sensor-3-2",
+  "name": "Parse array Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 43200,
+  "description": "Parsing is faster and grammar stricter. Stray contacts are corrected rather than shown.",
+  "stats": {
+   "range": 13650
+  }
+ },
+ {
+  "id": "fm-sensor-3-3",
+  "name": "Parse array Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 69100,
+  "description": "Reads at range with a confidence it did not earn. It has not yet been wrong.",
+  "stats": {
+   "range": 14700
+  }
+ },
+ {
+  "id": "fm-cargo-1",
+  "name": "Shelf (cargo)",
+  "type": "cargo",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 2500,
+  "description": "A bare rack. With no one to breathe, the shelving goes right up to the walls.",
+  "stats": {
+   "tonnes": 8.8
+  }
+ },
+ {
+  "id": "fm-cargo-2",
+  "name": "Rack (cargo)",
+  "type": "cargo",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 7500,
+  "description": "A rack of interlocking cells that seal around the load and let go on command.",
+  "stats": {
+   "tonnes": 17.6
+  }
+ },
+ {
+  "id": "fm-cargo-3",
+  "name": "Frame (cargo)",
+  "type": "cargo",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 22500,
+  "description": "A frame hold that packs awkward cargo into the same volume as tidy cargo, and does not say how.",
+  "stats": {
+   "tonnes": 35.2
+  }
+ },
+ {
+  "id": "fm-cargo-4",
+  "name": "Stack (cargo)",
+  "type": "cargo",
+  "size": 4,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 67500,
+  "description": "A stack of racks with no aisles. Loading is done by the rack itself.",
+  "stats": {
+   "tonnes": 70.4
+  }
+ },
+ {
+  "id": "fm-cargo-5",
+  "name": "Lattice hold (cargo)",
+  "type": "cargo",
+  "size": 5,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 202500,
+  "description": "A full lattice hold. Nothing inside it has been touched by a hand.",
+  "stats": {
+   "tonnes": 140.8
+  }
+ },
+ {
+  "id": "fm-coil-1-1",
+  "name": "Coil driver Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 5000,
+  "color": "#9dff3a",
+  "description": "A short rail that fires a slug at a speed that makes the muzzle flash an afterthought.",
+  "stats": {
+   "damage": 14.0,
+   "fireRate": 2.4,
+   "energyPerShot": 2.9,
+   "projectileSpeed": 1600,
+   "range": 2800
+  }
+ },
+ {
+  "id": "fm-coil-1-2",
+  "name": "Coil driver Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 8000,
+  "color": "#9dff3a",
+  "description": "Longer rail, tighter coils. The slug arrives before the sound of the shot does.",
+  "stats": {
+   "damage": 15.4,
+   "fireRate": 2.4,
+   "energyPerShot": 2.9,
+   "projectileSpeed": 1600,
+   "range": 2800
+  }
+ },
+ {
+  "id": "fm-coil-1-3",
+  "name": "Coil driver Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 12800,
+  "color": "#9dff3a",
+  "description": "Rails are grown straight rather than machined. The slug leaves with a faint curve nobody asked for.",
+  "stats": {
+   "damage": 16.8,
+   "fireRate": 2.4,
+   "energyPerShot": 2.9,
+   "projectileSpeed": 1600,
+   "range": 2800
+  }
+ },
+ {
+  "id": "fm-coil-2-1",
+  "name": "Twin coil driver Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 15000,
+  "color": "#9dff3a",
+  "description": "A short rail that fires a slug at a speed that makes the muzzle flash an afterthought. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 28.0,
+   "fireRate": 1.92,
+   "energyPerShot": 5.2,
+   "projectileSpeed": 1600,
+   "range": 3000
+  }
+ },
+ {
+  "id": "fm-coil-2-2",
+  "name": "Twin coil driver Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 24000,
+  "color": "#9dff3a",
+  "description": "Longer rail, tighter coils. The slug arrives before the sound of the shot does. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 30.8,
+   "fireRate": 1.92,
+   "energyPerShot": 5.2,
+   "projectileSpeed": 1600,
+   "range": 3000
+  }
+ },
+ {
+  "id": "fm-coil-2-3",
+  "name": "Twin coil driver Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 38400,
+  "color": "#9dff3a",
+  "description": "Rails are grown straight rather than machined. The slug leaves with a faint curve nobody asked for. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 33.6,
+   "fireRate": 1.92,
+   "energyPerShot": 5.2,
+   "projectileSpeed": 1600,
+   "range": 3000
+  }
+ },
+ {
+  "id": "fm-coil-3-1",
+  "name": "Great coil driver Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 45000,
+  "color": "#9dff3a",
+  "description": "A short rail that fires a slug at a speed that makes the muzzle flash an afterthought. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 56.0,
+   "fireRate": 1.54,
+   "energyPerShot": 9.3,
+   "projectileSpeed": 1600,
+   "range": 3200
+  }
+ },
+ {
+  "id": "fm-coil-3-2",
+  "name": "Great coil driver Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 72000,
+  "color": "#9dff3a",
+  "description": "Longer rail, tighter coils. The slug arrives before the sound of the shot does. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 61.6,
+   "fireRate": 1.54,
+   "energyPerShot": 9.3,
+   "projectileSpeed": 1600,
+   "range": 3200
+  }
+ },
+ {
+  "id": "fm-coil-3-3",
+  "name": "Great coil driver Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 115200,
+  "color": "#9dff3a",
+  "description": "Rails are grown straight rather than machined. The slug leaves with a faint curve nobody asked for. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 67.2,
+   "fireRate": 1.54,
+   "energyPerShot": 9.3,
+   "projectileSpeed": 1600,
+   "range": 3200
+  }
+ },
+ {
+  "id": "fm-phase-1-1",
+  "name": "Phased emitter Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 5000,
+  "color": "#b06cff",
+  "description": "Fires bolts that change colour mid-flight, for no reason a gunner can use. They hit the same either way.",
+  "stats": {
+   "damage": 6.0,
+   "fireRate": 6.0,
+   "energyPerShot": 1.6,
+   "projectileSpeed": 1000,
+   "range": 1800
+  }
+ },
+ {
+  "id": "fm-phase-1-2",
+  "name": "Phased emitter Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 8000,
+  "color": "#4dfcff",
+  "description": "The bolt phase now shifts twice. Some targets flinch.",
+  "stats": {
+   "damage": 6.6,
+   "fireRate": 6.0,
+   "energyPerShot": 1.6,
+   "projectileSpeed": 1000,
+   "range": 1800
+  }
+ },
+ {
+  "id": "fm-phase-1-3",
+  "name": "Phased emitter Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 12800,
+  "color": "#ffd23d",
+  "description": "Emits in a pattern that never repeats. Targeting systems that try to learn it give up.",
+  "stats": {
+   "damage": 7.2,
+   "fireRate": 6.0,
+   "energyPerShot": 1.6,
+   "projectileSpeed": 1000,
+   "range": 1800
+  }
+ },
+ {
+  "id": "fm-phase-2-1",
+  "name": "Twin phased emitter Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 15000,
+  "color": "#b06cff",
+  "description": "Fires bolts that change colour mid-flight, for no reason a gunner can use. They hit the same either way. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 12.0,
+   "fireRate": 4.8,
+   "energyPerShot": 2.9,
+   "projectileSpeed": 1000,
+   "range": 2000
+  }
+ },
+ {
+  "id": "fm-phase-2-2",
+  "name": "Twin phased emitter Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 24000,
+  "color": "#4dfcff",
+  "description": "The bolt phase now shifts twice. Some targets flinch. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 13.2,
+   "fireRate": 4.8,
+   "energyPerShot": 2.9,
+   "projectileSpeed": 1000,
+   "range": 2000
+  }
+ },
+ {
+  "id": "fm-phase-2-3",
+  "name": "Twin phased emitter Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 38400,
+  "color": "#ffd23d",
+  "description": "Emits in a pattern that never repeats. Targeting systems that try to learn it give up. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 14.4,
+   "fireRate": 4.8,
+   "energyPerShot": 2.9,
+   "projectileSpeed": 1000,
+   "range": 2000
+  }
+ },
+ {
+  "id": "fm-phase-3-1",
+  "name": "Great phased emitter Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 45000,
+  "color": "#b06cff",
+  "description": "Fires bolts that change colour mid-flight, for no reason a gunner can use. They hit the same either way. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 24.0,
+   "fireRate": 3.84,
+   "energyPerShot": 5.2,
+   "projectileSpeed": 1000,
+   "range": 2200
+  }
+ },
+ {
+  "id": "fm-phase-3-2",
+  "name": "Great phased emitter Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 72000,
+  "color": "#4dfcff",
+  "description": "The bolt phase now shifts twice. Some targets flinch. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 26.4,
+   "fireRate": 3.84,
+   "energyPerShot": 5.2,
+   "projectileSpeed": 1000,
+   "range": 2200
+  }
+ },
+ {
+  "id": "fm-phase-3-3",
+  "name": "Great phased emitter Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 115200,
+  "color": "#ffd23d",
+  "description": "Emits in a pattern that never repeats. Targeting systems that try to learn it give up. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 28.8,
+   "fireRate": 3.84,
+   "energyPerShot": 5.2,
+   "projectileSpeed": 1000,
+   "range": 2200
+  }
+ },
+ {
+  "id": "fm-shear-1-1",
+  "name": "Shear array Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 5000,
+  "color": "#ff3df2",
+  "description": "Short-range needles in a dense stream. The stream looks like a thread being pulled out of the target.",
+  "stats": {
+   "damage": 4.0,
+   "fireRate": 9.0,
+   "energyPerShot": 1.4,
+   "projectileSpeed": 800,
+   "range": 1000
+  }
+ },
+ {
+  "id": "fm-shear-1-2",
+  "name": "Shear array Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 8000,
+  "color": "#ff6a3d",
+  "description": "The needles are thinner and there are more of them. Hulls are left looking combed.",
+  "stats": {
+   "damage": 4.4,
+   "fireRate": 9.0,
+   "energyPerShot": 1.4,
+   "projectileSpeed": 800,
+   "range": 1000
+  }
+ },
+ {
+  "id": "fm-shear-1-3",
+  "name": "Shear array Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 12800,
+  "color": "#f7f7ff",
+  "description": "A third shear plane splits each needle on impact. Effective at close range, and unpleasant to watch.",
+  "stats": {
+   "damage": 4.8,
+   "fireRate": 9.0,
+   "energyPerShot": 1.4,
+   "projectileSpeed": 800,
+   "range": 1000
+  }
+ },
+ {
+  "id": "fm-shear-2-1",
+  "name": "Twin shear array Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 15000,
+  "color": "#ff3df2",
+  "description": "Short-range needles in a dense stream. The stream looks like a thread being pulled out of the target. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 8.0,
+   "fireRate": 7.2,
+   "energyPerShot": 2.4,
+   "projectileSpeed": 800,
+   "range": 1200
+  }
+ },
+ {
+  "id": "fm-shear-2-2",
+  "name": "Twin shear array Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 24000,
+  "color": "#ff6a3d",
+  "description": "The needles are thinner and there are more of them. Hulls are left looking combed. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 8.8,
+   "fireRate": 7.2,
+   "energyPerShot": 2.4,
+   "projectileSpeed": 800,
+   "range": 1200
+  }
+ },
+ {
+  "id": "fm-shear-2-3",
+  "name": "Twin shear array Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 38400,
+  "color": "#f7f7ff",
+  "description": "A third shear plane splits each needle on impact. Effective at close range, and unpleasant to watch. Mounted on a heavier frame.",
+  "stats": {
+   "damage": 9.6,
+   "fireRate": 7.2,
+   "energyPerShot": 2.4,
+   "projectileSpeed": 800,
+   "range": 1200
+  }
+ },
+ {
+  "id": "fm-shear-3-1",
+  "name": "Great shear array Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 45000,
+  "color": "#ff3df2",
+  "description": "Short-range needles in a dense stream. The stream looks like a thread being pulled out of the target. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 16.0,
+   "fireRate": 5.76,
+   "energyPerShot": 4.4,
+   "projectileSpeed": 800,
+   "range": 1400
+  }
+ },
+ {
+  "id": "fm-shear-3-2",
+  "name": "Great shear array Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "builder": "free-machine-foundries",
+  "price": 72000,
+  "color": "#ff6a3d",
+  "description": "The needles are thinner and there are more of them. Hulls are left looking combed. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 17.6,
+   "fireRate": 5.76,
+   "energyPerShot": 4.4,
+   "projectileSpeed": 800,
+   "range": 1400
+  }
+ },
+ {
+  "id": "fm-shear-3-3",
+  "name": "Great shear array Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "builder": "free-machine-foundries",
+  "price": 115200,
+  "color": "#f7f7ff",
+  "description": "A third shear plane splits each needle on impact. Effective at close range, and unpleasant to watch. Fitted to a gimballed turret mass that does not seem to need a pilot.",
+  "stats": {
+   "damage": 19.2,
+   "fireRate": 5.76,
+   "energyPerShot": 4.4,
+   "projectileSpeed": 800,
+   "range": 1400
+  }
+ },
+ {
+  "id": "fm-util-nanite",
+  "name": "Maintenance swarm",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 14000,
+  "description": "A cloud of tiny machines that rebuilds the hull between fights. It takes what it needs from the cargo bay.",
+  "stats": {
+   "hullRepairPerSecond": 0.8,
+   "cargoTonnesConsumedPerHour": 0.05
+  }
+ },
+ {
+  "id": "fm-util-handshake",
+  "name": "Handshake beacon",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 9000,
+  "description": "Broadcasts a signed machine identity. Free machine ports treat you kindly. Everyone else logs it.",
+  "stats": {
+   "freeMachineMarketDiscount": 0.1,
+   "otherPortSuspicion": 0.15
+  }
+ },
+ {
+  "id": "fm-util-glass",
+  "name": "Mirror cache",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 17000,
+  "description": "Stores a copy of the last ten seconds of sensor returns and replays them to anything that is locked on.",
+  "stats": {
+   "missileDecoyCharges": 3,
+   "lockBreakChance": 0.4
+  }
+ },
+ {
+  "id": "fm-util-ledger",
+  "name": "Cold ledger",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "builder": "free-machine-foundries",
+  "price": 11000,
+  "description": "Compresses cargo manifests and the cargo behind them. Slightly improves holds, and slightly alarms customs.",
+  "stats": {
+   "cargoCapacityBonus": 0.06,
+   "customsScanChance": 0.1
+  }
+ }
+]

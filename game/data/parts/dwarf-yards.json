@@ -1,0 +1,1387 @@
+[
+ {
+  "id": "dw-drive-s1m1",
+  "name": "Stoker drive Mk I",
+  "type": "engine",
+  "size": 1,
+  "mark": 1,
+  "price": 7000,
+  "description": "A squat little fusion drive with a cast iron jacket. It sulks if you push it, and it never stops.",
+  "stats": {
+   "thrust": 780,
+   "speedFactor": 0.97
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s1m2",
+  "name": "Stoker drive Mk II",
+  "type": "engine",
+  "size": 1,
+  "mark": 2,
+  "price": 11200,
+  "description": "Same jacket, finer tolerances and a new set of injector rings stamped in brass.",
+  "stats": {
+   "thrust": 842,
+   "speedFactor": 1.0
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s1m3",
+  "name": "Stoker drive Mk III",
+  "type": "engine",
+  "size": 1,
+  "mark": 3,
+  "price": 17900,
+  "description": "Hand-tuned by a journeyman who signed the casing. Still not quick, but now it is smug about it.",
+  "stats": {
+   "thrust": 909,
+   "speedFactor": 1.03
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s2m1",
+  "name": "Deepforge drive Mk I",
+  "type": "engine",
+  "size": 2,
+  "mark": 1,
+  "price": 21000,
+  "description": "The standard yard drive. Built like a boiler, serviced with a mallet.",
+  "stats": {
+   "thrust": 1900,
+   "speedFactor": 0.97
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s2m2",
+  "name": "Deepforge drive Mk II",
+  "type": "engine",
+  "size": 2,
+  "mark": 2,
+  "price": 33600,
+  "description": "A reworked Deepforge with proper baffles. Rattles less, pulls harder.",
+  "stats": {
+   "thrust": 2052,
+   "speedFactor": 1.0
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s2m3",
+  "name": "Deepforge drive Mk III",
+  "type": "engine",
+  "size": 2,
+  "mark": 3,
+  "price": 53800,
+  "description": "Master-grade injectors in the same stout casing. Miners swear by it and swear at it.",
+  "stats": {
+   "thrust": 2216,
+   "speedFactor": 1.03
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s3m1",
+  "name": "Hammerfall drive Mk I",
+  "type": "engine",
+  "size": 3,
+  "mark": 1,
+  "price": 63000,
+  "description": "A heavy drive that spools up slowly and then does not argue with anything in its way.",
+  "stats": {
+   "thrust": 3300,
+   "speedFactor": 0.97
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s3m2",
+  "name": "Hammerfall drive Mk II",
+  "type": "engine",
+  "size": 3,
+  "mark": 2,
+  "price": 100800,
+  "description": "Revised flame tubes and a thicker thrust plate. Hammerfall drives have outlived several owners.",
+  "stats": {
+   "thrust": 3564,
+   "speedFactor": 1.0
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s3m3",
+  "name": "Hammerfall drive Mk III",
+  "type": "engine",
+  "size": 3,
+  "mark": 3,
+  "price": 161300,
+  "description": "Tuned for haulage under load. The note it makes can be felt through the deck plates.",
+  "stats": {
+   "thrust": 3849,
+   "speedFactor": 1.03
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s4m1",
+  "name": "Mountainheart drive Mk I",
+  "type": "engine",
+  "size": 4,
+  "mark": 1,
+  "price": 189000,
+  "description": "Sized for hulls that move mountains, and moves them at a stately pace.",
+  "stats": {
+   "thrust": 7000,
+   "speedFactor": 0.97
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s4m2",
+  "name": "Mountainheart drive Mk II",
+  "type": "engine",
+  "size": 4,
+  "mark": 2,
+  "price": 302400,
+  "description": "Mountainheart with a second set of cooling galleries. Takes a week to cool and a day to forgive.",
+  "stats": {
+   "thrust": 7560,
+   "speedFactor": 1.0
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s4m3",
+  "name": "Mountainheart drive Mk III",
+  "type": "engine",
+  "size": 4,
+  "mark": 3,
+  "price": 483800,
+  "description": "The yard's best mid-size drive. It weighs more than some of the ships it replaces.",
+  "stats": {
+   "thrust": 8164,
+   "speedFactor": 1.03
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s5m1",
+  "name": "Greatbellows drive Mk I",
+  "type": "engine",
+  "size": 5,
+  "mark": 1,
+  "price": 567000,
+  "description": "A drive the size of a granary. Freighter crews tell their children about it.",
+  "stats": {
+   "thrust": 12500,
+   "speedFactor": 0.97
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s5m2",
+  "name": "Greatbellows drive Mk II",
+  "type": "engine",
+  "size": 5,
+  "mark": 2,
+  "price": 907200,
+  "description": "The Greatbellows after the forge-masters' second pass. Nobody has needed a bigger one.",
+  "stats": {
+   "thrust": 13500,
+   "speedFactor": 1.0
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-drive-s5m3",
+  "name": "Greatbellows drive Mk III",
+  "type": "engine",
+  "size": 5,
+  "mark": 3,
+  "price": 1451500,
+  "description": "Cast in one pour and then argued over for a season. The flame is a clean, dull amber.",
+  "stats": {
+   "thrust": 14580,
+   "speedFactor": 1.03
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s1m1",
+  "name": "Kiln power plant Mk I",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 1,
+  "price": 6500,
+  "description": "A small reactor in a thick iron shell, with a capacitor that holds more than it should.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 66,
+   "capacitorRecharge": 10.8
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s1m2",
+  "name": "Kiln power plant Mk II",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 2,
+  "price": 10400,
+  "description": "Better lagging and a larger capacitor bank. Warm to the touch, which the crew call a feature.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 72,
+   "capacitorRecharge": 11.9
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s1m3",
+  "name": "Kiln power plant Mk III",
+  "type": "powerPlant",
+  "size": 1,
+  "mark": 3,
+  "price": 16600,
+  "description": "Fine-bored coolant runs and brass bus bars. It hums a little hymn when idling.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 79,
+   "capacitorRecharge": 13.1
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s2m1",
+  "name": "Hearth power plant Mk I",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 1,
+  "price": 19500,
+  "description": "Six pips and a capacitor made of old mining kit. Ugly, forgiving and easy to rebuild.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 99,
+   "capacitorRecharge": 15.1
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s2m2",
+  "name": "Hearth power plant Mk II",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 2,
+  "price": 31200,
+  "description": "The Hearth with a retuned governor. Recharges a little faster and still lights the galley stove.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 108,
+   "capacitorRecharge": 16.6
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s2m3",
+  "name": "Hearth power plant Mk III",
+  "type": "powerPlant",
+  "size": 2,
+  "mark": 3,
+  "price": 49900,
+  "description": "Rebuilt by someone who cared. The capacitor takes a surge and asks for another.",
+  "stats": {
+   "pips": 6,
+   "capacitor": 119,
+   "capacitorRecharge": 18.3
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s3m1",
+  "name": "Furnace power plant Mk I",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 1,
+  "price": 58500,
+  "description": "Seven pips from a reactor you could stand a drill rig on.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 148,
+   "capacitorRecharge": 21.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s3m2",
+  "name": "Furnace power plant Mk II",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 2,
+  "price": 93600,
+  "description": "Added a second fuel feed so it survives a bad batch of deuterium. Dwarves have had plenty.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 163,
+   "capacitorRecharge": 23.3
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s3m3",
+  "name": "Furnace power plant Mk III",
+  "type": "powerPlant",
+  "size": 3,
+  "mark": 3,
+  "price": 149800,
+  "description": "Heavy-duty bus bars and a capacitor rated for a rockfall. Weighs as much as it looks.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 179,
+   "capacitorRecharge": 25.6
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s4m1",
+  "name": "Foundry power plant Mk I",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 1,
+  "price": 175500,
+  "description": "A foundry-grade reactor with the capacitor bank of a small bank.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 222,
+   "capacitorRecharge": 29.6
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s4m2",
+  "name": "Foundry power plant Mk II",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 2,
+  "price": 280800,
+  "description": "Improved shielding between the core and the crew, at last. Output is up a notch too.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 245,
+   "capacitorRecharge": 32.6
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s4m3",
+  "name": "Foundry power plant Mk III",
+  "type": "powerPlant",
+  "size": 4,
+  "mark": 3,
+  "price": 449300,
+  "description": "Runs hot, runs steady and runs for decades between strip-downs.",
+  "stats": {
+   "pips": 7,
+   "capacitor": 269,
+   "capacitorRecharge": 35.9
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s5m1",
+  "name": "Great forge power plant Mk I",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 1,
+  "price": 526500,
+  "description": "A reactor for the biggest hulls the yards build. Eight pips and a bad temper.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 334,
+   "capacitorRecharge": 41.5
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s5m2",
+  "name": "Great forge power plant Mk II",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 2,
+  "price": 842400,
+  "description": "Reworked containment and a deeper capacitor. The yard will not say how deep.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 367,
+   "capacitorRecharge": 45.6
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-plant-s5m3",
+  "name": "Great forge power plant Mk III",
+  "type": "powerPlant",
+  "size": 5,
+  "mark": 3,
+  "price": 1347800,
+  "description": "The top of the catalogue. Typically installed with a crane and a short speech.",
+  "stats": {
+   "pips": 8,
+   "capacitor": 404,
+   "capacitorRecharge": 50.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s1m1",
+  "name": "Buckler shield Mk I",
+  "type": "shield",
+  "size": 1,
+  "mark": 1,
+  "price": 5500,
+  "description": "A plate-backed deflector. Takes a beating and takes its time recovering.",
+  "stats": {
+   "capacity": 80,
+   "recharge": 5.3,
+   "rechargeDelay": 3.3
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s1m2",
+  "name": "Buckler shield Mk II",
+  "type": "shield",
+  "size": 1,
+  "mark": 2,
+  "price": 8800,
+  "description": "Thicker emitter plates and a longer recovery breath. Good for a small hull that expects to be hit.",
+  "stats": {
+   "capacity": 88,
+   "recharge": 5.9,
+   "rechargeDelay": 3.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s1m3",
+  "name": "Buckler shield Mk III",
+  "type": "shield",
+  "size": 1,
+  "mark": 3,
+  "price": 14100,
+  "description": "A veteran's buckler: dented casing, flawless field.",
+  "stats": {
+   "capacity": 96,
+   "recharge": 6.4,
+   "rechargeDelay": 3.1
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s2m1",
+  "name": "Stonewall shield Mk I",
+  "type": "shield",
+  "size": 2,
+  "mark": 1,
+  "price": 16500,
+  "description": "Mid-size deflector with a reputation for refusing to fail. It is slow to come back after a hit.",
+  "stats": {
+   "capacity": 180,
+   "recharge": 12.0,
+   "rechargeDelay": 3.3
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s2m2",
+  "name": "Stonewall shield Mk II",
+  "type": "shield",
+  "size": 2,
+  "mark": 2,
+  "price": 26400,
+  "description": "Stonewall with doubled emitter rings. Soaks more and waits a little less before recharging.",
+  "stats": {
+   "capacity": 198,
+   "recharge": 13.2,
+   "rechargeDelay": 3.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s2m3",
+  "name": "Stonewall shield Mk III",
+  "type": "shield",
+  "size": 2,
+  "mark": 3,
+  "price": 42200,
+  "description": "Lined with hammered bronze. Nobody can say why that helps, but the numbers say it does.",
+  "stats": {
+   "capacity": 217,
+   "recharge": 14.5,
+   "rechargeDelay": 3.1
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s3m1",
+  "name": "Rampart shield Mk I",
+  "type": "shield",
+  "size": 3,
+  "mark": 1,
+  "price": 49500,
+  "description": "A broad shield field for gunships and haulers. Heavy, stubborn, slow to rebuild.",
+  "stats": {
+   "capacity": 380,
+   "recharge": 25.3,
+   "rechargeDelay": 3.3
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s3m2",
+  "name": "Rampart shield Mk II",
+  "type": "shield",
+  "size": 3,
+  "mark": 2,
+  "price": 79200,
+  "description": "The Rampart reworked so the field no longer flickers when the engines spool. Much improved.",
+  "stats": {
+   "capacity": 418,
+   "recharge": 27.8,
+   "rechargeDelay": 3.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s3m3",
+  "name": "Rampart shield Mk III",
+  "type": "shield",
+  "size": 3,
+  "mark": 3,
+  "price": 126700,
+  "description": "The sort of shield you fit when you plan to stay in a fight and get paid for it.",
+  "stats": {
+   "capacity": 459,
+   "recharge": 30.6,
+   "rechargeDelay": 3.1
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s4m1",
+  "name": "Citadel shield Mk I",
+  "type": "shield",
+  "size": 4,
+  "mark": 1,
+  "price": 148500,
+  "description": "Big enough to cover a freighter's flanks. Does not hurry.",
+  "stats": {
+   "capacity": 700,
+   "recharge": 46.6,
+   "rechargeDelay": 3.3
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s4m2",
+  "name": "Citadel shield Mk II",
+  "type": "shield",
+  "size": 4,
+  "mark": 2,
+  "price": 237600,
+  "description": "Extra capacitance in the emitter spine. It holds a very long time before it gives way.",
+  "stats": {
+   "capacity": 770,
+   "recharge": 51.2,
+   "rechargeDelay": 3.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s4m3",
+  "name": "Citadel shield Mk III",
+  "type": "shield",
+  "size": 4,
+  "mark": 3,
+  "price": 380200,
+  "description": "Citadel at its best: huge reserve, a cautious recharge and a crew who trust it.",
+  "stats": {
+   "capacity": 847,
+   "recharge": 56.3,
+   "rechargeDelay": 3.1
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s5m1",
+  "name": "Deepdoor shield Mk I",
+  "type": "shield",
+  "size": 5,
+  "mark": 1,
+  "price": 445500,
+  "description": "A field generator for the largest hulls. Fitted as part of the structure, more or less.",
+  "stats": {
+   "capacity": 1200,
+   "recharge": 79.8,
+   "rechargeDelay": 3.3
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s5m2",
+  "name": "Deepdoor shield Mk II",
+  "type": "shield",
+  "size": 5,
+  "mark": 2,
+  "price": 712800,
+  "description": "Rebuilt around a thicker core. The field stays up while everything else is being repaired.",
+  "stats": {
+   "capacity": 1320,
+   "recharge": 87.8,
+   "rechargeDelay": 3.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-shield-s5m3",
+  "name": "Deepdoor shield Mk III",
+  "type": "shield",
+  "size": 5,
+  "mark": 3,
+  "price": 1140500,
+  "description": "The yard's final word on shields. It will outlast the hull around it.",
+  "stats": {
+   "capacity": 1452,
+   "recharge": 96.6,
+   "rechargeDelay": 3.1
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s1m1",
+  "name": "Plumb sensor Mk I",
+  "type": "sensor",
+  "size": 1,
+  "mark": 1,
+  "price": 3000,
+  "description": "A basic ranging set built for tunnels and close work. Out in open space it does what it can.",
+  "stats": {
+   "range": 5500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s1m2",
+  "name": "Plumb sensor Mk II",
+  "type": "sensor",
+  "size": 1,
+  "mark": 2,
+  "price": 4800,
+  "description": "Added a second ranging coil and a brass sight glass. Marginally further, marginally cleaner.",
+  "stats": {
+   "range": 6500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s1m3",
+  "name": "Plumb sensor Mk III",
+  "type": "sensor",
+  "size": 1,
+  "mark": 3,
+  "price": 7700,
+  "description": "The best of the small sets. Picks out a rock from a ship, usually.",
+  "stats": {
+   "range": 7500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s2m1",
+  "name": "Lodestone sensor Mk I",
+  "type": "sensor",
+  "size": 2,
+  "mark": 1,
+  "price": 9000,
+  "description": "Survey-grade sensors based on seismic gear. Good at telling you what is solid.",
+  "stats": {
+   "range": 8500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s2m2",
+  "name": "Lodestone sensor Mk II",
+  "type": "sensor",
+  "size": 2,
+  "mark": 2,
+  "price": 14400,
+  "description": "Lodestone with better filters. Finds ore seams and hostile ships with equal enthusiasm.",
+  "stats": {
+   "range": 9500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s2m3",
+  "name": "Lodestone sensor Mk III",
+  "type": "sensor",
+  "size": 2,
+  "mark": 3,
+  "price": 23000,
+  "description": "Calibrated against a known vein in the yard's own asteroid. The vein is no longer there.",
+  "stats": {
+   "range": 10500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s3m1",
+  "name": "Deepsight sensor Mk I",
+  "type": "sensor",
+  "size": 3,
+  "mark": 1,
+  "price": 27000,
+  "description": "Long-range survey array. The dish is bigger than the cockpit and nobody minds.",
+  "stats": {
+   "range": 11500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s3m2",
+  "name": "Deepsight sensor Mk II",
+  "type": "sensor",
+  "size": 3,
+  "mark": 2,
+  "price": 43200,
+  "description": "Cleaner returns at range. Lets a prospector see trouble before trouble sees them.",
+  "stats": {
+   "range": 12500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-sensor-s3m3",
+  "name": "Deepsight sensor Mk III",
+  "type": "sensor",
+  "size": 3,
+  "mark": 3,
+  "price": 69100,
+  "description": "Top-end survey array. Prospectors have been known to rename a ship after it.",
+  "stats": {
+   "range": 13500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rack-s1",
+  "name": "Strongbox",
+  "type": "cargo",
+  "size": 1,
+  "mark": 1,
+  "price": 1400,
+  "description": "A reinforced locker bolted to the frame. Small, sealed, nearly impossible to pry open.",
+  "stats": {
+   "tonnes": 9
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rack-s2",
+  "name": "Ore bin",
+  "type": "cargo",
+  "size": 2,
+  "mark": 1,
+  "price": 3300,
+  "description": "A double-walled bin with a drop floor. Sorted by weight, not by value.",
+  "stats": {
+   "tonnes": 18
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rack-s3",
+  "name": "Hopper",
+  "type": "cargo",
+  "size": 3,
+  "mark": 1,
+  "price": 8000,
+  "description": "A rail-fed hopper on a mining pallet. Takes ore, grain or anything that rolls.",
+  "stats": {
+   "tonnes": 36
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rack-s4",
+  "name": "Vault hold",
+  "type": "cargo",
+  "size": 4,
+  "mark": 1,
+  "price": 19300,
+  "description": "A banded hold with a vault door and a tally board. Dwarves count everything twice.",
+  "stats": {
+   "tonnes": 72
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rack-s5",
+  "name": "Great hold",
+  "type": "cargo",
+  "size": 5,
+  "mark": 1,
+  "price": 46400,
+  "description": "A cavern in iron. Takes whole container stacks and has a bench for the crew's lunches.",
+  "stats": {
+   "tonnes": 144
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s1m1",
+  "name": "Light rivet driver Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "price": 5200,
+  "color": "#e0b040",
+  "description": "A pneumatic driver firing brass-capped slugs. Slow, loud and it hits like a dropped anvil.",
+  "stats": {
+   "damage": 22.0,
+   "fireRate": 1.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s1m2",
+  "name": "Light rivet driver Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "price": 8300,
+  "color": "#e0b040",
+  "description": "A pneumatic driver firing brass-capped slugs. Slow, loud and it hits like a dropped anvil. Reload seals reworked, so the slug fires on the first pull.",
+  "stats": {
+   "damage": 24.2,
+   "fireRate": 1.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s1m3",
+  "name": "Light rivet driver Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "price": 13300,
+  "color": "#e0b040",
+  "description": "A pneumatic driver firing brass-capped slugs. Slow, loud and it hits like a dropped anvil. Master gunsmith's barrel liner. Straighter and a little harder.",
+  "stats": {
+   "damage": 26.6,
+   "fireRate": 1.6,
+   "energyPerShot": 4.0,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s2m1",
+  "name": "Rivet driver Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "price": 15600,
+  "color": "#e0b040",
+  "description": "A heavier driver for hulls that can bear the recoil. Bolts clang off armour and rattle through it.",
+  "stats": {
+   "damage": 44.0,
+   "fireRate": 1.28,
+   "energyPerShot": 7.2,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s2m2",
+  "name": "Rivet driver Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "price": 25000,
+  "color": "#e0b040",
+  "description": "A heavier driver for hulls that can bear the recoil. Bolts clang off armour and rattle through it. Reload seals reworked, so the slug fires on the first pull.",
+  "stats": {
+   "damage": 48.4,
+   "fireRate": 1.28,
+   "energyPerShot": 7.2,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s2m3",
+  "name": "Rivet driver Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "price": 39900,
+  "color": "#e0b040",
+  "description": "A heavier driver for hulls that can bear the recoil. Bolts clang off armour and rattle through it. Master gunsmith's barrel liner. Straighter and a little harder.",
+  "stats": {
+   "damage": 53.2,
+   "fireRate": 1.28,
+   "energyPerShot": 7.2,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s3m1",
+  "name": "Heavy rivet driver Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "price": 46800,
+  "color": "#e0b040",
+  "description": "Gunship-grade driver with a three-man loading crew's worth of automation. The slugs stay where they land.",
+  "stats": {
+   "damage": 88.0,
+   "fireRate": 1.02,
+   "energyPerShot": 13.0,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s3m2",
+  "name": "Heavy rivet driver Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "price": 74900,
+  "color": "#e0b040",
+  "description": "Gunship-grade driver with a three-man loading crew's worth of automation. The slugs stay where they land. Reload seals reworked, so the slug fires on the first pull.",
+  "stats": {
+   "damage": 96.8,
+   "fireRate": 1.02,
+   "energyPerShot": 13.0,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rivet-s3m3",
+  "name": "Heavy rivet driver Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "price": 119800,
+  "color": "#e0b040",
+  "description": "Gunship-grade driver with a three-man loading crew's worth of automation. The slugs stay where they land. Master gunsmith's barrel liner. Straighter and a little harder.",
+  "stats": {
+   "damage": 106.5,
+   "fireRate": 1.02,
+   "energyPerShot": 13.0,
+   "projectileSpeed": 650,
+   "range": 2600
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s1m1",
+  "name": "Light seam cutter Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "price": 4800,
+  "color": "#ff7a2a",
+  "description": "A mining laser with the safety filed off. Short range, rapid pulses, burns through plate.",
+  "stats": {
+   "damage": 5.0,
+   "fireRate": 7.0,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s1m2",
+  "name": "Light seam cutter Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "price": 7700,
+  "color": "#ff7a2a",
+  "description": "A mining laser with the safety filed off. Short range, rapid pulses, burns through plate. Better focusing crystal. Cuts truer.",
+  "stats": {
+   "damage": 5.5,
+   "fireRate": 7.0,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s1m3",
+  "name": "Light seam cutter Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "price": 12300,
+  "color": "#ff7a2a",
+  "description": "A mining laser with the safety filed off. Short range, rapid pulses, burns through plate. Lenses polished against a family heirloom. The bolt is a tidy orange line.",
+  "stats": {
+   "damage": 6.1,
+   "fireRate": 7.0,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s2m1",
+  "name": "Seam cutter Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "price": 14400,
+  "color": "#ff7a2a",
+  "description": "A twin-lens cutter that carves seams in ore and in attackers. Runs warm.",
+  "stats": {
+   "damage": 10.0,
+   "fireRate": 5.6,
+   "energyPerShot": 5.4,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s2m2",
+  "name": "Seam cutter Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "price": 23000,
+  "color": "#ff7a2a",
+  "description": "A twin-lens cutter that carves seams in ore and in attackers. Runs warm. Better focusing crystal. Cuts truer.",
+  "stats": {
+   "damage": 11.0,
+   "fireRate": 5.6,
+   "energyPerShot": 5.4,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s2m3",
+  "name": "Seam cutter Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "price": 36900,
+  "color": "#ff7a2a",
+  "description": "A twin-lens cutter that carves seams in ore and in attackers. Runs warm. Lenses polished against a family heirloom. The bolt is a tidy orange line.",
+  "stats": {
+   "damage": 12.1,
+   "fireRate": 5.6,
+   "energyPerShot": 5.4,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s3m1",
+  "name": "Heavy seam cutter Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "price": 43200,
+  "color": "#ff7a2a",
+  "description": "A big cutter head on a gimbal. Meant for rock, used on whoever is nearest.",
+  "stats": {
+   "damage": 20.0,
+   "fireRate": 4.48,
+   "energyPerShot": 9.7,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s3m2",
+  "name": "Heavy seam cutter Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "price": 69100,
+  "color": "#ff7a2a",
+  "description": "A big cutter head on a gimbal. Meant for rock, used on whoever is nearest. Better focusing crystal. Cuts truer.",
+  "stats": {
+   "damage": 22.0,
+   "fireRate": 4.48,
+   "energyPerShot": 9.7,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cutter-s3m3",
+  "name": "Heavy seam cutter Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "price": 110600,
+  "color": "#ff7a2a",
+  "description": "A big cutter head on a gimbal. Meant for rock, used on whoever is nearest. Lenses polished against a family heirloom. The bolt is a tidy orange line.",
+  "stats": {
+   "damage": 24.2,
+   "fireRate": 4.48,
+   "energyPerShot": 9.7,
+   "projectileSpeed": 1100,
+   "range": 1100
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s1m1",
+  "name": "Light gravel gun Mk I",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "price": 4400,
+  "color": "#b9a98a",
+  "description": "Spits crushed rock at a furious rate. Ineffective at distance, rude up close.",
+  "stats": {
+   "damage": 3.0,
+   "fireRate": 12.0,
+   "energyPerShot": 3.5,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s1m2",
+  "name": "Light gravel gun Mk II",
+  "type": "weapon",
+  "size": 1,
+  "mark": 2,
+  "price": 7000,
+  "color": "#b9a98a",
+  "description": "Spits crushed rock at a furious rate. Ineffective at distance, rude up close. Smoother feed chute. Fewer jams, less swearing.",
+  "stats": {
+   "damage": 3.3,
+   "fireRate": 12.0,
+   "energyPerShot": 3.5,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s1m3",
+  "name": "Light gravel gun Mk III",
+  "type": "weapon",
+  "size": 1,
+  "mark": 3,
+  "price": 11300,
+  "color": "#b9a98a",
+  "description": "Spits crushed rock at a furious rate. Ineffective at distance, rude up close. Hardened liner. Rock leaves faster.",
+  "stats": {
+   "damage": 3.6,
+   "fireRate": 12.0,
+   "energyPerShot": 3.5,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s2m1",
+  "name": "Gravel gun Mk I",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "price": 13200,
+  "color": "#b9a98a",
+  "description": "Heavier hopper and a wider throat. Sandblasts a hull to pieces.",
+  "stats": {
+   "damage": 6.0,
+   "fireRate": 9.6,
+   "energyPerShot": 6.3,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s2m2",
+  "name": "Gravel gun Mk II",
+  "type": "weapon",
+  "size": 2,
+  "mark": 2,
+  "price": 21100,
+  "color": "#b9a98a",
+  "description": "Heavier hopper and a wider throat. Sandblasts a hull to pieces. Smoother feed chute. Fewer jams, less swearing.",
+  "stats": {
+   "damage": 6.6,
+   "fireRate": 9.6,
+   "energyPerShot": 6.3,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s2m3",
+  "name": "Gravel gun Mk III",
+  "type": "weapon",
+  "size": 2,
+  "mark": 3,
+  "price": 33800,
+  "color": "#b9a98a",
+  "description": "Heavier hopper and a wider throat. Sandblasts a hull to pieces. Hardened liner. Rock leaves faster.",
+  "stats": {
+   "damage": 7.3,
+   "fireRate": 9.6,
+   "energyPerShot": 6.3,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s3m1",
+  "name": "Heavy gravel gun Mk I",
+  "type": "weapon",
+  "size": 3,
+  "mark": 1,
+  "price": 39600,
+  "color": "#b9a98a",
+  "description": "A rockfall on a trigger. Effective on anything that comes into range.",
+  "stats": {
+   "damage": 12.0,
+   "fireRate": 7.68,
+   "energyPerShot": 11.3,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s3m2",
+  "name": "Heavy gravel gun Mk II",
+  "type": "weapon",
+  "size": 3,
+  "mark": 2,
+  "price": 63400,
+  "color": "#b9a98a",
+  "description": "A rockfall on a trigger. Effective on anything that comes into range. Smoother feed chute. Fewer jams, less swearing.",
+  "stats": {
+   "damage": 13.2,
+   "fireRate": 7.68,
+   "energyPerShot": 11.3,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-gravel-s3m3",
+  "name": "Heavy gravel gun Mk III",
+  "type": "weapon",
+  "size": 3,
+  "mark": 3,
+  "price": 101400,
+  "color": "#b9a98a",
+  "description": "A rockfall on a trigger. Effective on anything that comes into range. Hardened liner. Rock leaves faster.",
+  "stats": {
+   "damage": 14.5,
+   "fireRate": 7.68,
+   "energyPerShot": 11.3,
+   "projectileSpeed": 800,
+   "range": 900
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-rig-s2",
+  "name": "Seam mining rig",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "price": 18000,
+  "description": "Drill head and magnetic sweep for pulling ore from a rock. Mining yield up, mining time down.",
+  "stats": {
+   "mining": 1.35,
+   "oreScoopRate": 1.2
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-patcher-s1",
+  "name": "Rivet crew patcher",
+  "type": "utility",
+  "size": 1,
+  "mark": 1,
+  "price": 9000,
+  "description": "Spacesuited crew and a welding arm that go out and patch the hull while the ship is in flight. Slow, but free.",
+  "stats": {
+   "repairHullPerSecond": 0.8,
+   "repairCost": 0.7
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-furnace-s2",
+  "name": "Ore furnace",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "price": 22000,
+  "description": "A small smelter in the hold. Turns raw ore into ingots on the way to market, at a small cost in tonnage.",
+  "stats": {
+   "refineRate": 0.5,
+   "cargoLoss": 0.05
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-forge-s2",
+  "name": "Field forge",
+  "type": "utility",
+  "size": 2,
+  "mark": 1,
+  "price": 26000,
+  "description": "A portable anvil and bellows set that lets a crew rebuild damaged parts out in the dark. Reduces repair costs at any port too.",
+  "stats": {
+   "repairCost": 0.6,
+   "partRepairRate": 1.5,
+   "hullPoints": 40
+  },
+  "builder": "dwarf-yards"
+ }
+]

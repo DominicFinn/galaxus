@@ -1,0 +1,322 @@
+// Crew chatter for orc crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-orc",
+  "description": "Orc crew chatter: blunt, loud, love speed and big engines, loyal once won.",
+  "variables": [
+    "captain",
+    "ship",
+    "system",
+    "crewmate"
+  ],
+  "rules": {
+    "greeting": [
+      "#o-hail# #o-intro#",
+      "#o-hail# #o-ask#",
+      "#o-intro# #o-ask#",
+      "#o-hail# #o-boast#"
+    ],
+    "o-hail": [
+      "Oi, {captain}!",
+      "You! Captain!",
+      "Ha! There you are.",
+      "Hello, small ship!",
+      "Good drinking, {captain}!",
+      "Big station, small chairs.",
+      "You look like you can run an engine.",
+      "I smell diesel and I like it.",
+      "You pay good?",
+      "Hear that? That's my stomach."
+    ],
+    "o-intro": [
+      "I can lift a reactor housing with one hand and complain with the other.",
+      "I fixed an engine with a hammer once. Still runs.",
+      "I can fight, haul, shout and eat for four.",
+      "I go where the burn is.",
+      "I have been three weeks without a fight, and I am tired of it.",
+      "I have lungs like a cargo bay and a temper to match.",
+      "Strong back, strong mind, strong opinions.",
+      "I do not understand forms, but I understand a good fight."
+    ],
+    "o-ask": [
+      "What engine you got?",
+      "How big is your drive?",
+      "Is the {ship} fast?",
+      "Where we going? Somewhere loud?",
+      "Do you feed your crew?",
+      "What do you fight, and how hard?",
+      "How much pay?",
+      "Is there a gym? A heavy one?"
+    ],
+    "o-boast": [
+      "I am bigger than this doorway and prouder of it.",
+      "I've been thrown out of better places than this.",
+      "Nobody here is as strong as me, and everyone knows.",
+      "The last captain cried when I left."
+    ],
+    "hire": [
+      "#o-yes# #o-terms#",
+      "#o-yes# #o-vow#",
+      "#o-terms# #o-vow#",
+      "#o-yes# #o-boast2#"
+    ],
+    "o-yes": [
+      "Yes!",
+      "Good! I come.",
+      "Ha! Done.",
+      "You are strong enough. I'm in.",
+      "I join.",
+      "I like you. Deal.",
+      "Right, show me the engine!",
+      "Hah! Where do I sleep?",
+      "Fine, fine, I take the job.",
+      "Done. Pay me and point me."
+    ],
+    "o-terms": [
+      "Pay me and feed me and I fight for you.",
+      "Give me a big wrench and a bigger engine.",
+      "I want a bunk that fits me.",
+      "No small cups. No small plates.",
+      "Feed me before a fight, and not much after.",
+      "I eat three times what a human eats. Budget for it.",
+      "Pay me weekly. I don't hold with promises.",
+      "I need to hit something now and then. A rock will do."
+    ],
+    "o-vow": [
+      "I stay with you till the end of the run.",
+      "I fight for the {ship}, and for you.",
+      "I don't forget a good captain.",
+      "I am loyal. Be worth it.",
+      "Once I'm yours, I'm yours.",
+      "I'll bleed on your deck before I let it go.",
+      "I do not run. Not ever."
+    ],
+    "o-boast2": [
+      "Your ship will go faster with me aboard.",
+      "I'll make the engines scream.",
+      "Others quit. I don't.",
+      "I'm the best you'll find in this bar, and I've tried them all."
+    ],
+    "complaint": [
+      "#o-open-c# #o-grievance#",
+      "#o-open-p# #o-grievance.cap#",
+      "#o-grievance.cap# #o-threat#",
+      "#o-open-c# #o-grievance# #o-threat#",
+      "#o-open-p# #o-grievance.cap# #o-threat#",
+      "#o-open-p# #o-grievance2#",
+      "#o-grievance2# #o-threat#"
+    ],
+    "o-grievance": [
+      "the engine is too small!",
+      "we are going too slow, and I am bored.",
+      "nobody has hit anything in three days.",
+      "the food is for children.",
+      "the bunk is too short, and so is your patience.",
+      "you pay late and ask me to be patient!",
+      "{crewmate} is a coward. Fix it.",
+      "the {ship} is a toy.",
+      "I am sick of sitting in {system}.",
+      "the gravity is soft in here. I'm going weak.",
+      "you take the boring contracts.",
+      "you run from every fight we find.",
+      "this ship hums. A ship should roar.",
+      "you won't let me touch the drive.",
+      "no one has laughed in a week, and that is bad for a crew.",
+      "you sleep too much."
+    ],
+    "o-grievance2": [
+      "Pay me, or find a weaker orc.",
+      "I follow strong captains, and you're getting weaker.",
+      "I want a fight, or I want a drink, and I want it soon.",
+      "Give me something to break!"
+    ],
+    "o-threat": [
+      "Fix it, or I leave.",
+      "I'll shout till you do.",
+      "Or I put my fist through your wall.",
+      "Do it before {system}.",
+      "I don't ask twice.",
+      "Or I find a ship with a real engine.",
+      "I am not happy, and you will hear about it.",
+      "I stay, but I won't be nice."
+    ],
+    "praise": [
+      "#o-pleased# #o-because#",
+      "#o-pleased# #o-shout#",
+      "#o-because# #o-shout#",
+      "#o-pleased# #o-because# #o-shout#"
+    ],
+    "o-pleased": [
+      "Ha!",
+      "Good!",
+      "Now THAT was flying!",
+      "Yes!",
+      "That's how you do it!",
+      "I like that!",
+      "Strong, {captain}! Strong!",
+      "Well done!",
+      "Excellent noise!",
+      "You earn my respect today."
+    ],
+    "o-because": [
+      "The engines screamed and nothing went wrong.",
+      "We hit them hard and they stayed hit.",
+      "You paid on time, and the bunk was long enough.",
+      "I broke something heavy and was thanked for it.",
+      "The {ship} is fast, and so am I.",
+      "You didn't run, and that is rare.",
+      "You gave me a real fight, and a real drink.",
+      "The drive hit full burn, and I cried a little."
+    ],
+    "o-shout": [
+      "Do it again!",
+      "Next time, faster!",
+      "I'd follow you into any fire.",
+      "Put that on my gravestone!",
+      "We drink tonight!",
+      "You're all right, small captain.",
+      "I'll sing about this one.",
+      "More burn! More!"
+    ],
+    "combat": [
+      "#o-call# #o-order#",
+      "#o-call#",
+      "#o-order#",
+      "#o-call# #o-roar#"
+    ],
+    "o-call": [
+      "Enemy!",
+      "Fight!",
+      "Here they come!",
+      "Hit them!",
+      "They're mine!",
+      "Ha! Finally!",
+      "Incoming, and I'm happy!",
+      "Shields? Never mind shields!",
+      "More! Send more!",
+      "I see them!"
+    ],
+    "o-order": [
+      "Full burn, {captain}!",
+      "Ram them!",
+      "Give me the guns!",
+      "Turn into them!",
+      "Hit them before they hit us!",
+      "Don't run! Fight!",
+      "Fly straight at them!",
+      "The {ship} can take it, so take it!"
+    ],
+    "o-roar": [
+      "AAARGH!",
+      "Come on then!",
+      "Hahaha!",
+      "For the drive!",
+      "Break them!",
+      "Hit hard!",
+      "Louder!"
+    ],
+    "idle": [
+      "#o-idle-open# #o-topic#",
+      "#o-topic#",
+      "#o-topic# #o-idle-end#",
+      "#o-rumour#",
+      "#o-rumour# #o-idle-end#",
+      "#o-idle-open# #o-rumour#",
+      "#o-idle-lead# #voice-common:quiet#.",
+      "#o-idle-lead# #voice-common:quiet#.",
+      "#o-idle-lead# #voice-common:ai#.",
+      "#o-idle-lead# #voice-common:firewall#.",
+      "#o-idle-lead# #voice-common:gates#."
+    ],
+    "o-idle-open": [
+      "Hey, {captain}.",
+      "I'll tell you a story.",
+      "Boring, this trip.",
+      "Listen.",
+      "Talk to me. I get twitchy.",
+      "You want to hear a thing?"
+    ],
+    "o-topic": [
+      "#voice-common:gates.cap#. Gates are slow, though. Give me a straight burn.",
+      "#voice-common:ai.cap#. I'd punch it if I could find it.",
+      "#voice-common:firewall.cap#. Firewall? I'll break it.",
+      "Home has crushing gravity. Everyone here feels like a feather.",
+      "The elves lost their empire because they never learnt to shout.",
+      "Prices at {system} are robbery. I'd rob them back.",
+      "Gate wardens are too clean. I don't trust anyone that clean.",
+      "Synths at the docks get stopped and searched. That's no way to treat anyone.",
+      "I'd trade my left boot for a bigger engine.",
+      "The best engine I ever heard shook a station apart. Beautiful.",
+      "Humans fear the rim. I fear being bored.",
+      "I once out-armwrestled a gate warden. He sulked for a week.",
+      "I miss a proper mudhole and a proper brawl."
+    ],
+    "o-rumour": [
+      "They say #voice-common:quiet#. Ha, I'd like to meet whatever did it.",
+      "I hear #voice-common:quiet#. Sounds like someone I want to fight.",
+      "Someone in {system} said #voice-common:quiet#. Nobody laughed.",
+      "People are scared that #voice-common:quiet#. I'm not."
+    ],
+    "o-idle-end": [
+      "Ha!",
+      "I'm not scared.",
+      "Wouldn't want to meet it, though.",
+      "Louder engines would help.",
+      "Pass the meat.",
+      "We'll hit it, whatever it is.",
+      "Maybe.",
+      "Now I'm hungry."
+    ],
+    "leaving": [
+      "#o-bye# #o-why#",
+      "#o-bye# #o-why# #o-after#",
+      "#o-why# #o-after#",
+      "#o-bye# #o-after#"
+    ],
+    "o-bye": [
+      "I'm leaving, {captain}.",
+      "I go at the next port.",
+      "I'm done.",
+      "This is where we part.",
+      "That's it. I go.",
+      "I quit.",
+      "No more.",
+      "I leave you."
+    ],
+    "o-why": [
+      "You are too soft.",
+      "This ship is too slow.",
+      "I've not hit anything in a month.",
+      "You don't listen to loud people.",
+      "The pay is stupid.",
+      "I was not respected, and I will not be where I'm not.",
+      "I found a bigger ship.",
+      "You're not the captain I thought you were."
+    ],
+    "o-after": [
+      "Goodbye. I don't hold a grudge. Not much.",
+      "Say goodbye to {crewmate} for me. Loudly.",
+      "If you get strong, call me.",
+      "Look after the {ship}. She's not bad.",
+      "I'll drink to you. Maybe.",
+      "You were all right.",
+      "Fix the engine.",
+      "Don't forget my pay."
+    ],
+    "o-open-c": [
+      "Look, {captain},"
+    ],
+    "o-open-p": [
+      "Captain!",
+      "Listen!",
+      "Ugh.",
+      "I will say it loud!",
+      "Why, {captain}?",
+      "Enough!",
+      "Hey!"
+    ],
+    "o-idle-lead": [
+      "My uncle says that",
+      "Back home we say that"
+    ]
+  }
+}

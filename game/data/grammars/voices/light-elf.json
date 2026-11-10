@@ -1,0 +1,316 @@
+// Crew chatter for light-elf crew. Built from sub-rules so lines combine.
+{
+  "id": "voice-light-elf",
+  "description": "Light elf crew chatter: formal, proud, a little condescending, evasive about the fall.",
+  "variables": [
+    "captain",
+    "ship",
+    "system",
+    "crewmate"
+  ],
+  "rules": {
+    "greeting": [
+      "#l-hail# #l-intro#",
+      "#l-hail# #l-ask#",
+      "#l-intro# #l-ask#",
+      "#l-hail# #l-remark#"
+    ],
+    "l-hail": [
+      "Good day, {captain}.",
+      "I greet you, {captain}.",
+      "Ah. You are the captain of the {ship}.",
+      "Well met.",
+      "Forgive the intrusion.",
+      "You are expected, I believe.",
+      "One hopes you are the person I was told of.",
+      "I had begun to think the day would pass without an introduction.",
+      "Allow me to observe that you are late, though not unforgivably.",
+      "Captain {captain}, I presume."
+    ],
+    "l-intro": [
+      "My house is old, and my service has been courteous wherever it was offered.",
+      "I am accustomed to serving on ships considerably better kept than most.",
+      "I have a certain standing, though it is no longer recorded anywhere you would look.",
+      "I was trained in navigation by someone who actually understood the stars.",
+      "I have worked among humans for some years now, and I have learnt to be patient about it.",
+      "My lineage is distinguished. I need not say more, and I won't.",
+      "My talents are in precision, and in precision there is quiet pride.",
+      "I have commanded larger and more elegant vessels. Please, do not take that as a remark about yours."
+    ],
+    "l-ask": [
+      "Might I enquire as to your terms?",
+      "Is the {ship} well maintained, or merely functional?",
+      "What are you offering, exactly, and in what currency?",
+      "Do you keep a civilised table aboard?",
+      "Will I be expected to share quarters with the cargo?",
+      "Is the course set for {system}, or somewhere less dreadful?",
+      "What brings a person of your sort to this bar?"
+    ],
+    "l-remark": [
+      "This station's lighting is deplorable, though I suppose one stops noticing.",
+      "The music here is dreadful. I find that I miss it.",
+      "Humans build such loud docks.",
+      "Forgive me if I seem distracted. I was recalling a better hour."
+    ],
+    "hire": [
+      "#l-yes# #l-terms#",
+      "#l-yes# #l-vow#",
+      "#l-terms# #l-vow#",
+      "#l-yes# #l-barb#"
+    ],
+    "l-yes": [
+      "Very well, {captain}.",
+      "I accept.",
+      "You may count me among your crew.",
+      "I shall take the post.",
+      "I find your offer acceptable.",
+      "It is agreed.",
+      "Let it be so.",
+      "I will serve, for now.",
+      "Then we are in accord.",
+      "This will do."
+    ],
+    "l-terms": [
+      "I trust my quarters will be separate and my duties precise.",
+      "I will expect to be addressed by my name, and my house.",
+      "My wages shall be paid on the day appointed, without need of reminder.",
+      "I ask only that the ship be kept in good order.",
+      "Please do not ask me about the fall. It is not discussed.",
+      "You will find that I keep my counsel.",
+      "I require a window, or the nearest thing to one.",
+      "I would ask for a little quiet in the mornings."
+    ],
+    "l-vow": [
+      "You will have no cause to regret it.",
+      "My service will be exact, if not always warm.",
+      "I shall give you the best of what I have, which is considerable.",
+      "I will not disgrace the {ship}.",
+      "I do not give my word lightly, and I have just given it.",
+      "I hope you can keep pace."
+    ],
+    "l-barb": [
+      "Do try to keep the hull clean.",
+      "I shall endeavour not to be astonished.",
+      "It will be an education, for us both.",
+      "I am confident the first inspection will be instructive."
+    ],
+    "complaint": [
+      "#l-open-c# #l-grievance#",
+      "#l-open-p# #l-grievance.cap#",
+      "#l-grievance.cap# #l-threat#",
+      "#l-open-c# #l-grievance# #l-threat#",
+      "#l-open-p# #l-grievance.cap# #l-threat#",
+      "#l-open-p# #l-grievance2#",
+      "#l-grievance2# #l-threat#"
+    ],
+    "l-grievance": [
+      "the galley has produced something I can only describe as a rumour of food.",
+      "my wages are late, which in my house would be called a breach.",
+      "I am sleeping beside a coolant pipe.",
+      "the cargo stinks, and so, increasingly, do the hallways.",
+      "you took us to {system} without consulting me, and it was beneath us.",
+      "{crewmate} has been humming again. Tunelessly.",
+      "the {ship} is poorly tended, and I say so as someone who knows the difference.",
+      "your choice of contracts reflects poorly on everyone aboard.",
+      "nobody has addressed me properly in a week.",
+      "I was not told that we would fight.",
+      "the light in my quarters is the colour of an old bruise.",
+      "the stars at this end of the arm are unfinished, somehow.",
+      "I am regularly reminded I am an elf, as if I could forget it.",
+      "the tolls are an insult to anyone who remembers when the gates were free.",
+      "I have been asked to carry a crate. I carry nothing."
+    ],
+    "l-grievance2": [
+      "I am not a servant, whatever certain parties assume.",
+      "I was promised dignity, and I have received a bunk.",
+      "You will forgive me, but standards are standards.",
+      "I think you will find that excellence has a price, and it is not being charged."
+    ],
+    "l-threat": [
+      "I should not like to leave, but I will, and I will not explain myself.",
+      "Rectify it, or I shall find a captain who understands.",
+      "I remain for the moment.",
+      "Do not make me reconsider.",
+      "I will not say this twice.",
+      "I have waited out worse, but not for long.",
+      "I will pass the remark along to those who matter.",
+      "My patience is long, but my hours are fewer than it was once."
+    ],
+    "praise": [
+      "#l-pleased# #l-because#",
+      "#l-pleased# #l-grace#",
+      "#l-because# #l-grace#",
+      "#l-pleased# #l-because# #l-grace#"
+    ],
+    "l-pleased": [
+      "Well done, {captain}.",
+      "That was handled with some grace.",
+      "Satisfactory. Indeed, better than satisfactory.",
+      "I find myself pleased.",
+      "One notices good work, even in humans.",
+      "A creditable performance.",
+      "That, at last, was seemly.",
+      "I commend you.",
+      "Most gratifying.",
+      "I am, for once, without a complaint."
+    ],
+    "l-because": [
+      "The approach was clean, and the docking cleaner.",
+      "My wages arrived on the hour, as they ought.",
+      "The crew moved as one, and nobody hummed.",
+      "We left {system} behind us in good order.",
+      "It is rare to see such discipline outside the old houses.",
+      "You listened, which is a courtesy more often promised than paid.",
+      "The {ship} sings when she is run properly.",
+      "Nobody asked me to carry anything."
+    ],
+    "l-grace": [
+      "You may take that as high praise.",
+      "I shall remember it.",
+      "Do not let it make you vain.",
+      "I will mention it, if anyone asks, which they will not.",
+      "It reminded me of better days.",
+      "I confess I had expected less.",
+      "A house would be proud of you.",
+      "Pray continue."
+    ],
+    "combat": [
+      "#l-call# #l-order#",
+      "#l-call#",
+      "#l-order#",
+      "#l-call# #l-barb2#"
+    ],
+    "l-call": [
+      "Enemy sighted.",
+      "They are upon us, {captain}.",
+      "Shields, please.",
+      "Hostiles, bearing close.",
+      "I would advise evasive action.",
+      "Weapons are ready, {captain}.",
+      "They fire without grace.",
+      "This is unseemly.",
+      "Brace yourselves, if you must.",
+      "Incoming, and uncouth."
+    ],
+    "l-order": [
+      "Turn us about and finish it.",
+      "Put the {ship} between us and the light.",
+      "Let me have the guns.",
+      "Steady your hand, {captain}.",
+      "Away, away, they are slow.",
+      "Do not let them near the hull.",
+      "Strike cleanly, and once.",
+      "I will thread the shot. You, just hold still."
+    ],
+    "l-barb2": [
+      "Honestly.",
+      "How tedious.",
+      "I did not dress for this.",
+      "Such manners.",
+      "I have seen empires fall with more dignity."
+    ],
+    "idle": [
+      "#l-idle-open# #l-topic#",
+      "#l-topic#",
+      "#l-topic# #l-idle-end#",
+      "#l-rumour#",
+      "#l-rumour# #l-idle-end#",
+      "#l-idle-open# #l-rumour#",
+      "#l-idle-lead# #voice-common:quiet#.",
+      "#l-idle-lead# #voice-common:quiet#.",
+      "#l-idle-lead# #voice-common:ai#.",
+      "#l-idle-lead# #voice-common:firewall#.",
+      "#l-idle-lead# #voice-common:gates#."
+    ],
+    "l-idle-open": [
+      "I will tell you a little of my people, a little.",
+      "It is a long trip, {captain}.",
+      "Do not look at me so. I am talking to the stars.",
+      "Forgive an old habit."
+    ],
+    "l-topic": [
+      "The gates were made to carry light, not tolls.",
+      "I will not speak of the fall. I can speak of the ceilings, which were beautiful.",
+      "The old empire never ended. It simply stopped announcing itself.",
+      "Prices at {system} are barbarous. One would not pay that for a song.",
+      "I miss a good sunrise. They were once made to order.",
+      "The synths at port are searched like criminals. It reminds me of something, and I shall not say what.",
+      "Wardens are the old guard's children, and they do not know it.",
+      "Humans run the gates as one drives a ship they have found. It is brave, I suppose.",
+      "#voice-common:gates.cap#.",
+      "#voice-common:ai.cap#.",
+      "The rim was once the garden, I am told. Now it is a rumour.",
+      "My grandmother kept a star in a glass. It went out, and so did she.",
+      "Home is a word I use less and less, and mean more."
+    ],
+    "l-rumour": [
+      "It is said that #voice-common:quiet#.",
+      "I hear that #voice-common:quiet#. The humans call it weather.",
+      "Be careful at the rim, {captain}. They say #voice-common:quiet#.",
+      "#voice-common:firewall.cap#, or so they whisper."
+    ],
+    "l-idle-end": [
+      "But I am telling you nothing.",
+      "You did not hear it from me.",
+      "That is all I shall say.",
+      "Let us not dwell.",
+      "It is not my place.",
+      "I regret having mentioned it.",
+      "Do not repeat it.",
+      "I would sooner it were untrue."
+    ],
+    "leaving": [
+      "#l-bye# #l-why#",
+      "#l-bye# #l-why# #l-after#",
+      "#l-why# #l-after#",
+      "#l-bye# #l-after#"
+    ],
+    "l-bye": [
+      "I must take my leave, {captain}.",
+      "I shall disembark at the next port.",
+      "My service ends here.",
+      "I resign my post.",
+      "I am afraid this is farewell.",
+      "I have decided to go.",
+      "I will not be returning aboard.",
+      "I regret that we have reached this point."
+    ],
+    "l-why": [
+      "The conditions are beneath me.",
+      "I was not treated as I should have been.",
+      "I cannot serve where I am not heard.",
+      "I have been offered a better post.",
+      "This vessel is not what it was described to be.",
+      "I have no wish to see the rim, and it is plain we are going.",
+      "The company has become coarse.",
+      "My patience has run its length."
+    ],
+    "l-after": [
+      "I wish you well, in my fashion.",
+      "Farewell to {crewmate}, and the better parts of the ship.",
+      "You will not see my like again, though you may wish to.",
+      "Do not trouble to see me off.",
+      "I leave the {ship} in no worse state than I found it.",
+      "Please pay what is owed.",
+      "Good fortune. You will need it more than you know.",
+      "Be well, {captain}. Be careful."
+    ],
+    "l-open-c": [
+      "I regret to say,",
+      "One does not like to complain, but",
+      "It would be remiss of me not to mention that",
+      "With the greatest restraint,",
+      "I will be brief:",
+      "There is a matter I would rather not raise,"
+    ],
+    "l-open-p": [
+      "Captain, if I may.",
+      "Forgive my candour, {captain}."
+    ],
+    "l-idle-lead": [
+      "It is said, though I do not say it myself, that",
+      "One hears, in houses, that",
+      "At {system} I overheard a human say that"
+    ]
+  }
+}

@@ -8,7 +8,8 @@
     "homeEnvironment": "Temperate rocky worlds and orbital habitats near the core",
     "gTolerance": 9,
     "crewModifiers": {},
-    "nameGrammar": "names-human"
+    "nameGrammar": "names-human",
+    "voiceGrammar": "voice-human"
   },
   {
     "id": "light-elf",
@@ -18,7 +19,8 @@
     "homeEnvironment": "Bright, low-gravity worlds close to young stars",
     "gTolerance": 6,
     "crewModifiers": { "starRecharge": 1.3 },
-    "nameGrammar": "names-light-elf"
+    "nameGrammar": "names-light-elf",
+    "voiceGrammar": "voice-light-elf"
   },
   {
     "id": "dark-elf",
@@ -28,7 +30,8 @@
     "homeEnvironment": "Dim worlds and derelict elder stations at the rim",
     "gTolerance": 8,
     "crewModifiers": { "sensors": 1.25, "stealth": 1.25 },
-    "nameGrammar": "names-dark-elf"
+    "nameGrammar": "names-dark-elf",
+    "voiceGrammar": "voice-dark-elf"
   },
   {
     "id": "orc",
@@ -38,7 +41,8 @@
     "homeEnvironment": "Heavy-gravity worlds with thick atmospheres",
     "gTolerance": 13,
     "crewModifiers": { "enginePower": 1.15 },
-    "nameGrammar": "names-orc"
+    "nameGrammar": "names-orc",
+    "voiceGrammar": "voice-orc"
   },
   {
     "id": "dwarf",
@@ -48,7 +52,8 @@
     "homeEnvironment": "Hollowed-out asteroids and mining belts",
     "gTolerance": 10,
     "crewModifiers": { "repair": 1.3, "mining": 1.25 },
-    "nameGrammar": "names-dwarf"
+    "nameGrammar": "names-dwarf",
+    "voiceGrammar": "voice-dwarf"
   },
   {
     "id": "synth",
@@ -59,7 +64,8 @@
     "gTolerance": 20,
     "needsLifeSupport": false,
     "crewModifiers": { "weaponRecharge": 1.1 },
-    "nameGrammar": "names-synth"
+    "nameGrammar": "names-synth",
+    "voiceGrammar": "voice-synth"
   },
   {
     "id": "free-machine",
@@ -70,6 +76,7 @@
     "gTolerance": 25,
     "needsLifeSupport": false,
     "crewModifiers": { "repair": 1.15 },
-    "nameGrammar": "names-free-machine"
+    "nameGrammar": "names-free-machine",
+    "voiceGrammar": "voice-free-machine"
   }
 ]
