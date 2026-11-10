@@ -22,6 +22,12 @@ public partial class Main
             .OrderBy(b => b.Kind switch { "war" => 0, "defence" => 1, "pirate" => 2, _ => 3 }).ThenByDescending(b => b.Reward)
             .Select(b => (b.Id, b.Name, Summary(b)));
 
+    private static string SimSummary(Galaxus.Core.Content.BattleDef b)
+    {
+        int enemies = b.Waves.Where(w => w.Side == "enemy").Sum(w => w.Ships.Sum(g => g.Count));
+        return $"{enemies} enemy {(enemies == 1 ? "ship" : "ships")}{(b.Wingmen > 0 ? $", {b.Wingmen} on your side" : ", on your own")}.";
+    }
+
     private string Summary(Galaxus.Core.Content.BattleDef b)
     {
         int ships = b.Waves.Sum(w => w.Ships.Sum(g => g.Count));
@@ -58,7 +64,7 @@ public partial class Main
         Galaxus.Core.Galaxy.Faction Power(string id) => galaxy.Factions.First(f => f.PowerId == id);
         return def.Kind switch
         {
-            "war" => (Power("meridian-concord"), Power("grav-khanates").Id),
+            "war" or "sim" => (Power("meridian-concord"), Power("grav-khanates").Id),
             "defence" => (Power("hold-league"), Power("grav-khanates").Id),
             "synth" => (Power("tolland-compact"), BattleJobs.RogueMachines),
             _ => (Power("hesper-directorate"), BattleJobs.Pirates),
@@ -103,8 +109,10 @@ public partial class Main
         _previewBattle = null;
         _previewEndTimer = -1;
         SetScreen(Screen.Menu);
+        var def = _db.Battles[id];
+        var next = def.Kind == "sim" && won ? _db.Battles.Values.Where(b => b.Kind == "sim" && b.Order > def.Order).OrderBy(b => b.Order).FirstOrDefault() : null;
         _menu.ShowResult(won ? "VICTORY" : "DEFEAT",
-            won ? $"{_db.Battles[id].Name}: won, with {_kills} kills to your name." : $"{_db.Battles[id].Name}: the battle was lost.",
-            () => PreviewRequested(id), () => Restart(null));
+            won ? $"{def.Name}: won in {_battle?.Time ?? 0:0} seconds, with {_kills} kills to your name." : $"{def.Name}: {(def.Kind == "sim" ? "you were shot down" : "the battle was lost")}.",
+            () => PreviewRequested(id), () => Restart(null), next != null ? () => PreviewRequested(next.Id) : null);
     }
 }

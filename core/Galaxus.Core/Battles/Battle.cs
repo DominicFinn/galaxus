@@ -115,6 +115,7 @@ public sealed class Battle
     {
         Events.Clear();
         if (Won != null) { FlyCrews(dt); return; }
+        if (Time == 0) SpawnWingmen();
         Time += dt;
         _lastDt = dt;
         foreach (var wave in Def.Waves)
@@ -180,7 +181,8 @@ public sealed class Battle
                 pilot.Destination = group.Role == "freighter" ? Exit(anchor) : wave.Side == "friend" ? _centre + _forward * 2500 : _centre;
                 if (group.Target != null && _tags.TryGetValue(group.Target, out var targets) && targets.Count > 0)
                     pilot.Assigned = targets[0];
-                if (wave.Side == "enemy") pilot.Skill = 0.45f + 0.1f * Def.MinRank + _rng.NextFloat() * 0.25f;
+                if (wave.Side == "enemy") pilot.Skill = 0.3f + 0.08f * Def.MinRank + _rng.NextFloat() * 0.2f;
+                if (group.Skill is { } skill) pilot.Skill = skill;
 
                 _world.Ships.Add(ship);
                 Spawned.Add(ship);
@@ -200,6 +202,36 @@ public sealed class Battle
 
         Events.Add(new WaveArrived(wave.Id, wave.Side, ships.Count));
         if (wave.Radio != null) Events.Add(new RadioCall(Say(wave.Radio), wave.Side));
+    }
+
+    /// <summary>
+    /// Nobody flies alone: a section of fighters joins you on your wing, more when the other side
+    /// badly outnumbers yours, and they go for whatever comes after you.
+    /// </summary>
+    private void SpawnWingmen()
+    {
+        int enemies = Def.Waves.Where(w => w.Side == "enemy").Sum(w => w.Ships.Sum(g => g.Count));
+        int friends = Def.Waves.Where(w => w.Side == "friend").Sum(w => w.Ships.Where(g => g.Role is not ("freighter" or "holding")).Sum(g => g.Count));
+        int count = Def.Kind == "war" ? 1 : 2;
+        count += Math.Clamp((enemies - friends * 2) / 4, 0, 4);
+        if (enemies == 0) count = 0;
+        if (Def.Wingmen >= 0) count = Math.Min(Def.Wingmen, 6);
+        var hull = PickHull(_sides.FriendBuilder, "fighter", false);
+        if (hull == null) return;
+        string[] calls = ["Two", "Three", "Four", "Five", "Six", "Seven"];
+        for (int i = 0; i < count; i++)
+        {
+            var spec = ShipFactory.Build(_db, hull, null, _sides.FriendRace);
+            var ship = new Ship(Interlocked.Increment(ref _nextShipId), $"Wing {calls[i]}", spec) { Side = FriendSide };
+            ship.Body.Position = _player.Body.Position + (_right * (i % 2 == 0 ? 1 : -1) * (60 + 50 * (i / 2)) - _forward * (40 + 40 * (i / 2)));
+            ship.Body.Orientation = _player.Body.Orientation;
+            ship.Body.Velocity = _player.Body.Velocity;
+            var pilot = new Pilot(PilotRole.Escort, _rng.Fork($"wing-{i}")) { Assigned = _player, Player = _player, Skill = 0.65f };
+            _world.Ships.Add(ship);
+            Spawned.Add(ship);
+            Crews.Add((ship, pilot));
+        }
+        if (count > 0) Events.Add(new RadioCall(count == 1 ? "Wing Two, on your wing." : $"Wing Two to Wing {calls[count - 1]}, formed up on you. We'll keep them off your tail.", "friend"));
     }
 
     private Vector3 WhereFrom(WaveDef wave) => _centre + wave.Position switch

@@ -514,7 +514,7 @@ public sealed class ContentDatabase
     }
 
     /// <summary>A grammar may only declare variables the game will actually supply.</summary>
-    public static readonly HashSet<string> BattleKinds = ["war", "pirate", "synth", "defence", "campaign", "job"];
+    public static readonly HashSet<string> BattleKinds = ["war", "pirate", "synth", "defence", "campaign", "job", "sim"];
     public static readonly HashSet<string> JobBattleTypes = ["bounty", "escort", "patrol", "raid", "claim-jumping", "mining"];
     public static readonly HashSet<string> BattleRoles = ["fighter", "bomber", "escort", "capital", "freighter", "interceptor", "holding"];
     public static readonly HashSet<string> BattlePositions = ["near", "ahead", "behind", "left", "right", "above", "far"];

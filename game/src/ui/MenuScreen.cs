@@ -13,6 +13,7 @@ public sealed class MenuActions
     /// <summary>Starts a set-piece battle on its own, as a preview.</summary>
     public required Action<string> PreviewBattle { get; init; }
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> PreviewBattles { get; init; }
+    public required Func<IEnumerable<(string Id, string Name, string Summary)>> Simulations { get; init; }
     public required Action<string> Load { get; init; }
     public required Action<string> Save { get; init; }
     public required Action Resume { get; init; }
@@ -26,7 +27,7 @@ public sealed class MenuActions
 /// </summary>
 public partial class MenuScreen : Control
 {
-    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result }
+    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns }
 
     private MenuActions _actions = null!;
     private Logo _logo = null!;
@@ -63,18 +64,29 @@ public partial class MenuScreen : Control
 
     public override void _Process(double delta) => _logo.Spin += (float)delta * 0.08f;
 
+    /// <summary>A page to open instead of the main one, once (for screenshots).</summary>
+    public static string? PendingPage { get; set; }
+
     public void Open(bool inGame)
     {
         InGame = inGame;
         Visible = true;
         ShowPage(Page.Main);
+        if (PendingPage is { } pending) OpenPage(pending);
+    }
+
+    /// <summary>Opens a page by name, for screenshots: newgame, campaigns, simulator, previews.</summary>
+    public void OpenPage(string name)
+    {
+        if (Enum.TryParse<Page>(name, ignoreCase: true, out var page)) ShowPage(page);
+        else if (name == "newgame") ShowPage(Page.NewGame);
     }
 
     private void ShowPage(Page page)
     {
         _page = page;
         foreach (var child in _items.GetChildren()) child.QueueFree();
-        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews ? 440 : 360, 0);
+        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns ? 440 : 360, 0);
         _footer.Text = "Galaxus is a working title. Early build.";
 
         switch (page)
@@ -85,10 +97,14 @@ public partial class MenuScreen : Control
             case Page.Settings: BuildSettings(); break;
             case Page.NewGame: BuildNewGame(); break;
             case Page.Previews: BuildPreviews(); break;
+            case Page.Simulator: BuildSimulator(); break;
+            case Page.Campaigns: BuildCampaigns(); break;
             case Page.Result: BuildResult(); break;
         }
-        // Centre the panel under the logo once its contents have sized it.
+        // Centre the panel under the logo once its contents have sized it, and again once wrapped
+        // text has settled its height.
         CallDeferred(MethodName.CentrePanel);
+        GetTree().CreateTimer(0.05).Timeout += CentrePanel;
     }
 
     private void CentrePanel()
@@ -123,18 +139,50 @@ public partial class MenuScreen : Control
     private void BuildNewGame()
     {
         Add(Ui.Label("NEW GAME", Ui.Amber));
-        Add(Ui.Button("Battle preview: jump straight into a set piece", () => ShowPage(Page.Previews)));
-        Add(Ui.Label(" ", Ui.Dim));
-        Add(Ui.Label("Free trader: a small ship, a little money and the whole galaxy. Trade, take jobs, pick sides.", Ui.Dim, wrap: true));
-        Add(Ui.Button("Start as a free trader", () => _actions.NewGame()));
-        foreach (var (id, name, summary) in _actions.Campaigns())
+        var tutorial = _actions.Campaigns().FirstOrDefault(c => c.Name.StartsWith("Tutorial"));
+        if (tutorial.Id != null)
+            Option("Tutorial: First Flight", "Learn to fly, fight and find your way, with an instructor.", () => _actions.NewCampaign(tutorial.Id));
+        Option("Free trader", "A small ship, a little money and the whole galaxy. Trade, take jobs, pick sides.", () => _actions.NewGame());
+        Option("Campaign", "Enlist with a great power and fly a run of missions from your flagship.", () => ShowPage(Page.Campaigns));
+        Option("Dogfight simulator", "Short practice fights, each a little harder than the last.", () => ShowPage(Page.Simulator));
+        Option("Battle preview", "Jump straight into one of the big set-piece battles.", () => ShowPage(Page.Previews));
+        Add(Ui.Button("Back", () => ShowPage(Page.Main)));
+    }
+
+    /// <summary>A choice on the new game page: a button with a line saying what it is underneath.</summary>
+    private void Option(string title, string description, Action pressed) => Add(TwoLineButton(title, description, pressed));
+
+    /// <summary>A button with a title and a dimmer line of description under it.</summary>
+    private static Button TwoLineButton(string title, string description, Action pressed)
+    {
+        var button = Ui.Button($"{title}\n{description}", pressed);
+        button.Alignment = HorizontalAlignment.Left;
+        button.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        button.CustomMinimumSize = new Vector2(410, 0);
+        return button;
+    }
+
+    /// <summary>The campaigns, each with what it is about.</summary>
+    private void BuildCampaigns()
+    {
+        Add(Ui.Label("CAMPAIGNS", Ui.Amber));
+        var list = Scrolled();
+        foreach (var (id, name, summary) in _actions.Campaigns().Where(c => !c.Name.StartsWith("Tutorial")))
         {
-            Add(Ui.Label(" ", Ui.Dim));
-            Add(Ui.Label(summary, Ui.Dim, wrap: true));
             var campaignId = id;
-            Add(Ui.Button($"Campaign: {name}", () => _actions.NewCampaign(campaignId)));
+            list.AddChild(TwoLineButton(name, summary, () => _actions.NewCampaign(campaignId)));
         }
-        Add(Ui.Button("Back", () => ShowPage(_back)));
+        Add(Ui.Button("Back", () => ShowPage(Page.NewGame)));
+    }
+
+    /// <summary>A scrolling list that fits the window under the logo, for pages with more than a few entries.</summary>
+    private VBoxContainer Scrolled()
+    {
+        var scroll = new ScrollContainer { CustomMinimumSize = new Vector2(420, Mathf.Clamp(Size.Y - 210, 140, 420)), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };
+        var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        scroll.AddChild(list);
+        Add(scroll);
+        return list;
     }
 
     /// <summary>Set pieces to fly on their own: a quick taste of the battles, and a good test of how they run.</summary>
@@ -142,30 +190,40 @@ public partial class MenuScreen : Control
     {
         Add(Ui.Label("BATTLE PREVIEW", Ui.Amber));
         Add(Ui.Label("Start in the middle of a set piece. When it's over, the preview ends. F3 shows performance.", Ui.Dim, wrap: true));
-        var scroll = new ScrollContainer { CustomMinimumSize = new Vector2(420, 230) };
-        var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
-        scroll.AddChild(list);
+        var list = Scrolled();
         foreach (var (id, name, summary) in _actions.PreviewBattles())
         {
             var battleId = id;
-            var button = Ui.Button($"{name}: {summary}", () => _actions.PreviewBattle(battleId));
-            button.Alignment = HorizontalAlignment.Left;
-            list.AddChild(button);
+            list.AddChild(TwoLineButton(name, summary, () => _actions.PreviewBattle(battleId)));
         }
-        Add(scroll);
+        Add(Ui.Button("Back", () => ShowPage(Page.NewGame)));
+    }
+
+    /// <summary>The dogfight simulator: short drills, from one slow target up to an ace and a furball.</summary>
+    private void BuildSimulator()
+    {
+        Add(Ui.Label("DOGFIGHT SIMULATOR", Ui.Amber));
+        Add(Ui.Label("Short fights to practise in, each a little harder. T targets, the red diamond shows where to aim, Space fires, Q and E roll, slow down to turn tighter.", Ui.Dim, wrap: true));
+        var list = Scrolled();
+        foreach (var (id, name, summary) in _actions.Simulations())
+        {
+            var simId = id;
+            list.AddChild(TwoLineButton(name, summary, () => _actions.PreviewBattle(simId)));
+        }
         Add(Ui.Button("Back", () => ShowPage(Page.NewGame)));
     }
 
     private string _resultTitle = "", _resultText = "";
-    private Action? _again, _home;
+    private Action? _again, _home, _next;
 
-    /// <summary>The end of a preview: how it went, and what next.</summary>
-    public void ShowResult(string title, string text, Action again, Action home)
+    /// <summary>The end of a preview or simulation: how it went, and what next.</summary>
+    public void ShowResult(string title, string text, Action again, Action home, Action? next = null)
     {
         _resultTitle = title;
         _resultText = text;
         _again = again;
         _home = home;
+        _next = next;
         InGame = true;
         Visible = true;
         ShowPage(Page.Result);
@@ -175,6 +233,7 @@ public partial class MenuScreen : Control
     {
         Add(Ui.Label(_resultTitle, Ui.Amber));
         Add(Ui.Label(_resultText, Ui.Dim, wrap: true));
+        if (_next != null) Add(Ui.Button("Next simulation", () => _next?.Invoke()));
         Add(Ui.Button("Fly it again", () => _again?.Invoke()));
         Add(Ui.Button("Main menu", () => _home?.Invoke()));
     }

@@ -1,0 +1,412 @@
+[
+  {
+    "id": "sim-1",
+    "name": "Simulator 1: Single Target",
+    "kind": "sim",
+    "order": 1,
+    "wingmen": 0,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "drone",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 1,
+            "skill": 0.15
+          }
+        ],
+        "at": 3,
+        "radio": "radio-drone"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "text": "Destroy the training fighter",
+        "wave": "drone"
+      }
+    ]
+  },
+  {
+    "id": "sim-2",
+    "name": "Simulator 2: Two on One",
+    "kind": "sim",
+    "order": 2,
+    "wingmen": 0,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "pair",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 3000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2,
+            "skill": 0.25
+          }
+        ],
+        "at": 3,
+        "radio": "radio-pair"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "text": "Destroy both fighters",
+        "wave": "pair"
+      }
+    ]
+  },
+  {
+    "id": "sim-3",
+    "name": "Simulator 3: Head to Head",
+    "kind": "sim",
+    "order": 3,
+    "wingmen": 0,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "lancer",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 4000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 1,
+            "skill": 0.45
+          }
+        ],
+        "at": 3,
+        "radio": "radio-lancer"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "text": "Win the head-on pass",
+        "wave": "lancer"
+      }
+    ]
+  },
+  {
+    "id": "sim-4",
+    "name": "Simulator 4: Bomber Run",
+    "kind": "sim",
+    "order": 4,
+    "wingmen": 1,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "frigate",
+        "side": "friend",
+        "position": "near",
+        "distance": 900,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "frigate"
+          }
+        ],
+        "at": 0,
+        "radio": "radio-frigate"
+      },
+      {
+        "id": "bombers",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3,
+            "skill": 0.3,
+            "target": "frigate"
+          }
+        ],
+        "at": 8,
+        "radio": "radio-bombers"
+      },
+      {
+        "id": "cover",
+        "side": "enemy",
+        "position": "left",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2,
+            "skill": 0.35
+          }
+        ],
+        "after": "wave:bombers",
+        "delay": 4,
+        "radio": "radio-cover"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "bombers",
+        "type": "destroy",
+        "text": "Stop the bombers",
+        "wave": "bombers"
+      },
+      {
+        "id": "save",
+        "type": "protect",
+        "text": "Keep the frigate alive",
+        "tag": "frigate"
+      },
+      {
+        "id": "cover",
+        "type": "destroy",
+        "text": "Destroy the fighter cover",
+        "wave": "cover"
+      }
+    ]
+  },
+  {
+    "id": "sim-5",
+    "name": "Simulator 5: Fly as a Pair",
+    "kind": "sim",
+    "order": 5,
+    "wingmen": 1,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "four",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 4000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4,
+            "skill": 0.35
+          }
+        ],
+        "at": 4,
+        "radio": "radio-four"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "text": "Destroy all four fighters",
+        "wave": "four"
+      }
+    ]
+  },
+  {
+    "id": "sim-6",
+    "name": "Simulator 6: The Ace",
+    "kind": "sim",
+    "order": 6,
+    "wingmen": 0,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "ace",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 1,
+            "tag": "ace",
+            "skill": 0.95,
+            "name": "Colonel Vask"
+          }
+        ],
+        "at": 3,
+        "radio": "radio-ace"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "text": "Shoot down Colonel Vask",
+        "tag": "ace"
+      }
+    ]
+  },
+  {
+    "id": "sim-7",
+    "name": "Simulator 7: Furball",
+    "kind": "sim",
+    "order": 7,
+    "wingmen": 4,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "first",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6,
+            "skill": 0.4
+          }
+        ],
+        "at": 4,
+        "radio": "radio-first"
+      },
+      {
+        "id": "second",
+        "side": "enemy",
+        "position": "behind",
+        "distance": 4000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4,
+            "skill": 0.5
+          },
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 2,
+            "skill": 0.55
+          }
+        ],
+        "after": "wave:first",
+        "delay": 6,
+        "radio": "radio-second"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "first",
+        "type": "destroy",
+        "text": "Break the first wing",
+        "wave": "first"
+      },
+      {
+        "id": "second",
+        "type": "destroy",
+        "text": "Break the second wing",
+        "wave": "second"
+      }
+    ]
+  },
+  {
+    "id": "sim-8",
+    "name": "Simulator 8: Last Pilot Standing",
+    "kind": "sim",
+    "order": 8,
+    "wingmen": 0,
+    "reward": 0,
+    "minRank": 0,
+    "textGrammar": "battle-sim",
+    "waves": [
+      {
+        "id": "w1",
+        "side": "enemy",
+        "position": "ahead",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2,
+            "skill": 0.4
+          }
+        ],
+        "at": 3,
+        "radio": "radio-w1"
+      },
+      {
+        "id": "w2",
+        "side": "enemy",
+        "position": "left",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3,
+            "skill": 0.45
+          }
+        ],
+        "at": 40,
+        "radio": "radio-w2"
+      },
+      {
+        "id": "w3",
+        "side": "enemy",
+        "position": "behind",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 2,
+            "skill": 0.55
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 1,
+            "skill": 0.5
+          }
+        ],
+        "at": 80,
+        "radio": "radio-w3"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "live",
+        "type": "survive",
+        "text": "Survive two minutes",
+        "seconds": 120
+      },
+      {
+        "id": "score",
+        "type": "destroy",
+        "text": "Destroy the last wave",
+        "wave": "w3",
+        "optional": true
+      }
+    ]
+  }
+]

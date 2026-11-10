@@ -1,0 +1,74 @@
+{
+  "id": "battle-sim",
+  "description": "Dogfight simulator: the range officer's voice.",
+  "variables": [
+    "captain"
+  ],
+  "rules": {
+    "briefing": [
+      "Simulator ready, {captain}. Nothing out there is real except your mistakes."
+    ],
+    "success": [
+      "Simulation complete. Good flying, {captain}. Again, or the next one?",
+      "Range clear. That will do nicely.",
+      "Done. Your instructor would be insufferable about it."
+    ],
+    "failure": [
+      "You're dead, {captain}. Simulated, so only your pride. Try it again.",
+      "Simulation over. Watch your six next time.",
+      "Ejected and fished out. Again."
+    ],
+    "radio-drone": [
+      "One target, flying slow. T to lock it, follow the red diamond, Space to fire.",
+      "Training fighter on the board. Get behind it and stay there."
+    ],
+    "radio-pair": [
+      "Two of them now. Take one at a time and keep moving.",
+      "A pair. Don't sit still while you shoot the first."
+    ],
+    "radio-lancer": [
+      "He's coming straight for you. Hold your nerve, fire as he lines up, then turn hard.",
+      "Head-on pass incoming. Shoot early, then break."
+    ],
+    "radio-frigate": [
+      "Frigate on station. Bombers are coming for her.",
+      "You're her screen. Nothing reaches the frigate."
+    ],
+    "radio-bombers": [
+      "Bombers inbound. They ignore you and go for the frigate, so go for them.",
+      "Three bombers. Every second they live, the frigate pays."
+    ],
+    "radio-cover": [
+      "Their fighter cover's arrived late. Clean it up.",
+      "Escorts on the left. Turn into them."
+    ],
+    "radio-four": [
+      "Four fighters. Your wingman's with you; stay together and pick them off.",
+      "Four on two. Let them come to you and fight as a pair."
+    ],
+    "radio-ace": [
+      "Colonel Vask, the simulator's best. He doesn't miss twice. Don't fly straight.",
+      "One pilot, very good. Use your speed, cut the throttle in the turns."
+    ],
+    "radio-first": [
+      "Six fighters and you have four friends. It'll get messy. Keep turning.",
+      "First wing in. Pick a target, stay on it, watch your back."
+    ],
+    "radio-second": [
+      "Second wing from behind. Turn around!",
+      "More of them, with interceptors. They'll come for you."
+    ],
+    "radio-w1": [
+      "Survive two minutes. Kill what you can, but stay alive.",
+      "The clock's running. First pair in."
+    ],
+    "radio-w2": [
+      "Three more from the left.",
+      "More company. Keep your speed up."
+    ],
+    "radio-w3": [
+      "Last wave, and they're good. Hang on.",
+      "Interceptors and a gunship. Nearly there."
+    ]
+  }
+}

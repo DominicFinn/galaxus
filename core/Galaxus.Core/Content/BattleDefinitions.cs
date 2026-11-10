@@ -9,8 +9,12 @@ public sealed class BattleDef
 {
     public string Id { get; set; } = "";
     public string Name { get; set; } = "";
-    /// <summary>war (between two powers or factions at war), pirate, synth (rogue machines), defence (of a station), campaign (only flown as part of a campaign, never posted on boards), or job (the fight behind an ordinary job board job; see JobType).</summary>
+    /// <summary>war (between two powers or factions at war), pirate, synth (rogue machines), defence (of a station), campaign (only flown as part of a campaign, never posted on boards), sim (a dogfight simulator drill), or job (the fight behind an ordinary job board job; see JobType).</summary>
     public string Kind { get; set; } = "war";
+    /// <summary>Wingmen who join you at the start: -1 lets the game decide from the odds, 0 is a solo fight.</summary>
+    public int Wingmen { get; set; } = -1;
+    /// <summary>For kind "sim": its place in the dogfight simulator's run, from 1.</summary>
+    public int Order { get; set; }
     /// <summary>For kind "job": the mission type it plays out (bounty, escort, patrol, raid, claim-jumping, mining).</summary>
     public string? JobType { get; set; }
     /// <summary>For kind "job": the job scales it suits (small, skirmish, battle, war). Empty means any.</summary>
@@ -64,6 +68,8 @@ public sealed class GroupDef
     public string? Tag { get; set; }
     /// <summary>The tag this group goes after or guards.</summary>
     public string? Target { get; set; }
+    /// <summary>How good these pilots are, 0.1 to 1. Unset leaves it to the battle.</summary>
+    public float? Skill { get; set; }
     /// <summary>A fixed name for the group's first ship, such as an enemy ace or your base ("{base}"). Variables are filled in.</summary>
     public string? Name { get; set; }
 }

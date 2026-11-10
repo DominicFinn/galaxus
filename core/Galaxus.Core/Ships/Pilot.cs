@@ -47,6 +47,15 @@ public sealed class Pilot(PilotRole role, Rng rng)
     private float _jinkTime;
     private float _lastHull = -1;
     private float _skill = 0.6f + rng.NextFloat() * 0.4f;
+    private float _clock;
+    /// <summary>Seconds until the pilot has settled on a new target and can open fire.</summary>
+    private float _settle;
+    /// <summary>How long the target has been held in the sights: firing needs a steady aim.</summary>
+    private float _tracking;
+    /// <summary>Firing comes in bursts: seconds left of this burst, then of the pause after it.</summary>
+    private float _burst, _pause;
+    private Ship? _lastTarget;
+    private Vector3 _aimWander;
 
     /// <summary>How good the pilot is, 0 to 1. Better pilots lead shots tighter and jink harder.</summary>
     public float Skill { get => _skill; set => _skill = Math.Clamp(value, 0.1f, 1); }
@@ -65,6 +74,7 @@ public sealed class Pilot(PilotRole role, Rng rng)
         _jinkTime = MathF.Max(0, _jinkTime - dt);
         _breakOff = MathF.Max(0, _breakOff - dt);
         _retarget -= dt;
+        _clock += dt;
 
         switch (Role)
         {
@@ -108,14 +118,35 @@ public sealed class Pilot(PilotRole role, Rng rng)
             _retarget = 3 + rng.NextFloat() * 3;
         }
         if (ship.Target is not { } target) return false;
+        if (target != _lastTarget)
+        {
+            // A new target takes a moment to pick up and line up on.
+            _lastTarget = target;
+            _settle = 1.2f + (1 - _skill) * 2.5f + rng.NextFloat();
+            _tracking = 0;
+        }
+        _settle = MathF.Max(0, _settle - dt);
 
         var toTarget = target.Body.Position - ship.Body.Position;
         float distance = toTarget.Length() - target.Spec.Radius;
         var weapon = ship.Spec.Weapons.FirstOrDefault(w => !w.Turret);
         float speed = weapon?.ProjectileSpeed ?? 1000;
         var lead = World.LeadPoint(ship.Body.Position, ship.Body.Velocity, target.Body.Position, target.Body.Velocity, speed) ?? target.Body.Position;
-        // Weaker pilots aim a little off.
-        lead += new Vector3(rng.Range(-1, 1), rng.Range(-1, 1), rng.Range(-1, 1)) * (1 - _skill) * 25;
+        // Aim wanders, slowly, more for weaker pilots and at longer range: nobody snaps onto a mark.
+        if (rng.NextFloat() < dt * 1.5f)
+            _aimWander = new Vector3(rng.Range(-1, 1), rng.Range(-1, 1), rng.Range(-1, 1)) * (0.35f + (1 - _skill) * 1.2f);
+        lead += _aimWander * MathF.Max(15, distance * 0.025f);
+
+        // Someone on my tail: break hard and jink.
+        if (target.Target == ship && distance < 1500 && _breakOff <= 0 && _jinkTime <= 0
+            && Vector3.Dot(target.Body.Forward, Vector3.Normalize(ship.Body.Position - target.Body.Position)) > 0.94f
+            && rng.NextFloat() < dt * (0.4f + _skill * 0.8f))
+        {
+            _jinkTime = 1.5f + rng.NextFloat() * 1.5f;
+            _breakOff = 1.6f;
+            var side = Vector3.Normalize(Vector3.Cross(ship.Body.Forward, ship.Body.Up));
+            _breakDir = Vector3.Normalize(side * (rng.NextFloat() < 0.5f ? 1 : -1) + ship.Body.Up * rng.Range(-0.6f, 0.6f));
+        }
 
         bool bigTarget = target.Spec.Hull.IsCapital;
         float tooClose = bigTarget ? target.Spec.Radius + 250 : 160;
@@ -140,8 +171,19 @@ public sealed class Pilot(PilotRole role, Rng rng)
             FlyTowards(ship, lead, throttle);
 
             float range = weapon?.Range ?? 1500;
-            float cone = weapon is { Homing: true } ? 0.85f : 0.992f - (1 - _skill) * 0.01f;
-            ship.Controls.Fire = distance < range && onNose > cone;
+            float cone = weapon is { Homing: true } ? 0.85f : 0.994f - (1 - _skill) * 0.008f;
+            bool lined = distance < range * 0.85f && onNose > cone;
+            _tracking = lined ? _tracking + dt : MathF.Max(0, _tracking - dt * 2);
+            // Fire in bursts once settled and holding the aim, then ease off and re-aim.
+            if (_burst > 0) _burst -= dt;
+            else if (_pause > 0) _pause -= dt;
+            bool steady = _tracking > 0.35f + (1 - _skill) * 0.5f;
+            if (_burst <= 0 && _pause <= 0 && steady && _settle <= 0)
+            {
+                _burst = 0.8f + rng.NextFloat() * 1.2f;
+                _pause = 0.8f + rng.NextFloat() * (1.6f - _skill);
+            }
+            ship.Controls.Fire = lined && _burst > 0 && _settle <= 0;
         }
 
         if (_jinkTime > 0)
@@ -165,10 +207,15 @@ public sealed class Pilot(PilotRole role, Rng rng)
             if (d > radius) continue;
             bool big = other.Spec.Hull.IsCapital;
             float score = d;
+            // Pilots spread out: a target others are already chasing is less attractive.
+            int chasers = 0;
+            foreach (var s in world.Ships) if (s != ship && s.Alive && s.Target == other && s.Side == ship.Side) chasers++;
+            score *= 1 + chasers * 0.7f;
+            if (other == Player && Role != PilotRole.Interceptor) score *= 1.3f;
             switch (Role)
             {
                 case PilotRole.Bomber: score *= big ? (other == Assigned ? 0.1f : 0.3f) : 3f; break;
-                case PilotRole.Interceptor: score *= other == Player ? 0.2f : big ? 4f : 1f; break;
+                case PilotRole.Interceptor: score *= other == Player ? 0.45f : big ? 4f : 1f; break;
                 case PilotRole.Pirate: score *= other.Spec.Hull.Class is "freighter" or "courier" or "miner" ? 0.4f : other == Player ? 0.7f : big ? 6f : 1f; break;
                 default: score *= big ? 2.5f : 1f; break;
             }

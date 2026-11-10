@@ -118,6 +118,7 @@ public partial class Main : Node3D
             Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Tutorial ? 0 : 1).ThenBy(c => c.Name).Select(c => (c.Id, c.Tutorial ? $"Tutorial: {c.Name}" : c.Name, c.Summary)),
             PreviewBattle = PreviewRequested,
             PreviewBattles = PreviewBattles,
+            Simulations = () => _db.Battles.Values.Where(b => b.Kind == "sim").OrderBy(b => b.Order).Select(b => (b.Id, b.Name, SimSummary(b))),
             Load = slot => Restart(SaveSlots.Read(_db, slot)),
             Save = slot => { SaveSlots.Write(slot, _session); },
             Resume = Resume,
@@ -180,6 +181,8 @@ public partial class Main : Node3D
         AddChild(_space);
         _space.Build((ulong)DateTime.Now.Ticks);
         _camera.Rotation = new Vector3(0, 0, 0);
+        _menu.Open(inGame: false);
+        if (OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--menu-page=")) is { } page) MenuScreen.PendingPage = page["--menu-page=".Length..];
         _menu.Open(inGame: false);
         Input.MouseMode = Input.MouseModeEnum.Visible;
         AudioManager.Instance?.PlayMusic("title", 1);
