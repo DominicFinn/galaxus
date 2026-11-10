@@ -52,6 +52,8 @@ public static class SaveGame
         public int CampaignStep { get; set; }
         public int CampaignBase { get; set; } = -1;
         public string? CampaignDebrief { get; set; }
+        /// <summary>The mods loaded when this was saved. Mods can change the galaxy, so a save moved to a game with different mods may not come out the same.</summary>
+        public List<string> Mods { get; set; } = [];
     }
 
     public sealed class SavedMission
@@ -88,6 +90,7 @@ public static class SaveGame
         {
             SavedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
             Seed = session.Galaxy.Seed,
+            Mods = [.. session.Db.LoadedMods],
             SystemCount = session.Settings.SystemCount,
             MinorFactions = session.Settings.MinorFactions,
             Day = session.Galaxy.Day,
@@ -149,6 +152,41 @@ public static class SaveGame
         try { return JsonSerializer.Deserialize<SaveData>(json, Json); }
         catch (JsonException) { return null; }
     }
+
+    /// <summary>What checking a save file from elsewhere found.</summary>
+    /// <param name="Data">The save's header, when it is a save this build can load.</param>
+    /// <param name="Problem">Why it can't be loaded, if it can't.</param>
+    /// <param name="Warning">Something worth knowing before loading it, such as different mods.</param>
+    public sealed record SaveCheck(SaveData? Data, string? Problem, string? Warning);
+
+    /// <summary>
+    /// Checks a save file brought in from another copy of the game (the web version, another
+    /// computer) before it replaces anything.
+    /// </summary>
+    public static SaveCheck Check(ContentDatabase db, string json)
+    {
+        var data = string.IsNullOrWhiteSpace(json) ? null : Peek(json);
+        if (data == null || data.Seed == 0 || data.SystemCount <= 0 || string.IsNullOrEmpty(data.HullId))
+            return new SaveCheck(null, "That file isn't a Galaxus save.", null);
+        if (data.Version > Version)
+            return new SaveCheck(null, "That save comes from a newer version of Galaxus. Update this copy of the game to load it.", null);
+        if (data.Version < 1)
+            return new SaveCheck(null, "That save is from a version of Galaxus this build can't read.", null);
+
+        var missing = data.Mods.Except(db.LoadedMods).ToList();
+        var extra = db.LoadedMods.Except(data.Mods).ToList();
+        string? warning = null;
+        if (missing.Count > 0 || extra.Count > 0)
+        {
+            var parts = new List<string>();
+            if (missing.Count > 0) parts.Add($"it was made with {Join(missing)}, which this game doesn't have");
+            if (extra.Count > 0) parts.Add($"this game has {Join(extra)}, which it wasn't made with");
+            warning = $"The mods don't match: {string.Join(", and ", parts)}. The galaxy may not come out quite the same.";
+        }
+        return new SaveCheck(data, null, warning);
+    }
+
+    private static string Join(List<string> mods) => mods.Count == 1 ? $"the mod {mods[0]}" : $"the mods {string.Join(", ", mods)}";
 
     public static Session Load(ContentDatabase db, string json)
     {

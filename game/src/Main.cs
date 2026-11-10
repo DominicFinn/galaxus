@@ -145,6 +145,7 @@ public partial class Main : Node3D
             PreviewBattles = PreviewBattles,
             Simulations = () => _db.Battles.Values.Where(b => b.Kind == "sim").OrderBy(b => b.Order).Select(b => (b.Id, b.Name, SimSummary(b))),
             Load = slot => Loading.Run(this, "Loading your game", () => Restart(SaveSlots.Read(_db, slot)), finish: false),
+            CheckSave = json => SaveGame.Check(_db, json),
             Save = slot => { SaveSlots.Write(slot, _session); },
             Resume = Resume,
             MainMenu = () => Restart(null),

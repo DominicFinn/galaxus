@@ -80,12 +80,13 @@ public sealed class GameSettings
 
 /// <summary>
 /// Save slots in user://saves. Slot "autosave" is written each time you dock; slots 1 to 5 are
-/// manual saves.
+/// manual saves; "imported" holds the last save brought in from a file.
 /// </summary>
 public static class SaveSlots
 {
     private const string Folder = "user://saves";
     public const string Autosave = "autosave";
+    public const string Imported = "imported";
     public static readonly string[] Manual = ["slot-1", "slot-2", "slot-3", "slot-4", "slot-5"];
 
     private static string PathFor(string slot) => $"{Folder}/{slot}.json";
@@ -102,8 +103,23 @@ public static class SaveSlots
 
     public static Session Read(ContentDatabase db, string slot) => SaveGame.Load(db, Godot.FileAccess.GetFileAsString(PathFor(slot)));
 
+    /// <summary>A slot's file as it stands, for exporting.</summary>
+    public static string? ReadText(string slot) =>
+        Godot.FileAccess.FileExists(PathFor(slot)) ? Godot.FileAccess.GetFileAsString(PathFor(slot)) : null;
+
+    /// <summary>Keeps a save brought in from a file in the imported slot.</summary>
+    public static void WriteImported(string json)
+    {
+        DirAccess.MakeDirRecursiveAbsolute(Folder);
+        using var file = Godot.FileAccess.Open(PathFor(Imported), Godot.FileAccess.ModeFlags.Write);
+        file?.StoreString(json);
+    }
+
+    /// <summary>Every slot a game can be loaded from, in the order the load page lists them.</summary>
+    public static IEnumerable<string> Loadable => Manual.Prepend(Autosave).Append(Imported);
+
     /// <summary>The most recently saved slot, for Continue.</summary>
-    public static string? Latest() => Manual.Prepend(Autosave)
+    public static string? Latest() => Loadable
         .Select(slot => (slot, data: Peek(slot)))
         .Where(x => x.data != null)
         .OrderByDescending(x => x.data!.SavedAt, StringComparer.Ordinal)

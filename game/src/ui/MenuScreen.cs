@@ -17,6 +17,8 @@ public sealed class MenuActions
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> PreviewBattles { get; init; }
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> Simulations { get; init; }
     public required Action<string> Load { get; init; }
+    /// <summary>Checks a save file brought in from elsewhere before it's loaded.</summary>
+    public required Func<string, Galaxus.Core.SaveGame.SaveCheck> CheckSave { get; init; }
     public required Action<string> Save { get; init; }
     public required Action Resume { get; init; }
     public required Action MainMenu { get; init; }
@@ -29,7 +31,7 @@ public sealed class MenuActions
 /// </summary>
 public partial class MenuScreen : Control
 {
-    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns }
+    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns, Export, Import }
 
     private MenuActions _actions = null!;
     private Logo _logo = null!;
@@ -90,7 +92,7 @@ public partial class MenuScreen : Control
         foreach (var child in _items.GetChildren()) child.QueueFree();
         _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns ? 440 : 360, 0);
         _footer.Text = Loading.IsWeb
-            ? "Web preview. It runs more slowly than the desktop game, which you can download for free."
+            ? "Web preview. It runs more slowly than the desktop game, which is free to download. Your saves can come with you: see Load game."
             : "Galaxus is a working title. Early build.";
 
         switch (page)
@@ -104,6 +106,8 @@ public partial class MenuScreen : Control
             case Page.Simulator: BuildSimulator(); break;
             case Page.Campaigns: BuildCampaigns(); break;
             case Page.Result: BuildResult(); break;
+            case Page.Export: BuildExport(); break;
+            case Page.Import: BuildImport(); break;
         }
         // Centre the panel under the logo once its contents have sized it, and again once wrapped
         // text has settled its height.
@@ -250,11 +254,11 @@ public partial class MenuScreen : Control
     private void BuildSlots(bool saving)
     {
         Add(Ui.Label(saving ? "SAVE GAME" : "LOAD GAME", Ui.Amber));
-        var slots = saving ? SaveSlots.Manual : SaveSlots.Manual.Prepend(SaveSlots.Autosave).ToArray();
+        var slots = saving ? SaveSlots.Manual : SaveSlots.Loadable.Where(s => s != SaveSlots.Imported || SaveSlots.Peek(s) != null).ToArray();
         foreach (var slot in slots)
         {
             var data = SaveSlots.Peek(slot);
-            string label = (slot == SaveSlots.Autosave ? "Autosave" : $"Slot {slot[^1]}") + ": " + (data != null ? SaveSlots.Describe(data) : "empty");
+            string label = SlotName(slot) + ": " + (data != null ? SaveSlots.Describe(data) : "empty");
             var button = Ui.Button(label, () =>
             {
                 if (saving) { _actions.Save(slot); ShowPage(Page.Save); }
@@ -264,7 +268,97 @@ public partial class MenuScreen : Control
             button.Disabled = !saving && data == null;
             Add(button);
         }
+        if (!saving)
+        {
+            Add(Ui.Button("Import a save file", ImportSave));
+            var export = Ui.Button("Export a save file", () => ShowPage(Page.Export));
+            export.Disabled = !SaveSlots.Loadable.Any(s => SaveSlots.Peek(s) != null);
+            Add(export);
+        }
         Add(Ui.Button("Back", () => ShowPage(_back)));
+    }
+
+    private static string SlotName(string slot) => slot switch
+    {
+        SaveSlots.Autosave => "Autosave",
+        SaveSlots.Imported => "Imported",
+        _ => $"Slot {slot[^1]}",
+    };
+
+    private const string TransferNote =
+        "Save files work in both the web preview and the desktop game. Export one here, then choose Import a save file in the other to carry on where you left off.";
+
+    private string? _transferMessage;
+
+    private void BuildExport()
+    {
+        Add(Ui.Label("EXPORT A SAVE", Ui.Amber));
+        Add(Wrapped(TransferNote, Ui.Dim));
+        foreach (var slot in SaveSlots.Loadable)
+        {
+            if (SaveSlots.Peek(slot) is not { } data) continue;
+            var button = Ui.Button($"{SlotName(slot)}: {SaveSlots.Describe(data)}", () =>
+            {
+                if (SaveTransfer.Export(this, slot) && Loading.IsWeb)
+                {
+                    _transferMessage = $"Downloaded {SaveTransfer.FileName(data)}. Look in your downloads folder.";
+                    ShowPage(Page.Export);
+                }
+            });
+            button.Alignment = HorizontalAlignment.Left;
+            Add(button);
+        }
+        if (_transferMessage is { } message) Add(Wrapped(message, Ui.Green));
+        _transferMessage = null;
+        Add(Ui.Button("Back", () => ShowPage(Page.Load)));
+    }
+
+    // The import page shows what checking the file found: why it can't be loaded, or a warning
+    // to read before loading it.
+    private Galaxus.Core.SaveGame.SaveCheck? _import;
+    private string? _importJson;
+
+    private void ImportSave()
+    {
+        SaveTransfer.Import(this, json =>
+        {
+            var check = _actions.CheckSave(json);
+            if (check.Problem == null && check.Warning == null)
+            {
+                SaveSlots.WriteImported(json);
+                _actions.Load(SaveSlots.Imported);
+                return;
+            }
+            _import = check;
+            _importJson = json;
+            ShowPage(Page.Import);
+        });
+    }
+
+    private void BuildImport()
+    {
+        Add(Ui.Label("IMPORT A SAVE", Ui.Amber));
+        if (_import is { Problem: { } problem })
+            Add(Wrapped(problem, Ui.Red));
+        else if (_import is { Data: { } data, Warning: { } warning } && _importJson is { } json)
+        {
+            Add(Wrapped(SaveSlots.Describe(data), Ui.Green));
+            Add(Wrapped(warning, Ui.Amber));
+            Add(Ui.Button("Load it anyway", () =>
+            {
+                SaveSlots.WriteImported(json);
+                _actions.Load(SaveSlots.Imported);
+            }));
+        }
+        Add(Ui.Button("Try another file", ImportSave));
+        Add(Ui.Button("Back", () => { _import = null; _importJson = null; ShowPage(Page.Load); }));
+    }
+
+    private static Label Wrapped(string text, Color colour)
+    {
+        var label = Ui.Label(text, colour, wrap: true);
+        label.CustomMinimumSize = new Vector2(400, 0);
+        return label;
     }
 
     private void BuildSettings()
