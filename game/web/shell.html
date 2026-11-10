@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<title>$GODOT_PROJECT_NAME (web preview)</title>
+		<style>
+:root {
+	--bg: #000;
+	--panel: rgba(8, 20, 10, 0.92);
+	--line: #3f7a45;
+	--text: #b8e6b0;
+	--dim: #7fa87a;
+	--accent: #e0a64a;
+}
+
+html, body, #canvas {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	color: var(--text);
+	background-color: var(--bg);
+	overflow: hidden;
+	touch-action: none;
+	font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+#canvas {
+	display: block;
+}
+
+#canvas:focus {
+	outline: none;
+}
+
+/* The loading overlay. Shown while the game downloads and starts, and again whenever the game
+   asks for it (building a galaxy, a system or a battle). The spinner is a CSS transform, so it
+   keeps turning even while the game is busy and can't draw. */
+#status {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(ellipse at center, #06140a 0%, #000 70%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1.25rem;
+	padding: 1rem;
+	box-sizing: border-box;
+	z-index: 10;
+}
+
+#status.hidden {
+	display: none;
+}
+
+#status.over-game {
+	background: radial-gradient(ellipse at center, rgba(6, 20, 10, 0.94) 0%, rgba(0, 0, 0, 0.9) 70%);
+}
+
+#status.over-game #status-progress {
+	display: none;
+}
+
+#title {
+	font-size: clamp(2rem, 6vw, 3.5rem);
+	letter-spacing: 0.35em;
+	margin-right: -0.35em;
+	color: var(--accent);
+	font-weight: 600;
+}
+
+#spinner {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	border: 4px solid rgba(108, 204, 108, 0.18);
+	border-top-color: #7fdc7f;
+	animation: spin 1s linear infinite;
+	will-change: transform;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}
+
+#status-text {
+	font-size: 1.05rem;
+	min-height: 1.4em;
+	text-align: center;
+}
+
+#status-detail {
+	font-size: 0.85rem;
+	color: var(--dim);
+	min-height: 1.2em;
+	text-align: center;
+}
+
+#status-progress {
+	width: min(420px, 80vw);
+	height: 8px;
+	appearance: none;
+	-webkit-appearance: none;
+	border: 1px solid var(--line);
+	border-radius: 4px;
+	background: #061006;
+	overflow: hidden;
+}
+
+#status-progress::-webkit-progress-bar { background: #061006; }
+#status-progress::-webkit-progress-value { background: #6ccc6c; }
+#status-progress::-moz-progress-bar { background: #6ccc6c; }
+
+#status-progress.gone {
+	visibility: hidden;
+}
+
+#preview-notice {
+	max-width: 520px;
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	padding: 0.9rem 1.1rem;
+	font-size: 0.9rem;
+	line-height: 1.45;
+	text-align: center;
+}
+
+#preview-notice strong {
+	color: var(--accent);
+	font-weight: 600;
+}
+
+#preview-notice a {
+	display: inline-block;
+	margin-top: 0.6rem;
+	padding: 0.45rem 0.9rem;
+	border: 1px solid #6ccc6c;
+	border-radius: 4px;
+	color: #d8ffd0;
+	text-decoration: none;
+}
+
+#preview-notice a:hover {
+	background: rgba(108, 204, 108, 0.15);
+}
+
+#status-error {
+	display: none;
+	max-width: 560px;
+	background: #3a1416;
+	border: 1px solid #9b3943;
+	border-radius: 6px;
+	padding: 1rem;
+	color: #f0d8d8;
+	line-height: 1.4;
+	text-align: center;
+	white-space: pre-line;
+}
+
+#status.failed #spinner,
+#status.failed #status-progress {
+	display: none;
+}
+
+#status.failed #status-error {
+	display: block;
+}
+		</style>
+		$GODOT_HEAD_INCLUDE
+	</head>
+	<body>
+		<canvas id="canvas">
+			Your browser does not support the canvas tag.
+		</canvas>
+
+		<noscript>
+			Galaxus needs JavaScript to run in a browser.
+		</noscript>
+
+		<div id="status">
+			<div id="title">GALAXUS</div>
+			<div id="spinner" aria-hidden="true"></div>
+			<div id="status-text" role="status" aria-live="polite">Downloading the game</div>
+			<progress id="status-progress"></progress>
+			<div id="status-detail">This can take a minute the first time.</div>
+			<div id="status-error"></div>
+			<div id="preview-notice">
+				<strong>Web preview.</strong> Galaxus runs more slowly in a browser than on a computer,
+				and building a galaxy or a big battle can take up to a minute. For the full game at full
+				speed, install the desktop version for Windows, macOS or Linux.<br>
+				<a href="https://github.com/DominicFinn/galaxus/releases/latest" target="_blank" rel="noopener">Download Galaxus</a>
+			</div>
+		</div>
+
+		<script src="$GODOT_URL"></script>
+		<script>
+const GODOT_CONFIG = $GODOT_CONFIG;
+const GODOT_THREADS_ENABLED = $GODOT_THREADS_ENABLED;
+const engine = new Engine(GODOT_CONFIG);
+
+(function () {
+	const status = document.getElementById('status');
+	const statusText = document.getElementById('status-text');
+	const statusDetail = document.getElementById('status-detail');
+	const statusProgress = document.getElementById('status-progress');
+	const statusError = document.getElementById('status-error');
+
+	let started = false;
+	let fallback = null;
+
+	function show(text, detail, overGame) {
+		statusText.textContent = text;
+		statusDetail.textContent = detail || '';
+		status.classList.toggle('over-game', !!overGame);
+		status.classList.remove('hidden');
+	}
+
+	function hide() {
+		status.classList.add('hidden');
+		if (fallback) {
+			clearTimeout(fallback);
+			fallback = null;
+		}
+	}
+
+	function fail(err) {
+		console.error(err);
+		let message = 'Something went wrong starting the game.';
+		if (err instanceof Error) {
+			message = err.message;
+		} else if (typeof err === 'string') {
+			message = err;
+		}
+		statusError.textContent = message;
+		statusText.textContent = 'Galaxus could not start';
+		statusDetail.textContent = '';
+		status.classList.add('failed');
+		status.classList.remove('hidden');
+	}
+
+	// Called by the game (through JavaScriptBridge) around its slow steps. The game waits a
+	// couple of frames after asking, so the overlay is on screen before it gets busy.
+	window.galaxusLoading = function (text, detail) {
+		show(text || 'Loading', detail || 'The web preview is slower than the desktop game.', started);
+	};
+	window.galaxusLoaded = function () {
+		started = true;
+		hide();
+	};
+
+	const missing = Engine.getMissingFeatures({
+		threads: GODOT_THREADS_ENABLED,
+	});
+
+	if (missing.length !== 0) {
+		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
+			let registration;
+			try {
+				registration = navigator.serviceWorker.getRegistration();
+			} catch (err) {
+				registration = Promise.reject(new Error('Service worker registration failed.'));
+			}
+			// Installing the service worker may supply the headers threads need.
+			Promise.race([
+				registration.then((existing) => {
+					if (existing != null) {
+						return Promise.reject(new Error('Service worker already exists.'));
+					}
+					return existing;
+				}).then(() => engine.installServiceWorker()),
+				// getRegistration() can stall.
+				new Promise((resolve) => {
+					setTimeout(() => resolve(), 2000);
+				}),
+			]).then(() => {
+				window.location.reload();
+			}).catch((err) => {
+				console.error('Error while registering service worker:', err);
+			});
+		} else {
+			fail('This browser is missing features Galaxus needs:\n' + missing.join('\n')
+				+ '\n\nTry a recent Chrome, Edge or Firefox, or install the desktop version.');
+		}
+	} else {
+		engine.startGame({
+			'onProgress': function (current, total) {
+				if (current > 0 && total > 0) {
+					statusProgress.value = current;
+					statusProgress.max = total;
+					const mb = (n) => (n / 1048576).toFixed(0);
+					statusDetail.textContent = mb(current) + ' of ' + mb(total) + ' MB';
+				} else {
+					statusProgress.removeAttribute('value');
+					statusProgress.removeAttribute('max');
+				}
+			},
+		}).then(() => {
+			// The engine is running; the game hides this once its first screen is ready.
+			statusProgress.classList.add('gone');
+			show('Starting the game', 'Loading ships, factions and the galaxy.', false);
+			// In case the game never says it's ready, don't hide it forever.
+			fallback = setTimeout(() => {
+				started = true;
+				hide();
+			}, 90000);
+		}, fail);
+	}
+}());
+		</script>
+	</body>
+</html>

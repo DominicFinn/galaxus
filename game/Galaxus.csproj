@@ -1,6 +1,6 @@
 <Project Sdk="Godot.NET.Sdk/4.7.2">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -8,5 +8,18 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../core/Galaxus.Core/Galaxus.Core.csproj" />
+  </ItemGroup>
+  <!-- Web build: content loading uses reflection-based JSON, so keep it and keep our code whole. -->
+  <PropertyGroup Condition=" '$(GodotTargetPlatform)' == 'web' ">
+    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+  </PropertyGroup>
+  <!-- The web runtime needs an entry point; desktop builds are a library and mustn't have one. -->
+  <ItemGroup Condition=" '$(GodotTargetPlatform)' != 'web' ">
+    <Compile Remove="Program.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(GodotTargetPlatform)' == 'web' ">
+    <TrimmerRootAssembly Include="Galaxus.Core" />
+    <TrimmerRootAssembly Include="System.Private.CoreLib" />
+    <TrimmerRootAssembly Include="System.Runtime" />
   </ItemGroup>
 </Project>

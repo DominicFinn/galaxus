@@ -38,8 +38,11 @@ public partial class Main
 
     private void PreviewRequested(string battleId)
     {
-        _pendingPreview = battleId;
-        Restart(PreviewSession(battleId));
+        Loading.Run(this, "Setting up the battle", () =>
+        {
+            _pendingPreview = battleId;
+            Restart(PreviewSession(battleId));
+        }, finish: false);
     }
 
     /// <summary>A fresh galaxy with you at the friendly side's capital, in their best fighter.</summary>

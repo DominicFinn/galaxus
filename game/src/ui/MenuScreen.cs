@@ -89,7 +89,9 @@ public partial class MenuScreen : Control
         _page = page;
         foreach (var child in _items.GetChildren()) child.QueueFree();
         _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns ? 440 : 360, 0);
-        _footer.Text = "Galaxus is a working title. Early build.";
+        _footer.Text = Loading.IsWeb
+            ? "Web preview. It runs more slowly than the desktop game, which you can download for free."
+            : "Galaxus is a working title. Early build.";
 
         switch (page)
         {
@@ -135,8 +137,12 @@ public partial class MenuScreen : Control
         if (!InGame) Add(Ui.Button("Ships and stations", () => _actions.OpenViewer()));
         Add(Ui.Button("Settings", () => { _back = Page.Main; ShowPage(Page.Settings); }));
         if (InGame) Add(Ui.Button("Main menu", () => _actions.MainMenu()));
-        Add(Ui.Button("Quit", () => _actions.Quit()));
+        // A browser tab has nothing to quit to, so the web preview offers the desktop game instead.
+        if (Loading.IsWeb) Add(Ui.Button("Get the desktop game", () => OS.ShellOpen(DownloadUrl)));
+        else Add(Ui.Button("Quit", () => _actions.Quit()));
     }
+
+    public const string DownloadUrl = "https://github.com/DominicFinn/galaxus/releases/latest";
 
     /// <summary>Ways to start: as a free trader with a small ship, or enlisted in a campaign.</summary>
     private void BuildNewGame()

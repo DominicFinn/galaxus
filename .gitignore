@@ -16,3 +16,4 @@ TestResults/
 
 # Exported builds
 build/
+.nuget-web/

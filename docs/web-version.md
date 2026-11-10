@@ -2,7 +2,27 @@
 
 People keep asking to play in a browser. This is what's possible, what it would cost, and what we recommend.
 
-## The blocker
+## Status (10 November 2026)
+
+The full game runs in Chrome using a community build of Godot with experimental C# web support
+([ComplexRobot/godot-dotnet-web-export](https://github.com/ComplexRobot/godot-dotnet-web-export), which builds on the pull request below). The title screen, a new trading game and the Fleet Engagement battle all work. This is option 2 below, and it went much better than expected.
+
+What it took:
+
+- A Mac editor built from the community fork (`4.7` branch, commit 34ac8af). The official editor refuses to export C# to the web. Their release only ships a Windows editor; the web templates in it work from a Mac editor unchanged.
+- The `wasm-tools-net9` workload for the .NET 10 SDK we already have. No separate .NET 9 install is needed. If publishing says the workload isn't installed, run `dotnet workload repair`.
+- On this branch: the game targets `net9.0` (the web runtime is .NET 9), a `Program.cs` that only web builds compile, JSON reflection switched back on for web builds (trimming removes it), and a Web export preset with our own loading page (`game/web/shell.html`).
+- One code fix: building a system's planets used `Parallel.For`, which hangs a browser because its main thread can't wait for worker threads. Web builds do the planets one after another.
+
+How it feels:
+
+- About 32 MB to download compressed (100 MB uncompressed).
+- C# runs on an interpreter in the browser, so slow steps are much slower: a big battle takes up to a minute to set up. The loading page and an in-game loading overlay cover these, and the web build says plainly that it's a preview and links to the desktop download.
+- Frame rate in a big battle is not measured yet. Chrome pauses hidden tabs, so it needs someone playing with the window in front.
+
+To build and try it: `tools/export-web.sh`, then `python3 tools/serve-web.py build/web` and open http://127.0.0.1:8765. Hosting needs cross-origin isolation headers: itch.io has a setting for it, GitHub Pages needs Godot's service worker option.
+
+## The blocker (as first written)
 
 Galaxus is a Godot 4 game written in C#. **Godot 4 can't export C# projects to the web yet**, including the 4.7.2 we use. The Godot docs say so directly, the .NET export templates we installed have no web templates, and the tracking issue was locked in June 2026 with the foundation "evaluating solutions for C# web support". There is experimental work (a pull request that gets a minimal C# project running in Chrome), but nothing released, and the earliest anyone expects it is 4.8.
 

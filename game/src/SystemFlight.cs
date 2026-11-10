@@ -57,10 +57,16 @@ public partial class Main
         // Terrain sampling is the slow part, so every body's surface is built at once across the cores.
         var bodies = _solar.Bodies;
         var triangles = new FlatMeshBuilder?[bodies.Count];
-        System.Threading.Tasks.Parallel.For(0, bodies.Count, i =>
+        void BuildOne(int i)
         {
             if (bodies[i].Kind != BodyKind.Belt) triangles[i] = PlanetFactory.BodyTriangles(bodies[i]);
-        });
+        }
+        // In a browser the main thread can't wait on workers (they only start once it yields), so
+        // the web build does them one after another.
+        if (OperatingSystem.IsBrowser())
+            for (int i = 0; i < bodies.Count; i++) BuildOne(i);
+        else
+            System.Threading.Tasks.Parallel.For(0, bodies.Count, BuildOne);
         for (int i = 0; i < _solar.Bodies.Count; i++)
         {
             var body = _solar.Bodies[i];

@@ -89,6 +89,9 @@ public partial class Main : Node3D
     {
         ReadArguments();
         GameInput.Register();
+        // Whatever put up the loading panel (a new game, a load, the web page starting), it comes
+        // down once this scene has drawn.
+        Loading.Finish(this);
 
         try
         {
@@ -134,14 +137,14 @@ public partial class Main : Node3D
         _menu = new MenuScreen { Visible = false };
         _menu.Init(new MenuActions
         {
-            NewGame = () => Restart(Session.StartNew(_db, (ulong)DateTime.Now.Ticks)),
-            NewCampaign = id => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id)),
+            NewGame = () => Loading.Run(this, "Building the galaxy", () => Restart(Session.StartNew(_db, (ulong)DateTime.Now.Ticks)), finish: false),
+            NewCampaign = id => Loading.Run(this, "Building the galaxy", () => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id)), finish: false),
             Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Tutorial ? 0 : 1).ThenBy(c => c.Name).Select(c => (c.Id, c.Tutorial ? $"Tutorial: {c.Name}" : c.Name, c.Summary)),
             PreviewBattle = PreviewRequested,
             OpenViewer = () => { _pendingViewer = true; Restart(null); },
             PreviewBattles = PreviewBattles,
             Simulations = () => _db.Battles.Values.Where(b => b.Kind == "sim").OrderBy(b => b.Order).Select(b => (b.Id, b.Name, SimSummary(b))),
-            Load = slot => Restart(SaveSlots.Read(_db, slot)),
+            Load = slot => Loading.Run(this, "Loading your game", () => Restart(SaveSlots.Read(_db, slot)), finish: false),
             Save = slot => { SaveSlots.Write(slot, _session); },
             Resume = Resume,
             MainMenu = () => Restart(null),
@@ -462,6 +465,13 @@ public partial class Main : Node3D
 
     /// <summary>Travel along the plotted route. Days pass, the galaxy moves on, and jobs settle on arrival.</summary>
     private void JumpTo(int systemId)
+    {
+        // Arriving builds the whole system, which takes a while in a browser.
+        if (Loading.IsWeb) Loading.Run(this, $"Jumping to {_session.Galaxy.Systems[systemId].Name}", () => JumpNow(systemId));
+        else JumpNow(systemId);
+    }
+
+    private void JumpNow(int systemId)
     {
         var report = _session.Jump(systemId);
         if (report == null) return;
