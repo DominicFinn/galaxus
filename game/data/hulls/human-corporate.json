@@ -78,7 +78,7 @@
     "description": "A crewless practice target that flies a lazy weaving pattern. Navies buy them by the thousand.",
     "price": 6000,
     "mass": 8,
-    "baseSpeed": 80,
+    "baseSpeed": 60,
     "pitchRate": 50,
     "yawRate": 40,
     "rollRate": 80,

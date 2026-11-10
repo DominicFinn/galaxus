@@ -27,6 +27,9 @@ public sealed record ShipDestroyed(Ship Ship, Ship? By) : WorldEvent;
 /// </summary>
 public sealed class World
 {
+    /// <summary>Bolts are a few metres across, which makes small fast targets fair to hit.</summary>
+    public const float ProjectileRadius = 2.5f;
+
     private readonly List<Projectile> _newShots = [];
 
     public List<Ship> Ships { get; } = [];
@@ -80,7 +83,7 @@ public sealed class World
         {
             if (!ship.Alive || ship == shot.Owner || ship.Side == shot.Owner.Side) continue;
             var (t, distance) = ClosestOnSegment(start, end, ship.Body.Position);
-            if (distance <= ship.Spec.Radius && t < bestT)
+            if (distance <= ship.Spec.Radius + ProjectileRadius && t < bestT)
             {
                 best = ship;
                 bestT = t;

@@ -249,6 +249,7 @@ public partial class Hud : Control
             "1 2 3 / D-PAD UP LEFT RIGHT   power to engines, shields, weapons",
             "4 / D-PAD DOWN                balance power",
             "T / A                         next target",
+            "TAB / LEFT STICK CLICK        match target speed",
             "V / Y                         chase or cockpit camera",
             "ENTER / X                     dock when close and slow",
             "M / START                     galaxy map",

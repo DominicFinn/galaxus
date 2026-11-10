@@ -211,7 +211,7 @@ public partial class Main : Node3D
             drone.Body.Position = new NVector3(_rng.Range(-500, 500), _rng.Range(-150, 150), _rng.Range(-1200, -500));
             drone.Body.Orientation = RandomOrientation();
             _world.Ships.Add(drone);
-            _drones[drone] = new DroneBrain(_rng.Fork($"drone-{i}"), NVector3.Zero, 600);
+            _drones[drone] = new DroneBrain(_rng.Fork($"drone-{i}"), NVector3.Zero, 380);
             AddVisual(drone);
         }
         _player.Target = NearestTarget();
@@ -446,7 +446,7 @@ public partial class Main : Node3D
         foreach (var (drone, brain) in _drones)
         {
             // Drones loosely follow the player so there's always something nearby to shoot.
-            brain.Anchor = NVector3.Lerp(brain.Anchor, _player.Body.Position + _player.Body.Forward * 600, dt * 0.2f);
+            brain.Anchor = NVector3.Lerp(brain.Anchor, _player.Body.Position + _player.Body.Forward * 450, dt * 0.2f);
             brain.Think(drone, dt);
         }
 
@@ -505,6 +505,13 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
         if (Input.IsActionJustPressed(GameInput.TargetNext)) { _player.Target = NextTarget(); AudioManager.Instance?.Ui("lock"); }
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
+        if (Input.IsActionJustPressed(GameInput.MatchSpeed) && _player.Target is { Alive: true } match)
+        {
+            // Match the target's speed, so closing in is a matter of a little extra throttle.
+            _throttle = Mathf.Clamp(match.Body.Speed / Mathf.Max(_player.CurrentFlightStats().MaxSpeed, 1), 0, 1);
+            _player.Controls.Flight.Assist = true;
+            _hud.Message("MATCHING TARGET SPEED");
+        }
         if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { Dock(); return; }
 
         if (Input.IsActionJustPressed(GameInput.PipEngines)) { _player.Power.Raise(ShipSystem.Engines); AudioManager.Instance?.Ui("pip-0"); }
@@ -624,7 +631,7 @@ public partial class Main : Node3D
 
             var offset = new NVector3(_rng.Range(-1, 1), _rng.Range(-0.3f, 0.3f), _rng.Range(-1, 1));
             if (offset.LengthSquared() < 1e-3f) offset = NVector3.UnitX;
-            ship.Respawn(_player.Body.Position + NVector3.Normalize(offset) * 1400, RandomOrientation());
+            ship.Respawn(_player.Body.Position + NVector3.Normalize(offset) * 800, RandomOrientation());
             _player.Target ??= ship;
         }
     }

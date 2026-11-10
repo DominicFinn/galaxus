@@ -25,7 +25,8 @@ public partial class Effects : Node3D
         if (!_boltLooks.TryGetValue(shot.Color, out var look))
         {
             var material = MeshFactory.Unshaded(Color.FromHtml(shot.Color));
-            look = (new BoxMesh { Size = new Vector3(0.3f, 0.3f, 9f), Material = material }, material);
+            // Fat, bright bolts that read clearly at a distance.
+            look = (new BoxMesh { Size = new Vector3(1.1f, 1.1f, 16f), Material = material }, material);
             _boltLooks[shot.Color] = look;
         }
         var node = new MeshInstance3D { Mesh = look.Mesh };

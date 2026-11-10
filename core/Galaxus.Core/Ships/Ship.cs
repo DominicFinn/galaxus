@@ -32,6 +32,9 @@ public sealed class Ship
     public bool Alive => Hull > 0;
     public Ship? Target { get; set; }
 
+    /// <summary>How far off the nose the guns will swing to meet a target.</summary>
+    public const float AimAssistDegrees = 5f;
+
     public Ship(int id, string name, ShipSpec spec)
     {
         Id = id;
@@ -90,7 +93,18 @@ public sealed class Ship
         _fireCooldown = 1f / (weapon.FireRate * Spec.Weapons.Count);
 
         var origin = Body.Position + Vector3.Transform(weapon.Hardpoint, Body.Orientation);
-        var velocity = Body.Velocity + Body.Forward * weapon.ProjectileSpeed;
+        var aim = Body.Forward;
+        // Aim assist: if the target's lead point is within a few degrees of the nose, the guns
+        // swing to it. Like gimballed mounts, it rewards getting close to the mark without
+        // needing pixel-perfect aim.
+        if (Target is { Alive: true } target &&
+            World.LeadPoint(origin, Body.Velocity, target.Body.Position, target.Body.Velocity, weapon.ProjectileSpeed) is { } lead)
+        {
+            var toLead = Vector3.Normalize(lead - origin);
+            if (Vector3.Dot(toLead, Body.Forward) > MathF.Cos(AimAssistDegrees * MathF.PI / 180f) && Vector3.Distance(lead, origin) < weapon.Range)
+                aim = toLead;
+        }
+        var velocity = Body.Velocity + aim * weapon.ProjectileSpeed;
         shotsFired.Add(new Projectile(this, origin, velocity, weapon.Damage, weapon.Range / weapon.ProjectileSpeed, weapon.Color));
     }
 

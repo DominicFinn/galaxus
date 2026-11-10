@@ -46,10 +46,11 @@ public sealed class DroneBrain(Rng rng, Vector3 anchor, float wanderRadius)
         }
 
         var (pitch, yaw) = Autopilot.SteerTowards(ship, _waypoint);
-        ship.Controls.Flight.Pitch = Math.Clamp(pitch + 0.35f * MathF.Sin(_weaveTime * 1.3f), -1, 1);
-        ship.Controls.Flight.Yaw = Math.Clamp(yaw + 0.35f * MathF.Cos(_weaveTime * 0.9f), -1, 1);
-        ship.Controls.Flight.Roll = 0.3f * MathF.Sin(_weaveTime * 0.5f);
-        ship.Controls.Flight.Throttle = 0.55f;
+        // Gentle weaving at a modest speed: a practice target, not a dogfighter.
+        ship.Controls.Flight.Pitch = Math.Clamp(pitch * 0.7f + 0.18f * MathF.Sin(_weaveTime * 1.1f), -1, 1);
+        ship.Controls.Flight.Yaw = Math.Clamp(yaw * 0.7f + 0.18f * MathF.Cos(_weaveTime * 0.8f), -1, 1);
+        ship.Controls.Flight.Roll = 0.2f * MathF.Sin(_weaveTime * 0.5f);
+        ship.Controls.Flight.Throttle = 0.45f;
         ship.Controls.Flight.Assist = true;
         ship.Controls.Fire = false;
     }

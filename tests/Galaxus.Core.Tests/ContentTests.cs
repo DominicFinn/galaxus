@@ -89,6 +89,32 @@ public class ContentTests
     }
 
     [Fact]
+    public void Aim_assist_hits_a_crossing_drone_when_nearly_on_target()
+    {
+        var db = Load();
+        var world = new World();
+        var player = new Ship(1, "Player", ShipFactory.Build(db, "kestrel")) { Side = 0 };
+        var drone = new Ship(2, "Drone", ShipFactory.Build(db, "target-drone")) { Side = 1 };
+        drone.Body.Position = new Vector3(0, 0, -500);
+        drone.Body.Orientation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, -MathF.PI / 2); // flying across
+        drone.Controls.Flight.Throttle = 0.5f;
+        // Nose three degrees off the drone: a near miss without assist.
+        player.Body.Orientation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, 3f * MathF.PI / 180f);
+        player.Target = drone;
+        player.Controls.Fire = true;
+        world.Ships.Add(player);
+        world.Ships.Add(drone);
+
+        bool hit = false;
+        for (int i = 0; i < 60 * 3 && !hit; i++)
+        {
+            world.Step(1 / 60f);
+            hit = world.Events.OfType<ShipHit>().Any(e => e.Ship == drone);
+        }
+        Assert.True(hit);
+    }
+
+    [Fact]
     public void Lead_point_hits_a_crossing_target()
     {
         var lead = World.LeadPoint(Vector3.Zero, Vector3.Zero, new Vector3(0, 0, -900), new Vector3(100, 0, 0), 900);
