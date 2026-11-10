@@ -18,3 +18,7 @@ TestResults/
 build/
 .nuget-web/
 game/nuget.config
+
+# Claude Code: this machine's local permissions, and worktrees made by Claude sessions
+.claude/settings.local.json
+.claude/worktrees/
