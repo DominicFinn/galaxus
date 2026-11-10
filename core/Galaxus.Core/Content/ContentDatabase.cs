@@ -49,6 +49,8 @@ public sealed class ContentDatabase
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
     public Dictionary<string, BattleDef> Battles { get; } = [];
     public Dictionary<string, CampaignDef> Campaigns { get; } = [];
+    /// <summary>Mods that had problems and were left out, with why.</summary>
+    public List<string> SkippedMods { get; } = [];
     public Dictionary<string, PowerDef> Powers { get; } = [];
     public Dictionary<string, Audio.MusicStyleDef> MusicStyles { get; } = [];
     /// <summary>Face pools, keyed by race id.</summary>

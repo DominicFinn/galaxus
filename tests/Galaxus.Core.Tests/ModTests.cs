@@ -193,3 +193,23 @@ public class ModTests : IDisposable
         Assert.Empty(db.Problems);
     }
 }
+
+public class ModSkippingTests
+{
+    [Fact]
+    public void The_game_leaves_a_broken_mod_out_and_loads_the_rest()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "galaxus-skip-" + Guid.NewGuid().ToString("N"));
+        var mod = Path.Combine(root, "half-written", "campaigns");
+        Directory.CreateDirectory(mod);
+        File.WriteAllText(Path.Combine(mod, "c.json"), "[{\"id\":\"broken\",\"name\":\"Broken\",\"power\":\"nobody\",\"steps\":[]}]");
+        try
+        {
+            var db = Galaxus.Core.Content.ModDiscovery.Load(new Galaxus.Core.Content.DirectoryContentSource(ContentTests.DataFolder), [root], skipBrokenMods: true);
+            Assert.False(db.Campaigns.ContainsKey("broken"));
+            Assert.Contains(db.SkippedMods, s => s.Contains("half-written"));
+            Assert.NotEmpty(db.Hulls);
+        }
+        finally { Directory.Delete(root, true); }
+    }
+}

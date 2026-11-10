@@ -70,15 +70,34 @@ public static class ModDiscovery
     }
 
     /// <summary>Loads the base content plus every enabled mod found under the given roots.</summary>
-    public static ContentDatabase Load(IContentSource baseSource, IEnumerable<string> modRoots, bool throwOnProblems = true)
+    /// <remarks>
+    /// A mod with problems is left out, with a warning, and the game loads the rest: one broken
+    /// or half-written mod shouldn't stop anyone playing. Only problems in the base game throw.
+    /// </remarks>
+    /// <param name="skipBrokenMods">The game leaves broken mods out and carries on; the mod checker reports them strictly.</param>
+    public static ContentDatabase Load(IContentSource baseSource, IEnumerable<string> modRoots, bool throwOnProblems = true, bool skipBrokenMods = false)
     {
-        var problems = new List<string>();
-        var mods = Find(modRoots, problems);
-        var db = ContentDatabase.Load(baseSource, mods, throwOnProblems: false);
-        problems.AddRange(db.Problems);
-        db.Problems.Clear();
-        db.Problems.AddRange(problems);
-        if (problems.Count > 0 && throwOnProblems) throw new ContentException(problems);
-        return db;
+        var findProblems = new List<string>();
+        var mods = Find(modRoots, findProblems).ToList();
+        var skipped = new List<string>();
+        while (true)
+        {
+            var db = ContentDatabase.Load(baseSource, mods, throwOnProblems: false);
+            var broken = skipBrokenMods ? mods.Where(m => db.Problems.Any(p => p.StartsWith($"Mod '{m.Name}'"))).ToList() : [];
+            if (broken.Count > 0)
+            {
+                foreach (var mod in broken)
+                    skipped.Add($"Mod '{mod.Name}' was left out because it has problems: " +
+                                string.Join(" ", db.Problems.Where(p => p.StartsWith($"Mod '{mod.Name}'")).Take(3)));
+                mods.RemoveAll(broken.Contains);
+                continue;
+            }
+            var problems = findProblems.Concat(db.Problems).ToList();
+            db.Problems.Clear();
+            db.Problems.AddRange(problems);
+            db.SkippedMods.AddRange(skipped);
+            if (problems.Count > 0 && throwOnProblems) throw new ContentException(problems);
+            return db;
+        }
     }
 }

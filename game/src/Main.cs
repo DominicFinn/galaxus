@@ -83,9 +83,10 @@ public partial class Main : Node3D
         try
         {
             // The preview only needs one hull, so it shouldn't be blocked by problems elsewhere.
-            _db = ModDiscovery.Load(new GodotContentSource(), ModRoots.Find(), throwOnProblems: _previewHull == null);
+            _db = ModDiscovery.Load(new GodotContentSource(), ModRoots.Find(), throwOnProblems: _previewHull == null, skipBrokenMods: true);
             foreach (var mod in _db.LoadedMods) GD.Print($"Loaded mod: {mod}");
             foreach (var problem in _db.Problems) GD.Print($"Content problem: {problem}");
+            foreach (var skipped in _db.SkippedMods) GD.PushWarning(skipped);
         }
         catch (ContentException e)
         {
