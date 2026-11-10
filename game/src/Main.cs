@@ -1,6 +1,7 @@
 using Godot;
 using Galaxus.Core;
 using Galaxus.Core.Content;
+using Galaxus.Core.Galaxy;
 using Galaxus.Core.Ships;
 using Galaxus.Ui;
 using NVector3 = System.Numerics.Vector3;
@@ -55,7 +56,7 @@ public partial class Main : Node3D
     private string? _startScreen;
     private int? _startSystem;
 
-    private enum Screen { Flight, Docked, Map, Menu }
+    private enum Screen { Flight, Docked, Map, SystemMap, Menu }
 
     /// <summary>A session to start when the scene reloads (New game, Continue, Load).</summary>
     private static Session? _pendingSession;
@@ -63,8 +64,6 @@ public partial class Main : Node3D
     private MenuScreen _menu = null!;
     private Screen _pauseReturn = Screen.Flight;
 
-    /// <summary>The station sits ahead of the arrival point in every system that has one.</summary>
-    private static readonly NVector3 StationPosition = new(0, 0, -1600);
     private const float DockRange = 500f, DockSpeed = 80f;
 
     private Session? _sessionOrNull;
@@ -227,10 +226,14 @@ public partial class Main : Node3D
         AddChild(uiLayer);
         _stationScreen = new StationScreen();
         _stationScreen.Init(_session, Undock, () => OpenMap(), RefitShip);
+        _stationScreen.OpenSystemMapRequested += OpenSystemMap;
         uiLayer.AddChild(_stationScreen);
         _map = new GalaxyMap();
         _map.Init(_session, JumpTo, CloseMap);
         uiLayer.AddChild(_map);
+        _systemMap = new SystemMap();
+        _systemMap.Init(_session, SetCourse, CloseSystemMap, () => PlayerKm, () => _navTarget);
+        uiLayer.AddChild(_systemMap);
 
         EnterSystem();
         if (_demo || startScreen == "flight") SetScreen(Screen.Flight);
@@ -247,7 +250,7 @@ public partial class Main : Node3D
         _space?.QueueFree();
         _space = new Space();
         AddChild(_space);
-        _space.Build(here.Seed, here);
+        _space.Build(here.Seed, here, decor: false);
 
         _stationNode?.QueueFree();
         _stationNode = null;
@@ -257,7 +260,7 @@ public partial class Main : Node3D
             _stationNode = new MeshInstance3D
             {
                 Mesh = MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f)),
-                Position = StationPosition.ToGodot(),
+                Position = _stationLocal.ToGodot(),
             };
             AddChild(_stationNode);
         }
@@ -272,8 +275,11 @@ public partial class Main : Node3D
         }
         foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
         _world.Projectiles.Clear();
+        BuildSystemBodies();
+        UpdateSystemView();
         _hud.Location = $"{here.Name.ToUpperInvariant()}  DAY {_session.Galaxy.Day}";
-        _hud.Message($"{_space.Star.ToString().ToUpperInvariant()} STAR, {SpacedName(_space.Planet)} WORLD");
+        _hud.Message($"{_solar.Star.Description.ToUpperInvariant()}, {_solar.Planets.Count(b => b.Kind != BodyKind.Belt)} PLANETS. N FOR SYSTEM MAP");
+        if (_stationBody >= 0) _hud.Message($"IN ORBIT OF {_solar.Bodies[_stationBody].Name.ToUpperInvariant()}");
     }
 
     /// <summary>Music follows the local owner's race; stations add machinery; flight adds the engine.</summary>
@@ -296,6 +302,7 @@ public partial class Main : Node3D
         _screen = screen;
         _stationScreen.Visible = screen == Screen.Docked;
         _map.Visible = screen == Screen.Map;
+        _systemMap.Visible = screen == Screen.SystemMap;
         _hud.Visible = screen == Screen.Flight;
         if (screen != Screen.Menu) _menu.Visible = false;
         UpdateAudioForScreen();
@@ -314,7 +321,7 @@ public partial class Main : Node3D
     /// <summary>Leave the station pointing away from it, so you're clear of the hub.</summary>
     private void Undock()
     {
-        _player.Respawn(StationPosition + new NVector3(0, 0, 320), NQuaternion.Identity);
+        _player.Respawn(_stationLocal + new NVector3(0, 0, 320), NQuaternion.Identity);
         _throttle = 0.3f;
         _mouseStick = Vector2.Zero;
         SetScreen(Screen.Flight);
@@ -327,6 +334,20 @@ public partial class Main : Node3D
         _mapReturn = _screen == Screen.Map ? _mapReturn : _screen;
         _map.Open();
         SetScreen(Screen.Map);
+    }
+
+    private SystemMap _systemMap = null!;
+
+    private void OpenSystemMap()
+    {
+        _mapReturn = _screen is Screen.Map or Screen.SystemMap ? _mapReturn : _screen;
+        _systemMap.Open(_session.Here, current: true);
+        SetScreen(Screen.SystemMap);
+    }
+
+    private void CloseSystemMap()
+    {
+        if (_mapReturn == Screen.Docked) Dock(); else SetScreen(Screen.Flight);
     }
 
     private void CloseMap()
@@ -443,23 +464,41 @@ public partial class Main : Node3D
 
         HandleCommands();
         if (_demo) DemoPilot(dt); else ReadFlightControls(dt);
-        foreach (var (drone, brain) in _drones)
-        {
-            // Drones loosely follow the player so there's always something nearby to shoot.
-            brain.Anchor = NVector3.Lerp(brain.Anchor, _player.Body.Position + _player.Body.Forward * 450, dt * 0.2f);
-            brain.Think(drone, dt);
-        }
+        if (!_cruising)
+            foreach (var (drone, brain) in _drones)
+            {
+                // Drones loosely follow the player so there's always something nearby to shoot.
+                brain.Anchor = NVector3.Lerp(brain.Anchor, _player.Body.Position + _player.Body.Forward * 450, dt * 0.2f);
+                brain.Think(drone, dt);
+            }
 
+        if (_cruising)
+        {
+            // In cruise the ship only turns; the system moves past instead.
+            StepCruise(dt);
+            _player.Controls.Fire = false;
+            _player.Controls.Flight.Throttle = 0;
+            foreach (var drone in _drones.Keys) drone.Body.Position = new NVector3(0, 1e7f, 0);
+        }
         _world.Step(dt);
+        if (_cruising)
+        {
+            _player.Body.Position = NVector3.Zero;
+            _player.Body.Velocity = NVector3.Zero;
+        }
         HandleEvents();
         HandleRespawns(dt);
 
         _effects.SyncBolts(_world.Projectiles);
         foreach (var visual in _visuals.Values) visual.Sync();
         _visuals[_player].Visible = !_cockpit;
+        foreach (var drone in _drones.Keys) _visuals[drone].Visible = !_cruising;
+        UpdateSystemView();
+        UpdateNavHud();
 
         UpdateCamera(dt);
-        _space.UpdateDust(_camera.GlobalPosition, _player.Body.Velocity.ToGodot(), _player.Body.Up.ToGodot());
+        var dustVelocity = _cruising ? _player.Body.Forward.ToGodot() * 600 : _player.Body.Velocity.ToGodot();
+        _space.UpdateDust(_camera.GlobalPosition, dustVelocity, _player.Body.Up.ToGodot());
 
         _hud.MouseStick = _mouseStick;
         _hud.Throttle = _throttle;
@@ -477,14 +516,16 @@ public partial class Main : Node3D
     private string? DockPrompt()
     {
         if (_stationNode == null) return null;
-        float distance = NVector3.Distance(_player.Body.Position, StationPosition);
+        if (_cruising) return null;
+        float distance = NVector3.Distance(_player.Body.Position, _stationLocal);
         if (distance > DockRange * 3) return null;
         if (distance > DockRange) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
         return _player.Body.Speed > DockSpeed ? "SLOW DOWN TO DOCK" : "ENTER TO DOCK";
     }
 
     private bool CanDock => _stationNode != null
-                            && NVector3.Distance(_player.Body.Position, StationPosition) <= DockRange
+                            && !_cruising
+                            && NVector3.Distance(_player.Body.Position, _stationLocal) <= DockRange
                             && _player.Body.Speed <= DockSpeed;
 
     private void HandleScreenKeys()
@@ -493,6 +534,8 @@ public partial class Main : Node3D
         if (_screen == Screen.Menu && Input.IsActionJustPressed(GameInput.ReleaseMouse)) Resume();
         else if (_screen == Screen.Map && (Input.IsActionJustPressed(GameInput.Map) || Input.IsActionJustPressed(GameInput.ReleaseMouse))) CloseMap();
         else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.ReleaseMouse)) OpenPause();
+        else if (_screen == Screen.SystemMap && (Input.IsActionJustPressed(GameInput.SystemMapKey) || Input.IsActionJustPressed(GameInput.ReleaseMouse))) CloseSystemMap();
+        else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.SystemMapKey)) OpenSystemMap();
         else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.Map)) OpenMap();
         else if (_screen == Screen.Docked && Input.IsActionJustPressed(GameInput.Dock)) Undock();
     }
@@ -505,6 +548,8 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
         if (Input.IsActionJustPressed(GameInput.TargetNext)) { _player.Target = NextTarget(); AudioManager.Instance?.Ui("lock"); }
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
+        if (Input.IsActionJustPressed(GameInput.SystemMapKey)) { OpenSystemMap(); return; }
+        if (Input.IsActionJustPressed(GameInput.Cruise)) ToggleCruise();
         if (Input.IsActionJustPressed(GameInput.MatchSpeed) && _player.Target is { Alive: true } match)
         {
             // Match the target's speed, so closing in is a matter of a little extra throttle.

@@ -7,7 +7,7 @@ public class SolarSystemTests
 {
     private static readonly ContentDatabase Db = ContentDatabase.Load(new DirectoryContentSource(ContentTests.DataFolder));
     private static readonly Galaxy.Galaxy Galaxy = GalaxyGenerator.Generate(Db, 2026);
-    private static readonly List<SolarSystem> Systems = Galaxy.Systems.Select(SolarSystems.For).ToList();
+    private static readonly List<SolarSystem> Systems = Galaxy.Systems.Select(s => SolarSystems.For(s)).ToList();
 
     [Fact]
     public void Same_system_every_time()
@@ -63,5 +63,18 @@ public class SolarSystemTests
         }
         var colonies = Galaxy.Systems.Zip(Systems).Where(x => x.First.State == SystemState.Colony).ToList();
         Assert.True(colonies.Count(c => c.Second.Bodies.Any(b => b.Habitable)) > colonies.Count / 4);
+    }
+}
+
+public class PlanetNameTests
+{
+    [Fact]
+    public void Settled_worlds_get_names_and_the_rest_keep_numbers()
+    {
+        var db = ContentDatabase.Load(new DirectoryContentSource(ContentTests.DataFolder));
+        var galaxy = GalaxyGenerator.Generate(db, 2026);
+        var named = galaxy.Systems.Where(s => s.Stations.Count > 0).Take(50).Select(s => (s, SolarSystems.For(s, db.Grammars))).ToList();
+        Assert.Contains(named, x => x.Item2.Bodies.Any(b => !b.Name.StartsWith(x.s.Name)));
+        Assert.All(named, x => Assert.All(x.Item2.Stations, st => Assert.False(string.IsNullOrWhiteSpace(x.Item2.Bodies[st.Body].Name))));
     }
 }

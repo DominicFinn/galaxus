@@ -42,6 +42,7 @@ public partial class StationScreen : PanelContainer
     private List<CommodityDef> _commodities = [];
 
     public string StationName { get; private set; } = "";
+    public event Action? OpenSystemMapRequested;
 
     public void Init(Session session, Action undock, Action openMap, Action shipChanged)
     {
@@ -80,6 +81,7 @@ public partial class StationScreen : PanelContainer
         root.AddChild(footer);
         footer.AddChild(Ui.Button("Undock (Enter)", () => _undock()));
         footer.AddChild(Ui.Button("Galaxy map (M)", () => _openMap()));
+        footer.AddChild(Ui.Button("System map (N)", () => OpenSystemMapRequested?.Invoke()));
         _status = Ui.Label("", Ui.Dim);
         _status.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         _status.HorizontalAlignment = HorizontalAlignment.Right;

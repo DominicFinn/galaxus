@@ -23,6 +23,19 @@ public partial class Main
         [
             new("flight-combat.png", 330, () => { GoTo(777); SetScreen(Screen.Flight); _demo = true; _cockpit = false; }),
             new("cockpit.png", 100, () => _cockpit = true),
+            new("arrival.png", 30, () => { _cockpit = false; _demo = false; GoTo(_session.Career.SystemId == 300 ? 301 : 300); SetScreen(Screen.Flight); }),
+            new("system-map.png", 20, () => OpenSystemMap()),
+            new("cruise.png", 140, () =>
+            {
+                CloseSystemMap();
+                // Head for the biggest planet that isn't the one we're beside.
+                int target = Enumerable.Range(0, _solar.Bodies.Count)
+                    .Where(i => !_solar.Bodies[i].IsMoon && _solar.Bodies[i].Kind != BodyKind.Belt && i != _stationBody)
+                    .OrderByDescending(i => _solar.Bodies[i].Radius).FirstOrDefault(-1);
+                if (target >= 0) SetCourse(target);
+                ToggleCruise();
+            }),
+            new("planet-approach.png", 420, () => { }),
             new("galaxy-map.png", 20, () =>
             {
                 _demo = false; _cockpit = false;
@@ -31,7 +44,7 @@ public partial class Main
             }),
             new("map-route.png", 20, () =>
             {
-                var target = galaxy.WithinJumps(_session.Career.SystemId, 7).Last(s => s.Settled);
+                var target = galaxy.WithinJumps(_session.Career.SystemId, 7).LastOrDefault(s => s.Settled) ?? galaxy.WithinJumps(_session.Career.SystemId, 7).Last();
                 _map.SetView(1.5f, (_session.Here.Position + target.Position) / 2, target.Id);
             }),
         ];

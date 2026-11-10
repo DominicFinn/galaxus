@@ -33,6 +33,28 @@ public static class PlanetFactory
         _ => (new Color(0.7f, 0.82f, 1f), new Color(0.78f, 0.86f, 1f), 1.6f, 3600),
     };
 
+    public static PlanetKind FromBody(BodyKind kind) => kind switch
+    {
+        BodyKind.Molten => PlanetKind.Lava,
+        BodyKind.Desert => PlanetKind.Desert,
+        BodyKind.Terran => PlanetKind.Terran,
+        BodyKind.Ocean => PlanetKind.Ocean,
+        BodyKind.Ice => PlanetKind.Ice,
+        BodyKind.Toxic => PlanetKind.Toxic,
+        BodyKind.GasGiant => PlanetKind.GasGiant,
+        BodyKind.IceGiant => PlanetKind.IceGiant,
+        _ => PlanetKind.Barren,
+    };
+
+    public static StarKind FromStar(StarClass cls) => cls switch
+    {
+        StarClass.M => StarKind.Red,
+        StarClass.K => StarKind.Orange,
+        StarClass.G => StarKind.Yellow,
+        StarClass.B => StarKind.Blue,
+        _ => StarKind.White,
+    };
+
     public static PlanetKind PickPlanet(StarSystem system, Rng rng)
     {
         float roll = rng.NextFloat();
@@ -63,10 +85,11 @@ public static class PlanetFactory
     }
 
     /// <summary>The planet node: surface, optional atmosphere shell, optional rings, and moons.</summary>
-    public static Node3D BuildPlanet(PlanetKind kind, Rng rng)
+    /// <param name="unit">Build at radius 1 with no decorative moons, for real bodies the game scales itself.</param>
+    public static Node3D BuildPlanet(PlanetKind kind, Rng rng, bool unit = false)
     {
         bool giant = kind is PlanetKind.GasGiant or PlanetKind.IceGiant;
-        float radius = giant ? rng.Range(18000, 26000) : rng.Range(7000, 13000);
+        float radius = unit ? 1f : giant ? rng.Range(18000, 26000) : rng.Range(7000, 13000);
         int seed = (int)(rng.NextULong() & 0x7fffffff);
 
         var root = new Node3D();
@@ -86,7 +109,7 @@ public static class PlanetFactory
         }
 
         // A moon or two, airless and cratered, close enough to frame the planet.
-        int moons = giant ? 1 + rng.Next(2) : rng.Next(2);
+        int moons = unit ? 0 : giant ? 1 + rng.Next(2) : rng.Next(2);
         for (int i = 0; i < moons; i++)
         {
             var mrng = rng.Fork($"moon-{i}");

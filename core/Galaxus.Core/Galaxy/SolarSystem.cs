@@ -53,8 +53,32 @@ public sealed record StationSite(string Name, int Body);
 
 public sealed record SolarSystem(Star Star, List<Body> Bodies, List<StationSite> Stations)
 {
+    public const double KmPerAu = 149_597_870.7;
+    public const double KmPerEarthRadius = 6371;
+    public const double KmPerSunRadius = 695_700;
+
     public IEnumerable<Body> Planets => Bodies.Where(b => !b.IsMoon);
     public IEnumerable<Body> MoonsOf(int planet) => Bodies.Where(b => b.Parent == planet);
+
+    /// <summary>
+    /// Where a body is on a given day, in km from the star. Orbits are tilted a little each so
+    /// the system isn't perfectly flat. Moons circle their planet.
+    /// </summary>
+    public (double X, double Y, double Z) PositionKm(int index, double day)
+    {
+        var b = Bodies[index];
+        double angle = b.Phase + (b.PeriodDays > 0 ? Math.Tau * day / b.PeriodDays : 0);
+        double tilt = ((b.Seed % 1000) / 1000.0 - 0.5) * 0.08;
+        double radius = b.IsMoon ? b.Orbit * 1000 : b.Orbit * KmPerAu;
+        var local = (X: Math.Cos(angle) * radius, Y: Math.Sin(angle) * radius * Math.Sin(tilt), Z: Math.Sin(angle) * radius);
+        if (!b.IsMoon) return local;
+        var parent = PositionKm(b.Parent, day);
+        return (parent.X + local.X, parent.Y + local.Y, parent.Z + local.Z);
+    }
+
+    public double RadiusKm(int index) => Bodies[index].Kind == BodyKind.Belt ? 0 : Bodies[index].Radius * KmPerEarthRadius;
+
+    public double StarRadiusKm => Star.Radius * KmPerSunRadius;
 }
 
 /// <summary>
@@ -67,7 +91,8 @@ public static class SolarSystems
 {
     private static readonly string[] Numerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 
-    public static SolarSystem For(StarSystem system)
+    /// <param name="names">Optional grammars: settled worlds get names from places-planet.</param>
+    public static SolarSystem For(StarSystem system, Text.GrammarLibrary? names = null)
     {
         var rng = new Rng(system.Seed ^ 0x501A4);
         var star = MakeStar(rng.Fork("star"));
@@ -136,7 +161,16 @@ public static class SolarSystems
             orbit *= prng.Range(1.45f, 2.1f);
         }
 
-        return new SolarSystem(star, bodies, PlaceStations(system, bodies, rng.Fork("stations")));
+        var stations = PlaceStations(system, bodies, rng.Fork("stations"));
+
+        // Worlds people live on get names of their own; the rest keep catalogue numbers.
+        if (names != null && names.Contains("places-planet"))
+        {
+            var lived = stations.Select(s => s.Body).Concat(bodies.Select((b, i) => (b, i)).Where(x => x.b.Habitable && system.Settled).Select(x => x.i)).Distinct().ToList();
+            foreach (int i in lived.Where(i => bodies[i].Kind != BodyKind.Belt))
+                bodies[i] = bodies[i] with { Name = names.Expand("places-planet", "name", new Rng(bodies[i].Seed)) };
+        }
+        return new SolarSystem(star, bodies, stations);
     }
 
     private static Star MakeStar(Rng rng)

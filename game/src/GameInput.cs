@@ -20,7 +20,7 @@ public static class GameInput
     public const string CameraToggle = "camera_toggle";
     public const string ReleaseMouse = "release_mouse";
     public const string Help = "help";
-    public const string Dock = "dock", Map = "map", MatchSpeed = "match_speed";
+    public const string Dock = "dock", Map = "map", MatchSpeed = "match_speed", SystemMapKey = "system_map", Cruise = "cruise";
     public const string Quit = "quit";
 
     public static void Register()
@@ -51,6 +51,8 @@ public static class GameInput
         Bind(Dock, keys: [Key.Enter, Key.KpEnter], buttons: [JoyButton.X]);
         Bind(Map, keys: [Key.M], buttons: [JoyButton.Start]);
         Bind(MatchSpeed, keys: [Key.Tab], buttons: [JoyButton.LeftStick]);
+        Bind(SystemMapKey, keys: [Key.N]);
+        Bind(Cruise, keys: [Key.J]);
         Bind(Quit, keys: [Key.F10]);
     }
 

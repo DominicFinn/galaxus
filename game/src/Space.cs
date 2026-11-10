@@ -78,10 +78,23 @@ public partial class Space : Node3D
     public Vector3 SunDirection { get; private set; } = new Vector3(0.6f, 0.25f, -0.75f).Normalized();
 
     public PlanetKind Planet { get; private set; }
+    public DirectionalLight3D Sun { get; private set; } = null!;
+
+    /// <summary>Points the sunlight away from the star, as seen from the player.</summary>
+    public void FaceStar(Vector3 towardsStar, Color colour, float energy)
+    {
+        if (towardsStar.LengthSquared() < 1e-6f) return;
+        var up = Mathf.Abs(towardsStar.Normalized().Y) > 0.98f ? Vector3.Right : Vector3.Up;
+        Sun.Transform = Transform3D.Identity.LookingAt(-towardsStar, up);
+        Sun.LightColor = colour;
+        Sun.LightEnergy = energy;
+    }
     public StarKind Star { get; private set; }
 
     /// <param name="system">The system to show. Null gives a random backdrop from the seed (used by the menu).</param>
-    public void Build(ulong seed, Galaxus.Core.Galaxy.StarSystem? system = null)
+    /// <param name="decor">Add a decorative sun and planet (the title screen). In real systems the
+    /// game places the actual bodies itself and turns the light to face the star.</param>
+    public void Build(ulong seed, Galaxus.Core.Galaxy.StarSystem? system = null, bool decor = true)
     {
         var rng = new Rng(seed);
 
@@ -103,12 +116,18 @@ public partial class Space : Node3D
         var (disc, light, energy, size) = PlanetFactory.StarLook(Star);
         var sunDir = new Vector3(bodies.Range(-1, 1), bodies.Range(-0.2f, 0.45f), bodies.Range(-1, -0.2f)).Normalized();
         SunDirection = sunDir;
-        AddChild(new DirectionalLight3D
+        Sun = new DirectionalLight3D
         {
             Transform = Transform3D.Identity.LookingAt(-SunDirection, Vector3.Up),
             LightColor = light,
             LightEnergy = energy,
-        });
+        };
+        AddChild(Sun);
+        if (!decor)
+        {
+            BuildDust(rng.Fork("dust"));
+            return;
+        }
         AddChild(new MeshInstance3D
         {
             Mesh = MeshFactory.Icosphere(size, 2, _ => disc, MeshFactory.Unshaded(disc)),

@@ -30,6 +30,11 @@ public partial class Hud : Control
     public bool Cockpit { get; set; }
     /// <summary>Docking hint shown under the crosshair, or null.</summary>
     public string? Prompt { get; set; }
+    /// <summary>Cruise and course readout, shown under the location.</summary>
+    public string Cruise { get; set; } = "";
+    /// <summary>Where the course target is, in render space, for the nav marker. Null hides it.</summary>
+    public Vector3? NavPoint { get; set; }
+    public string NavLabel { get; set; } = "";
     /// <summary>Current system and day, shown top centre.</summary>
     public string Location { get; set; } = "";
 
@@ -69,6 +74,8 @@ public partial class Hud : Control
         DrawTargetPanel();
         DrawMessages(size);
         Text(new Vector2(size.X / 2, 12), Location, Dim, HorizontalAlignment.Center);
+        Text(new Vector2(size.X / 2, 24), Cruise, Amber, HorizontalAlignment.Center);
+        DrawNavMarker(size);
         if (Prompt != null) Text(new Vector2(size.X / 2, size.Y / 2 + 36), Prompt, Amber, HorizontalAlignment.Center);
         Text(new Vector2(size.X - 6, 12), $"DRONES DOWN {Kills}", Dim, HorizontalAlignment.Right);
         if (GameSettings.Current.ShowHints) Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
@@ -130,6 +137,20 @@ public partial class Hud : Control
         }
     }
 
+    /// <summary>A diamond on the course target, or an arrow at the screen edge pointing to it.</summary>
+    private void DrawNavMarker(Vector2 size)
+    {
+        if (NavPoint is not { } point || Camera == null) return;
+        if (Camera.IsPositionBehind(point) || !OnScreen(Camera.UnprojectPosition(point), size, 10))
+        {
+            DrawOffscreenArrow(point, size, Blue);
+            return;
+        }
+        var p = Camera.UnprojectPosition(point);
+        DrawPolyline([p + new Vector2(0, -7), p + new Vector2(7, 0), p + new Vector2(0, 7), p + new Vector2(-7, 0), p + new Vector2(0, -7)], Blue, 1.5f);
+        Text(p + new Vector2(0, 18), NavLabel, Blue, HorizontalAlignment.Center);
+    }
+
     private void DrawOffscreenArrow(Vector3 targetPos, Vector2 size)
     {
         // Direction to the target in camera space, flattened onto the screen.
@@ -141,6 +162,17 @@ public partial class Hud : Control
         var tip = centre + dir * (Mathf.Min(size.X, size.Y) / 2 - 20);
         var side = new Vector2(-dir.Y, dir.X);
         DrawColoredPolygon([tip + dir * 6, tip - dir * 4 + side * 5, tip - dir * 4 - side * 5], Amber);
+    }
+
+    private void DrawOffscreenArrow(Vector3 targetPos, Vector2 size, Color colour)
+    {
+        var local = Camera!.GlobalTransform.AffineInverse() * targetPos;
+        var dir = new Vector2(local.X, -local.Y);
+        if (dir.LengthSquared() < 1e-4f) dir = Vector2.Down;
+        dir = dir.Normalized();
+        var tip = size / 2 + dir * (Mathf.Min(size.X, size.Y) / 2 - 34);
+        var side = new Vector2(-dir.Y, dir.X);
+        DrawColoredPolygon([tip + dir * 7, tip - dir * 5 + side * 6, tip - dir * 5 - side * 6], colour);
     }
 
     private void DrawFlightPanel(Vector2 size)
@@ -253,6 +285,8 @@ public partial class Hud : Control
             "V / Y                         chase or cockpit camera",
             "ENTER / X                     dock when close and slow",
             "M / START                     galaxy map",
+            "N                             system map: set a course",
+            "J                             cruise drive on and off",
             "ESC                           pause menu, save and load      F10  quit",
         ];
         var rect = new Rect2(size.X / 2 - 200, 70, 400, lines.Length * 11 + 16);

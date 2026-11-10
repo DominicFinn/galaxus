@@ -1,0 +1,255 @@
+using Godot;
+using Galaxus.Core;
+using Galaxus.Core.Galaxy;
+
+namespace Galaxus.Ui;
+
+/// <summary>
+/// The system map: the star, every planet on its orbit where it is today, moons around their
+/// planets, the asteroid belt and stations. Scroll to zoom, right-drag to pan, click a body for
+/// its details and to set a course. Real distances are huge, so moons are drawn on rings around
+/// their planet rather than to scale.
+/// </summary>
+public partial class SystemMap : Control
+{
+    private Session _session = null!;
+    private Action<int> _setCourse = null!;
+    private Action _close = null!;
+    private Func<(double X, double Y, double Z)> _playerKm = null!;
+    private Func<int> _navTarget = null!;
+
+    private StarSystem _system = null!;
+    private SolarSystem _solar = null!;
+    private bool _current;
+    private float _pxPerAu = 100;
+    private Vector2 _pan;
+    private int _hovered = -1, _selected = -1;
+    private bool _dragging;
+    private RichTextLabel _info = null!;
+    private Button _course = null!;
+
+    public void Init(Session session, Action<int> setCourse, Action close, Func<(double, double, double)> playerKm, Func<int> navTarget)
+    {
+        _session = session;
+        _setCourse = setCourse;
+        _close = close;
+        _playerKm = playerKm;
+        _navTarget = navTarget;
+    }
+
+    public override void _Ready()
+    {
+        Theme = Ui.Theme;
+        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        MouseFilter = MouseFilterEnum.Stop;
+        var panel = new PanelContainer { Position = new Vector2(6, 6), CustomMinimumSize = new Vector2(200, 0) };
+        AddChild(panel);
+        var box = new VBoxContainer();
+        panel.AddChild(box);
+        _info = Ui.Text();
+        _info.FitContent = true;
+        _info.ScrollActive = false;
+        _info.CustomMinimumSize = new Vector2(190, 0);
+        box.AddChild(_info);
+        _course = Ui.Button("Set course", () => { if (_selected != -1) _setCourse(_selected); _close(); });
+        box.AddChild(_course);
+        box.AddChild(Ui.Button("Close (N)", () => _close()));
+    }
+
+    /// <summary>Opens on a system. Courses can only be set in the system you're in.</summary>
+    public void Open(StarSystem system, bool current)
+    {
+        _system = system;
+        _current = current;
+        _solar = SolarSystems.For(system, _session.Db.Grammars);
+        float outer = (float)_solar.Planets.Max(b => b.Orbit + (b.Kind == BodyKind.Belt ? b.Radius : 0));
+        _pxPerAu = Mathf.Min(Size.X, Size.Y) * 0.44f / Mathf.Max(outer, 0.1f);
+        _pan = new Vector2(60, 0);
+        _selected = -1;
+        UpdateInfo();
+        QueueRedraw();
+    }
+
+    private Vector2 Centre => Size / 2 + _pan;
+
+    private Vector2 PlanetScreen(int index)
+    {
+        var (x, _, z) = _solar.PositionKm(index, _session.Galaxy.Day);
+        return Centre + new Vector2((float)(x / SolarSystem.KmPerAu), (float)(z / SolarSystem.KmPerAu)) * _pxPerAu;
+    }
+
+    /// <summary>Screen position of any body: moons sit on rings around their planet so they're visible.</summary>
+    private Vector2 BodyScreen(int index)
+    {
+        var body = _solar.Bodies[index];
+        if (!body.IsMoon) return PlanetScreen(index);
+        int nth = _solar.Bodies.Take(index).Count(b => b.Parent == body.Parent);
+        float ring = 9 + nth * 5;
+        float angle = body.AngleOn(_session.Galaxy.Day);
+        return PlanetScreen(body.Parent) + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * ring;
+    }
+
+    public override void _GuiInput(InputEvent e)
+    {
+        switch (e)
+        {
+            case InputEventMouseButton { ButtonIndex: MouseButton.WheelUp or MouseButton.WheelDown, Pressed: true } wheel:
+            {
+                float factor = wheel.ButtonIndex == MouseButton.WheelUp ? 1.3f : 1 / 1.3f;
+                var before = (wheel.Position - Centre) / _pxPerAu;
+                _pxPerAu = Mathf.Clamp(_pxPerAu * factor, 2f, 200000f);
+                _pan += wheel.Position - (Centre + before * _pxPerAu);
+                QueueRedraw();
+                break;
+            }
+            case InputEventMouseButton { ButtonIndex: MouseButton.Right or MouseButton.Middle } drag:
+                _dragging = drag.Pressed;
+                break;
+            case InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true } click:
+                _selected = Nearest(click.Position);
+                UpdateInfo();
+                QueueRedraw();
+                break;
+            case InputEventMouseMotion motion:
+                if (_dragging) { _pan += motion.Relative; QueueRedraw(); }
+                int hovered = Nearest(motion.Position);
+                if (hovered != _hovered) { _hovered = hovered; UpdateInfo(); QueueRedraw(); }
+                break;
+        }
+    }
+
+    /// <summary>Nearest body to the cursor; -2 means the station.</summary>
+    private int Nearest(Vector2 at)
+    {
+        int best = -1;
+        float bestDistance = 9;
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+        {
+            if (_solar.Bodies[i].Kind == BodyKind.Belt) continue;
+            float d = BodyScreen(i).DistanceTo(at);
+            if (d < bestDistance) { bestDistance = d; best = i; }
+        }
+        foreach (var site in _solar.Stations)
+            if (StationScreen(site.Body).DistanceTo(at) < 6 && _current) return -2;
+        return best;
+    }
+
+    private Vector2 StationScreen(int body) => BodyScreen(body) + new Vector2(7, -7);
+
+    private void UpdateInfo()
+    {
+        int id = _hovered != -1 ? _hovered : _selected;
+        var star = _solar.Star;
+        if (id == -1)
+        {
+            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{_system.Name.ToUpperInvariant()}[/color]\n" +
+                         $"{star.Description}, {star.Temperature:N0} K, {star.Mass:0.00} solar masses, {star.Luminosity:0.###} times the Sun's light.\n" +
+                         $"Habitable zone {star.HabitableInner:0.00} to {star.HabitableOuter:0.00} AU. Frost line {star.FrostLine:0.0} AU.\n" +
+                         $"{_solar.Planets.Count(b => b.Kind != BodyKind.Belt)} planets, {_solar.Bodies.Count(b => b.IsMoon)} moons.\n\n" +
+                         "Click a body for details" + (_current ? " and to set a course." : ".");
+            _course.Disabled = true;
+            return;
+        }
+        if (id == -2)
+        {
+            var site = _solar.Stations[0];
+            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{site.Name.ToUpperInvariant()}[/color]\nStation in orbit of {_solar.Bodies[site.Body].Name}.";
+            _course.Disabled = !_current || _selected != -2;
+            return;
+        }
+        var b = _solar.Bodies[id];
+        string kind = b.Kind switch
+        {
+            BodyKind.GasGiant => "Gas giant",
+            BodyKind.IceGiant => "Ice giant",
+            BodyKind.Molten => "Molten world",
+            BodyKind.Barren => "Barren rock",
+            BodyKind.Terran => "Earth-like world",
+            BodyKind.Ocean => "Ocean world",
+            BodyKind.Ice => "Ice world",
+            BodyKind.Toxic => "Toxic atmosphere",
+            _ => "Desert world",
+        };
+        string orbit = b.IsMoon ? $"Moon of {_solar.Bodies[b.Parent].Name}, {b.Orbit * 1000:N0} km out" : $"{b.Orbit:0.00} AU from the star";
+        var stations = _solar.Stations.Where(s => s.Body == id).Select(s => s.Name).ToList();
+        _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{b.Name.ToUpperInvariant()}[/color]\n{kind}{(b.Habitable ? ", habitable" : "")}.\n" +
+                     $"{orbit}. Year {b.PeriodDays:N0} days.\n" +
+                     $"Radius {b.Radius * SolarSystem.KmPerEarthRadius:N0} km. {b.Temperature - 273:N0} °C.\n" +
+                     (b.IsMoon ? "" : $"{_solar.MoonsOf(id).Count()} moons.\n") +
+                     (stations.Count > 0 ? $"Stations: {string.Join(", ", stations)}" : "");
+        _course.Disabled = !_current || _selected != id;
+    }
+
+    public override void _Draw()
+    {
+        DrawRect(new Rect2(Vector2.Zero, Size), new Color(0.01f, 0.015f, 0.03f, 0.97f));
+        var star = _solar.Star;
+        int day = _session.Galaxy.Day;
+
+        // Habitable zone as a faint green band.
+        float inner = star.HabitableInner * _pxPerAu, outer = star.HabitableOuter * _pxPerAu;
+        DrawArc(Centre, (inner + outer) / 2, 0, Mathf.Tau, 128, new Color(0.3f, 0.9f, 0.4f, 0.06f), Mathf.Max(1, outer - inner));
+
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+        {
+            var b = _solar.Bodies[i];
+            if (b.IsMoon) continue;
+            float r = b.Orbit * _pxPerAu;
+            if (b.Kind == BodyKind.Belt)
+            {
+                var rng = new Rng(b.Seed);
+                for (int k = 0; k < 260; k++)
+                {
+                    float a = rng.NextFloat() * Mathf.Tau, rr = r + (rng.NextFloat() - 0.5f) * b.Radius * _pxPerAu * 2;
+                    DrawRect(new Rect2(Centre + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * rr, Vector2.One), new Color(0.6f, 0.55f, 0.5f, 0.6f));
+                }
+                continue;
+            }
+            DrawArc(Centre, r, 0, Mathf.Tau, 160, new Color(0.4f, 0.55f, 0.7f, 0.25f), 1);
+        }
+
+        var (starColour, _, _, _) = PlanetFactory.StarLook(PlanetFactory.FromStar(star.Class));
+        DrawCircle(Centre, 6, starColour);
+        DrawArc(Centre, 9, 0, Mathf.Tau, 24, new Color(starColour, 0.4f), 2);
+
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+        {
+            var b = _solar.Bodies[i];
+            if (b.Kind == BodyKind.Belt) continue;
+            var p = BodyScreen(i);
+            if (b.IsMoon) DrawArc(PlanetScreen(b.Parent), p.DistanceTo(PlanetScreen(b.Parent)), 0, Mathf.Tau, 32, new Color(0.4f, 0.55f, 0.7f, 0.15f), 1);
+            float size = b.IsMoon ? 1.5f : Mathf.Clamp(2 + b.Radius * 0.35f, 2.5f, 6f);
+            DrawCircle(p, size, BodyColour(b.Kind));
+            if (!b.IsMoon && _pxPerAu * b.Orbit > 20)
+                DrawString(ThemeDB.FallbackFont, p + new Vector2(6, 12), b.Name, HorizontalAlignment.Left, -1, 8, new Color(1, 1, 1, 0.6f));
+        }
+
+        foreach (var site in _solar.Stations)
+            DrawRect(new Rect2(StationScreen(site.Body) - Vector2.One * 2, Vector2.One * 4), Ui.Green);
+
+        if (_current)
+        {
+            var (x, _, z) = _playerKm();
+            var you = Centre + new Vector2((float)(x / SolarSystem.KmPerAu), (float)(z / SolarSystem.KmPerAu)) * _pxPerAu;
+            DrawColoredPolygon([you + new Vector2(0, -5), you + new Vector2(4, 4), you + new Vector2(-4, 4)], Colors.White);
+            int nav = _navTarget();
+            if (nav >= 0) DrawArc(BodyScreen(nav), 8, 0, Mathf.Tau, 20, Ui.Amber, 1.5f);
+        }
+        if (_selected >= 0) DrawArc(BodyScreen(_selected), 10, 0, Mathf.Tau, 20, Ui.Green, 1.5f);
+
+        DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 200, Size.Y - 8), $"Day {day}. Scroll to zoom, right-drag to pan.", HorizontalAlignment.Left, -1, 8, Ui.Dim);
+    }
+
+    private static Color BodyColour(BodyKind kind) => kind switch
+    {
+        BodyKind.GasGiant => new Color(0.85f, 0.7f, 0.5f),
+        BodyKind.IceGiant => new Color(0.55f, 0.8f, 0.9f),
+        BodyKind.Terran => new Color(0.4f, 0.7f, 0.45f),
+        BodyKind.Ocean => new Color(0.3f, 0.5f, 0.9f),
+        BodyKind.Ice => new Color(0.85f, 0.9f, 0.95f),
+        BodyKind.Molten => new Color(1f, 0.45f, 0.2f),
+        BodyKind.Toxic => new Color(0.75f, 0.75f, 0.3f),
+        BodyKind.Desert => new Color(0.8f, 0.6f, 0.4f),
+        _ => new Color(0.55f, 0.53f, 0.5f),
+    };
+}
