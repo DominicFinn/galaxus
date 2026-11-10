@@ -1,0 +1,48 @@
+[
+  {
+    "id": "battle-blockade-run",
+    "description": "Blockade Run: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "{enemy} has strung a picket across the road into {system} and {client} wants it cut. Punch through, destroy the picket frigates and leave the way open for the supply ships behind you. The picket is thin. It will not stay thin once it notices you.",
+        "A blockade line of {enemy} frigates and fighters. Behind you is a column of supply ships that cannot wait. Go through the line. Do not stop to admire it.",
+        "{client} needs the picket gone. Two frigates, a pack of fighters and whatever turns up. Break it, hold the gap and bring the supply column through."
+      ],
+      "success": [
+        "The picket is in pieces and the supply column passes through the gap in good order. {client} pays {captain} for the opening.",
+        "The way is open. {client} pays and the column runs for {system} while the wreckage cools.",
+        "Blockade broken. {client} pays and moves its next column through behind you."
+      ],
+      "failure": [
+        "The picket holds. The column turns back. {client} withdraws from the approach.",
+        "You are beaten off and the column with you. {client} notes that the blockade is real."
+      ],
+      "radio-picket": [
+        "There is the picket. Two frigates, fighters in front. Keep your speed up.",
+        "Blockade ahead. Frigates in a line, fighters on patrol. Nobody turns back.",
+        "Picket line visible. We go through it."
+      ],
+      "radio-column": [
+        "Supply column is on its way. We will be through the gap in two minutes. Have it ready.",
+        "Column behind you. Please clear a lane.",
+        "Freighters following at best speed. Remember we are here."
+      ],
+      "radio-response": [
+        "Their reserve is launching. Six interceptors and three gunships. Take them as they come.",
+        "{enemy} is calling for help. Fighters from the right.",
+        "More fighters. They are going for the column."
+      ],
+      "radio-cruiser": [
+        "A cruiser jumped in behind the picket. Column, hold. Everyone else, shoot it.",
+        "Cruiser at the gap. It is their last card.",
+        "Big ship in the lane. Clear it or we all stay here."
+      ]
+    }
+  }
+]

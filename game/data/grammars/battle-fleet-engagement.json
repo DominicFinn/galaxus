@@ -1,0 +1,60 @@
+[
+  {
+    "id": "battle-fleet-engagement",
+    "description": "Fleet Engagement: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "flagship",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "Two battle lines will meet in {system} and {client} has asked every pilot it can pay to fly in the gap. The {flagship} leads the line. {enemy} will bring everything it has to the engagement. Fighters first, then the heavy ships. Stay alive, protect the {flagship} and kill what you can.",
+        "{client} commits its fleet to {system}. The {flagship} commands. Your job is to keep the fighters off the line and the {flagship} afloat. The {target} is the {enemy} flagship. If it dies, their line breaks.",
+        "This is the large one. Both fleets, in range, with fighters weaving between them. The {flagship} holds the centre. Kill the {target} if you can reach it."
+      ],
+      "success": [
+        "The {enemy} line breaks and withdraws behind its fighters. {client} claims {system} and pays {captain} for a hard day.",
+        "The {target} burns and the {enemy} fleet loses its nerve. {client} pays and the {flagship} signals a thank you.",
+        "When the shooting stops the {flagship} is still on station. {client} pays and begins the long count of wreckage."
+      ],
+      "failure": [
+        "The {flagship} is lost and the line folds. {client} withdraws from {system} under fire.",
+        "The {enemy} fleet takes the field. {client} calls it a delaying action and pays accordingly."
+      ],
+      "radio-line": [
+        "All ships, this is the {flagship}. We hold the centre. Fighters, you have the space between.",
+        "{client} line, form on the {flagship}. Turrets free.",
+        "Battle line forming. {captain}, stay between us and them."
+      ],
+      "radio-enemyline": [
+        "Enemy line sighted, bearing zero. They have a battlecruiser at the centre, probably the {target}.",
+        "{enemy} fleet coming into range. Fighters first, ships behind them.",
+        "Contacts. Many contacts. Pick one and shoot it."
+      ],
+      "radio-screen": [
+        "Their screen is coming. Ten fighters and four bombers headed for the {flagship}.",
+        "Bombers inbound for the {flagship}. Cover it now.",
+        "Fighter screen is in. Hold them off the line."
+      ],
+      "radio-reserve": [
+        "Jump flash above the plane. {enemy} carrier with an escort. It was waiting.",
+        "Reserve carrier is in. It is putting out a second wing.",
+        "Another carrier. They held it back. Brace."
+      ],
+      "radio-reinforce": [
+        "Reinforcements from {client}. A cruiser and two squadrons. Hold on.",
+        "Friendly jump flash behind us. They have been late all day. They are here now.",
+        "Reserve squadrons arrived. Fly with them."
+      ],
+      "radio-breakthrough": [
+        "The {target} is dying. Their remaining fighters are going for you personally.",
+        "Their command is gone. Stragglers are running. Take them down.",
+        "Enemy flagship is destroyed. Last fighters are still dangerous."
+      ]
+    }
+  }
+]

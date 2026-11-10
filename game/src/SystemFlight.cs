@@ -158,6 +158,11 @@ public partial class Main
     private void ToggleCruise()
     {
         if (_cruising) { DropFromCruise(); return; }
+        if (_battle is { Won: null })
+        {
+            _hud.Message("CAN'T CRUISE: TOO MANY SHIPS NEARBY");
+            return;
+        }
         _cruiseKm = PlayerKm;
         _cruising = true;
         if (_navTarget != -1) _mouseStick = Vector2.Zero;
@@ -250,12 +255,14 @@ public partial class Main
 
     private double CourseDropKm() =>
         _navTarget == NavStation ? StationDropKm * 2
+        : _navTarget == NavBattle ? 12
         : _navTarget <= NavPortBase ? 25
         : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
 
     private (double X, double Y, double Z)? NavTargetKm() => _navTarget switch
     {
         NavStation => _stationKm,
+        NavBattle when BattleJobHere() is { } battleJob => BattlePointKm(battleJob),
         <= NavPortBase when -_navTarget + NavPortBase < _solar.Stations.Count =>
             _solar.PortPositionKm(_solar.Stations[NavPortBase - _navTarget], Day, TerrainOf(_solar.Stations[NavPortBase - _navTarget].Body)),
         >= 0 when _navTarget < _solar.Bodies.Count => _solar.PositionKm(_navTarget, Day),
@@ -263,6 +270,7 @@ public partial class Main
     };
 
     private string NavName => _navTarget == NavStation ? _session.Here.Stations.FirstOrDefault() ?? "Station"
+        : _navTarget == NavBattle ? "The fighting"
         : _navTarget <= NavPortBase ? _solar.Stations[NavPortBase - _navTarget].Name
         : _navTarget >= 0 ? _solar.Bodies[_navTarget].Name : "";
 

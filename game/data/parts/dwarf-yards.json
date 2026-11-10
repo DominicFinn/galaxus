@@ -843,6 +843,7 @@
  },
  {
   "id": "dw-rivet-s1m1",
+  "kind": "rail",
   "name": "Light rivet driver Mk I",
   "type": "weapon",
   "size": 1,
@@ -861,6 +862,7 @@
  },
  {
   "id": "dw-rivet-s1m2",
+  "kind": "rail",
   "name": "Light rivet driver Mk II",
   "type": "weapon",
   "size": 1,
@@ -879,6 +881,7 @@
  },
  {
   "id": "dw-rivet-s1m3",
+  "kind": "rail",
   "name": "Light rivet driver Mk III",
   "type": "weapon",
   "size": 1,
@@ -897,6 +900,7 @@
  },
  {
   "id": "dw-rivet-s2m1",
+  "kind": "rail",
   "name": "Rivet driver Mk I",
   "type": "weapon",
   "size": 2,
@@ -915,6 +919,7 @@
  },
  {
   "id": "dw-rivet-s2m2",
+  "kind": "rail",
   "name": "Rivet driver Mk II",
   "type": "weapon",
   "size": 2,
@@ -933,6 +938,7 @@
  },
  {
   "id": "dw-rivet-s2m3",
+  "kind": "rail",
   "name": "Rivet driver Mk III",
   "type": "weapon",
   "size": 2,
@@ -951,6 +957,7 @@
  },
  {
   "id": "dw-rivet-s3m1",
+  "kind": "rail",
   "name": "Heavy rivet driver Mk I",
   "type": "weapon",
   "size": 3,
@@ -969,6 +976,7 @@
  },
  {
   "id": "dw-rivet-s3m2",
+  "kind": "rail",
   "name": "Heavy rivet driver Mk II",
   "type": "weapon",
   "size": 3,
@@ -987,6 +995,7 @@
  },
  {
   "id": "dw-rivet-s3m3",
+  "kind": "rail",
   "name": "Heavy rivet driver Mk III",
   "type": "weapon",
   "size": 3,
@@ -1005,6 +1014,7 @@
  },
  {
   "id": "dw-cutter-s1m1",
+  "kind": "beam",
   "name": "Light seam cutter Mk I",
   "type": "weapon",
   "size": 1,
@@ -1023,6 +1033,7 @@
  },
  {
   "id": "dw-cutter-s1m2",
+  "kind": "beam",
   "name": "Light seam cutter Mk II",
   "type": "weapon",
   "size": 1,
@@ -1041,6 +1052,7 @@
  },
  {
   "id": "dw-cutter-s1m3",
+  "kind": "beam",
   "name": "Light seam cutter Mk III",
   "type": "weapon",
   "size": 1,
@@ -1059,6 +1071,7 @@
  },
  {
   "id": "dw-cutter-s2m1",
+  "kind": "beam",
   "name": "Seam cutter Mk I",
   "type": "weapon",
   "size": 2,
@@ -1077,6 +1090,7 @@
  },
  {
   "id": "dw-cutter-s2m2",
+  "kind": "beam",
   "name": "Seam cutter Mk II",
   "type": "weapon",
   "size": 2,
@@ -1095,6 +1109,7 @@
  },
  {
   "id": "dw-cutter-s2m3",
+  "kind": "beam",
   "name": "Seam cutter Mk III",
   "type": "weapon",
   "size": 2,
@@ -1113,6 +1128,7 @@
  },
  {
   "id": "dw-cutter-s3m1",
+  "kind": "beam",
   "name": "Heavy seam cutter Mk I",
   "type": "weapon",
   "size": 3,
@@ -1131,6 +1147,7 @@
  },
  {
   "id": "dw-cutter-s3m2",
+  "kind": "beam",
   "name": "Heavy seam cutter Mk II",
   "type": "weapon",
   "size": 3,
@@ -1149,6 +1166,7 @@
  },
  {
   "id": "dw-cutter-s3m3",
+  "kind": "beam",
   "name": "Heavy seam cutter Mk III",
   "type": "weapon",
   "size": 3,
@@ -1167,6 +1185,7 @@
  },
  {
   "id": "dw-gravel-s1m1",
+  "kind": "scatter",
   "name": "Light gravel gun Mk I",
   "type": "weapon",
   "size": 1,
@@ -1185,6 +1204,7 @@
  },
  {
   "id": "dw-gravel-s1m2",
+  "kind": "scatter",
   "name": "Light gravel gun Mk II",
   "type": "weapon",
   "size": 1,
@@ -1203,6 +1223,7 @@
  },
  {
   "id": "dw-gravel-s1m3",
+  "kind": "scatter",
   "name": "Light gravel gun Mk III",
   "type": "weapon",
   "size": 1,
@@ -1221,6 +1242,7 @@
  },
  {
   "id": "dw-gravel-s2m1",
+  "kind": "scatter",
   "name": "Gravel gun Mk I",
   "type": "weapon",
   "size": 2,
@@ -1239,6 +1261,7 @@
  },
  {
   "id": "dw-gravel-s2m2",
+  "kind": "scatter",
   "name": "Gravel gun Mk II",
   "type": "weapon",
   "size": 2,
@@ -1257,6 +1280,7 @@
  },
  {
   "id": "dw-gravel-s2m3",
+  "kind": "scatter",
   "name": "Gravel gun Mk III",
   "type": "weapon",
   "size": 2,
@@ -1275,6 +1299,7 @@
  },
  {
   "id": "dw-gravel-s3m1",
+  "kind": "scatter",
   "name": "Heavy gravel gun Mk I",
   "type": "weapon",
   "size": 3,
@@ -1293,6 +1318,7 @@
  },
  {
   "id": "dw-gravel-s3m2",
+  "kind": "scatter",
   "name": "Heavy gravel gun Mk II",
   "type": "weapon",
   "size": 3,
@@ -1311,6 +1337,7 @@
  },
  {
   "id": "dw-gravel-s3m3",
+  "kind": "scatter",
   "name": "Heavy gravel gun Mk III",
   "type": "weapon",
   "size": 3,

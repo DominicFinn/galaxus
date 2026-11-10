@@ -1,0 +1,154 @@
+[
+ {
+  "id": "dw-grandrivet-s4",
+  "kind": "rail",
+  "name": "Grand rivet driver",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 170000,
+  "color": "#e0b040",
+  "description": "A pneumatic driver the length of a bridge, firing iron slugs the size of a small cart. It is loud and slow, and it hits like a falling roof.",
+  "stats": {
+   "damage": 100.0,
+   "fireRate": 0.7,
+   "energyPerShot": 24.0,
+   "projectileSpeed": 900,
+   "range": 5000
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-anvilgun-s5",
+  "kind": "rail",
+  "name": "Anvil gun",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 520000,
+  "color": "#f0c850",
+  "description": "The great gun of a Hold League warship. The yard says it is not for hitting things so much as for ending arguments.",
+  "stats": {
+   "damage": 280.0,
+   "fireRate": 0.45,
+   "energyPerShot": 70.0,
+   "projectileSpeed": 1200,
+   "range": 6500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cinder-s4",
+  "kind": "plasma",
+  "name": "Cinder cannon",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 160000,
+  "color": "#ff7a2a",
+  "description": "Lobs slow balls of glowing slag that cling to armour and keep burning.",
+  "stats": {
+   "damage": 95.0,
+   "fireRate": 0.8,
+   "energyPerShot": 26.0,
+   "projectileSpeed": 650,
+   "range": 5000
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-forgemouth-s5",
+  "kind": "plasma",
+  "name": "Forgemouth cannon",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 540000,
+  "color": "#ffa040",
+  "description": "A furnace with a barrel on the front. It throws a ball of white-hot plasma a long way, if not quickly.",
+  "stats": {
+   "damage": 240.0,
+   "fireRate": 0.5,
+   "energyPerShot": 66.0,
+   "projectileSpeed": 700,
+   "range": 6500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-hailstone-s4",
+  "kind": "flak",
+  "name": "Hailstone battery",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 125000,
+  "color": "#d8c090",
+  "description": "A rattling bank of short barrels that fills the air with bursting gravel. Nothing small gets through it.",
+  "stats": {
+   "damage": 14.0,
+   "fireRate": 7.0,
+   "energyPerShot": 14.0,
+   "projectileSpeed": 900,
+   "range": 2500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-hammerfall-s5",
+  "kind": "torpedo",
+  "name": "Hammerfall torpedo",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 640000,
+  "color": "#ffb347",
+  "description": "A very heavy homing warhead in a thick iron casing. It is slow, and it is meant to be.",
+  "stats": {
+   "damage": 1100.0,
+   "fireRate": 0.12,
+   "energyPerShot": 44.0,
+   "projectileSpeed": 260,
+   "range": 7000
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-pebble-s1",
+  "kind": "missile",
+  "name": "Pebble rack",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "price": 9000,
+  "color": "#ffb347",
+  "description": "A little iron rack of homing missiles, tough enough to be fitted to a fighter and ignored.",
+  "stats": {
+   "damage": 50.0,
+   "fireRate": 0.5,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 450,
+   "range": 3500
+  },
+  "builder": "dwarf-yards"
+ },
+ {
+  "id": "dw-cairn-s2",
+  "kind": "missile",
+  "name": "Cairn rack",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "price": 27000,
+  "color": "#ffb347",
+  "description": "Two heavier missiles in a riveted cradle. They are slow to turn but they arrive with a good deal of iron.",
+  "stats": {
+   "damage": 80.0,
+   "fireRate": 0.5,
+   "energyPerShot": 5.0,
+   "projectileSpeed": 480,
+   "range": 4000
+  },
+  "builder": "dwarf-yards"
+ }
+]

@@ -1,0 +1,96 @@
+[
+  {
+    "id": "ambush-at-the-gate",
+    "name": "Ambush at the Gate",
+    "kind": "war",
+    "stages": [
+      "raids"
+    ],
+    "reward": 30000,
+    "minRank": 0,
+    "textGrammar": "battle-ambush-at-the-gate",
+    "waves": [
+      {
+        "id": "hidden",
+        "side": "enemy",
+        "at": 5,
+        "position": "near",
+        "distance": 3500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 5
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "trap"
+          }
+        ],
+        "radio": "radio-hidden"
+      },
+      {
+        "id": "convoy",
+        "side": "friend",
+        "after": "wave:hidden",
+        "delay": 30,
+        "position": "behind",
+        "distance": 2500,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 3,
+            "tag": "convoy"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "second",
+        "side": "enemy",
+        "after": "wave:convoy",
+        "delay": 20,
+        "position": "right",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3,
+            "target": "convoy"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-second"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "clear",
+        "type": "destroy",
+        "wave": "hidden",
+        "text": "Clear the ambush"
+      },
+      {
+        "id": "cover",
+        "type": "protect",
+        "tag": "convoy",
+        "text": "Keep the convoy alive"
+      },
+      {
+        "id": "frigate",
+        "type": "destroy",
+        "tag": "trap",
+        "text": "Destroy the frigate",
+        "optional": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "battle-pirate-nest",
+    "description": "Pirate Nest: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Pirates have taken over a hulk in {system} and use it as a base. {client} wants it cleared. Expect fighters and a handful of gunships. They will call friends if it goes badly.",
+        "A nest of {enemy} in {system}. {client} would like it burned. The pirates will fight and then run. Do not let them run.",
+        "There is a pirate den near {station}. {client} pays for every ship you kill. Start with the gunships."
+      ],
+      "success": [
+        "The nest is clean. {client} pays {captain} and the local traders leave a bottle at the dock for you.",
+        "Pirates dead and base cold. {client} pays and drops the matter.",
+        "Nothing left of the den. {client} pays and expects to be asked again in six months."
+      ],
+      "failure": [
+        "The pirates are still there and now they know your name. {client} pays nothing.",
+        "You are beaten off. The nest remains. {client} withdraws the offer."
+      ],
+      "radio-guards": [
+        "Nest in sight. Fighters on patrol, two gunships. Do not stop shooting.",
+        "Contacts. They have seen us. Weapons free.",
+        "Pirate patrol. They are not subtle."
+      ],
+      "radio-friends": [
+        "Their friends are arriving. Four fighters and a frigate.",
+        "More pirates, right. The frigate is an old hull but it still bites.",
+        "Reinforcements from the nest. They had a frigate hiding."
+      ],
+      "radio-runners": [
+        "The rest are bolting. Chase them.",
+        "Pirates scattering. Do not let them go.",
+        "Stragglers. Finish it."
+      ]
+    }
+  }
+]

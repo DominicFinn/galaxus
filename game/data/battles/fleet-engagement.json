@@ -1,0 +1,195 @@
+[
+  {
+    "id": "fleet-engagement",
+    "name": "Fleet Engagement",
+    "kind": "war",
+    "stages": [
+      "war"
+    ],
+    "reward": 190000,
+    "minRank": 4,
+    "textGrammar": "battle-fleet-engagement",
+    "waves": [
+      {
+        "id": "line",
+        "side": "friend",
+        "at": 0,
+        "position": "left",
+        "distance": 1500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "battlecruiser",
+            "count": 1,
+            "tag": "flagship"
+          },
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 3
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-line"
+      },
+      {
+        "id": "enemyline",
+        "side": "enemy",
+        "at": 5,
+        "position": "ahead",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "battlecruiser",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 3
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-enemyline"
+      },
+      {
+        "id": "screen",
+        "side": "enemy",
+        "after": "wave:enemyline",
+        "delay": 20,
+        "position": "ahead",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 10
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 4,
+            "target": "flagship"
+          }
+        ],
+        "radio": "radio-screen"
+      },
+      {
+        "id": "reserve",
+        "side": "enemy",
+        "after": "wave:screen",
+        "delay": 40,
+        "position": "above",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "carrier",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          }
+        ],
+        "radio": "radio-reserve"
+      },
+      {
+        "id": "reinforce",
+        "side": "friend",
+        "after": "wave:reserve",
+        "delay": 45,
+        "position": "behind",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 4
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-reinforce"
+      },
+      {
+        "id": "breakthrough",
+        "side": "enemy",
+        "after": "objective:flag",
+        "delay": 10,
+        "position": "ahead",
+        "distance": 4000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-breakthrough"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "flag",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the {enemy} flagship {target}"
+      },
+      {
+        "id": "lead",
+        "type": "protect",
+        "tag": "flagship",
+        "text": "Keep the {flagship} alive"
+      },
+      {
+        "id": "screenkill",
+        "type": "destroy",
+        "wave": "screen",
+        "text": "Break the fighter screen",
+        "optional": true
+      },
+      {
+        "id": "carrier",
+        "type": "survive",
+        "seconds": 420,
+        "text": "Hold the line until the second wave is over",
+        "optional": true
+      }
+    ]
+  }
+]

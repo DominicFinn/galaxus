@@ -1,13 +1,13 @@
 // The great powers from docs/lore-bible.md. The galaxy generator seeds each one in its arm
 // and region, then generates hundreds of smaller factions around them.
 [
-  { "id": "meridian-concord", "name": "The Meridian Concord", "race": "human", "factionType": "merchant-republic", "arm": "meridian", "region": "core", "systems": 34, "colour": "#4a78d0" },
-  { "id": "hesper-directorate", "name": "The Hesper Directorate", "race": "human", "factionType": "shipping-company", "arm": "meridian", "region": "inner", "systems": 24, "colour": "#e0a020" },
-  { "id": "tolland-compact", "name": "The Tolland Compact", "race": "human", "factionType": "frontier-confederation", "arm": "tolland", "region": "inner", "systems": 30, "colour": "#b0583a" },
-  { "id": "lantern-synod", "name": "The Lantern Synod", "race": "human", "factionType": "lantern-order", "arm": "shroud", "region": "inner", "systems": 22, "colour": "#d8c060" },
-  { "id": "eleven-houses", "name": "The Eleven Houses", "race": "light-elf", "factionType": "light-elf-house", "arm": "meridian", "region": "core", "systems": 14, "colour": "#9ad8c8" },
-  { "id": "hold-league", "name": "The Hold League", "race": "dwarf", "factionType": "dwarf-hold", "arm": "anvil", "region": "inner", "systems": 26, "colour": "#a08050" },
-  { "id": "grav-khanates", "name": "The Grav Khanates", "race": "orc", "factionType": "orc-khanate", "arm": "anvil", "region": "outer", "systems": 22, "colour": "#7a9a3a" },
-  { "id": "the-lattice", "name": "The Lattice", "race": "free-machine", "factionType": "machine-collective", "arm": "tolland", "region": "outer", "systems": 18, "colour": "#a070e0" },
-  { "id": "ruin-courts", "name": "The Ruin Courts", "race": "dark-elf", "factionType": "dark-elf-court", "arm": "shroud", "region": "rim", "systems": 16, "colour": "#6a5a9a" }
+  { "id": "meridian-concord", "name": "The Meridian Concord", "race": "human", "factionType": "merchant-republic", "arm": "meridian", "region": "core", "systems": 34, "colour": "#4a78d0", "builder": "meridian-yards" },
+  { "id": "hesper-directorate", "name": "The Hesper Directorate", "race": "human", "factionType": "shipping-company", "arm": "meridian", "region": "inner", "systems": 24, "colour": "#e0a020", "builder": "hesper-works" },
+  { "id": "tolland-compact", "name": "The Tolland Compact", "race": "human", "factionType": "frontier-confederation", "arm": "tolland", "region": "inner", "systems": 30, "colour": "#b0583a", "builder": "tolland-wrights" },
+  { "id": "lantern-synod", "name": "The Lantern Synod", "race": "human", "factionType": "lantern-order", "arm": "shroud", "region": "inner", "systems": 22, "colour": "#d8c060", "builder": "synod-forges" },
+  { "id": "eleven-houses", "name": "The Eleven Houses", "race": "light-elf", "factionType": "light-elf-house", "arm": "meridian", "region": "core", "systems": 14, "colour": "#9ad8c8", "builder": "light-elf-houses" },
+  { "id": "hold-league", "name": "The Hold League", "race": "dwarf", "factionType": "dwarf-hold", "arm": "anvil", "region": "inner", "systems": 26, "colour": "#a08050", "builder": "dwarf-yards" },
+  { "id": "grav-khanates", "name": "The Grav Khanates", "race": "orc", "factionType": "orc-khanate", "arm": "anvil", "region": "outer", "systems": 22, "colour": "#7a9a3a", "builder": "orc-yards" },
+  { "id": "the-lattice", "name": "The Lattice", "race": "free-machine", "factionType": "machine-collective", "arm": "tolland", "region": "outer", "systems": 18, "colour": "#a070e0", "builder": "free-machine-foundries" },
+  { "id": "ruin-courts", "name": "The Ruin Courts", "race": "dark-elf", "factionType": "dark-elf-court", "arm": "shroud", "region": "rim", "systems": 16, "colour": "#6a5a9a", "builder": "ruin-courts" }
 ]

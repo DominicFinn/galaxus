@@ -13,7 +13,14 @@ public sealed record WeaponSpec(
     float ProjectileSpeed,
     float Range,
     Vector3 Hardpoint,
-    string Color);
+    string Color,
+    /// <summary>laser, pulse, beam, plasma, rail, scatter, flak, missile or torpedo.</summary>
+    string Kind = "laser",
+    /// <summary>Turrets aim and fire by themselves at enemies in range.</summary>
+    bool Turret = false)
+{
+    public bool Homing => Kind is "missile" or "torpedo";
+}
 
 /// <summary>
 /// The finished numbers for one ship: hull, builder bias, fitted parts and pilot combined.
@@ -41,6 +48,10 @@ public sealed class ShipSpec
     public int Pips { get; init; }
     public float SensorRange { get; init; }
     public float Radius { get; init; }
+    /// <summary>Half the ship's length along its nose-to-tail axis, for hits on long ships.</summary>
+    public float HalfLength { get; init; }
+    /// <summary>How far the hull reaches out from its spine, for hits: the width of the capsule round the ship.</summary>
+    public float HitRadius { get; init; }
     /// <summary>How far the jump drive reaches between stars, in light years.</summary>
     public float JumpRangeLy { get; init; }
     public IReadOnlyList<WeaponSpec> Weapons { get; init; } = [];
@@ -75,7 +86,7 @@ public static class ShipFactory
             var at = slot?.Position is { Length: 3 } pos ? new Vector3(pos[0], pos[1], pos[2]) : Vector3.Zero;
             weapons.Add(new WeaponSpec(part.Id, part.Name, part.Stats["damage"], part.Stats["fireRate"],
                 part.Stats["energyPerShot"], part.Stats["projectileSpeed"], part.Stats["range"], at,
-                part.Color ?? "#ff5533"));
+                part.Color ?? "#ff5533", part.Kind, slot?.Turret ?? false));
         }
 
         float agility = Bias(StatKeys.Agility);
@@ -99,6 +110,11 @@ public static class ShipFactory
             Pips = (int)Sum("powerPlant", "pips"),
             SensorRange = MathF.Max(Sum("sensor", "range") * Bias(StatKeys.Sensors), 2000f),
             Radius = hull.Radius,
+            HitRadius = hull.Model.Count == 0 ? hull.Radius
+                : MathF.Min(hull.Radius, hull.Model.Max(m => MathF.Max(MathF.Abs(m.Position[0]) + MathF.Max(m.Back[0], m.Front[0]) / 2,
+                                                                       MathF.Abs(m.Position[1]) + MathF.Max(m.Back[1], m.Front[1]) / 2))),
+            HalfLength = hull.Model.Count == 0 ? hull.Radius
+                : MathF.Max(hull.Radius, hull.Model.Max(m => MathF.Abs(m.Position[2]) + m.Length / 2)),
             // Explorers are built for long jumps, fighters barely leave their system.
             JumpRangeLy = hull.Class switch
             {

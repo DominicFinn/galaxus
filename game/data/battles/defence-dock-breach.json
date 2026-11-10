@@ -1,0 +1,80 @@
+[
+  {
+    "id": "defence-dock-breach",
+    "name": "Docks Under Fire",
+    "kind": "defence",
+    "reward": 26000,
+    "minRank": 0,
+    "textGrammar": "battle-defence-dock-breach",
+    "waves": [
+      {
+        "id": "boarders",
+        "side": "enemy",
+        "at": 10,
+        "position": "behind",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 4
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-boarders"
+      },
+      {
+        "id": "support",
+        "side": "enemy",
+        "after": "wave:boarders",
+        "delay": 25,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-support"
+      },
+      {
+        "id": "leader",
+        "side": "enemy",
+        "after": "wave:support",
+        "delay": 30,
+        "position": "far",
+        "distance": 7500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "leader"
+          }
+        ],
+        "radio": "radio-leader"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "clear",
+        "type": "destroy",
+        "wave": "boarders",
+        "text": "Stop the boarding craft"
+      },
+      {
+        "id": "leader",
+        "type": "destroy",
+        "tag": "leader",
+        "text": "Destroy the raid leader",
+        "optional": true
+      }
+    ]
+  }
+]

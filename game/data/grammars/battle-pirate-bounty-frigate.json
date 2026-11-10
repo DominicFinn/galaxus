@@ -1,0 +1,43 @@
+[
+  {
+    "id": "battle-pirate-bounty-frigate",
+    "description": "Bounty: The Pirate Frigate: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "A pirate frigate known as the {target} has been robbing {client} ships in {system} for a season. {client} has a bounty on it. The {target} usually has fighters for company and a habit of calling for more. Kill it.",
+        "{target} is a pirate frigate. {client} wants it dead and will pay well. Expect escorts and a reserve.",
+        "Bounty on the {target}. A pirate frigate and a bad reputation. {client} pays on confirmation."
+      ],
+      "success": [
+        "The {target} is gone. {client} pays {captain} the bounty and puts the frigate's name on a list of things that have ended.",
+        "Bounty claimed. {client} pays and the lane begins to fill with freighters again.",
+        "The {target} burns. {client} pays and quietly wonders who the pirates' next captain will be."
+      ],
+      "failure": [
+        "The {target} gets away. {client} cancels the bounty and keeps the story.",
+        "You are beaten off. The pirate frigate remains and so does the bounty."
+      ],
+      "radio-escort": [
+        "There is the {target}. Four escorts, all aware of you.",
+        "Frigate found. It is not hiding. It is waiting.",
+        "Target in sight. Go for the frigate."
+      ],
+      "radio-friends": [
+        "Pirate reserves are arriving, left.",
+        "More hulls. The {target} called for help.",
+        "They have friends. Do not stop."
+      ],
+      "radio-flee": [
+        "The pirate gunships are running for a gate. Finish them.",
+        "Two stragglers. Do not let them tell the others.",
+        "Gunships leaving. They will warn the next band."
+      ]
+    }
+  }
+]

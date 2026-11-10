@@ -1,0 +1,55 @@
+[
+  {
+    "id": "battle-carrier-strike",
+    "description": "Carrier Strike: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "station",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "{enemy} carrier {target} is parked in {system} and its air wing is the reason {client} cannot move a convoy in the sector. A bomber wing will go in. You are their escort. Keep the bombers alive until the {target} is dead.",
+        "Kill the {target}. The bombers can do it, but only if their escorts keep the fighters off them. Expect the {target} to launch as soon as it sees us.",
+        "The {target} has to go before {client} can move on {system}. The bomber wing has the ordnance. You are the reason it arrives. Stay close and fly like it."
+      ],
+      "success": [
+        "The {target} breaks in half and the {enemy} fighters scatter without a deck to land on. {client} pays {captain} the full strike fee.",
+        "The {target} is gone. {client} rates the strike a success and the bomber wing buys you a round at {station}.",
+        "Flames from the {target} light the whole sector. {client} pays and orders a formal commendation, which will take months."
+      ],
+      "failure": [
+        "The {target} survives and its wing is intact. {client} will need a bigger plan and a different escort.",
+        "The bomber wing is gone and the {target} is still launching. {client} pays only for flying hours."
+      ],
+      "radio-bombers": [
+        "Strike wing, this is Lead. Escorts, stay tight. We go in on the {target}.",
+        "Bombers are on the run in. Escorts, keep your noses up and your eyes open.",
+        "Bomber Lead to escort. We have the ordnance. We need you for the rest."
+      ],
+      "radio-carrier": [
+        "There is the {target}. One frigate for company, four fighters on combat patrol.",
+        "{target} sighted. Rated carrier class, deck lights on. Press in.",
+        "Contact. That is the {target}, and it is not alone."
+      ],
+      "radio-launch": [
+        "The {target} has launched. Eight interceptors, heading straight for the bombers.",
+        "Fighters off the deck. Pick your targets and protect the wing.",
+        "Enemy fighters in the air. Bomber Lead says they will lose the run if they are hit."
+      ],
+      "radio-jump": [
+        "Jump flash, left. Cruiser and gunships. They are reinforcing the {target}.",
+        "{enemy} cruiser dropping in. This just got harder.",
+        "More hulls inbound. Bombers, stay on your line."
+      ],
+      "radio-rearguard": [
+        "The {target} is dead. Remaining fighters are making a last pass. Clear them.",
+        "Carrier is down. Mop up, then we go home.",
+        "Their deck is gone. Fighters are looking for somewhere to land. Do not let them."
+      ]
+    }
+  }
+]

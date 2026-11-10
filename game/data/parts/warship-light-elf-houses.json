@@ -1,0 +1,154 @@
+[
+ {
+  "id": "le-dawnthread-4",
+  "kind": "laser",
+  "name": "Great Sunthread caster",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 170000,
+  "color": "#fff2b0",
+  "description": "A long, slender caster that weaves a bolt of pale gold light. Quick for its size and very accurate.",
+  "stats": {
+   "damage": 80.0,
+   "fireRate": 0.9,
+   "energyPerShot": 18.0,
+   "projectileSpeed": 2600,
+   "range": 6000
+  },
+  "builder": "light-elf-houses"
+ },
+ {
+  "id": "le-dawnthread-5",
+  "kind": "laser",
+  "name": "Dawnweaver caster",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 500000,
+  "color": "#fff7c8",
+  "description": "The principal gun of a House capital ship. A single bolt, grown in a crystal lattice and fired with great care.",
+  "stats": {
+   "damage": 210.0,
+   "fireRate": 0.6,
+   "energyPerShot": 48.0,
+   "projectileSpeed": 2800,
+   "range": 8000
+  },
+  "builder": "light-elf-houses"
+ },
+ {
+  "id": "le-moonbeam-5",
+  "kind": "beam",
+  "name": "Moonbeam lance",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 540000,
+  "color": "#7fe8d8",
+  "description": "A thin, continuous lance of cold teal light. It cuts rather than batters.",
+  "stats": {
+   "damage": 150.0,
+   "fireRate": 1.0,
+   "energyPerShot": 52.0,
+   "projectileSpeed": 3200,
+   "range": 7000
+  },
+  "builder": "light-elf-houses"
+ },
+ {
+  "id": "le-starpiercer-5",
+  "kind": "rail",
+  "name": "Starpiercer",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 560000,
+  "color": "#e8fff8",
+  "description": "A needle of hardened light fired at a fraction of the speed of the stars it is named for. It is the Houses' answer to heavy armour.",
+  "stats": {
+   "damage": 270.0,
+   "fireRate": 0.5,
+   "energyPerShot": 65.0,
+   "projectileSpeed": 4000,
+   "range": 8000
+  },
+  "builder": "light-elf-houses"
+ },
+ {
+  "id": "le-silverveil-4",
+  "kind": "flak",
+  "name": "Silverveil battery",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 125000,
+  "color": "#b8f0e0",
+  "description": "Spreads a fine curtain of bursting light across the approaches. Fighters find it hard to fly through.",
+  "stats": {
+   "damage": 10.0,
+   "fireRate": 9.0,
+   "energyPerShot": 10.0,
+   "projectileSpeed": 900,
+   "range": 2500
+  },
+  "builder": "light-elf-houses"
+ },
+ {
+  "id": "le-moonfall-5",
+  "kind": "torpedo",
+  "name": "Moonfall torpedo",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 620000,
+  "color": "#c8f8f0",
+  "description": "A slow, graceful homing warhead that arrives all at once. The Houses use few of them and miss with fewer.",
+  "stats": {
+   "damage": 800.0,
+   "fireRate": 0.18,
+   "energyPerShot": 36.0,
+   "projectileSpeed": 380,
+   "range": 7000
+  },
+  "builder": "light-elf-houses"
+ },
+ {
+  "id": "le-windarrow-1",
+  "kind": "missile",
+  "name": "Windarrow rack",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "price": 9500,
+  "color": "#9ad8c8",
+  "description": "A single slim homing missile, quick off the rail and light enough for the smallest fighters.",
+  "stats": {
+   "damage": 42.0,
+   "fireRate": 0.5,
+   "energyPerShot": 2.5,
+   "projectileSpeed": 600,
+   "range": 3500
+  },
+  "builder": "light-elf-houses"
+ },
+ {
+  "id": "le-windarrow-2",
+  "kind": "missile",
+  "name": "Twin windarrow rack",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "price": 28000,
+  "color": "#9ad8c8",
+  "description": "A paired rack of windarrow missiles for gunships and heavy fighters.",
+  "stats": {
+   "damage": 65.0,
+   "fireRate": 0.5,
+   "energyPerShot": 4.5,
+   "projectileSpeed": 600,
+   "range": 4000
+  },
+  "builder": "light-elf-houses"
+ }
+]

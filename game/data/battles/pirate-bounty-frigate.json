@@ -1,0 +1,86 @@
+[
+  {
+    "id": "pirate-bounty-frigate",
+    "name": "Bounty: The Pirate Frigate",
+    "kind": "pirate",
+    "reward": 36000,
+    "minRank": 2,
+    "textGrammar": "battle-pirate-bounty-frigate",
+    "waves": [
+      {
+        "id": "escort",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 5500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 4,
+            "target": "target"
+          }
+        ],
+        "radio": "radio-escort"
+      },
+      {
+        "id": "friends",
+        "side": "enemy",
+        "after": "wave:escort",
+        "delay": 30,
+        "position": "left",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-friends"
+      },
+      {
+        "id": "flee",
+        "side": "enemy",
+        "after": "wave:friends",
+        "delay": 30,
+        "position": "far",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-flee"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the pirate frigate {target}"
+      },
+      {
+        "id": "escort",
+        "type": "destroy",
+        "wave": "escort",
+        "text": "Destroy the {target}'s escorts",
+        "optional": true
+      }
+    ]
+  }
+]

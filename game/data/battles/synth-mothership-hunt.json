@@ -1,0 +1,106 @@
+[
+  {
+    "id": "synth-mothership-hunt",
+    "name": "Mothership Hunt",
+    "kind": "synth",
+    "reward": 48000,
+    "minRank": 3,
+    "textGrammar": "battle-synth-mothership-hunt",
+    "waves": [
+      {
+        "id": "mothership",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-mothership"
+      },
+      {
+        "id": "pour",
+        "side": "enemy",
+        "after": "wave:mothership",
+        "delay": 25,
+        "position": "ahead",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 8
+          },
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-pour"
+      },
+      {
+        "id": "flood",
+        "side": "enemy",
+        "after": "wave:pour",
+        "delay": 30,
+        "position": "left",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 10
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3
+          }
+        ],
+        "radio": "radio-flood"
+      },
+      {
+        "id": "guard",
+        "side": "enemy",
+        "after": "wave:flood",
+        "delay": 30,
+        "position": "right",
+        "distance": 7500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          }
+        ],
+        "radio": "radio-guard"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "kill",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the mothership {target}"
+      },
+      {
+        "id": "guard",
+        "type": "destroy",
+        "wave": "guard",
+        "text": "Destroy the machine frigates",
+        "optional": true
+      }
+    ]
+  }
+]

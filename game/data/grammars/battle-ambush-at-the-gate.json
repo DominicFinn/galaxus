@@ -1,0 +1,43 @@
+[
+  {
+    "id": "battle-ambush-at-the-gate",
+    "description": "Ambush at the Gate: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "A {client} courier convoy is about to come through the gate at {system} and {enemy} knows. Get there first, clear what is waiting and cover the convoy as it arrives.",
+        "{enemy} has laid an ambush at the gate. Intelligence says fighters and a frigate. {client} has a convoy due in minutes. Break the ambush before the freighters arrive.",
+        "The convoy will come through the gate whether we are ready or not. Be ready. The ambush is already in place."
+      ],
+      "success": [
+        "The convoy arrives to a clear gate. {client} pays {captain} and sends the freighters on.",
+        "The ambush is broken. {client} pays and asks how you knew where to look.",
+        "A clean gate. {client} pays and will put the intelligence officer's name on the report."
+      ],
+      "failure": [
+        "The convoy arrives into the ambush. {client} pays nothing.",
+        "You miss the ambush and the freighters pay for it. {client} withdraws the offer."
+      ],
+      "radio-hidden": [
+        "Contact. They are hiding in the gate shadow. Five fighters and a frigate.",
+        "The trap is real. Go for the frigate first.",
+        "{enemy} ambush in the shadow. Weapons free."
+      ],
+      "radio-convoy": [
+        "Gate flash. The convoy is arriving. Cover them.",
+        "Convoy transiting now. They are going to be right behind you.",
+        "Freighters through the gate. Do not let them get hit."
+      ],
+      "radio-second": [
+        "Second wave! Gunships heading for the freighters.",
+        "They saved the bombers for the convoy. Intercept them.",
+        "Bombers incoming, right. Stay on the freighters."
+      ]
+    }
+  }
+]

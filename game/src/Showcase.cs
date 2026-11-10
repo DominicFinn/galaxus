@@ -55,6 +55,9 @@ public partial class Main
             {
                 if (PortWorld() is { } port) ApproachPort(port.Body, port.Site, 2.2, 0.7);
             }),
+            new("battle-opening.png", 1500, () => StartShowcaseBattle("fleet-engagement")),
+            new("battle-fleet.png", 1500, () => { _cockpit = false; }),
+            new("battle-cockpit.png", 600, () => { _cockpit = true; }),
             new("galaxy-deep-stars.png", 20, () =>
             {
                 _holdStill = false;
@@ -111,6 +114,34 @@ public partial class Main
     private bool _holdStill;
 
     private (StarSystem System, int Body, System.Numerics.Vector3 Site)? _portWorld;
+
+    /// <summary>Hires you into a battle between two great powers, right here, with the demo pilot flying.</summary>
+    private void StartShowcaseBattle(string battleId)
+    {
+        var galaxy = _session.Galaxy;
+        if (!_session.Db.Battles.TryGetValue(battleId, out var def)) return;
+        var friend = galaxy.Factions.First(f => f.PowerId == "meridian-concord");
+        var enemy = galaxy.Factions.First(f => f.PowerId == "grav-khanates");
+        _holdStill = false;
+        _cockpit = false;
+        GoTo(friend.HomeSystem);
+        SetScreen(Screen.Flight);
+        var station = _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
+        var variables = new Dictionary<string, string>
+        {
+            ["client"] = friend.Name, ["enemy"] = enemy.Name, ["system"] = _session.Here.Name,
+            ["captain"] = _session.Career.Captain, ["station"] = station,
+        };
+        var mission = new Galaxus.Core.Missions.Mission(Galaxus.Core.Battles.BattleJobs.Template(def), def.Name, "", "", "", def.Reward,
+            null, 0, 10, null, null, null, variables);
+        var offer = new Galaxus.Core.Missions.MissionOffer("showcase-battle", mission, friend.Id, _session.Career.SystemId,
+            _session.Career.SystemId, station, galaxy.Day, null, def.Id, enemy.Id);
+        var job = new Galaxus.Core.AcceptedMission(offer, galaxy.Day, galaxy.Day + 10);
+        _session.Career.Missions.Add(job);
+        _player.Body.Position = new System.Numerics.Vector3(0, 0, 3000);
+        StartBattle(job);
+        _demo = true;
+    }
 
     /// <summary>A system with a surface port on an Earth-like world, for the descent shots.</summary>
     private (StarSystem System, int Body, System.Numerics.Vector3 Site)? PortWorld()

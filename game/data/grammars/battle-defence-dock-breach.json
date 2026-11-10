@@ -1,0 +1,42 @@
+[
+  {
+    "id": "battle-defence-dock-breach",
+    "description": "Docks Under Fire: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "station"
+    ],
+    "rules": {
+      "briefing": [
+        "Raiders are boarding at {station} and the dock guard has only a few fighters. {client} pays you to cover the docks. Kill the boarding craft before they land.",
+        "A raid on {station}. The attackers want the cargo and do not care who is in the way. Break the boarding craft.",
+        "{station} has called for any ship in range. Boarders are coming in from the dark side."
+      ],
+      "success": [
+        "The boarders are gone. {station} sends food to your ship and {client} pays.",
+        "Docks secure. {client} pays {captain} and the harbourmaster stops swearing.",
+        "The raid is broken. {client} pays and the dock guard buys a round, which is generous for them."
+      ],
+      "failure": [
+        "The boarders land. {client} pays nothing.",
+        "The docks are lost. {client} withdraws the fee."
+      ],
+      "radio-boarders": [
+        "Boarding craft inbound, behind. Shoot them before they dock.",
+        "Gunships with marines. Do not let them near the ring.",
+        "Boarders. Intercept."
+      ],
+      "radio-support": [
+        "Fighter cover for the boarders. Take them as they come.",
+        "Escorts. Six of them. Weapons free.",
+        "More raiders on the right."
+      ],
+      "radio-leader": [
+        "The raid leader is coming in, a frigate. It is not subtle.",
+        "Large contact. It is their command ship.",
+        "Frigate arriving. Do not let it fire on the ring."
+      ]
+    }
+  }
+]

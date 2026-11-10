@@ -1,0 +1,49 @@
+[
+  {
+    "id": "battle-synth-mothership-hunt",
+    "description": "Mothership Hunt: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "station",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "A rogue machine mothership, the {target}, is drifting through {system} and pouring out drones. {client} wants it dead before it reaches {station}. Fighters will come out of it as long as it lives. Reach it, kill it and expect company.",
+        "Hunt the {target}. It is a mothership, big and quiet, and the drones come from inside it. Kill it and the swarm loses its source.",
+        "The {target} is the source. Drones come from it in waves. Fly in, break it and leave before the drones stop being the problem."
+      ],
+      "success": [
+        "The {target} breaks and the drones go inert in the dark. {client} pays {captain} and files the wreckage as classified.",
+        "The mothership is dead. {client} pays the full fee and does not say what it expects to find in the wreckage.",
+        "The {target} dies. {client} pays and asks you not to describe what came out of it."
+      ],
+      "failure": [
+        "The {target} survives and the drones keep coming. {client} pays nothing.",
+        "You are pushed out. The mothership goes on its way. {client} says it will wait for a better plan."
+      ],
+      "radio-mothership": [
+        "There is the {target}. It is big and not talking to anyone.",
+        "Contact. It is the mothership. Four drones on guard.",
+        "{target} found. It is drifting and it is hungry."
+      ],
+      "radio-pour": [
+        "The {target} is launching. A lot of drones. Keep pressing.",
+        "Drones in the lane. They are coming out in tens.",
+        "The mothership is pouring them out. Kill them or kill the source."
+      ],
+      "radio-flood": [
+        "Another flood, left. Do not let them go for the engines.",
+        "Drones. More drones. The {target} is not stopping.",
+        "Heavy contacts with the drones. Stay in motion."
+      ],
+      "radio-guard": [
+        "Two machine frigates have woken. They are heading for you.",
+        "Frigate-class machines, right. They guard the {target}.",
+        "The mothership has defenders. Two big ones."
+      ]
+    }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "battle-convoy-under-fire",
+    "description": "Convoy Under Fire: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "{client} has six freighters crossing {system} with fuel and munitions for the front. {enemy} knows the route. Escort them to the exit gate. The raiders will come first. After that, expect a frigate.",
+        "A convoy carrying supplies for {client} must reach the far gate of {system}. It has little protection of its own. You are the protection. Get them through.",
+        "Convoy is under your care. {enemy} raiders will try to pick off the freighters before they reach the exit. Do not let them."
+      ],
+      "success": [
+        "The last freighter jumps and the exit gate flares. {client} pays {captain} and the freighters' masters add a tip.",
+        "The convoy is through. {client} pays and asks whether you can do it again next week.",
+        "Freighters delivered, mostly. {client} will use the word acceptable in its report."
+      ],
+      "failure": [
+        "Too many freighters are wreckage. {client} writes off the cargo and your fee.",
+        "The convoy never reaches the gate. {client} will find another escort."
+      ],
+      "radio-convoy": [
+        "Convoy to escort. Six ships, one gate, nobody wants to be late.",
+        "Convoy Master here. We are heading for the gate. Do not leave us.",
+        "This is the convoy. We are slow. We know. Please guard us anyway."
+      ],
+      "radio-raiders": [
+        "Raiders ahead. Six fighters and two gunships on the freighters.",
+        "Contacts in front. They will go for the slow ones first.",
+        "{enemy} raiders closing. Break them up before they reach the convoy."
+      ],
+      "radio-frigate": [
+        "Frigate behind us! It was waiting beyond the debris. Convoy, hard to port.",
+        "Heavy contact, rear. A frigate and fighters. It is going to gut the freighters.",
+        "Convoy Master to escort: there is a frigate on our tail. Please do something about it."
+      ],
+      "radio-rescue": [
+        "Friendly gunships on approach. {client} heard the trouble. They can cover the gate.",
+        "Support wing in. Convoy, keep moving."
+      ]
+    }
+  }
+]

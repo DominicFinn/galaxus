@@ -1,0 +1,154 @@
+[
+ {
+  "id": "tw-howitzer-4-1",
+  "name": "Longbarrel howitzer S4",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 900000,
+  "description": "An oversized slug thrower bolted to a turret ring. It is loud and accurate enough.",
+  "kind": "rail",
+  "stats": {
+   "damage": 100,
+   "fireRate": 0.7,
+   "energyPerShot": 28,
+   "projectileSpeed": 2400,
+   "range": 7000
+  },
+  "color": "#e0b070"
+ },
+ {
+  "id": "tw-howitzer-5-1",
+  "name": "Longbarrel howitzer S5",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 2700000,
+  "description": "The largest slug thrower the Reach has built. It kicks hard enough to move a frigate.",
+  "kind": "rail",
+  "stats": {
+   "damage": 260,
+   "fireRate": 0.45,
+   "energyPerShot": 58,
+   "projectileSpeed": 2600,
+   "range": 8000
+  },
+  "color": "#e0b070"
+ },
+ {
+  "id": "tw-mortar-4-1",
+  "name": "Boomtown plasma mortar S4",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 1000000,
+  "description": "A slow, glowing plasma ball lobbed over long range. Crews say it hits like a barn falling on you.",
+  "kind": "plasma",
+  "stats": {
+   "damage": 90,
+   "fireRate": 0.9,
+   "energyPerShot": 26,
+   "projectileSpeed": 650,
+   "range": 5000
+  },
+  "color": "#ff9a3c"
+ },
+ {
+  "id": "tw-mortar-5-1",
+  "name": "Boomtown plasma mortar S5",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 3000000,
+  "description": "A heavy plasma mortar fed from a salvaged reactor. It is slow, bright and difficult to ignore.",
+  "kind": "plasma",
+  "stats": {
+   "damage": 220,
+   "fireRate": 0.55,
+   "energyPerShot": 52,
+   "projectileSpeed": 600,
+   "range": 6000
+  },
+  "color": "#ff9a3c"
+ },
+ {
+  "id": "tw-hailstorm-4-1",
+  "name": "Hailstorm flak rotary S4",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 700000,
+  "description": "A big rotary flak gun that throws out a curtain of bursting shells against anything small and fast.",
+  "kind": "flak",
+  "stats": {
+   "damage": 9,
+   "fireRate": 10,
+   "energyPerShot": 2.5,
+   "projectileSpeed": 900,
+   "range": 2500
+  },
+  "color": "#ffb347"
+ },
+ {
+  "id": "tw-keg-5-1",
+  "name": "Powder-keg torpedo launcher S5",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 2900000,
+  "description": "A slow torpedo with a huge warhead and a short fuse that is trusted by nobody but its crew.",
+  "kind": "torpedo",
+  "stats": {
+   "damage": 1000,
+   "fireRate": 0.14,
+   "energyPerShot": 65,
+   "projectileSpeed": 300,
+   "range": 7000
+  },
+  "color": "#ff7a30"
+ },
+ {
+  "id": "tw-hornet-1-1",
+  "name": "Hornet missile rack S1",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 7000,
+  "description": "A small homing missile on a light rack, bolted to a fighter's wing with a few welds.",
+  "kind": "missile",
+  "stats": {
+   "damage": 40,
+   "fireRate": 0.5,
+   "energyPerShot": 3,
+   "projectileSpeed": 480,
+   "range": 4000
+  },
+  "color": "#ffb347"
+ },
+ {
+  "id": "tw-hornet-2-1",
+  "name": "Hornet missile rack S2",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "tolland-wrights",
+  "price": 21000,
+  "description": "Two homing missiles on a single rail. Not pretty, but it works.",
+  "kind": "missile",
+  "stats": {
+   "damage": 65,
+   "fireRate": 0.5,
+   "energyPerShot": 5,
+   "projectileSpeed": 520,
+   "range": 4500
+  },
+  "color": "#ffb347"
+ }
+]

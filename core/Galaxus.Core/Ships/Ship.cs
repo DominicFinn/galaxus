@@ -79,18 +79,26 @@ public sealed class Ship
         else Shields = MathF.Min(Spec.MaxShields, Shields + Spec.ShieldRecharge * Power.Multiplier(ShipSystem.Shields) * dt);
 
         _fireCooldown -= dt;
-        if (Controls.Fire && Spec.Weapons.Count > 0 && _fireCooldown <= 0) TryFire(shotsFired);
+        if (Controls.Fire && _fixed.Count > 0 && _fireCooldown <= 0) TryFire(shotsFired);
     }
+
+    private List<WeaponSpec>? _fixedCache;
+    /// <summary>Guns that fire where the nose points. Turrets look after themselves.</summary>
+    private List<WeaponSpec> _fixed => _fixedCache ??= Spec.Weapons.Where(w => !w.Turret).ToList();
+    private float[]? _turretCooldowns;
 
     /// <summary>Weapons fire in turn, so two cannons give an alternating left-right stream.</summary>
     private void TryFire(List<Projectile> shotsFired)
     {
-        var weapon = Spec.Weapons[_nextWeapon % Spec.Weapons.Count];
+        var weapons = _fixed;
+        var weapon = weapons[_nextWeapon % weapons.Count];
+        _nextWeapon++;
+        // Missiles need a lock: without a target, skip to the next gun.
+        if (weapon.Homing && Target is not { Alive: true }) return;
         if (Capacitor < weapon.EnergyPerShot) return;
 
         Capacitor -= weapon.EnergyPerShot;
-        _nextWeapon++;
-        _fireCooldown = 1f / (weapon.FireRate * Spec.Weapons.Count);
+        _fireCooldown = 1f / (weapon.FireRate * weapons.Count);
 
         var origin = Body.Position + Vector3.Transform(weapon.Hardpoint, Body.Orientation);
         var aim = Body.Forward;
@@ -104,8 +112,80 @@ public sealed class Ship
             if (Vector3.Dot(toLead, Body.Forward) > MathF.Cos(AimAssistDegrees * MathF.PI / 180f) && Vector3.Distance(lead, origin) < weapon.Range)
                 aim = toLead;
         }
-        var velocity = Body.Velocity + aim * weapon.ProjectileSpeed;
-        shotsFired.Add(new Projectile(this, origin, velocity, weapon.Damage, weapon.Range / weapon.ProjectileSpeed, weapon.Color));
+        Launch(weapon, origin, aim, Target, shotsFired);
+    }
+
+    /// <summary>Fires one shot (or a spread, for scatter guns) from a weapon.</summary>
+    private void Launch(WeaponSpec weapon, Vector3 origin, Vector3 aim, Ship? target, List<Projectile> shotsFired)
+    {
+        float life = weapon.Range / weapon.ProjectileSpeed;
+        if (weapon.Kind == "scatter")
+        {
+            // Five pellets in a cone of a few degrees, sharing the damage.
+            var right = Vector3.Normalize(Vector3.Cross(aim, MathF.Abs(aim.Y) < 0.9f ? Vector3.UnitY : Vector3.UnitX));
+            var up = Vector3.Cross(right, aim);
+            for (int i = 0; i < 5; i++)
+            {
+                float a = i * 1.2566f;
+                var dir = Vector3.Normalize(aim + (right * MathF.Cos(a) + up * MathF.Sin(a)) * (i == 0 ? 0 : 0.035f));
+                shotsFired.Add(new Projectile(this, origin, Body.Velocity + dir * weapon.ProjectileSpeed, weapon.Damage / 5 * 1.4f, life, weapon.Color, weapon.Kind));
+            }
+            return;
+        }
+        var velocity = (weapon.Homing ? Vector3.Zero : Body.Velocity) + aim * weapon.ProjectileSpeed;
+        shotsFired.Add(new Projectile(this, origin, velocity, weapon.Damage, life * (weapon.Homing ? 1.6f : 1), weapon.Color, weapon.Kind)
+        {
+            Target = weapon.Homing ? target : null,
+        });
+    }
+
+    /// <summary>
+    /// Turrets each pick the nearest enemy in range (flak prefers small craft, torpedoes prefer
+    /// warships), lead it, and fire on their own cooldowns, drawing on the ship's capacitor.
+    /// </summary>
+    public void UpdateTurrets(float dt, World world, List<Projectile> shotsFired)
+    {
+        var weapons = Spec.Weapons;
+        _turretCooldowns ??= new float[weapons.Count];
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            var weapon = weapons[i];
+            if (!weapon.Turret) continue;
+            _turretCooldowns[i] -= dt;
+            if (_turretCooldowns[i] > 0 || Capacitor < weapon.EnergyPerShot) continue;
+
+            var origin = Body.Position + Vector3.Transform(weapon.Hardpoint, Body.Orientation);
+            Ship? best = null;
+            float bestScore = float.MaxValue;
+            foreach (var other in world.Ships)
+            {
+                if (!other.Alive || other == this || !world.Hostile(this, other)) continue;
+                float d = Vector3.Distance(origin, other.Body.Position) - other.Spec.Radius;
+                if (d > weapon.Range) continue;
+                bool big = other.Spec.Hull.IsCapital;
+                float score = d * (weapon.Kind == "torpedo" ? (big ? 0.3f : 4f) : weapon.Kind == "flak" ? (big ? 3f : 0.5f) : 1f);
+                if (other == Target) score *= 0.5f;
+                if (score < bestScore) { bestScore = score; best = other; }
+            }
+            if (best == null) { _turretCooldowns[i] = 0.25f; continue; }
+
+            var aimAt = World.LeadPoint(origin, Body.Velocity, best.Body.Position, best.Body.Velocity, weapon.ProjectileSpeed) ?? best.Body.Position;
+            var aim = Vector3.Normalize(aimAt - origin);
+            // Turret crews aren't perfect: a little scatter, more against small fast craft.
+            float wobble = best.Spec.Hull.IsCapital ? 0.004f : 0.02f;
+            aim = Vector3.Normalize(aim + new Vector3(Jitter(i, 1), Jitter(i, 2), Jitter(i, 3)) * wobble);
+            Capacitor -= weapon.EnergyPerShot;
+            _turretCooldowns[i] = 1f / weapon.FireRate;
+            Launch(weapon, origin, aim, best, shotsFired);
+        }
+    }
+
+    private int _jitterSeed;
+    private float Jitter(int a, int b)
+    {
+        uint h = (uint)(Id * 73856093 ^ a * 19349663 ^ b * 83492791 ^ ++_jitterSeed * 2654435761);
+        h ^= h >> 13; h *= 0x5bd1e995; h ^= h >> 15;
+        return (h & 0xFFFF) / 32768f - 1;
     }
 
     /// <summary>Shields soak damage first, and any hit holds off shield recharge for a while.</summary>

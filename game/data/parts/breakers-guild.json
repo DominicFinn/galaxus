@@ -778,6 +778,7 @@
  },
  {
   "id": "bg-scrap-1-1",
+  "kind": "scatter",
   "name": "Scrap cannon S1 Mk I",
   "type": "weapon",
   "size": 1,
@@ -796,6 +797,7 @@
  },
  {
   "id": "bg-harpoon-1-1",
+  "kind": "rail",
   "name": "Harpoon slug S1 Mk I",
   "type": "weapon",
   "size": 1,
@@ -814,6 +816,7 @@
  },
  {
   "id": "bg-scrap-1-2",
+  "kind": "scatter",
   "name": "Scrap cannon S1 Mk II",
   "type": "weapon",
   "size": 1,
@@ -832,6 +835,7 @@
  },
  {
   "id": "bg-harpoon-1-2",
+  "kind": "rail",
   "name": "Harpoon slug S1 Mk II",
   "type": "weapon",
   "size": 1,
@@ -850,6 +854,7 @@
  },
  {
   "id": "bg-scrap-1-3",
+  "kind": "scatter",
   "name": "Scrap cannon S1 Mk III",
   "type": "weapon",
   "size": 1,
@@ -868,6 +873,7 @@
  },
  {
   "id": "bg-harpoon-1-3",
+  "kind": "rail",
   "name": "Harpoon slug S1 Mk III",
   "type": "weapon",
   "size": 1,
@@ -886,6 +892,7 @@
  },
  {
   "id": "bg-scrap-2-1",
+  "kind": "scatter",
   "name": "Scrap cannon S2 Mk I",
   "type": "weapon",
   "size": 2,
@@ -904,6 +911,7 @@
  },
  {
   "id": "bg-harpoon-2-1",
+  "kind": "rail",
   "name": "Harpoon slug S2 Mk I",
   "type": "weapon",
   "size": 2,
@@ -922,6 +930,7 @@
  },
  {
   "id": "bg-scrap-2-2",
+  "kind": "scatter",
   "name": "Scrap cannon S2 Mk II",
   "type": "weapon",
   "size": 2,
@@ -940,6 +949,7 @@
  },
  {
   "id": "bg-harpoon-2-2",
+  "kind": "rail",
   "name": "Harpoon slug S2 Mk II",
   "type": "weapon",
   "size": 2,
@@ -958,6 +968,7 @@
  },
  {
   "id": "bg-scrap-2-3",
+  "kind": "scatter",
   "name": "Scrap cannon S2 Mk III",
   "type": "weapon",
   "size": 2,
@@ -976,6 +987,7 @@
  },
  {
   "id": "bg-harpoon-2-3",
+  "kind": "rail",
   "name": "Harpoon slug S2 Mk III",
   "type": "weapon",
   "size": 2,
@@ -994,6 +1006,7 @@
  },
  {
   "id": "bg-scrap-3-1",
+  "kind": "scatter",
   "name": "Scrap cannon S3 Mk I",
   "type": "weapon",
   "size": 3,
@@ -1012,6 +1025,7 @@
  },
  {
   "id": "bg-harpoon-3-1",
+  "kind": "rail",
   "name": "Harpoon slug S3 Mk I",
   "type": "weapon",
   "size": 3,
@@ -1030,6 +1044,7 @@
  },
  {
   "id": "bg-scrap-3-2",
+  "kind": "scatter",
   "name": "Scrap cannon S3 Mk II",
   "type": "weapon",
   "size": 3,
@@ -1048,6 +1063,7 @@
  },
  {
   "id": "bg-harpoon-3-2",
+  "kind": "rail",
   "name": "Harpoon slug S3 Mk II",
   "type": "weapon",
   "size": 3,
@@ -1066,6 +1082,7 @@
  },
  {
   "id": "bg-scrap-3-3",
+  "kind": "scatter",
   "name": "Scrap cannon S3 Mk III",
   "type": "weapon",
   "size": 3,
@@ -1084,6 +1101,7 @@
  },
  {
   "id": "bg-harpoon-3-3",
+  "kind": "rail",
   "name": "Harpoon slug S3 Mk III",
   "type": "weapon",
   "size": 3,

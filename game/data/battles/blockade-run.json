@@ -1,0 +1,122 @@
+[
+  {
+    "id": "blockade-run",
+    "name": "Blockade Run",
+    "kind": "war",
+    "stages": [
+      "blockade"
+    ],
+    "reward": 65000,
+    "minRank": 2,
+    "textGrammar": "battle-blockade-run",
+    "waves": [
+      {
+        "id": "picket",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2,
+            "tag": "picket"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-picket"
+      },
+      {
+        "id": "column",
+        "side": "friend",
+        "after": "wave:picket",
+        "delay": 30,
+        "position": "behind",
+        "distance": 4000,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 4,
+            "tag": "column"
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-column"
+      },
+      {
+        "id": "response",
+        "side": "enemy",
+        "after": "wave:picket",
+        "delay": 25,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 6
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3
+          }
+        ],
+        "radio": "radio-response"
+      },
+      {
+        "id": "cruiser",
+        "side": "enemy",
+        "after": "objective:picketdown",
+        "delay": 5,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1,
+            "tag": "cruiser"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-cruiser"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "picketdown",
+        "type": "destroy",
+        "tag": "picket",
+        "text": "Destroy the picket frigates"
+      },
+      {
+        "id": "column",
+        "type": "escape",
+        "tag": "column",
+        "text": "Bring the supply column through"
+      },
+      {
+        "id": "cruiser",
+        "type": "destroy",
+        "tag": "cruiser",
+        "text": "Destroy the cruiser that jumps in",
+        "optional": true
+      }
+    ]
+  }
+]

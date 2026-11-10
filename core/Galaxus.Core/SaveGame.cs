@@ -71,6 +71,8 @@ public static class SaveGame
         public string? ClientId { get; set; }
         public int AcceptedDay { get; set; }
         public int DeadlineDay { get; set; }
+        public string? BattleId { get; set; }
+        public int EnemyFactionId { get; set; } = -1;
     }
 
     public static string Save(Session session)
@@ -121,6 +123,8 @@ public static class SaveGame
                 DestinationStation = m.Offer.DestinationStation,
                 PostedDay = m.Offer.PostedDay,
                 ClientId = m.Offer.ClientId,
+                BattleId = m.Offer.BattleId,
+                EnemyFactionId = m.Offer.EnemyFactionId,
                 AcceptedDay = m.AcceptedDay,
                 DeadlineDay = m.DeadlineDay,
             }).ToList(),
@@ -159,14 +163,14 @@ public static class SaveGame
         foreach (var (k, v) in data.Haggled) c.Haggled[k] = v;
         foreach (var id in data.WithdrawnOffers) c.WithdrawnOffers.Add(id);
 
-        foreach (var m in data.Missions.Where(m => db.Missions.ContainsKey(m.TemplateId)))
+        foreach (var m in data.Missions.Where(m => db.Missions.ContainsKey(m.TemplateId) || (m.BattleId != null && db.Battles.ContainsKey(m.BattleId))))
         {
             var mission = new Mission(
-                db.Missions[m.TemplateId], m.Title, m.Briefing, m.SuccessText, m.FailureText, m.Reward,
+                m.BattleId != null ? Battles.BattleJobs.Template(db.Battles[m.BattleId]) : db.Missions[m.TemplateId], m.Title, m.Briefing, m.SuccessText, m.FailureText, m.Reward,
                 m.CargoId != null ? db.Commodities.GetValueOrDefault(m.CargoId) : null, m.Tonnes, m.DeadlineDays,
                 m.ComplicationId != null ? db.Complications.GetValueOrDefault(m.ComplicationId) : null,
                 m.ComplicationReveal, m.ComplicationAftermath, new Dictionary<string, string>());
-            var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay, m.ClientId);
+            var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay, m.ClientId, m.BattleId, m.EnemyFactionId);
             c.Missions.Add(new AcceptedMission(offer, m.AcceptedDay, m.DeadlineDay));
         }
         c.ActiveJobId = data.ActiveJob;

@@ -1,0 +1,2714 @@
+[
+ {
+  "id": "le-thistledown",
+  "name": "Thistledown",
+  "builder": "light-elf-houses",
+  "class": "frigate",
+  "description": "A needle of a ship with swept blade wings, grown for the Houses' picket lines. It is very fast for a warship and not at all hard to break.",
+  "price": 30000000,
+  "forSale": false,
+  "mass": 3600,
+  "baseSpeed": 82,
+  "pitchRate": 14,
+  "yawRate": 14,
+  "rollRate": 22,
+  "hullPoints": 4600,
+  "crewBerths": 40,
+  "cargoTonnes": 20,
+  "radius": 57,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "powerPlant",
+    "size": 4
+   },
+   {
+    "type": "shield",
+    "size": 4
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     0.0,
+     6.0,
+     -15
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     0.0,
+     -6.6,
+     -5
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     15.6,
+     0.7,
+     40
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -15.6,
+     0.7,
+     40
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     0.0,
+     6.0,
+     45
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-4-3",
+   "le-drive-4-3",
+   "le-plant-4-3",
+   "le-shield-4-3",
+   "le-sensor-3-3",
+   "le-dawnthread-4",
+   "le-silverveil-4",
+   "le-dawnthread-4",
+   "le-dawnthread-4",
+   "le-silverveil-4"
+  ],
+  "model": [
+   {
+    "position": [
+     0.0,
+     0.0,
+     12.5
+    ],
+    "back": [
+     11.7,
+     11.9
+    ],
+    "front": [
+     9.1,
+     10.2
+    ],
+    "length": 115,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     -65.0
+    ],
+    "back": [
+     9.1,
+     10.2
+    ],
+    "front": [
+     0.39,
+     0.51
+    ],
+    "length": 40,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     6.29,
+     15.0
+    ],
+    "back": [
+     2.6,
+     1.02
+    ],
+    "front": [
+     1.95,
+     1.02
+    ],
+    "length": 90,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     10.2,
+     30.0
+    ],
+    "back": [
+     1.04,
+     17.0
+    ],
+    "front": [
+     0.65,
+     10.2
+    ],
+    "length": 40,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     8.5,
+     9.95
+    ],
+    "back": [
+     0.78,
+     6.8
+    ],
+    "front": [
+     0.78,
+     6.8
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     26.0,
+     0.0,
+     40.0
+    ],
+    "back": [
+     10.4,
+     1.36
+    ],
+    "front": [
+     15.6,
+     1.36
+    ],
+    "length": 70,
+    "color": "hull",
+    "skew": [
+     -20.8,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     28.6,
+     1.02,
+     59.0
+    ],
+    "back": [
+     1.3,
+     0.68
+    ],
+    "front": [
+     2.08,
+     0.68
+    ],
+    "length": 38,
+    "color": "accent",
+    "skew": [
+     -7.8,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     -6.46,
+     20.0
+    ],
+    "back": [
+     7.8,
+     1.7
+    ],
+    "front": [
+     6.5,
+     1.7
+    ],
+    "length": 80,
+    "color": "trim"
+   },
+   {
+    "position": [
+     26.0,
+     0.0,
+     75.05
+    ],
+    "back": [
+     3.9,
+     2.04
+    ],
+    "front": [
+     3.9,
+     2.04
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     7.14,
+     58.0
+    ],
+    "back": [
+     7.8,
+     2.72
+    ],
+    "front": [
+     6.5,
+     2.38
+    ],
+    "length": 16,
+    "color": "trim"
+   },
+   {
+    "position": [
+     6.5,
+     0.51,
+     15.0
+    ],
+    "back": [
+     0.78,
+     1.02
+    ],
+    "front": [
+     0.78,
+     1.02
+    ],
+    "length": 30,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     5.78,
+     -25.0
+    ],
+    "back": [
+     1.56,
+     1.36
+    ],
+    "front": [
+     1.04,
+     0.85
+    ],
+    "length": 30,
+    "color": "trim"
+   },
+   {
+    "position": [
+     3.9,
+     -6.8,
+     42.5
+    ],
+    "back": [
+     1.82,
+     2.38
+    ],
+    "front": [
+     1.56,
+     2.04
+    ],
+    "length": 25,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     5.78,
+     -15.0
+    ],
+    "back": [
+     3.9,
+     1.02
+    ],
+    "front": [
+     3.9,
+     1.02
+    ],
+    "length": 30,
+    "color": "accent"
+   },
+   {
+    "position": [
+     3.9,
+     0.0,
+     72.0
+    ],
+    "back": [
+     6.5,
+     7.82
+    ],
+    "front": [
+     5.53,
+     6.65
+    ],
+    "length": 8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.9,
+     0.0,
+     76.15
+    ],
+    "back": [
+     4.88,
+     5.87
+    ],
+    "front": [
+     4.88,
+     5.87
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     7.92,
+     -15.0
+    ],
+    "back": [
+     8.84,
+     6.36
+    ],
+    "front": [
+     7.07,
+     5.2
+    ],
+    "length": 8.16,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -4.66,
+     -5.0
+    ],
+    "back": [
+     8.84,
+     6.36
+    ],
+    "front": [
+     7.07,
+     5.2
+    ],
+    "length": 8.16,
+    "color": "trim"
+   },
+   {
+    "position": [
+     15.6,
+     2.65,
+     40.0
+    ],
+    "back": [
+     8.84,
+     6.36
+    ],
+    "front": [
+     7.07,
+     5.2
+    ],
+    "length": 8.16,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     7.92,
+     45.0
+    ],
+    "back": [
+     8.84,
+     6.36
+    ],
+    "front": [
+     7.07,
+     5.2
+    ],
+    "length": 8.16,
+    "color": "trim"
+   }
+  ]
+ },
+ {
+  "id": "le-silverwake",
+  "name": "Silverwake",
+  "builder": "light-elf-houses",
+  "class": "cruiser",
+  "description": "A long blade with swept wings, the line cruiser of the great Houses. Its heavy casters sit in a narrow spine and its crew fight it as though it were a rapier.",
+  "price": 100000000,
+  "forSale": false,
+  "mass": 13000,
+  "baseSpeed": 62,
+  "pitchRate": 8,
+  "yawRate": 8,
+  "rollRate": 14,
+  "hullPoints": 14000,
+  "crewBerths": 180,
+  "cargoTonnes": 120,
+  "radius": 134,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     0.0,
+     13.3,
+     -60
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     13.3,
+     120
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     0.0,
+     -13.3,
+     -30
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     -17.1,
+     100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     61.6,
+     1.5,
+     100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     -61.6,
+     1.5,
+     100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     39.2,
+     1.5,
+     60
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -39.2,
+     1.5,
+     60
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     81.2,
+     1.5,
+     135
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -81.2,
+     1.5,
+     135
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     12.6,
+     -1.9,
+     -60
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     -12.6,
+     -1.9,
+     -60
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-plant-5-3",
+   "le-plant-5-3",
+   "le-shield-5-3",
+   "le-shield-5-3",
+   "le-sensor-3-3",
+   "le-dawnthread-4",
+   "le-dawnthread-5",
+   "le-silverveil-4",
+   "le-moonbeam-5",
+   "le-starpiercer-5",
+   "le-starpiercer-5",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-dawnthread-4",
+   "le-dawnthread-4",
+   "le-moonfall-5",
+   "le-moonfall-5"
+  ],
+  "model": [
+   {
+    "position": [
+     0.0,
+     0.0,
+     25.0
+    ],
+    "back": [
+     30.8,
+     26.6
+    ],
+    "front": [
+     25.2,
+     22.8
+    ],
+    "length": 250,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     -135.0
+    ],
+    "back": [
+     25.2,
+     22.8
+    ],
+    "front": [
+     0.56,
+     0.76
+    ],
+    "length": 70,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     160.0
+    ],
+    "back": [
+     30.8,
+     26.6
+    ],
+    "front": [
+     33.6,
+     26.6
+    ],
+    "length": 20,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     19.0,
+     35.0
+    ],
+    "back": [
+     5.6,
+     19.0
+    ],
+    "front": [
+     4.2,
+     17.1
+    ],
+    "length": 90,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     19.0,
+     -10.05
+    ],
+    "back": [
+     3.36,
+     11.4
+    ],
+    "front": [
+     3.36,
+     11.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     98.0,
+     0.0,
+     90.0
+    ],
+    "back": [
+     25.2,
+     3.04
+    ],
+    "front": [
+     42.0,
+     3.04
+    ],
+    "length": 140,
+    "color": "hull",
+    "skew": [
+     -84.0,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     42.0,
+     0.57,
+     110.0
+    ],
+    "back": [
+     2.1,
+     0.95
+    ],
+    "front": [
+     4.2,
+     0.95
+    ],
+    "length": 80,
+    "color": "accent",
+    "skew": [
+     -18.2,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     100.8,
+     1.9,
+     94.0
+    ],
+    "back": [
+     8.4,
+     0.95
+    ],
+    "front": [
+     11.2,
+     0.95
+    ],
+    "length": 128,
+    "color": "accent",
+    "skew": [
+     -67.2,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     12.6,
+     17.1,
+     125.0
+    ],
+    "back": [
+     1.12,
+     15.2
+    ],
+    "front": [
+     0.56,
+     9.5
+    ],
+    "length": 50,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     8.55,
+     70.0
+    ],
+    "back": [
+     8.4,
+     1.9
+    ],
+    "front": [
+     7.0,
+     1.9
+    ],
+    "length": 100,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     -15.2,
+     50.0
+    ],
+    "back": [
+     11.2,
+     3.8
+    ],
+    "front": [
+     8.4,
+     3.8
+    ],
+    "length": 180,
+    "color": "trim"
+   },
+   {
+    "position": [
+     98.0,
+     0.0,
+     160.05
+    ],
+    "back": [
+     11.2,
+     2.28
+    ],
+    "front": [
+     11.2,
+     2.28
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     -12.6,
+     0.0,
+     172.5
+    ],
+    "back": [
+     10.5,
+     17.1
+    ],
+    "front": [
+     8.93,
+     14.54
+    ],
+    "length": 9,
+    "color": "trim"
+   },
+   {
+    "position": [
+     -12.6,
+     0.0,
+     177.15
+    ],
+    "back": [
+     7.87,
+     12.82
+    ],
+    "front": [
+     7.87,
+     12.82
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     172.5
+    ],
+    "back": [
+     10.5,
+     17.1
+    ],
+    "front": [
+     8.93,
+     14.54
+    ],
+    "length": 9,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     177.15
+    ],
+    "back": [
+     7.87,
+     12.82
+    ],
+    "front": [
+     7.87,
+     12.82
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     12.6,
+     0.0,
+     172.5
+    ],
+    "back": [
+     10.5,
+     17.1
+    ],
+    "front": [
+     8.93,
+     14.54
+    ],
+    "length": 9,
+    "color": "trim"
+   },
+   {
+    "position": [
+     12.6,
+     0.0,
+     177.15
+    ],
+    "back": [
+     7.87,
+     12.82
+    ],
+    "front": [
+     7.87,
+     12.82
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.0,
+     17.18,
+     -60.0
+    ],
+    "back": [
+     16.8,
+     12.54
+    ],
+    "front": [
+     13.44,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     18.14,
+     120.0
+    ],
+    "back": [
+     21.0,
+     15.67
+    ],
+    "front": [
+     16.8,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -9.42,
+     -30.0
+    ],
+    "back": [
+     16.8,
+     12.54
+    ],
+    "front": [
+     13.44,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -12.25,
+     100.0
+    ],
+    "back": [
+     21.0,
+     15.67
+    ],
+    "front": [
+     16.8,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     61.6,
+     6.37,
+     100.0
+    ],
+    "back": [
+     21.0,
+     15.67
+    ],
+    "front": [
+     16.8,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     39.2,
+     5.4,
+     60.0
+    ],
+    "back": [
+     16.8,
+     12.54
+    ],
+    "front": [
+     13.44,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     81.2,
+     5.4,
+     135.0
+    ],
+    "back": [
+     16.8,
+     12.54
+    ],
+    "front": [
+     13.44,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     12.6,
+     2.94,
+     -60.0
+    ],
+    "back": [
+     21.0,
+     15.67
+    ],
+    "front": [
+     16.8,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "accent",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "le-evenstar",
+  "name": "Evenstar",
+  "builder": "light-elf-houses",
+  "class": "battlecruiser",
+  "description": "A great blade of a ship, with swept crescent wings and a bridge crest that rises from the spine like a fin. The Houses build very few and name each one for a star.",
+  "price": 390000000,
+  "forSale": false,
+  "mass": 54000,
+  "baseSpeed": 46,
+  "pitchRate": 5,
+  "yawRate": 5,
+  "rollRate": 8,
+  "hullPoints": 42000,
+  "crewBerths": 1800,
+  "cargoTonnes": 1600,
+  "dockable": true,
+  "radius": 287,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     28.5,
+     -160
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     28.5,
+     -60
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     30.4,
+     20
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     28.5,
+     270
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     -28.5,
+     -100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     -28.5,
+     150
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     31.2,
+     19.0,
+     -120
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -31.2,
+     19.0,
+     -120
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     31.2,
+     19.0,
+     200
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -31.2,
+     19.0,
+     200
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     92.3,
+     2.8,
+     100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     -92.3,
+     2.8,
+     100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     135.2,
+     2.8,
+     200
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -135.2,
+     2.8,
+     200
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     49.4,
+     2.8,
+     0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -49.4,
+     2.8,
+     0
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     15.6,
+     -3.8,
+     -235
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     -15.6,
+     -3.8,
+     -235
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-plant-5-3",
+   "le-plant-5-3",
+   "le-plant-5-3",
+   "le-shield-5-3",
+   "le-shield-5-3",
+   "le-shield-5-3",
+   "le-shield-5-3",
+   "le-sensor-3-3",
+   "le-sensor-3-3",
+   "le-dawnthread-5",
+   "le-moonbeam-5",
+   "le-dawnthread-5",
+   "le-starpiercer-5",
+   "le-starpiercer-5",
+   "le-moonbeam-5",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-dawnthread-5",
+   "le-dawnthread-5",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-moonfall-5",
+   "le-moonfall-5"
+  ],
+  "model": [
+   {
+    "position": [
+     0.0,
+     0.0,
+     50.0
+    ],
+    "back": [
+     65.0,
+     57.0
+    ],
+    "front": [
+     52.0,
+     49.4
+    ],
+    "length": 500,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     -275.0
+    ],
+    "back": [
+     52.0,
+     49.4
+    ],
+    "front": [
+     0.65,
+     0.95
+    ],
+    "length": 150,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     -34.2,
+     70.0
+    ],
+    "back": [
+     20.8,
+     15.2
+    ],
+    "front": [
+     13.0,
+     11.4
+    ],
+    "length": 380,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     30.4,
+     130.0
+    ],
+    "back": [
+     13.0,
+     76.0
+    ],
+    "front": [
+     7.8,
+     68.4
+    ],
+    "length": 140,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     76.0,
+     125.0
+    ],
+    "back": [
+     6.5,
+     15.2
+    ],
+    "front": [
+     3.25,
+     7.6
+    ],
+    "length": 50,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     60.8,
+     59.95
+    ],
+    "back": [
+     7.8,
+     15.2
+    ],
+    "front": [
+     7.8,
+     15.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.0,
+     83.6,
+     155.0
+    ],
+    "back": [
+     2.6,
+     38.0
+    ],
+    "front": [
+     1.3,
+     19.0
+    ],
+    "length": 130,
+    "color": "accent"
+   },
+   {
+    "position": [
+     182.0,
+     0.0,
+     135.0
+    ],
+    "back": [
+     65.0,
+     5.7
+    ],
+    "front": [
+     78.0,
+     5.7
+    ],
+    "length": 350,
+    "color": "hull",
+    "skew": [
+     -149.5,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     130.0,
+     -11.4,
+     170.0
+    ],
+    "back": [
+     39.0,
+     3.8
+    ],
+    "front": [
+     52.0,
+     3.8
+    ],
+    "length": 260,
+    "color": "accent",
+    "skew": [
+     -104.0,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     184.6,
+     3.42,
+     141.0
+    ],
+    "back": [
+     3.9,
+     0.95
+    ],
+    "front": [
+     3.9,
+     0.95
+    ],
+    "length": 342,
+    "color": "trim",
+    "skew": [
+     -150.8,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     182.0,
+     26.6,
+     285.0
+    ],
+    "back": [
+     1.56,
+     95.0
+    ],
+    "front": [
+     0.78,
+     45.6
+    ],
+    "length": 100,
+    "color": "accent",
+    "roll": 20,
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     315.0
+    ],
+    "back": [
+     59.8,
+     53.2
+    ],
+    "front": [
+     65.0,
+     57.0
+    ],
+    "length": 30,
+    "color": "trim"
+   },
+   {
+    "position": [
+     182.0,
+     0.0,
+     312.05
+    ],
+    "back": [
+     18.2,
+     4.18
+    ],
+    "front": [
+     18.2,
+     4.18
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     33.15,
+     3.8,
+     50.0
+    ],
+    "back": [
+     0.52,
+     2.28
+    ],
+    "front": [
+     0.52,
+     2.28
+    ],
+    "length": 400,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     195.0,
+     0.57,
+     150.0
+    ],
+    "back": [
+     5.2,
+     0.57
+    ],
+    "front": [
+     5.2,
+     0.57
+    ],
+    "length": 300,
+    "color": "glow",
+    "skew": [
+     -161.2,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     -26.0,
+     0.0,
+     334.0
+    ],
+    "back": [
+     11.7,
+     26.6
+    ],
+    "front": [
+     9.95,
+     22.61
+    ],
+    "length": 12,
+    "color": "trim"
+   },
+   {
+    "position": [
+     -26.0,
+     0.0,
+     340.15
+    ],
+    "back": [
+     8.78,
+     19.95
+    ],
+    "front": [
+     8.78,
+     19.95
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     -13.0,
+     0.0,
+     334.0
+    ],
+    "back": [
+     11.7,
+     26.6
+    ],
+    "front": [
+     9.95,
+     22.61
+    ],
+    "length": 12,
+    "color": "trim"
+   },
+   {
+    "position": [
+     -13.0,
+     0.0,
+     340.15
+    ],
+    "back": [
+     8.78,
+     19.95
+    ],
+    "front": [
+     8.78,
+     19.95
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     334.0
+    ],
+    "back": [
+     11.7,
+     26.6
+    ],
+    "front": [
+     9.95,
+     22.61
+    ],
+    "length": 12,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     340.15
+    ],
+    "back": [
+     8.78,
+     19.95
+    ],
+    "front": [
+     8.78,
+     19.95
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     13.0,
+     0.0,
+     334.0
+    ],
+    "back": [
+     11.7,
+     26.6
+    ],
+    "front": [
+     9.95,
+     22.61
+    ],
+    "length": 12,
+    "color": "trim"
+   },
+   {
+    "position": [
+     13.0,
+     0.0,
+     340.15
+    ],
+    "back": [
+     8.78,
+     19.95
+    ],
+    "front": [
+     8.78,
+     19.95
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     26.0,
+     0.0,
+     334.0
+    ],
+    "back": [
+     11.7,
+     26.6
+    ],
+    "front": [
+     9.95,
+     22.61
+    ],
+    "length": 12,
+    "color": "trim"
+   },
+   {
+    "position": [
+     26.0,
+     0.0,
+     340.15
+    ],
+    "back": [
+     8.78,
+     19.95
+    ],
+    "front": [
+     8.78,
+     19.95
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.0,
+     33.34,
+     -160.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     33.34,
+     -60.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     35.24,
+     20.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     33.34,
+     270.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -23.65,
+     -100.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -23.65,
+     150.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     31.2,
+     22.88,
+     -120.0
+    ],
+    "back": [
+     15.6,
+     12.54
+    ],
+    "front": [
+     12.48,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     31.2,
+     22.88,
+     200.0
+    ],
+    "back": [
+     15.6,
+     12.54
+    ],
+    "front": [
+     12.48,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     92.3,
+     7.69,
+     100.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     135.2,
+     6.73,
+     200.0
+    ],
+    "back": [
+     15.6,
+     12.54
+    ],
+    "front": [
+     12.48,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     49.4,
+     6.73,
+     0.0
+    ],
+    "back": [
+     15.6,
+     12.54
+    ],
+    "front": [
+     12.48,
+     10.26
+    ],
+    "length": 14.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     15.6,
+     1.04,
+     -235.0
+    ],
+    "back": [
+     19.5,
+     15.67
+    ],
+    "front": [
+     15.6,
+     12.82
+    ],
+    "length": 18.0,
+    "color": "accent",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "le-sunbough",
+  "name": "Sunbough",
+  "builder": "light-elf-houses",
+  "class": "carrier",
+  "description": "Two long curved arms meet at a slender bow, and between them lie the flight decks. It carries a House's whole fighter wing and its honour guard.",
+  "price": 330000000,
+  "forSale": false,
+  "mass": 46000,
+  "baseSpeed": 44,
+  "pitchRate": 5,
+  "yawRate": 5,
+  "rollRate": 7,
+  "hullPoints": 27000,
+  "crewBerths": 2200,
+  "cargoTonnes": 2500,
+  "dockable": true,
+  "hangar": 12,
+  "hangarHull": "le-quillwing",
+  "radius": 250,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     96.0,
+     23.8,
+     250
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -96.0,
+     23.8,
+     250
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     74.4,
+     23.8,
+     100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -74.4,
+     23.8,
+     100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     52.8,
+     20.4,
+     -50
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "turret": true,
+    "position": [
+     -52.8,
+     20.4,
+     -50
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     23.8,
+     -100
+    ]
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "turret": true,
+    "position": [
+     0.0,
+     -23.8,
+     -100
+    ]
+   }
+  ],
+  "defaultLoadout": [
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-drive-5-3",
+   "le-plant-5-3",
+   "le-plant-5-3",
+   "le-plant-5-3",
+   "le-shield-5-3",
+   "le-shield-5-3",
+   "le-shield-5-3",
+   "le-sensor-3-3",
+   "le-sensor-3-3",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-silverveil-4",
+   "le-dawnthread-4",
+   "le-dawnthread-4",
+   "le-dawnthread-5",
+   "le-moonbeam-5"
+  ],
+  "model": [
+   {
+    "position": [
+     0.0,
+     0.0,
+     40.0
+    ],
+    "back": [
+     48.0,
+     47.6
+    ],
+    "front": [
+     36.0,
+     40.8
+    ],
+    "length": 480,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     0.0,
+     -255.0
+    ],
+    "back": [
+     36.0,
+     40.8
+    ],
+    "front": [
+     0.6,
+     0.85
+    ],
+    "length": 110,
+    "color": "hull"
+   },
+   {
+    "position": [
+     102.0,
+     0.0,
+     25.0
+    ],
+    "back": [
+     38.4,
+     47.6
+    ],
+    "front": [
+     14.4,
+     34.0
+    ],
+    "length": 550,
+    "color": "hull",
+    "skew": [
+     -74.4,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     102.0,
+     24.65,
+     25.0
+    ],
+    "back": [
+     33.6,
+     2.04
+    ],
+    "front": [
+     9.6,
+     2.04
+    ],
+    "length": 550,
+    "color": "accent",
+    "skew": [
+     -74.4,
+     0.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     -10.2,
+     75.0
+    ],
+    "back": [
+     168.0,
+     6.8
+    ],
+    "front": [
+     48.0,
+     6.8
+    ],
+    "length": 430,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -6.8,
+     -145.0
+    ],
+    "back": [
+     48.0,
+     13.6
+    ],
+    "front": [
+     48.0,
+     13.6
+    ],
+    "length": 10,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -5.95,
+     -150.05
+    ],
+    "back": [
+     38.4,
+     8.5
+    ],
+    "front": [
+     38.4,
+     8.5
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0.0,
+     27.2,
+     195.0
+    ],
+    "back": [
+     14.4,
+     57.8
+    ],
+    "front": [
+     12.0,
+     57.8
+    ],
+    "length": 90,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     61.2,
+     160.0
+    ],
+    "back": [
+     7.2,
+     10.2
+    ],
+    "front": [
+     3.6,
+     5.1
+    ],
+    "length": 80,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     30.6,
+     149.95
+    ],
+    "back": [
+     7.2,
+     10.2
+    ],
+    "front": [
+     7.2,
+     10.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     36.0,
+     -6.12,
+     90.0
+    ],
+    "back": [
+     1.2,
+     0.51
+    ],
+    "front": [
+     1.2,
+     0.51
+    ],
+    "length": 360,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     72.0,
+     -6.12,
+     90.0
+    ],
+    "back": [
+     1.2,
+     0.51
+    ],
+    "front": [
+     1.2,
+     0.51
+    ],
+    "length": 360,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     122.04,
+     0.0,
+     190.0
+    ],
+    "back": [
+     0.36,
+     17.0
+    ],
+    "front": [
+     0.36,
+     17.0
+    ],
+    "length": 60,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     105.6,
+     0.0,
+     70.0
+    ],
+    "back": [
+     0.36,
+     17.0
+    ],
+    "front": [
+     0.36,
+     17.0
+    ],
+    "length": 60,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     84.0,
+     0.0,
+     -50.0
+    ],
+    "back": [
+     0.36,
+     17.0
+    ],
+    "front": [
+     0.36,
+     17.0
+    ],
+    "length": 60,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     54.0,
+     -6.12,
+     200.0
+    ],
+    "back": [
+     9.6,
+     6.8
+    ],
+    "front": [
+     9.6,
+     6.8
+    ],
+    "length": 100,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     54.0,
+     -6.12,
+     149.95
+    ],
+    "back": [
+     7.2,
+     5.1
+    ],
+    "front": [
+     7.2,
+     5.1
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     102.0,
+     11.9,
+     304.0
+    ],
+    "back": [
+     14.4,
+     18.7
+    ],
+    "front": [
+     12.24,
+     15.89
+    ],
+    "length": 12,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     102.0,
+     11.9,
+     310.15
+    ],
+    "back": [
+     10.8,
+     14.03
+    ],
+    "front": [
+     10.8,
+     14.03
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     102.0,
+     -11.9,
+     304.0
+    ],
+    "back": [
+     14.4,
+     18.7
+    ],
+    "front": [
+     12.24,
+     15.89
+    ],
+    "length": 12,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     102.0,
+     -11.9,
+     310.15
+    ],
+    "back": [
+     10.8,
+     14.03
+    ],
+    "front": [
+     10.8,
+     14.03
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     96.0,
+     27.27,
+     250.0
+    ],
+    "back": [
+     14.4,
+     11.22
+    ],
+    "front": [
+     11.52,
+     9.18
+    ],
+    "length": 14.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     74.4,
+     27.27,
+     100.0
+    ],
+    "back": [
+     14.4,
+     11.22
+    ],
+    "front": [
+     11.52,
+     9.18
+    ],
+    "length": 14.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     52.8,
+     23.87,
+     -50.0
+    ],
+    "back": [
+     14.4,
+     11.22
+    ],
+    "front": [
+     11.52,
+     9.18
+    ],
+    "length": 14.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     28.14,
+     -100.0
+    ],
+    "back": [
+     18.0,
+     14.03
+    ],
+    "front": [
+     14.4,
+     11.47
+    ],
+    "length": 18.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     -19.46,
+     -100.0
+    ],
+    "back": [
+     18.0,
+     14.03
+    ],
+    "front": [
+     14.4,
+     11.47
+    ],
+    "length": 18.0,
+    "color": "trim"
+   }
+  ]
+ }
+]

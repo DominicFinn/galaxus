@@ -1,0 +1,56 @@
+[
+  {
+    "id": "battle-last-stand",
+    "description": "Last Stand: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "flagship",
+      "station",
+      "system",
+      "target"
+    ],
+    "rules": {
+      "briefing": [
+        "{station} is the last {client} position in {system} and {enemy} is coming with everything. The {flagship} will hold as long as it can. Relief will not come for ten minutes. Hold the line, protect the {flagship} and keep the {station} alive.",
+        "{client} has told the fleet to hold {system}. That is not a decision made lightly. Ten minutes of fighting and then, perhaps, help. The {flagship} will not leave.",
+        "No retreat. The {flagship} holds the station and you hold the {flagship}. {enemy} will not take {system} while you are alive."
+      ],
+      "success": [
+        "The relief fleet arrives with nothing to do but pick up the pieces. {client} pays {captain} the full fee and names the engagement after the station.",
+        "Ten minutes pass and relief arrives. {client} pays and orders the {flagship} to dock for months.",
+        "The line held. {client} pays and mentions a medal, then forgets it."
+      ],
+      "failure": [
+        "The {flagship} falls and the station follows. {client} pays only the families of the dead.",
+        "{system} is lost. {client} pays nothing and begins the withdrawal."
+      ],
+      "radio-station": [
+        "All hands, this is the {flagship}. We are holding. We have ten minutes of bad odds.",
+        "{flagship} here. Fighters, you have the space. Ships, hold fire until they come into range.",
+        "This is the station. Defence grid active. We are with you."
+      ],
+      "radio-first": [
+        "First wave. Eight fighters and four gunships. Break them before they reach the {flagship}.",
+        "Enemy fighters from ahead. They are going for the {flagship}.",
+        "Here they come."
+      ],
+      "radio-second": [
+        "Two cruisers coming in on the left. Heavy guns. Do not let them settle.",
+        "{enemy} cruisers in range. They will pound the {flagship} if you let them.",
+        "Cruisers. Two. The station will not last long if they are left alone."
+      ],
+      "radio-carrier": [
+        "Carrier overhead. The {target}. It is launching more.",
+        "Jump flash. It is the {target}, with its wing already out.",
+        "The {target} is here. This is their main strike."
+      ],
+      "radio-relief": [
+        "Relief is here! {client} fleet, jumping in. Hold for another minute!",
+        "This is the relief column. We heard. We are late. We are here.",
+        "All ships, friendly fleet inbound. Do not shoot the ones with our colours."
+      ]
+    }
+  }
+]

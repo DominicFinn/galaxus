@@ -46,7 +46,8 @@ public class PeopleTests
     {
         var offers = Missions.MissionBoard.For(Db, Galaxy, Station, "Ashby", _ => 4);
         Assert.NotEmpty(offers);
-        foreach (var offer in offers)
+        // Battle grammars use {client} for the faction you fly for, so only ordinary jobs name the contact.
+        foreach (var offer in offers.Where(o => o.BattleId == null))
         {
             var contacts = PeopleDirectory.Contacts(Db, Galaxy, Galaxy.Factions[offer.GiverFactionId]);
             var client = contacts.Single(c => c.Id == offer.ClientId);

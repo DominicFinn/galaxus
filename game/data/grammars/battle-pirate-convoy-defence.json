@@ -1,0 +1,47 @@
+[
+  {
+    "id": "battle-pirate-convoy-defence",
+    "description": "Convoy Defence: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "A freighter convoy runs through {system} and pirates know it. {client} pays you to escort it past the usual ambush. Expect fighters first, then something bigger.",
+        "Pirates are working the lane through {system}. Take a convoy through it. Do not stop for anyone who hails you.",
+        "{client} has ships to move and nobody wants to pay the pirates' toll. Escort the convoy to the exit gate."
+      ],
+      "success": [
+        "The convoy passes. {client} pays {captain} and the freighter crews thank you in what they claim is their own words.",
+        "No cargo lost. {client} pays the fee in full.",
+        "The convoy is through. {client} pays and suggests you keep the lane in mind."
+      ],
+      "failure": [
+        "The convoy is wrecked. {client} bills you for the cargo.",
+        "Too many freighters are lost. {client} pays nothing."
+      ],
+      "radio-convoy": [
+        "Convoy to escort. Five of us, one gate. Please stay close.",
+        "Freighters ready. We are slow. We have always been slow.",
+        "Convoy Master to escort. Let us go before they see us."
+      ],
+      "radio-toll": [
+        "Pirates ahead, fighters. They want a toll. Give them lead.",
+        "Ahead, five pirates. They will go for the biggest freighter.",
+        "Contact. They are asking for payment. Refuse."
+      ],
+      "radio-boarders": [
+        "Gunships behind us. They want to board. Stop them.",
+        "Boarders. Two gunships. Hit them before they close.",
+        "Pirate gunships on the stern. Freighters, keep moving."
+      ],
+      "radio-boss": [
+        "A pirate frigate on the right. It is the one that has been running this lane.",
+        "Frigate. Old but armed. Do not let it get a clear shot at the convoy.",
+        "Pirate frigate approaching. This is the boss."
+      ]
+    }
+  }
+]

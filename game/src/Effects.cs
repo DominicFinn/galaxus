@@ -15,19 +15,39 @@ public partial class Effects : Node3D
     }
 
     private readonly Dictionary<int, MeshInstance3D> _bolts = [];
-    private readonly Dictionary<string, (BoxMesh Mesh, StandardMaterial3D Material)> _boltLooks = [];
+    private readonly Dictionary<string, (Mesh Mesh, StandardMaterial3D Material)> _boltLooks = [];
     private readonly List<Transient> _transients = [];
     private readonly ArrayMesh _shieldMesh = MeshFactory.Icosphere(1f, 1, _ => Colors.White);
     private readonly ArrayMesh _blastMesh = MeshFactory.Icosphere(1f, 1, _ => Colors.White);
 
     public void AddBolt(Projectile shot)
     {
-        if (!_boltLooks.TryGetValue(shot.Color, out var look))
+        // Heavier guns throw fatter shots, so a warship's turret fire looks like it means it.
+        float weight = Mathf.Clamp(Mathf.Sqrt(shot.Damage / 15f), 1f, 3.5f);
+        string key = $"{shot.Color}:{shot.Kind}:{weight:0.0}";
+        if (!_boltLooks.TryGetValue(key, out var look))
         {
-            var material = MeshFactory.Unshaded(Color.FromHtml(shot.Color));
-            // Fat, bright bolts that read clearly at a distance.
-            look = (new BoxMesh { Size = new Vector3(1.1f, 1.1f, 16f), Material = material }, material);
-            _boltLooks[shot.Color] = look;
+            var colour = Color.FromHtml(shot.Color);
+            // Rail slugs and beams burn white-hot at the core.
+            if (shot.Kind is "rail" or "beam") colour = colour.Lerp(Colors.White, 0.45f);
+            var material = MeshFactory.Unshaded(colour);
+            float w = weight;
+            Mesh mesh = shot.Kind switch
+            {
+                "pulse" => new BoxMesh { Size = new Vector3(0.9f * w, 0.9f * w, 7f * w) },
+                "beam" => new BoxMesh { Size = new Vector3(0.55f * w, 0.55f * w, 110f) },
+                "rail" => new BoxMesh { Size = new Vector3(0.4f * w, 0.4f * w, 45f) },
+                "plasma" => new SphereMesh { Radius = 2.6f * w, Height = 5.2f * w, RadialSegments = 8, Rings = 4 },
+                "scatter" => new BoxMesh { Size = new Vector3(0.6f, 0.6f, 5f) },
+                "flak" => new SphereMesh { Radius = 1.2f * w, Height = 2.4f * w, RadialSegments = 6, Rings = 3 },
+                "missile" => new BoxMesh { Size = new Vector3(0.9f * w, 0.9f * w, 5f * w) },
+                "torpedo" => new SphereMesh { Radius = 4.5f * w, Height = 9f * w, RadialSegments = 10, Rings = 5 },
+                // Fat, bright bolts that read clearly at a distance.
+                _ => new BoxMesh { Size = new Vector3(1.1f * w, 1.1f * w, 16f * w) },
+            };
+            if (mesh is PrimitiveMesh primitive) primitive.Material = material;
+            look = (mesh, material);
+            _boltLooks[key] = look;
         }
         var node = new MeshInstance3D { Mesh = look.Mesh };
         AddChild(node);

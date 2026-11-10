@@ -1,0 +1,47 @@
+[
+  {
+    "id": "battle-evacuation",
+    "description": "Evacuation: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "station"
+    ],
+    "rules": {
+      "briefing": [
+        "{enemy} warships are heading for {station}. {client} has civilian freighters at the dock carrying everyone who could be fitted on. Cover them as they leave. They are slow and the lane is short. Do not let them be caught.",
+        "Evacuation order at {station}. Neutral freighters are loading and {enemy} will arrive before they finish. Hold off the raiders while they run for the gate.",
+        "The freighters leaving {station} are full of people. {enemy} fighters are on the way. Get the freighters to the exit and make the raiders regret it."
+      ],
+      "success": [
+        "The last freighter clears the gate. {client} pays {captain} and a harbour clerk reads out a list of names, which turns out to be the ones you saved.",
+        "The evacuees are out. {client} pays and asks you to keep your guns warm.",
+        "Evacuation complete. {client} pays the fee and sends a message from the people on board."
+      ],
+      "failure": [
+        "Too many freighters did not leave. {client} has nothing to say.",
+        "The evacuation fails. {client} pays nothing and asks that you not call."
+      ],
+      "radio-freighters": [
+        "This is the evacuation. We are leaving {station}. Please keep the fighters off us.",
+        "All freighters lifting. We are carrying more than we should. Escort, stay with us.",
+        "Freighters to escort: we will be at the gate in six minutes. Please stay alive for six minutes."
+      ],
+      "radio-raiders": [
+        "Contacts behind. Fighters and gunships. They are after the freighters.",
+        "{enemy} raiders on the stern. Turn and meet them.",
+        "Raiders inbound. They will not stop for transponders."
+      ],
+      "radio-support": [
+        "{client} fighters on your left. They have just launched from {station}. Fly with them.",
+        "Support wing is here. They have fuel for five minutes. Use them."
+      ],
+      "radio-destroyer": [
+        "Frigate ahead, between us and the gate. Freighters, slow down. Escort, clear it.",
+        "There is a frigate on the exit. It will not let them through. Break it.",
+        "The gate has a frigate sat on it. Take it out."
+      ]
+    }
+  }
+]

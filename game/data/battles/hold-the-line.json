@@ -1,0 +1,133 @@
+[
+  {
+    "id": "hold-the-line",
+    "name": "Hold the Line",
+    "kind": "war",
+    "stages": [
+      "raids",
+      "blockade"
+    ],
+    "reward": 45000,
+    "minRank": 1,
+    "textGrammar": "battle-hold-the-line",
+    "waves": [
+      {
+        "id": "opening",
+        "side": "enemy",
+        "at": 20,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-opening"
+      },
+      {
+        "id": "flagship",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 600,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1,
+            "tag": "flagship"
+          }
+        ],
+        "radio": "radio-flagship"
+      },
+      {
+        "id": "bombers",
+        "side": "enemy",
+        "after": "wave:opening",
+        "delay": 15,
+        "position": "behind",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 4,
+            "target": "flagship"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 4,
+            "target": "flagship"
+          }
+        ],
+        "radio": "radio-bombers"
+      },
+      {
+        "id": "frigate",
+        "side": "enemy",
+        "after": "wave:bombers",
+        "delay": 25,
+        "position": "right",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "frigate"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-frigate"
+      },
+      {
+        "id": "relief",
+        "side": "friend",
+        "at": 270,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          }
+        ],
+        "radio": "radio-relief"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "survive",
+        "type": "survive",
+        "seconds": 300,
+        "text": "Keep the line for the relief column"
+      },
+      {
+        "id": "protect",
+        "type": "protect",
+        "tag": "flagship",
+        "text": "Protect the {flagship}"
+      },
+      {
+        "id": "frigate",
+        "type": "destroy",
+        "tag": "frigate",
+        "text": "Destroy the {enemy} frigate",
+        "optional": true
+      }
+    ]
+  }
+]

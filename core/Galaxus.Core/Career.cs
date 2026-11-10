@@ -127,6 +127,19 @@ public sealed class Career
         ActiveJobId ??= offer.Id;
     }
 
+    /// <summary>A battle job ends with the battle: paid (with a bonus for optional objectives) or failed.</summary>
+    public MissionResult FinishBattle(AcceptedMission job, bool won, int bonuses)
+    {
+        var mission = job.Offer.Mission;
+        Missions.Remove(job);
+        int pay = won ? mission.Reward + bonuses * mission.Reward / 5 : 0;
+        Credits += pay;
+        int faction = job.Offer.GiverFactionId;
+        Reputation[faction] = Reputation.GetValueOrDefault(faction) + (won ? 40 + mission.Reward / 1000 : -20);
+        if (ActiveJobId == job.Offer.Id) ActiveJobId = Missions.OrderBy(m => m.DeadlineDay).FirstOrDefault()?.Offer.Id;
+        return new MissionResult(job, won, won ? mission.SuccessText : mission.FailureText, pay);
+    }
+
     /// <summary>
     /// Pays out jobs for the station you've docked at, and fails any that ran out of time. With no
     /// station (in transit) only deadlines are checked. If a job's station has gone, any station in
@@ -141,7 +154,7 @@ public sealed class Career
             var mission = job.Offer.Mission;
             bool rightStation = dockedAt != null && ((sameStop?.Invoke(job.Offer.DestinationStation) ?? dockedAt == job.Offer.DestinationStation)
                                 || !galaxy.Systems[SystemId].Stations.Contains(job.Offer.DestinationStation));
-            if (job.Offer.DestinationSystemId == SystemId && rightStation && galaxy.Day <= job.DeadlineDay)
+            if (job.Offer.BattleId == null && job.Offer.DestinationSystemId == SystemId && rightStation && galaxy.Day <= job.DeadlineDay)
             {
                 Credits += mission.Reward;
                 Reputation[job.Offer.GiverFactionId] = Reputation.GetValueOrDefault(job.Offer.GiverFactionId) + 20 + mission.Reward / 500;

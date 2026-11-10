@@ -1,0 +1,3289 @@
+[
+ {
+  "id": "mc-warrant",
+  "name": "Warrant class",
+  "builder": "meridian-yards",
+  "class": "frigate",
+  "description": "The Concord Navy's standard escort. Symmetrical, well finished and armed with a formal pulse battery for each of its duties.",
+  "price": 18000000,
+  "forSale": false,
+  "mass": 4400,
+  "baseSpeed": 68,
+  "pitchRate": 10.8,
+  "yawRate": 10.8,
+  "rollRate": 18.0,
+  "hullPoints": 6600,
+  "radius": 77,
+  "crewBerths": 90,
+  "cargoTonnes": 200,
+  "dockable": false,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "powerPlant",
+    "size": 4
+   },
+   {
+    "type": "shield",
+    "size": 4
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     0.0,
+     17.42,
+     -25
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     5.32,
+     18.17,
+     20
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -5.32,
+     18.17,
+     20
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     6.33,
+     6.97,
+     -55
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -6.33,
+     6.97,
+     -55
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "mc-drive-4-1",
+   "mc-drive-4-1",
+   "mc-drive-4-1",
+   "mc-plant-4-1",
+   "mc-shield-4-1",
+   "mc-sensor-3-1",
+   "mc-decree-4-1",
+   "mc-ruling-4-1",
+   "mc-ruling-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     40,
+     22
+    ],
+    "front": [
+     10,
+     12
+    ],
+    "length": 180,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     42.5,
+     2.5
+    ],
+    "front": [
+     12.5,
+     2.5
+    ],
+    "length": 180,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     14,
+     10.0
+    ],
+    "back": [
+     26,
+     10
+    ],
+    "front": [
+     10,
+     6
+    ],
+    "length": 120,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     17.9,
+     -20.0
+    ],
+    "back": [
+     12.6,
+     1.2
+    ],
+    "front": [
+     12.6,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     18.4,
+     10.0
+    ],
+    "back": [
+     16.2,
+     1.2
+    ],
+    "front": [
+     16.2,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     18.9,
+     40.0
+    ],
+    "back": [
+     19.8,
+     1.2
+    ],
+    "front": [
+     19.8,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     28,
+     53.0
+    ],
+    "back": [
+     14,
+     18
+    ],
+    "front": [
+     12,
+     16
+    ],
+    "length": 46,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     39,
+     54.0
+    ],
+    "back": [
+     26,
+     4
+    ],
+    "front": [
+     22,
+     3
+    ],
+    "length": 36,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     39,
+     35.95
+    ],
+    "back": [
+     24,
+     2.5
+    ],
+    "front": [
+     24,
+     2.5
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     15,
+     24,
+     65.0
+    ],
+    "back": [
+     3,
+     24
+    ],
+    "front": [
+     1.5,
+     4.8
+    ],
+    "length": 50,
+    "color": "accent",
+    "skew": [
+     0,
+     -6.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     84.0
+    ],
+    "back": [
+     13,
+     14
+    ],
+    "front": [
+     11.96,
+     12.88
+    ],
+    "length": 12,
+    "color": "#262930"
+   },
+   {
+    "position": [
+     0,
+     0,
+     90.05
+    ],
+    "back": [
+     10.4,
+     11.2
+    ],
+    "front": [
+     10.4,
+     11.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     11,
+     0,
+     85.0
+    ],
+    "back": [
+     10,
+     11
+    ],
+    "front": [
+     9.2,
+     10.12
+    ],
+    "length": 10,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     11,
+     0,
+     90.05
+    ],
+    "back": [
+     8.0,
+     8.8
+    ],
+    "front": [
+     8.0,
+     8.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -9,
+     -5.0
+    ],
+    "back": [
+     6,
+     6
+    ],
+    "front": [
+     3,
+     3
+    ],
+    "length": 130,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     18.98,
+     -25.0
+    ],
+    "back": [
+     5.2,
+     3.12
+    ],
+    "front": [
+     4.16,
+     2.6
+    ],
+    "length": 5.2,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     19.24,
+     -30.46
+    ],
+    "back": [
+     1.14,
+     1.14
+    ],
+    "front": [
+     0.94,
+     0.94
+    ],
+    "length": 5.72,
+    "color": "trim"
+   },
+   {
+    "position": [
+     5.32,
+     19.73,
+     20.0
+    ],
+    "back": [
+     5.2,
+     3.12
+    ],
+    "front": [
+     4.16,
+     2.6
+    ],
+    "length": 5.2,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     5.32,
+     19.99,
+     14.54
+    ],
+    "back": [
+     1.14,
+     1.14
+    ],
+    "front": [
+     0.94,
+     0.94
+    ],
+    "length": 5.72,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     6.33,
+     8.53,
+     -55.0
+    ],
+    "back": [
+     5.2,
+     3.12
+    ],
+    "front": [
+     4.16,
+     2.6
+    ],
+    "length": 5.2,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     6.33,
+     8.79,
+     -60.46
+    ],
+    "back": [
+     1.14,
+     1.14
+    ],
+    "front": [
+     0.94,
+     0.94
+    ],
+    "length": 5.72,
+    "color": "trim",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "mc-statute",
+  "name": "Statute class",
+  "builder": "meridian-yards",
+  "class": "cruiser",
+  "description": "The line warship of the Concord fleet, built to a committee drawing and overbuilt in every particular. Its guns fire by regulation, in volleys.",
+  "price": 75000000,
+  "forSale": false,
+  "mass": 16500,
+  "baseSpeed": 53,
+  "pitchRate": 6.3,
+  "yawRate": 6.3,
+  "rollRate": 10.8,
+  "hullPoints": 19800,
+  "radius": 167,
+  "crewBerths": 320,
+  "cargoTonnes": 600,
+  "dockable": false,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     29.43,
+     -100
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     30.86,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     0.0,
+     32.14,
+     90
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     6.46,
+     30.0,
+     -60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -6.46,
+     30.0,
+     -60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     13.16,
+     31.57,
+     50
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -13.16,
+     31.57,
+     50
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     12.77,
+     10.47,
+     -120
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -12.77,
+     10.47,
+     -120
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     36.89,
+     15.11,
+     100
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -36.89,
+     15.11,
+     100
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     25.93,
+     13.0,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -25.93,
+     13.0,
+     0
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-plant-5-1",
+   "mc-shield-5-1",
+   "mc-sensor-3-1",
+   "mc-decree-5-1",
+   "mc-ruling-5-1",
+   "mc-ordinance-4-1",
+   "mc-decree-4-1",
+   "mc-decree-4-1",
+   "mc-decree-4-1",
+   "mc-decree-4-1",
+   "mc-ruling-4-1",
+   "mc-ruling-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-writ-5-1",
+   "mc-writ-5-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     110,
+     34
+    ],
+    "front": [
+     12,
+     18
+    ],
+    "length": 380,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     113,
+     3
+    ],
+    "front": [
+     15,
+     3
+    ],
+    "length": 380,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     24,
+     10.0
+    ],
+    "back": [
+     70,
+     18
+    ],
+    "front": [
+     8,
+     10
+    ],
+    "length": 280,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     29.97,
+     -90.0
+    ],
+    "back": [
+     15.17,
+     1.2
+    ],
+    "front": [
+     15.17,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     30.69,
+     -40.0
+    ],
+    "back": [
+     25.14,
+     1.2
+    ],
+    "front": [
+     25.14,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     31.4,
+     10.0
+    ],
+    "back": [
+     35.1,
+     1.2
+    ],
+    "front": [
+     35.1,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     32.11,
+     60.0
+    ],
+    "back": [
+     45.06,
+     1.2
+    ],
+    "front": [
+     45.06,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     32.83,
+     110.0
+    ],
+    "back": [
+     55.03,
+     1.2
+    ],
+    "front": [
+     55.03,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     52,
+     130.0
+    ],
+    "back": [
+     36,
+     28
+    ],
+    "front": [
+     30,
+     26
+    ],
+    "length": 60,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     72,
+     135.0
+    ],
+    "back": [
+     22,
+     22
+    ],
+    "front": [
+     18,
+     20
+    ],
+    "length": 40,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     86,
+     135.0
+    ],
+    "back": [
+     52,
+     6
+    ],
+    "front": [
+     46,
+     5
+    ],
+    "length": 30,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     86,
+     119.95
+    ],
+    "back": [
+     50,
+     3.5
+    ],
+    "front": [
+     50,
+     3.5
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     45,
+     40,
+     145.0
+    ],
+    "back": [
+     3,
+     50
+    ],
+    "front": [
+     1.5,
+     10.0
+    ],
+    "length": 90,
+    "color": "accent",
+    "skew": [
+     0,
+     -12.5
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     179.0
+    ],
+    "back": [
+     26,
+     26
+    ],
+    "front": [
+     23.92,
+     23.92
+    ],
+    "length": 22,
+    "color": "#262930"
+   },
+   {
+    "position": [
+     0,
+     0,
+     190.05
+    ],
+    "back": [
+     20.8,
+     20.8
+    ],
+    "front": [
+     20.8,
+     20.8
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     32,
+     0,
+     181.0
+    ],
+    "back": [
+     20,
+     22
+    ],
+    "front": [
+     18.4,
+     20.24
+    ],
+    "length": 18,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     32,
+     0,
+     190.05
+    ],
+    "back": [
+     16.0,
+     17.6
+    ],
+    "front": [
+     16.0,
+     17.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -22,
+     -15.0
+    ],
+    "back": [
+     10,
+     10
+    ],
+    "front": [
+     4,
+     4
+    ],
+    "length": 270,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     32.13,
+     -100.0
+    ],
+    "back": [
+     9.0,
+     5.4
+    ],
+    "front": [
+     7.2,
+     4.5
+    ],
+    "length": 9.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     32.58,
+     -109.45
+    ],
+    "back": [
+     1.98,
+     1.98
+    ],
+    "front": [
+     1.62,
+     1.62
+    ],
+    "length": 9.9,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     33.56,
+     0.0
+    ],
+    "back": [
+     9.0,
+     5.4
+    ],
+    "front": [
+     7.2,
+     4.5
+    ],
+    "length": 9.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     34.01,
+     -9.45
+    ],
+    "back": [
+     1.98,
+     1.98
+    ],
+    "front": [
+     1.62,
+     1.62
+    ],
+    "length": 9.9,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     34.3,
+     90.0
+    ],
+    "back": [
+     7.2,
+     4.32
+    ],
+    "front": [
+     5.76,
+     3.6
+    ],
+    "length": 7.2,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     34.66,
+     82.44
+    ],
+    "back": [
+     1.58,
+     1.58
+    ],
+    "front": [
+     1.3,
+     1.3
+    ],
+    "length": 7.92,
+    "color": "trim"
+   },
+   {
+    "position": [
+     6.46,
+     32.16,
+     -60.0
+    ],
+    "back": [
+     7.2,
+     4.32
+    ],
+    "front": [
+     5.76,
+     3.6
+    ],
+    "length": 7.2,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     6.46,
+     32.52,
+     -67.56
+    ],
+    "back": [
+     1.58,
+     1.58
+    ],
+    "front": [
+     1.3,
+     1.3
+    ],
+    "length": 7.92,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     13.16,
+     33.73,
+     50.0
+    ],
+    "back": [
+     7.2,
+     4.32
+    ],
+    "front": [
+     5.76,
+     3.6
+    ],
+    "length": 7.2,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     13.16,
+     34.09,
+     42.44
+    ],
+    "back": [
+     1.58,
+     1.58
+    ],
+    "front": [
+     1.3,
+     1.3
+    ],
+    "length": 7.92,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     12.77,
+     12.63,
+     -120.0
+    ],
+    "back": [
+     7.2,
+     4.32
+    ],
+    "front": [
+     5.76,
+     3.6
+    ],
+    "length": 7.2,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     12.77,
+     12.99,
+     -127.56
+    ],
+    "back": [
+     1.58,
+     1.58
+    ],
+    "front": [
+     1.3,
+     1.3
+    ],
+    "length": 7.92,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     36.89,
+     17.27,
+     100.0
+    ],
+    "back": [
+     7.2,
+     4.32
+    ],
+    "front": [
+     5.76,
+     3.6
+    ],
+    "length": 7.2,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     36.89,
+     17.63,
+     92.44
+    ],
+    "back": [
+     1.58,
+     1.58
+    ],
+    "front": [
+     1.3,
+     1.3
+    ],
+    "length": 7.92,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     25.93,
+     15.7,
+     0.0
+    ],
+    "back": [
+     9.0,
+     5.4
+    ],
+    "front": [
+     7.2,
+     4.5
+    ],
+    "length": 9.0,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     25.93,
+     16.15,
+     -9.45
+    ],
+    "back": [
+     1.98,
+     1.98
+    ],
+    "front": [
+     1.62,
+     1.62
+    ],
+    "length": 9.9,
+    "color": "trim",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "mc-charter",
+  "name": "Charter class",
+  "builder": "meridian-yards",
+  "class": "battlecruiser",
+  "description": "The Concord's flagship wedge, a mile of pale armour under a gold-lined bridge crossbar. Every fleet action is conducted from one, and minuted afterwards.",
+  "price": 380000000,
+  "forSale": false,
+  "mass": 66000,
+  "baseSpeed": 41,
+  "pitchRate": 3.6,
+  "yawRate": 3.6,
+  "rollRate": 6.3,
+  "hullPoints": 55000,
+  "radius": 330,
+  "crewBerths": 1800,
+  "cargoTonnes": 3000,
+  "dockable": true,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     35.91,
+     -175
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     37.29,
+     -60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     38.74,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     9.16,
+     36.33,
+     -140
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -9.16,
+     36.33,
+     -140
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     18.72,
+     38.02,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -18.72,
+     38.02,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     28.28,
+     39.71,
+     140
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -28.28,
+     39.71,
+     140
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     48.02,
+     12.42,
+     -60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -48.02,
+     12.42,
+     -60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     68.85,
+     14.94,
+     80
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -68.85,
+     14.94,
+     80
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     27.2,
+     9.89,
+     -200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -27.2,
+     9.89,
+     -200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     86.7,
+     17.11,
+     200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -86.7,
+     17.11,
+     200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     -11.69,
+     -100
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-plant-5-1",
+   "mc-plant-5-1",
+   "mc-shield-5-1",
+   "mc-shield-5-1",
+   "mc-shield-5-1",
+   "mc-sensor-3-1",
+   "mc-decree-5-1",
+   "mc-ruling-5-1",
+   "mc-decree-5-1",
+   "mc-decree-4-1",
+   "mc-decree-4-1",
+   "mc-decree-4-1",
+   "mc-decree-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-writ-5-1",
+   "mc-writ-5-1",
+   "mc-ruling-5-1",
+   "mc-ruling-5-1",
+   "mc-ruling-4-1",
+   "mc-ruling-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-decree-5-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     260,
+     40
+    ],
+    "front": [
+     8,
+     14
+    ],
+    "length": 720,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     264,
+     4
+    ],
+    "front": [
+     12,
+     4
+    ],
+    "length": 720,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     30,
+     40.0
+    ],
+    "back": [
+     150,
+     24
+    ],
+    "front": [
+     6,
+     10
+    ],
+    "length": 580,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     30,
+     40.0
+    ],
+    "back": [
+     153,
+     2.5
+    ],
+    "front": [
+     9,
+     2.5
+    ],
+    "length": 580,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     36.0,
+     -200.0
+    ],
+    "back": [
+     16.57,
+     1.2
+    ],
+    "front": [
+     16.57,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     36.73,
+     -140.0
+    ],
+    "back": [
+     29.98,
+     1.2
+    ],
+    "front": [
+     29.98,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     37.45,
+     -80.0
+    ],
+    "back": [
+     43.39,
+     1.2
+    ],
+    "front": [
+     43.39,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     38.18,
+     -20.0
+    ],
+    "back": [
+     56.79,
+     1.2
+    ],
+    "front": [
+     56.79,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     38.9,
+     40.0
+    ],
+    "back": [
+     70.2,
+     1.2
+    ],
+    "front": [
+     70.2,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     39.62,
+     100.0
+    ],
+    "back": [
+     83.61,
+     1.2
+    ],
+    "front": [
+     83.61,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     40.35,
+     160.0
+    ],
+    "back": [
+     97.01,
+     1.2
+    ],
+    "front": [
+     97.01,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     58,
+     275.0
+    ],
+    "back": [
+     70,
+     26
+    ],
+    "front": [
+     60,
+     26
+    ],
+    "length": 110,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     84,
+     285.0
+    ],
+    "back": [
+     42,
+     30
+    ],
+    "front": [
+     36,
+     28
+    ],
+    "length": 70,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     106,
+     287.0
+    ],
+    "back": [
+     90,
+     8
+    ],
+    "front": [
+     80,
+     7
+    ],
+    "length": 50,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     106,
+     261.95
+    ],
+    "back": [
+     86,
+     4
+    ],
+    "front": [
+     86,
+     4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     116,
+     290.0
+    ],
+    "back": [
+     16,
+     10
+    ],
+    "front": [
+     12,
+     8
+    ],
+    "length": 30,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     84,
+     249.95
+    ],
+    "back": [
+     30,
+     6
+    ],
+    "front": [
+     30,
+     6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     95,
+     62,
+     245.0
+    ],
+    "back": [
+     3,
+     80
+    ],
+    "front": [
+     1.5,
+     16.0
+    ],
+    "length": 190,
+    "color": "accent",
+    "skew": [
+     0,
+     -20.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     60,
+     50,
+     130.0
+    ],
+    "back": [
+     3,
+     40
+    ],
+    "front": [
+     1.5,
+     8.0
+    ],
+    "length": 140,
+    "color": "accent",
+    "skew": [
+     0,
+     -10.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     343.0
+    ],
+    "back": [
+     44,
+     38
+    ],
+    "front": [
+     40.48,
+     34.96
+    ],
+    "length": 34,
+    "color": "#262930"
+   },
+   {
+    "position": [
+     0,
+     0,
+     360.05
+    ],
+    "back": [
+     35.2,
+     30.4
+    ],
+    "front": [
+     35.2,
+     30.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     55,
+     0,
+     346.0
+    ],
+    "back": [
+     32,
+     30
+    ],
+    "front": [
+     29.44,
+     27.6
+    ],
+    "length": 28,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     55,
+     0,
+     360.05
+    ],
+    "back": [
+     25.6,
+     24.0
+    ],
+    "front": [
+     25.6,
+     24.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     105,
+     0,
+     348.0
+    ],
+    "back": [
+     26,
+     26
+    ],
+    "front": [
+     23.92,
+     23.92
+    ],
+    "length": 24,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     105,
+     0,
+     360.05
+    ],
+    "back": [
+     20.8,
+     20.8
+    ],
+    "front": [
+     20.8,
+     20.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     -34,
+     0.0
+    ],
+    "back": [
+     16,
+     16
+    ],
+    "front": [
+     5,
+     5
+    ],
+    "length": 600,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     -30,
+     260.0
+    ],
+    "back": [
+     60,
+     18
+    ],
+    "front": [
+     50,
+     16
+    ],
+    "length": 120,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0.0,
+     39.81,
+     -175.0
+    ],
+    "back": [
+     13.0,
+     7.8
+    ],
+    "front": [
+     10.4,
+     6.5
+    ],
+    "length": 13.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     40.46,
+     -188.65
+    ],
+    "back": [
+     2.86,
+     2.86
+    ],
+    "front": [
+     2.34,
+     2.34
+    ],
+    "length": 14.3,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     41.19,
+     -60.0
+    ],
+    "back": [
+     13.0,
+     7.8
+    ],
+    "front": [
+     10.4,
+     6.5
+    ],
+    "length": 13.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     41.84,
+     -73.65
+    ],
+    "back": [
+     2.86,
+     2.86
+    ],
+    "front": [
+     2.34,
+     2.34
+    ],
+    "length": 14.3,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     42.64,
+     60.0
+    ],
+    "back": [
+     13.0,
+     7.8
+    ],
+    "front": [
+     10.4,
+     6.5
+    ],
+    "length": 13.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     43.29,
+     46.35
+    ],
+    "back": [
+     2.86,
+     2.86
+    ],
+    "front": [
+     2.34,
+     2.34
+    ],
+    "length": 14.3,
+    "color": "trim"
+   },
+   {
+    "position": [
+     9.16,
+     39.45,
+     -140.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     9.16,
+     39.97,
+     -150.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     18.72,
+     41.14,
+     0.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     18.72,
+     41.66,
+     -10.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     28.28,
+     42.83,
+     140.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     28.28,
+     43.35,
+     129.08
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     48.02,
+     16.32,
+     -60.0
+    ],
+    "back": [
+     13.0,
+     7.8
+    ],
+    "front": [
+     10.4,
+     6.5
+    ],
+    "length": 13.0,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     48.02,
+     16.97,
+     -73.65
+    ],
+    "back": [
+     2.86,
+     2.86
+    ],
+    "front": [
+     2.34,
+     2.34
+    ],
+    "length": 14.3,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     68.85,
+     18.84,
+     80.0
+    ],
+    "back": [
+     13.0,
+     7.8
+    ],
+    "front": [
+     10.4,
+     6.5
+    ],
+    "length": 13.0,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     68.85,
+     19.49,
+     66.35
+    ],
+    "back": [
+     2.86,
+     2.86
+    ],
+    "front": [
+     2.34,
+     2.34
+    ],
+    "length": 14.3,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     27.2,
+     13.01,
+     -200.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     27.2,
+     13.53,
+     -210.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     86.7,
+     20.23,
+     200.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     86.7,
+     20.75,
+     189.08
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     -15.59,
+     -100.0
+    ],
+    "back": [
+     13.0,
+     7.8
+    ],
+    "front": [
+     10.4,
+     6.5
+    ],
+    "length": 13.0,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     -16.24,
+     -113.65
+    ],
+    "back": [
+     2.86,
+     2.86
+    ],
+    "front": [
+     2.34,
+     2.34
+    ],
+    "length": 14.3,
+    "color": "trim"
+   }
+  ]
+ },
+ {
+  "id": "mc-mandate",
+  "name": "Mandate class",
+  "builder": "meridian-yards",
+  "class": "carrier",
+  "description": "A flat-topped fleet carrier with hangar mouths down both flanks. Fighters launch in a numbered order that the Concord Navy has never once departed from.",
+  "price": 310000000,
+  "forSale": false,
+  "mass": 55000,
+  "baseSpeed": 39,
+  "pitchRate": 3.6,
+  "yawRate": 3.6,
+  "rollRate": 5.4,
+  "hullPoints": 38500,
+  "radius": 320,
+  "crewBerths": 1400,
+  "cargoTonnes": 4000,
+  "dockable": true,
+  "hangar": 12,
+  "hangarHull": "mc-sentinel",
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     0.0,
+     38.84,
+     -200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     35.77,
+     39.22,
+     -120
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -35.77,
+     39.22,
+     -120
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     63.0,
+     17.25,
+     200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -63.0,
+     17.25,
+     200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     38.72,
+     40.06,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -38.72,
+     40.06,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     51.75,
+     15.38,
+     -300
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -51.75,
+     15.38,
+     -300
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-drive-5-1",
+   "mc-plant-5-1",
+   "mc-plant-5-1",
+   "mc-shield-5-1",
+   "mc-shield-5-1",
+   "mc-sensor-3-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-ordinance-4-1",
+   "mc-ruling-4-1",
+   "mc-ruling-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     150,
+     36
+    ],
+    "front": [
+     110,
+     30
+    ],
+    "length": 800,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     154,
+     4
+    ],
+    "front": [
+     114,
+     4
+    ],
+    "length": 800,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     30,
+     -60.0
+    ],
+    "back": [
+     120,
+     22
+    ],
+    "front": [
+     90,
+     16
+    ],
+    "length": 640,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     38.63,
+     -330.0
+    ],
+    "back": [
+     83.11,
+     1.2
+    ],
+    "front": [
+     83.11,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     39.01,
+     -250.0
+    ],
+    "back": [
+     86.48,
+     1.2
+    ],
+    "front": [
+     86.48,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     39.38,
+     -170.0
+    ],
+    "back": [
+     89.86,
+     1.2
+    ],
+    "front": [
+     89.86,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     39.76,
+     -90.0
+    ],
+    "back": [
+     93.23,
+     1.2
+    ],
+    "front": [
+     93.23,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     40.13,
+     -10.0
+    ],
+    "back": [
+     96.61,
+     1.2
+    ],
+    "front": [
+     96.61,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     40.51,
+     70.0
+    ],
+    "back": [
+     99.98,
+     1.2
+    ],
+    "front": [
+     99.98,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     40.88,
+     150.0
+    ],
+    "back": [
+     103.36,
+     1.2
+    ],
+    "front": [
+     103.36,
+     1.2
+    ],
+    "length": 6,
+    "color": "accent"
+   },
+   {
+    "position": [
+     58.95,
+     0,
+     -250.0
+    ],
+    "back": [
+     0.4,
+     16
+    ],
+    "front": [
+     0.4,
+     16
+    ],
+    "length": 48,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     57.75,
+     0,
+     -250.0
+    ],
+    "back": [
+     3,
+     22
+    ],
+    "front": [
+     3,
+     22
+    ],
+    "length": 56,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     61.95,
+     0,
+     -130.0
+    ],
+    "back": [
+     0.4,
+     16
+    ],
+    "front": [
+     0.4,
+     16
+    ],
+    "length": 48,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     60.75,
+     0,
+     -130.0
+    ],
+    "back": [
+     3,
+     22
+    ],
+    "front": [
+     3,
+     22
+    ],
+    "length": 56,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     64.95,
+     0,
+     -10.0
+    ],
+    "back": [
+     0.4,
+     16
+    ],
+    "front": [
+     0.4,
+     16
+    ],
+    "length": 48,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     63.75,
+     0,
+     -10.0
+    ],
+    "back": [
+     3,
+     22
+    ],
+    "front": [
+     3,
+     22
+    ],
+    "length": 56,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     67.95,
+     0,
+     110.0
+    ],
+    "back": [
+     0.4,
+     16
+    ],
+    "front": [
+     0.4,
+     16
+    ],
+    "length": 48,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     66.75,
+     0,
+     110.0
+    ],
+    "back": [
+     3,
+     22
+    ],
+    "front": [
+     3,
+     22
+    ],
+    "length": 56,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     40,
+     -60.0
+    ],
+    "back": [
+     3,
+     0.6
+    ],
+    "front": [
+     3,
+     0.6
+    ],
+    "length": 620,
+    "color": "glow"
+   },
+   {
+    "position": [
+     62,
+     58,
+     205.0
+    ],
+    "back": [
+     26,
+     34
+    ],
+    "front": [
+     22,
+     30
+    ],
+    "length": 110,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     62,
+     80,
+     207.5
+    ],
+    "back": [
+     34,
+     5
+    ],
+    "front": [
+     30,
+     4
+    ],
+    "length": 85,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     62,
+     80,
+     164.95
+    ],
+    "back": [
+     32,
+     3
+    ],
+    "front": [
+     32,
+     3
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     52,
+     348.0
+    ],
+    "back": [
+     60,
+     30
+    ],
+    "front": [
+     50,
+     26
+    ],
+    "length": 96,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     74,
+     360.0
+    ],
+    "back": [
+     36,
+     18
+    ],
+    "front": [
+     30,
+     16
+    ],
+    "length": 60,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     86,
+     360.0
+    ],
+    "back": [
+     70,
+     6
+    ],
+    "front": [
+     62,
+     5
+    ],
+    "length": 50,
+    "color": "trim"
+   },
+   {
+    "position": [
+     48,
+     36,
+     350.0
+    ],
+    "back": [
+     3,
+     40
+    ],
+    "front": [
+     1.5,
+     8.0
+    ],
+    "length": 100,
+    "color": "accent",
+    "skew": [
+     0,
+     -10.0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     386.0
+    ],
+    "back": [
+     34,
+     28
+    ],
+    "front": [
+     31.28,
+     25.76
+    ],
+    "length": 28,
+    "color": "#262930"
+   },
+   {
+    "position": [
+     0,
+     0,
+     400.05
+    ],
+    "back": [
+     27.2,
+     22.4
+    ],
+    "front": [
+     27.2,
+     22.4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     46,
+     0,
+     388.0
+    ],
+    "back": [
+     28,
+     26
+    ],
+    "front": [
+     25.76,
+     23.92
+    ],
+    "length": 24,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     46,
+     0,
+     400.05
+    ],
+    "back": [
+     22.4,
+     20.8
+    ],
+    "front": [
+     22.4,
+     20.8
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     41.96,
+     -200.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0.0,
+     42.48,
+     -210.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim"
+   },
+   {
+    "position": [
+     35.77,
+     42.34,
+     -120.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     35.77,
+     42.86,
+     -130.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     63.0,
+     20.37,
+     200.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     63.0,
+     20.89,
+     189.08
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     38.72,
+     43.18,
+     60.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     38.72,
+     43.7,
+     49.08
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     51.75,
+     18.5,
+     -300.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     51.75,
+     19.02,
+     -310.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   }
+  ]
+ }
+]

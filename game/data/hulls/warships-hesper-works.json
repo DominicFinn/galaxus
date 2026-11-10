@@ -1,0 +1,2901 @@
+[
+ {
+  "id": "hd-underwriter",
+  "name": "Underwriter class",
+  "builder": "hesper-works",
+  "class": "frigate",
+  "description": "A fast, narrow escort that guarantees the safe passage of company convoys. The armour is thin because the premium never covered more.",
+  "price": 24000000,
+  "forSale": false,
+  "mass": 3800,
+  "baseSpeed": 77,
+  "pitchRate": 13.2,
+  "yawRate": 13.2,
+  "rollRate": 22.0,
+  "hullPoints": 5100,
+  "radius": 78,
+  "crewBerths": 70,
+  "cargoTonnes": 150,
+  "dockable": false,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "engine",
+    "size": 4
+   },
+   {
+    "type": "powerPlant",
+    "size": 4
+   },
+   {
+    "type": "shield",
+    "size": 4
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     0.0,
+     5.58,
+     -40
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     5.24,
+     6.89,
+     10
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -5.24,
+     6.89,
+     10
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     6.66,
+     7.82,
+     45
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -6.66,
+     7.82,
+     45
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "hd-drive-4-1",
+   "hd-drive-4-1",
+   "hd-drive-4-1",
+   "hd-plant-4-1",
+   "hd-shield-4-1",
+   "hd-sensor-3-1",
+   "hd-compliance-4-1",
+   "hd-settlement-4-1",
+   "hd-settlement-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -5.0
+    ],
+    "back": [
+     34,
+     18
+    ],
+    "front": [
+     3,
+     8
+    ],
+    "length": 190,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -5.0
+    ],
+    "back": [
+     36,
+     2.5
+    ],
+    "front": [
+     5,
+     2.5
+    ],
+    "length": 190,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     15,
+     25.0
+    ],
+    "back": [
+     3,
+     16
+    ],
+    "front": [
+     2,
+     4
+    ],
+    "length": 110,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     6.8,
+     -5.0
+    ],
+    "back": [
+     3,
+     1
+    ],
+    "front": [
+     3,
+     1
+    ],
+    "length": 180,
+    "color": "accent"
+   },
+   {
+    "position": [
+     24,
+     -3,
+     32.5
+    ],
+    "back": [
+     34,
+     3
+    ],
+    "front": [
+     8,
+     2.1
+    ],
+    "length": 125,
+    "color": "hull",
+    "skew": [
+     -12,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     12,
+     68.0
+    ],
+    "back": [
+     10,
+     8
+    ],
+    "front": [
+     8,
+     6
+    ],
+    "length": 36,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0,
+     12,
+     49.95
+    ],
+    "back": [
+     8,
+     3
+    ],
+    "front": [
+     8,
+     3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     84.0
+    ],
+    "back": [
+     14,
+     12
+    ],
+    "front": [
+     12.88,
+     11.04
+    ],
+    "length": 12,
+    "color": "#262930"
+   },
+   {
+    "position": [
+     0,
+     0,
+     90.05
+    ],
+    "back": [
+     11.2,
+     9.6
+    ],
+    "front": [
+     11.2,
+     9.6
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     13,
+     0,
+     85.0
+    ],
+    "back": [
+     10,
+     10
+    ],
+    "front": [
+     9.2,
+     9.2
+    ],
+    "length": 10,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     13,
+     0,
+     90.05
+    ],
+    "back": [
+     8.0,
+     8.0
+    ],
+    "front": [
+     8.0,
+     8.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     7.14,
+     -40.0
+    ],
+    "back": [
+     5.2,
+     3.12
+    ],
+    "front": [
+     4.16,
+     2.6
+    ],
+    "length": 5.2,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0.0,
+     7.4,
+     -45.46
+    ],
+    "back": [
+     1.14,
+     1.14
+    ],
+    "front": [
+     0.94,
+     0.94
+    ],
+    "length": 5.72,
+    "color": "trim"
+   },
+   {
+    "position": [
+     5.24,
+     8.45,
+     10.0
+    ],
+    "back": [
+     5.2,
+     3.12
+    ],
+    "front": [
+     4.16,
+     2.6
+    ],
+    "length": 5.2,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     5.24,
+     8.71,
+     4.54
+    ],
+    "back": [
+     1.14,
+     1.14
+    ],
+    "front": [
+     0.94,
+     0.94
+    ],
+    "length": 5.72,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     6.66,
+     9.38,
+     45.0
+    ],
+    "back": [
+     5.2,
+     3.12
+    ],
+    "front": [
+     4.16,
+     2.6
+    ],
+    "length": 5.2,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     6.66,
+     9.64,
+     39.54
+    ],
+    "back": [
+     1.14,
+     1.14
+    ],
+    "front": [
+     0.94,
+     0.94
+    ],
+    "length": 5.72,
+    "color": "trim",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "hd-liquidator",
+  "name": "Liquidator class",
+  "builder": "hesper-works",
+  "class": "cruiser",
+  "description": "A long black blade with swept wings that carries a heavy beam on its spine. It is sent where an account needs closing quickly.",
+  "price": 95000000,
+  "forSale": false,
+  "mass": 14250,
+  "baseSpeed": 61,
+  "pitchRate": 7.7,
+  "yawRate": 7.7,
+  "rollRate": 13.2,
+  "hullPoints": 15300,
+  "radius": 180,
+  "crewBerths": 240,
+  "cargoTonnes": 500,
+  "dockable": false,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     9.62,
+     -100
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     13.43,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     3.36,
+     8.43,
+     -150
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -3.36,
+     8.43,
+     -150
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     7.29,
+     10.81,
+     -50
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -7.29,
+     10.81,
+     -50
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     10.43,
+     12.71,
+     30
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -10.43,
+     12.71,
+     30
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     14.75,
+     15.33,
+     140
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -14.75,
+     15.33,
+     140
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     55.0,
+     -1.31,
+     100
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -55.0,
+     -1.31,
+     100
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     55.0,
+     -1.12,
+     170
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -55.0,
+     -1.12,
+     170
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-plant-5-1",
+   "hd-shield-5-1",
+   "hd-sensor-3-1",
+   "hd-compliance-5-1",
+   "hd-settlement-5-1",
+   "hd-compliance-4-1",
+   "hd-compliance-4-1",
+   "hd-settlement-4-1",
+   "hd-settlement-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-foreclosure-5-1",
+   "hd-foreclosure-5-1",
+   "hd-compliance-4-1",
+   "hd-compliance-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     70,
+     34
+    ],
+    "front": [
+     4,
+     14
+    ],
+    "length": 420,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     0.0
+    ],
+    "back": [
+     73,
+     3
+    ],
+    "front": [
+     6,
+     3
+    ],
+    "length": 420,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     30,
+     75.0
+    ],
+    "back": [
+     4,
+     30
+    ],
+    "front": [
+     2,
+     6
+    ],
+    "length": 190,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     12.3,
+     0.0
+    ],
+    "back": [
+     5,
+     1
+    ],
+    "front": [
+     5,
+     1
+    ],
+    "length": 410,
+    "color": "accent"
+   },
+   {
+    "position": [
+     55,
+     -6,
+     77.5
+    ],
+    "back": [
+     90,
+     5
+    ],
+    "front": [
+     14,
+     3.5
+    ],
+    "length": 275,
+    "color": "hull",
+    "skew": [
+     -30,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     58,
+     -6,
+     77.5
+    ],
+    "back": [
+     90,
+     0.8
+    ],
+    "front": [
+     14,
+     0.8
+    ],
+    "length": 275,
+    "color": "trim",
+    "skew": [
+     -30,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     28,
+     137.5
+    ],
+    "back": [
+     24,
+     16
+    ],
+    "front": [
+     16,
+     12
+    ],
+    "length": 75,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0,
+     36,
+     130.0
+    ],
+    "back": [
+     30,
+     3
+    ],
+    "front": [
+     22,
+     2
+    ],
+    "length": 40,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     28,
+     99.95
+    ],
+    "back": [
+     22,
+     4
+    ],
+    "front": [
+     22,
+     4
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     199.0
+    ],
+    "back": [
+     28,
+     24
+    ],
+    "front": [
+     25.76,
+     22.08
+    ],
+    "length": 22,
+    "color": "#262930"
+   },
+   {
+    "position": [
+     0,
+     0,
+     210.05
+    ],
+    "back": [
+     22.4,
+     19.2
+    ],
+    "front": [
+     22.4,
+     19.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     26,
+     0,
+     201.0
+    ],
+    "back": [
+     18,
+     18
+    ],
+    "front": [
+     16.56,
+     16.56
+    ],
+    "length": 18,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     26,
+     0,
+     210.05
+    ],
+    "back": [
+     14.4,
+     14.4
+    ],
+    "front": [
+     14.4,
+     14.4
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     40,
+     -2,
+     203.0
+    ],
+    "back": [
+     12,
+     12
+    ],
+    "front": [
+     11.04,
+     11.04
+    ],
+    "length": 14,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     40,
+     -2,
+     210.05
+    ],
+    "back": [
+     9.6,
+     9.6
+    ],
+    "front": [
+     9.6,
+     9.6
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     12.62,
+     -100.0
+    ],
+    "back": [
+     10.0,
+     6.0
+    ],
+    "front": [
+     8.0,
+     5.0
+    ],
+    "length": 10.0,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0.0,
+     13.12,
+     -110.5
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     1.8,
+     1.8
+    ],
+    "length": 11.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     16.43,
+     60.0
+    ],
+    "back": [
+     10.0,
+     6.0
+    ],
+    "front": [
+     8.0,
+     5.0
+    ],
+    "length": 10.0,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0.0,
+     16.93,
+     49.5
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     1.8,
+     1.8
+    ],
+    "length": 11.0,
+    "color": "trim"
+   },
+   {
+    "position": [
+     3.36,
+     10.83,
+     -150.0
+    ],
+    "back": [
+     8.0,
+     4.8
+    ],
+    "front": [
+     6.4,
+     4.0
+    ],
+    "length": 8.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     3.36,
+     11.23,
+     -158.4
+    ],
+    "back": [
+     1.76,
+     1.76
+    ],
+    "front": [
+     1.44,
+     1.44
+    ],
+    "length": 8.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     7.29,
+     13.21,
+     -50.0
+    ],
+    "back": [
+     8.0,
+     4.8
+    ],
+    "front": [
+     6.4,
+     4.0
+    ],
+    "length": 8.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     7.29,
+     13.61,
+     -58.4
+    ],
+    "back": [
+     1.76,
+     1.76
+    ],
+    "front": [
+     1.44,
+     1.44
+    ],
+    "length": 8.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     10.43,
+     15.11,
+     30.0
+    ],
+    "back": [
+     8.0,
+     4.8
+    ],
+    "front": [
+     6.4,
+     4.0
+    ],
+    "length": 8.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     10.43,
+     15.51,
+     21.6
+    ],
+    "back": [
+     1.76,
+     1.76
+    ],
+    "front": [
+     1.44,
+     1.44
+    ],
+    "length": 8.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     14.75,
+     17.73,
+     140.0
+    ],
+    "back": [
+     8.0,
+     4.8
+    ],
+    "front": [
+     6.4,
+     4.0
+    ],
+    "length": 8.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     14.75,
+     18.13,
+     131.6
+    ],
+    "back": [
+     1.76,
+     1.76
+    ],
+    "front": [
+     1.44,
+     1.44
+    ],
+    "length": 8.8,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     55.0,
+     1.69,
+     100.0
+    ],
+    "back": [
+     10.0,
+     6.0
+    ],
+    "front": [
+     8.0,
+     5.0
+    ],
+    "length": 10.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     55.0,
+     2.19,
+     89.5
+    ],
+    "back": [
+     2.2,
+     2.2
+    ],
+    "front": [
+     1.8,
+     1.8
+    ],
+    "length": 11.0,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     55.0,
+     1.28,
+     170.0
+    ],
+    "back": [
+     8.0,
+     4.8
+    ],
+    "front": [
+     6.4,
+     4.0
+    ],
+    "length": 8.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     55.0,
+     1.68,
+     161.6
+    ],
+    "back": [
+     1.76,
+     1.76
+    ],
+    "front": [
+     1.44,
+     1.44
+    ],
+    "length": 8.8,
+    "color": "trim",
+    "mirror": true
+   }
+  ]
+ },
+ {
+  "id": "hd-chairman",
+  "name": "Chairman class",
+  "builder": "hesper-works",
+  "class": "battlecruiser",
+  "description": "The Directorate's flagship: an eight hundred metre black blade with a tall dorsal fin and swept wings. It is rarely seen and never discounted.",
+  "price": 420000000,
+  "forSale": false,
+  "mass": 57000,
+  "baseSpeed": 46,
+  "pitchRate": 4.4,
+  "yawRate": 4.4,
+  "rollRate": 7.7,
+  "hullPoints": 42500,
+  "radius": 334,
+  "crewBerths": 1200,
+  "cargoTonnes": 2500,
+  "dockable": true,
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     16.1,
+     -200
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     0.0,
+     20.27,
+     -20
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     100.0,
+     -6.79,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -100.0,
+     -6.79,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     100.0,
+     -6.57,
+     160
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -100.0,
+     -6.57,
+     160
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     100.0,
+     -6.34,
+     260
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -100.0,
+     -6.34,
+     260
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     8.25,
+     13.78,
+     -300
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -8.25,
+     13.78,
+     -300
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     16.5,
+     17.26,
+     -150
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -16.5,
+     17.26,
+     -150
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     24.75,
+     20.73,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -24.75,
+     20.73,
+     0
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     33.0,
+     24.21,
+     150
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -33.0,
+     24.21,
+     150
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     42.6,
+     26.76,
+     260
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 5,
+    "position": [
+     -42.6,
+     26.76,
+     260
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     0.0,
+     -17.95,
+     -120
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-plant-5-1",
+   "hd-plant-5-1",
+   "hd-shield-5-1",
+   "hd-shield-5-1",
+   "hd-shield-5-1",
+   "hd-sensor-3-1",
+   "hd-compliance-5-1",
+   "hd-compliance-5-1",
+   "hd-settlement-5-1",
+   "hd-settlement-5-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-settlement-5-1",
+   "hd-settlement-5-1",
+   "hd-compliance-4-1",
+   "hd-compliance-4-1",
+   "hd-settlement-4-1",
+   "hd-settlement-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-compliance-4-1",
+   "hd-compliance-4-1",
+   "hd-foreclosure-5-1",
+   "hd-foreclosure-5-1",
+   "hd-compliance-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     0,
+     0,
+     -10.0
+    ],
+    "back": [
+     170,
+     60
+    ],
+    "front": [
+     6,
+     22
+    ],
+    "length": 820,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -10.0
+    ],
+    "back": [
+     174,
+     3.5
+    ],
+    "front": [
+     8,
+     3.5
+    ],
+    "length": 820,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     52,
+     125.0
+    ],
+    "back": [
+     16,
+     70
+    ],
+    "front": [
+     3,
+     10
+    ],
+    "length": 410,
+    "color": "hull",
+    "skew": [
+     0,
+     -6
+    ]
+   },
+   {
+    "position": [
+     0,
+     15.35,
+     -245.0
+    ],
+    "back": [
+     6,
+     1
+    ],
+    "front": [
+     6,
+     1
+    ],
+    "length": 330,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     58,
+     125.0
+    ],
+    "back": [
+     17,
+     1.5
+    ],
+    "front": [
+     3.5,
+     1.5
+    ],
+    "length": 410,
+    "color": "accent",
+    "skew": [
+     0,
+     -6
+    ]
+   },
+   {
+    "position": [
+     100,
+     -14,
+     145.0
+    ],
+    "back": [
+     150,
+     8
+    ],
+    "front": [
+     30,
+     5.6
+    ],
+    "length": 530,
+    "color": "hull",
+    "skew": [
+     -60,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     105,
+     -14,
+     145.0
+    ],
+    "back": [
+     150,
+     1
+    ],
+    "front": [
+     30,
+     1
+    ],
+    "length": 530,
+    "color": "trim",
+    "skew": [
+     -60,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     95,
+     275.0
+    ],
+    "back": [
+     26,
+     26
+    ],
+    "front": [
+     18,
+     22
+    ],
+    "length": 90,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0,
+     112,
+     275.0
+    ],
+    "back": [
+     44,
+     5
+    ],
+    "front": [
+     32,
+     4
+    ],
+    "length": 70,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     95,
+     229.95
+    ],
+    "back": [
+     22,
+     5
+    ],
+    "front": [
+     22,
+     5
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     30,
+     365.0
+    ],
+    "back": [
+     60,
+     18
+    ],
+    "front": [
+     50,
+     16
+    ],
+    "length": 70,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0,
+     0,
+     384.0
+    ],
+    "back": [
+     46,
+     44
+    ],
+    "front": [
+     42.32,
+     40.48
+    ],
+    "length": 32,
+    "color": "#262930"
+   },
+   {
+    "position": [
+     0,
+     0,
+     400.05
+    ],
+    "back": [
+     36.8,
+     35.2
+    ],
+    "front": [
+     36.8,
+     35.2
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     55,
+     0,
+     386.0
+    ],
+    "back": [
+     34,
+     34
+    ],
+    "front": [
+     31.28,
+     31.28
+    ],
+    "length": 28,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     55,
+     0,
+     400.05
+    ],
+    "back": [
+     27.2,
+     27.2
+    ],
+    "front": [
+     27.2,
+     27.2
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     100,
+     -6,
+     389.0
+    ],
+    "back": [
+     26,
+     24
+    ],
+    "front": [
+     23.92,
+     22.08
+    ],
+    "length": 22,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     100,
+     -6,
+     400.05
+    ],
+    "back": [
+     20.8,
+     19.2
+    ],
+    "front": [
+     20.8,
+     19.2
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     20.3,
+     -200.0
+    ],
+    "back": [
+     14.0,
+     8.4
+    ],
+    "front": [
+     11.2,
+     7.0
+    ],
+    "length": 14.0,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0.0,
+     21.0,
+     -214.7
+    ],
+    "back": [
+     3.08,
+     3.08
+    ],
+    "front": [
+     2.52,
+     2.52
+    ],
+    "length": 15.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0.0,
+     24.47,
+     -20.0
+    ],
+    "back": [
+     14.0,
+     8.4
+    ],
+    "front": [
+     11.2,
+     7.0
+    ],
+    "length": 14.0,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0.0,
+     25.17,
+     -34.7
+    ],
+    "back": [
+     3.08,
+     3.08
+    ],
+    "front": [
+     2.52,
+     2.52
+    ],
+    "length": 15.4,
+    "color": "trim"
+   },
+   {
+    "position": [
+     100.0,
+     -2.59,
+     60.0
+    ],
+    "back": [
+     14.0,
+     8.4
+    ],
+    "front": [
+     11.2,
+     7.0
+    ],
+    "length": 14.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     100.0,
+     -1.89,
+     45.3
+    ],
+    "back": [
+     3.08,
+     3.08
+    ],
+    "front": [
+     2.52,
+     2.52
+    ],
+    "length": 15.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     100.0,
+     -3.21,
+     160.0
+    ],
+    "back": [
+     11.2,
+     6.72
+    ],
+    "front": [
+     8.96,
+     5.6
+    ],
+    "length": 11.2,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     100.0,
+     -2.65,
+     148.24
+    ],
+    "back": [
+     2.46,
+     2.46
+    ],
+    "front": [
+     2.02,
+     2.02
+    ],
+    "length": 12.32,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     100.0,
+     -2.14,
+     260.0
+    ],
+    "back": [
+     14.0,
+     8.4
+    ],
+    "front": [
+     11.2,
+     7.0
+    ],
+    "length": 14.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     100.0,
+     -1.44,
+     245.3
+    ],
+    "back": [
+     3.08,
+     3.08
+    ],
+    "front": [
+     2.52,
+     2.52
+    ],
+    "length": 15.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     8.25,
+     17.14,
+     -300.0
+    ],
+    "back": [
+     11.2,
+     6.72
+    ],
+    "front": [
+     8.96,
+     5.6
+    ],
+    "length": 11.2,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     8.25,
+     17.7,
+     -311.76
+    ],
+    "back": [
+     2.46,
+     2.46
+    ],
+    "front": [
+     2.02,
+     2.02
+    ],
+    "length": 12.32,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     16.5,
+     20.62,
+     -150.0
+    ],
+    "back": [
+     11.2,
+     6.72
+    ],
+    "front": [
+     8.96,
+     5.6
+    ],
+    "length": 11.2,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     16.5,
+     21.18,
+     -161.76
+    ],
+    "back": [
+     2.46,
+     2.46
+    ],
+    "front": [
+     2.02,
+     2.02
+    ],
+    "length": 12.32,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     24.75,
+     24.09,
+     0.0
+    ],
+    "back": [
+     11.2,
+     6.72
+    ],
+    "front": [
+     8.96,
+     5.6
+    ],
+    "length": 11.2,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     24.75,
+     24.65,
+     -11.76
+    ],
+    "back": [
+     2.46,
+     2.46
+    ],
+    "front": [
+     2.02,
+     2.02
+    ],
+    "length": 12.32,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     33.0,
+     27.57,
+     150.0
+    ],
+    "back": [
+     11.2,
+     6.72
+    ],
+    "front": [
+     8.96,
+     5.6
+    ],
+    "length": 11.2,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     33.0,
+     28.13,
+     138.24
+    ],
+    "back": [
+     2.46,
+     2.46
+    ],
+    "front": [
+     2.02,
+     2.02
+    ],
+    "length": 12.32,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     42.6,
+     30.96,
+     260.0
+    ],
+    "back": [
+     14.0,
+     8.4
+    ],
+    "front": [
+     11.2,
+     7.0
+    ],
+    "length": 14.0,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     42.6,
+     31.66,
+     245.3
+    ],
+    "back": [
+     3.08,
+     3.08
+    ],
+    "front": [
+     2.52,
+     2.52
+    ],
+    "length": 15.4,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     -21.31,
+     -120.0
+    ],
+    "back": [
+     11.2,
+     6.72
+    ],
+    "front": [
+     8.96,
+     5.6
+    ],
+    "length": 11.2,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0.0,
+     -21.87,
+     -131.76
+    ],
+    "back": [
+     2.46,
+     2.46
+    ],
+    "front": [
+     2.02,
+     2.02
+    ],
+    "length": 12.32,
+    "color": "trim"
+   }
+  ]
+ },
+ {
+  "id": "hd-syndicate",
+  "name": "Syndicate class",
+  "builder": "hesper-works",
+  "class": "carrier",
+  "description": "Two black hulls joined by a lit hangar block, a carrier built for the Directorate's escort contracts. Fighters launch from the inner bays and are billed by the sortie.",
+  "price": 340000000,
+  "forSale": false,
+  "mass": 47500,
+  "baseSpeed": 44,
+  "pitchRate": 4.4,
+  "yawRate": 4.4,
+  "rollRate": 6.6,
+  "hullPoints": 29750,
+  "radius": 298,
+  "crewBerths": 1000,
+  "cargoTonnes": 3500,
+  "dockable": true,
+  "hangar": 14,
+  "hangarHull": "hd-enforcer",
+  "slots": [
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "engine",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "powerPlant",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "shield",
+    "size": 5
+   },
+   {
+    "type": "sensor",
+    "size": 3
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     0.0,
+     42.0,
+     -150
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     30.0,
+     42.0,
+     -60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -30.0,
+     42.0,
+     -60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     30.0,
+     42.0,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -30.0,
+     42.0,
+     60
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     30.0,
+     42.0,
+     160
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -30.0,
+     42.0,
+     160
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     75.0,
+     10.6,
+     -250
+    ],
+    "turret": true
+   },
+   {
+    "type": "weapon",
+    "size": 4,
+    "position": [
+     -75.0,
+     10.6,
+     -250
+    ],
+    "turret": true
+   }
+  ],
+  "defaultLoadout": [
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-drive-5-1",
+   "hd-plant-5-1",
+   "hd-plant-5-1",
+   "hd-shield-5-1",
+   "hd-shield-5-1",
+   "hd-sensor-3-1",
+   "hd-compliance-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-collections-4-1",
+   "hd-settlement-4-1",
+   "hd-settlement-4-1"
+  ],
+  "model": [
+   {
+    "position": [
+     75,
+     0,
+     -15.0
+    ],
+    "back": [
+     50,
+     40
+    ],
+    "front": [
+     5,
+     16
+    ],
+    "length": 830,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     75,
+     0,
+     -15.0
+    ],
+    "back": [
+     53,
+     3
+    ],
+    "front": [
+     7,
+     3
+    ],
+    "length": 830,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     75,
+     28,
+     0.0
+    ],
+    "back": [
+     3,
+     16
+    ],
+    "front": [
+     2,
+     4
+    ],
+    "length": 760,
+    "color": "hull",
+    "mirror": true
+   },
+   {
+    "position": [
+     75,
+     21,
+     -17.5
+    ],
+    "back": [
+     3,
+     1
+    ],
+    "front": [
+     3,
+     1
+    ],
+    "length": 815,
+    "color": "accent",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     0,
+     80.0
+    ],
+    "back": [
+     100,
+     44
+    ],
+    "front": [
+     100,
+     44
+    ],
+    "length": 560,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     48,
+     23,
+     80.0
+    ],
+    "back": [
+     3,
+     2
+    ],
+    "front": [
+     3,
+     2
+    ],
+    "length": 560,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     0,
+     23.5,
+     80.0
+    ],
+    "back": [
+     6,
+     0.8
+    ],
+    "front": [
+     6,
+     0.8
+    ],
+    "length": 540,
+    "color": "accent"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -150.0
+    ],
+    "back": [
+     100.3,
+     22
+    ],
+    "front": [
+     100.3,
+     22
+    ],
+    "length": 36,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     -60.0
+    ],
+    "back": [
+     100.3,
+     22
+    ],
+    "front": [
+     100.3,
+     22
+    ],
+    "length": 36,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     30.0
+    ],
+    "back": [
+     100.3,
+     22
+    ],
+    "front": [
+     100.3,
+     22
+    ],
+    "length": 36,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     120.0
+    ],
+    "back": [
+     100.3,
+     22
+    ],
+    "front": [
+     100.3,
+     22
+    ],
+    "length": 36,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     210.0
+    ],
+    "back": [
+     100.3,
+     22
+    ],
+    "front": [
+     100.3,
+     22
+    ],
+    "length": 36,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     0,
+     300.0
+    ],
+    "back": [
+     100.3,
+     22
+    ],
+    "front": [
+     100.3,
+     22
+    ],
+    "length": 36,
+    "color": "glow"
+   },
+   {
+    "position": [
+     0,
+     22,
+     -160.0
+    ],
+    "back": [
+     60,
+     10
+    ],
+    "front": [
+     40,
+     8
+    ],
+    "length": 80,
+    "color": "hull"
+   },
+   {
+    "position": [
+     0,
+     50,
+     325.0
+    ],
+    "back": [
+     40,
+     38
+    ],
+    "front": [
+     30,
+     34
+    ],
+    "length": 70,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0,
+     72,
+     325.0
+    ],
+    "back": [
+     56,
+     4
+    ],
+    "front": [
+     46,
+     3
+    ],
+    "length": 60,
+    "color": "trim"
+   },
+   {
+    "position": [
+     0,
+     72,
+     294.95
+    ],
+    "back": [
+     52,
+     3
+    ],
+    "front": [
+     52,
+     3
+    ],
+    "length": 0.1,
+    "color": "glow"
+   },
+   {
+    "position": [
+     75,
+     0,
+     386.0
+    ],
+    "back": [
+     34,
+     30
+    ],
+    "front": [
+     31.28,
+     27.6
+    ],
+    "length": 28,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     75,
+     0,
+     400.05
+    ],
+    "back": [
+     27.2,
+     24.0
+    ],
+    "front": [
+     27.2,
+     24.0
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     45,
+     0,
+     390.0
+    ],
+    "back": [
+     18,
+     18
+    ],
+    "front": [
+     16.56,
+     16.56
+    ],
+    "length": 20,
+    "color": "#262930",
+    "mirror": true
+   },
+   {
+    "position": [
+     45,
+     0,
+     400.05
+    ],
+    "back": [
+     14.4,
+     14.4
+    ],
+    "front": [
+     14.4,
+     14.4
+    ],
+    "length": 0.1,
+    "color": "glow",
+    "mirror": true
+   },
+   {
+    "position": [
+     110,
+     -4,
+     135.0
+    ],
+    "back": [
+     60,
+     5
+    ],
+    "front": [
+     12,
+     4
+    ],
+    "length": 390,
+    "color": "hull",
+    "skew": [
+     -20,
+     0
+    ],
+    "mirror": true
+   },
+   {
+    "position": [
+     0.0,
+     45.12,
+     -150.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "#14161b"
+   },
+   {
+    "position": [
+     0.0,
+     45.64,
+     -160.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim"
+   },
+   {
+    "position": [
+     30.0,
+     45.12,
+     -60.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     30.0,
+     45.64,
+     -70.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     30.0,
+     45.12,
+     60.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     30.0,
+     45.64,
+     49.08
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     30.0,
+     45.12,
+     160.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     30.0,
+     45.64,
+     149.08
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   },
+   {
+    "position": [
+     75.0,
+     13.72,
+     -250.0
+    ],
+    "back": [
+     10.4,
+     6.24
+    ],
+    "front": [
+     8.32,
+     5.2
+    ],
+    "length": 10.4,
+    "color": "#14161b",
+    "mirror": true
+   },
+   {
+    "position": [
+     75.0,
+     14.24,
+     -260.92
+    ],
+    "back": [
+     2.29,
+     2.29
+    ],
+    "front": [
+     1.87,
+     1.87
+    ],
+    "length": 11.44,
+    "color": "trim",
+    "mirror": true
+   }
+  ]
+ }
+]

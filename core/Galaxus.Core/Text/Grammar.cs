@@ -39,6 +39,8 @@ public sealed partial class GrammarLibrary
 
     public IEnumerable<GrammarDef> All => _grammars.Values;
 
+    public GrammarDef Get(string grammarId) => _grammars[grammarId];
+
     /// <summary>
     /// Declares an alias such as "voice" that grammars may reference. Validation only allows the
     /// listed rules, and every grammar the alias is bound to must provide them.

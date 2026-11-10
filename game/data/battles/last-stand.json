@@ -1,0 +1,160 @@
+[
+  {
+    "id": "last-stand",
+    "name": "Last Stand",
+    "kind": "war",
+    "stages": [
+      "war"
+    ],
+    "reward": 170000,
+    "minRank": 4,
+    "textGrammar": "battle-last-stand",
+    "waves": [
+      {
+        "id": "station",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 1200,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "battlecruiser",
+            "count": 1,
+            "tag": "flagship"
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-station"
+      },
+      {
+        "id": "first",
+        "side": "enemy",
+        "at": 20,
+        "position": "ahead",
+        "distance": 7000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 8
+          },
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 4,
+            "target": "flagship"
+          }
+        ],
+        "radio": "radio-first"
+      },
+      {
+        "id": "second",
+        "side": "enemy",
+        "after": "wave:first",
+        "delay": 40,
+        "position": "left",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2,
+            "tag": "siege"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-second"
+      },
+      {
+        "id": "carrier",
+        "side": "enemy",
+        "after": "wave:second",
+        "delay": 45,
+        "position": "above",
+        "distance": 8000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "carrier",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-carrier"
+      },
+      {
+        "id": "relief",
+        "side": "friend",
+        "after": "wave:carrier",
+        "delay": 90,
+        "position": "far",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 2
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 6
+          }
+        ],
+        "radio": "radio-relief"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "hold",
+        "type": "survive",
+        "seconds": 600,
+        "text": "Hold {system} until relief arrives"
+      },
+      {
+        "id": "flag",
+        "type": "protect",
+        "tag": "flagship",
+        "text": "Keep the {flagship} alive"
+      },
+      {
+        "id": "carrier",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the carrier {target}",
+        "optional": true
+      },
+      {
+        "id": "cruisers",
+        "type": "destroy",
+        "tag": "siege",
+        "text": "Destroy the siege cruisers",
+        "optional": true
+      }
+    ]
+  }
+]

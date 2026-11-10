@@ -1,0 +1,43 @@
+[
+  {
+    "id": "battle-defence-station-siege",
+    "description": "Station Siege: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "station"
+    ],
+    "rules": {
+      "briefing": [
+        "{station} is under siege and {client} has asked you to help hold it. Waves of {enemy} will come in over the next several minutes. Do not let the station fall.",
+        "Raiders are hitting {station}. The point-defence guns are not enough. Fly in and break the attacks.",
+        "The {station} has called for help. It is under attack and its guns are tired. Hold it."
+      ],
+      "success": [
+        "The siege is lifted. {station} sends a message of thanks and {client} pays {captain}.",
+        "{station} survives. {client} pays and makes a note about better defences.",
+        "The attackers withdraw. {client} pays and the station's staff come out onto the observation deck to watch you go."
+      ],
+      "failure": [
+        "{station} is lost. {client} pays nothing.",
+        "The station falls. {client} bills you for the delay."
+      ],
+      "radio-first": [
+        "First wave. Six fighters on the {station}.",
+        "Attackers inbound. They are going for the docking ring.",
+        "Contacts closing on {station}."
+      ],
+      "radio-second": [
+        "Gunships heading for the station. Intercept.",
+        "Second wave. They have brought bombers.",
+        "They want the reactor. Stop them."
+      ],
+      "radio-third": [
+        "Frigate coming into range. It will sit and shell the station.",
+        "Third wave, and it is the big one. Frigate with escorts.",
+        "Heavy contact. The frigate will outrange the point defences."
+      ]
+    }
+  }
+]

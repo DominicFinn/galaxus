@@ -34,6 +34,28 @@ public partial class Hud : Control
     public string Cruise { get; set; } = "";
     /// <summary>The active job and what to do next, shown top right. Empty for none.</summary>
     public string JobTitle { get; set; } = "";
+    /// <summary>The battle's objectives while one is on, or null.</summary>
+    public List<Galaxus.Core.Battles.BattleObjective>? Objectives { get; set; }
+    /// <summary>All ships to mark on screen, and whether each is an enemy, a friend or neither.</summary>
+    public Func<IEnumerable<(Ship Ship, int Stance)>>? Contacts { get; set; }
+    private readonly List<(string Text, string Side, float Age)> _radio = [];
+
+    /// <summary>A radio call: kept on screen for a while, coloured by who's talking.</summary>
+    public void Radio(string text, string side)
+    {
+        // Wrap long calls so they fit the panel.
+        var words = text.Split(' ');
+        var line = "";
+        var lines = new List<string>();
+        foreach (var w in words)
+        {
+            if (line.Length + w.Length > 64) { lines.Add(line.TrimEnd()); line = ""; }
+            line += w + " ";
+        }
+        if (line.Trim() != "") lines.Add(line.TrimEnd());
+        foreach (var l in lines) _radio.Add((l, side, 0));
+        while (_radio.Count > 7) _radio.RemoveAt(0);
+    }
     public string JobStep { get; set; } = "";
     /// <summary>Where the course target is, in render space, for the nav marker. Null hides it.</summary>
     public Vector3? NavPoint { get; set; }
@@ -52,6 +74,12 @@ public partial class Hud : Control
 
     public override void _Process(double delta)
     {
+        for (int i = _radio.Count - 1; i >= 0; i--)
+        {
+            var (t, side, a) = _radio[i];
+            a += (float)delta;
+            if (a > 14) _radio.RemoveAt(i); else _radio[i] = (t, side, a);
+        }
         for (int i = _messages.Count - 1; i >= 0; i--)
         {
             var (text, age) = _messages[i];
@@ -74,13 +102,16 @@ public partial class Hud : Control
         DrawFlightPanel(size);
         DrawPowerPanel(size);
         DrawDefencePanel(size);
+        DrawContacts(size);
         DrawTargetPanel();
         DrawMessages(size);
+        DrawRadio(size);
+        DrawObjectives(size);
         Text(new Vector2(size.X / 2, 12), Location, Dim, HorizontalAlignment.Center);
         Text(new Vector2(size.X / 2, 24), Cruise, Amber, HorizontalAlignment.Center);
         DrawNavMarker(size);
         if (Prompt != null) Text(new Vector2(size.X / 2, size.Y / 2 + 36), Prompt, Amber, HorizontalAlignment.Center);
-        Text(new Vector2(size.X - 6, 12), $"DRONES DOWN {Kills}", Dim, HorizontalAlignment.Right);
+        Text(new Vector2(size.X - 6, 12), $"KILLS {Kills}", Dim, HorizontalAlignment.Right);
         if (GameSettings.Current.ShowHints) Text(new Vector2(size.X - 6, 22), "F1 CONTROLS", Dim, HorizontalAlignment.Right);
         if (JobTitle != "")
         {
@@ -89,6 +120,59 @@ public partial class Hud : Control
             Text(new Vector2(size.X - 6, 58), "L NEXT JOB   M GALAXY MAP   N SYSTEM MAP", Dim, HorizontalAlignment.Right);
         }
         if (ShowHelp) DrawHelp(size);
+    }
+
+    /// <summary>Small marks on every ship in view: red for enemies, green for friends, white for neither.</summary>
+    private void DrawContacts(Vector2 size)
+    {
+        if (Contacts == null || Camera == null || Player == null) return;
+        foreach (var (ship, stance) in Contacts())
+        {
+            if (ship == Player.Target || !ship.Alive) continue;
+            var at = ship.Body.Position.ToGodot();
+            if (Camera.IsPositionBehind(at)) continue;
+            var p = Camera.UnprojectPosition(at);
+            if (!OnScreen(p, size, 4)) continue;
+            var colour = stance < 0 ? Red : stance > 0 ? Green : new Color(1, 1, 1, 0.7f);
+            float r = ship.Spec.Hull.IsCapital ? 6 : 3;
+            DrawPolyline([p + new Vector2(0, -r), p + new Vector2(r, 0), p + new Vector2(0, r), p + new Vector2(-r, 0), p + new Vector2(0, -r)], colour);
+            // Name warships only when they're close enough to tell apart, so a distant line doesn't become a smear of text.
+            if (ship.Spec.Hull.IsCapital && at.DistanceTo(Player.Body.Position.ToGodot()) < 4000)
+                Text(p + new Vector2(0, r + 9), ship.Name.ToUpperInvariant(), colour, HorizontalAlignment.Center);
+        }
+    }
+
+    private void DrawRadio(Vector2 size)
+    {
+        if (_radio.Count == 0) return;
+        var origin = new Vector2(8, size.Y - 150 - _radio.Count * 10);
+        DrawRect(new Rect2(origin - new Vector2(4, 10), new Vector2(330, _radio.Count * 10 + 4)), Panel);
+        for (int i = 0; i < _radio.Count; i++)
+        {
+            var (text, side, age) = _radio[i];
+            float alpha = Mathf.Clamp(14 - age, 0, 1);
+            var colour = side == "enemy" ? Red : side == "neutral" ? new Color(0.85f, 0.85f, 0.85f) : Blue;
+            Text(origin + new Vector2(0, i * 10), text, new Color(colour, alpha));
+        }
+    }
+
+    private void DrawObjectives(Vector2 size)
+    {
+        if (Objectives == null) return;
+        var origin = new Vector2(8, 96);
+        DrawRect(new Rect2(origin - new Vector2(4, 10), new Vector2(230, Objectives.Count * 10 + 16)), Panel);
+        Text(origin, "OBJECTIVES", Amber);
+        for (int i = 0; i < Objectives.Count; i++)
+        {
+            var o = Objectives[i];
+            var (mark, colour) = o.State switch
+            {
+                Galaxus.Core.Battles.ObjectiveState.Done => ("[X]", Green),
+                Galaxus.Core.Battles.ObjectiveState.Failed => ("[!]", Red),
+                _ => ("[ ]", o.Def.Optional ? Dim : Colors.White),
+            };
+            Text(origin + new Vector2(0, 11 + i * 10), $"{mark} {o.Text.ToUpperInvariant()}{(o.Def.Optional ? " (BONUS)" : "")}", colour);
+        }
     }
 
     private void DrawCrosshair(Vector2 c)
@@ -122,7 +206,8 @@ public partial class Hud : Control
 
         var p = Camera.UnprojectPosition(targetPos);
         float half = Mathf.Clamp(2400f / distance, 5, 30);
-        var colour = Amber;
+        int stance = Contacts?.Invoke().FirstOrDefault(c => c.Ship == target).Stance ?? 0;
+        var colour = stance < 0 ? Red : stance > 0 ? Green : Amber;
         // Corner brackets.
         foreach (var (sx, sy) in new[] { (-1, -1), (1, -1), (1, 1), (-1, 1) })
         {

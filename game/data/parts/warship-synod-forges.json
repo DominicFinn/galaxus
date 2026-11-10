@@ -1,0 +1,154 @@
+[
+ {
+  "id": "ls-vigil-lance-4",
+  "kind": "laser",
+  "name": "Vigil lance",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 160000,
+  "color": "#ffd060",
+  "description": "A tall gilt barrel that throws one long bar of lantern light. The Synod blesses each one before it is fitted.",
+  "stats": {
+   "damage": 85.0,
+   "fireRate": 0.8,
+   "energyPerShot": 22.0,
+   "projectileSpeed": 1500,
+   "range": 5500
+  },
+  "builder": "synod-forges"
+ },
+ {
+  "id": "ls-great-lance-5",
+  "kind": "laser",
+  "name": "Great lantern lance",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 480000,
+  "color": "#ffe07a",
+  "description": "The principal gun of a Synod capital ship. Its bolt is slow to gather and very hard to turn aside.",
+  "stats": {
+   "damage": 220.0,
+   "fireRate": 0.6,
+   "energyPerShot": 55.0,
+   "projectileSpeed": 1500,
+   "range": 7500
+  },
+  "builder": "synod-forges"
+ },
+ {
+  "id": "ls-thurible-4",
+  "kind": "pulse",
+  "name": "Thurible battery",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 150000,
+  "color": "#ffb347",
+  "description": "A swinging cluster of short gold bolts, fired in steady measured volleys.",
+  "stats": {
+   "damage": 62.0,
+   "fireRate": 2.5,
+   "energyPerShot": 20.0,
+   "projectileSpeed": 1100,
+   "range": 5000
+  },
+  "builder": "synod-forges"
+ },
+ {
+  "id": "ls-pillar-5",
+  "kind": "beam",
+  "name": "Pillar of fire",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 520000,
+  "color": "#fff0b0",
+  "description": "A continuous lance of white-gold light. Pilgrims on the decks below are told not to look at it.",
+  "stats": {
+   "damage": 160.0,
+   "fireRate": 1.0,
+   "energyPerShot": 60.0,
+   "projectileSpeed": 3000,
+   "range": 6500
+  },
+  "builder": "synod-forges"
+ },
+ {
+  "id": "ls-aspergill-4",
+  "kind": "flak",
+  "name": "Aspergill flak",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "price": 120000,
+  "color": "#ffd890",
+  "description": "Scatters bursts of blessed shrapnel to break up fighter wings and missiles.",
+  "stats": {
+   "damage": 12.0,
+   "fireRate": 8.0,
+   "energyPerShot": 12.0,
+   "projectileSpeed": 900,
+   "range": 2500
+  },
+  "builder": "synod-forges"
+ },
+ {
+  "id": "ls-rite-torpedo-5",
+  "kind": "torpedo",
+  "name": "Last Rites torpedo",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "price": 600000,
+  "color": "#ff8a3a",
+  "description": "A slow, heavy, homing warhead. The Synod keeps it for ships it has judged beyond mercy.",
+  "stats": {
+   "damage": 900.0,
+   "fireRate": 0.15,
+   "energyPerShot": 40.0,
+   "projectileSpeed": 300,
+   "range": 7000
+  },
+  "builder": "synod-forges"
+ },
+ {
+  "id": "ls-vesper-1",
+  "kind": "missile",
+  "name": "Vesper rack",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "price": 9000,
+  "color": "#ffc65a",
+  "description": "A small rack of homing missiles, each with a candle-bright motor.",
+  "stats": {
+   "damage": 45.0,
+   "fireRate": 0.5,
+   "energyPerShot": 3.0,
+   "projectileSpeed": 500,
+   "range": 3500
+  },
+  "builder": "synod-forges"
+ },
+ {
+  "id": "ls-vesper-2",
+  "kind": "missile",
+  "name": "Twin vesper rack",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "price": 27000,
+  "color": "#ffc65a",
+  "description": "Two vesper missiles on one cradle, for fighters and gunships that hunt larger prey.",
+  "stats": {
+   "damage": 70.0,
+   "fireRate": 0.5,
+   "energyPerShot": 5.0,
+   "projectileSpeed": 550,
+   "range": 4000
+  },
+  "builder": "synod-forges"
+ }
+]

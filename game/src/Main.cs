@@ -219,6 +219,8 @@ public partial class Main : Node3D
         var layer = new CanvasLayer();
         AddChild(layer);
         _hud = new Hud { Player = _player, Camera = _camera, MouseStickRadius = MouseStickRadius, Cockpit = _cockpit };
+        _hud.Contacts = () => _world.Ships.Where(sh => sh != _player && sh.Alive && sh.Body.Position.Y < 1e6f)
+            .Select(sh => (sh, _world.Hostile(_player, sh) ? -1 : _battle != null && sh.Side == _player.Side ? 1 : 0));
         layer.AddChild(_hud);
         _hud.Message("F1 FOR CONTROLS");
 
@@ -424,7 +426,7 @@ public partial class Main : Node3D
 
     private void AddVisual(Ship ship)
     {
-        var visual = new ShipVisual(ship, MeshFactory.BuildShip(ship.Spec.Hull, ship.Spec.Builder.Palette));
+        var visual = new ShipVisual(ship, MeshFor(ship));
         AddChild(visual);
         _visuals[ship] = visual;
     }
@@ -479,7 +481,9 @@ public partial class Main : Node3D
         int steps = _timeWarp;
         for (int step = 0; step < steps; step++)
         {
-            if (!_cruising)
+            StepBattle(dt);
+            if (_battle != null) ParkDrones();
+            else if (!_cruising)
                 foreach (var (drone, brain) in _drones)
                 {
                     // Drones loosely follow the player so there's always something nearby to shoot.
@@ -509,6 +513,7 @@ public partial class Main : Node3D
             if (_timeWarp > 1 && WarpBlocker() is { } reason) SetWarp(1, reason);
             if (_timeWarp == 1) break;
         }
+        CheckBattleStart();
 
         _effects.SyncBolts(_world.Projectiles);
         foreach (var visual in _visuals.Values) visual.Sync();
@@ -670,6 +675,10 @@ public partial class Main : Node3D
                     AudioManager.Instance?.Laser(fired.Projectile.Position.ToGodot(), fired.Projectile.Owner.Spec.Builder.Race,
                         fired.Projectile.Velocity.Length(), fired.Projectile.Damage);
                     break;
+                case FlakBurst burst:
+                    _effects.RemoveBolt(burst.Projectile);
+                    _effects.HullSpark(burst.Point.ToGodot());
+                    break;
                 case ProjectileExpired expired:
                     _effects.RemoveBolt(expired.Projectile);
                     break;
@@ -688,7 +697,8 @@ public partial class Main : Node3D
                         _kills++;
                         _hud.Message($"{ship.Name.ToUpperInvariant()} DESTROYED");
                     }
-                    _respawnTimers[ship] = RespawnDelay;
+                    // Practice drones and you come back; battle ships stay dead.
+                    if (ship == _player || _drones.ContainsKey(ship)) _respawnTimers[ship] = RespawnDelay;
                     if (_player.Target == ship) _player.Target = NearestTarget();
                     break;
             }
@@ -711,15 +721,11 @@ public partial class Main : Node3D
         }
     }
 
-    private Ship? NearestTarget() =>
-        _drones.Keys.Where(d => d.Alive)
-            .OrderBy(d => NVector3.DistanceSquared(d.Body.Position, _player.Body.Position))
-            .FirstOrDefault();
+    private Ship? NearestTarget() => TargetCandidates().FirstOrDefault();
 
     private Ship? NextTarget()
     {
-        var alive = _drones.Keys.Where(d => d.Alive)
-            .OrderBy(d => NVector3.DistanceSquared(d.Body.Position, _player.Body.Position)).ToList();
+        var alive = TargetCandidates();
         if (alive.Count == 0) return null;
         int index = _player.Target == null ? -1 : alive.IndexOf(_player.Target);
         return alive[(index + 1) % alive.Count];

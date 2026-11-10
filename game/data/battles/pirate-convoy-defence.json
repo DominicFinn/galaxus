@@ -1,0 +1,97 @@
+[
+  {
+    "id": "pirate-convoy-defence",
+    "name": "Convoy Defence",
+    "kind": "pirate",
+    "reward": 22000,
+    "minRank": 0,
+    "textGrammar": "battle-pirate-convoy-defence",
+    "waves": [
+      {
+        "id": "convoy",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 600,
+        "ships": [
+          {
+            "role": "freighter",
+            "class": "freighter",
+            "count": 5,
+            "tag": "convoy"
+          }
+        ],
+        "radio": "radio-convoy"
+      },
+      {
+        "id": "toll",
+        "side": "enemy",
+        "at": 25,
+        "position": "ahead",
+        "distance": 4500,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 5
+          }
+        ],
+        "radio": "radio-toll"
+      },
+      {
+        "id": "boarders",
+        "side": "enemy",
+        "after": "wave:toll",
+        "delay": 30,
+        "position": "behind",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 2,
+            "target": "convoy"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-boarders"
+      },
+      {
+        "id": "boss",
+        "side": "enemy",
+        "after": "wave:boarders",
+        "delay": 30,
+        "position": "right",
+        "distance": 6500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "boss"
+          }
+        ],
+        "radio": "radio-boss"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "escape",
+        "type": "escape",
+        "tag": "convoy",
+        "text": "Bring the convoy to the exit"
+      },
+      {
+        "id": "boss",
+        "type": "destroy",
+        "tag": "boss",
+        "text": "Destroy the pirate frigate",
+        "optional": true
+      }
+    ]
+  }
+]

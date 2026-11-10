@@ -1,0 +1,53 @@
+[
+  {
+    "id": "battle-hold-the-line",
+    "description": "Hold the Line: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "enemy",
+      "flagship",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "{client} has a picket cruiser, the {flagship}, holding the approach to {system} while the {station} evacuates its dependants. {enemy} knows it and is coming in waves. Keep the {flagship} alive until the lanes clear. Expect fighters first, then something heavier.",
+        "Command wants the {flagship} still in one piece when the relief column arrives. {enemy} will try to cut it down in stages. Fly cover, break up the bombing runs and do not wander off after kills.",
+        "The {flagship} cannot manoeuvre and cannot retreat. That makes you its escort. {enemy} has fighters and at least one frigate nearby. Hold {system} until relief arrives."
+      ],
+      "success": [
+        "The relief column drops out of the gate with the {flagship} still firing. {client} pays your fee and logs the {flagship}'s captain buying you a drink as a formality.",
+        "The line held. {enemy} pulls back and {client} pays out for {captain}, with a note that the {flagship} will need a month in dock.",
+        "Relief arrives to find the {flagship} scarred and afloat. {client} considers the contract met."
+      ],
+      "failure": [
+        "The {flagship} is gone and the picket with it. {enemy} holds the approach to {system}. {client} will pay for the attempt only in condolences.",
+        "Nothing is left to hold. {client} cancels the contract and files the loss under things to discuss later."
+      ],
+      "radio-opening": [
+        "Contacts at long range, fighters, six of them. Hold formation on the {flagship}.",
+        "Picket to all ships: {enemy} fighters inbound. Weapons free.",
+        "{captain}, they are coming straight for the {flagship}. Get in front of them."
+      ],
+      "radio-flagship": [
+        "{flagship} here. We are staying put. Keep them off our hull.",
+        "This is the {flagship}. Turrets are warm. Do your part."
+      ],
+      "radio-bombers": [
+        "Bombers! Four of them, coming in behind us. Stop them before they release.",
+        "Radar shows heavy fighters on a bombing run. Break them up.",
+        "Bombers on the {flagship}'s stern. Nobody is covering that side. You are."
+      ],
+      "radio-frigate": [
+        "Large contact, jumping in on the starboard side. It is a frigate and it has brought friends.",
+        "{enemy} frigate on our flank. Its guns will outrange ours. Kill it or the {flagship} dies.",
+        "Frigate inbound. All ships, change of plan: hit the frigate."
+      ],
+      "radio-relief": [
+        "Relief column is through the gate. Hold on, {flagship}.",
+        "This is Relief. We have you on scope. Two frigates, six fighters, all yours."
+      ]
+    }
+  }
+]

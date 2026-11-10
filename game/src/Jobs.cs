@@ -16,7 +16,9 @@ public partial class Main
         if (_session.Career.ActiveJob is { } job)
         {
             _hud.JobTitle = $"{job.Offer.Mission.Title} ({_session.Career.Missions.Count} in hand)";
-            _hud.JobStep = _session.NextStep(job);
+            _hud.JobStep = _battle is { Won: null } && job == _battleJob
+                ? "In battle: complete the objectives. T picks the nearest enemy."
+                : _session.NextStep(job);
         }
         else
         {
@@ -41,6 +43,13 @@ public partial class Main
     private void CourseForJob()
     {
         if (_session.Career.ActiveJob is not { } job || job.Offer.DestinationSystemId != _session.Career.SystemId) return;
+        if (job.Offer.BattleId != null)
+        {
+            if (_battle != null) return;
+            _navTarget = NavBattle;
+            _hud.Message("COURSE SET FOR THE FIGHTING. J FOR AUTOPILOT");
+            return;
+        }
         int index = _solar.Stations.FindIndex(s => s.Surface && s.Name == job.Offer.DestinationStation);
         if (index < 0 || _dockedPort?.Name == job.Offer.DestinationStation) return;
         _navTarget = NavPortBase - index;

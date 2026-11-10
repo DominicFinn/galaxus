@@ -65,7 +65,7 @@ public sealed class HullDef
     public string Id { get; set; } = "";
     public string Name { get; set; } = "";
     public string Builder { get; set; } = "";
-    /// <summary>courier, freighter, fighter, gunship, explorer, miner or drone.</summary>
+    /// <summary>courier, freighter, fighter, gunship, explorer, miner, drone, or the warship classes frigate, cruiser, battlecruiser and carrier.</summary>
     public string Class { get; set; } = "";
     public string Description { get; set; } = "";
     public int Price { get; set; }
@@ -86,6 +86,16 @@ public sealed class HullDef
     /// <summary>Parts fitted when the hull is bought or spawned.</summary>
     public List<string> DefaultLoadout { get; set; } = [];
     public List<ShapeDef> Model { get; set; } = [];
+    /// <summary>False for warships and the like, which never appear in a shipyard.</summary>
+    public bool ForSale { get; set; } = true;
+    /// <summary>Warships big enough to dock with, like a station: flagships, carriers, fleet tenders.</summary>
+    public bool Dockable { get; set; }
+    /// <summary>How many fighters a carrier (or anything with a flight deck) can launch.</summary>
+    public int Hangar { get; set; }
+    /// <summary>The hull id of the fighters it launches.</summary>
+    public string? HangarHull { get; set; }
+
+    public bool IsCapital => Class is "frigate" or "cruiser" or "battlecruiser" or "carrier";
 }
 
 public sealed class SlotDef
@@ -95,6 +105,8 @@ public sealed class SlotDef
     public int Size { get; set; } = 1;
     /// <summary>Hardpoint position for weapons, in metres in ship space (forward is -Z).</summary>
     public float[]? Position { get; set; }
+    /// <summary>A weapon on a turret aims itself at enemies in any direction. Warships carry their guns this way.</summary>
+    public bool Turret { get; set; }
 }
 
 /// <summary>
@@ -138,6 +150,13 @@ public sealed class PartDef
     public Dictionary<string, float> Stats { get; set; } = [];
     /// <summary>Weapons only: bolt colour.</summary>
     public string? Color { get; set; }
+    /// <summary>
+    /// Weapons only: how it fires and looks. laser (a bolt), pulse (short rapid bolts), beam (a
+    /// continuous lance), plasma (a slow glowing ball), rail (a fast bright slug), scatter (a
+    /// spread of pellets), flak (bursts that hurt anything near), missile (homing, small),
+    /// torpedo (homing, slow, huge damage, for warships).
+    /// </summary>
+    public string Kind { get; set; } = "laser";
 }
 
 /// <summary>Stat names used in modifier dictionaries.</summary>

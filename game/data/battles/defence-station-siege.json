@@ -1,0 +1,85 @@
+[
+  {
+    "id": "defence-station-siege",
+    "name": "Station Siege",
+    "kind": "defence",
+    "reward": 32000,
+    "minRank": 1,
+    "textGrammar": "battle-defence-station-siege",
+    "waves": [
+      {
+        "id": "first",
+        "side": "enemy",
+        "at": 15,
+        "position": "ahead",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-first"
+      },
+      {
+        "id": "second",
+        "side": "enemy",
+        "after": "wave:first",
+        "delay": 30,
+        "position": "left",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 3
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-second"
+      },
+      {
+        "id": "third",
+        "side": "enemy",
+        "after": "wave:second",
+        "delay": 40,
+        "position": "far",
+        "distance": 8500,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1,
+            "tag": "siege"
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-third"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "hold",
+        "type": "survive",
+        "seconds": 300,
+        "text": "Hold the station"
+      },
+      {
+        "id": "frigate",
+        "type": "destroy",
+        "tag": "siege",
+        "text": "Destroy the siege frigate",
+        "optional": true
+      }
+    ]
+  }
+]

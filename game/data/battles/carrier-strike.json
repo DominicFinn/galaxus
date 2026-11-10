@@ -1,0 +1,138 @@
+[
+  {
+    "id": "carrier-strike",
+    "name": "Carrier Strike",
+    "kind": "war",
+    "stages": [
+      "blockade",
+      "war"
+    ],
+    "reward": 110000,
+    "minRank": 3,
+    "textGrammar": "battle-carrier-strike",
+    "waves": [
+      {
+        "id": "bombers",
+        "side": "friend",
+        "at": 0,
+        "position": "near",
+        "distance": 500,
+        "ships": [
+          {
+            "role": "bomber",
+            "class": "gunship",
+            "count": 6,
+            "tag": "strike",
+            "target": "target"
+          },
+          {
+            "role": "escort",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-bombers"
+      },
+      {
+        "id": "carrier",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 9000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "carrier",
+            "count": 1,
+            "tag": "target"
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ],
+        "radio": "radio-carrier"
+      },
+      {
+        "id": "launch",
+        "side": "enemy",
+        "at": 35,
+        "position": "ahead",
+        "distance": 8500,
+        "ships": [
+          {
+            "role": "interceptor",
+            "class": "fighter",
+            "count": 8
+          }
+        ],
+        "radio": "radio-launch"
+      },
+      {
+        "id": "jump",
+        "side": "enemy",
+        "after": "wave:launch",
+        "delay": 30,
+        "position": "left",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "capital",
+            "class": "cruiser",
+            "count": 1
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 3
+          }
+        ],
+        "radio": "radio-jump"
+      },
+      {
+        "id": "rearguard",
+        "side": "enemy",
+        "after": "objective:killcarrier",
+        "delay": 5,
+        "position": "behind",
+        "distance": 5000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 6
+          }
+        ],
+        "radio": "radio-rearguard"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "killcarrier",
+        "type": "destroy",
+        "tag": "target",
+        "text": "Destroy the carrier {target}"
+      },
+      {
+        "id": "bombers",
+        "type": "protect",
+        "tag": "strike",
+        "text": "Keep the bomber wing alive",
+        "optional": true
+      },
+      {
+        "id": "fighters",
+        "type": "destroy",
+        "wave": "launch",
+        "text": "Shoot down the launched interceptors",
+        "optional": true
+      }
+    ]
+  }
+]

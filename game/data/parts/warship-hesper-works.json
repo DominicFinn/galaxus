@@ -1,0 +1,154 @@
+[
+ {
+  "id": "hd-compliance-4-1",
+  "name": "Compliance beam turret",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 1800000,
+  "description": "A continuous amber lance that cuts across a hull until the target agrees to terms.",
+  "kind": "beam",
+  "stats": {
+   "damage": 70,
+   "fireRate": 2.6,
+   "energyPerShot": 24,
+   "projectileSpeed": 1800,
+   "range": 5500
+  },
+  "color": "#ffc23a"
+ },
+ {
+  "id": "hd-compliance-5-1",
+  "name": "Compliance grand beam turret",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 5400000,
+  "description": "A flagship-scale beam turret with a wide emitter and a very narrow margin for error.",
+  "kind": "beam",
+  "stats": {
+   "damage": 165,
+   "fireRate": 2.2,
+   "energyPerShot": 50,
+   "projectileSpeed": 1800,
+   "range": 6500
+  },
+  "color": "#ffc23a"
+ },
+ {
+  "id": "hd-settlement-4-1",
+  "name": "Settlement railgun battery",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 2200000,
+  "description": "A fast rail turret that delivers its slug before the other party has finished reading the clause.",
+  "kind": "rail",
+  "stats": {
+   "damage": 105,
+   "fireRate": 0.85,
+   "energyPerShot": 30,
+   "projectileSpeed": 2700,
+   "range": 7000
+  },
+  "color": "#fff0c0"
+ },
+ {
+  "id": "hd-settlement-5-1",
+  "name": "Settlement grand railgun battery",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 6600000,
+  "description": "A heavy railgun for the flagship, priced to reflect its record of closing disputes.",
+  "kind": "rail",
+  "stats": {
+   "damage": 270,
+   "fireRate": 0.5,
+   "energyPerShot": 60,
+   "projectileSpeed": 2900,
+   "range": 8000
+  },
+  "color": "#fff0c0"
+ },
+ {
+  "id": "hd-collections-4-1",
+  "name": "Collections flak battery",
+  "type": "weapon",
+  "size": 4,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 1400000,
+  "description": "A rapid flak turret that recovers any fighter left within range.",
+  "kind": "flak",
+  "stats": {
+   "damage": 10,
+   "fireRate": 9,
+   "energyPerShot": 3,
+   "projectileSpeed": 900,
+   "range": 2500
+  },
+  "color": "#ffe08a"
+ },
+ {
+  "id": "hd-foreclosure-5-1",
+  "name": "Foreclosure torpedo launcher",
+  "type": "weapon",
+  "size": 5,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 6200000,
+  "description": "A slow homing torpedo with a very large warhead, issued against warships that have defaulted.",
+  "kind": "torpedo",
+  "stats": {
+   "damage": 1100,
+   "fireRate": 0.12,
+   "energyPerShot": 70,
+   "projectileSpeed": 360,
+   "range": 7000
+  },
+  "color": "#ffb000"
+ },
+ {
+  "id": "hd-lien-1-1",
+  "name": "Lien missile rack",
+  "type": "weapon",
+  "size": 1,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 14000,
+  "description": "A small homing missile for fighters, fast off the rail and charged per launch.",
+  "kind": "missile",
+  "stats": {
+   "damage": 45,
+   "fireRate": 0.5,
+   "energyPerShot": 3,
+   "projectileSpeed": 580,
+   "range": 4000
+  },
+  "color": "#ffd070"
+ },
+ {
+  "id": "hd-lien-2-1",
+  "name": "Lien twin missile rack",
+  "type": "weapon",
+  "size": 2,
+  "mark": 1,
+  "builder": "hesper-works",
+  "price": 40000,
+  "description": "A twin rack of homing missiles for gunships, billed on impact.",
+  "kind": "missile",
+  "stats": {
+   "damage": 75,
+   "fireRate": 0.5,
+   "energyPerShot": 5,
+   "projectileSpeed": 600,
+   "range": 4500
+  },
+  "color": "#ffd070"
+ }
+]

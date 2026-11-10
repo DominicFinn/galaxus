@@ -52,6 +52,16 @@ Travel is by the old elf gate network. Pick a destination and the map plots the 
 
 ![A route plotted across the map](docs/screenshots/map-route.png)
 
+## Battles and warships
+
+The wars between factions are fought in set pieces, in the spirit of X-Wing and TIE Fighter. Factions at war post battles on job boards near their front lines; lawful factions post pirate hunts, the outer galaxy has rogue machines, and stations near trouble ask for defenders. Take one, fly to the system and head for the fighting, and the battle comes to you in waves: fighter screens, bomber runs on the warships, carriers launching their wings, cruisers jumping in, convoys trying to get clear. Command talks to you over the radio, the objectives sit on the HUD, and the job pays when you win, with a bonus for the optional objectives.
+
+Every great power has a navy of its own design: frigates, cruisers, Star Destroyer sized battlecruisers and carriers, with turrets that pick their own targets. Pirates fly salvaged warships, and the Unbound, machines that broke from the Lattice, fly things that look grown rather than built. Weapons come in kinds that look and behave differently: lasers, pulse guns, beams, plasma, rail slugs, scatter guns, flak that bursts among fighters, homing missiles and slow, heavy torpedoes. Battles are data in `game/data/battles`, so they can be added by mods.
+
+![A fleet engagement: the Meridian Concord line forms up as the Grav Khanates close](docs/screenshots/battle-opening.png)
+
+![Plasma fire across the gap between the two lines](docs/screenshots/battle-fleet.png)
+
 ## Stations and talking to people
 
 There's no walking about. Everything happens from the cockpit and the station screens. Jobs come out of what's happening locally (a famine makes relief runs, a war makes escort and blockade work), and every client writes their contract in their own race's voice.

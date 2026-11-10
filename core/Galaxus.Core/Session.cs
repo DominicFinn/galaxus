@@ -87,7 +87,7 @@ public sealed class Session
         if (Here.Stations.Count == 0) return [];
         int here = Array.IndexOf(ContentRules.Regions, Here.Region);
         return Db.Hulls.Values
-            .Where(h => h.Class != "drone")
+            .Where(h => h.Class != "drone" && h.ForSale && !h.IsCapital)
             .Where(h => Db.Builders.TryGetValue(h.Builder, out var b) && b.Region != "rim"
                         && Math.Abs(Array.IndexOf(ContentRules.Regions, b.Region) - here) <= 1)
             .OrderBy(h => h.Price).ThenBy(h => h.Id, StringComparer.Ordinal)
@@ -142,6 +142,8 @@ public sealed class Session
             string late = days > left ? " You won't make it in time." : "";
             return $"Jump to {destination.Name}: {how}, {days} days. {Capital(due)}.{late}";
         }
+        if (offer.BattleId != null)
+            return $"Head for the fighting near {offer.DestinationStation}: the course is set, J for autopilot. {Capital(due)}.";
         var solar = SolarSystems.For(Here, Db.Grammars);
         var port = solar.Stations.FirstOrDefault(s => s.Surface && s.Name == offer.DestinationStation);
         if (port != null)

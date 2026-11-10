@@ -12,13 +12,16 @@ public sealed record MissionOffer(
     int DestinationSystemId,
     string DestinationStation,
     int PostedDay,
-    string? ClientId = null)
+    string? ClientId = null,
+    /// <summary>For a set-piece battle: which one, and who you'll be fighting (-1 pirates or rogue machines with no faction).</summary>
+    string? BattleId = null,
+    int EnemyFactionId = -1)
 {
     /// <summary>
     /// Jobs completed by getting somewhere: these can be done now. Combat jobs need ships to
     /// fight, which come with the traffic simulation.
     /// </summary>
-    public bool Playable => MissionBoard.TravelTypes.Contains(Mission.Template.Type);
+    public bool Playable => BattleId != null || MissionBoard.TravelTypes.Contains(Mission.Template.Type);
 }
 
 /// <summary>Builds the jobs on offer at a system's stations. The board refreshes weekly.</summary>
@@ -66,6 +69,7 @@ public static class MissionBoard
             if (!TravelTypes.Contains(mission.Template.Type) && orng.NextFloat() > 0.3f) continue;
             offers.Add(new MissionOffer($"{system.Id}-{week}-{i}", mission, giver.Id, system.Id, destination.Id, station, galaxy.Day, client.Id));
         }
+        offers.AddRange(Battles.BattleJobs.Offers(db, galaxy, system, captain, rankWith, rng.Fork("battles")));
         return offers;
     }
 

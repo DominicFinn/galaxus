@@ -106,6 +106,8 @@ public sealed class PowerDef
     public int Systems { get; set; } = 10;
     /// <summary>Map colour, #rrggbb.</summary>
     public string Colour { get; set; } = "#888888";
+    /// <summary>The shipbuilder whose hulls its navy flies.</summary>
+    public string Builder { get; set; } = "";
 }
 
 /// <summary>The fixed vocabularies content has to use, and the grammar rules the game asks for.</summary>

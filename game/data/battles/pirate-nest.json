@@ -1,0 +1,84 @@
+[
+  {
+    "id": "pirate-nest",
+    "name": "Pirate Nest",
+    "kind": "pirate",
+    "reward": 28000,
+    "minRank": 1,
+    "textGrammar": "battle-pirate-nest",
+    "waves": [
+      {
+        "id": "guards",
+        "side": "enemy",
+        "at": 0,
+        "position": "ahead",
+        "distance": 4000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 5
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 2
+          }
+        ],
+        "radio": "radio-guards"
+      },
+      {
+        "id": "friends",
+        "side": "enemy",
+        "after": "wave:guards",
+        "delay": 30,
+        "position": "right",
+        "distance": 6000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          }
+        ],
+        "radio": "radio-friends"
+      },
+      {
+        "id": "runners",
+        "side": "enemy",
+        "after": "wave:friends",
+        "delay": 20,
+        "position": "behind",
+        "distance": 3000,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 3
+          }
+        ],
+        "radio": "radio-runners"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "clear",
+        "type": "destroy",
+        "wave": "guards",
+        "text": "Destroy every pirate"
+      },
+      {
+        "id": "friends",
+        "type": "destroy",
+        "wave": "friends",
+        "text": "Destroy the pirate reinforcements",
+        "optional": true
+      }
+    ]
+  }
+]

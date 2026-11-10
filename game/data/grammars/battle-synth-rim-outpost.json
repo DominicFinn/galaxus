@@ -1,0 +1,48 @@
+[
+  {
+    "id": "battle-synth-rim-outpost",
+    "description": "Swarm at the Rim Outpost: briefing, radio calls and outcome text.",
+    "variables": [
+      "captain",
+      "client",
+      "station",
+      "system"
+    ],
+    "rules": {
+      "briefing": [
+        "Machines have come to {station} at the edge of {system}. They are not talking. {client} wants the outpost held until relief arrives. The swarm will keep coming. Do not let it reach the station.",
+        "Rogue machines have found the outpost and are attacking it. They do not stop and they do not ask for terms. {client} pays for every minute you hold {station}.",
+        "The rim is bad this season. A swarm is hitting {station}. Keep it off the outpost."
+      ],
+      "success": [
+        "The swarm fails and what is left drifts away in silence. {client} pays {captain} and the outpost crew stand on the dock and watch you leave.",
+        "The outpost still stands. {client} pays and asks that you not describe the swarm in public.",
+        "The last drone goes quiet. {client} pays and sends engineers to look at what remains."
+      ],
+      "failure": [
+        "The outpost goes dark. {client} pays nothing and wishes it had not asked.",
+        "The swarm overruns {station}. {client} withdraws the offer and the crew."
+      ],
+      "radio-scouts": [
+        "Drones from the outer dark. Six of them. They will not respond to hails.",
+        "Contacts, small and fast. Rogue machines.",
+        "Swarm scouts. Weapons free."
+      ],
+      "radio-swarm": [
+        "Larger group coming. Ten drones and three heavier shapes.",
+        "More of them. They are heading for the outpost.",
+        "The swarm has noticed {station}."
+      ],
+      "radio-hunter": [
+        "Something large behind us. A hunter-class machine, with escorts.",
+        "Frigate-sized contact. It has been waiting for us to get tired.",
+        "Big machine on the stern. Break it."
+      ],
+      "radio-last": [
+        "A last group, high. They are still coming.",
+        "More drones above. The swarm is not finished.",
+        "Last wave. It is a big one."
+      ]
+    }
+  }
+]
