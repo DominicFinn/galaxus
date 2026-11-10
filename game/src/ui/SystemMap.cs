@@ -229,15 +229,59 @@ public partial class SystemMap : Control
 
         if (_current)
         {
-            var (x, _, z) = _playerKm();
-            var you = Centre + new Vector2((float)(x / SolarSystem.KmPerAu), (float)(z / SolarSystem.KmPerAu)) * _pxPerAu;
-            DrawColoredPolygon([you + new Vector2(0, -5), you + new Vector2(4, 4), you + new Vector2(-4, 4)], Colors.White);
             int nav = _navTarget();
             if (nav >= 0) DrawArc(BodyScreen(nav), 8, 0, Mathf.Tau, 20, Ui.Amber, 1.5f);
         }
         if (_selected >= 0) DrawArc(BodyScreen(_selected), 10, 0, Mathf.Tau, 20, Ui.Green, 1.5f);
+        if (_current) DrawShip();
 
-        DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 200, Size.Y - 8), $"Day {day}. Scroll to zoom, right-drag to pan.", HorizontalAlignment.Left, -1, 8, Ui.Dim);
+        DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 280, Size.Y - 8), $"Day {day}. Scroll to zoom, right-drag to pan, C to find your ship.", HorizontalAlignment.Left, -1, 8, Ui.Dim);
+    }
+
+    private Vector2 ShipScreen()
+    {
+        var (x, _, z) = _playerKm();
+        return Centre + new Vector2((float)(x / SolarSystem.KmPerAu), (float)(z / SolarSystem.KmPerAu)) * _pxPerAu;
+    }
+
+    /// <summary>Your ship, drawn last so nothing covers it: a pulsing ring and a label, or an arrow at the edge when it's off screen.</summary>
+    private void DrawShip()
+    {
+        var you = ShipScreen();
+        var shipColour = new Color(1f, 0.95f, 0.4f);
+        var view = new Rect2(Vector2.One * 12, Size - Vector2.One * 24);
+        if (!view.HasPoint(you))
+        {
+            var from = Size / 2;
+            var dir = (you - from).Normalized();
+            float t = Mathf.Min(dir.X != 0 ? (Size.X / 2 - 14) / Mathf.Abs(dir.X) : float.MaxValue, dir.Y != 0 ? (Size.Y / 2 - 14) / Mathf.Abs(dir.Y) : float.MaxValue);
+            var tip = from + dir * t;
+            var side = new Vector2(-dir.Y, dir.X);
+            DrawColoredPolygon([tip, tip - dir * 10 + side * 5, tip - dir * 10 - side * 5], shipColour);
+            DrawString(ThemeDB.FallbackFont, tip - dir * 22 + new Vector2(-10, 4), "You", HorizontalAlignment.Left, -1, 8, shipColour);
+            return;
+        }
+        float pulse = 9 + 3 * Mathf.Sin(Time.GetTicksMsec() / 250f);
+        DrawArc(you, pulse, 0, Mathf.Tau, 24, new Color(shipColour, 0.7f), 1.5f);
+        DrawColoredPolygon([you + new Vector2(0, -6), you + new Vector2(5, 5), you + new Vector2(-5, 5)], Colors.Black);
+        DrawColoredPolygon([you + new Vector2(0, -4.5f), you + new Vector2(3.5f, 3.8f), you + new Vector2(-3.5f, 3.8f)], shipColour);
+        DrawString(ThemeDB.FallbackFont, you + new Vector2(13, -8), "You", HorizontalAlignment.Left, -1, 8, shipColour);
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Visible && _current) QueueRedraw();
+    }
+
+    public override void _UnhandledKeyInput(InputEvent e)
+    {
+        // C centres the map on your ship.
+        if (Visible && _current && e is InputEventKey { Pressed: true, Keycode: Key.C })
+        {
+            _pan += Size / 2 - ShipScreen();
+            QueueRedraw();
+            GetViewport().SetInputAsHandled();
+        }
     }
 
     private static Color BodyColour(BodyKind kind) => kind switch

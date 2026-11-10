@@ -487,6 +487,7 @@ public partial class Main : Node3D
             _player.Body.Velocity = NVector3.Zero;
         }
         HandleEvents();
+        CheckCollisions();
         HandleRespawns(dt);
 
         _effects.SyncBolts(_world.Projectiles);
@@ -673,6 +674,7 @@ public partial class Main : Node3D
             _respawnTimers[ship] -= dt;
             if (_respawnTimers[ship] > 0) continue;
             _respawnTimers.Remove(ship);
+            if (ship == _player && _crashed) { RecoverFromCrash(); continue; }
 
             var offset = new NVector3(_rng.Range(-1, 1), _rng.Range(-0.3f, 0.3f), _rng.Range(-1, 1));
             if (offset.LengthSquared() < 1e-3f) offset = NVector3.UnitX;

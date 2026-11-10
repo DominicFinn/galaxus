@@ -173,8 +173,11 @@ public partial class Main
         }
 
         var forward = _player.Body.Forward;
-        _cruiseKm = (_cruiseKm.X + forward.X * _cruiseSpeed * dt, _cruiseKm.Y + forward.Y * _cruiseSpeed * dt, _cruiseKm.Z + forward.Z * _cruiseSpeed * dt);
-        if (target != null && distance < dropAt) DropFromCruise();
+        var next = (_cruiseKm.X + forward.X * _cruiseSpeed * dt, _cruiseKm.Y + forward.Y * _cruiseSpeed * dt, _cruiseKm.Z + forward.Z * _cruiseSpeed * dt);
+        // A course target is dropped at further out than the safety margin, so it's handled first.
+        if (target != null && distance < dropAt) { DropFromCruise(); return; }
+        if (CruiseBlocked(_cruiseKm, next)) return;
+        _cruiseKm = next;
     }
 
     private (double X, double Y, double Z)? NavTargetKm() => _navTarget switch
@@ -192,6 +195,102 @@ public partial class Main
     {
         _navTarget = target;
         _hud.Message($"COURSE SET: {NavName.ToUpperInvariant()}. J FOR CRUISE");
+    }
+
+    private bool _crashed;
+    private bool _lowWarned;
+
+    /// <summary>How close cruise lets you get to a body before dropping you out: a margin above the surface.</summary>
+    private double CruiseSafetyKm(int index) => _solar.RadiusKm(index) + Math.Max(_solar.RadiusKm(index) * 0.15, 300);
+
+    /// <summary>
+    /// Stops a cruise move short of anything in the way. Checks the whole move, so a fast frame can't
+    /// skip through a planet. Returns true if the ship was dropped out of cruise.
+    /// </summary>
+    private bool CruiseBlocked((double X, double Y, double Z) from, (double X, double Y, double Z) to)
+    {
+        double bestT = double.MaxValue;
+        string? blocker = null;
+        if (Galaxus.Core.Ships.Collision.FirstContact(from, to, (0, 0, 0), _solar.StarRadiusKm * 1.6) is { } st) { bestT = st; blocker = "STAR"; }
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+        {
+            if (_solar.Bodies[i].Kind == BodyKind.Belt) continue;
+            if (Galaxus.Core.Ships.Collision.FirstContact(from, to, _solar.PositionKm(i, Day), CruiseSafetyKm(i)) is { } t && t < bestT)
+            {
+                bestT = t;
+                blocker = _solar.Bodies[i].Name.ToUpperInvariant();
+            }
+        }
+        if (blocker == null) return false;
+        _cruiseKm = (from.X + (to.X - from.X) * bestT, from.Y + (to.Y - from.Y) * bestT, from.Z + (to.Z - from.Z) * bestT);
+        DropFromCruise();
+        _hud.Message($"CRUISE DROPPED: TOO CLOSE TO {blocker}");
+        return true;
+    }
+
+    /// <summary>In normal flight, the station is solid and so are planets and the star.</summary>
+    private void CheckCollisions()
+    {
+        if (_cruising || !_player.Alive || _solar == null) return;
+
+        if (_stationNode != null)
+        {
+            var local = _player.Body.Position - _stationLocal;
+            float distance = Galaxus.Core.Ships.Collision.StationDistance(local, out var normal) - _player.Spec.Radius;
+            if (distance < 0)
+            {
+                // Push clear, bounce off with most of the speed lost, and take damage from the impact.
+                _player.Body.Position -= normal * distance;
+                float closing = -NVector3.Dot(_player.Body.Velocity, normal);
+                if (closing > 0)
+                {
+                    _player.Body.Velocity += normal * closing * 1.3f;
+                    var damage = _player.TakeDamage(Galaxus.Core.Ships.Collision.ImpactDamage(closing));
+                    var at = (_player.Body.Position - normal * _player.Spec.Radius).ToGodot();
+                    if (damage.ToHull > 0) { _effects.HullSpark(at); AudioManager.Instance?.HullHit(at); }
+                    else if (damage.ToShields > 0) { _effects.ShieldFlash(_player.Body.Position.ToGodot(), _player.Spec.Radius); AudioManager.Instance?.ShieldHit(at); }
+                    if (damage.Destroyed) Crash("YOU HIT THE STATION");
+                    else if (closing > 12) _hud.Message("COLLISION");
+                }
+            }
+        }
+
+        var here = PlayerKm;
+        double lowest = double.MaxValue;
+        string lowestName = "";
+        for (int i = 0; i < _solar.Bodies.Count; i++)
+        {
+            if (_solar.Bodies[i].Kind == BodyKind.Belt) continue;
+            double altitude = DistanceKm(here, _solar.PositionKm(i, Day)) - _solar.RadiusKm(i);
+            if (altitude < lowest) { lowest = altitude; lowestName = _solar.Bodies[i].Name; }
+        }
+        if (DistanceKm(here, (0, 0, 0)) < _solar.StarRadiusKm * 1.05) { Crash("BURNED UP IN THE STAR"); return; }
+        if (lowest < 0) { Crash($"CRASHED INTO {lowestName.ToUpperInvariant()}"); return; }
+        if (lowest < 20 && !_lowWarned) { _hud.Message($"WARNING: {lowestName.ToUpperInvariant()} {FormatDistance(lowest)} BELOW"); _lowWarned = true; }
+        if (lowest > 40) _lowWarned = false;
+    }
+
+    /// <summary>Your ship is lost. After a moment you're patched up and put back beside the station.</summary>
+    private void Crash(string reason)
+    {
+        if (_player.Alive) _player.TakeDamage(float.MaxValue);
+        _effects.Explosion(_player.Body.Position.ToGodot(), _player.Body.Velocity.ToGodot(), _player.Spec.Radius);
+        AudioManager.Instance?.Explosion(_player.Body.Position.ToGodot());
+        _hud.Message(reason);
+        _crashed = true;
+        _player.Target = null;
+        _respawnTimers[_player] = RespawnDelay;
+    }
+
+    /// <summary>After a crash: back beside the station, where you started.</summary>
+    private void RecoverFromCrash()
+    {
+        _crashed = false;
+        _anchorKm = (_stationKm.X, _stationKm.Y, _stationKm.Z + 1.6);
+        _player.Respawn(NVector3.Zero, System.Numerics.Quaternion.Identity);
+        _throttle = 0;
+        _navTarget = -1;
+        _hud.Message("SALVAGE CREW HAS PATCHED YOU UP");
     }
 
     /// <summary>HUD readout for cruise and course.</summary>
