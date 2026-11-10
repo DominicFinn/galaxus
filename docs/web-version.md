@@ -20,6 +20,8 @@ How it feels:
 - C# runs on an interpreter in the browser, so slow steps are much slower: a big battle takes up to a minute to set up. The loading page and an in-game loading overlay cover these, and the web build says plainly that it's a preview and links to the desktop download.
 - Frame rate in a big battle is not measured yet. Chrome pauses hidden tabs, so it needs someone playing with the window in front.
 
+Compiling the C# ahead of time makes the web build up to 46 times faster, and a one-line fix to the community template gets 13 times on its own: see [web-aot.md](web-aot.md).
+
 To build and try it: `tools/export-web.sh`, then `python3 tools/serve-web.py build/web` and open http://127.0.0.1:8765. Hosting needs cross-origin isolation headers: itch.io has a setting for it, GitHub Pages needs Godot's service worker option.
 
 ## The blocker (as first written)

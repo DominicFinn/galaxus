@@ -22,4 +22,14 @@
     <TrimmerRootAssembly Include="System.Private.CoreLib" />
     <TrimmerRootAssembly Include="System.Runtime" />
   </ItemGroup>
+  <!--
+    Web AOT experiment (docs/web-aot.md): with GalaxusWebAot=true (an environment variable works),
+    the web publish also compiles every assembly ahead of time to WebAssembly objects, which
+    tools/build-web-aot.sh links into custom web templates. The IL stays in the assemblies, so
+    the interpreter can still run anything the AOT compiler skipped.
+  -->
+  <PropertyGroup Condition=" '$(GodotTargetPlatform)' == 'web' and '$(GalaxusWebAot)' == 'true' ">
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
+  </PropertyGroup>
 </Project>

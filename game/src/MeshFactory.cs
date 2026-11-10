@@ -14,6 +14,16 @@ public sealed class FlatMeshBuilder
     private readonly List<Color> _colors = [];
 
     public bool IsEmpty => _vertices.Count == 0;
+    public int VertexCount => _vertices.Count;
+
+    /// <summary>A number that depends on every vertex and colour, so benchmark runs can show they built the same mesh.</summary>
+    public double Checksum()
+    {
+        double sum = 0;
+        for (int i = 0; i < _vertices.Count; i++)
+            sum += _vertices[i].X + 2 * _vertices[i].Y + 3 * _vertices[i].Z + _colors[i].R + _colors[i].G + _colors[i].B;
+        return sum;
+    }
 
     /// <summary>Adds a triangle facing away from <paramref name="inside"/>, whatever order the corners come in.</summary>
     public void Triangle(Vector3 a, Vector3 b, Vector3 c, Color color, Vector3 inside)
