@@ -36,7 +36,8 @@ float extent = MathF.Max(ContentDatabase.ModelExtent(hull), hull.Radius);
 float scale = (height / 2f * 0.45f) / extent; // pixels per metre, so the model fills each cell
 
 // Same euler order as Godot (Y, then X, then Z), angles in degrees.
-(int Col, int Row, float X, float Y)[] views = [(0, 0, 20, 215), (1, 0, 0, 90), (0, 1, 90, 0), (1, 1, 20, 35)];
+// Front 3/4 tilts the nose down so it looks onto the top of the ship, like the rear view.
+(int Col, int Row, float X, float Y)[] views = [(0, 0, -20, 215), (1, 0, 0, 90), (0, 1, 90, 0), (1, 1, 20, 35)];
 var lightDir = Vector3.Normalize(new Vector3(-0.5f, -0.6f, -0.6f));
 var ambient = new Vector3(0.35f, 0.4f, 0.55f) * 0.35f;
 
@@ -66,7 +67,9 @@ foreach (var (col, row, rx, ry) in views)
         if (t.Color != "glow")
         {
             var n = Vector3.Transform(t.Normal, rotation);
-            float diffuse = MathF.Max(0, Vector3.Dot(n, -lightDir)) * 1.3f;
+            // Key light as in the game, plus a soft fill from the opposite side so shaded faces
+            // stay readable when checking a model. The game itself has no fill light.
+            float diffuse = MathF.Max(0, Vector3.Dot(n, -lightDir)) * 1.3f + MathF.Max(0, Vector3.Dot(n, lightDir)) * 0.45f;
             colour = colour * (ambient + new Vector3(diffuse));
         }
         image.Triangle(Project(t.A), Project(t.B), Project(t.C), Vector3.Clamp(colour, Vector3.Zero, Vector3.One));
