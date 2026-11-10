@@ -1,0 +1,819 @@
+[
+  {
+    "id": "narcotics-quiet-hold",
+    "name": "Quiet hold (narcotics)",
+    "type": "smuggling",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "smuggling-ring",
+      "crime-syndicate",
+      "pirate-clan",
+      "black-market-lab"
+    ],
+    "events": [
+      "crackdown",
+      "gate-warden-drive"
+    ],
+    "cargoCategories": [
+      "narcotics"
+    ],
+    "minRank": 0,
+    "baseReward": 3600,
+    "complications": [
+      "contraband-sealed-case",
+      "double-cross-withheld",
+      "extra-stop-inspection",
+      "ambush-creditors",
+      "deadline-gate-queue"
+    ],
+    "followUps": [
+      "dead-drop-relay"
+    ],
+    "textGrammar": "mission-narcotics-quiet-hold"
+  },
+  {
+    "id": "weapons-past-the-wardens",
+    "name": "Arms past the wardens",
+    "type": "smuggling",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "smuggling-ring",
+      "pirate-clan",
+      "crime-syndicate",
+      "arms-manufacturer"
+    ],
+    "events": [
+      "embargo",
+      "open-war",
+      "raids"
+    ],
+    "cargoCategories": [
+      "weapons"
+    ],
+    "minRank": 0,
+    "baseReward": 4200,
+    "complications": [
+      "contraband-sealed-case",
+      "ambush-on-route",
+      "double-cross-ambush-pay",
+      "extra-stop-inspection",
+      "rival-bid-outbid"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-weapons-past-the-wardens"
+  },
+  {
+    "id": "elder-relic-run",
+    "name": "Elder relic run",
+    "type": "smuggling",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "fence-network",
+      "information-broker",
+      "crime-syndicate",
+      "rim-cult"
+    ],
+    "events": [
+      "elder-machine-waking",
+      "rim-incident",
+      "crackdown"
+    ],
+    "cargoCategories": [
+      "elder-artefacts"
+    ],
+    "minRank": 1,
+    "baseReward": 5600,
+    "complications": [
+      "contraband-sealed-case",
+      "rim-signal-interference",
+      "rival-offer-bribe",
+      "client-lies-purpose",
+      "double-cross-fall-guy"
+    ],
+    "followUps": [
+      "relic-buyer-in-the-dark"
+    ],
+    "textGrammar": "mission-elder-relic-run"
+  },
+  {
+    "id": "rim-tech-past-the-gate",
+    "name": "Rim tech past the gate",
+    "type": "smuggling",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "black-market-lab",
+      "information-broker",
+      "crime-syndicate",
+      "smuggling-ring"
+    ],
+    "events": [
+      "synth-registry-sweep",
+      "gate-warden-drive",
+      "crackdown"
+    ],
+    "cargoCategories": [
+      "rim-tech"
+    ],
+    "minRank": 2,
+    "baseReward": 6400,
+    "complications": [
+      "contraband-sealed-case",
+      "contraband-rim-tech",
+      "ambush-on-route",
+      "double-cross-withheld",
+      "extra-stop-inspection"
+    ],
+    "followUps": [
+      "quiet-room-invitation"
+    ],
+    "textGrammar": "mission-rim-tech-past-the-gate"
+  },
+  {
+    "id": "quiet-passengers",
+    "name": "Quiet passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "smuggling-ring",
+      "information-broker",
+      "crime-syndicate"
+    ],
+    "events": [
+      "rim-refugee-wave",
+      "crackdown",
+      "coup"
+    ],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 3000,
+    "complications": [
+      "fugitive-stowaway",
+      "fugitive-wanted",
+      "fugitive-witness",
+      "extra-stop-inspection",
+      "ambush-on-route"
+    ],
+    "followUps": [
+      "fugitive-out-of-system"
+    ],
+    "textGrammar": "mission-quiet-passengers"
+  },
+  {
+    "id": "fugitive-out-of-system",
+    "name": "Fugitive out of the system",
+    "type": "passenger",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "smuggling-ring",
+      "crime-syndicate",
+      "information-broker",
+      "fence-network"
+    ],
+    "events": [
+      "crackdown",
+      "coup",
+      "succession-dispute"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 3800,
+    "complications": [
+      "fugitive-wanted",
+      "fugitive-debtor",
+      "fugitive-witness",
+      "ambush-creditors",
+      "double-cross-fall-guy"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-fugitive-out-of-system"
+  },
+  {
+    "id": "amnesty-clearance",
+    "name": "Amnesty clearance",
+    "type": "smuggling",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "smuggling-ring",
+      "fence-network",
+      "crime-syndicate",
+      "pirate-clan"
+    ],
+    "events": [
+      "amnesty",
+      "peace-treaty"
+    ],
+    "cargoCategories": [
+      "narcotics",
+      "weapons",
+      "luxury"
+    ],
+    "minRank": 0,
+    "baseReward": 3200,
+    "complications": [
+      "contraband-sealed-case",
+      "rival-bid-double-sold",
+      "deadline-client-panics",
+      "extra-stop-extra-pickup"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-amnesty-clearance"
+  },
+  {
+    "id": "embargo-runner",
+    "name": "Embargo runner",
+    "type": "blockade-running",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "smuggling-ring",
+      "pirate-clan",
+      "crime-syndicate",
+      "fence-network"
+    ],
+    "events": [
+      "embargo",
+      "blockade"
+    ],
+    "cargoCategories": [
+      "fuel",
+      "medical",
+      "machinery"
+    ],
+    "minRank": 0,
+    "baseReward": 3800,
+    "complications": [
+      "ambush-on-route",
+      "extra-stop-inspection",
+      "deadline-gate-queue",
+      "cargo-is-stolen",
+      "bad-intel-defended"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-embargo-runner"
+  },
+  {
+    "id": "claim-jump-rich-seam",
+    "name": "Claim-jump the rich seam",
+    "type": "claim-jumping",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "pirate-clan",
+      "crime-syndicate",
+      "smuggling-ring",
+      "salvage-cooperative"
+    ],
+    "events": [
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "ore",
+      "metals"
+    ],
+    "minRank": 0,
+    "baseReward": 3600,
+    "complications": [
+      "ambush-rival-crew",
+      "bad-intel-defended",
+      "rival-bid-poached",
+      "double-cross-ambush-pay",
+      "client-lies-danger"
+    ],
+    "followUps": [
+      "claim-stake-pull"
+    ],
+    "textGrammar": "mission-claim-jump-rich-seam"
+  },
+  {
+    "id": "claim-stake-pull",
+    "name": "Pull the stakes",
+    "type": "claim-jumping",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "pirate-clan",
+      "crime-syndicate",
+      "fence-network",
+      "smuggling-ring"
+    ],
+    "events": [
+      "mining-rush",
+      "border-dispute"
+    ],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 3000,
+    "complications": [
+      "ambush-rival-crew",
+      "bad-intel-wrong-place",
+      "client-lies-purpose",
+      "rival-offer-turncoat"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-claim-stake-pull"
+  },
+  {
+    "id": "forged-survey-courier",
+    "name": "Forged survey filing",
+    "type": "courier",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "crime-syndicate",
+      "fence-network",
+      "information-broker",
+      "pirate-clan"
+    ],
+    "events": [
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 1,
+    "baseReward": 2800,
+    "complications": [
+      "rival-bid-outbid",
+      "deadline-client-panics",
+      "bad-intel-stale-charts",
+      "double-cross-withheld"
+    ],
+    "followUps": [
+      "claim-jump-rich-seam"
+    ],
+    "textGrammar": "mission-forged-survey-courier"
+  },
+  {
+    "id": "rimward-wreck-salvage",
+    "name": "Rimward wreck salvage",
+    "type": "salvage",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "salvage-cooperative",
+      "mining-corporation",
+      "survey-society",
+      "research-consortium"
+    ],
+    "events": [
+      "ships-going-quiet",
+      "rim-incident",
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "machinery",
+      "technology",
+      "industrial"
+    ],
+    "minRank": 0,
+    "baseReward": 2800,
+    "complications": [
+      "bad-intel-stale-charts",
+      "rim-signal-interference",
+      "rim-signal-missing",
+      "ambush-wreck-bait",
+      "deadline-old-news"
+    ],
+    "followUps": [
+      "missing-crew-inquiry"
+    ],
+    "textGrammar": "mission-rimward-wreck-salvage"
+  },
+  {
+    "id": "unlicensed-salvage",
+    "name": "Unlicensed salvage",
+    "type": "salvage",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "fence-network",
+      "crime-syndicate",
+      "smuggling-ring",
+      "salvage-cooperative"
+    ],
+    "events": [
+      "pirate-surge",
+      "raids",
+      "mining-rush"
+    ],
+    "cargoCategories": [
+      "technology",
+      "elder-artefacts",
+      "machinery"
+    ],
+    "minRank": 1,
+    "baseReward": 4400,
+    "complications": [
+      "bad-intel-defended",
+      "ambush-rival-crew",
+      "contraband-sealed-case",
+      "rival-offer-partner",
+      "extra-stop-extra-pickup"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-unlicensed-salvage"
+  },
+  {
+    "id": "missing-crew-inquiry",
+    "name": "Missing crew",
+    "type": "investigation",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "salvage-cooperative",
+      "shipping-company",
+      "trade-guild",
+      "dwarf-hold"
+    ],
+    "events": [
+      "ships-going-quiet",
+      "rim-incident"
+    ],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 2600,
+    "complications": [
+      "rim-signal-missing",
+      "rim-signal-interference",
+      "bad-intel-stale-charts",
+      "client-lies-purpose",
+      "fugitive-witness"
+    ],
+    "followUps": [
+      "unlicensed-salvage"
+    ],
+    "textGrammar": "mission-missing-crew-inquiry"
+  },
+  {
+    "id": "station-with-a-secret",
+    "name": "A station with a secret",
+    "type": "investigation",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "information-broker",
+      "crime-syndicate",
+      "fence-network",
+      "smuggling-ring"
+    ],
+    "events": [
+      "crackdown",
+      "gate-warden-drive",
+      "election"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 1,
+    "baseReward": 3600,
+    "complications": [
+      "client-lies-purpose",
+      "bad-intel-defended",
+      "double-cross-fall-guy",
+      "rival-offer-bribe",
+      "fugitive-witness"
+    ],
+    "followUps": [
+      "quiet-room-invitation"
+    ],
+    "textGrammar": "mission-station-with-a-secret"
+  },
+  {
+    "id": "who-is-informing",
+    "name": "Who is informing?",
+    "type": "investigation",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "fence-network",
+      "crime-syndicate",
+      "smuggling-ring",
+      "pirate-clan"
+    ],
+    "events": [
+      "crackdown",
+      "gate-warden-drive",
+      "synth-registry-sweep"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 1,
+    "baseReward": 3400,
+    "complications": [
+      "fugitive-witness",
+      "double-cross-fall-guy",
+      "rival-offer-turncoat",
+      "client-lies-purpose",
+      "ambush-creditors"
+    ],
+    "followUps": [
+      "dead-drop-relay"
+    ],
+    "textGrammar": "mission-who-is-informing"
+  },
+  {
+    "id": "unexplained-signal-trace",
+    "name": "Trace the signal",
+    "type": "investigation",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "survey-society",
+      "research-consortium",
+      "lantern-order",
+      "dark-elf-court",
+      "machine-collective"
+    ],
+    "events": [
+      "unexplained-signal",
+      "elder-machine-waking",
+      "rim-incident"
+    ],
+    "cargoCategories": [],
+    "minRank": 2,
+    "baseReward": 4200,
+    "complications": [
+      "rim-signal-own-voice",
+      "rim-signal-interference",
+      "rim-signal-gate",
+      "rim-signal-missing",
+      "bad-intel-wrong-place"
+    ],
+    "followUps": [
+      "relic-buyer-in-the-dark"
+    ],
+    "textGrammar": "mission-unexplained-signal-trace"
+  },
+  {
+    "id": "waking-watch",
+    "name": "Waking watch",
+    "type": "investigation",
+    "scale": "small",
+    "legal": true,
+    "givers": [
+      "lantern-order",
+      "research-consortium",
+      "survey-society",
+      "gate-cult",
+      "dwarf-hold"
+    ],
+    "events": [
+      "elder-machine-waking"
+    ],
+    "cargoCategories": [],
+    "minRank": 2,
+    "baseReward": 4600,
+    "complications": [
+      "rim-signal-gate",
+      "rim-signal-interference",
+      "bad-intel-defended",
+      "client-lies-danger",
+      "deadline-gate-queue"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-waking-watch"
+  },
+  {
+    "id": "convoy-hit",
+    "name": "Convoy hit",
+    "type": "raid",
+    "scale": "skirmish",
+    "legal": false,
+    "givers": [
+      "pirate-clan",
+      "crime-syndicate",
+      "smuggling-ring",
+      "assassin-guild"
+    ],
+    "events": [
+      "pirate-surge",
+      "raids",
+      "embargo"
+    ],
+    "cargoCategories": [
+      "luxury",
+      "weapons",
+      "technology"
+    ],
+    "minRank": 1,
+    "baseReward": 4600,
+    "complications": [
+      "ambush-rival-crew",
+      "bad-intel-defended",
+      "double-cross-ambush-pay",
+      "rival-offer-bribe",
+      "client-lies-danger"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-convoy-hit"
+  },
+  {
+    "id": "rival-depot-raid",
+    "name": "Rival depot raid",
+    "type": "raid",
+    "scale": "skirmish",
+    "legal": false,
+    "givers": [
+      "fence-network",
+      "crime-syndicate",
+      "pirate-clan",
+      "assassin-guild"
+    ],
+    "events": [
+      "raids",
+      "pirate-surge",
+      "crackdown"
+    ],
+    "cargoCategories": [
+      "narcotics",
+      "luxury",
+      "weapons"
+    ],
+    "minRank": 1,
+    "baseReward": 4200,
+    "complications": [
+      "bad-intel-defended",
+      "double-cross-fall-guy",
+      "rival-bid-poached",
+      "ambush-rival-crew",
+      "client-lies-purpose"
+    ],
+    "followUps": [
+      "dead-drop-relay"
+    ],
+    "textGrammar": "mission-rival-depot-raid"
+  },
+  {
+    "id": "dead-drop-relay",
+    "name": "Dead drop relay",
+    "type": "courier",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "information-broker",
+      "fence-network",
+      "crime-syndicate",
+      "smuggling-ring"
+    ],
+    "events": [
+      "crackdown",
+      "gate-warden-drive",
+      "synth-registry-sweep"
+    ],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 2600,
+    "complications": [
+      "ambush-on-route",
+      "extra-stop-inspection",
+      "deadline-client-panics",
+      "double-cross-withheld",
+      "fugitive-witness"
+    ],
+    "followUps": [
+      "who-is-informing"
+    ],
+    "textGrammar": "mission-dead-drop-relay"
+  },
+  {
+    "id": "quiet-room-invitation",
+    "name": "The quiet room",
+    "type": "smuggling",
+    "scale": "skirmish",
+    "legal": false,
+    "givers": [
+      "crime-syndicate",
+      "information-broker",
+      "fence-network",
+      "smuggling-ring"
+    ],
+    "events": [],
+    "cargoCategories": [
+      "rim-tech",
+      "elder-artefacts",
+      "weapons"
+    ],
+    "minRank": 3,
+    "baseReward": 9200,
+    "complications": [
+      "double-cross-fall-guy",
+      "rival-offer-partner",
+      "contraband-sealed-case",
+      "client-lies-purpose",
+      "ambush-on-route"
+    ],
+    "followUps": [
+      "last-good-gate-run"
+    ],
+    "textGrammar": "mission-quiet-room-invitation"
+  },
+  {
+    "id": "relic-buyer-in-the-dark",
+    "name": "Buyer in the dark",
+    "type": "smuggling",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "fence-network",
+      "information-broker",
+      "rim-cult",
+      "dark-elf-court"
+    ],
+    "events": [
+      "elder-machine-waking",
+      "unexplained-signal"
+    ],
+    "cargoCategories": [
+      "elder-artefacts",
+      "rim-tech"
+    ],
+    "minRank": 2,
+    "baseReward": 7000,
+    "complications": [
+      "rim-signal-own-voice",
+      "rim-signal-interference",
+      "double-cross-withheld",
+      "client-lies-purpose",
+      "contraband-rim-tech"
+    ],
+    "followUps": [
+      "last-good-gate-run"
+    ],
+    "textGrammar": "mission-relic-buyer-in-the-dark"
+  },
+  {
+    "id": "last-good-gate-run",
+    "name": "The last good gate",
+    "type": "smuggling",
+    "scale": "battle",
+    "legal": false,
+    "givers": [
+      "crime-syndicate",
+      "black-market-lab",
+      "information-broker",
+      "smuggling-ring"
+    ],
+    "events": [
+      "gate-warden-drive",
+      "synth-registry-sweep"
+    ],
+    "cargoCategories": [
+      "rim-tech",
+      "elder-artefacts"
+    ],
+    "minRank": 4,
+    "baseReward": 13000,
+    "complications": [
+      "contraband-sealed-case",
+      "contraband-rim-tech",
+      "rim-signal-gate",
+      "double-cross-fall-guy",
+      "extra-stop-inspection"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-last-good-gate-run"
+  },
+  {
+    "id": "cult-pilgrim-cargo",
+    "name": "Pilgrims' cargo",
+    "type": "smuggling",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "rim-cult",
+      "gate-cult",
+      "dark-elf-court"
+    ],
+    "events": [
+      "rim-refugee-wave",
+      "ships-going-quiet",
+      "unexplained-signal"
+    ],
+    "cargoCategories": [
+      "elder-artefacts",
+      "rim-tech"
+    ],
+    "minRank": 2,
+    "baseReward": 5200,
+    "complications": [
+      "rim-signal-own-voice",
+      "rim-signal-missing",
+      "client-lies-purpose",
+      "extra-stop-stranded",
+      "contraband-sealed-case"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-cult-pilgrim-cargo"
+  }
+]

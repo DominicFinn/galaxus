@@ -1,0 +1,1276 @@
+[
+  {
+    "id": "mission-narcotics-quiet-hold",
+    "description": "Quiet hold (narcotics).",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Quiet hold to {destination}",
+        "{tonnes} t, no questions",
+        "#nick# for {destination}",
+        "Medicine cabinet run: {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #care#",
+        "#voice:opener# #job# #care# #voice:payment# #voice:warning#",
+        "#voice:opener# #care# #job# #voice:payment# #voice:closer#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "The {cargo} leaves your hold in plain crates and the scanners saw nothing worth a second look. {faction} pays {reward}.",
+        "{faction}'s man counts the crates twice, then counts out {reward}. Neither of you mentions the gate.",
+        "Customs waved you through with a yawn. {reward} lands in an account that officially doesn't exist.",
+        "The buyer at {destination} sniffs one crate and nods. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The {cargo} never made {destination}. {faction} has your ship's name and a long memory.",
+        "A warden's dog took a keen interest in your hold. The {cargo} is gone and {faction} wants to know why you aren't.",
+        "You dumped the {cargo} to keep your licence. {faction} sees it as an expensive way to stay honest.",
+        "Late and short. {faction} writes the loss against your name."
+      ],
+      "job": [
+        "Take {tonnes} t of {cargo} from {system} to {destination}, and tell the wardens it's something dull.",
+        "I need {tonnes} t of {cargo} moved to {destination} inside a hold that looks like machinery spares.",
+        "Carry {tonnes} t of {cargo} to {destination}. The gate wardens are looking harder than usual, so pick your gate.",
+        "{tonnes} t of {cargo}, {system} to {destination}. Declare nothing you can't explain."
+      ],
+      "care": [
+        "Don't open the crates.",
+        "Pack it behind the ballast and keep your transponder boring.",
+        "If you're boarded, you were never here.",
+        "Pay your docking fees on time. Nobody remembers the polite ones."
+      ],
+      "nick": [
+        "Pharmacy run",
+        "Sleepy cargo",
+        "Cheap cheer",
+        "The usual spares"
+      ]
+    }
+  },
+  {
+    "id": "mission-weapons-past-the-wardens",
+    "description": "Arms past the wardens.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Arms for {destination}",
+        "{tonnes} t of {cargo}, unlogged",
+        "Embargo breaker: {destination}",
+        "Hardware to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:payment# #voice:warning#",
+        "#voice:opener# #why# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #why# #voice:payment# #voice:closer#",
+        "#voice:opener# #why# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "The {cargo} goes into a cellar at {destination} before anyone thinks to ask. {faction} pays {reward}.",
+        "{reward} from {faction}, in coin, as promised. You don't ask who is on the receiving end.",
+        "The crates are on the dock and the dock is empty by the time the wardens arrive. {faction} pays {reward}.",
+        "Whoever needed the {cargo} needed it badly. {faction} adds nothing to {reward}, but the buyers shake your hand."
+      ],
+      "failure": [
+        "The {cargo} was impounded, and a warden's report with your ship's name on it is on its way to someone who reads such things.",
+        "You ran, and the {cargo} went into a patrol's hold. {faction} wants it back, or its cost.",
+        "{faction} hears you lost the {cargo}. They hear it was your own fault, and they believe it.",
+        "No delivery, no pay. The buyers at {destination} found another supplier and aren't pleased about the wait."
+      ],
+      "job": [
+        "Run {tonnes} t of {cargo} from {system} to {destination}. Papers will say agricultural plant.",
+        "Get {tonnes} t of {cargo} to {destination} without touching a registered dock on the way.",
+        "Move {tonnes} t of {cargo} to {destination}. The gate in between is watched. Find a way round it.",
+        "Take {tonnes} t of {cargo} to {destination}, and be gone before the customs cutter has finished its tea."
+      ],
+      "why": [
+        "The embargo has made honest supply impossible.",
+        "The people at {destination} want to defend themselves and have been told they may not.",
+        "Somebody's war is running low and somebody's prices are running high.",
+        "Our buyers are on the wrong side of a line drawn by committee."
+      ]
+    }
+  },
+  {
+    "id": "mission-elder-relic-run",
+    "description": "Elder relic run.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Relic freight to {destination}",
+        "{tonnes} t of old things",
+        "Antiquities, unlabelled",
+        "Elder cargo, {system} to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #odd# #voice:payment# #voice:warning#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #odd#",
+        "#voice:opener# #odd# #job# #voice:payment# #voice:closer#",
+        "#voice:opener# #job# #voice:payment# #odd# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "The {cargo} is carried off in padded cases by someone who hardly breathes. {faction} pays {reward}.",
+        "{faction} pays {reward}. Nobody tells you what the {cargo} was for, and you find you don't mind.",
+        "The buyer unwraps one piece, holds it to the light and puts it back with great care. {reward} follows.",
+        "Delivered and counted. {faction} pays {reward} and asks you to forget the route."
+      ],
+      "failure": [
+        "The {cargo} didn't arrive, and {faction} is more upset about the cargo than the money.",
+        "You came back with an empty hold and a story. {faction} has heard better ones.",
+        "A Gate Authority officer seized the {cargo} as heritage property. {faction} blames your manifest.",
+        "{faction} sends someone to check your hold for what's left. There is nothing, and they take that personally."
+      ],
+      "job": [
+        "Bring {tonnes} t of {cargo} from {system} to {destination}, packed as scrap alloy.",
+        "Carry {tonnes} t of {cargo} to {destination}. The Gate Authority would call this theft and the Synod would call it worse.",
+        "{tonnes} t of {cargo} must reach {destination}. The collectors there pay properly and the inspectors never do.",
+        "Move {tonnes} t of {cargo} to {destination} without letting any registry officer scan the crates."
+      ],
+      "odd": [
+        "Some of it hums. That's normal, I'm told.",
+        "Some of it is warm to the touch. Leave it that way.",
+        "Don't ask where it was found. I don't know and I prefer it.",
+        "If any of it starts doing something, tell nobody and keep flying."
+      ]
+    }
+  },
+  {
+    "id": "mission-rim-tech-past-the-gate",
+    "description": "Rim tech past the gate.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Rim tech to {destination}",
+        "{tonnes} t, firewall-grade risk",
+        "Past the last good gate",
+        "Shielded cargo: {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #scan# #voice:payment# #voice:warning#",
+        "#voice:opener# #scan# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #scan# #voice:closer#",
+        "#voice:opener# #job# #scan# #voice:urgency# #voice:payment# #voice:warning#"
+      ],
+      "success": [
+        "The warden's scanner chirped once, shrugged, and let you through. {faction} pays {reward}.",
+        "The {cargo} is in the bench of someone who knows what it is, and who sends {reward} through three different hands.",
+        "Quiet gate, quiet dock. {faction} pays {reward} and looks relieved to see the back of the crates.",
+        "Delivered, and nothing in {destination} woke up in the night. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The wardens found the {cargo} and every warden at the gate now has your ship's description.",
+        "The {cargo} was seized. {faction} is more worried about who reads the seizure than about the loss.",
+        "You turned back before the gate. {faction} calls it prudent and pays nothing.",
+        "Somewhere between {system} and {destination} you lost the {cargo} and any claim to {faction}'s trust."
+      ],
+      "job": [
+        "Move {tonnes} t of {cargo} from {system} to {destination}, inward past the last good gate.",
+        "Carry {tonnes} t of {cargo} to {destination}. It started beyond the firewall and it should stay quiet on the way.",
+        "{tonnes} t of {cargo} to {destination}, shielded and unlabelled.",
+        "Take {tonnes} t of {cargo} to {destination}. Pay the shielding cost out of your cut, not mine."
+      ],
+      "scan": [
+        "The wardens at the gate scan for exactly this, and so do the registry agents.",
+        "Don't let a synth registry officer near the hold, and don't ask me why I say that.",
+        "If a scanner pings it, you will have a very bad day, and so will I.",
+        "Cold-pack it. A warm hold gets scanned twice."
+      ]
+    }
+  },
+  {
+    "id": "mission-quiet-passengers",
+    "description": "Quiet passage.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Quiet passage to {destination}",
+        "A passenger called {target}",
+        "Off the manifest",
+        "Run {target} to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #who# #voice:payment# #voice:warning#",
+        "#voice:opener# #who# #job# #voice:payment# #voice:urgency#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #voice:closer#",
+        "#voice:opener# #who# #voice:payment# #job# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "{target} steps off at {destination} and, for the first time in weeks, doesn't look behind. {faction} pays {reward}.",
+        "No one at the dock asked who {target} was. {faction} pays {reward}, and a stranger sends a note of thanks.",
+        "The handover goes without a hitch. {faction} pays {reward} and {target} pays you in a sort of silence you'll remember.",
+        "{target} is gone into the crowd at {destination}. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} was taken off your ship at the gate. {faction} wants to know what you said.",
+        "You turned back with {target} still aboard. {faction} calls it cowardice. {target} calls it worse.",
+        "The passage failed and {target} is in a cell. {faction} pays nothing, and doesn't forget.",
+        "You handed {target} over at the wrong dock. {faction} is trying to hear that as an accident."
+      ],
+      "job": [
+        "Take one passenger from {system} to {destination} on no manifest at all.",
+        "Carry a passenger to {destination} and keep them out of sight until the docking is done.",
+        "Run {target} to {destination}, and don't let the gate wardens log a face.",
+        "Get {target} to {destination} alive and unrecorded."
+      ],
+      "who": [
+        "{target} is not a criminal, whatever the papers say. They are simply in the way of someone powerful.",
+        "{target} has lost a home and a name. They need a place to start a new one.",
+        "{target} won't tell me why they're running and I haven't asked.",
+        "{target} is carrying nothing but a bag and a grudge. Treat them gently."
+      ]
+    }
+  },
+  {
+    "id": "mission-fugitive-out-of-system",
+    "description": "Fugitive out of the system.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Exit for {target}",
+        "{target} needs the next gate",
+        "Hot passenger, {destination}",
+        "A friend leaving {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #heat# #voice:payment# #voice:warning#",
+        "#voice:opener# #heat# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #heat# #voice:closer#",
+        "#voice:opener# #heat# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "{target} is off your ship before the cutters are in range. {faction} pays {reward}.",
+        "{faction} pays {reward}. {target} leaves your cargo bay without a word, and the cabin smells of relief.",
+        "The handover is clean. {faction} pays {reward}, and {target} is somebody else's problem by supper.",
+        "{target} reaches {destination} and vanishes. {faction} pays {reward} and wants you to forget the name."
+      ],
+      "failure": [
+        "The cutters caught {target} at the gate, and your ship barely got away. {faction} isn't pleased.",
+        "{target} didn't make {destination}. {faction} would like to know who sold them out.",
+        "You were stopped, searched, and let go. {target} wasn't. {faction} pays nothing.",
+        "The run fell apart at {destination}. {faction} blames you, and it may be right."
+      ],
+      "job": [
+        "Get {target} out of {system} and as far as {destination}.",
+        "Smuggle {target} to {destination}. Passage, and quiet, are what I'm paying for.",
+        "Take {target} to {destination}. One door out, and you are the door.",
+        "Carry {target} from {system} to {destination}, on a ship that nobody will look at twice."
+      ],
+      "heat": [
+        "Half the port is looking for them and the other half is being paid to.",
+        "The patrol knows the name, but not the face. Keep it so.",
+        "They saw something they shouldn't have. That's the whole of the crime.",
+        "They owe the wrong people and can't pay. It is a very old story."
+      ]
+    }
+  },
+  {
+    "id": "mission-amnesty-clearance",
+    "description": "Amnesty clearance.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Amnesty window at {destination}",
+        "Move it while they're soft",
+        "{tonnes} t, free of questions",
+        "Pardon-season freight"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #gap# #voice:urgency# #voice:payment#",
+        "#voice:opener# #gap# #job# #voice:payment# #voice:warning#",
+        "#voice:opener# #job# #voice:payment# #gap# #voice:closer#",
+        "#voice:opener# #gap# #voice:payment# #job# #voice:urgency#"
+      ],
+      "success": [
+        "The amnesty held just long enough. {faction} pays {reward} and moves the {cargo} before the ink is dry.",
+        "Not a single warden checked your seals. {faction} pays {reward} with a wry grin.",
+        "The {cargo} is across the border and the border has forgotten. {faction} pays {reward}.",
+        "{faction} pays {reward}. The next time the wardens look, the hold will be empty and your name will be nothing."
+      ],
+      "failure": [
+        "The amnesty ended an hour before you docked. {faction} pays nothing, and your hold is somebody else's evidence.",
+        "Too slow. The patrols were back at the gates and the {cargo} was still in your hold.",
+        "{faction} finds you didn't read the small print about the pardon, and neither did the wardens. {reward} is withheld.",
+        "You delivered late. The {cargo} was seized with the rest, and {faction} has opinions."
+      ],
+      "job": [
+        "Move {tonnes} t of {cargo} from {system} to {destination} while the amnesty lasts.",
+        "Get {tonnes} t of {cargo} to {destination}. The wardens aren't looking, for a few days.",
+        "Ship {tonnes} t of {cargo} to {destination} under the pardon's cover. You have {deadline}.",
+        "Run {tonnes} t of {cargo} through to {destination} before the law comes back from its holiday."
+      ],
+      "gap": [
+        "The pardon is a gift and we all know how long gifts last.",
+        "Everyone's relaxed. That never lasts.",
+        "Wardens are told to be gentle this week, so be quick.",
+        "Somebody in an office forgave a lot of people. We intend to take advantage."
+      ]
+    }
+  },
+  {
+    "id": "mission-embargo-runner",
+    "description": "Embargo runner.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Embargo runner: {destination}",
+        "{tonnes} t of {cargo}, under the line",
+        "Slip the cordon",
+        "Past the picket to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #cordon# #voice:payment# #voice:warning#",
+        "#voice:opener# #cordon# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #cordon# #voice:closer#",
+        "#voice:opener# #cordon# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "The picket looked the other way, or didn't see you at all. {faction} pays {reward}.",
+        "{destination} gets its {cargo}, and {faction} gets {reward} off whoever was desperate enough.",
+        "The cordon is a line on a chart and you flew across it. {faction} pays {reward}.",
+        "People are warmer at {destination} tonight. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The picket turned you back with a warning shot and a lot of lectures. The {cargo} never got through.",
+        "{faction} hears the cordon held. {destination} stays cold and short, and so does your fee.",
+        "A patrol took the {cargo}. {faction} points out you were meant to be faster.",
+        "You were boarded within sight of {destination}. {faction} marks you as unreliable."
+      ],
+      "job": [
+        "Run {tonnes} t of {cargo} through to {destination}.",
+        "Carry {tonnes} t of {cargo} from {system} to {destination}, and don't be seen by the pickets.",
+        "Break the embargo with {tonnes} t of {cargo}. It's a short list of who'll try it.",
+        "{tonnes} t of {cargo} must reach {destination}, whatever the committee thinks of that."
+      ],
+      "cordon": [
+        "The pickets are young and cross, so don't count on mercy.",
+        "The cordon is thinner at the edges, I'm told, but that is also where the cutters wait.",
+        "Every honest hauler is turning back. That's why we pay a premium.",
+        "Burn hard past their sensors and ask forgiveness later."
+      ]
+    }
+  },
+  {
+    "id": "mission-claim-jump-rich-seam",
+    "description": "Claim-jump the rich seam.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "The seam at {system}",
+        "Jump the claim, take the {cargo}",
+        "Rival claim, lawful or not",
+        "Dig first at {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #claim# #voice:payment# #voice:warning#",
+        "#voice:opener# #claim# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #claim# #voice:closer#",
+        "#voice:opener# #claim# #voice:payment# #job# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "The rival's beacon goes quiet and the {cargo} is yours to carry out. {faction} pays {reward}.",
+        "{tonnes} t of {cargo} come out in a day. {faction} pays {reward} and registers the claim in a new name.",
+        "By the time the claimants arrive you're gone. {faction} pays {reward}.",
+        "{faction} pays {reward}. Registry will say the claim was always yours, and nobody will argue."
+      ],
+      "failure": [
+        "The claimants were waiting. You were seen, tagged and driven off the rock.",
+        "{faction} pays nothing. Someone beat you there, and someone else sent you in blind.",
+        "The rival crew filed first. The {cargo} stays in the ground and so does your fee.",
+        "Too slow, too loud. The claim stands and {faction} is poorer."
+      ],
+      "job": [
+        "Land at {system}, strip the claim of its {cargo}, and carry {tonnes} t of it to {destination}.",
+        "Go to the seam at {system}, work it for {tonnes} t of {cargo}, and sell that at {destination}.",
+        "Take a rig to {system}, run off the claimants and cart {tonnes} t of {cargo} to {destination}.",
+        "There is {cargo} at {system} and the beacon on it belongs to somebody else. Bring {tonnes} t to {destination}."
+      ],
+      "claim": [
+        "The rush has everyone staking and nobody keeping watch.",
+        "The registry deed is a month old and the crew on it are unarmed. Mostly.",
+        "They are miners, not soldiers. Don't make them become soldiers.",
+        "First to the seam owns it. After that it's only paperwork."
+      ]
+    }
+  },
+  {
+    "id": "mission-claim-stake-pull",
+    "description": "Pull the stakes.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Stake-pulling at {system}",
+        "{target}'s claim beacon",
+        "Make {system} a free-for-all",
+        "Quiet vandalism"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #why# #voice:payment# #voice:warning#",
+        "#voice:opener# #why# #job# #voice:payment# #voice:urgency#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #voice:closer#",
+        "#voice:opener# #why# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "Every beacon at {system} is dark and {target} is explaining it to the registry. {faction} pays {reward}.",
+        "The claim markers are gone and nobody can say who took them. {faction} pays {reward}.",
+        "{faction} files a clean new claim by morning. {reward} lands in your account soon after.",
+        "{target}'s boundary is a rumour now. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target}'s crew caught you with a beacon in your claws. {faction} disowns you with great speed.",
+        "The markers were still lit when {faction}'s surveyors arrived. {reward} stays unpaid.",
+        "You hit the wrong rock. {faction} blames your charts, and your charts are a poor defence.",
+        "{target} knew you were coming. {faction} wonders who told them."
+      ],
+      "job": [
+        "Fly to {system} and destroy the claim beacons {target} has set round the seam.",
+        "Pull every marker {target} has planted at {system}, and carry the debris to {destination} so we can count them.",
+        "Clear {target}'s beacons from {system}. Don't shoot anything that doesn't shoot first.",
+        "Visit {system}, break {target}'s claim, and leave without a name."
+      ],
+      "why": [
+        "{target} registered first, and they were never meant to.",
+        "{target}'s paperwork is perfect, which is why we're paying you.",
+        "A claim needs a beacon. That's the whole of the weakness.",
+        "It's only vandalism if somebody catches you."
+      ]
+    }
+  },
+  {
+    "id": "mission-forged-survey-courier",
+    "description": "Forged survey filing.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Survey filing for {destination}",
+        "A good forgery, delivered",
+        "First at the registry",
+        "Data for the claim office"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #fake# #voice:urgency# #voice:payment#",
+        "#voice:opener# #fake# #job# #voice:payment# #voice:warning#",
+        "#voice:opener# #job# #voice:payment# #fake# #voice:closer#",
+        "#voice:opener# #fake# #voice:urgency# #job# #voice:payment#"
+      ],
+      "success": [
+        "The filing reaches the registry before the real ones. {faction} pays {reward}, and a clerk stamps it without reading.",
+        "First in the queue, and a good forgery makes a better claim than an honest one. {faction} pays {reward}.",
+        "{reward} from {faction}. The rush has a new owner of record.",
+        "The clerk at {destination} never blinked. {faction} pays {reward}."
+      ],
+      "failure": [
+        "Somebody filed first. {faction} gives you the filing back, and a look.",
+        "The registry spotted the forgery. {faction} calls you careless and pays nothing.",
+        "The clerk wouldn't touch it. {faction} pays {reward}, but only a fraction of it.",
+        "Late. The claim is gone and the forgery is a quiet embarrassment."
+      ],
+      "job": [
+        "Take this sealed filing to the claim office at {destination}.",
+        "Carry the survey data to {destination} and make sure it's logged before the others.",
+        "Deliver the filing to {destination} and wait for the stamp.",
+        "Get this packet to the registry clerk at {destination}. Hand it over yourself."
+      ],
+      "fake": [
+        "The survey is not strictly true. I prefer 'enthusiastic'.",
+        "It's an excellent forgery, I paid for it.",
+        "Nobody will ever check the soundings. Nobody ever does.",
+        "If asked, you picked it up from a prospector who has since left."
+      ]
+    }
+  },
+  {
+    "id": "mission-rimward-wreck-salvage",
+    "description": "Rimward wreck salvage.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Wreck salvage at {system}",
+        "{tonnes} t from a dead hull",
+        "Salvage: {system}",
+        "What the quiet left behind"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #state# #voice:payment# #voice:warning#",
+        "#voice:opener# #state# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #state# #voice:closer#",
+        "#voice:opener# #state# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "The hull still held {tonnes} t of {cargo}. {faction} pays {reward} and says nothing about the logs.",
+        "You got out with the {cargo} and nobody else's trouble. {faction} pays {reward}.",
+        "{reward} from {faction}. They keep the crew roster, and you keep the story.",
+        "{destination} receives the salvage and counts it twice. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The wreck had been picked clean, or never held what the chart said. {faction} pays a pittance.",
+        "You left the hull before taking the {cargo}. {faction} understands, but doesn't pay.",
+        "{faction} gets nothing and mutters about superstition.",
+        "Someone else got there first. {faction} blames timing, and you."
+      ],
+      "job": [
+        "Strip {tonnes} t of {cargo} from the drifting hull at {system} and haul it to {destination}.",
+        "A freighter went dark near {system}. Recover {tonnes} t of {cargo} and bring it to {destination}.",
+        "There's a wreck at {system} with a hold of {cargo}. Salvage {tonnes} t and take it to {destination}.",
+        "The hull at {system} has been silent for a while. Go aboard, take {tonnes} t of {cargo}, fly out."
+      ],
+      "state": [
+        "The hull is in one piece. Nobody can say why the crew isn't.",
+        "Its beacon stopped some time ago. I would not look at the logs.",
+        "Nothing on the scans moves, which is the only good news I have.",
+        "Ships have gone missing near there. Not all of them have left wrecks."
+      ]
+    }
+  },
+  {
+    "id": "mission-unlicensed-salvage",
+    "description": "Unlicensed salvage.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Salvage without a licence",
+        "{tonnes} t, off the books",
+        "Protected wreck, {system}",
+        "Heritage hull, no paperwork"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #law# #voice:payment# #voice:warning#",
+        "#voice:opener# #law# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #law# #voice:closer#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #law# #voice:warning#"
+      ],
+      "success": [
+        "The wreck at {system} is a little lighter. {faction} pays {reward} and lists the {cargo} as old stock.",
+        "{faction}'s buyer asks no questions about where the {cargo} came from. {reward} follows.",
+        "Out in good time and no beacon marked you. {faction} pays {reward}.",
+        "{faction} pays {reward} and calls it a quiet success."
+      ],
+      "failure": [
+        "The salvage patrol arrived at the wrong moment. The {cargo} stayed on the wreck and you were fined.",
+        "{faction} hears you came back with scrap and a story.",
+        "Someone else was already stripping the hull, and had bigger guns.",
+        "The Gate Authority has the wreck and has your transponder log. {faction} pays nothing."
+      ],
+      "job": [
+        "Strip {tonnes} t of {cargo} from the protected wreck at {system} and take it to {destination}.",
+        "Visit the dead hull at {system}, remove {tonnes} t of {cargo} and make sure nobody records it.",
+        "Take {tonnes} t of {cargo} from the wreck at {system} before the heritage inspectors arrive.",
+        "Salvage the old hull at {system}. {tonnes} t of {cargo} will do, delivered to {destination}."
+      ],
+      "law": [
+        "The wreck is claimed by a museum and they don't forgive.",
+        "A salvage patrol watches it, but not at night.",
+        "The registry marks it as a grave, which is an exaggeration.",
+        "The inspectors are slow, but not as slow as they used to be."
+      ]
+    }
+  },
+  {
+    "id": "mission-missing-crew-inquiry",
+    "description": "Missing crew.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Where is {target}?",
+        "The missing crew of {system}",
+        "Find the lost freighter",
+        "A hull gone quiet"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #sad# #voice:payment# #voice:warning#",
+        "#voice:opener# #sad# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #sad# #voice:closer#",
+        "#voice:opener# #sad# #voice:payment# #job# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "You found a name, a last log and nothing else. {faction} pays {reward}, and doesn't push for more.",
+        "The trail ends at {system}. {faction} pays {reward} and files the loss under 'unresolved'.",
+        "{faction} reads your report twice and pays {reward}. Neither of you wants a third reading.",
+        "What you found won't bring anyone home. {faction} pays {reward} regardless."
+      ],
+      "failure": [
+        "You came back with nothing, and {faction} pays nothing. The families are told you did what you could.",
+        "The trail went cold at {system} and your report said as much. {faction} doesn't pay for cold trails.",
+        "You stopped looking. {faction} would have understood if you'd said why.",
+        "{faction} hears you didn't go near {system}. Nobody can blame you, and nobody pays you either."
+      ],
+      "job": [
+        "Find out what became of {target}'s ship, last seen near {system}, and report to {destination}.",
+        "A crew went quiet near {system}. Search, listen, and tell me what you find at {destination}.",
+        "Trace {target} and the crew of their hull from {system}. Don't board anything you can't leave.",
+        "Look into the hull that vanished out of {system}. Report to {destination} within {deadline}."
+      ],
+      "sad": [
+        "Their families have stopped asking, which is the worst part.",
+        "It isn't the first ship to go quiet and I doubt it is the last.",
+        "Nobody has found a wreck. That's the part I can't stop thinking about.",
+        "There's a signal on the log that I can't explain, so don't try to explain it to me either."
+      ]
+    }
+  },
+  {
+    "id": "mission-station-with-a-secret",
+    "description": "A station with a secret.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Something at {destination}",
+        "Station ledgers, {destination}",
+        "What {target} is hiding",
+        "Questions for {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #hint# #voice:payment# #voice:warning#",
+        "#voice:opener# #hint# #job# #voice:payment# #voice:urgency#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #hint# #voice:closer#",
+        "#voice:opener# #hint# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "The ledger you copied tells the broker what the dock never would. {faction} pays {reward}.",
+        "You brought back the names, the dates and the room number. {faction} pays {reward}.",
+        "{faction} reads, smiles and pays {reward}. The station won't enjoy next week.",
+        "What {target} had in the back office isn't pretty. {faction} pays {reward} and keeps the details."
+      ],
+      "failure": [
+        "Station security caught you in the back office and {faction} learned nothing.",
+        "You looked, saw nothing and told {faction} so. {faction} was less convinced than you.",
+        "{target} saw you coming. {faction} pays nothing and watches {destination} anyway.",
+        "The records you copied were a decoy. {faction} wants to know who made it."
+      ],
+      "job": [
+        "Dock at {destination}, find out what {target} keeps in the lower decks, and report back to me.",
+        "Find out why every freight crew leaves {destination} quieter than they arrived.",
+        "Visit {destination} and learn what the station master does at night.",
+        "Look into {target} at {destination}. Don't take anything you can't explain."
+      ],
+      "hint": [
+        "The paperwork is perfect, and that's what worries me.",
+        "Their power bill is three times what the station needs.",
+        "A friend of mine docked there for a day and left in a hurry.",
+        "The wardens never inspect {destination}. I'd like to know who asked them not to."
+      ]
+    }
+  },
+  {
+    "id": "mission-who-is-informing",
+    "description": "Who is informing?.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "The informant",
+        "Someone is talking",
+        "A leak at {destination}",
+        "Find the voice in the walls"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #leak# #voice:payment# #voice:warning#",
+        "#voice:opener# #leak# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #leak# #voice:closer#",
+        "#voice:opener# #leak# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "You bring a name. {faction} pays {reward} and does not tell you what happens next.",
+        "It was {target}, or it wasn't. {faction} pays {reward} and takes your word.",
+        "The leak is plugged. {faction} pays {reward} and the wardens' next raid finds an empty shed.",
+        "You named the informant and {faction} paid {reward}. You don't ask about the aftermath."
+      ],
+      "failure": [
+        "You named the wrong person, and {faction} is cross about the funeral expenses.",
+        "You found nothing and {faction} found you suspicious.",
+        "The informant heard you were asking and left. {faction} blames your manners.",
+        "{faction} pays nothing and starts to wonder who is informing on them from your ship."
+      ],
+      "job": [
+        "Find out who is feeding the wardens our docking times. Start at {destination}.",
+        "Somebody sold {faction}'s schedules to the patrol. Find out who, and report at {destination}.",
+        "Visit {system}, ask carefully, and tell me whether {target} is the one who talks.",
+        "I want a name. Anyone at {destination} who has been seen with a warden is a place to start."
+      ],
+      "leak": [
+        "Three runs in a row have been met by patrols and I don't believe in luck.",
+        "I trust you, which is why I'm asking you, and nobody who'd be missed.",
+        "This isn't a job for a loud man, so don't be loud.",
+        "I won't tell you what I do with the answer. That's the arrangement."
+      ]
+    }
+  },
+  {
+    "id": "mission-unexplained-signal-trace",
+    "description": "Trace the signal.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "The signal at {system}",
+        "Trace the repeating pulse",
+        "Listening post duty",
+        "Something calling"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #sig# #voice:payment# #voice:warning#",
+        "#voice:opener# #sig# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #sig# #voice:closer#",
+        "#voice:opener# #sig# #voice:payment# #job# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "You logged it, tracked it, and turned back before it asked anything. {faction} pays {reward}.",
+        "Your log is incomplete, as they always are. {faction} pays {reward}, and puts the recording in a drawer.",
+        "{faction} pays {reward}. The signal is still out there, and still says nothing intelligible.",
+        "You came back with a position, a bearing and a bad feeling. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The signal stopped as you arrived. {faction} pays nothing, and the pulse resumes the moment you leave.",
+        "Your instruments filled with noise and you lost the trail. {faction} accepts, grudgingly.",
+        "You turned back at {system}. {faction} would like you to say why, and you can't quite.",
+        "{faction} gets a corrupted log. The log is, they say, still better than nothing."
+      ],
+      "job": [
+        "Fly to {system}, find where the repeating pulse is coming from, and report at {destination}.",
+        "Trace the signal near {system}. Record, don't answer, and leave when it changes.",
+        "Listen at {system} for {deadline}. Note every change and take the log to {destination}.",
+        "Find the source of the signal at {system}. Don't reply to it under any circumstances."
+      ],
+      "sig": [
+        "Several ships heard it. Not all of them came back to say so.",
+        "It repeats every few hours, as steady as a heart. That is all we know.",
+        "It doesn't match any beacon on the register. It doesn't match a natural source, either.",
+        "It might be nothing. It might be old. I would prefer not to learn which."
+      ]
+    }
+  },
+  {
+    "id": "mission-waking-watch",
+    "description": "Waking watch.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "The machine at {system}",
+        "Watch the sleeper",
+        "Observation post, {system}",
+        "Something stirring at {system}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #fear# #voice:payment# #voice:warning#",
+        "#voice:opener# #fear# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #fear# #voice:closer#",
+        "#voice:opener# #fear# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "You watched and noted, and the machine did nothing you could name. {faction} pays {reward}.",
+        "{faction} reads your log in silence. It pays {reward} and asks you to say nothing about it.",
+        "The log is dull, and that is the best thing you could have brought. {faction} pays {reward}.",
+        "Four hours of stillness and one hour that wasn't. {faction} pays {reward}."
+      ],
+      "failure": [
+        "You left before the end of the watch. {faction} pays nothing and wonders what you saw.",
+        "The watch was cut short, and {faction} blames your nerve and your instruments, in that order.",
+        "You reported on the wrong machine. {faction} is disappointed, and a little relieved.",
+        "Nothing to report, or nothing you'd report. {faction} won't pay for silence."
+      ],
+      "job": [
+        "Station your ship near the dormant machine at {system} for {deadline} and log everything it does.",
+        "Observe the elder machine at {system} and report at {destination}. Keep your weapons cold.",
+        "Hold at {system} and record any change in the machine. Do not approach it.",
+        "Go to {system}, record what the old machine does, and bring the log to {destination}."
+      ],
+      "fear": [
+        "Three engineers say it moved. The fourth says they're mistaken, and he's the one who looks afraid.",
+        "Nobody knows who built it or why it's there. I would like us to know when it wakes.",
+        "It's been quiet for centuries, and I hope it is still.",
+        "The pilgrims say it breathes. The instruments say otherwise. Check."
+      ]
+    }
+  },
+  {
+    "id": "mission-convoy-hit",
+    "description": "Convoy hit.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Hit the convoy at {system}",
+        "{target}'s freighters",
+        "Take their {cargo}",
+        "Raid on the {system} lane"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #lane# #voice:payment# #voice:warning#",
+        "#voice:opener# #lane# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #lane# #voice:closer#",
+        "#voice:opener# #lane# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "The lead freighter's hold opened like a tin, and {tonnes} t of {cargo} went into yours. {faction} pays {reward}.",
+        "{target}'s convoy is short a hull and long a grudge. {faction} pays {reward}.",
+        "You hit them where it counts and left before the escorts did the maths. {faction} pays {reward}.",
+        "{reward} from {faction}, plus the {cargo}, plus a reputation."
+      ],
+      "failure": [
+        "The escorts were better than advertised. You broke off with damage and no {cargo}.",
+        "{target}'s convoy slipped past you and {faction} wants to know why you let them.",
+        "The raid failed. {faction} writes it off, and writes you off, too.",
+        "Somebody warned the convoy. {faction} thinks it was you."
+      ],
+      "job": [
+        "Intercept {target}'s convoy near {system} and take {tonnes} t of {cargo}.",
+        "Hit {target}'s freight on the {system} lane and bring {tonnes} t of {cargo} to {destination}.",
+        "Take down the lead hull in {target}'s convoy at {system}, and seize what it holds.",
+        "Raid {target}'s ships at {system}. Aim for the hold, not the crew."
+      ],
+      "lane": [
+        "The escort is two light gunships and a cutter, who is paid by the hour.",
+        "It leaves port at night and flies without lights. They think that's safe.",
+        "There'll be shooting, but it's mostly theirs.",
+        "No one needs to die. Hold your fire until they're stopped."
+      ]
+    }
+  },
+  {
+    "id": "mission-rival-depot-raid",
+    "description": "Rival depot raid.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction",
+      "target"
+    ],
+    "rules": {
+      "title": [
+        "Raid on {target}'s depot",
+        "Empty a rival's shed",
+        "A stash at {system}",
+        "Their stock, our hold"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #why# #voice:payment# #voice:warning#",
+        "#voice:opener# #why# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #why# #voice:closer#",
+        "#voice:opener# #why# #voice:payment# #job# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "The depot's doors didn't hold. {faction} pays {reward} and takes delivery of {tonnes} t of {cargo}.",
+        "{target} has a lot of apologies to make to their customers. {faction} pays {reward}.",
+        "In and out in under an hour. {faction} pays {reward} and leaves the lights on in the empty shed.",
+        "{reward} from {faction}, and the {cargo} goes to a better home."
+      ],
+      "failure": [
+        "The depot had guards you weren't told about. You left without the {cargo}.",
+        "{target} was waiting. {faction} pays nothing and worries about leaks.",
+        "The depot was empty, or was rearranged to look so. {faction} has questions.",
+        "A patrol arrived as you did. {faction} would prefer not to be mentioned."
+      ],
+      "job": [
+        "Hit {target}'s depot at {system} and bring {tonnes} t of {cargo} to {destination}.",
+        "Raid the stash {target} keeps at {system}. {tonnes} t of {cargo} should do.",
+        "Get into {target}'s depot at {system}, take what you can carry, and leave.",
+        "Empty {target}'s warehouse at {system}. Quiet if possible, loud if it must be."
+      ],
+      "why": [
+        "{target} has been undercutting us for a month, and I find I'm tired.",
+        "There's a debt and no sign of repayment.",
+        "This is a favour I owe someone, and so, by extension, do you.",
+        "They moved into our patch. This is the reply."
+      ]
+    }
+  },
+  {
+    "id": "mission-dead-drop-relay",
+    "description": "Dead drop relay.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "A dead drop at {destination}",
+        "Sealed, unsigned, {destination}",
+        "Drop and go",
+        "Package for the locker"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #rules# #voice:payment#",
+        "#voice:opener# #rules# #job# #voice:payment# #voice:warning#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #rules# #voice:closer#",
+        "#voice:opener# #rules# #voice:urgency# #job# #voice:payment#"
+      ],
+      "success": [
+        "The drop is empty when you leave and full when someone else arrives. {faction} pays {reward}.",
+        "You never met the recipient. {faction} pays {reward}, and that's how it ought to be.",
+        "Locker closed, key posted. {faction} pays {reward}.",
+        "The package is gone from the locker and {faction} is fatter by {reward}."
+      ],
+      "failure": [
+        "The locker at {destination} was already open. {faction} pays nothing, and quietly changes every code it owns.",
+        "The package was opened in transit, and {faction} suspects you, though it can't prove it.",
+        "You were followed to the drop. {faction} won't use that locker again, and won't use you.",
+        "Late, and loudly so. {faction} pays nothing."
+      ],
+      "job": [
+        "Take this sealed packet to locker 44 at {destination}. Don't open it, don't dawdle.",
+        "Carry the sealed data to the drop at {destination} and leave it where I tell you.",
+        "Deliver this package to a locker at {destination}, and then forget it ever existed.",
+        "Run this packet from {system} to {destination}, leaving it at the dock office under another name."
+      ],
+      "rules": [
+        "No messages and no receipts. That's what you're being paid for.",
+        "If a warden asks, it's a birthday gift for your aunt.",
+        "Keep it in your own cabin. Nobody ever searches there, which is why I ask.",
+        "The less you know, the safer the whole chain."
+      ]
+    }
+  },
+  {
+    "id": "mission-quiet-room-invitation",
+    "description": "The quiet room.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "An invitation, {captain}",
+        "The quiet room at {system}",
+        "Come inside",
+        "You've been noticed"
+      ],
+      "briefing": [
+        "#voice:opener# You've done well, and the right people have noticed. #job# #room# #voice:payment# #voice:warning#",
+        "#voice:opener# #room# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #room# #voice:closer# #voice:warning#",
+        "#voice:opener# You'll understand if I keep the details short. #job# #room# #voice:payment#"
+      ],
+      "success": [
+        "The people who sent you smile with every tooth. {faction} pays {reward} and adds a second name to the guest list.",
+        "The {cargo} is accepted by someone who doesn't exist. {faction} pays {reward}, and the door opens a little wider.",
+        "{reward} from {faction}, and a handshake that means more than the money.",
+        "{faction} pays {reward}. You are now in the room, which was the actual payment."
+      ],
+      "failure": [
+        "The {cargo} was lost, and a door that opened for you will now stay shut.",
+        "{faction} pays nothing and strikes your name from a list you didn't know you were on.",
+        "You were seen, which was the one thing you were told not to be. {faction} is polite about it, and that is the worst of it.",
+        "{faction} will be in touch. They won't be."
+      ],
+      "job": [
+        "I have a hold of {cargo}, {tonnes} t of it, needing to get from {system} to {destination}, by someone who can be trusted.",
+        "There is a run: {tonnes} t of {cargo}, {system} to {destination}. It's more important than the pay suggests.",
+        "{tonnes} t of {cargo} from {system} to {destination}. We don't ask many people to do this.",
+        "Take {tonnes} t of {cargo} to {destination}. The people receiving it matter more than the goods."
+      ],
+      "room": [
+        "Do this and you are among friends. Fail and you've never met us.",
+        "Consider this an audition. We pay well for auditions.",
+        "We don't advertise. That is why you are hearing it in person.",
+        "It is rare to be asked twice, and I'm not asking twice."
+      ]
+    }
+  },
+  {
+    "id": "mission-relic-buyer-in-the-dark",
+    "description": "Buyer in the dark.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "A buyer who won't meet",
+        "{tonnes} t, delivered blind",
+        "Dark rendezvous at {system}",
+        "Collection without a face"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #buyer# #voice:payment# #voice:warning#",
+        "#voice:opener# #buyer# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #buyer# #voice:closer#",
+        "#voice:opener# #buyer# #voice:payment# #job# #voice:warning# #voice:closer#"
+      ],
+      "success": [
+        "The {cargo} was taken up in the dark by someone you never saw. {faction} pays {reward}.",
+        "The buyer left {reward} in an unmarked case and was gone before you looked up.",
+        "The meeting passed without a word. {faction} pays {reward}, and your sensors report nothing, which is odd.",
+        "You were paid, and no one signed for the {cargo}. {faction} says that's how it's done."
+      ],
+      "failure": [
+        "The rendezvous came and went with nobody there. {faction} pays nothing and wonders whether the buyer ever existed.",
+        "You waited for the buyer at {system} and they never came. {faction} writes it off.",
+        "The {cargo} was left in a hold the buyer declined. {faction} wonders what you said.",
+        "{faction} pays nothing and, for once, doesn't blame you."
+      ],
+      "job": [
+        "Deliver {tonnes} t of {cargo} to the coordinates I'll give you at {system}, and leave without looking round.",
+        "Carry {tonnes} t of {cargo} to the rendezvous at {system}, then on to {destination} for payment.",
+        "Take {tonnes} t of {cargo} to a buyer at {system}. They'll find you, and not the other way round.",
+        "{tonnes} t of {cargo} are to be left for a collector at {system}. Wait for their signal."
+      ],
+      "buyer": [
+        "The buyer has never given a name, but pays on time and in advance, which is rarer than a name.",
+        "Whatever they do with it is their business. I do ask that you not think about it.",
+        "Some of my clients are strange, and this one is stranger.",
+        "They wouldn't say where it's going. That's usually a good sign."
+      ]
+    }
+  },
+  {
+    "id": "mission-last-good-gate-run",
+    "description": "The last good gate.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "The last good gate",
+        "{tonnes} t, the long way in",
+        "Past the firewall wardens",
+        "One last run, {captain}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #gate# #voice:payment# #voice:warning# #voice:closer#",
+        "#voice:opener# #gate# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #gate# #voice:warning#",
+        "#voice:opener# #job# #gate# #voice:urgency# #voice:payment# #voice:closer#"
+      ],
+      "success": [
+        "The gate warden's final scan showed a clean hold and a long face. {faction} pays {reward}.",
+        "{faction} pays {reward}. A year ago nobody could have done this, and a year from now nobody will.",
+        "You carried the {cargo} past every warden on the chain. {faction} pays {reward} and sends its thanks.",
+        "{reward} lands in your account, and the people at {destination} look at you differently."
+      ],
+      "failure": [
+        "The last gate had a new scanner. The {cargo} is in the warden's evidence locker and so, soon, are you.",
+        "{faction} hears the warden's report before you do, and acts accordingly.",
+        "You turned back at the last good gate and nobody blames you, though nobody pays you either.",
+        "The {cargo} was seized and your name flagged. {faction} wishes you luck in a way that isn't kind."
+      ],
+      "job": [
+        "Carry {tonnes} t of {cargo} from {system} to {destination}. Every gate in between is watched.",
+        "Move {tonnes} t of {cargo} to {destination}. This is the run people hear about and pretend not to.",
+        "I need {tonnes} t of {cargo} taken from {system} to {destination}, through the heaviest scanning you'll ever meet.",
+        "Take {tonnes} t of {cargo} past the wardens to {destination}. It is the hardest job I've ever offered."
+      ],
+      "gate": [
+        "Where exactly the filtering begins, nobody can say, and I won't pretend otherwise.",
+        "The wardens are stricter every month. I fear this is the last one that works.",
+        "Each gate is stricter than the one before. This is the last that can be fooled.",
+        "If it goes wrong, the wardens will make an example, and I would rather it weren't you."
+      ]
+    }
+  },
+  {
+    "id": "mission-cult-pilgrim-cargo",
+    "description": "Pilgrims' cargo.",
+    "variables": [
+      "system",
+      "destination",
+      "cargo",
+      "tonnes",
+      "reward",
+      "deadline",
+      "faction"
+    ],
+    "rules": {
+      "title": [
+        "Pilgrims' cargo",
+        "A hold of devotions",
+        "Offerings for {destination}",
+        "What the faithful pay for"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #faith# #voice:payment# #voice:warning#",
+        "#voice:opener# #faith# #job# #voice:payment# #voice:urgency#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #faith# #voice:closer#",
+        "#voice:opener# #faith# #voice:payment# #job# #voice:warning#"
+      ],
+      "success": [
+        "The offerings are carried into the hall by quiet people in plain clothes. {faction} pays {reward}.",
+        "{faction} pays {reward} with a blessing, which you decline politely.",
+        "The {cargo} is safe. {faction} pays {reward}, and bows twice.",
+        "They sang, you stayed outside. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The {cargo} went missing on the way and {faction} pays nothing, but offers a prayer.",
+        "The faithful were disappointed in you, which is worse than angry.",
+        "{faction} says it is not upset, in a tone that suggests otherwise.",
+        "The pilgrims waited at {destination}, and waited."
+      ],
+      "job": [
+        "Carry {tonnes} t of {cargo} from {system} to {destination}. It is for a congregation that doesn't advertise.",
+        "Take {tonnes} t of {cargo} to the faithful at {destination}.",
+        "Haul {tonnes} t of {cargo} to {destination}. The Synod would call it heresy and I would call it freight.",
+        "Move {tonnes} t of {cargo} to a hall at {destination}, and ask nothing of the hall."
+      ],
+      "faith": [
+        "I won't tell you what they believe. Neither do they, to anyone who asks too closely.",
+        "The rim calls to some people. It does not call to me, and I'm glad.",
+        "Nobody knows what the old things are for. They would like to find out, and I wouldn't.",
+        "They are sincere, which is more than I can say for most customers."
+      ]
+    }
+  }
+]
