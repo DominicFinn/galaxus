@@ -27,6 +27,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>CFBundleShortVersionString</key><string>0.1</string>
   <key>LSMinimumSystemVersion</key><string>11.0</string>
   <key>NSHighResolutionCapable</key><true/>
+  <key>LSArchitecturePriority</key><array><string>arm64</string><string>x86_64</string></array>
+  <key>LSRequiresNativeExecution</key><true/>
 </dict>
 </plist>
 PLIST
@@ -38,6 +40,10 @@ export DOTNET_ROOT="$DOTNET_ROOT_DIR"
 export PATH="\$(dirname "$DOTNET"):\$PATH"
 LOG="\$HOME/Library/Logs/Galaxus.log"
 "$DOTNET" build "$ROOT/game/Galaxus.csproj" -nologo -v quiet > "\$LOG" 2>&1
+# Run natively on Apple silicon; never under Rosetta.
+if [ "\$(uname -m)" = "arm64" ] || [ "\$(sysctl -n hw.optional.arm64 2>/dev/null)" = "1" ]; then
+  exec arch -arm64 "$GODOT" --path "$ROOT/game" >> "\$LOG" 2>&1
+fi
 exec "$GODOT" --path "$ROOT/game" >> "\$LOG" 2>&1
 SCRIPT
 chmod +x "$APP/Contents/MacOS/Galaxus"
