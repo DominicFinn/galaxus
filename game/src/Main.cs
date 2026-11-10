@@ -98,6 +98,7 @@ public partial class Main : Node3D
             return;
         }
 
+        SetAppIcon();
         var audio = new AudioManager();
         audio.Init(_db);
         AddChild(audio);
@@ -133,6 +134,18 @@ public partial class Main : Node3D
         }
         else
             ShowTitle(splash: !_splashShown && _startScreen != "menu");
+    }
+
+    /// <summary>
+    /// Shows the Galaxus icon in the dock and taskbar. Godot does this from the project icon too,
+    /// but only once the image has been imported, so load it straight from disk as a fallback.
+    /// </summary>
+    private static void SetAppIcon()
+    {
+        if (DisplayServer.GetName() == "headless") return;
+        var image = ResourceLoader.Exists("res://icon.png") ? GD.Load<Texture2D>("res://icon.png")?.GetImage() : null;
+        image ??= Image.LoadFromFile(ProjectSettings.GlobalizePath("res://icon.png"));
+        if (image != null && !image.IsEmpty()) DisplayServer.SetIcon(image);
     }
 
     /// <summary>The title screen: a random system as a slowly turning backdrop, with the splash first time round.</summary>

@@ -1,3 +1,5 @@
+![Galaxus](docs/branding/logo.png)
+
 # Galaxus
 
 Working title for a PC space game in the spirit of Frontier: Elite II, with X-Wing style flight. The design brief is the [space game design foundation](https://claude.ai/artifact/UoqLkSwDvcejkPUDLuneeJ) doc.
@@ -23,6 +25,10 @@ You need the .NET SDK (8 or later; the project targets .NET 10) and Godot 4.7 .N
 tools/play.sh            # build and run
 tools/validate.sh        # check all content and run the tests
 ```
+
+On a Mac, `tools/make-launcher.sh` makes `~/Applications/Galaxus.app` with the Galaxus name and icon. It builds the latest code and runs the game, so you can keep it in the Dock. Logs go to `~/Library/Logs/Galaxus.log`.
+
+The logo and icon are in `docs/branding` as SVG, with PNG and `.icns` renders.
 
 `tools/godot.sh` looks for Godot at `~/Applications/Godot_mono.app`. Set `GODOT` to point elsewhere. To open the project in the editor, run `tools/godot.sh -e`.
 
