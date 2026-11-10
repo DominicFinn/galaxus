@@ -57,9 +57,14 @@ public sealed class Session
         return session;
     }
 
+    /// <summary>The jobs on offer here, with any haggled pay applied and withdrawn jobs removed.</summary>
     public List<MissionOffer> Board() =>
         MissionBoard.For(Db, Galaxy, Here, Career.Captain, Career.RankWith)
-            .Where(o => !Career.TakenOffers.Contains(o.Id)).ToList();
+            .Where(o => !Career.TakenOffers.Contains(o.Id) && !Career.WithdrawnOffers.Contains(o.Id))
+            .Select(o => Career.Haggled.TryGetValue(o.Id, out var m) && m > 1
+                ? o with { Mission = o.Mission with { Reward = (int)(MathF.Round(o.Mission.Reward * m / 50f) * 50) } }
+                : o)
+            .ToList();
 
     /// <summary>Hulls for sale here: builders within one region of this system. Rim designs are never sold.</summary>
     public List<HullDef> Shipyard()

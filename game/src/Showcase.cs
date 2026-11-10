@@ -62,7 +62,8 @@ public partial class Main
         {
             var system = galaxy.Systems.FirstOrDefault(s => s.Stations.Count > 0 && s.Economy == Economy.Mining && galaxy.OwnerOf(s)?.RaceId == race);
             if (system == null) continue;
-            _showcaseSteps.Add(new($"people-{race}.png", 25, () => { GoTo(system.Id); Dock(); _stationScreen.ShowTab(4); _stationScreen.SelectPerson(2); }));
+            _showcaseSteps.Add(new($"people-{race}.png", 25, () => { GoTo(system.Id); Dock(); _stationScreen.ShowTab(4); _stationScreen.SelectPerson(2);
+                _stationScreen.TalkAbout(Galaxus.Core.People.Topic.Drink, Galaxus.Core.People.Topic.Rumour, Galaxus.Core.People.Topic.Self); }));
         }
         _showcaseIndex = -1;
         _showcaseWait = 0;

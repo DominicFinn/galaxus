@@ -10,6 +10,9 @@
     "crewModifiers": {},
     "nameGrammar": "names-human",
     "missionVoiceGrammar": "mission-voice-human",
+    "talkGrammar": "talk-human",
+    "haggleChance": 0.45,
+    "haggleOffence": 0.1,
     "voiceGrammar": "voice-human"
   },
   {
@@ -22,6 +25,9 @@
     "crewModifiers": { "starRecharge": 1.3 },
     "nameGrammar": "names-light-elf",
     "missionVoiceGrammar": "mission-voice-light-elf",
+    "talkGrammar": "talk-light-elf",
+    "haggleChance": 0.25,
+    "haggleOffence": 0.45,
     "voiceGrammar": "voice-light-elf"
   },
   {
@@ -34,6 +40,9 @@
     "crewModifiers": { "sensors": 1.25, "stealth": 1.25 },
     "nameGrammar": "names-dark-elf",
     "missionVoiceGrammar": "mission-voice-dark-elf",
+    "talkGrammar": "talk-dark-elf",
+    "haggleChance": 0.3,
+    "haggleOffence": 0.25,
     "voiceGrammar": "voice-dark-elf"
   },
   {
@@ -46,6 +55,9 @@
     "crewModifiers": { "enginePower": 1.15 },
     "nameGrammar": "names-orc",
     "missionVoiceGrammar": "mission-voice-orc",
+    "talkGrammar": "talk-orc",
+    "haggleChance": 0.5,
+    "haggleOffence": 0.12,
     "voiceGrammar": "voice-orc"
   },
   {
@@ -58,6 +70,9 @@
     "crewModifiers": { "repair": 1.3, "mining": 1.25 },
     "nameGrammar": "names-dwarf",
     "missionVoiceGrammar": "mission-voice-dwarf",
+    "talkGrammar": "talk-dwarf",
+    "haggleChance": 0.65,
+    "haggleOffence": 0.05,
     "voiceGrammar": "voice-dwarf"
   },
   {
@@ -71,6 +86,9 @@
     "crewModifiers": { "weaponRecharge": 1.1 },
     "nameGrammar": "names-synth",
     "missionVoiceGrammar": "mission-voice-synth",
+    "talkGrammar": "talk-synth",
+    "haggleChance": 0.4,
+    "haggleOffence": 0.05,
     "voiceGrammar": "voice-synth"
   },
   {
@@ -84,6 +102,9 @@
     "crewModifiers": { "repair": 1.15 },
     "nameGrammar": "names-free-machine",
     "missionVoiceGrammar": "mission-voice-free-machine",
+    "talkGrammar": "talk-free-machine",
+    "haggleChance": 0.35,
+    "haggleOffence": 0.0,
     "voiceGrammar": "voice-free-machine"
   }
 ]

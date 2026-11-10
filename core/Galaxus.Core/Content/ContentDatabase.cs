@@ -231,6 +231,13 @@ public sealed class ContentDatabase
 
     private void ValidateWorld(List<string> p)
     {
+        foreach (var race in Races.Values.Where(r => r.TalkGrammar != ""))
+        {
+            foreach (var rule in ContentRules.TalkRules) CheckGrammar($"Race '{race.Id}' talk", race.TalkGrammar, rule, p);
+            CheckVariables($"Race '{race.Id}' talk", race.TalkGrammar, ContentRules.TalkVariables, p);
+            if (race.HaggleChance is < 0 or > 1 || race.HaggleOffence is < 0 or > 1) p.Add($"Race '{race.Id}': haggleChance and haggleOffence must be 0 to 1.");
+        }
+
         foreach (var race in Races.Values.Where(r => r.MissionVoiceGrammar != ""))
         {
             foreach (var rule in ContentRules.MissionVoiceRules)

@@ -34,6 +34,10 @@ public partial class StationScreen : PanelContainer
     private RichTextLabel _personText = null!;
     private List<Person> _here = [];
     private string? _shownPerson;
+    private Label _personDetails = null!;
+    private HBoxContainer _topics = null!;
+    private Button _haggle = null!;
+    private readonly Dictionary<string, List<string>> _transcripts = [];
     private List<HullDef> _hulls = [];
     private List<CommodityDef> _commodities = [];
 
@@ -170,6 +174,8 @@ public partial class StationScreen : PanelContainer
         side.AddChild(actions);
         _accept = Ui.Button("Accept job", AcceptSelected);
         actions.AddChild(_accept);
+        _haggle = Ui.Button("Haggle", HaggleSelected);
+        actions.AddChild(_haggle);
         _jobReason = Ui.Label("", Ui.Amber, wrap: true);
         _jobReason.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         actions.AddChild(_jobReason);
@@ -196,6 +202,7 @@ public partial class StationScreen : PanelContainer
         _clientFace.Show([]);
         _clientName.Text = "";
         _accept.Disabled = true;
+        _haggle.Disabled = true;
         _jobReason.Text = "";
     }
 
@@ -224,7 +231,26 @@ public partial class StationScreen : PanelContainer
         }
         var reason = _session.Career.CannotAccept(_session.Db, o);
         _accept.Disabled = reason != null;
+        _haggle.Disabled = _session.Career.Haggled.ContainsKey(o.Id);
         _jobReason.Text = reason ?? "";
+    }
+
+    private void HaggleSelected()
+    {
+        if (SelectedOffer is not { } o) return;
+        var result = Conversation.Haggle(_session, o);
+        AudioManager.Instance?.Ui(result.Accepted ? "paid" : "error");
+        string who = o.ClientId != null ? PeopleDirectory.Contacts(_session.Db, _session.Galaxy, _session.Galaxy.Factions[o.GiverFactionId]).FirstOrDefault(c => c.Id == o.ClientId)?.Name ?? "The client" : "The client";
+        Refresh($"{who}: {result.Text}");
+        if (!result.Withdrawn) SelectOffer(o.Id);
+    }
+
+    private void SelectOffer(string offerId)
+    {
+        var root = _jobs.GetRoot();
+        if (root == null) return;
+        foreach (var item in root.GetChildren())
+            if (_offers[item.GetMetadata(0).AsInt32()].Id == offerId) { item.Select(0); ShowSelectedJob(); return; }
     }
 
     private void AcceptSelected()
@@ -404,10 +430,31 @@ public partial class StationScreen : PanelContainer
         tab.AddChild(_people);
         var side = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         tab.AddChild(side);
-        _personFace = new PortraitView { CustomMinimumSize = new Vector2(100, 120), SizeFlagsHorizontal = SizeFlags.ShrinkBegin };
-        side.AddChild(_personFace);
+        var header = new HBoxContainer();
+        side.AddChild(header);
+        _personFace = new PortraitView { CustomMinimumSize = new Vector2(80, 95) };
+        header.AddChild(_personFace);
+        _personDetails = Ui.Label("", Ui.Green, wrap: true);
+        _personDetails.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        _personDetails.VerticalAlignment = VerticalAlignment.Center;
+        header.AddChild(_personDetails);
         _personText = Ui.Text();
+        _personText.ScrollFollowing = true;
         side.AddChild(_personText);
+        _topics = new HBoxContainer();
+        side.AddChild(_topics);
+        foreach (var topic in Enum.GetValues<Topic>())
+        {
+            var t = topic;
+            _topics.AddChild(Ui.Button(topic switch
+            {
+                Topic.Rumour => "News",
+                Topic.Work => "Work",
+                Topic.Self => "Them",
+                Topic.Drink => $"Drink ({Conversation.DrinkCost} cr)",
+                _ => "Goodbye",
+            }, () => Talk(t)));
+        }
         return tab;
     }
 
@@ -427,7 +474,9 @@ public partial class StationScreen : PanelContainer
         }
         _shownPerson = null;
         _personFace.Show([]);
-        _personText.Text = _here.Count == 0 ? "Nobody about." : "Regulars are in white. Pick someone to see them.";
+        _personDetails.Text = "";
+        _topics.Visible = false;
+        _personText.Text = _here.Count == 0 ? "Nobody about." : "Regulars are in white. Pick someone to talk to them.";
     }
 
     private void ShowSelectedPerson()
@@ -436,19 +485,58 @@ public partial class StationScreen : PanelContainer
         var p = _here[item.GetMetadata(0).AsInt32()];
         if (_shownPerson == p.Id) return;
         _shownPerson = p.Id;
-        var galaxy = _session.Galaxy;
-        bool met = !_session.Career.MetPeople.Add(p.Id);
-        _personFace.Show(PeopleDirectory.Portrait(_session.Db, galaxy, p));
-        var faction = p.FactionId >= 0 ? galaxy.Factions[p.FactionId] : null;
-        string greeting = PeopleDirectory.Greeting(_session.Db, galaxy, p, _session.Career.Captain, _session.Db.Hulls[_session.Career.HullId].Name);
-        _personText.Text =
-            $"[color=#{Ui.Hex(Ui.Amber)}]{p.Name}[/color]\n{RoleName(p)}. {Capitalise(RaceName(p))}, {(p.Gender == "neither" ? "no gender" : p.Gender)}." +
-            (faction != null ? $" Works under [color=#{faction.Colour.TrimStart('#')}]{faction.Name}[/color]." : "") +
-            (p.Regular ? " A regular here." : " Passing through.") +
-            (met ? "\nYou've met before." : "") +
-            (greeting != "" ? $"\n\n\"{greeting}\"" : "") +
-            $"\n\n[color=#{Ui.Hex(Ui.Dim)}]Conversations come in a later build.[/color]";
+        _personFace.Show(PeopleDirectory.Portrait(_session.Db, _session.Galaxy, p));
+        _topics.Visible = true;
+        if (!_transcripts.ContainsKey(p.Id))
+            _transcripts[p.Id] = [$"[color=#{Ui.Hex(Ui.Amber)}]{p.Name}:[/color] {Conversation.Greeting(_session, p)}"];
+        _session.Career.MetPeople.Add(p.Id);
         item.SetText(0, p.Name + "  (met)");
+        ShowPerson(p);
+    }
+
+    /// <summary>For the showcase: say a few things to whoever is selected.</summary>
+    public void TalkAbout(params Topic[] topics)
+    {
+        foreach (var topic in topics) Talk(topic);
+    }
+
+    private Person? ShownPerson => _here.FirstOrDefault(p => p.Id == _shownPerson);
+
+    private void Talk(Topic topic)
+    {
+        if (ShownPerson is not { } p) return;
+        var reply = Conversation.Ask(_session, p, topic);
+        var lines = _transcripts[p.Id];
+        lines.Add($"[color=#{Ui.Hex(Ui.Dim)}]You:[/color] {Lines.Captain(topic)}");
+        lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]{p.Name}:[/color] {reply.Text}");
+        if (reply.Lead != null) lines.Add($"[color=#{Ui.Hex(Ui.Red)}](A lead. It's marked on your galaxy map.)[/color]");
+        AudioManager.Instance?.Ui(reply.DispositionChange > 0 ? "confirm" : "click");
+        ShowPerson(p);
+        RefreshHeaderOnly();
+    }
+
+    private void ShowPerson(Person p)
+    {
+        var galaxy = _session.Galaxy;
+        var faction = p.FactionId >= 0 ? galaxy.Factions[p.FactionId] : null;
+        int feeling = Conversation.Disposition(_session.Career, p);
+        string mood = feeling >= 25 ? "friendly" : feeling >= 8 ? "warm" : feeling > -8 ? "neutral" : feeling > -20 ? "cool" : "cold";
+        _personDetails.Text =
+            $"{p.Name}\n{RoleName(p)}. {Capitalise(RaceName(p))}{(p.Gender == "neither" ? "" : $", {p.Gender}")}." +
+            (faction != null ? $"\nWorks under {faction.Name}." : "") +
+            $"\n{(p.Regular ? "A regular here" : "Passing through")}. Seems {mood}.";
+        _personText.Text = string.Join("\n", _transcripts[p.Id]);
+    }
+
+    /// <summary>Updates credits in the header after buying a round, without rebuilding every tab.</summary>
+    private void RefreshHeaderOnly()
+    {
+        var career = _session.Career;
+        var db = _session.Db;
+        var text = _header.Text;
+        int cut = text.LastIndexOf("\nDay ", StringComparison.Ordinal);
+        if (cut >= 0)
+            _header.Text = text[..cut] + $"\nDay {_session.Galaxy.Day}.  {career.Credits:N0} cr.  {db.Hulls[career.HullId].Name}, hold {career.CargoUsed}/{career.CargoCapacity(db)} t.";
     }
 
     /// <summary>For the showcase: selects the nth person present.</summary>

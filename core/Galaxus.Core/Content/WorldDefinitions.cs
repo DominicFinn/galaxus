@@ -167,6 +167,11 @@ public static class ContentRules
     public const string VoiceAlias = "voice";
     public static readonly string[] MissionVoiceRules = ["opener", "urgency", "payment", "warning", "closer"];
 
+    /// <summary>Rules every race conversation grammar needs. See game/data/grammars/talk/human.json.</summary>
+    public static readonly string[] TalkRules =
+        ["greeting-known", "rumour", "no-rumour", "work", "no-work", "self", "drink", "drink-again", "pestered", "cold", "farewell", "haggle-yes", "haggle-no", "haggle-offended"];
+    public static readonly string[] TalkVariables = ["captain", "system", "faction", "fact", "role", "name", "place"];
+
     /// <summary>Grammars the galaxy generator needs, each with a "name" rule.</summary>
     public static readonly string[] PlaceGrammars = ["places-system", "places-station"];
 }

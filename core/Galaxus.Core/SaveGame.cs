@@ -37,6 +37,11 @@ public static class SaveGame
         public Dictionary<int, int> Reputation { get; set; } = [];
         public List<string> TakenOffers { get; set; } = [];
         public List<string> MetPeople { get; set; } = [];
+        public Dictionary<string, int> Disposition { get; set; } = [];
+        public Dictionary<string, int> LastDrink { get; set; } = [];
+        public List<string> KnownLeads { get; set; } = [];
+        public Dictionary<string, float> Haggled { get; set; } = [];
+        public List<string> WithdrawnOffers { get; set; } = [];
         public List<SavedMission> Missions { get; set; } = [];
     }
 
@@ -85,6 +90,11 @@ public static class SaveGame
             Reputation = new(c.Reputation),
             TakenOffers = [.. c.TakenOffers],
             MetPeople = [.. c.MetPeople],
+            Disposition = new(c.Disposition),
+            LastDrink = new(c.LastDrink),
+            KnownLeads = [.. c.KnownLeads],
+            Haggled = new(c.Haggled),
+            WithdrawnOffers = [.. c.WithdrawnOffers],
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -137,6 +147,11 @@ public static class SaveGame
         foreach (var (k, v) in data.Reputation) c.Reputation[k] = v;
         foreach (var id in data.TakenOffers) c.TakenOffers.Add(id);
         foreach (var id in data.MetPeople) c.MetPeople.Add(id);
+        foreach (var (k, v) in data.Disposition) c.Disposition[k] = v;
+        foreach (var (k, v) in data.LastDrink) c.LastDrink[k] = v;
+        foreach (var id in data.KnownLeads) c.KnownLeads.Add(id);
+        foreach (var (k, v) in data.Haggled) c.Haggled[k] = v;
+        foreach (var id in data.WithdrawnOffers) c.WithdrawnOffers.Add(id);
 
         foreach (var m in data.Missions.Where(m => db.Missions.ContainsKey(m.TemplateId)))
         {

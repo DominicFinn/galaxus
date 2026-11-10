@@ -21,7 +21,7 @@
     "pestered": ["You ask a lot of questions.", "I do have work to do, you know.", "Maybe another time."],
     "cold": ["I've nothing to say to you.", "Move along.", "Not interested."],
     "farewell": ["Safe flying.", "See you around.", "Mind how you go."],
-    "haggle-yes": ["#reluctant# Fine. {fact}", "You drive a hard bargain. {fact}"],
+    "haggle-yes": ["#reluctant# Fine. {fact}.", "You drive a hard bargain. {fact}."],
     "reluctant": ["Ugh.", "All right, all right.", "You're lucky I like your face."],
     "haggle-no": ["That's the rate. Take it or leave it.", "No. It's a fair price already."],
     "haggle-offended": ["Forget it. I'll find someone else.", "If that's how you want to be, the job's gone."]

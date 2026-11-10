@@ -24,6 +24,23 @@ public sealed class Career
     public Dictionary<string, int> Cargo { get; } = [];
     /// <summary>Ids of people you've met, so they can greet you as someone they know.</summary>
     public HashSet<string> MetPeople { get; } = [];
+    /// <summary>How each person feels about you, -100 to 100, by person id.</summary>
+    public Dictionary<string, int> Disposition { get; } = [];
+    /// <summary>Day you last bought each person a drink.</summary>
+    public Dictionary<string, int> LastDrink { get; } = [];
+    /// <summary>Questions asked of each person today, as "day:count".</summary>
+    public Dictionary<string, string> Questions { get; } = [];
+    /// <summary>Criminal haunts you've been told about, as "factionId:systemId".</summary>
+    public HashSet<string> KnownLeads { get; } = [];
+    /// <summary>Jobs you've haggled over and the pay multiplier agreed (1 means refused).</summary>
+    public Dictionary<string, float> Haggled { get; } = [];
+    /// <summary>Jobs pulled after a haggle offended the client.</summary>
+    public HashSet<string> WithdrawnOffers { get; } = [];
+
+    public int AskedToday(string personId, int day) =>
+        Questions.TryGetValue(personId, out var v) && v.Split(':') is [var d, var n] && int.Parse(d) == day ? int.Parse(n) : 0;
+
+    public void Asked(string personId, int day) => Questions[personId] = $"{day}:{AskedToday(personId, day) + 1}";
 
     /// <summary>Selling gets a little less than the asking price.</summary>
     public const float SellFactor = 0.94f;

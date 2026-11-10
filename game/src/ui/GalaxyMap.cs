@@ -147,6 +147,7 @@ public partial class GalaxyMap : Control
             (s.Stations.Count > 0 ? $"Stations: {string.Join(", ", s.Stations)}\n" : "No stations.\n") +
             (events.Any() ? $"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]\n" : "") +
             (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here.[/color]\n" : "") +
+            string.Concat(_session.Career.KnownLeads.Where(l => l.EndsWith($":{id}")).Select(l => $"[color=#{Ui.Hex(Ui.Red)}]Ask around here for {galaxy.Factions[int.Parse(l.Split(':')[0])].Name}.[/color]\n")) +
             (id == _session.Career.SystemId ? "You are here." : $"{route.Count - 1} jumps, {days} days.");
 
         bool canJump = _selected >= 0 && _selected != _session.Career.SystemId && _route.Count > 1;
@@ -188,6 +189,14 @@ public partial class GalaxyMap : Control
             DrawRect(new Rect2(p - Vector2.One * dot / 2, Vector2.One * dot), c);
             if (galaxy.EventsIn(s.Id).Any() && _zoom > 0.5f) DrawArc(p, dot + 2, 0, Mathf.Tau, 12, new Color(Ui.Red, 0.6f), 1);
         }
+
+        // Underworld leads you've been told about: a red diamond on the system.
+        foreach (var lead in _session.Career.KnownLeads)
+            if (lead.Split(':') is [_, var sys] && int.TryParse(sys, out int id) && id < galaxy.Systems.Count)
+            {
+                var p = ToScreen(galaxy.Systems[id].Position);
+                DrawColoredPolygon([p + new Vector2(0, -dot - 4), p + new Vector2(dot + 4, 0), p + new Vector2(0, dot + 4), p + new Vector2(-dot - 4, 0)], new Color(Ui.Red, 0.55f));
+            }
 
         foreach (var job in _session.Career.Missions)
             DrawArc(ToScreen(galaxy.Systems[job.Offer.DestinationSystemId].Position), dot + 4, 0, Mathf.Tau, 16, Ui.Amber, 1);

@@ -23,6 +23,12 @@ public sealed class RaceDef
     public string VoiceGrammar { get; set; } = "";
     /// <summary>Grammar mission text uses as #voice:rule# when the client is this race.</summary>
     public string MissionVoiceGrammar { get; set; } = "";
+    /// <summary>Grammar for conversations at stations. See ContentRules.TalkRules.</summary>
+    public string TalkGrammar { get; set; } = "";
+    /// <summary>Chance a client of this race agrees to a haggled price, 0 to 1.</summary>
+    public float HaggleChance { get; set; } = 0.4f;
+    /// <summary>Chance a refused haggle offends them enough to withdraw the job, 0 to 1.</summary>
+    public float HaggleOffence { get; set; } = 0.15f;
 }
 
 public sealed class BuilderDef
