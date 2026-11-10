@@ -61,6 +61,7 @@ public partial class Main : Node3D
 
     /// <summary>A session to start when the scene reloads (New game, Continue, Load).</summary>
     private static Session? _pendingSession;
+    private static bool _pendingViewer;
     private static bool _splashShown;
     private MenuScreen _menu = null!;
     private Screen _pauseReturn = Screen.Flight;
@@ -109,6 +110,16 @@ public partial class Main : Node3D
         _camera = new Camera3D { Fov = 70, Near = 0.3f, Far = 150000, Current = true };
         AddChild(_camera);
 
+        // The ship and station viewer: from the menu, with --viewer, or as the Galaxus Preview build.
+        bool standaloneViewer = OS.HasFeature("viewer") || OS.GetCmdlineUserArgs().Contains("--viewer");
+        if (_pendingViewer || standaloneViewer)
+        {
+            _pendingViewer = false;
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            AddChild(new Viewer(_db, _camera, standaloneViewer ? null : () => Restart(null)));
+            return;
+        }
+
         var menuLayer = new CanvasLayer { Layer = 3 };
         AddChild(menuLayer);
         _menu = new MenuScreen { Visible = false };
@@ -118,6 +129,7 @@ public partial class Main : Node3D
             NewCampaign = id => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id)),
             Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Tutorial ? 0 : 1).ThenBy(c => c.Name).Select(c => (c.Id, c.Tutorial ? $"Tutorial: {c.Name}" : c.Name, c.Summary)),
             PreviewBattle = PreviewRequested,
+            OpenViewer = () => { _pendingViewer = true; Restart(null); },
             PreviewBattles = PreviewBattles,
             Simulations = () => _db.Battles.Values.Where(b => b.Kind == "sim").OrderBy(b => b.Order).Select(b => (b.Id, b.Name, SimSummary(b))),
             Load = slot => Restart(SaveSlots.Read(_db, slot)),

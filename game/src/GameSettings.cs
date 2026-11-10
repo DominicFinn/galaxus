@@ -61,6 +61,11 @@ public sealed class GameSettings
         SfxVolume = Mathf.Clamp(SfxVolume, 0, 1);
         AudioManager.Instance?.ApplyVolumes();
         if (DisplayServer.GetName() == "headless") return;
+        // Only touch the window when its own settings change, so changing the difficulty (or
+        // anything else) doesn't pull you out of a full screen you chose some other way.
+        if (_appliedFullscreen == Fullscreen && _appliedScale == WindowScale) return;
+        _appliedFullscreen = Fullscreen;
+        _appliedScale = WindowScale;
         if (Fullscreen) DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
         else
         {
@@ -68,6 +73,9 @@ public sealed class GameSettings
             DisplayServer.WindowSetSize(new Vector2I(640 * WindowScale, 360 * WindowScale));
         }
     }
+
+    private static bool? _appliedFullscreen;
+    private static int _appliedScale;
 }
 
 /// <summary>

@@ -48,3 +48,8 @@ These are best estimates, not tested figures.
 - Windows and Linux builds are exported but have not been run on those systems.
 - ARM builds for Windows and Linux are not produced.
 - The macOS build is not notarised, so Gatekeeper will always ask on first launch.
+
+## Galaxus Preview
+
+The export also makes **Galaxus Preview** for each platform (`build/GalaxusPreview-<platform>.zip`): the same game, opening straight into the ship and station viewer, for showing people the ships, warships and stations without playing. It's the same code with the `viewer` feature switched on in its export preset. The full game has the viewer too, under "Ships and stations" on the main menu, and `--viewer` opens it from the command line.
+
