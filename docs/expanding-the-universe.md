@@ -238,6 +238,55 @@ Four optional fields let a mod's faction feel like its own people. With none of 
 { "id": "gy-long-leaving", "factionType": "gy-gyptian-fleet", "rival": "meridian-concord", "baseLandmark": "gy-homecoming-reach", ... }
 ```
 
+## Music styles
+
+Each race has a lo-fi music style in `game/data/music/styles.json`, and a mod can add more in its own `music` folder. The game composes the songs itself from these rules, so a style is a few lines of JSON, not a recording. The style whose id matches a race plays in that race's systems.
+
+```json
+{
+  "id": "human",
+  "name": "Human space",
+  "description": "Classic lo-fi, like a quiet night shift on a working port.",
+  "tempo": [72, 80], "scale": "ionian", "root": 41,
+  "progressions": [[2, 5, 1, 6], [4, 5, 3, 6]],
+  "ninths": 0.6, "swing": 0.18,
+  "keys": { "instrument": "rhodes", "pattern": "comp", "tone": 0.5 },
+  "bass": { "instrument": "sub", "pattern": "lazy" },
+  "lead": { "instrument": "flute", "density": 0.35 },
+  "pad": { "instrument": "warm", "volume": 0.6 },
+  "plucks": { "instrument": "kalimba", "pattern": "ostinato", "density": 0.4, "volume": 0.6 },
+  "drums": { "kit": "boom-bap", "busy": 0.4 },
+  "space": { "shimmer": 0.5, "reverb": 0.6, "vinyl": 0.45, "hiss": 0.35, "wow": 0.45, "warmth": 0.6 }
+}
+```
+
+The options:
+
+| Field | Values |
+| --- | --- |
+| `tempo` | [min, max] beats per minute, 50 to 120. Lo-fi sits around 60 to 90. |
+| `scale` | ionian, dorian, phrygian, lydian, mixolydian, aeolian, locrian, harmonic-minor, pentatonic-minor, pentatonic-major, whole-tone |
+| `root` | the key's root as a MIDI note in the bass register, 33 to 52 (41 is F) |
+| `progressions` | chords as scale degrees, one a bar, four or eight to a progression |
+| `ninths`, `swing` | how often chords get a ninth (0 to 1), and how late the off-beats land (0 to 0.35) |
+| `keys` | rhodes, felt-piano, glass, organ or off; patterns comp, sustain, rolled |
+| `bass` | sub, round, upright or off; patterns lazy, walk, sub, bounce |
+| `lead` | flute, sine, mellow, bell or off |
+| `pad` | warm, glass, choir, dark or off |
+| `plucks` | kalimba, koto, harp, bell or off; patterns ostinato, arp, sparse |
+| `drums` | kit boom-bap, brushes, dusty, glitch or off; `busy` 0 to 1 |
+| `space` | shimmer, reverb, vinyl, hiss, wow (tape wobble) and warmth, each 0 to 1 |
+
+Every part also takes `volume` (0 to 2), and `density` and `tone` (0 to 1).
+
+To hear a style without starting the game, render it to WAV files:
+
+```sh
+dotnet run -c Release --project tools/music-preview -- game/data build/music human --moods
+```
+
+`--moods` renders the docked, flight and combat versions; `--stems` adds each channel on its own.
+
 ## Grammar basics
 
 A grammar is a list of rules. A rule is a list of options and the game picks one at random, using a seed so the same seed always gives the same text.
