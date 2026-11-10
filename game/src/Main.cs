@@ -303,7 +303,7 @@ public partial class Main : Node3D
         _stationScreen.OpenSystemMapRequested += OpenSystemMap;
         uiLayer.AddChild(_stationScreen);
         _map = new GalaxyMap();
-        _map.Init(_session, JumpTo, CloseMap);
+        _map.Init(_session, JumpTo, CloseMap, JumpBlocked, CallRescue);
         uiLayer.AddChild(_map);
         _systemMap = new SystemMap();
         _systemMap.Init(_session, SetCourse, CloseSystemMap, () => PlayerKm, () => _navTarget);
@@ -432,6 +432,8 @@ public partial class Main : Node3D
     {
         _timeWarp = 1;
         _player.Resupply();
+        // On Easy the station tops your tank up as you dock.
+        if (GameSettings.Current.Difficulty == 0) _session.Refuel();
         _stationScreen.Port = _dockedAtFlagship && Campaigns.Current(_session) is { } campaign ? campaign.BaseName : _dockedPort?.Name;
         // Docking delivers any jobs for this station.
         string stationName = _dockedPort?.Name ?? _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
@@ -502,6 +504,16 @@ public partial class Main : Node3D
         else JumpNow(systemId);
     }
 
+    /// <summary>A rescue tug, when you've run dry somewhere you can't get out of.</summary>
+    private void CallRescue()
+    {
+        var (to, fee, days) = _session.CallRescue();
+        EnterSystem();
+        SetScreen(Screen.Flight);
+        ArriveInOpenSpace();
+        _hud.Message($"A TUG BROUGHT YOU TO {to.Name.ToUpperInvariant()} AFTER {days} DAYS, FOR {fee:N0} CR");
+    }
+
     private void JumpNow(int systemId)
     {
         var report = _session.Jump(systemId);
@@ -513,15 +525,11 @@ public partial class Main : Node3D
         foreach (var result in report.Results.Where(r => !r.Success))
             summary += $" Job failed: {result.Mission.Offer.Mission.Title}.";
 
-        // Back at the fleet, you dock with the flagship; elsewhere at the station.
-        if (_flagship != null) { _dockedAtFlagship = true; Dock(summary); _stationScreen.ShowTab(7); }
-        else if (_session.Here.Stations.Count > 0) Dock(summary);
-        else
-        {
-            SetScreen(Screen.Flight);
-            _hud.Message(summary.ToUpperInvariant());
-            _hud.Message("NO STATION IN THIS SYSTEM");
-        }
+        // You arrive in open space and fly in.
+        SetScreen(Screen.Flight);
+        ArriveInOpenSpace();
+        _hud.Message(summary.ToUpperInvariant());
+        if (_session.Here.Stations.Count == 0) _hud.Message(_session.Stranded ? "OUT OF FUEL: OPEN THE MAP (M) TO CALL A RESCUE TUG" : "NO STATION IN THIS SYSTEM");
     }
 
     /// <summary>After buying a ship, swap the player's ship for the new one.</summary>

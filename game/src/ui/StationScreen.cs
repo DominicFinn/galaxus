@@ -363,6 +363,7 @@ public partial class StationScreen : PanelContainer
         actions.AddChild(Ui.Button("Buy 10 t", () => Trade(10)));
         actions.AddChild(Ui.Button("Sell 1 t", () => Trade(-1)));
         actions.AddChild(Ui.Button("Sell all", () => Trade(-10000)));
+        actions.AddChild(Ui.Button("Fill up fuel", FillUp));
         _marketNote = Ui.Label("", Ui.Dim);
         _marketNote.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         actions.AddChild(_marketNote);
@@ -417,7 +418,23 @@ public partial class StationScreen : PanelContainer
         ShowMarketTip();
     }
 
-    private const string MarketNote = "Stock is limited and prices move as you trade. Markets recover over a few days.";
+    private string MarketNote
+    {
+        get
+        {
+            float fuel = _session.FuelLy, tank = _session.FuelTankLy;
+            return $"Fuel {fuel:0}/{tank:0} ly ({_session.FuelPricePerLy()} cr a light year). Stock is limited and prices move as you trade.";
+        }
+    }
+
+    /// <summary>Fills the tank for direct jumps, as far as your credits go.</summary>
+    private void FillUp()
+    {
+        int before = _session.Career.Credits;
+        float added = _session.Refuel();
+        AudioManager.Instance?.Ui(added > 0 ? "paid" : "error");
+        Refresh(added > 0 ? $"Filled up: {added:0.0} ly of fuel for {before - _session.Career.Credits:N0} cr." : _session.FuelLy >= _session.FuelTankLy - 0.01f ? "Your tank is already full." : "You can't afford any fuel.");
+    }
 
     /// <summary>For something in your hold: the best place you know to sell it, if anywhere beats here.</summary>
     private void ShowMarketTip()

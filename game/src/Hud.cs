@@ -32,6 +32,8 @@ public partial class Hud : Control
     public string? Prompt { get; set; }
     /// <summary>Cruise and course readout, shown under the location.</summary>
     public string Cruise { get; set; } = "";
+    /// <summary>Fuel for direct jumps, e.g. "120/150 LY".</summary>
+    public string Fuel { get; set; } = "";
     /// <summary>The active job and what to do next, shown top right. Empty for none.</summary>
     public string JobTitle { get; set; } = "";
     public bool ShowPerformance { get; set; }
@@ -329,6 +331,7 @@ public partial class Hud : Control
         Text(origin, assist ? "FLIGHT ASSIST ON" : "FLIGHT ASSIST OFF", assist ? Green : Amber);
         Text(origin + new Vector2(0, 14), $"SPD {Player.Body.Speed,4:0} m/s", Green);
         Text(origin + new Vector2(0, 26), $"MAX {stats.MaxSpeed,4:0} m/s", Dim);
+        if (Fuel != "") Text(origin + new Vector2(0, 38), $"FUEL {Fuel}", Dim);
 
         // Throttle bar: the setting with assist on, live thrust with it off.
         var bar = new Rect2(origin + new Vector2(76, -4), new Vector2(8, 60));

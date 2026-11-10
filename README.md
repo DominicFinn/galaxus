@@ -56,7 +56,7 @@ Those 1,400 systems are the ones joined by jump gates. Between them lie about a 
 
 ![Zoomed in: the stars between the gates, and the ring of jump range](docs/screenshots/galaxy-deep-stars.png)
 
-Travel is by the old elf gate network. Pick a destination and the map plots the route; days pass as you fly.
+Travel is by the old elf gate network. Pick a destination and the map plots the route; days pass as you fly. Gates cost nothing; direct jumps to the stars between them use fuel, and tanks are generous (a courier's covers 150 light years, an explorer's 300), with a fill-up at any station and a rescue tug if you ever run dry. You jump from open space, clear of stations and planets, and arrive in open space too, then fly in. The map's Gates mode shows the main routes and the bridge gates, the only way into some parts of the galaxy; click any system to see its news, history and what you know of it, with a separate panel comparing its market with yours.
 
 ![A route plotted across the map](docs/screenshots/map-route.png)
 

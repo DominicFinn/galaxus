@@ -11,7 +11,7 @@ namespace Galaxus.Core.Galaxy;
 public sealed record GateRole(int A, int B, bool Bridge, int Beyond, bool CrossesRegion, bool CrossesArm, float Weight)
 {
     /// <summary>A main route: worth drawing boldly on the map.</summary>
-    public bool Main => Bridge || CrossesRegion || Weight > 0.35f;
+    public bool Main => Bridge || Weight > 0.4f || (CrossesRegion && Weight > 0.2f);
 }
 
 /// <summary>

@@ -592,6 +592,8 @@ public partial class Main
     /// <summary>HUD readout for cruise and course.</summary>
     private void UpdateNavHud()
     {
+        var (fuel, tank) = FuelGauge();
+        _hud.Fuel = tank > 0 ? $"{fuel:0}/{tank:0} LY" : "";
         var target = NavTargetKm();
         string status = _cruising ? $"{(_autopilot ? "AUTOPILOT" : "CRUISE")} {FormatSpeed(_cruiseSpeed)}" : "";
         if (target is { } t)

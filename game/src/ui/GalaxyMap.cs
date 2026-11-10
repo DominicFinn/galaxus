@@ -44,11 +44,18 @@ public partial class GalaxyMap : Control
     }
     private Button _jumpButton = null!;
 
-    public void Init(Session session, Action<int> jump, Action close)
+    private Func<string?> _jumpBlocked = () => null;
+    private Action _rescue = () => { };
+
+    /// <param name="jumpBlocked">Why you can't jump from where you are (docked, too close to a station or a world), or null.</param>
+    /// <param name="rescue">Calls a rescue tug when you're stranded.</param>
+    public void Init(Session session, Action<int> jump, Action close, Func<string?>? jumpBlocked = null, Action? rescue = null)
     {
         _session = session;
         _jump = jump;
         _close = close;
+        if (jumpBlocked != null) _jumpBlocked = jumpBlocked;
+        if (rescue != null) _rescue = rescue;
     }
 
     public override void _Ready()
@@ -73,7 +80,15 @@ public partial class GalaxyMap : Control
         _modePicker = new OptionButton { FocusMode = FocusModeEnum.None };
         _modePicker.AddItem("Factions");
         _modePicker.AddItem("Trade");
-        _modePicker.ItemSelected += i => { _tradeMode = i == 1; _goodsPicker.Visible = _tradeMode; RefreshTrade(); };
+        _modePicker.AddItem("Gates");
+        _modePicker.ItemSelected += i =>
+        {
+            _tradeMode = i == 1;
+            _gatesMode = i == 2;
+            _goodsPicker.Visible = _tradeMode;
+            if (_gatesMode) _jumpsFromHere = JumpsFrom(_session.Career.SystemId);
+            RefreshTrade();
+        };
         modes.AddChild(_modePicker);
         _goodsPicker = new OptionButton { FocusMode = FocusModeEnum.None, Visible = false, SizeFlagsHorizontal = SizeFlags.ExpandFill };
         _goodsPicker.AddItem("Best runs");
@@ -86,12 +101,51 @@ public partial class GalaxyMap : Control
         modes.AddChild(_goodsPicker);
         // For screenshots: --map-mode=trade opens the trade overlay.
         if (OS.GetCmdlineUserArgs().Contains("--map-mode=trade")) { _modePicker.Select(1); _tradeMode = true; _goodsPicker.Visible = true; }
+        if (OS.GetCmdlineUserArgs().Contains("--map-mode=gates")) { _modePicker.Select(2); _gatesMode = true; }
 
-        _jumpButton = Ui.Button("Jump", () => { if (_selected >= 0) _jump(_selected); });
+        _jumpButton = Ui.Button("Jump", () =>
+        {
+            if (_session.Stranded) { _rescue(); return; }
+            if (_selected >= 0) _jump(_selected);
+        });
         box.AddChild(_jumpButton);
+        _jumpReason = Ui.Label("", Ui.Amber, wrap: true);
+        _jumpReason.CustomMinimumSize = new Vector2(180, 0);
+        box.AddChild(_jumpReason);
         box.AddChild(Ui.Button("Close map (M)", () => _close()));
         _jobs = new VBoxContainer();
         box.AddChild(_jobs);
+
+        // The trade panel: the market there against the market here, for whichever system you point at.
+        _tradePanel = new PanelContainer { Visible = false, CustomMinimumSize = new Vector2(230, 0) };
+        _tradePanel.SetAnchorsAndOffsetsPreset(LayoutPreset.TopRight, LayoutPresetMode.KeepSize, 6);
+        _tradePanel.GrowHorizontal = GrowDirection.Begin;
+        AddChild(_tradePanel);
+        _tradeText = Ui.Text();
+        _tradeText.FitContent = true;
+        _tradeText.ScrollActive = false;
+        _tradeText.CustomMinimumSize = new Vector2(220, 0);
+        _tradePanel.AddChild(_tradeText);
+    }
+
+    private Label _jumpReason = null!;
+    private PanelContainer _tradePanel = null!;
+    private RichTextLabel _tradeText = null!;
+    private bool _gatesMode;
+    private Dictionary<int, int> _jumpsFromHere = [];
+
+    /// <summary>Gate jumps from a system to every other it can reach.</summary>
+    private Dictionary<int, int> JumpsFrom(int start)
+    {
+        var jumps = new Dictionary<int, int> { [start] = 0 };
+        var queue = new Queue<int>([start]);
+        while (queue.Count > 0)
+        {
+            int node = queue.Dequeue();
+            foreach (var n in _session.Galaxy.Systems[node].Gates)
+                if (jumps.TryAdd(n, jumps[node] + 1)) queue.Enqueue(n);
+        }
+        return jumps;
     }
 
     private VBoxContainer _jobs = null!;
@@ -147,6 +201,46 @@ public partial class GalaxyMap : Control
                 lines.Add($"{galaxy.Systems[d.Source].Name} has {GoodsName(d.CommodityId).ToLowerInvariant()} going cheap, and {galaxy.Systems[d.Destination].Name} is paying well for it. For a few more days.");
         }
         return string.Join("\n", lines);
+    }
+
+    /// <summary>
+    /// The trade panel for a system: how its market compares with where you are, what's higher and
+    /// lower, the best run between the two, and its own cheap and wanted goods.
+    /// </summary>
+    private void UpdateTradePanel(int id)
+    {
+        var galaxy = _session.Galaxy;
+        if (id < 0 || galaxy.Systems[id].Stations.Count == 0)
+        {
+            _tradePanel.Visible = false;
+            return;
+        }
+        var there = galaxy.Systems[id];
+        var lines = new List<string> { $"[color=#{Ui.Hex(Ui.Amber)}]TRADE: {there.Name.ToUpperInvariant()}[/color]" };
+        if (id == _session.Career.SystemId)
+            lines.Add("Your market today. Pick another system to compare.");
+        else if (_session.Here.Stations.Count == 0)
+            lines.Add("No market here to compare with.");
+        else
+        {
+            var c = TradeIntel.Compare(_session, there);
+            if (c.AgeDays == null) lines.Add("You haven't seen this market. Visit it, or listen in bars, to learn its prices.");
+            else
+            {
+                lines.Add($"Against {_session.Here.Name}, from prices {(c.AgeDays == 0 ? "today" : $"{c.AgeDays} days old")}.");
+                lines.Add($"\n[color=#{Ui.Hex(Ui.Amber)}]Higher there[/color] (take from here):");
+                lines.AddRange(c.Higher.Count == 0 ? ["  nothing worth the trip"]
+                    : c.Higher.Select(g => $"  {GoodsName(g.CommodityId)}: {g.Buy:N0} here, {g.Sell:N0} there, +{g.Margin:N0}/t, {TrendText(g.Trend)}"));
+                lines.Add($"\n[color=#{Ui.Hex(Ui.Amber)}]Lower there[/color] (bring back here):");
+                lines.AddRange(c.Lower.Count == 0 ? ["  nothing worth bringing"]
+                    : c.Lower.Select(g => $"  {GoodsName(g.CommodityId)}: {g.Buy:N0} there, {g.Sell:N0} here, +{g.Margin:N0}/t, {TrendText(g.Trend)}"));
+                if (c.Best is { } best)
+                    lines.Add($"\nBest run: {best.Tonnes} t of {GoodsName(best.CommodityId).ToLowerInvariant()}, about {best.Profit:N0} cr in {best.Days} days.");
+            }
+        }
+        lines.Add(MarketLines(there));
+        _tradeText.Text = string.Join("\n", lines);
+        _tradePanel.Visible = true;
     }
 
     /// <summary>A system's market as you know it: what's cheap there and what it pays well for.</summary>
@@ -225,6 +319,7 @@ public partial class GalaxyMap : Control
         _selected = -1;
         _route = [];
         RebuildJobs();
+        if (_gatesMode) _jumpsFromHere = JumpsFrom(_session.Career.SystemId);
         RefreshTrade();
         if (_session.Career.ActiveJob is { } job && job.Offer.DestinationSystemId != _session.Career.SystemId)
         {
@@ -306,66 +401,122 @@ public partial class GalaxyMap : Control
     {
         var galaxy = _session.Galaxy;
         int id = _hovered >= 0 ? _hovered : _selected;
+        UpdateJumpButton();
+        UpdateTradePanel(id);
+        var (fuel, tank) = (_session.FuelLy, _session.FuelTankLy);
+        string fuelLine = tank > 0 ? $"Fuel {fuel:0} of {tank:0} ly for direct jumps. Gates are free.\n" : "";
         if (id < 0 && _tradeMode)
         {
             _info.Text = TradeSummary();
-            _jumpButton.Disabled = true;
-            _jumpButton.Text = "Jump";
             return;
         }
         if (id < 0)
         {
-            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]GALAXY MAP[/color]\nDay {galaxy.Day}. You are at {_session.Here.Name}.\n" +
-                         "Click a system to plot a route. Scroll to zoom, right-drag to pan.\n\n" + Legend();
-            _jumpButton.Disabled = true;
-            _jumpButton.Text = "Jump";
+            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]GALAXY MAP[/color]\nDay {galaxy.Day}. You are at {_session.Here.Name}.\n" + fuelLine +
+                         (_gatesMode ? "Bright lines are the main gate routes; amber ones are bridges, the only way into whole parts of the galaxy. Numbers are gate jumps from here.\n\n"
+                                     : "Click a system to plot a route. Scroll to zoom, right-drag to pan.\n\n") + Legend();
             return;
         }
 
         var s = galaxy.Systems[id];
         float distanceLy = galaxy.DistanceLy(_session.Career.SystemId, id);
-        float range = _session.JumpRangeLy;
-        if (!s.IsGateSystem || !_session.Here.IsGateSystem)
+        var plan = _session.PlanJump(id);
+        string travel = id == _session.Career.SystemId ? "You are here."
+            : plan.Kind == JumpKind.Direct ? $"{distanceLy:0.0} ly. A direct jump: {plan.Days} days, {plan.FuelLy:0.0} ly of fuel."
+            : plan.Kind == JumpKind.Gates ? GateRouteText(id)
+            : $"{distanceLy:0.0} ly. [color=#{Ui.Hex(Ui.Red)}]{plan.Reason}[/color]";
+
+        if (!s.IsGateSystem)
         {
             var star = Galaxus.Core.Galaxy.SolarSystems.StarFor(s.Seed);
-            bool inRange = distanceLy <= range && id != _session.Career.SystemId;
             _info.Text =
                 $"[color=#{Ui.Hex(Ui.Amber)}]{s.Name.ToUpperInvariant()}[/color]\n" +
-                (s.IsGateSystem ? "Gate system.\n" : $"Unexplored. {star.Description}.\n") +
-                $"{Capitalise(s.Region)}, {s.Arm} arm.\n" +
-                (id == _session.Career.SystemId ? "You are here." :
-                    $"{distanceLy:0.0} light years away.\n" + (inRange
-                        ? $"Within jump range ({Galaxus.Core.Session.JumpDays(distanceLy)} days)."
-                        : $"[color=#{Ui.Hex(Ui.Red)}]Out of range. Your drive reaches {range:0} ly.[/color]"));
-            bool canJumpDeep = _selected == id && inRange;
-            _jumpButton.Disabled = !canJumpDeep;
-            _jumpButton.Text = canJumpDeep ? $"Jump to {s.Name} ({Galaxus.Core.Session.JumpDays(distanceLy)} days)" : "Jump";
+                $"A star between the gates: {star.Description}.\n" +
+                $"{Capitalise(s.Region)}, {s.Arm} arm. Only reached by direct jump.\n" + travel;
             return;
         }
+
         var owner = galaxy.OwnerOf(s);
-        var events = galaxy.EventsIn(id).Select(e => _session.Db.Events.TryGetValue(e.EventId, out var d) ? d.Name : e.EventId);
-        var route = id == _selected ? _route : galaxy.Route(_session.Career.SystemId, id);
-        int days = galaxy.RouteDays(route);
+        var events = galaxy.EventsIn(id).Select(e => _session.Db.Events.TryGetValue(e.EventId, out var d) ? d.Name : e.EventId).ToList();
         var jobs = _session.Career.Missions.Where(m => m.Offer.DestinationSystemId == id).ToList();
+        var news = galaxy.News.Where(n => n.SystemId == id).TakeLast(3).Reverse().ToList();
+        var wars = galaxy.Conflicts.Where(c => c.FrontSystem == id).ToList();
+        var bridges = s.Gates.Select(g => GateNetwork.Role(galaxy, id, g)).Where(r => r is { Bridge: true }).ToList();
+        string Faction(int f) => f >= 0 && f < galaxy.Factions.Count ? $"[color=#{galaxy.Factions[f].Colour.TrimStart('#')}]{galaxy.Factions[f].Name}[/color]" : "nobody";
 
-        _info.Text =
-            $"[color=#{Ui.Hex(Ui.Amber)}]{s.Name.ToUpperInvariant()}[/color]\n" +
-            $"{Capitalise(s.Region)}, {s.Arm} arm. {s.State}{(s.Economy != Economy.None ? $", {s.Economy}" : "")}.\n" +
-            (owner != null ? $"Held by [color=#{owner.Colour.TrimStart('#')}]{owner.Name}[/color].\n" : "Unclaimed.\n") +
-            ProfileLine(s) +
-            (s.LandmarkNote is { Length: > 0 } note ? $"[color=#{Ui.Hex(Ui.Amber)}]{note}[/color]\n" : "") +
-            (s.Stations.Count > 0 ? $"Stations: {string.Join(", ", s.Stations)}\n" : "No stations.\n") +
-            (events.Any() ? $"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]\n" : "") +
-            (jobs.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here: {string.Join(", ", jobs.Select(j => j.Offer.DestinationStation).Distinct())}.[/color]\n" : "") +
-            string.Concat(_session.Career.KnownLeads.Where(l => l.EndsWith($":{id}")).Select(l => $"[color=#{Ui.Hex(Ui.Red)}]Ask around here for {galaxy.Factions[int.Parse(l.Split(':')[0])].Name}.[/color]\n")) +
-            (id == _session.Career.SystemId ? "You are here." : $"{route.Count - 1} gates, {days} days. {distanceLy:N0} ly." +
-                (distanceLy <= range ? $" In jump range ({Galaxus.Core.Session.JumpDays(distanceLy)} days)." : "")) +
-            (_tradeMode ? "\n" + MarketLines(s) : "");
+        var lines = new List<string>
+        {
+            $"[color=#{Ui.Hex(Ui.Amber)}]{s.Name.ToUpperInvariant()}[/color]",
+            $"{Capitalise(s.Region)}, {s.Arm} arm. {s.State}{(s.Economy != Economy.None ? $", {s.Economy}" : "")}.",
+            owner != null ? $"Held by {Faction(owner.Id)}." : "Unclaimed.",
+            ProfileLine(s).TrimEnd('\n'),
+            s.Stations.Count > 0 ? $"Stations: {string.Join(", ", s.Stations)}" : "No stations.",
+        };
+        // History and lore: landmarks, takeovers and wars.
+        if (s.LandmarkNote is { Length: > 0 } note) lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]{note}[/color]");
+        if (s.PreviousOwner >= 0) lines.Add($"Taken from {Faction(s.PreviousOwner)} on day {s.OwnerSince}" + (galaxy.Day - s.OwnerSince < 21 ? ", and still unsettled." : "."));
+        foreach (var w in wars) lines.Add($"[color=#{Ui.Hex(Ui.Red)}]On the front between {Faction(w.A)} and {Faction(w.B)}.[/color]");
+        if (events.Count > 0) lines.Add($"[color=#{Ui.Hex(Ui.Red)}]{string.Join(", ", events)}[/color]");
+        // Intel: your jobs, leads and the news from here.
+        if (jobs.Count > 0) lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]{jobs.Count} of your jobs end here: {string.Join(", ", jobs.Select(j => j.Offer.DestinationStation).Distinct())}.[/color]");
+        lines.AddRange(_session.Career.KnownLeads.Where(l => l.EndsWith($":{id}")).Select(l => $"[color=#{Ui.Hex(Ui.Red)}]Ask around here for {galaxy.Factions[int.Parse(l.Split(':')[0])].Name}.[/color]"));
+        if (news.Count > 0)
+        {
+            lines.Add("\nNews from here:");
+            lines.AddRange(news.Select(n => $"  Day {n.Day}: {n.Text}"));
+        }
+        // Gates: bridges out of here lead to whole parts of the galaxy.
+        foreach (var b in bridges)
+        {
+            int other = b!.A == id ? b.B : b.A;
+            lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]A bridge gate to {galaxy.Systems[other].Name}: the only way to {b.Beyond} systems beyond.[/color]");
+        }
+        lines.Add("\n" + travel);
+        _info.Text = string.Join("\n", lines.Where(l => l.Length > 0));
+    }
 
-        bool canJump = _selected >= 0 && _selected != _session.Career.SystemId && (_route.Count > 1 || distanceLy <= range);
-        _jumpButton.Disabled = !canJump;
-        int jumpDays = distanceLy <= range ? Galaxus.Core.Session.JumpDays(distanceLy) : galaxy.RouteDays(_route);
-        _jumpButton.Text = canJump ? $"Jump to {galaxy.Systems[_selected].Name} ({jumpDays} days)" : "Jump";
+    /// <summary>A gate route in words: jumps, days, and any bridges it crosses.</summary>
+    private string GateRouteText(int id)
+    {
+        var galaxy = _session.Galaxy;
+        var route = id == _selected && _route.Count > 1 ? _route : galaxy.Route(_session.Career.SystemId, id);
+        if (route.Count < 2) return "No gate route.";
+        var bridges = GateNetwork.BridgesOn(galaxy, route);
+        string text = $"{route.Count - 1} gates, {galaxy.RouteDays(route)} days, no fuel needed.";
+        if (bridges.Count > 0)
+            text += " Crosses " + string.Join(", ", bridges.Select(b => $"the {galaxy.Systems[b.A].Name}-{galaxy.Systems[b.B].Name} bridge")) + ".";
+        return text;
+    }
+
+    /// <summary>The Jump button: what it would do for the selected system, or why it can't.</summary>
+    private void UpdateJumpButton()
+    {
+        _jumpReason.Text = "";
+        if (_session.Stranded)
+        {
+            _jumpButton.Disabled = false;
+            _jumpButton.Text = "Call a rescue tug";
+            _jumpReason.Text = "Out of fuel with no station in reach. A tug will take you to the nearest station for a fee.";
+            return;
+        }
+        if (_selected < 0 || _selected == _session.Career.SystemId)
+        {
+            _jumpButton.Disabled = true;
+            _jumpButton.Text = "Jump";
+            if (_jumpBlocked() is { } why) _jumpReason.Text = why;
+            return;
+        }
+        var target = _session.Galaxy.Systems[_selected];
+        var plan = _session.PlanJump(_selected);
+        var blocked = _jumpBlocked();
+        _jumpButton.Disabled = plan.Kind == JumpKind.None || blocked != null;
+        _jumpButton.Text = plan.Kind switch
+        {
+            JumpKind.Direct => $"Jump to {target.Name} ({plan.Days} days)",
+            JumpKind.Gates => $"Gate to {target.Name} ({plan.Days} days)",
+            _ => "Jump",
+        };
+        _jumpReason.Text = plan.Reason ?? blocked ?? "";
     }
 
     private string Legend() => string.Join("\n", _session.Galaxy.Factions.Where(f => f.Tier == "great")
@@ -401,11 +552,30 @@ public partial class GalaxyMap : Control
         var origin = ToScreen(NVector2.Zero);
         foreach (var r in new[] { 180f, 450f, 800f })
             DrawArc(origin, r * _zoom, 0, Mathf.Tau, 96, new Color(0.3f, 0.4f, 0.5f, 0.15f), 1);
+        // Region names on the rings, so "the far reaches" means something.
+        if (_zoom < 3)
+            foreach (var (r, name) in new[] { (90f, "CORE"), (315f, "INNER"), (625f, "OUTER"), (900f, "RIM") })
+                DrawString(ThemeDB.FallbackFont, origin + new Vector2(-14, -r * _zoom), name, HorizontalAlignment.Left, -1, 9, new Color(0.55f, 0.65f, 0.75f, 0.45f));
 
-        var gateColour = new Color(0.4f, 0.55f, 0.7f, _zoom > 0.6f ? 0.18f : 0.08f);
-        foreach (var s in galaxy.Systems)
-        foreach (var g in s.Gates)
-            if (g > s.Id) DrawLine(ToScreen(s.Position), ToScreen(galaxy.Systems[g].Position), gateColour);
+        // Gates: the main routes bright and thick, bridges to the far reaches in amber, local links faint.
+        var roles = GateNetwork.Roles(galaxy);
+        float faint = _zoom > 0.6f ? 0.16f : 0.07f;
+        foreach (var role in roles.Values)
+        {
+            var a = ToScreen(galaxy.Systems[role.A].Position);
+            var b = ToScreen(galaxy.Systems[role.B].Position);
+            if (!new Rect2(-50, -50, Size.X + 100, Size.Y + 100).HasPoint(a) && !new Rect2(-50, -50, Size.X + 100, Size.Y + 100).HasPoint(b)) continue;
+            Color colour;
+            float width;
+            if (role.Bridge) { colour = new Color(Ui.Amber, _gatesMode ? 0.95f : 0.6f); width = _gatesMode ? 2.5f : 1.6f; }
+            else if (role.Main) { colour = new Color(0.55f, 0.75f, 0.95f, _gatesMode ? 0.75f : 0.3f + 0.25f * role.Weight); width = 1 + role.Weight * (_gatesMode ? 2.2f : 1.2f); }
+            else { colour = new Color(0.4f, 0.55f, 0.7f, _gatesMode ? faint * 1.8f : faint); width = 1; }
+            DrawLine(a, b, colour, width);
+            // A small gate mark at each end of a bridge.
+            if (role.Bridge && _zoom > 0.3f)
+                foreach (var end in new[] { a, b })
+                    DrawPolyline([end + new Vector2(0, -5), end + new Vector2(5, 0), end + new Vector2(0, 5), end + new Vector2(-5, 0), end + new Vector2(0, -5)], Ui.Amber, 1);
+        }
 
         if (_selected >= 0 && _route.Count < 2 && _selected != _session.Career.SystemId)
             DrawLine(ToScreen(_session.Here.Position), ToScreen(galaxy.Systems[_selected].Position), Ui.Green, 1.5f);
@@ -479,9 +649,25 @@ public partial class GalaxyMap : Control
             var here = ToScreen(_session.Here.Position);
             DrawArc(here, _session.JumpRangeLy * perLy, 0, Mathf.Tau, 64, new Color(Ui.Green, 0.5f), 1);
             DrawString(ThemeDB.FallbackFont, here + new Vector2(_session.JumpRangeLy * perLy + 4, 0), $"jump range {_session.JumpRangeLy:0} ly", HorizontalAlignment.Left, -1, 8, Ui.Dim);
+            // How far your fuel takes you by direct jumps, one jump at a time.
+            float fuel = _session.FuelLy;
+            if (fuel > _session.JumpRangeLy)
+            {
+                DrawArc(here, fuel * perLy, 0, Mathf.Tau, 96, new Color(Ui.Amber, 0.3f), 1);
+                DrawString(ThemeDB.FallbackFont, here + new Vector2(fuel * perLy + 4, 12), $"fuel {fuel:0} ly", HorizontalAlignment.Left, -1, 8, new Color(Ui.Amber, 0.6f));
+            }
         }
         else if (_zoom >= DeepZoom / 4)
             DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 230, Size.Y - 8), "Zoom in further to see the stars between the gates.", HorizontalAlignment.Left, -1, 8, Ui.Dim);
+
+        if (_gatesMode && _zoom >= 1.5f)
+            foreach (var (id, jumps) in _jumpsFromHere)
+            {
+                if (jumps == 0 || jumps > 12) continue;
+                var p = ToScreen(galaxy.Systems[id].Position);
+                if (p.X < 0 || p.Y < 0 || p.X > Size.X || p.Y > Size.Y) continue;
+                DrawString(ThemeDB.FallbackFont, p + new Vector2(dot, dot + 8), jumps.ToString(), HorizontalAlignment.Left, -1, 8, new Color(0.7f, 0.85f, 1f, 0.8f));
+            }
 
         foreach (var job in _session.Career.Missions)
             DrawArc(ToScreen(galaxy.Systems[job.Offer.DestinationSystemId].Position), dot + 4, 0, Mathf.Tau, 16, Ui.Amber, 1);
