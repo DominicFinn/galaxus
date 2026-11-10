@@ -228,6 +228,14 @@ public partial class Hud : Control
             DrawLine(corner, corner - new Vector2(0, sy * 4), colour);
         }
         Text(p + new Vector2(0, half + 10), $"{distance:0} m", colour, HorizontalAlignment.Center);
+        // Missile lock: a ring closes in on the target as the lock builds, then turns solid.
+        if (Player.Spec.Missiles > 0 && Player.MissilesLeft > 0 && Player.Lock > 0)
+        {
+            float ring = Mathf.Lerp(half * 3, half + 4, Player.Lock);
+            var lockColour = Player.Locked ? Red : Amber;
+            DrawArc(p, ring, 0, Mathf.Tau, 24, lockColour, Player.Locked ? 2.5f : 1.2f);
+            Text(p + new Vector2(0, -half - 8), Player.Locked ? "LOCKED" : "LOCKING", lockColour, HorizontalAlignment.Center);
+        }
 
         // Lead indicator: where to aim so the bolts meet the target.
         var weapon = Player.Spec.Weapons.Count > 0 ? Player.Spec.Weapons[0] : null;
@@ -369,10 +377,12 @@ public partial class Hud : Control
     private void DrawDefencePanel(Vector2 size)
     {
         var origin = new Vector2(size.X - 108, size.Y - 62);
-        DrawRect(new Rect2(origin - new Vector2(4, 12), new Vector2(104, 66)), Panel);
+        DrawRect(new Rect2(origin - new Vector2(4, 12), new Vector2(104, Player!.Spec.Missiles > 0 ? 78 : 66)), Panel);
         Bar(origin, "SHIELD", Player!.Shields / MathF.Max(Player.Spec.MaxShields, 1), Blue);
         Bar(origin + new Vector2(0, 16), "HULL", Player.Hull / Player.Spec.MaxHull, Green);
         Bar(origin + new Vector2(0, 32), "WEAPON", Player.Capacitor / MathF.Max(Player.Spec.CapacitorMax, 1), Red);
+        if (Player.Spec.Missiles > 0)
+            Text(origin + new Vector2(0, 48), $"MISSILES {Player.MissilesLeft}/{Player.Spec.Missiles}", Player.MissilesLeft > 0 ? Amber : Dim);
     }
 
     private void DrawTargetPanel()
@@ -423,6 +433,7 @@ public partial class Hud : Control
             "M / START                     galaxy map",
             "N                             system map: set a course",
             "J                             cruise drive on and off",
+            "B, RIGHT CLICK                fire a missile once locked",
             "L                             cycle which job you're following",
             ".  ,                          speed time up, slow it down",
             "ESC                           pause menu, save and load      F10  quit",

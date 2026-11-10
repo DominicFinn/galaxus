@@ -93,7 +93,7 @@ public class ContentTests
     {
         var db = Load();
         var world = new World();
-        var player = new Ship(1, "Player", ShipFactory.Build(db, "kestrel")) { Side = 0 };
+        var player = new Ship(1, "Player", ShipFactory.Build(db, "kestrel")) { Side = 0, AimAssist = true };
         var drone = new Ship(2, "Drone", ShipFactory.Build(db, "target-drone")) { Side = 1 };
         drone.Body.Position = new Vector3(0, 0, -500);
         drone.Body.Orientation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, -MathF.PI / 2); // flying across

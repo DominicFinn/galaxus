@@ -67,6 +67,7 @@ public sealed class Pilot(PilotRole role, Rng rng)
         c.Flight.Assist = true;
         c.Flight.Roll = 0;
         c.Fire = false;
+        ship.AiAimAssistDegrees = _skill * _skill * 2.2f;
 
         // Being hit makes a pilot jink for a moment.
         if (_lastHull >= 0 && ship.Hull < _lastHull) _jinkTime = 1.2f + rng.NextFloat();
@@ -134,8 +135,8 @@ public sealed class Pilot(PilotRole role, Rng rng)
         var lead = World.LeadPoint(ship.Body.Position, ship.Body.Velocity, target.Body.Position, target.Body.Velocity, speed) ?? target.Body.Position;
         // Aim wanders, slowly, more for weaker pilots and at longer range: nobody snaps onto a mark.
         if (rng.NextFloat() < dt * 1.5f)
-            _aimWander = new Vector3(rng.Range(-1, 1), rng.Range(-1, 1), rng.Range(-1, 1)) * (0.35f + (1 - _skill) * 1.2f);
-        lead += _aimWander * MathF.Max(15, distance * 0.025f);
+            _aimWander = new Vector3(rng.Range(-1, 1), rng.Range(-1, 1), rng.Range(-1, 1)) * (0.12f + (1 - _skill) * 1.4f);
+        lead += _aimWander * MathF.Max(18, distance * 0.03f);
 
         // Someone on my tail: break hard and jink.
         if (target.Target == ship && distance < 1500 && _breakOff <= 0 && _jinkTime <= 0
@@ -184,6 +185,10 @@ public sealed class Pilot(PilotRole role, Rng rng)
                 _pause = 0.8f + rng.NextFloat() * (1.6f - _skill);
             }
             ship.Controls.Fire = lined && _burst > 0 && _settle <= 0;
+            // A locked missile now and then, more from bombers and better pilots, and not point blank.
+            if (ship.Locked && ship.MissilesLeft > 0 && distance > 700 && _settle <= 0 && (_skill >= 0.45f || Role == PilotRole.Bomber)
+                && rng.NextFloat() < dt * (Role == PilotRole.Bomber ? 0.3f : 0.02f + _skill * 0.06f))
+                ship.Controls.Missile = true;
         }
 
         if (_jinkTime > 0)

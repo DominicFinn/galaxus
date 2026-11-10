@@ -8,6 +8,8 @@ public struct ShipControls
 {
     public FlightInput Flight;
     public bool Fire;
+    /// <summary>Launch a missile at the locked target, once per press.</summary>
+    public bool Missile;
 }
 
 /// <summary>A ship in flight: its spec, physics body, power and the state of its systems.</summary>
@@ -30,10 +32,26 @@ public sealed class Ship
     public float Shields { get; private set; }
     public float Capacitor { get; private set; }
     public bool Alive => Hull > 0;
+    /// <summary>Scales damage this ship takes: the difficulty setting, applied to the player's ship.</summary>
+    public float DamageTakenScale { get; set; } = 1f;
+    public int MissilesLeft { get; private set; }
+    /// <summary>How far the missile lock on the current target has built up, 0 to 1. Locked at 1.</summary>
+    public float Lock { get; private set; }
+    public bool Locked => Lock >= 1;
+    private Ship? _lockTarget;
+    private float _missileCooldown;
+    /// <summary>Seconds of holding the target near the nose to get a lock.</summary>
+    public const float LockSeconds = 1.6f;
+    /// <summary>The target has to stay within this angle of the nose, and in range, while the lock builds.</summary>
+    public const float LockConeDegrees = 16f;
     public Ship? Target { get; set; }
 
     /// <summary>How far off the nose the guns will swing to meet a target.</summary>
     public const float AimAssistDegrees = 5f;
+    /// <summary>Gimballed guns: the full cone for the player.</summary>
+    public bool AimAssist { get; set; }
+    /// <summary>For AI pilots: a narrower gimbal that grows with their skill, so aces are deadly and novices aren't.</summary>
+    public float AiAimAssistDegrees { get; set; }
 
     public Ship(int id, string name, ShipSpec spec)
     {
@@ -44,6 +62,7 @@ public sealed class Ship
         Hull = spec.MaxHull;
         Shields = spec.MaxShields;
         Capacitor = spec.CapacitorMax;
+        MissilesLeft = spec.Missiles;
         Controls.Flight.Assist = true;
     }
 
@@ -80,6 +99,42 @@ public sealed class Ship
 
         _fireCooldown -= dt;
         if (Controls.Fire && _fixed.Count > 0 && _fireCooldown <= 0) TryFire(shotsFired);
+        UpdateMissiles(dt, shotsFired);
+    }
+
+    /// <summary>Restocks the missile rack, at a station.</summary>
+    public void Resupply() => MissilesLeft = Spec.Missiles;
+
+    /// <summary>
+    /// The lock builds while the target stays near the nose and in range, and fades when it
+    /// doesn't. Once locked, a press launches a missile that homes on the target.
+    /// </summary>
+    private void UpdateMissiles(float dt, List<Projectile> shotsFired)
+    {
+        _missileCooldown -= dt;
+        var missile = Spec.Missile;
+        if (missile == null || Spec.Missiles == 0 || Target is not { Alive: true } target)
+        {
+            Lock = 0;
+            Controls.Missile = false;
+            return;
+        }
+        if (target != _lockTarget) { _lockTarget = target; Lock = 0; }
+        var to = target.Body.Position - Body.Position;
+        float distance = to.Length();
+        bool inCone = distance > 1 && distance < missile.Range
+                      && Vector3.Dot(Vector3.Normalize(to), Body.Forward) > MathF.Cos(LockConeDegrees * MathF.PI / 180f);
+        Lock = inCone ? MathF.Min(1, Lock + dt / LockSeconds) : MathF.Max(0, Lock - dt / LockSeconds * 2);
+
+        if (Controls.Missile && Locked && MissilesLeft > 0 && _missileCooldown <= 0)
+        {
+            MissilesLeft--;
+            _missileCooldown = 1f / missile.FireRate;
+            var origin = Body.Position + Vector3.Transform(missile.Hardpoint, Body.Orientation);
+            shotsFired.Add(new Projectile(this, origin, Body.Velocity * 0.5f + Body.Forward * missile.ProjectileSpeed, missile.Damage,
+                missile.Range / missile.ProjectileSpeed * 1.6f, missile.Color, "missile") { Target = target });
+        }
+        Controls.Missile = false;
     }
 
     private List<WeaponSpec>? _fixedCache;
@@ -105,11 +160,12 @@ public sealed class Ship
         // Aim assist: if the target's lead point is within a few degrees of the nose, the guns
         // swing to it. Like gimballed mounts, it rewards getting close to the mark without
         // needing pixel-perfect aim.
-        if (Target is { Alive: true } target &&
+        float cone = AimAssist ? AimAssistDegrees : AiAimAssistDegrees;
+        if (cone > 0 && Target is { Alive: true } target &&
             World.LeadPoint(origin, Body.Velocity, target.Body.Position, target.Body.Velocity, weapon.ProjectileSpeed) is { } lead)
         {
             var toLead = Vector3.Normalize(lead - origin);
-            if (Vector3.Dot(toLead, Body.Forward) > MathF.Cos(AimAssistDegrees * MathF.PI / 180f) && Vector3.Distance(lead, origin) < weapon.Range)
+            if (Vector3.Dot(toLead, Body.Forward) > MathF.Cos(cone * MathF.PI / 180f) && Vector3.Distance(lead, origin) < weapon.Range)
                 aim = toLead;
         }
         Launch(weapon, origin, aim, Target, shotsFired);
@@ -192,6 +248,7 @@ public sealed class Ship
     public DamageResult TakeDamage(float amount)
     {
         if (!Alive) return new DamageResult(0, 0, false);
+        amount *= DamageTakenScale;
         _shieldDelay = Spec.ShieldRechargeDelay;
         float toShields = MathF.Min(Shields, amount);
         Shields -= toShields;
@@ -202,6 +259,8 @@ public sealed class Ship
 
     public void Respawn(Vector3 position, Quaternion orientation)
     {
+        MissilesLeft = Spec.Missiles;
+        Lock = 0;
         Hull = Spec.MaxHull;
         Shields = Spec.MaxShields;
         Capacitor = Spec.CapacitorMax;

@@ -20,6 +20,10 @@ public sealed class GameSettings
     /// <summary>Window size as a multiple of 640x360.</summary>
     public int WindowScale { get; set; } = 2;
     public bool ShowHints { get; set; } = true;
+    /// <summary>0 easy, 1 normal, 2 hard: damage you take and how good enemy pilots are.</summary>
+    public int Difficulty { get; set; } = 1;
+    public float DamageTaken => Difficulty switch { 0 => 0.55f, 1 => 0.85f, _ => 1f };
+    public float EnemySkill => Difficulty switch { 0 => 0.6f, 1 => 0.9f, _ => 1.1f };
     /// <summary>Volumes, 0 to 1.</summary>
     public float MasterVolume { get; set; } = 0.8f;
     public float MusicVolume { get; set; } = 0.6f;
@@ -57,6 +61,11 @@ public sealed class GameSettings
         SfxVolume = Mathf.Clamp(SfxVolume, 0, 1);
         AudioManager.Instance?.ApplyVolumes();
         if (DisplayServer.GetName() == "headless") return;
+        // Only touch the window when its own settings change, so changing the difficulty (or
+        // anything else) doesn't pull you out of a full screen you chose some other way.
+        if (_appliedFullscreen == Fullscreen && _appliedScale == WindowScale) return;
+        _appliedFullscreen = Fullscreen;
+        _appliedScale = WindowScale;
         if (Fullscreen) DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
         else
         {
@@ -64,6 +73,9 @@ public sealed class GameSettings
             DisplayServer.WindowSetSize(new Vector2I(640 * WindowScale, 360 * WindowScale));
         }
     }
+
+    private static bool? _appliedFullscreen;
+    private static int _appliedScale;
 }
 
 /// <summary>

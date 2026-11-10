@@ -12,6 +12,8 @@ public sealed class MenuActions
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> Campaigns { get; init; }
     /// <summary>Starts a set-piece battle on its own, as a preview.</summary>
     public required Action<string> PreviewBattle { get; init; }
+    /// <summary>Opens the ship and station viewer.</summary>
+    public required Action OpenViewer { get; init; }
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> PreviewBattles { get; init; }
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> Simulations { get; init; }
     public required Action<string> Load { get; init; }
@@ -130,6 +132,7 @@ public partial class MenuScreen : Control
             Add(Ui.Button("New game", () => { _back = Page.Main; ShowPage(Page.NewGame); }));
         }
         Add(Ui.Button("Load game", () => { _back = Page.Main; ShowPage(Page.Load); }));
+        if (!InGame) Add(Ui.Button("Ships and stations", () => _actions.OpenViewer()));
         Add(Ui.Button("Settings", () => { _back = Page.Main; ShowPage(Page.Settings); }));
         if (InGame) Add(Ui.Button("Main menu", () => _actions.MainMenu()));
         Add(Ui.Button("Quit", () => _actions.Quit()));
@@ -262,6 +265,7 @@ public partial class MenuScreen : Control
     {
         var s = GameSettings.Current;
         Add(Ui.Label("SETTINGS", Ui.Amber));
+        Add(Choice("Difficulty", ["Easy", "Normal", "Hard"], s.Difficulty, i => s.Difficulty = i));
         Add(Toggle("Fullscreen", s.Fullscreen, v => s.Fullscreen = v));
         Add(Choice("Window size", ["640 x 360", "1280 x 720", "1920 x 1080", "2560 x 1440"], s.WindowScale - 1, i => s.WindowScale = i + 1));
         Add(Slider("Mouse sensitivity", s.MouseSensitivity, 0.2f, 1.5f, v => s.MouseSensitivity = v));

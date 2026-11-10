@@ -11,7 +11,10 @@ public enum Economy { None, Agricultural, Mining, Refinery, Industrial, HighTech
 public sealed class StarSystem
 {
     public int Id { get; init; }
-    public string Name { get; init; } = "";
+    /// <summary>Settable so a mod's landmark can name a system.</summary>
+    public string Name { get; set; } = "";
+    /// <summary>A landmark's line about this system, if a mod placed one here.</summary>
+    public string? LandmarkNote { get; set; }
     /// <summary>Position on the galactic disc in light years, core at the origin.</summary>
     public Vector2 Position { get; init; }
     public string Region { get; init; } = "";
@@ -101,6 +104,8 @@ public sealed class Galaxy
     public List<Faction> Factions { get; } = [];
     public List<ActiveEvent> Events { get; } = [];
     public List<Conflict> Conflicts { get; } = [];
+    /// <summary>Landmarks placed by mods: landmark id to system id.</summary>
+    public Dictionary<string, int> Landmarks { get; } = [];
     /// <summary>What the player has done to the galaxy, in order, so a save can replay it.</summary>
     public List<PlayerAction> PlayerActions { get; } = [];
     public List<NewsItem> News { get; } = [];

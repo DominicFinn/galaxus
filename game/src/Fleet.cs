@@ -33,7 +33,7 @@ public partial class Main
 
         _fleetKm = (_stationKm.X + 9, _stationKm.Y + 1.5, _stationKm.Z - 4);
         var rng = new Rng(Rng.Hash(def.Id + "fleet"));
-        var race = _session.Galaxy.Factions.First(f => f.PowerId == def.Power).RaceId;
+        var race = Campaigns.Client(_session.Galaxy, def).RaceId;
         void Park(string hullId, string name, NVector3 offset)
         {
             var ship = new Ship(200_000 + _fleet.Count, name, ShipFactory.Build(_session.Db, hullId, null, race)) { Side = _player.Side };

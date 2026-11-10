@@ -61,6 +61,16 @@ public partial class Main : Node3D
 
     /// <summary>A session to start when the scene reloads (New game, Continue, Load).</summary>
     private static Session? _pendingSession;
+    private MeshInstance3D? _cockpitFrame;
+
+    /// <summary>The cockpit frame for the ship you're flying, hung off the camera.</summary>
+    private void BuildCockpit()
+    {
+        _cockpitFrame?.QueueFree();
+        _cockpitFrame = Cockpit.Build(_player.Spec.Builder.Palette);
+        _camera.AddChild(_cockpitFrame);
+    }
+    private static bool _pendingViewer;
     private static bool _splashShown;
     private MenuScreen _menu = null!;
     private Screen _pauseReturn = Screen.Flight;
@@ -83,9 +93,10 @@ public partial class Main : Node3D
         try
         {
             // The preview only needs one hull, so it shouldn't be blocked by problems elsewhere.
-            _db = ModDiscovery.Load(new GodotContentSource(), ModRoots.Find(), throwOnProblems: _previewHull == null);
+            _db = ModDiscovery.Load(new GodotContentSource(), ModRoots.Find(), throwOnProblems: _previewHull == null, skipBrokenMods: true);
             foreach (var mod in _db.LoadedMods) GD.Print($"Loaded mod: {mod}");
             foreach (var problem in _db.Problems) GD.Print($"Content problem: {problem}");
+            foreach (var skipped in _db.SkippedMods) GD.PushWarning(skipped);
         }
         catch (ContentException e)
         {
@@ -108,6 +119,16 @@ public partial class Main : Node3D
         _camera = new Camera3D { Fov = 70, Near = 0.3f, Far = 150000, Current = true };
         AddChild(_camera);
 
+        // The ship and station viewer: from the menu, with --viewer, or as the Galaxus Preview build.
+        bool standaloneViewer = OS.HasFeature("viewer") || OS.GetCmdlineUserArgs().Contains("--viewer");
+        if (_pendingViewer || standaloneViewer)
+        {
+            _pendingViewer = false;
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            AddChild(new Viewer(_db, _camera, standaloneViewer ? null : () => Restart(null)));
+            return;
+        }
+
         var menuLayer = new CanvasLayer { Layer = 3 };
         AddChild(menuLayer);
         _menu = new MenuScreen { Visible = false };
@@ -117,6 +138,7 @@ public partial class Main : Node3D
             NewCampaign = id => Restart(Campaigns.Start(_db, (ulong)DateTime.Now.Ticks, id)),
             Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Tutorial ? 0 : 1).ThenBy(c => c.Name).Select(c => (c.Id, c.Tutorial ? $"Tutorial: {c.Name}" : c.Name, c.Summary)),
             PreviewBattle = PreviewRequested,
+            OpenViewer = () => { _pendingViewer = true; Restart(null); },
             PreviewBattles = PreviewBattles,
             Simulations = () => _db.Battles.Values.Where(b => b.Kind == "sim").OrderBy(b => b.Order).Select(b => (b.Id, b.Name, SimSummary(b))),
             Load = slot => Restart(SaveSlots.Read(_db, slot)),
@@ -227,9 +249,15 @@ public partial class Main : Node3D
         _effects = new Effects();
         AddChild(_effects);
 
-        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId))
+        {
+            Side = 0,
+            DamageTakenScale = GameSettings.Current.DamageTaken,
+            AimAssist = true,
+        };
         _world.Ships.Add(_player);
         AddVisual(_player);
+        BuildCockpit();
 
         for (int i = 0; i < DroneCount; i++)
         {
@@ -276,7 +304,25 @@ public partial class Main : Node3D
     /// <summary>Builds the space for the current system: its sky, planet and station.</summary>
     /// <summary>Population, station size and security of the system you're in.</summary>
     private Galaxus.Core.Galaxy.SystemProfile _profile = null!;
-    private float StationScale => _profile?.StationScale ?? 1f;
+    /// <summary>Custom station models are drawn at their own size, at most doubled for the biggest places.</summary>
+    private float StationScale => _customStationRadius > 0 ? Mathf.Min(_profile?.StationScale ?? 1f, 2f) : _profile?.StationScale ?? 1f;
+    /// <summary>The collision radius of a faction's own station model, or 0 for the standard station.</summary>
+    private float _customStationRadius;
+    /// <summary>How close you must be to dock: the standard range, or outside a custom station's sphere.</summary>
+    private float DockReach => _customStationRadius > 0 ? _customStationRadius * StationScale + 400 : DockRange * StationScale;
+
+    /// <summary>A faction type's own station model, from a hull or a list of shapes, or null for the standard station.</summary>
+    private (ArrayMesh Mesh, float Radius)? CustomStation(Galaxus.Core.Galaxy.Faction owner)
+    {
+        if (!_db.FactionTypes.TryGetValue(owner.TypeId, out var type)) return null;
+        var palette = type.Builder != null && _db.Builders.TryGetValue(type.Builder, out var builder) ? builder.Palette
+            : new Galaxus.Core.Content.PaletteDef { Hull = "#8d939c", Accent = owner.Colour, Trim = "#3c4048", Glow = "#ffe6a0" };
+        if (type.StationHull != null && _db.Hulls.TryGetValue(type.StationHull, out var hull))
+            return (MeshFactory.BuildShip(hull, _db.Builders.TryGetValue(hull.Builder, out var b) ? b.Palette : palette), hull.Radius);
+        if (type.StationModel is { Count: > 0 } model)
+            return (MeshFactory.BuildShip(new Galaxus.Core.Content.HullDef { Id = type.Id + "-station", Model = model, Radius = type.StationRadius }, palette), type.StationRadius);
+        return null;
+    }
 
     private void EnterSystem()
     {
@@ -291,13 +337,16 @@ public partial class Main : Node3D
 
         _stationNode?.QueueFree();
         _stationNode = null;
+        _customStationRadius = 0;
         if (here.Stations.Count > 0)
         {
             var owner = _session.Galaxy.OwnerOf(here);
+            var custom = owner != null ? CustomStation(owner) : null;
+            _customStationRadius = custom?.Radius ?? 0;
             _stationNode = new MeshInstance3D
             {
-                Mesh = MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f), _profile.StationSize),
-                Scale = Vector3.One * _profile.StationScale,
+                Mesh = custom?.Mesh ?? MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f), _profile.StationSize),
+                Scale = Vector3.One * StationScale,
                 Position = _stationLocal.ToGodot(),
             };
             AddChild(_stationNode);
@@ -355,6 +404,7 @@ public partial class Main : Node3D
     private void Dock(string? arrival = null)
     {
         _timeWarp = 1;
+        _player.Resupply();
         _stationScreen.Port = _dockedAtFlagship && Campaigns.Current(_session) is { } campaign ? campaign.BaseName : _dockedPort?.Name;
         // Docking delivers any jobs for this station.
         string stationName = _dockedPort?.Name ?? _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
@@ -374,7 +424,7 @@ public partial class Main : Node3D
     {
         if (_dockedAtFlagship) { LaunchFromFlagship(); _dockedAtFlagship = false; }
         else if (_dockedPort != null) LaunchFromPort(_dockedPort);
-        else _player.Respawn(_stationLocal + new NVector3(0, 0, 320), NQuaternion.Identity);
+        else _player.Respawn(_stationLocal + new NVector3(0, 0, _customStationRadius > 0 ? _customStationRadius * StationScale + 320 : 320), NQuaternion.Identity);
         _throttle = 0.3f;
         _mouseStick = Vector2.Zero;
         SetScreen(Screen.Flight);
@@ -442,6 +492,9 @@ public partial class Main : Node3D
         _visuals.Remove(old);
 
         _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
+        _player.DamageTakenScale = GameSettings.Current.DamageTaken;
+        _player.AimAssist = true;
+        BuildCockpit();
         _player.Body.Position = old.Body.Position;
         _player.Body.Orientation = old.Body.Orientation;
         _player.Target = old.Target;
@@ -481,7 +534,10 @@ public partial class Main : Node3D
             _mouseStick += new Vector2(motion.Relative.X, motion.Relative.Y) * GameSettings.Current.MouseSensitivity;
             if (_mouseStick.Length() > MouseStickRadius) _mouseStick = _mouseStick.Normalized() * MouseStickRadius;
         }
-        else if (e is InputEventMouseButton { Pressed: true } && Input.MouseMode != Input.MouseModeEnum.Captured && !_demo)
+        // A click takes hold of the mouse for flying, but only when you're actually flying: not on the
+        // title screen, in the viewer, or in menus.
+        else if (e is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left or MouseButton.Right } && Input.MouseMode != Input.MouseModeEnum.Captured
+                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight)
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             GetViewport().SetInputAsHandled();
@@ -594,14 +650,14 @@ public partial class Main : Node3D
         if (_stationNode == null) return null;
         if (_cruising) return null;
         float distance = NVector3.Distance(_player.Body.Position, _stationLocal);
-        if (distance > DockRange * StationScale * 3) return null;
-        if (distance > DockRange * StationScale) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
+        if (distance > DockReach * 3) return null;
+        if (distance > DockReach) return $"{_stationScreen.StationName.ToUpperInvariant()}  {distance:0} M";
         return _player.Body.Speed > DockSpeed ? "SLOW DOWN TO DOCK" : "ENTER TO DOCK";
     }
 
     private bool CanDock => _stationNode != null
                             && !_cruising
-                            && NVector3.Distance(_player.Body.Position, _stationLocal) <= DockRange * StationScale
+                            && NVector3.Distance(_player.Body.Position, _stationLocal) <= DockReach
                             && _player.Body.Speed <= DockSpeed;
 
     private void HandleScreenKeys()
@@ -696,13 +752,14 @@ public partial class Main : Node3D
         }
 
         controls.Fire = Input.IsActionPressed(GameInput.Fire);
+        if (Input.IsActionJustPressed(GameInput.FireMissile)) controls.Missile = true;
     }
 
     /// <summary>Chases the current target and fires when lined up. Used for screenshots and soak tests.</summary>
     private void DemoPilot(float dt)
     {
         ref var controls = ref _player.Controls;
-        var target = _player.Target is { Alive: true } t ? t : (_player.Target = NearestTarget());
+        var target = _player.Target is { Alive: true } t && t.Side != _player.Side ? t : (_player.Target = NearestTarget());
         if (target == null) return;
 
         var weapon = _player.Spec.Weapons[0];
@@ -718,6 +775,7 @@ public partial class Main : Node3D
         controls.Flight.Assist = true;
         var local = NVector3.Normalize(_player.Body.ToLocal(aim));
         controls.Fire = local.Z < -0.995f && distance < weapon.Range;
+        if (_player.Locked && distance > 800 && _rng.NextFloat() < 0.01f) controls.Missile = true;
     }
 
     private void HandleEvents()
@@ -726,6 +784,12 @@ public partial class Main : Node3D
         {
             switch (e)
             {
+                case ShotFired fired when fired.Projectile.Kind == "missile" && fired.Projectile.Owner == _player:
+                    _effects.AddBolt(fired.Projectile);
+                    _fightCooldown = 8;
+                    AudioManager.Instance?.Ui("jump");
+                    _hud.Message($"MISSILE AWAY. {_player.MissilesLeft} LEFT");
+                    break;
                 case ShotFired fired:
                     if (fired.Projectile.Owner == _player) _fightCooldown = 8;
                     _effects.AddBolt(fired.Projectile);
@@ -780,7 +844,8 @@ public partial class Main : Node3D
         }
     }
 
-    private Ship? NearestTarget() => TargetCandidates().FirstOrDefault();
+    /// <summary>The nearest enemy, or failing that the nearest ship that isn't on your side (practice drones, traders). Never a friend.</summary>
+    private Ship? NearestTarget() => TargetCandidates().FirstOrDefault(s => s.Side != _player.Side);
 
     private Ship? NextTarget()
     {
@@ -800,6 +865,7 @@ public partial class Main : Node3D
     private void UpdateCamera(float dt, bool snap = false)
     {
         var shipTransform = Interop.TransformOf(_player.Body);
+        if (_cockpitFrame != null) _cockpitFrame.Visible = _cockpit && _screen == Screen.Flight;
         if (_cockpit)
         {
             _camera.GlobalTransform = shipTransform.TranslatedLocal(new Vector3(0, 1.0f, -1.6f));
