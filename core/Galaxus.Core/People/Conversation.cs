@@ -140,6 +140,10 @@ public static class Conversation
         foreach (var c in galaxy.Conflicts.Where(c => nearIds.Contains(c.FrontSystem)))
             facts.Add(($"{galaxy.Factions[c.A].Name} and {galaxy.Factions[c.B].Name} are {ConflictWords[c.Stage]} over {galaxy.Systems[c.FrontSystem].Name}", null));
 
+        // Jackpots: a surplus somewhere near and a market that wants it.
+        foreach (var d in Market.Deals(db, galaxy, galaxy.Day).Where(d => nearIds.Contains(d.Source) || nearIds.Contains(d.Destination)).OrderBy(d => d.Source))
+            facts.Add(($"{galaxy.Systems[d.Source].Name} has {db.Commodities[d.CommodityId].Name.ToLowerInvariant()} going cheap, and {galaxy.Systems[d.Destination].Name} is paying well over the odds for it", null));
+
         var wanted = near.Where(s => s.Stations.Count > 0)
             .SelectMany(s => db.Commodities.Values.Where(c => c.Legality == "legal").Select(c => (System: s, Goods: c, Ratio: Market.Price(db, galaxy, s, c) / (float)c.BasePrice)))
             .OrderByDescending(x => x.Ratio).ThenBy(x => x.Goods.Id).FirstOrDefault();
