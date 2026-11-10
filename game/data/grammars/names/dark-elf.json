@@ -29,22 +29,8 @@
       "#vs##ce#"
     ],
     "whole": [
-      "Vyrketh",
-      "Zhaen",
-      "Skaer",
-      "Drazek",
-      "Orthane",
-      "Kaelzix",
-      "Tzarith",
-      "Nyxane",
-      "Morvek",
-      "Ixaen",
-      "Sskael",
-      "Thazur",
-      "Veshk",
-      "Draegor",
-      "Qorix",
-      "Hazreth"
+      "#wholef#",
+      "#wholem#"
     ],
     "byname": [
       "Ashhand",
@@ -158,6 +144,30 @@
       "n"
     ],
     "ve": [
+      "#vef#",
+      "#vem#"
+    ],
+    "ce": [
+      "#cef#",
+      "#cem#"
+    ],
+    "vef": [
+      "ia",
+      "ixa",
+      "aena",
+      "ysa",
+      "eira",
+      "ithe",
+      "exa",
+      "ura",
+      "asca",
+      "yra",
+      "oska",
+      "ala",
+      "anea",
+      "etha"
+    ],
+    "vem": [
       "eth",
       "ix",
       "ane",
@@ -178,7 +188,24 @@
       "eir",
       "ak"
     ],
-    "ce": [
+    "cef": [
+      "zaka",
+      "drixa",
+      "kretha",
+      "vesha",
+      "raxa",
+      "teka",
+      "zula",
+      "noka",
+      "skara",
+      "dretha",
+      "qela",
+      "thuna",
+      "vorna",
+      "zetha",
+      "krixa"
+    ],
+    "cem": [
       "zak",
       "drix",
       "kreth",
@@ -194,6 +221,85 @@
       "vorn",
       "zeth",
       "krix"
+    ],
+    "wholef": [
+      "Zhaen",
+      "Orthane",
+      "Ixaen",
+      "Nyxane",
+      "Tzarith",
+      "Ksaeira",
+      "Vyshana",
+      "Zhaelia",
+      "Drevaia",
+      "Nhaessa",
+      "Skaelith",
+      "Hazreia"
+    ],
+    "wholem": [
+      "Vyrketh",
+      "Drazek",
+      "Kaelzix",
+      "Morvek",
+      "Thazur",
+      "Veshk",
+      "Draegor",
+      "Qorix",
+      "Hazreth",
+      "Skaer",
+      "Sskael"
+    ],
+    "givenf": [
+      "#cs##vef#",
+      "#cs##vef#",
+      "#cs##vef#",
+      "#vs##cef#",
+      "#vs##cef#",
+      "#vs##cef#",
+      "#cs##m##vef#",
+      "#cs##m##vef#",
+      "#wholef#"
+    ],
+    "givenm": [
+      "#cs##vem#",
+      "#cs##vem#",
+      "#cs##vem#",
+      "#vs##cem#",
+      "#vs##cem#",
+      "#vs##cem#",
+      "#cs##m##vem#",
+      "#cs##m##vem#",
+      "#wholem#"
+    ],
+    "given2f": [
+      "#cs##vef#",
+      "#vs##cef#"
+    ],
+    "given2m": [
+      "#cs##vem#",
+      "#vs##cem#"
+    ],
+    "name-feminine": [
+      "#givenf# of #ruin#",
+      "#givenf# of #ruin#",
+      "#givenf# of #ruin#",
+      "#givenf# of #ruin#",
+      "#givenf# #ruinshort#",
+      "#givenf# #given2f# of #ruin#",
+      "#givenf# #byname#",
+      "#givenf# #byname# of #ruin#",
+      "#givenf#"
+    ],
+    "name-masculine": [
+      "#givenm# of #ruin#",
+      "#givenm# of #ruin#",
+      "#givenm# of #ruin#",
+      "#givenm# of #ruin#",
+      "#givenm# #ruinshort#",
+      "#givenm# #given2m# of #ruin#",
+      "#givenm# #byname#",
+      "#givenm# #byname# of #ruin#",
+      "#givenm#"
     ]
   },
   "variables": []

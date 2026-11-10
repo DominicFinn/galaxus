@@ -3,6 +3,7 @@ using Galaxus.Core;
 using Galaxus.Core.Content;
 using Galaxus.Core.Galaxy;
 using Galaxus.Core.Missions;
+using Galaxus.Core.People;
 
 namespace Galaxus.Ui;
 
@@ -26,6 +27,13 @@ public partial class StationScreen : PanelContainer
 
     private TabContainer _tabs = null!;
     private List<MissionOffer> _offers = [];
+    private PortraitView _clientFace = null!;
+    private Label _clientName = null!;
+    private Tree _people = null!;
+    private PortraitView _personFace = null!;
+    private RichTextLabel _personText = null!;
+    private List<Person> _here = [];
+    private string? _shownPerson;
     private List<HullDef> _hulls = [];
     private List<CommodityDef> _commodities = [];
 
@@ -60,6 +68,7 @@ public partial class StationScreen : PanelContainer
         tabs.AddChild(BuildInHandTab());
         tabs.AddChild(BuildMarketTab());
         tabs.AddChild(BuildShipyardTab());
+        tabs.AddChild(BuildPeopleTab());
         tabs.AddChild(BuildNewsTab());
         tabs.AddChild(BuildStandingTab());
 
@@ -95,11 +104,12 @@ public partial class StationScreen : PanelContainer
         RefreshInHand();
         RefreshMarket();
         RefreshShipyard();
+        RefreshPeople();
         RefreshNews();
         RefreshStanding();
     }
 
-    /// <summary>For the showcase and tutorials: 0 jobs, 1 in hand, 2 market, 3 shipyard, 4 news, 5 standing.</summary>
+    /// <summary>For the showcase and tutorials: 0 jobs, 1 in hand, 2 market, 3 shipyard, 4 people, 5 news, 6 standing.</summary>
     public void ShowTab(int index) => _tabs.CurrentTab = index;
 
     /// <summary>Selects the first job posted by a faction of the given race. Returns false if there isn't one.</summary>
@@ -146,6 +156,14 @@ public partial class StationScreen : PanelContainer
 
         var side = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         tab.AddChild(side);
+        var client = new HBoxContainer();
+        side.AddChild(client);
+        _clientFace = new PortraitView { CustomMinimumSize = new Vector2(50, 60) };
+        client.AddChild(_clientFace);
+        _clientName = Ui.Label("", Ui.Amber, wrap: true);
+        _clientName.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        _clientName.VerticalAlignment = VerticalAlignment.Center;
+        client.AddChild(_clientName);
         _jobText = Ui.Text();
         side.AddChild(_jobText);
         var actions = new HBoxContainer();
@@ -175,6 +193,8 @@ public partial class StationScreen : PanelContainer
             if (!o.Mission.Template.Legal) item.SetCustomColor(0, Ui.Amber);
         }
         _jobText.Text = _offers.Count == 0 ? "No work posted here." : "Pick a job to read the briefing.";
+        _clientFace.Show([]);
+        _clientName.Text = "";
         _accept.Disabled = true;
         _jobReason.Text = "";
     }
@@ -196,6 +216,12 @@ public partial class StationScreen : PanelContainer
             $"Destination: {o.DestinationStation}, {destination.Name} ({travel} days away)\n" +
             $"Cargo: {cargo}\nDeadline: {o.Mission.DeadlineDays} days\nPays: {o.Mission.Reward:N0} cr\n" +
             $"Your standing with them: {Career.RankNames[_session.Career.RankWith(giver.Id)]}";
+        var person = o.ClientId == null ? null : PeopleDirectory.Contacts(_session.Db, galaxy, giver).FirstOrDefault(c => c.Id == o.ClientId);
+        if (person != null)
+        {
+            _clientFace.Show(PeopleDirectory.Portrait(_session.Db, galaxy, person));
+            _clientName.Text = $"{person.Name}\n{RoleName(person)}, {RaceName(person)}" + (_session.Career.MetPeople.Contains(person.Id) ? "\nYou've worked together before." : "");
+        }
         var reason = _session.Career.CannotAccept(_session.Db, o);
         _accept.Disabled = reason != null;
         _jobReason.Text = reason ?? "";
@@ -367,6 +393,76 @@ public partial class StationScreen : PanelContainer
         _shipChanged();
         Refresh($"You now fly a {h.Name}.");
     }
+
+    // People -------------------------------------------------------------------------------
+
+    private Control BuildPeopleTab()
+    {
+        var tab = new HBoxContainer { Name = "People" };
+        _people = Ui.Table(("Name", 0), ("Doing", 120));
+        _people.ItemSelected += ShowSelectedPerson;
+        tab.AddChild(_people);
+        var side = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        tab.AddChild(side);
+        _personFace = new PortraitView { CustomMinimumSize = new Vector2(100, 120), SizeFlagsHorizontal = SizeFlags.ShrinkBegin };
+        side.AddChild(_personFace);
+        _personText = Ui.Text();
+        side.AddChild(_personText);
+        return tab;
+    }
+
+    private void RefreshPeople()
+    {
+        _here = PeopleDirectory.AtStation(_session.Db, _session.Galaxy, _session.Here);
+        _people.Clear();
+        var root = _people.CreateItem();
+        for (int i = 0; i < _here.Count; i++)
+        {
+            var p = _here[i];
+            var item = _people.CreateItem(root);
+            item.SetText(0, p.Name + (_session.Career.MetPeople.Contains(p.Id) ? "  (met)" : ""));
+            item.SetText(1, RoleName(p));
+            item.SetMetadata(0, i);
+            if (p.Regular) item.SetCustomColor(0, Colors.White);
+        }
+        _shownPerson = null;
+        _personFace.Show([]);
+        _personText.Text = _here.Count == 0 ? "Nobody about." : "Regulars are in white. Pick someone to see them.";
+    }
+
+    private void ShowSelectedPerson()
+    {
+        if (_people.GetSelected() is not { } item) return;
+        var p = _here[item.GetMetadata(0).AsInt32()];
+        if (_shownPerson == p.Id) return;
+        _shownPerson = p.Id;
+        var galaxy = _session.Galaxy;
+        bool met = !_session.Career.MetPeople.Add(p.Id);
+        _personFace.Show(PeopleDirectory.Portrait(_session.Db, galaxy, p));
+        var faction = p.FactionId >= 0 ? galaxy.Factions[p.FactionId] : null;
+        string greeting = PeopleDirectory.Greeting(_session.Db, galaxy, p, _session.Career.Captain, _session.Db.Hulls[_session.Career.HullId].Name);
+        _personText.Text =
+            $"[color=#{Ui.Hex(Ui.Amber)}]{p.Name}[/color]\n{RoleName(p)}. {Capitalise(RaceName(p))}, {(p.Gender == "neither" ? "no gender" : p.Gender)}." +
+            (faction != null ? $" Works under [color=#{faction.Colour.TrimStart('#')}]{faction.Name}[/color]." : "") +
+            (p.Regular ? " A regular here." : " Passing through.") +
+            (met ? "\nYou've met before." : "") +
+            (greeting != "" ? $"\n\n\"{greeting}\"" : "") +
+            $"\n\n[color=#{Ui.Hex(Ui.Dim)}]Conversations come in a later build.[/color]";
+        item.SetText(0, p.Name + "  (met)");
+    }
+
+    /// <summary>For the showcase: selects the nth person present.</summary>
+    public void SelectPerson(int index)
+    {
+        var items = _people.GetRoot()?.GetChildren();
+        if (items == null || items.Count == 0) return;
+        // Selecting fires ItemSelected, which shows the person.
+        items[Math.Min(index, items.Count - 1)].Select(0);
+    }
+
+    private string RoleName(Person p) => _session.Db.Roles.TryGetValue(p.RoleId, out var r) ? r.Name : p.RoleId;
+    private string RaceName(Person p) => _session.Db.Races.TryGetValue(p.RaceId, out var r) ? r.Name.ToLowerInvariant() : p.RaceId;
+    private static string Capitalise(string s) => s.Length == 0 ? s : char.ToUpperInvariant(s[0]) + s[1..];
 
     // News and standing --------------------------------------------------------------------
 

@@ -22,6 +22,8 @@ public sealed class Career
     public Dictionary<int, int> Reputation { get; } = [];
     /// <summary>Trade goods in the hold, tonnes by commodity id.</summary>
     public Dictionary<string, int> Cargo { get; } = [];
+    /// <summary>Ids of people you've met, so they can greet you as someone they know.</summary>
+    public HashSet<string> MetPeople { get; } = [];
 
     /// <summary>Selling gets a little less than the asking price.</summary>
     public const float SellFactor = 0.94f;
@@ -97,6 +99,7 @@ public sealed class Career
     public void Accept(Galaxy.Galaxy galaxy, MissionOffer offer)
     {
         TakenOffers.Add(offer.Id);
+        if (offer.ClientId != null) MetPeople.Add(offer.ClientId);
         Missions.Add(new AcceptedMission(offer, galaxy.Day, galaxy.Day + offer.Mission.DeadlineDays));
     }
 

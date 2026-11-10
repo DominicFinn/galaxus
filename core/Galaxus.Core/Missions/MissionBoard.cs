@@ -11,7 +11,8 @@ public sealed record MissionOffer(
     int OriginSystemId,
     int DestinationSystemId,
     string DestinationStation,
-    int PostedDay)
+    int PostedDay,
+    string? ClientId = null)
 {
     /// <summary>
     /// Jobs completed by getting somewhere: these can be done now. Combat jobs need ships to
@@ -47,6 +48,8 @@ public static class MissionBoard
             var destination = nearby.Count > 0 ? orng.Pick(nearby) : system;
             string station = orng.Pick(destination.Stations);
             int travel = TravelDays(galaxy, system.Id, destination.Id);
+            // The client is one of the faction's regular contacts, so you deal with the same people.
+            var client = orng.Pick(People.PeopleDirectory.Contacts(db, galaxy, giver));
 
             var context = new MissionContext(
                 new FactionInfo(giver.Name, giver.TypeId, giver.RaceId, giver.Criminal),
@@ -55,12 +58,13 @@ public static class MissionBoard
                 captain,
                 rankWith(giver.Id),
                 orng.NextFloat() < 0.6f ? activeEvent : null,
-                travel);
+                travel,
+                client.Name);
             var mission = MissionGenerator.Generate(db, context, orng.Fork("mission"));
             if (mission == null) continue;
             // Until combat traffic exists, keep only some of the jobs that can't be completed yet.
             if (!TravelTypes.Contains(mission.Template.Type) && orng.NextFloat() > 0.3f) continue;
-            offers.Add(new MissionOffer($"{system.Id}-{week}-{i}", mission, giver.Id, system.Id, destination.Id, station, galaxy.Day));
+            offers.Add(new MissionOffer($"{system.Id}-{week}-{i}", mission, giver.Id, system.Id, destination.Id, station, galaxy.Day, client.Id));
         }
         return offers;
     }

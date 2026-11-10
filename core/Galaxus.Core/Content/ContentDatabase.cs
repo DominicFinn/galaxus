@@ -49,6 +49,9 @@ public sealed class ContentDatabase
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
     public Dictionary<string, PowerDef> Powers { get; } = [];
     public Dictionary<string, Audio.MusicStyleDef> MusicStyles { get; } = [];
+    /// <summary>Face pools, keyed by race id.</summary>
+    public Dictionary<string, Portraits.PortraitStyleDef> Portraits { get; } = [];
+    public Dictionary<string, People.RoleDef> Roles { get; } = [];
     public GrammarLibrary Grammars { get; } = new();
 
     /// <summary>Problems found while loading. Only filled when loaded with throwOnProblems: false.</summary>
@@ -81,6 +84,8 @@ public sealed class ContentDatabase
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
         LoadInto(source, "powers", db.Powers, p => p.Id, problems);
         LoadInto(source, "music", db.MusicStyles, m => m.Id, problems);
+        LoadInto(source, "portraits", db.Portraits, p => p.Race, problems);
+        LoadInto(source, "people", db.Roles, r => r.Id, problems);
 
         var grammars = new Dictionary<string, GrammarDef>();
         LoadInto(source, "grammars", grammars, g => g.Id, problems);
@@ -327,6 +332,33 @@ public sealed class ContentDatabase
             if (style.Drums.Snare is not ("backbeat" or "march" or "sparse" or "off")) p.Add($"{at}: snare must be backbeat, march, sparse or off.");
             if (style.Drums.Hats is not ("eighth" or "sixteenth" or "quarter" or "off")) p.Add($"{at}: hats must be eighth, sixteenth, quarter or off.");
         }
+
+        foreach (var style in Portraits.Values)
+        {
+            string at = $"Portrait style '{style.Race}'";
+            if (!Races.ContainsKey(style.Race)) p.Add($"{at}: unknown race.");
+            foreach (var c in style.Skin.Concat(style.Hair).Concat(style.Eyes).Concat(style.Clothing).Where(c => !IsHexColour(c)))
+                p.Add($"{at}: colour '{c}' is not #rrggbb.");
+            if (style.Skin.Count == 0 || style.Eyes.Count == 0) p.Add($"{at}: needs skin and eyes colours.");
+            if (!Galaxus.Core.Portraits.PortraitBuilder.EarTypes.Contains(style.Ears)) p.Add($"{at}: ears must be one of {Join(Galaxus.Core.Portraits.PortraitBuilder.EarTypes)}.");
+            foreach (var h in style.HairStyles.Where(h => !Galaxus.Core.Portraits.PortraitBuilder.HairStyleNames.Contains(h))) p.Add($"{at}: hair style '{h}' is unknown.");
+            foreach (var m in style.Marks.Keys.Where(m => !Galaxus.Core.Portraits.PortraitBuilder.MarkNames.Contains(m))) p.Add($"{at}: mark '{m}' is unknown.");
+            if (style.HeadWidth.Length != 2 || style.HeadWidth[0] < 12 || style.HeadWidth[1] > 24 || style.HeadWidth[0] > style.HeadWidth[1]) p.Add($"{at}: headWidth needs [min, max] between 12 and 24.");
+            if (style.Jaw.Length != 2 || style.Jaw[0] < 0.4f || style.Jaw[1] > 0.98f || style.Jaw[0] > style.Jaw[1]) p.Add($"{at}: jaw needs [min, max] between 0.4 and 0.98.");
+        }
+        foreach (var race in Races.Keys.Where(r => Portraits.Count > 0 && !Portraits.ContainsKey(r))) p.Add($"Race '{race}' has no portrait style.");
+
+        foreach (var role in Roles.Values)
+        {
+            string at = $"Role '{role.Id}'";
+            foreach (var h in role.Headwear.Where(h => !Galaxus.Core.Portraits.Attire.Headwears.Contains(h))) p.Add($"{at}: headwear '{h}' is unknown. Use {Join(Galaxus.Core.Portraits.Attire.Headwears)}.");
+            foreach (var e in role.Eyewear.Where(e => !Galaxus.Core.Portraits.Attire.Eyewears.Contains(e))) p.Add($"{at}: eyewear '{e}' is unknown. Use {Join(Galaxus.Core.Portraits.Attire.Eyewears)}.");
+            foreach (var c in role.Collar.Where(c => !Galaxus.Core.Portraits.Attire.Collars.Contains(c))) p.Add($"{at}: collar '{c}' is unknown. Use {Join(Galaxus.Core.Portraits.Attire.Collars)}.");
+            foreach (var x in role.Extras.Where(x => !Galaxus.Core.Portraits.Attire.ExtraNames.Contains(x))) p.Add($"{at}: extra '{x}' is unknown. Use {Join(Galaxus.Core.Portraits.Attire.ExtraNames)}.");
+            foreach (var e in role.Economies.Where(e => !Enum.TryParse<Galaxy.Economy>(e, out _))) p.Add($"{at}: economy '{e}' is unknown.");
+        }
+        foreach (var required in new[] { "bartender", "dockhand" })
+            if (Roles.Count > 0 && !Roles.ContainsKey(required)) p.Add($"Roles: '{required}' is required (every station has one).");
 
         if (Missions.Count > 0)
             foreach (var place in ContentRules.PlaceGrammars) CheckGrammar("Galaxy", place, "name", p);

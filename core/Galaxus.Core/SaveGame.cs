@@ -36,6 +36,7 @@ public static class SaveGame
         public Dictionary<string, int> Cargo { get; set; } = [];
         public Dictionary<int, int> Reputation { get; set; } = [];
         public List<string> TakenOffers { get; set; } = [];
+        public List<string> MetPeople { get; set; } = [];
         public List<SavedMission> Missions { get; set; } = [];
     }
 
@@ -59,6 +60,7 @@ public static class SaveGame
         public int Destination { get; set; }
         public string DestinationStation { get; set; } = "";
         public int PostedDay { get; set; }
+        public string? ClientId { get; set; }
         public int AcceptedDay { get; set; }
         public int DeadlineDay { get; set; }
     }
@@ -82,6 +84,7 @@ public static class SaveGame
             Cargo = new(c.Cargo),
             Reputation = new(c.Reputation),
             TakenOffers = [.. c.TakenOffers],
+            MetPeople = [.. c.MetPeople],
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -102,6 +105,7 @@ public static class SaveGame
                 Destination = m.Offer.DestinationSystemId,
                 DestinationStation = m.Offer.DestinationStation,
                 PostedDay = m.Offer.PostedDay,
+                ClientId = m.Offer.ClientId,
                 AcceptedDay = m.AcceptedDay,
                 DeadlineDay = m.DeadlineDay,
             }).ToList(),
@@ -132,6 +136,7 @@ public static class SaveGame
         foreach (var (k, v) in data.Cargo.Where(kv => db.Commodities.ContainsKey(kv.Key))) c.Cargo[k] = v;
         foreach (var (k, v) in data.Reputation) c.Reputation[k] = v;
         foreach (var id in data.TakenOffers) c.TakenOffers.Add(id);
+        foreach (var id in data.MetPeople) c.MetPeople.Add(id);
 
         foreach (var m in data.Missions.Where(m => db.Missions.ContainsKey(m.TemplateId)))
         {
@@ -140,7 +145,7 @@ public static class SaveGame
                 m.CargoId != null ? db.Commodities.GetValueOrDefault(m.CargoId) : null, m.Tonnes, m.DeadlineDays,
                 m.ComplicationId != null ? db.Complications.GetValueOrDefault(m.ComplicationId) : null,
                 m.ComplicationReveal, m.ComplicationAftermath, new Dictionary<string, string>());
-            var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay);
+            var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay, m.ClientId);
             c.Missions.Add(new AcceptedMission(offer, m.AcceptedDay, m.DeadlineDay));
         }
         return session;

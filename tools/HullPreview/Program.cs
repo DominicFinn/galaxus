@@ -22,6 +22,34 @@ if (args.Length is not (3 or 4))
 
 var db = ContentDatabase.Load(new DirectoryContentSource(args[0]), throwOnProblems: false);
 string hullId = args[1];
+
+// "--portraits" draws a sheet of generated faces instead: a row per race, mixed jobs and genders.
+if (hullId == "--portraits")
+{
+    var races = db.Portraits.Keys.Order().ToList();
+    var roles = db.Roles.Keys.Order().ToList();
+    const int cols = 9, cell = 120, rowH = 144;
+    var sheet = new Canvas(cols * cell, races.Count * rowH, new Vector3(0.05f, 0.06f, 0.08f));
+    for (int r = 0; r < races.Count; r++)
+    for (int c = 0; c < cols; c++)
+    {
+        var style = db.Portraits[races[r]];
+        ulong seed = Galaxus.Core.Rng.Hash($"{races[r]}-{c}");
+        var role = db.Roles[roles[(r * 3 + c * 5) % roles.Count]];
+        var pick = new Galaxus.Core.Rng(seed);
+        var attire = new Galaxus.Core.Portraits.Attire
+        {
+            Headwear = pick.Pick(role.Headwear), Eyewear = pick.Pick(role.Eyewear), Collar = pick.Pick(role.Collar), Extras = [.. role.Extras],
+        };
+        string gender = style.Machine ? "neither" : c % 2 == 0 ? "woman" : "man";
+        foreach (var shape in Galaxus.Core.Portraits.PortraitBuilder.Build(style, seed, null, attire, gender))
+            sheet.Polygon(shape.Points.Select(p => new Vector2(c * cell + 10 + p.X, r * rowH + 12 + p.Y)).ToArray(),
+                new Vector3(shape.Colour.X, shape.Colour.Y, shape.Colour.Z), shape.Colour.W);
+    }
+    sheet.SavePng(args[2]);
+    Console.WriteLine($"Saved portrait sheet to {args[2]}");
+    return 0;
+}
 foreach (var problem in db.Problems.Where(p => p.Contains($"'{hullId}'")))
     Console.WriteLine($"Content problem: {problem}");
 if (!db.Hulls.TryGetValue(hullId, out var hull))
@@ -95,6 +123,32 @@ sealed class Canvas(int width, int height, Vector3 background)
     private readonly float[] _depth = new float[width * height];
 
     public void ClearDepth() => Array.Fill(_depth, float.NegativeInfinity);
+
+    /// <summary>Fills a convex polygon with alpha blending and no depth test, for 2D portraits.</summary>
+    public void Polygon(Vector2[] points, Vector3 colour, float alpha)
+    {
+        for (int k = 1; k + 1 < points.Length; k++)
+        {
+            var a = points[0]; var b = points[k]; var c = points[k + 1];
+            float area = (b.X - a.X) * (c.Y - a.Y) - (b.Y - a.Y) * (c.X - a.X);
+            if (MathF.Abs(area) < 1e-6f) continue;
+            int minX = Math.Max(0, (int)MathF.Floor(MathF.Min(a.X, MathF.Min(b.X, c.X))));
+            int maxX = Math.Min(width - 1, (int)MathF.Ceiling(MathF.Max(a.X, MathF.Max(b.X, c.X))));
+            int minY = Math.Max(0, (int)MathF.Floor(MathF.Min(a.Y, MathF.Min(b.Y, c.Y))));
+            int maxY = Math.Min(height - 1, (int)MathF.Ceiling(MathF.Max(a.Y, MathF.Max(b.Y, c.Y))));
+            for (int y = minY; y <= maxY; y++)
+            for (int x = minX; x <= maxX; x++)
+            {
+                float px = x + 0.5f, py = y + 0.5f;
+                float w0 = ((c.X - b.X) * (py - b.Y) - (c.Y - b.Y) * (px - b.X)) / area;
+                float w1 = ((a.X - c.X) * (py - c.Y) - (a.Y - c.Y) * (px - c.X)) / area;
+                float w2 = 1 - w0 - w1;
+                if (w0 < 0 || w1 < 0 || w2 < 0) continue;
+                int i = y * width + x;
+                _pixels[i] = Vector3.Lerp(_pixels[i], colour, alpha);
+            }
+        }
+    }
 
     /// <summary>Fills a triangle with a z-buffer. Larger z is nearer the camera.</summary>
     public void Triangle(Vector3 a, Vector3 b, Vector3 c, Vector3 colour)

@@ -1,0 +1,25 @@
+// What people at stations do, and what they wear for it. A person's role picks their work
+// clothes; headwear, eyewear and collar are chosen from the lists, extras are always worn.
+// economies: where the role is common (empty means anywhere). lawful roles need an owner;
+// criminal roles only turn up where criminal factions hang about. regular roles can be station regulars.
+[
+  { "id": "miner", "name": "Miner", "headwear": ["hardhat"], "eyewear": ["none", "none", "visor"], "collar": ["overalls"], "extras": ["lamp", "grime"], "economies": ["Mining", "Refinery", "Frontier"], "weight": 3, "regular": true },
+  { "id": "engineer", "name": "Engineer", "headwear": ["goggles", "none", "bandana"], "eyewear": ["none", "glasses"], "collar": ["overalls"], "extras": ["grime"], "economies": ["Industrial", "Refinery", "HighTech"], "weight": 2, "regular": true },
+  { "id": "dockhand", "name": "Dockhand", "headwear": ["beanie", "headset", "none"], "eyewear": ["none"], "collar": ["overalls", "plain"], "extras": [], "economies": [], "weight": 3, "regular": true },
+  { "id": "bartender", "name": "Bartender", "headwear": ["none", "bandana"], "eyewear": ["none", "glasses"], "collar": ["apron"], "extras": [], "economies": [], "weight": 0, "regular": true },
+  { "id": "trader", "name": "Trader", "headwear": ["none", "none", "cap"], "eyewear": ["none", "glasses", "monocle"], "collar": ["fine"], "extras": [], "economies": ["Industrial", "HighTech", "Agricultural"], "weight": 2 },
+  { "id": "pilot", "name": "Pilot looking for work", "headwear": ["headset", "helmet", "none"], "eyewear": ["none", "shades"], "collar": ["flight"], "extras": [], "economies": [], "weight": 2 },
+  { "id": "mercenary", "name": "Mercenary", "headwear": ["none", "helmet", "bandana"], "eyewear": ["none", "shades", "visor"], "collar": ["armour"], "extras": [], "economies": ["Frontier", "Mining"], "weight": 1.5 },
+  { "id": "customs-officer", "name": "Customs officer", "headwear": ["cap"], "eyewear": ["none", "shades"], "collar": ["uniform"], "extras": ["badge", "earpiece"], "economies": [], "weight": 1, "lawful": true, "regular": true },
+  { "id": "gate-warden", "name": "Gate warden", "headwear": ["cap", "helmet"], "eyewear": ["visor", "none"], "collar": ["uniform"], "extras": ["badge"], "economies": [], "weight": 0.6, "lawful": true },
+  { "id": "registry-agent", "name": "Synth registry agent", "headwear": ["none"], "eyewear": ["shades", "visor"], "collar": ["uniform"], "extras": ["badge", "earpiece"], "economies": ["HighTech", "Industrial"], "weight": 0.5, "lawful": true },
+  { "id": "medic", "name": "Medic", "headwear": ["none", "bandana"], "eyewear": ["glasses", "none"], "collar": ["plain"], "extras": ["badge"], "economies": [], "weight": 1, "regular": true },
+  { "id": "farmer", "name": "Hydroponics tech", "headwear": ["beanie", "none", "bandana"], "eyewear": ["none"], "collar": ["overalls"], "extras": [], "economies": ["Agricultural"], "weight": 3, "regular": true },
+  { "id": "scholar", "name": "Scholar of the old empire", "headwear": ["none", "hood"], "eyewear": ["glasses", "monocle"], "collar": ["robe"], "extras": [], "economies": ["HighTech", "Frontier"], "weight": 0.7 },
+  { "id": "pilgrim", "name": "Pilgrim", "headwear": ["hood"], "eyewear": ["none"], "collar": ["robe"], "extras": [], "economies": [], "weight": 0.8 },
+  { "id": "refugee", "name": "Refugee from the rim", "headwear": ["hood", "none", "beanie"], "eyewear": ["none"], "collar": ["shawl"], "extras": ["grime"], "economies": ["Frontier"], "weight": 0.8 },
+  { "id": "envoy", "name": "Envoy", "headwear": ["none"], "eyewear": ["none", "monocle"], "collar": ["fine"], "extras": ["medal"], "economies": ["HighTech"], "weight": 0.4, "lawful": true },
+  { "id": "smuggler", "name": "Smuggler", "headwear": ["hood", "beanie", "none"], "eyewear": ["shades", "none"], "collar": ["flight", "plain"], "extras": [], "economies": [], "weight": 1.2, "criminal": true },
+  { "id": "broker", "name": "Information broker", "headwear": ["none", "hood"], "eyewear": ["shades", "monocle", "glasses"], "collar": ["fine", "plain"], "extras": ["earpiece"], "economies": [], "weight": 1, "criminal": true },
+  { "id": "enforcer", "name": "Gang enforcer", "headwear": ["none", "bandana"], "eyewear": ["shades", "none"], "collar": ["armour"], "extras": [], "economies": [], "weight": 0.8, "criminal": true }
+]

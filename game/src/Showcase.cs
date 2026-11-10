@@ -57,7 +57,13 @@ public partial class Main
             foreach (var hull in new[] { "mc-tribune", "le-windsong", "hd-principal", "kestrel" })
                 if (_stationScreen.SelectShip(hull)) break;
         }));
-        _showcaseSteps.Add(new("news.png", 20, () => _stationScreen.ShowTab(4)));
+        _showcaseSteps.Add(new("news.png", 20, () => _stationScreen.ShowTab(5)));
+        foreach (var race in new[] { "dwarf", "orc" })
+        {
+            var system = galaxy.Systems.FirstOrDefault(s => s.Stations.Count > 0 && s.Economy == Economy.Mining && galaxy.OwnerOf(s)?.RaceId == race);
+            if (system == null) continue;
+            _showcaseSteps.Add(new($"people-{race}.png", 25, () => { GoTo(system.Id); Dock(); _stationScreen.ShowTab(4); _stationScreen.SelectPerson(2); }));
+        }
         _showcaseIndex = -1;
         _showcaseWait = 0;
     }
@@ -92,8 +98,9 @@ public partial class Main
         if (_showcaseIndex >= 0)
         {
             var path = System.IO.Path.Combine(_showcaseDir, _showcaseSteps[_showcaseIndex].File);
-            GetViewport().GetTexture().GetImage().SavePng(path);
-            GD.Print($"Saved {path}");
+            // Headless runs have no image; they still walk the steps, which checks they work.
+            var image = GetViewport().GetTexture()?.GetImage();
+            if (image != null) { image.SavePng(path); GD.Print($"Saved {path}"); }
         }
         _showcaseIndex++;
         if (_showcaseIndex >= _showcaseSteps.Count)

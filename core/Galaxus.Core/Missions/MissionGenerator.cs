@@ -13,7 +13,8 @@ public sealed record MissionContext(
     string Captain,
     int Rank = 0,
     string? EventId = null,
-    int MinDeadlineDays = 0);
+    int MinDeadlineDays = 0,
+    string? ClientName = null);
 
 /// <summary>A generated job, ready for the mission board.</summary>
 public sealed record Mission(
@@ -79,7 +80,7 @@ public static class MissionGenerator
         var variables = new Dictionary<string, string>
         {
             ["captain"] = context.Captain,
-            ["client"] = PersonName(db, clientRace, rng),
+            ["client"] = context.ClientName ?? PersonName(db, clientRace, rng),
             ["faction"] = context.Giver.Name,
             ["system"] = context.System,
             ["destination"] = context.Destination,

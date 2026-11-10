@@ -1,0 +1,87 @@
+// Face pools, one per race. A person's face is picked from these with their seed.
+// Sizes are in portrait units: the portrait is 100 wide and 120 tall. Jaw is a fraction of head width (keep it under 1).
+[
+  {
+    "race": "human",
+    "skin": ["#f1d2bd", "#e7b897", "#d49e7a", "#b97f5a", "#9a6444", "#7a4a30", "#5b3624", "#3f2519"],
+    "hair": ["#1b1512", "#2e2018", "#4a3020", "#6b4628", "#8a5a2e", "#b07a40", "#d8b26a", "#7a2e1a", "#9a9a9a", "#d8d8d8", "#2d4a7a", "#7a1f3a"],
+    "eyes": ["#3a5a7a", "#4a6a3a", "#5a3a20", "#2a2018", "#6a7a8a", "#7a5a2a"],
+    "clothing": ["#3a4a5a", "#5a4a3a", "#2a3a2a", "#5a2a2a", "#4a4a4a", "#2a2a3a"],
+    "ears": "round",
+    "headWidth": [16, 20], "jaw": [0.7, 0.96],
+    "hairStyles": ["crop", "side-part", "long", "bun", "bald", "shaved", "braids", "mohawk"],
+    "beardChance": 0.25, "moustacheChance": 0.15,
+    "marks": { "scar": 0.1, "freckles": 0.15, "tattoo": 0.08, "earring": 0.12, "cyber": 0.04, "eyepatch": 0.02 }
+  },
+  {
+    "race": "light-elf",
+    "skin": ["#f6e6d4", "#efd9bc", "#e8cfa8", "#d9bc94", "#c9a882"],
+    "hair": ["#f2f0e6", "#e8dcb0", "#d8c070", "#c9b8a0", "#c88a5a", "#b8c8d8"],
+    "eyes": ["#5fb8a8", "#d8b84a", "#8a7ad8", "#6aa8d8", "#a8d8c0"],
+    "clothing": ["#e8e4d8", "#5fa8a0", "#b8a878", "#4a6a7a", "#8a7aa8"],
+    "ears": "long",
+    "headWidth": [14, 17], "jaw": [0.55, 0.75],
+    "hairStyles": ["long", "braids", "bun", "side-part", "long"],
+    "beardChance": 0, "moustacheChance": 0,
+    "marks": { "earring": 0.3, "tattoo": 0.08, "freckles": 0.05 }
+  },
+  {
+    "race": "dark-elf",
+    "skin": ["#8a8496", "#76708a", "#6a6a80", "#5a5468", "#9a92a2", "#4a4658"],
+    "hair": ["#f0f0f4", "#c8c8d0", "#141218", "#3a2a4a", "#5a3a6a", "#a8a0b8"],
+    "eyes": ["#e04a4a", "#c86ae8", "#e8c86a", "#d8d0ff"],
+    "clothing": ["#2a2630", "#3a2a40", "#1e1e26", "#4a3a5a", "#2a3038"],
+    "ears": "pointed",
+    "headWidth": [14, 17.5], "jaw": [0.55, 0.78],
+    "hairStyles": ["long", "hood", "mohawk", "shaved", "braids", "long"],
+    "beardChance": 0, "moustacheChance": 0,
+    "glowEyes": true,
+    "marks": { "scar": 0.25, "tattoo": 0.3, "earring": 0.2, "eyepatch": 0.04 }
+  },
+  {
+    "race": "orc",
+    "skin": ["#6a8a4a", "#5a7a3a", "#7a8a5a", "#4a6a3a", "#6a7a4a", "#8a8a5a", "#5a6a4a"],
+    "hair": ["#141210", "#2a2018", "#4a2a18", "#6a3a1a", "#3a3a2a"],
+    "eyes": ["#d8a020", "#c84a2a", "#e8d040", "#8a4a20"],
+    "clothing": ["#5d6b3a", "#6a3a2a", "#3a3428", "#4a4a40", "#7a5a3a"],
+    "ears": "small",
+    "headWidth": [19, 23], "jaw": [0.88, 0.98],
+    "hairStyles": ["topknot", "mohawk", "shaved", "bald", "braids", "crop"],
+    "beardChance": 0.12, "moustacheChance": 0.05,
+    "tusks": true,
+    "marks": { "scar": 0.4, "tattoo": 0.3, "earring": 0.25 }
+  },
+  {
+    "race": "dwarf",
+    "skin": ["#e8c0a0", "#d8a888", "#c89070", "#b07858", "#8a5a40", "#e0b898"],
+    "hair": ["#8a2a12", "#b04a1a", "#d06a2a", "#4a3020", "#2a1e16", "#7a7a7a", "#d8d4cc", "#c89a4a"],
+    "eyes": ["#3a4a5a", "#4a3a20", "#5a6a3a", "#2a2a2a"],
+    "clothing": ["#7a6a55", "#3a2f25", "#5a4a3a", "#4a4a4a", "#6a5030"],
+    "ears": "round",
+    "headWidth": [18, 22], "jaw": [0.85, 0.97],
+    "hairStyles": ["crop", "bald", "braids", "bun", "long", "shaved"],
+    "beardChance": 0.85, "moustacheChance": 0.5,
+    "marks": { "scar": 0.15, "earring": 0.15, "tattoo": 0.1, "freckles": 0.1 }
+  },
+  {
+    "race": "synth",
+    "skin": ["#ece6e2", "#d8cfc8", "#c8b8a8", "#a89080", "#8a7060", "#c8ccd4", "#a8b0bc", "#e8e8ec"],
+    "hair": ["#1a1a1e", "#3a3030", "#d8d0c8", "#5a8ac8", "#c85a8a", "#6ac8a8", "#8a6a4a", "#f0f0f0"],
+    "eyes": ["#5aa8d8", "#8ad8e8", "#4a4a5a", "#c8a85a", "#7ae8b8"],
+    "clothing": ["#3a4a5a", "#4a4a4a", "#2a3a4a", "#5a5a6a", "#3a3a3a"],
+    "ears": "small",
+    "headWidth": [15.5, 19], "jaw": [0.65, 0.9],
+    "hairStyles": ["crop", "side-part", "long", "shaved", "bald", "bun"],
+    "beardChance": 0.05, "moustacheChance": 0,
+    "marks": { "seams": 0.85, "cyber": 0.3, "freckles": 0.05, "earring": 0.08 }
+  },
+  {
+    "race": "free-machine",
+    "machine": true,
+    "skin": ["#4a4f5c", "#6a6e78", "#8a7a5a", "#c8c4bc", "#5a4a3a", "#3a3e48", "#7a5a4a"],
+    "eyes": ["#c8ff5a", "#ffb030", "#5ae8ff", "#b07aff", "#ff5a5a"],
+    "clothing": ["#4a4f5c", "#9b5de5", "#1f2128", "#3a4a3a"],
+    "headWidth": [15, 22], "jaw": [0.8, 0.95],
+    "hairStyles": ["bald"]
+  }
+]
