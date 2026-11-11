@@ -120,7 +120,10 @@ public sealed class SlotDef
 /// </summary>
 public sealed class ShapeDef
 {
-    /// <summary>"taperedBox" (the only shape so far).</summary>
+    /// <summary>
+    /// taperedBox (the default); cylinder (round, tapering from Back to Front along Z, so also a cone);
+    /// sphere (an ellipsoid Back[0] wide, Back[1] high and Length long); or dome (the top half of one).
+    /// </summary>
     public string Shape { get; set; } = "taperedBox";
     /// <summary>Centre in metres, ship space. Forward is -Z, up is +Y, right is +X.</summary>
     public float[] Position { get; set; } = [0, 0, 0];
@@ -133,6 +136,11 @@ public sealed class ShapeDef
     public float[] Skew { get; set; } = [0, 0];
     /// <summary>Rotation in degrees about the Z axis, for angled fins.</summary>
     public float Roll { get; set; }
+    /// <summary>Rotation in degrees about the X axis (nose up), then the Y axis (nose left): for pylons, towers and spars.</summary>
+    public float Pitch { get; set; }
+    public float Yaw { get; set; }
+    /// <summary>Sides on a cylinder, sphere or dome. Zero picks a sensible number.</summary>
+    public int Sides { get; set; }
     /// <summary>hull, accent, trim, glow, or a hex colour like "#aabbcc".</summary>
     public string Color { get; set; } = "hull";
     /// <summary>Also place a copy mirrored across X.</summary>

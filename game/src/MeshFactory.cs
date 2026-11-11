@@ -116,6 +116,14 @@ public static class MeshFactory
     /// A station: a hub with a docking bay on its front face, spokes and a ring, built from the same
     /// tapered boxes as ships so it shares their look. Owner colour picks out the ring.
     /// </summary>
+    /// <summary>A station of one of the core designs (see StationDesigns), with its collision radius.</summary>
+    public static (ArrayMesh Mesh, float Radius) BuildStation(Color ownerColour, Galaxus.Core.Galaxy.StationSize size, string design, ulong seed)
+    {
+        var (model, radius) = StationDesigns.Build(design, size, seed);
+        var palette = new PaletteDef { Hull = "#8d939c", Accent = "#" + ownerColour.ToHtml(false), Trim = "#3c4048", Glow = "#ffe6a0" };
+        return (BuildShip(new HullDef { Id = "station-" + design, Model = model, Radius = radius }, palette), radius);
+    }
+
     public static ArrayMesh BuildStation(Color ownerColour, Galaxus.Core.Galaxy.StationSize size = Galaxus.Core.Galaxy.StationSize.Station)
     {
         var shapes = new List<ShapeDef>

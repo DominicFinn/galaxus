@@ -89,6 +89,14 @@ public partial class Viewer : Node3D
             _entries.Add(new Entry("Stations", label, () => new MeshInstance3D { Mesh = MeshFactory.BuildStation(owner, s), Scale = Vector3.One * sc },
                 $"[color=#{Kit.Hex(Kit.Amber)}]{label.ToUpperInvariant()}[/color]\n{note}", 240 * sc));
         }
+        // Every station design, as a full station.
+        foreach (var design in Galaxus.Core.Content.StationDesigns.All.Where(d => d != "ring"))
+        {
+            var d = design;
+            float radius = Galaxus.Core.Content.StationDesigns.Build(d, StationSize.Station, 1).Radius;
+            _entries.Add(new Entry("Stations", Capital(d) + " station", () => new MeshInstance3D { Mesh = MeshFactory.BuildStation(owner, StationSize.Station, d, 1).Mesh },
+                $"[color=#{Kit.Hex(Kit.Amber)}]{d.ToUpperInvariant()}[/color]\n{Galaxus.Core.Content.StationDesigns.Describe(d)}", radius * 1.2f));
+        }
         _entries.Add(new Entry("Stations", "Surface port", () => new MeshInstance3D { Mesh = MeshFactory.BuildSurfacePort(owner) },
             $"[color=#{Kit.Hex(Kit.Amber)}]SURFACE PORT[/color]\nA landing pad with lights, a control tower, hangars and fuel tanks, on levelled ground.", 260));
         // Factions with stations of their own design, from mods.

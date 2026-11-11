@@ -339,7 +339,7 @@ public sealed class ContentDatabase
             for (int i = 0; i < hull.Model.Count; i++)
             {
                 var s = hull.Model[i];
-                if (s.Shape != "taperedBox") p.Add($"{at}: model shape {i} has unknown shape '{s.Shape}'.");
+                if (s.Shape is not ("taperedBox" or "cylinder" or "sphere" or "dome")) p.Add($"{at}: model shape {i} has unknown shape '{s.Shape}'.");
                 if (s.Position.Length != 3 || s.Back.Length != 2 || s.Front.Length != 2 || s.Skew.Length != 2)
                     p.Add($"{at}: model shape {i} needs position[3], back[2], front[2] and skew[2].");
                 if (s.Length <= 0) p.Add($"{at}: model shape {i} needs a positive length.");
@@ -586,6 +586,7 @@ public sealed class ContentDatabase
             if (t.Builder != null && !Builders.ContainsKey(t.Builder)) p.Add($"{at}: unknown builder '{t.Builder}'.");
             if (t.StationHull != null && !Hulls.ContainsKey(t.StationHull)) p.Add($"{at}: unknown station hull '{t.StationHull}'.");
             if (t.StationModel != null && t.StationModel.Count == 0) p.Add($"{at}: stationModel needs shapes.");
+            if (t.StationDesign != null && !StationDesigns.All.Contains(t.StationDesign)) p.Add($"{at}: stationDesign '{t.StationDesign}' is unknown. Use one of {Join(StationDesigns.All)}.");
             if (t.StationModel != null && t.StationRadius <= 0) p.Add($"{at}: a stationModel needs a stationRadius.");
         }
     }

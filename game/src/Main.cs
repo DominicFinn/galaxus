@@ -368,6 +368,10 @@ public partial class Main : Node3D
         {
             var owner = _session.Galaxy.OwnerOf(here);
             var custom = owner != null ? CustomStation(owner) : null;
+            // Each power and people builds its own kind of station; the ring keeps its exact collision shape.
+            string design = Galaxus.Core.Content.StationDesigns.Pick(_db, here, owner, _profile.StationSize);
+            if (custom == null && design != "ring")
+                custom = MeshFactory.BuildStation(owner != null ? Color.FromHtml(owner.Colour) : new Color(0.6f, 0.6f, 0.6f), _profile.StationSize, design, here.Seed);
             _customStationRadius = custom?.Radius ?? 0;
             _stationNode = new MeshInstance3D
             {

@@ -209,6 +209,8 @@ A model is a list of tapered boxes. Each box runs along Z from a back face to a 
 - `roll` turns the box about its own Z axis, in degrees, for angled fins and V-tails.
 - `color` is `hull`, `accent`, `trim`, `glow` (from the builder's palette) or a hex colour. `glow` parts are unlit: use them for engine exhausts, windows and lights, as thin boxes (length 0.1) on rear faces.
 - `mirror: true` adds a copy mirrored across X. Put the original on the +X side.
+- `shape` picks the primitive: `taperedBox` (the default), `cylinder` (round, tapering from `back` to `front`, so also a cone or a spire), `sphere` (an ellipsoid `back[0]` wide, `back[1]` high and `length` long) or `dome` (the top half of one). `sides` sets how many sides a round shape has.
+- `pitch` and `yaw` turn the shape about X then Y, in degrees, after `roll`: for towers, pylons and struts that don't run along Z.
 
 A wing is a wide, flat box: large `back[0]` (span), small `back[1]` (thickness), positioned out to the side. An engine pod is a box with a glow plate behind it.
 

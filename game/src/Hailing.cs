@@ -74,9 +74,10 @@ public partial class Main
         if (ship != null) _hailed.Add(ship);
         var hull = _db.Hulls.GetValueOrDefault(caller.HullId);
         Mesh? mesh = caller.Kind == "station"
-            ? MeshFactory.BuildStation(_session.Galaxy.OwnerOf(_session.Here) is { } o ? new Color(o.Colour) : Colors.Gray, _profile.StationSize)
+            ? MeshFactory.BuildStation(_session.Galaxy.OwnerOf(_session.Here) is { } o ? new Color(o.Colour) : Colors.Gray, _profile.StationSize,
+                Galaxus.Core.Content.StationDesigns.Pick(_db, _session.Here, _session.Galaxy.OwnerOf(_session.Here), _profile.StationSize), _session.Here.Seed).Mesh
             : hull != null ? MeshFactory.BuildShip(hull, _db.Builders[hull.Builder].Palette) : null;
-        float radius = caller.Kind == "station" ? 120 : hull?.Radius ?? 10;
+        float radius = caller.Kind == "station" ? 170 : hull?.Radius ?? 10;
         string faction = caller.FactionId >= 0 && caller.FactionId < _session.Galaxy.Factions.Count ? _session.Galaxy.Factions[caller.FactionId].Name : "";
         string who = caller.Kind == "station" ? $"Traffic control, {_session.Here.Stations.FirstOrDefault() ?? _session.Here.Name}"
             : $"{hull?.Name ?? "Ship"}" + (faction != "" ? $", {faction}" : caller.Kind is "fence" or "pirate" ? ", no registration" : "");

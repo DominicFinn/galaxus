@@ -63,6 +63,15 @@ if (hullId == "--portraits")
     Console.WriteLine($"Saved portrait sheet to {args[2]}");
     return 0;
 }
+// "station:DESIGN:SIZE" draws one of the station designs (ring, claw, sphere...), at outpost, station, hub or citadel size.
+if (hullId.StartsWith("station:"))
+{
+    var parts = hullId.Split(':');
+    var size = parts.Length > 2 && Enum.TryParse<Galaxus.Core.Galaxy.StationSize>(parts[2], true, out var s) ? s : Galaxus.Core.Galaxy.StationSize.Station;
+    var (model, radius) = StationDesigns.Build(parts[1], size, 1234);
+    db.Hulls[hullId] = new HullDef { Id = hullId, Name = $"{parts[1]} station ({size})", Class = "station", Model = model, Radius = radius, Builder = "" };
+    db.Builders[""] = new BuilderDef { Palette = new PaletteDef { Hull = "#8d939c", Accent = "#4a78d0", Trim = "#3c4048", Glow = "#ffe6a0" } };
+}
 foreach (var problem in db.Problems.Where(p => p.Contains($"'{hullId}'")))
     Console.WriteLine($"Content problem: {problem}");
 if (!db.Hulls.TryGetValue(hullId, out var hull))

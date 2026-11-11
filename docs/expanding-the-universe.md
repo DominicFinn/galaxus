@@ -209,7 +209,7 @@ Four optional fields let a mod's faction feel like its own people. With none of 
 { "id": "gy-gyptian-fleet", "builder": "gyptian-yards", ... }
 ```
 
-**Its own stations.** Add `"stationHull"` naming a hull whose model should stand in for the faction's stations (a ring or a battle station you've designed), or give the shapes directly with `"stationModel"` and a `"stationRadius"` for collisions. Stations owned by that faction use the model instead of the standard ring station; you dock within a few hundred metres of its radius.
+**Its own stations.** Name one of the core station designs with `"stationDesign"`: `ring`, `claw` (a spire with curved pylons), `sphere` (an armoured battle sphere), `pyramid`, `asteroid` (a hollowed rock), `spindle` (a long cylinder habitat), `lattice` (struts and nodes), `crown` (spires round a dome) or `broken` (a ruined ring). Or add `"stationHull"` naming a hull whose model should stand in for the faction's stations (a ring or a battle station you've designed), or give the shapes directly with `"stationModel"` and a `"stationRadius"` for collisions. Stations owned by that faction use the model instead of the design their power or race would build; you dock within a few hundred metres of its radius.
 
 ```json
 { "id": "gy-gyptian-fleet", "builder": "gyptian-yards", "stationHull": "gy-homecoming", ... }

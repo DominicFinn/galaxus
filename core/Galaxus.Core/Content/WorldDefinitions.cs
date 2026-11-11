@@ -40,6 +40,8 @@ public sealed class FactionTypeDef
     public string NameGrammar { get; set; } = "";
     /// <summary>The shipbuilder this type's factions fly. Unset uses their race's usual builder.</summary>
     public string? Builder { get; set; }
+    /// <summary>One of the core station designs by name (ring, claw, sphere, pyramid, asteroid, spindle, lattice, crown, broken).</summary>
+    public string? StationDesign { get; set; }
     /// <summary>A hull whose model is used for this type's stations (a station-like hull such as a ring).</summary>
     public string? StationHull { get; set; }
     /// <summary>Or a station model given directly, built like a ship model, with its collision radius.</summary>

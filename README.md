@@ -98,7 +98,9 @@ The HUD keeps you oriented: the ship each objective is about is bracketed and la
 
 ## Traffic, stations and systems
 
-Systems are busy in proportion to who lives there. Traders come and go at the station, patrols fly the space around it, and where the law is thin pirates go for traders and for you; the local owner pays a bounty for each one you bring down. Fire on a trader and the police come for you. Every system has a population, a government and a security level, shown on both maps and at the station. Stations grow with the population they serve, from small outposts to stacked-ring hubs, and each great power's capital has a citadel.
+Systems are busy in proportion to who lives there. Traders come and go at the station, patrols fly the space around it, and where the law is thin pirates go for traders and for you; the local owner pays a bounty for each one you bring down. Fire on a trader and the police come for you. Every system has a population, a government and a security level, shown on both maps and at the station. Stations grow with the population they serve, from small outposts to great hubs and citadels, and each power and people builds its own kind: the Concord's rings, the Tolland Compact's claw spires, the Lantern Synod's pyramids, the Directorate's spindles and battle-sphere capitals, the Eleven Houses' crowns of spires, dwarf and pirate asteroid bases, free machine lattices and the dark elves' broken rings. Mods can name a design or bring their own model.
+
+![The station designs at citadel size](docs/screenshots/stations.png)
 
 ![The citadel at the capital of the Meridian Concord](docs/screenshots/citadel.png)
 
