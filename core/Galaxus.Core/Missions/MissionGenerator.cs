@@ -44,6 +44,7 @@ public static class MissionGenerator
     public static Mission? Generate(ContentDatabase db, MissionContext context, Rng rng)
     {
         var candidates = db.Missions.Values
+            .Where(m => m.Landmark == null) // landmark work is only offered at its landmark
             .Where(m => m.Givers.Count == 0 || m.Givers.Contains(context.Giver.TypeId))
             // Open templates go to the obvious side of the law: criminals don't post patrols, lawful factions don't post smuggling.
             .Where(m => m.Givers.Count > 0 || m.Legal != context.Giver.Criminal)

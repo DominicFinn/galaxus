@@ -185,6 +185,7 @@ public static class Market
         private float _size;
         private int _warLevel; // 0 none, 1 within two jumps of a hot front, 2 the front itself
         private bool _takenOver;
+        private LandmarkDef? _landmark;
         private List<TradeDeal> _deals = [];
         private HashSet<string> _shortages = [];
         private float _discount;
@@ -206,6 +207,7 @@ public static class Market
             // Handshake gear gets you a better price at Free Machine ports.
             if (session != null && galaxy.OwnerOf(system)?.RaceId == "free-machine")
                 ctx._discount = Ships.ShipFactory.Build(db, session.Career.HullId, session.Career.Loadout).MarketDiscount;
+            ctx._landmark = LandmarkRules.At(db, galaxy, system.Id);
             ctx._deals = Deals(db, galaxy, day).Where(d => d.Source == system.Id || d.Destination == system.Id).ToList();
             ctx._shortages = [.. Shortages(db, galaxy, day).Where(s => s.SystemId == system.Id).Select(s => s.CommodityId)];
             return ctx;
@@ -215,6 +217,14 @@ public static class Market
         {
             var (low, high) = Range(c);
             float bias = EconomyBias.TryGetValue(_system.Economy, out var table) && table.TryGetValue(c.Category, out var m) ? m : 1f;
+            // A landmark's own prices, such as a works selling its computers cheap: the whole price
+            // range moves, and a cheap good is plentiful.
+            float landmark = LandmarkRules.PriceFactor(_landmark, c);
+            if (landmark != 1)
+            {
+                (low, high) = ((int)MathF.Round(low * landmark), (int)MathF.Round(high * landmark));
+                bias *= landmark;
+            }
             // Rim goods are cheap out on the rim and worth much more near the core.
             if (c.Category is "rim-tech" or "elder-artefacts")
                 bias *= _system.Region switch { "core" => 1.8f, "inner" => 1.3f, "outer" => 1f, _ => 0.6f };

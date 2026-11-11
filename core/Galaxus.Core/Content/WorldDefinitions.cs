@@ -47,6 +47,8 @@ public sealed class FactionTypeDef
     /// <summary>Or a station model given directly, built like a ship model, with its collision radius.</summary>
     public List<ShapeDef>? StationModel { get; set; }
     public float StationRadius { get; set; }
+    /// <summary>Only ever founded by a landmark: the galaxy never rolls up factions of this type elsewhere.</summary>
+    public bool OnlyAtLandmark { get; set; }
 }
 
 /// <summary>
@@ -69,9 +71,22 @@ public sealed class LandmarkDef
     public string? Economy { get; set; }
     /// <summary>A line shown on the system map and galaxy map.</summary>
     public string Description { get; set; } = "";
+    /// <summary>Price multiples at its station, by commodity id or category: 0.5 sells technology at about half price.</summary>
+    public Dictionary<string, float> Prices { get; set; } = [];
+    /// <summary>Parts on sale only here, always in stock at a fixed price.</summary>
+    public List<LandmarkPartDef> Parts { get; set; } = [];
+    /// <summary>Put it in a system with an asteroid belt, for mining work.</summary>
+    public bool Belt { get; set; }
 }
 
 /// <summary>Something happening in the galaxy that creates work: a famine, a border war, a mining rush.</summary>
+/// <summary>A part a landmark sells, and what it asks.</summary>
+public sealed class LandmarkPartDef
+{
+    public string Part { get; set; } = "";
+    public int Price { get; set; }
+}
+
 public sealed class EventDef
 {
     public string Id { get; set; } = "";
@@ -109,6 +124,10 @@ public sealed class MissionTemplateDef
     public List<string> FollowUps { get; set; } = [];
     /// <summary>Grammar with "title", "briefing", "success" and "failure" rules.</summary>
     public string TextGrammar { get; set; } = "";
+    /// <summary>A landmark id: the job is only offered there, every week, and nowhere else.</summary>
+    public string? Landmark { get; set; }
+    /// <summary>For a landmark job, the named character who offers it.</summary>
+    public string? GiverName { get; set; }
 }
 
 /// <summary>A twist on a job: the client lies, the cargo is stolen, the passenger is a fugitive.</summary>

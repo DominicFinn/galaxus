@@ -1,0 +1,19 @@
+// The faction at Martins World only ever has the one name, and its ships are all prototypes.
+[
+  {
+    "id": "mw-names-works",
+    "description": "The name of the Martins World faction.",
+    "variables": ["place", "founder"],
+    "rules": { "name": ["Martins World"] }
+  },
+  {
+    "id": "mw-models",
+    "description": "Model names for Martins World works ships.",
+    "variables": [],
+    "rules": {
+      "model": ["Prototype", "Prototype #rev#", "#working#", "#working# #rev#"],
+      "working": ["Testbed", "Bench Model", "Proof", "Breadboard", "Pilot Build"],
+      "rev": ["Rev C", "Rev F", "Rev K", "Draft Two", "Not Final"]
+    }
+  }
+]

@@ -1,0 +1,23 @@
+// Martins World: Martin's works and the people who work there. Only ever at its landmark.
+[
+  {
+    "id": "mw-martins-world",
+    "name": "Martins World",
+    "description": "A tech works in the outer realms that makes shields, cores and things nobody else has thought of yet. Small, clever, well armed and badly outnumbered.",
+    "races": ["human"],
+    "tiers": ["minor"],
+    "criminal": false,
+    "onlyAtLandmark": true,
+    "traits": {
+      "aggression": [0.1, 0.3],
+      "greed": [0.2, 0.4],
+      "expansion": [0.0, 0.1],
+      "paranoia": [0.5, 0.8],
+      "honour": [0.6, 0.9],
+      "piety": [0.0, 0.2]
+    },
+    "nameGrammar": "mw-names-works",
+    "builder": "mw-works",
+    "stationDesign": "lattice"
+  }
+]

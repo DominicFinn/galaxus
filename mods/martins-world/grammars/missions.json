@@ -1,0 +1,33 @@
+// Tally's belt contract. Tally is a free machine: precise, literal, no contractions.
+[
+  {
+    "id": "mw-mission-tally",
+    "description": "Tally's mining contract at Martins World.",
+    "variables": ["captain", "client", "faction", "system", "destination", "deadline", "reward", "cargo", "tonnes"],
+    "rules": {
+      "title": ["Tally's belt contract", "Ore for Tally", "Tally needs a miner"],
+      "count": [
+        "The rock in this belt is worth eleven times what you think.",
+        "I have measured the belt. It is richer than the survey. The survey was wrong by a factor of nine.",
+        "I have counted the good rocks in this belt. There are more than anyone has noticed."
+      ],
+      "task": [
+        "Cut the ore I have marked in the {system} belt and bring it to Martins World within {deadline}.",
+        "Mine the marked seam in the belt here. Deliver the ore to Martins World. You have {deadline}."
+      ],
+      "briefing": [
+        "Query: do you mine. #count# #task# Payment is {reward}. State terms.",
+        "Tally, surveyor, Martins World. #count# #task# I will pay {reward}. That is fair. I have checked.",
+        "Statement: Martin requires ore, and I require a miner. #count# #task# {reward} on delivery."
+      ],
+      "success": [
+        "Tally weighs every tonne twice. 'Correct. Payment follows. You are a good miner. I have noted it.'",
+        "'Ore received, every tonne. Your cutting was efficient to within four per cent.' Tally pays {reward} and says no more."
+      ],
+      "failure": [
+        "Tally logs the failure without comment. Then, after a pause: 'Disappointing.'",
+        "'The contract has lapsed.' Tally records it in a ledger that appears to have no other failures in it."
+      ]
+    }
+  }
+]

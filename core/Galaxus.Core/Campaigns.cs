@@ -90,7 +90,7 @@ public static class Campaigns
         var tags = Battle.NameTags(battle, new Rng(Rng.Hash(id + "tags")));
         var variables = new Dictionary<string, string>
         {
-            ["client"] = power.Name, ["enemy"] = BattleJobs.EnemyName(galaxy, enemy), ["system"] = where.Name,
+            ["client"] = power.Name, ["enemy"] = step.EnemyName ?? BattleJobs.EnemyName(galaxy, enemy), ["system"] = where.Name,
             ["captain"] = career.Captain, ["station"] = station, ["base"] = def.BaseName,
         };
         foreach (var (tag, name) in tags) variables[tag] = name;
@@ -103,6 +103,7 @@ public static class Campaigns
         var job = new AcceptedMission(offer, galaxy.Day, galaxy.Day + mission.DeadlineDays);
         career.Missions.Add(job);
         career.ActiveJobId = id;
+        if (step.GivePart != null && db.Parts.ContainsKey(step.GivePart)) career.GiftParts.Add(step.GivePart);
         career.CampaignDebrief = null;
         return job;
     }

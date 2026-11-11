@@ -1,0 +1,17 @@
+// Martins World: Martin's tech works, in a belt system in the outer realms on the Anvil arm.
+// Computer equipment is cheap here, and only here can you buy the Martin Field shield.
+[
+  {
+    "id": "mw-works",
+    "systemName": "Ashcombe 18",
+    "stationName": "Martins World",
+    "region": "outer",
+    "arm": "anvil",
+    "ownerFactionType": "mw-martins-world",
+    "economy": "HighTech",
+    "belt": true,
+    "prices": { "computer-cores": 0.45, "microchip-wafers": 0.5, "technology": 0.7 },
+    "parts": [ { "part": "mw-martin-field", "price": 1500 } ],
+    "description": "Martins World, a tech works run by Martin, an engineer who will tell you exactly what something does and never when it will be ready. Computer equipment sells here for a fraction of the going rate. Lately the system has had a pirate problem who call themselves a sales team."
+  }
+]

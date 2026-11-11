@@ -73,6 +73,8 @@ public sealed class Career
     public List<Mining.SurveyRecord> SurveyData { get; } = [];
     /// <summary>Criminal haunts you've been told about, as "factionId:systemId".</summary>
     public HashSet<string> KnownLeads { get; } = [];
+    /// <summary>Parts you've been given and not yet fitted: any outfitter fits them free.</summary>
+    public List<string> GiftParts { get; set; } = [];
     /// <summary>Jobs you've haggled over and the pay multiplier agreed (1 means refused).</summary>
     public Dictionary<string, float> Haggled { get; } = [];
     /// <summary>Jobs pulled after a haggle offended the client.</summary>

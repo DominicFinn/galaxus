@@ -44,6 +44,7 @@ public static class SaveGame
         public Dictionary<string, int> Disposition { get; set; } = [];
         public Dictionary<string, int> LastDrink { get; set; } = [];
         public List<string> KnownLeads { get; set; } = [];
+        public List<string> GiftParts { get; set; } = [];
         public Dictionary<string, float> Haggled { get; set; } = [];
         public List<string> WithdrawnOffers { get; set; } = [];
         public List<SavedMission> Missions { get; set; } = [];
@@ -132,6 +133,7 @@ public static class SaveGame
             Disposition = new(c.Disposition),
             LastDrink = new(c.LastDrink),
             KnownLeads = [.. c.KnownLeads],
+            GiftParts = [.. c.GiftParts],
             Haggled = new(c.Haggled),
             WithdrawnOffers = [.. c.WithdrawnOffers],
             ActiveJob = c.ActiveJobId,
@@ -249,6 +251,7 @@ public static class SaveGame
         foreach (var (k, v) in data.Disposition) c.Disposition[k] = v;
         foreach (var (k, v) in data.LastDrink) c.LastDrink[k] = v;
         foreach (var id in data.KnownLeads) c.KnownLeads.Add(id);
+        c.GiftParts = [.. data.GiftParts];
         foreach (var (k, v) in data.Haggled) c.Haggled[k] = v;
         foreach (var id in data.WithdrawnOffers) c.WithdrawnOffers.Add(id);
 

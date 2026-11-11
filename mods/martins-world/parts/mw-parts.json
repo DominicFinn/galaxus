@@ -1,0 +1,15 @@
+// The Martin Field: a small shield as strong as the best medium one. Martins World sells it at
+// cost to anyone who'll help keep the League of Time off, and gives the first one away.
+[
+  {
+    "id": "mw-martin-field",
+    "name": "Martin Field",
+    "type": "shield",
+    "size": 1,
+    "mark": 3,
+    "builder": "mw-works",
+    "price": 52000,
+    "description": "Martin's own shield. It fits a fighter and holds like a frigate's. Ask when the next version is due and he will look at you for a long time.",
+    "stats": { "capacity": 192, "recharge": 20.4, "rechargeDelay": 2.2 }
+  }
+]

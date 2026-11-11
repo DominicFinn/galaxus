@@ -1,0 +1,46 @@
+// Orders, debriefs, intro and outro for Martins World.
+// People: Martin (a human engineer who runs the works, will never give a date, weary and kind),
+// Ferris (Martins World's lead test pilot, dry), Tally (a free machine surveyor who lives at the
+// station and counts everything), and the League of Time (pirates who think they are a sales
+// team: they have sold Martin's products, including ones he hasn't invented, and want dates).
+[
+  {
+    "id": "mw-campaign",
+    "description": "Martins World: intro, outro, orders and debriefs.",
+    "variables": ["base", "captain", "client", "enemy", "system", "station", "target"],
+    "rules": {
+      "intro": [
+        "{captain}. Come in. Don't touch the green bench, it's thinking.\n\nI'm Martin. This is Martins World. We make shields, cores and a few things nobody has a word for yet. You'll bunk on the {base}, my workshop carrier, moored off the docking arm. Mind the cables, most of them are live.\n\nHere's the trouble. There's a gang out here called the League of Time. Pirates, though they'd say 'sales and trading'. They've sold my products. All of them. Including several I haven't invented. Now their customers want delivery dates, so the League wants timescales from me, in writing, for every line. I've told them it's done when it works. They took that badly.\n\nMy pilots fly Prototypes. They're the best fighters in the outer realms and there are four of them. The League has rather more than four. That's where you come in.\n\nOh, and you'll want a better shield. Collect a Martin Field from the outfitter. It's on the house.",
+        "{captain}, is it? Good. Sit anywhere that isn't smoking.\n\nMartin. I run Martins World, and before you ask, no, I can't tell you when the next one's out. Nobody can. That's the point of inventing things.\n\nThe League of Time can't accept that. They're pirates who think they're a sales team. They've sold my whole catalogue, plus three products I haven't thought of, and promised every one of them by the end of their quarter. Now they're here for dates, with guns.\n\nFerris and the other test pilots will fly with you in the Prototypes. They're very good. They're also outnumbered. The {base} is your berth; it's my workshop carrier, so don't lean on anything.\n\nThe outfitter has a Martin Field waiting for you, free. Fit it before you go out."
+      ],
+      "outro": [
+        "The League's quarter is over, and so, it seems, is the League. Their last message said they'd be 'pivoting to a new vertical', which Ferris thinks means the next system along.\n\nMartin shakes your hand with both of his. Computer cores are cheap here for you, always, and the outfitter keeps the Martin Fields in stock. Tally has asked whether you mine. You'll be welcome at Martins World whenever you're passing.\n\nAsk Martin when he'll have the next Prototype ready and he'll smile and say: when it works.",
+        "Martins World is quiet again, apart from the benches humming. The League of Time have gone, still without a single date.\n\nMartin pays you, thanks you, and asks you never to promise anyone anything on his behalf. The outfitter keeps Martin Fields at cost for you, and the market will always do you a good price on computers. Tally has a belt contract on the board, if you've got a mining laser."
+      ],
+      "briefing-discovery": [
+        "The League of Time have booked what they call a discovery call. Seven fighters are inbound to {system} to 'understand our needs'. Keep them off the {base} and Martin's benches. Ferris and Beta will fly with you in the Prototypes. Collect your free Martin Field from the outfitter first.",
+        "First contact from the League: a sales team of seven fighters, heading for {station}. They want to talk timescales; we want them gone. Protect the {base}. Fit the Martin Field from the outfitter before you launch, it's free."
+      ],
+      "debrief-discovery": [
+        "The sales team has gone, and so has the follow-up. Ferris says your flying was 'acceptable', which is the highest praise anyone has had from Ferris. Martin pays you and looks worried. The League always follows up.",
+        "Discovery call over. The League's last message promised to 'circle back'. Martin pays you and asks whether you'd mind staying on."
+      ],
+      "briefing-roadmap": [
+        "Two freighters are taking a prototype shipment through {system} to a buyer who has never once asked for a date. The League want it 'for the demo'. Escort the shipment through, and bring both freighters home. A League frigate, the Key Account, is in the area.",
+        "Martin's prototypes are moving through {system} on two freighters. The League of Time have heard and want them for a roadmap review. Get the shipment through. Two Prototypes will fly escort. Watch for the League frigate Key Account."
+      ],
+      "debrief-roadmap": [
+        "The shipment's through. The buyer has paid, said thank you, and not asked when the next one's due. Martin nearly cried. The League sent a message: 'Disappointed with this outcome. Let's set up a call.'",
+        "Prototypes delivered, freighters home. Ferris reports the League's frigate was 'aggressively interested'. Martin pays you and puts the kettle on."
+      ],
+      "briefing-quarter": [
+        "It's the end of the League of Time's quarter, and they haven't closed a single deal. Everything they have is coming to {system}. Hold Martins World until their quarter ends. Keep the {base} alive. Every Prototype is flying, and Tally says it has 'made arrangements'.",
+        "The League are coming in force: they need dates before their quarter closes, and they've decided to take them. Hold {station} and keep the {base} alive until they give up. All four Prototypes are with you."
+      ],
+      "debrief-quarter": [
+        "The quarter's over and the League have missed it. They pulled out with their targets unmet, still without a single timescale. Martin stands on the docking arm for a long time, then goes back to his bench.",
+        "Martins World holds. The League's last broadcast was an out-of-office message. Martin pays you in full and gives you a Prototype badge, which is unfinished."
+      ]
+    }
+  }
+]

@@ -127,6 +127,7 @@ Mods aren't canon, but writers should know what's there so new work doesn't coll
 
 - **The Gyptians** (`mods/gyptians`): a small human people who say they descend from the one human homeworld. Nobody can prove it or disprove it. Their own shipyard, a ring station and a campaign.
 - **Hassall World** (`mods/hassall-world`): a short campaign for Hassall, an eccentric engineer with a station full of synths and robots at Bridgeford 421, who does not believe in orcs.
+- **Martins World** (`mods/martins-world`): a short campaign at Martin's tech works in the outer realms, against the League of Time, pirates who think they are a sales team and want delivery dates for things Martin hasn't invented. Tally, a free machine surveyor, offers mining work there.
 - **The Quill Vigil** (`mods/quill-vigil`): a Lantern Synod campaign escorting pilgrims to Quill Gate, against the Directorate's wishes.
 - **Old Stories** (`mods/old-stories`): rumours in bar talk about the Dominion, Quill Gate, the Heavy Winters, the Houses, the Old Horde and the Walkout.
 - **Example: Free Traders** (`mods/example-free-traders`): the worked example in the docs.

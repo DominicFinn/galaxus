@@ -39,6 +39,7 @@ public static class Outfitting
         foreach (var part in db.Parts.Values.OrderBy(p => p.Id, StringComparer.Ordinal))
         {
             if (!db.Builders.TryGetValue(part.Builder, out var builder)) continue;
+            if (LandmarkRules.LandmarkOnly(db, part.Id)) continue;
             bool own = part.Builder == ownBuilder;
             int distance = Math.Abs(Array.IndexOf(ContentRules.Regions, builder.Region) - here);
             if (distance > 1 && !own) continue;
@@ -65,6 +66,13 @@ public static class Outfitting
         }
 
         var offers = rolled.Where(r => r.Roll < r.Chance).Select(r => r.Offer).ToList();
+        // A landmark's own parts, always in stock at its price.
+        if (LandmarkRules.At(db, galaxy, system.Id) is { } landmark)
+            foreach (var sold in landmark.Parts)
+                if (db.Parts.TryGetValue(sold.Part, out var part)) offers.Add(new PartOffer(part, sold.Price));
+        // Parts you've been given, free to collect.
+        foreach (var gift in session.Career.GiftParts.Distinct())
+            if (db.Parts.TryGetValue(gift, out var part)) offers.Add(new PartOffer(part, 0));
         // A proper station always has a decent shelf: the parts that came closest to rolling in.
         int least = profile.StationSize == StationSize.Outpost ? 6 : 20;
         if (offers.Count < least)
@@ -127,6 +135,7 @@ public static class Outfitting
     {
         if (CannotFit(session, slot, offer) != null) return;
         session.Career.Credits -= Cost(session, slot, offer);
+        if (offer.Price == 0) session.Career.GiftParts.Remove(offer.Part.Id);
         var fitted = Fitted(session);
         fitted[slot] = offer.Part;
         session.Career.Loadout = Ids(fitted);

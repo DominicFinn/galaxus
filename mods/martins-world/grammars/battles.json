@@ -1,0 +1,112 @@
+// Briefings, radio calls and outcomes for the Martins World battles.
+// The League of Time talk like a sales team. Ferris is Martins World's dry lead test pilot.
+[
+  {
+    "id": "mw-battle-discovery",
+    "description": "Discovery Call: briefing, radio and outcome.",
+    "variables": ["base", "captain", "client", "system", "target"],
+    "rules": {
+      "briefing": [
+        "The League of Time are coming to {system} for a discovery call. Keep them off the {base}. Two Prototypes fly with you.",
+        "A League sales team is inbound to {system}. Protect the {base} and send them home."
+      ],
+      "success": [
+        "The League's sales team has gone home without a date. Martin pays {captain} and goes back to work.",
+        "Discovery call ended early. Martins World is safe, for now."
+      ],
+      "failure": [
+        "The League got to the {base}. Martin's benches are scorched and he still hasn't given them a date.",
+        "The sales team broke through. Martin says he'll rebuild, and won't say when."
+      ],
+      "radio-works": [
+        "Ferris: Ferris and Beta, in the Prototypes. Stay close to the {base}. They'll go for the benches.",
+        "Ferris: Morning, Captain. Two Prototypes up. We're very good and there aren't many of us. Do the arithmetic."
+      ],
+      "radio-sales": [
+        "League of Time: Hi Martins World, thanks for making the time. We'd love to understand your roadmap. Specifically the dates.",
+        "League of Time: Good afternoon, League of Time, sales and trading. We've sold your quantum loom to eleven clients. We just need a date.",
+        "League of Time: Quick one. Our customers are asking about delivery. What are we saying, end of the month?"
+      ],
+      "radio-followup": [
+        "League of Time: Just following up on our earlier call. We didn't hear back on timescales.",
+        "League of Time: Circling back. Is there someone more senior we could speak to? Someone who does dates?",
+        "Ferris: Second group, and gunships. They're going for the {base}."
+      ]
+    }
+  },
+  {
+    "id": "mw-battle-roadmap",
+    "description": "Roadmap Review: briefing, radio and outcome.",
+    "variables": ["base", "captain", "client", "system", "target"],
+    "rules": {
+      "briefing": [
+        "Escort Martin's prototype shipment through {system} and keep both freighters alive. The League want it for a demo.",
+        "Two freighters of prototypes, through {system}, with the League of Time in the way. Get them out."
+      ],
+      "success": [
+        "The shipment's through. The buyer pays and doesn't ask for a date. Martin is overjoyed.",
+        "Both freighters home. The League will have to demo something else."
+      ],
+      "failure": [
+        "The League took the shipment. Somewhere a buyer is being promised it for next week.",
+        "The prototypes are gone. Martin says he has better ones in progress, and won't say when."
+      ],
+      "radio-shipment": [
+        "Not Yet: Freighter Not Yet, with a hold full of prototypes. Please don't let them open the crates.",
+        "Not Yet: We're slow and full of Martin's work. Stay close."
+      ],
+      "radio-escort": [
+        "Ferris: Two Prototypes on the freighters. You take whatever comes at us.",
+        "Ferris: Escort's up. Keep them off the freighters and we'll have a nice quiet trip."
+      ],
+      "radio-demo": [
+        "League of Time: Love that you're moving product. We'd like to take it off your hands for a quick demo. No commitment.",
+        "League of Time: Hi team. Our client meeting is in an hour and we have nothing to show. Hand over the crates and nobody has a bad quarter."
+      ],
+      "radio-account": [
+        "League of Time: This is the Key Account. Let's get everyone aligned. Stop the freighters and we'll walk you through our proposal.",
+        "Ferris: League frigate, the Key Account. That's their key account manager. Bit bigger than the others."
+      ]
+    }
+  },
+  {
+    "id": "mw-battle-quarter",
+    "description": "End of Quarter: briefing, radio and outcome.",
+    "variables": ["base", "captain", "client", "system", "target"],
+    "rules": {
+      "briefing": [
+        "Hold Martins World in {system} until the League of Time's quarter ends. Keep the {base} alive.",
+        "The League are coming for dates, with everything they have. Hold {system} and protect the {base}."
+      ],
+      "success": [
+        "The League's quarter closes with no dates. They withdraw. Martins World holds.",
+        "Quarter over. The League pull out, targets missed. Martin pays {captain} and finally sits down."
+      ],
+      "failure": [
+        "The League took the station and found no dates anywhere. Martin had never written any down.",
+        "Martins World fell. The League's customers will have to wait. They were always going to."
+      ],
+      "radio-works": [
+        "Ferris: All Prototypes up. This is everything we've got. Make it count.",
+        "Martin: Everyone out there, thank you. If anyone asks for a date, you don't know one. Because you don't."
+      ],
+      "radio-pipeline": [
+        "League of Time: Hi all. Big push today. We're not leaving without timescales for every product line. Including the ones you haven't started.",
+        "League of Time: This is a hard close, Martins World. Dates, or we escalate.",
+        "League of Time: Nobody leaves this call without a timescale."
+      ],
+      "radio-close": [
+        "League of Time: This is the Closing Deal. Our quarter ends in five minutes and we are closing this deal.",
+        "League of Time: The Closing Deal here. We've promised the cloud loom to forty clients. Forty. Give us a date."
+      ],
+      "radio-tally": [
+        "Tally: Tally, joining. Query: is this where the shooting is. Observation: it is. I have borrowed a Prototype. Martin is aware. Approximately.",
+        "Tally: Tally here. I have counted the League's ships. There are too many. I will reduce the number."
+      ],
+      "radio-upsell": [
+        "League of Time: While we have you, have you thought about our premium tier? It comes with more fighters.",
+        "League of Time: Let's take this offline. Offline meaning we shoot you."
+      ]
+    }
+  }
+]

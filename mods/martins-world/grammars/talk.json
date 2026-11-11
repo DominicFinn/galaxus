@@ -1,0 +1,26 @@
+// Bar talk about Martins World and the League of Time, added to the existing talk.
+[
+  {
+    "id": "talk-human",
+    "description": "Human talk about Martins World.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "There's a works in the outer realms called Martins World that'll sell you computer cores for half what you'd pay anywhere else. The owner won't tell you when anything's due, though. Ever.",
+        "Pirates out on the Anvil call themselves the League of Time and say they're in sales. They sold me a shield last year. I'm still waiting for it.",
+        "Hassall over in Bridgeford buys half of what Martins World makes. Never asks for a delivery date. Martin says that's why they get on."
+      ]
+    }
+  },
+  {
+    "id": "talk-free-machine",
+    "description": "Free machine talk about Tally.",
+    "variables": [],
+    "rules": {
+      "rumour": [
+        "Observation. A surveyor called Tally lives at Martins World. It counts the rocks in the belt and is correct about all of them. We find this admirable.",
+        "Query: why do humans ask for timescales on things that do not exist. Hypothesis: comfort. The League of Time require a great deal of comfort."
+      ]
+    }
+  }
+]

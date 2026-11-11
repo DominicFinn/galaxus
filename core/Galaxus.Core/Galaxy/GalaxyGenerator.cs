@@ -66,6 +66,12 @@ public static class GalaxyGenerator
                 if (owner == null && db.FactionTypes.TryGetValue(landmark.OwnerFactionType, out ownerType))
                     owner = galaxy.Factions.Where(f => f.Alive && f.TypeId == ownerType.Id).OrderByDescending(f => galaxy.OwnedBy(f.Id).Count()).ThenBy(f => f.Id).FirstOrDefault();
             }
+            // A landmark built for mining work goes where there's a belt to mine.
+            if (landmark.Belt)
+            {
+                var belted = inRegion.Where(s => Mining.Asteroids.BeltIndex(SolarSystems.For(s)) >= 0).ToList();
+                if (belted.Count > 0) inRegion = belted;
+            }
             var preferred = owner != null ? inRegion.Where(s => s.Owner == owner.Id).ToList() : [];
             if (preferred.Count == 0) preferred = inRegion.Where(s => s.Settled).ToList();
             if (preferred.Count == 0) preferred = inRegion;
@@ -285,7 +291,7 @@ public static class GalaxyGenerator
 
     private static void SeedMinorFactions(Galaxy galaxy, ContentDatabase db, GalaxySettings settings, Rng rng)
     {
-        var types = db.FactionTypes.Values.OrderBy(t => t.Id, StringComparer.Ordinal).ToList();
+        var types = db.FactionTypes.Values.Where(t => !t.OnlyAtLandmark).OrderBy(t => t.Id, StringComparer.Ordinal).ToList();
         var lawful = types.Where(t => !t.Criminal).ToList();
         var criminal = types.Where(t => t.Criminal).ToList();
 

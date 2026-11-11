@@ -1,0 +1,13 @@
+// Martins World builds a handful of fighters for its own defence and sells none of them.
+{
+  "id": "mw-works",
+  "name": "Martins World works",
+  "race": "human",
+  "region": "outer",
+  "culture": "Martins World",
+  "style": "Prototype: matte graphite hulls with bare test panels, orange calibration marks and a white work light glowing in every seam",
+  "bias": "Over-engineered: fast, tough and heavily shielded",
+  "statBias": { "agility": 1.1, "speed": 1.08, "hull": 1.3 },
+  "palette": { "hull": "#2b2f36", "accent": "#ff8a2a", "trim": "#c9ced6", "glow": "#e8f4ff" },
+  "modelNameGrammar": "mw-models"
+}

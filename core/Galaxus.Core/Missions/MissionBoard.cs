@@ -87,8 +87,32 @@ public static class MissionBoard
             }
             offers.Add(new MissionOffer($"{system.Id}-{week}-{i}", mission, giver.Id, system.Id, destination.Id, station, galaxy.Day, client.Id, battleId, enemy, task));
         }
+        offers.AddRange(LandmarkWork(db, galaxy, system, captain, rankWith, givers, week));
         offers.AddRange(Battles.BattleJobs.Offers(db, galaxy, system, captain, rankWith, rng.Fork("battles")));
         return offers;
+    }
+
+    /// <summary>
+    /// Work a landmark always has on: each of its jobs, offered every week by its named character
+    /// on behalf of whoever holds the system, done in the system itself.
+    /// </summary>
+    private static IEnumerable<MissionOffer> LandmarkWork(ContentDatabase db, Galaxy.Galaxy galaxy, StarSystem system, string captain, Func<int, int> rankWith, List<Faction> givers, int week)
+    {
+        if (LandmarkRules.At(db, galaxy, system.Id) is not { } landmark) yield break;
+        var giver = system.Owner >= 0 && galaxy.Factions[system.Owner].Alive ? galaxy.Factions[system.Owner] : givers[0];
+        foreach (var template in db.Missions.Values.Where(m => m.Landmark == landmark.Id).OrderBy(m => m.Id, StringComparer.Ordinal))
+        {
+            if (template.MinRank > rankWith(giver.Id)) continue;
+            var rng = new Rng(system.Seed ^ Rng.Hash($"landmark-job-{template.Id}-{week}"));
+            string station = system.Stations[0];
+            var context = new MissionContext(new FactionInfo(giver.Name, giver.TypeId, giver.RaceId, giver.Criminal), system.Name,
+                $"{station}, {system.Name}", captain, rankWith(giver.Id), null, 0, template.GiverName ?? giver.Name);
+            var mission = MissionGenerator.Build(db, template, context, rng.Fork("mission"));
+            string? task = TaskFor(db, mission, system, rng.Fork("task"));
+            if (task != null && task.StartsWith("mine:")) mission = mission with { Tonnes = 0, Cargo = null };
+            if (task == null && !TravelTypes.Contains(template.Type)) continue;
+            yield return new MissionOffer($"{system.Id}-{week}-{template.Id}", mission, giver.Id, system.Id, system.Id, station, galaxy.Day, null, null, -1, task);
+        }
     }
 
     /// <summary>

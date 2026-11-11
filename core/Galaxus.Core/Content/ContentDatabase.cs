@@ -490,6 +490,8 @@ public sealed class ContentDatabase
                 p.Add($"{at}: no commodity has category '{category}' yet.");
             foreach (var comp in m.Complications.Where(c => !Complications.ContainsKey(c))) p.Add($"{at}: unknown complication '{comp}'.");
             foreach (var next in m.FollowUps.Where(f => !Missions.ContainsKey(f))) p.Add($"{at}: unknown follow-up mission '{next}'.");
+            if (m.Landmark != null && !Landmarks.ContainsKey(m.Landmark)) p.Add($"{at}: unknown landmark '{m.Landmark}'.");
+            if (m.GiverName != null && m.Landmark == null) p.Add($"{at}: giverName only works with a landmark.");
             if (m.TextGrammar == "") p.Add($"{at}: needs a textGrammar.");
             foreach (var rule in ContentRules.MissionTextRules) CheckGrammar(at, m.TextGrammar, rule, p);
             CheckVariables(at, m.TextGrammar, ContentRules.MissionVariables, p);
@@ -602,6 +604,16 @@ public sealed class ContentDatabase
             if (l.OwnerFactionType != null && !Powers.ContainsKey(l.OwnerFactionType) && !FactionTypes.ContainsKey(l.OwnerFactionType))
                 p.Add($"{at}: ownerFactionType '{l.OwnerFactionType}' is neither a great power nor a faction type.");
             if (l.Economy != null && !Enum.TryParse<Galaxy.Economy>(l.Economy, out _)) p.Add($"{at}: economy '{l.Economy}' isn't one of {string.Join(", ", Enum.GetNames<Galaxy.Economy>())}.");
+            foreach (var (key, factor) in l.Prices)
+            {
+                if (!Commodities.ContainsKey(key) && !Commodities.Values.Any(c => c.Category == key)) p.Add($"{at}: prices names '{key}', which is neither a commodity nor a category.");
+                if (factor is <= 0 or > 5) p.Add($"{at}: price multiple for '{key}' must be above 0 and at most 5.");
+            }
+            foreach (var part in l.Parts)
+            {
+                if (!Parts.ContainsKey(part.Part)) p.Add($"{at}: unknown part '{part.Part}'.");
+                if (part.Price <= 0) p.Add($"{at}: part '{part.Part}' needs a price above 0.");
+            }
         }
         foreach (var dup in Landmarks.Values.GroupBy(l => l.SystemName).Where(g => g.Count() > 1))
             p.Add($"Landmarks {string.Join(", ", dup.Select(l => $"'{l.Id}'"))} share the system name '{dup.Key}'.");
@@ -640,6 +652,7 @@ public sealed class ContentDatabase
                 }
                 else if (step.Where is not ("base" or "near" or "front")) p.Add($"{sat}: where must be base, near, front or landmark:<id>.");
                 if (step.Enemy is not ("rival" or "pirates" or "unbound")) p.Add($"{sat}: enemy must be rival, pirates or unbound.");
+                if (step.GivePart != null && !Parts.ContainsKey(step.GivePart)) p.Add($"{sat}: unknown part '{step.GivePart}' to give.");
                 foreach (var rule in new[] { step.Briefing, step.Debrief })
                     if (grammar && !rules.ContainsKey(rule)) p.Add($"{sat}: rule '{rule}' isn't in grammar '{c.TextGrammar}'.");
             }

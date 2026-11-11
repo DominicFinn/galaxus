@@ -141,6 +141,10 @@ public sealed class CampaignStepDef
     public string Where { get; set; } = "base";
     /// <summary>Who you're up against: rival, pirates or unbound.</summary>
     public string Enemy { get; set; } = "rival";
+    /// <summary>What the briefing calls the enemy, such as "the League of Time", instead of their usual name.</summary>
+    public string? EnemyName { get; set; }
+    /// <summary>A part given to you with these orders, free to collect from any outfitter.</summary>
+    public string? GivePart { get; set; }
     public int Reward { get; set; } = 10000;
     /// <summary>Rules in the campaign grammar for the orders and the debrief afterwards.</summary>
     public string Briefing { get; set; } = "";

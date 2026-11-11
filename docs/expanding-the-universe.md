@@ -232,7 +232,21 @@ Four optional fields let a mod's faction feel like its own people. With none of 
 
 `region` is core, inner, outer or rim; `arm` (optional) is meridian, tolland, anvil or shroud; `economy` is one of Agricultural, Mining, Refinery, Industrial, HighTech or Frontier. Turning a landmark mod on or off part-way through a saved game will move things, as with any faction mod.
 
-**A campaign for your faction.** Instead of `"power"`, a campaign can give `"factionType"`: you fly for the largest faction of that type, and if the galaxy doesn't have one, one is founded for you. `"baseLandmark"` puts your base at a landmark, and a step can happen there with `"where": "landmark:hw-bridgeford"`. Steps whose enemy is `rival` still fight the great power named in `"rival"`.
+A landmark can also change what its station is like:
+
+- `"prices"` sets price multiples by commodity id or category. `{ "computer-cores": 0.45, "technology": 0.7 }` sells computer cores at under half the usual price and other technology a little cheap. An id wins over a category.
+- `"parts"` lists parts on sale only there, always in stock at a fixed price: `[{ "part": "mw-martin-field", "price": 1500 }]`. Those parts never turn up on other stations' shelves.
+- `"belt": true` puts the landmark in a system with an asteroid belt, for mining work.
+
+A faction type with `"onlyAtLandmark": true` is only ever founded by its landmark, so the galaxy never rolls up copies of it elsewhere. Use it for a single named place, such as one works or one family, rather than a kind of faction.
+
+**Work at a landmark.** A mission template with `"landmark"` is offered only at that landmark, every week, done in that system. `"giverName"` names the character who offers it, and their name fills `{client}`. A mining job there needs `"belt": true` on the landmark.
+
+```json
+{ "id": "mw-tally-belt", "type": "mining", "landmark": "mw-works", "giverName": "Tally", "baseReward": 16000, ... }
+```
+
+**A campaign for your faction.** Instead of `"power"`, a campaign can give `"factionType"`: you fly for the largest faction of that type, and if the galaxy doesn't have one, one is founded for you. `"baseLandmark"` puts your base at a landmark, and a step can happen there with `"where": "landmark:hw-bridgeford"`. Steps whose enemy is `rival` still fight the great power named in `"rival"`. A step can also give `"enemyName"`, which the briefing uses for `{enemy}` (a pirate gang with a name of its own, say), and `"givePart"`, a part handed to you with those orders that any outfitter fits free.
 
 ```json
 { "id": "gy-long-leaving", "factionType": "gy-gyptian-fleet", "rival": "meridian-concord", "baseLandmark": "gy-homecoming-reach", ... }

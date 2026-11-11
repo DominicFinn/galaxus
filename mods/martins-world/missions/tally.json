@@ -1,0 +1,9 @@
+// Tally, a free machine surveyor who lives at Martins World, has a contract for the belt.
+[
+  {
+    "id": "mw-tally-belt", "name": "Tally's belt contract", "type": "mining", "scale": "small", "legal": true,
+    "givers": [], "events": [], "cargoCategories": ["ore"], "minRank": 0, "baseReward": 16000,
+    "complications": [], "followUps": [], "textGrammar": "mw-mission-tally",
+    "landmark": "mw-works", "giverName": "Tally"
+  }
+]

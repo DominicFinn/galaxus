@@ -5,9 +5,14 @@ using Galaxus.Core.Content;
 
 // Plays battles with a bot at each difficulty and prints win rates, for tuning.
 //
-//   dotnet run -c Release --project tools/balance -- <data folder> [--runs N] [--skill 0.5] [--kinds war,job,...] [--no-second-wind] [--losses] [battle ...]
+//   dotnet run -c Release --project tools/balance -- <data folder> [--runs N] [--skill 0.5] [--kinds war,job,...] [--no-second-wind] [--losses] [--mods] [battle ...]
+//
+// --mods loads the mods folder beside the data folder too, so mod battles can be measured.
 
-var db = ContentDatabase.Load(new DirectoryContentSource(args.Length > 0 ? args[0] : "game/data"));
+string dataFolder = args.Length > 0 ? args[0] : "game/data";
+var db = args.Contains("--mods")
+    ? ModDiscovery.Load(new DirectoryContentSource(dataFolder), [Path.Combine(Path.GetDirectoryName(Path.GetFullPath(dataFolder).TrimEnd('/'))!, "..", "mods")])
+    : ContentDatabase.Load(new DirectoryContentSource(dataFolder));
 int runs = 4;
 float skill = 0.5f;
 var kinds = new HashSet<string> { "war", "pirate", "synth", "defence", "job", "sim", "campaign" };
@@ -22,6 +27,7 @@ for (int i = 1; i < args.Length; i++)
     else if (args[i] == "--kinds") kinds = [.. args[++i].Split(',')];
     else if (args[i] == "--no-second-wind") secondWind = false;
     else if (args[i] == "--losses") losses = true;
+    else if (args[i] == "--mods") { }
     else only.Add(args[i]);
 }
 // Practice battles where you shoot targets on your own side (the tutorial) aren't something the bot can play.
