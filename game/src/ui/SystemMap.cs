@@ -178,14 +178,14 @@ public partial class SystemMap : Control
             double lon = Math.Atan2(port.Site.Z, port.Site.X) * 180 / Math.PI;
             _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{port.Name.ToUpperInvariant()}[/color]\nSurface port on {world.Name}, " +
                          $"{Math.Abs(lat):0}°{(lat >= 0 ? "N" : "S")} {Math.Abs(lon):0}°{(lon >= 0 ? "E" : "W")}.\n" +
-                         "Set a course and cruise in. You'll drop out above the port: fly down and land on the pad.";
+                         "Set a course and cruise in. You'll drop out above the port: fly down and land on the pad.\n" + TradeLines();
             _course.Disabled = !_current || _selected != id;
             return;
         }
         if (id == -2)
         {
             var site = _solar.Stations[0];
-            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{site.Name.ToUpperInvariant()}[/color]\nStation in orbit of {_solar.Bodies[site.Body].Name}.";
+            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{site.Name.ToUpperInvariant()}[/color]\nStation in orbit of {_solar.Bodies[site.Body].Name}.\n" + TradeLines(shipyard: true);
             _course.Disabled = !_current || _selected != -2;
             return;
         }
@@ -212,6 +212,46 @@ public partial class SystemMap : Control
                      (stations.Count > 0 ? $"Stations in orbit: {string.Join(", ", stations)}\n" : "") +
                      (ports.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]Surface ports: {string.Join(", ", ports)}[/color]" : "");
         _course.Disabled = !_current || _selected != id;
+    }
+
+    /// <summary>
+    /// The market (and shipyard) you'd find docking here: live if you're in the system, as you last
+    /// saw it otherwise. Ports and stations in a system share its market.
+    /// </summary>
+    private string TradeLines(bool shipyard = false)
+    {
+        var db = _session.Db;
+        Dictionary<string, (int Buy, int Sell, int Stock, float Trend)> prices;
+        string when;
+        if (_current)
+        {
+            prices = Market.Quotes(_session, _system).ToDictionary(q => q.Commodity.Id, q => (q.Buy, q.Sell, q.Stock, q.Trend));
+            when = "today";
+        }
+        else if (_session.Career.SeenMarkets.TryGetValue(_system.Id, out var seen))
+        {
+            prices = seen.Prices.ToDictionary(p => p.Key, p => (p.Value.Buy, p.Value.Sell, p.Value.Stock, p.Value.Trend));
+            when = $"{_session.Galaxy.Day - seen.Day} days ago";
+        }
+        else return "\nYou haven't seen this market.";
+        float Position(string id, int price) { var (low, high) = Market.Range(db.Commodities[id]); return (price - low) / (float)Math.Max(1, high - low); }
+        string Trend(float t) => Math.Abs(t) < 0.03f ? "" : t > 0 ? " up" : " down";
+        var cheap = prices.Where(p => p.Value.Stock > 0).OrderBy(p => Position(p.Key, p.Value.Buy)).Take(3);
+        var dear = prices.OrderByDescending(p => Position(p.Key, p.Value.Sell)).Take(3);
+        var shortages = Market.Shortages(db, _session.Galaxy, _session.Galaxy.Day).Where(x => x.SystemId == _system.Id).ToList();
+        string text = $"\n[color=#{Ui.Hex(Ui.Amber)}]Market[/color] ({when})\n" +
+                      "Cheap: " + string.Join(", ", cheap.Select(p => $"{db.Commodities[p.Key].Name} {p.Value.Buy:N0}{Trend(p.Value.Trend)}")) + "\n" +
+                      "Wanted: " + string.Join(", ", dear.Select(p => $"{db.Commodities[p.Key].Name} {p.Value.Sell:N0}{Trend(p.Value.Trend)}")) +
+                      string.Concat(shortages.Select(x => $"\n[color=#{Ui.Hex(Ui.Red)}]Short of {db.Commodities[x.CommodityId].Name.ToLowerInvariant()}.[/color]"));
+        if (shipyard && _current)
+        {
+            var offers = Shipyards.Offers(_session, _system);
+            text += offers.Count == 0 ? "\n\nShipyard: nothing on sale this week."
+                : $"\n\n[color=#{Ui.Hex(Ui.Amber)}]Shipyard[/color] ({offers.Count} ships this week)\n" +
+                  string.Join(", ", offers.GroupBy(o => o.Hull.Class).Select(g => $"{g.Count()} {g.Key}{(g.Count() > 1 ? "s" : "")}")) +
+                  $", from {offers.Min(o => o.Price):N0} cr";
+        }
+        return text;
     }
 
     public override void _Draw()

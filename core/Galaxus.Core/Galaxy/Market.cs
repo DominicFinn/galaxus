@@ -11,6 +11,12 @@ namespace Galaxus.Core.Galaxy;
 /// <param name="Deal">True when this is part of a jackpot: a big surplus here, or a nearby system paying well over the odds.</param>
 public sealed record MarketQuote(CommodityDef Commodity, int Buy, int Sell, int Stock, int Wanted, float Trend, bool Deal);
 
+/// <summary>A good running short in a system for a few days: little stock, high prices, and in the news.</summary>
+public sealed record Shortage(int SystemId, string CommodityId, int StartDay, int EndDay)
+{
+    public bool ActiveOn(int day) => day >= StartDay && day < EndDay;
+}
+
 /// <summary>A chance surplus in one system and a nearby system paying well for it, for a few days.</summary>
 public sealed record TradeDeal(int Source, int Destination, string CommodityId, int StartDay, int EndDay)
 {
@@ -118,11 +124,20 @@ public static class Market
             .OrderBy(c => c.Category, StringComparer.Ordinal).ThenBy(c => c.Name, StringComparer.Ordinal);
     }
 
-    /// <summary>Jackpots running anywhere on the day.</summary>
+    /// <summary>Jackpots running anywhere on the day, between systems that have markets.</summary>
     public static IEnumerable<TradeDeal> Deals(ContentDatabase db, Galaxy galaxy, int day)
     {
         int period = day / DealPeriod;
-        return DealsFor(db, galaxy, period).Concat(DealsFor(db, galaxy, period - 1)).Where(d => d.ActiveOn(day));
+        return DealsFor(db, galaxy, period).Concat(DealsFor(db, galaxy, period - 1))
+            .Where(d => d.ActiveOn(day) && galaxy.Systems[d.Source].Stations.Count > 0 && galaxy.Systems[d.Destination].Stations.Count > 0);
+    }
+
+    /// <summary>Shortages running anywhere on the day, in systems that have markets.</summary>
+    public static IEnumerable<Shortage> Shortages(ContentDatabase db, Galaxy galaxy, int day)
+    {
+        int period = day / ShortagePeriod;
+        return ShortagesFor(db, galaxy, period).Concat(ShortagesFor(db, galaxy, period - 1))
+            .Where(s => s.ActiveOn(day) && galaxy.Systems[s.SystemId].Stations.Count > 0);
     }
 
     // The model ------------------------------------------------------------------------------
@@ -168,6 +183,7 @@ public static class Market
         private int _warLevel; // 0 none, 1 within two jumps of a hot front, 2 the front itself
         private bool _takenOver;
         private List<TradeDeal> _deals = [];
+        private HashSet<string> _shortages = [];
 
         public static Context For(ContentDatabase db, Galaxy galaxy, StarSystem system, int day, Session? session)
         {
@@ -184,6 +200,7 @@ public static class Market
                 if (ctx._warLevel == 0 && galaxy.Jumps(system.Id, c.FrontSystem, 2) is > 0 and <= 2) ctx._warLevel = 1;
             }
             ctx._deals = Deals(db, galaxy, day).Where(d => d.Source == system.Id || d.Destination == system.Id).ToList();
+            ctx._shortages = [.. Shortages(db, galaxy, day).Where(s => s.SystemId == system.Id).Select(s => s.CommodityId)];
             return ctx;
         }
 
@@ -224,6 +241,9 @@ public static class Market
             if (_takenOver) stock *= 0.5f;
             if (eventFactor > 1) { stock /= MathF.Pow(eventFactor, 1.5f); wanted *= eventFactor; }
             else if (eventFactor < 1) { stock *= MathF.Pow(1 / eventFactor, 1.2f); wanted *= eventFactor; }
+
+            // A shortage: almost nothing on the shelves, and everyone wants it.
+            if (_shortages.Contains(c.Id)) { stock *= 0.1f; wanted *= 1.6f; position += 0.3f; }
 
             // Jackpots: a big surplus going cheap, or a nearby system paying well over the odds.
             bool deal = false;
@@ -286,15 +306,17 @@ public static class Market
         {
             if (cache.TryGetValue(period, out var cached)) return cached;
             var rng = new Rng(galaxy.Seed ^ Rng.Hash("jackpots") ^ (ulong)period);
-            var markets = galaxy.Systems.Where(s => s.Stations.Count > 0 && s.Settled).ToList();
+            // Picked from the gate systems, which never change, so the same deals come up whenever this
+            // is worked out; they only run where both ends have a market at the time.
+            var markets = galaxy.Systems.Where(s => s.IsGateSystem).ToList();
             var goods = db.Commodities.Values.Where(c => c.Legality == "legal" && c.BasePrice <= 1500).OrderBy(c => c.Id, StringComparer.Ordinal).ToList();
             var deals = new List<TradeDeal>();
-            int count = Math.Max(2, markets.Count / 100);
+            int count = Math.Max(2, markets.Count / 60);
             for (int i = 0; i < count && markets.Count > 1 && goods.Count > 0; i++)
             {
                 var source = rng.Pick(markets);
                 var goodsId = rng.Pick(goods).Id;
-                var near = galaxy.WithinJumps(source.Id, 3).Where(s => s.Stations.Count > 0 && s.Settled).ToList();
+                var near = galaxy.WithinJumps(source.Id, 3).ToList();
                 if (near.Count == 0) continue;
                 var destination = rng.Pick(near);
                 int start = period * DealPeriod + rng.Next(DealPeriod);
@@ -303,6 +325,38 @@ public static class Market
             cache[period] = deals;
             if (cache.Count > 8) cache.Remove(cache.Keys.Min());
             return deals;
+        }
+    }
+
+    // Shortages --------------------------------------------------------------------------------
+
+    private const int ShortagePeriod = 10;
+    private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Galaxy, Dictionary<int, List<Shortage>>> ShortageCache = new();
+    private static readonly HashSet<string> Staples = ["food", "water", "medical", "fuel"];
+
+    private static List<Shortage> ShortagesFor(ContentDatabase db, Galaxy galaxy, int period)
+    {
+        if (period < 0) return [];
+        var cache = ShortageCache.GetValue(galaxy, _ => []);
+        lock (cache)
+        {
+            if (cache.TryGetValue(period, out var cached)) return cached;
+            var rng = new Rng(galaxy.Seed ^ Rng.Hash("shortages") ^ (ulong)period);
+            var systems = galaxy.Systems.Where(s => s.IsGateSystem).ToList();
+            // Mostly staples (food, water, medicine, fuel), now and then anything.
+            var staples = db.Commodities.Values.Where(c => c.Legality == "legal" && Staples.Contains(c.Category)).OrderBy(c => c.Id, StringComparer.Ordinal).ToList();
+            var any = db.Commodities.Values.Where(c => c.Legality == "legal").OrderBy(c => c.Id, StringComparer.Ordinal).ToList();
+            var list = new List<Shortage>();
+            for (int i = 0; i < Math.Max(2, systems.Count / 150) && staples.Count > 0; i++)
+            {
+                var system = rng.Pick(systems);
+                var goods = rng.NextFloat() < 0.75f ? rng.Pick(staples) : rng.Pick(any);
+                int start = period * ShortagePeriod + rng.Next(ShortagePeriod);
+                list.Add(new Shortage(system.Id, goods.Id, start, start + 5 + rng.Next(5)));
+            }
+            cache[period] = list;
+            if (cache.Count > 8) cache.Remove(cache.Keys.Min());
+            return list;
         }
     }
 

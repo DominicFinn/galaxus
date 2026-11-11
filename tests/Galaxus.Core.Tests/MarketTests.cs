@@ -220,4 +220,23 @@ public class MarketTests
         }
         Assert.True(heard > 0, "No jackpots within reach in 200 days.");
     }
+
+    [Fact]
+    public void Shortages_happen_make_the_news_and_push_prices_up()
+    {
+        var session = NewGame(21);
+        var galaxy = session.Galaxy;
+        int newsBefore = galaxy.News.Count;
+        session.Simulation.Run(40);
+        var reported = galaxy.News.Skip(newsBefore).Where(n => n.Text.Contains("running short of")).ToList();
+        Assert.NotEmpty(reported);
+
+        var shortage = Market.Shortages(Db, galaxy, galaxy.Day).First();
+        var system = galaxy.Systems[shortage.SystemId];
+        var goods = Db.Commodities[shortage.CommodityId];
+        var (low, high) = Market.Range(goods);
+        int price = Market.Price(Db, galaxy, system, goods);
+        Assert.True(price > low + (high - low) * 0.4f, $"{goods.Name} at {system.Name}: {price} in a shortage (range {low} to {high}).");
+        Assert.True(shortage.EndDay - shortage.StartDay is >= 5 and < 10);
+    }
 }

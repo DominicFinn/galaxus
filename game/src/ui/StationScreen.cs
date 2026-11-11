@@ -364,6 +364,7 @@ public partial class StationScreen : PanelContainer
         actions.AddChild(Ui.Button("Sell 1 t", () => Trade(-1)));
         actions.AddChild(Ui.Button("Sell all", () => Trade(-10000)));
         actions.AddChild(Ui.Button("Fill up fuel", FillUp));
+        actions.AddChild(Ui.Button("Trading screen", () => _tradeScreen.Open(_market.GetSelected() is { } i ? _commodities[i.GetMetadata(0).AsInt32()].Id : null)));
         _marketNote = Ui.Label("", Ui.Dim);
         _marketNote.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         actions.AddChild(_marketNote);
@@ -416,6 +417,23 @@ public partial class StationScreen : PanelContainer
         }
         _marketNote.Text = MarketNote;
         ShowMarketTip();
+    }
+
+    private TradeScreen? _tradeScreenNode;
+
+    /// <summary>The trading screen, made the first time it's opened.</summary>
+    private TradeScreen _tradeScreen
+    {
+        get
+        {
+            if (_tradeScreenNode == null)
+            {
+                _tradeScreenNode = new TradeScreen();
+                _tradeScreenNode.Init(_session);
+                AddChild(_tradeScreenNode);
+            }
+            return _tradeScreenNode;
+        }
     }
 
     private string MarketNote

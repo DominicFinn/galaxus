@@ -112,6 +112,7 @@ public partial class GalaxyMap : Control
         _jumpReason = Ui.Label("", Ui.Amber, wrap: true);
         _jumpReason.CustomMinimumSize = new Vector2(180, 0);
         box.AddChild(_jumpReason);
+        box.AddChild(Ui.Button("Trading screen", () => _tradeScreen.Open()));
         box.AddChild(Ui.Button("Close map (M)", () => _close()));
         _jobs = new VBoxContainer();
         box.AddChild(_jobs);
@@ -126,7 +127,15 @@ public partial class GalaxyMap : Control
         _tradeText.ScrollActive = false;
         _tradeText.CustomMinimumSize = new Vector2(220, 0);
         _tradePanel.AddChild(_tradeText);
+
+        _tradeScreen = new TradeScreen();
+        _tradeScreen.Init(_session);
+        AddChild(_tradeScreen);
+        // For screenshots: --trade-screen opens the trading screen over the map.
+        if (OS.GetCmdlineUserArgs().Contains("--trade-screen")) Callable.From(() => _tradeScreen.Open()).CallDeferred();
     }
+
+    private TradeScreen _tradeScreen = null!;
 
     private Label _jumpReason = null!;
     private PanelContainer _tradePanel = null!;

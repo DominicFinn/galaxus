@@ -56,6 +56,9 @@ public sealed class Simulation(ContentDatabase db, Galaxy galaxy)
         if (Galaxy.Day % ConflictStepDays == 0) StepConflicts(rng.Fork("escalate"));
         StartRandomEvents(rng.Fork("events"));
         UpdateEvents(rng.Fork("news"));
+        // Shortages make the news on the day they start.
+        foreach (var shortage in Market.Shortages(db, Galaxy, Galaxy.Day).Where(s => s.StartDay == Galaxy.Day))
+            Galaxy.AddNews(shortage.SystemId, $"{Galaxy.Systems[shortage.SystemId].Name} is running short of {db.Commodities[shortage.CommodityId].Name.ToLowerInvariant()}, and paying well for it.");
     }
 
     /// <summary>A faction pushes into the next system along its border: survey it, then claim it.</summary>
