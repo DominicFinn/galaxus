@@ -60,6 +60,13 @@ public static class SaveGame
         public Dictionary<int, SeenMarket> SeenMarkets { get; set; } = [];
         /// <summary>The Easy trade loop picked at the start.</summary>
         public TradeRoute? TradeRoute { get; set; }
+        /// <summary>Tonnes cut from each asteroid.</summary>
+        public Dictionary<string, int> Mined { get; set; } = [];
+        /// <summary>Everything scanned.</summary>
+        public List<string> Scanned { get; set; } = [];
+        public List<Mining.LogEntry> Logbook { get; set; } = [];
+        public List<Mining.Trail> Trails { get; set; } = [];
+        public List<Mining.SurveyRecord> SurveyData { get; set; } = [];
         /// <summary>The mods loaded when this was saved. Mods can change the galaxy, so a save moved to a game with different mods may not come out the same.</summary>
         public List<string> Mods { get; set; } = [];
     }
@@ -89,6 +96,7 @@ public static class SaveGame
         public int DeadlineDay { get; set; }
         public string? BattleId { get; set; }
         public int EnemyFactionId { get; set; } = -1;
+        public string? Task { get; set; }
     }
 
     public static string Save(Session session)
@@ -128,6 +136,11 @@ public static class SaveGame
             FuelLy = c.FuelLy,
             TradeRoute = c.TradeRoute,
             SeenMarkets = new(c.SeenMarkets),
+            Mined = new(c.Mined),
+            Scanned = [.. c.Scanned],
+            Logbook = [.. c.Logbook],
+            Trails = [.. c.Trails],
+            SurveyData = [.. c.SurveyData],
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -151,6 +164,7 @@ public static class SaveGame
                 ClientId = m.Offer.ClientId,
                 BattleId = m.Offer.BattleId,
                 EnemyFactionId = m.Offer.EnemyFactionId,
+                Task = m.Offer.Task,
                 AcceptedDay = m.AcceptedDay,
                 DeadlineDay = m.DeadlineDay,
             }).ToList(),
@@ -213,7 +227,7 @@ public static class SaveGame
         c.Credits = data.Credits;
         c.SystemId = data.SystemId;
         c.HullId = db.Hulls.ContainsKey(data.HullId) ? data.HullId : "hc-sparrow";
-        c.Loadout = data.Loadout?.All(db.Parts.ContainsKey) == true ? data.Loadout : null;
+        c.Loadout = data.Loadout?.All(id => id == "" || db.Parts.ContainsKey(id)) == true ? data.Loadout : null;
         foreach (var (k, v) in data.Cargo.Where(kv => db.Commodities.ContainsKey(kv.Key))) c.Cargo[k] = v;
         foreach (var (k, v) in data.Reputation) c.Reputation[k] = v;
         foreach (var id in data.TakenOffers) c.TakenOffers.Add(id);
@@ -231,7 +245,7 @@ public static class SaveGame
                 m.CargoId != null ? db.Commodities.GetValueOrDefault(m.CargoId) : null, m.Tonnes, m.DeadlineDays,
                 m.ComplicationId != null ? db.Complications.GetValueOrDefault(m.ComplicationId) : null,
                 m.ComplicationReveal, m.ComplicationAftermath, new Dictionary<string, string>());
-            var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay, m.ClientId, m.BattleId, m.EnemyFactionId);
+            var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay, m.ClientId, m.BattleId, m.EnemyFactionId, m.Task);
             c.Missions.Add(new AcceptedMission(offer, m.AcceptedDay, m.DeadlineDay));
         }
         c.ActiveJobId = data.ActiveJob;
@@ -241,6 +255,11 @@ public static class SaveGame
         c.CampaignDebrief = data.CampaignDebrief;
         foreach (var (key, mark) in data.Trades) c.Trades[key] = mark;
         c.FuelLy = data.FuelLy;
+        foreach (var (k, v) in data.Mined) c.Mined[k] = v;
+        foreach (var k in data.Scanned) c.Scanned.Add(k);
+        c.Logbook.AddRange(data.Logbook);
+        c.Trails.AddRange(data.Trails.Where(t => db.Finds.ContainsKey(t.CacheId) && t.SystemId >= 0 && t.SystemId < session.Galaxy.Systems.Count));
+        c.SurveyData.AddRange(data.SurveyData);
         foreach (var (id, market) in data.SeenMarkets) if (id >= 0 && id < session.Galaxy.Systems.Count) c.SeenMarkets[id] = market;
         // Older saves had no route: pick one from where you are now.
         c.TradeRoute = data.TradeRoute ?? Market.PickRoute(db, session.Galaxy, c.SystemId);

@@ -143,3 +143,106 @@ public partial class Main
         }
     }
 }
+
+/// <summary>
+/// A launch option for checking mining without a player: "-- --screen=flight --mining-test" starts
+/// in a gate system with a belt and a mining laser on the gun mount, flies to the belt, targets the
+/// nearest rock, closes in, scans it and cuts ore, logging as it goes, then quits.
+/// </summary>
+public partial class Main
+{
+    private float _miningTestTime = -1;
+    private int _miningTestStage;
+    private bool _testFire;
+
+    private void MiningTestStart(Galaxus.Core.Session session)
+    {
+        var db = session.Db;
+        foreach (var system in session.Galaxy.WithinJumps(session.Career.SystemId, 12).Where(s => s.IsGateSystem && s.Stations.Count > 0))
+            if (Galaxus.Core.Mining.Asteroids.BeltIndex(Galaxus.Core.Galaxy.SolarSystems.For(system, db.Grammars)) >= 0)
+            {
+                session.Career.SystemId = system.Id;
+                break;
+            }
+        var hull = db.Hulls[session.Career.HullId];
+        var ids = Galaxus.Core.Ships.ShipFactory.Assign(db, hull, null).Select(p => p?.Id ?? "").ToList();
+        ids[hull.Slots.FindIndex(s => s.Type == "weapon")] = "hc-mining-laser-1";
+        session.Career.Loadout = ids;
+    }
+
+    private void StepMiningTest(float dt)
+    {
+        if (!OS.GetCmdlineUserArgs().Contains("--mining-test") || _solar == null || _screen != Screen.Flight) return;
+        float before = _miningTestTime;
+        _miningTestTime = Mathf.Max(0, _miningTestTime) + dt;
+        bool tick = (int)_miningTestTime != (int)before;
+        int belt = BeltHere;
+        void Log(string text) => GD.Print($"MINING TEST: t={_miningTestTime:0}s {text}");
+        void Done(string text) { Log(text); GetTree().Quit(); }
+        if (_miningTestTime > 300) { Done($"gave up at stage {_miningTestStage}"); return; }
+        switch (_miningTestStage)
+        {
+            case 0:
+                if (belt < 0) { Done("no belt here"); return; }
+                Log($"in {_session.Here.Name}, laser range {_player.Spec.MiningRange} m, rate {_player.Spec.Mining}");
+                _navTarget = belt;
+                ToggleCruise();
+                _miningTestStage = 1;
+                return;
+            case 1:
+                if (_cruising) { if (tick) Log($"autopilot, {DistanceKm(PlayerKm, NavTargetKm()!.Value):N0} km to go"); return; }
+                _rockRefresh = 0;
+                SyncRocks(0);
+                Log($"arrived; {_rocks.Count} rocks within {RockRangeKm} km");
+                if (_rocks.Count == 0) { Done("no rocks"); return; }
+                _player.Target = null;
+                for (int i = 0; i < 40 && _rockTarget == null; i++) CycleTarget();
+                if (_rockTarget == null) { Done("couldn't target a rock"); return; }
+                _miningTestStage = 2;
+                return;
+            case 2:
+            {
+                // Fly in to just inside laser range, nose on the rock.
+                var toRock = RockLocal(_rockTarget!) - _player.Body.Position;
+                float distance = toRock.Length() - _rockTarget!.RadiusM;
+                var (pitch, yaw) = Galaxus.Core.Ships.Autopilot.SteerTowards(_player, RockLocal(_rockTarget));
+                ref var c = ref _player.Controls;
+                c.Flight.Assist = true;
+                c.Flight.Pitch = pitch;
+                c.Flight.Yaw = yaw;
+                c.Flight.Throttle = Mathf.Clamp((distance - 350) / 1500f, 0, 1);
+                _throttle = c.Flight.Throttle;
+                if (tick) Log($"closing on rock, {distance:N0} m");
+                if (distance < 450 && _player.Body.Speed < 40)
+                {
+                    StartScan();
+                    _miningTestStage = 3;
+                }
+                return;
+            }
+            case 3:
+            {
+                var (pitch, yaw) = Galaxus.Core.Ships.Autopilot.SteerTowards(_player, RockLocal(_rockTarget!));
+                _player.Controls.Flight.Pitch = pitch;
+                _player.Controls.Flight.Yaw = yaw;
+                if (_scanKey != null) return;
+                Log($"scan report: {_hud.ScanReport.Replace('\n', ' ')}");
+                _miningTestStage = 4;
+                return;
+            }
+            case 4:
+            {
+                var (pitch, yaw) = Galaxus.Core.Ships.Autopilot.SteerTowards(_player, RockLocal(_rockTarget!));
+                _player.Controls.Flight.Pitch = pitch;
+                _player.Controls.Flight.Yaw = yaw;
+                _testFire = true;
+                int ore = _session.Career.Cargo.GetValueOrDefault(_rockTarget!.OreId);
+                if (tick) Log($"{_hud.CutStatus}");
+                // With a screenshot asked for, keep cutting until it's taken.
+                if (OS.GetCmdlineUserArgs().Any(a => a.StartsWith("--screenshot="))) return;
+                if (ore >= 3 || _session.Career.FreeCargo(_db) == 0) Done($"cut {ore} t of {_rockTarget.OreId}; {Galaxus.Core.Mining.Scanning.RockLeft(_session.Career, _rockTarget)} t left in the rock");
+                return;
+            }
+        }
+    }
+}

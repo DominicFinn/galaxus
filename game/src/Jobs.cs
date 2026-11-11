@@ -60,6 +60,15 @@ public partial class Main
             _hud.Message("DESTINATION: THE FIGHTING. J FOR AUTOPILOT");
             return;
         }
+        // Work to do first: the world to scan, or the belt to prospect or mine.
+        if (!_session.Career.TaskDone(job.Offer) && job.Offer.Task?.Split(':') is { } task)
+        {
+            int target = task[0] == "scan" ? (int.Parse(task[1]) is var b && b >= 0 ? b : NavStar) : Galaxus.Core.Mining.Asteroids.BeltIndex(_solar);
+            if (target == -1) return;
+            _navTarget = target;
+            _hud.Message($"DESTINATION FOR YOUR JOB: {NavName.ToUpperInvariant()}. J FOR AUTOPILOT");
+            return;
+        }
         int index = _solar.Stations.FindIndex(s => s.Surface && s.Name == job.Offer.DestinationStation);
         if (index < 0 || _dockedPort?.Name == job.Offer.DestinationStation) return;
         _navTarget = NavPortBase - index;

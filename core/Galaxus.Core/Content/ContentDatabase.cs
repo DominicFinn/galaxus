@@ -47,6 +47,8 @@ public sealed class ContentDatabase
     public Dictionary<string, EventDef> Events { get; } = [];
     public Dictionary<string, MissionTemplateDef> Missions { get; } = [];
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
+    /// <summary>Things a scan can turn up: wrecks, beacons, seams, caches and leads.</summary>
+    public Dictionary<string, FindDef> Finds { get; } = [];
     public Dictionary<string, BattleDef> Battles { get; } = [];
     public Dictionary<string, CampaignDef> Campaigns { get; } = [];
     public Dictionary<string, LandmarkDef> Landmarks { get; } = [];
@@ -97,6 +99,7 @@ public sealed class ContentDatabase
         LoadInto(source, "events", db.Events, e => e.Id, problems);
         LoadInto(source, "missions", db.Missions, m => m.Id, problems);
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
+        LoadInto(source, "finds", db.Finds, f => f.Id, problems);
         LoadInto(source, "battles", db.Battles, b => b.Id, problems);
         LoadInto(source, "campaigns", db.Campaigns, c => c.Id, problems);
         LoadInto(source, "landmarks", db.Landmarks, l => l.Id, problems);
@@ -163,7 +166,7 @@ public sealed class ContentDatabase
 
     /// <summary>Folders a mod may add to. Powers are left out: the great powers belong to the base game.</summary>
     public static readonly string[] ModFolders =
-        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "battles", "campaigns", "landmarks", "music", "portraits", "people", "grammars"];
+        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "finds", "battles", "campaigns", "landmarks", "music", "portraits", "people", "grammars"];
 
     private static readonly System.Text.RegularExpressions.Regex OwnerPattern =
         new(@"^(?:Grammar|[A-Z][A-Za-z]*(?: [a-z]+)?) '([^']+)'", System.Text.RegularExpressions.RegexOptions.Compiled);
@@ -183,6 +186,7 @@ public sealed class ContentDatabase
         AddFromMod(mod, "events", Events, e => e.Id, origins, problems);
         AddFromMod(mod, "missions", Missions, m => m.Id, origins, problems);
         AddFromMod(mod, "complications", Complications, c => c.Id, origins, problems);
+        AddFromMod(mod, "finds", Finds, f => f.Id, origins, problems);
         AddFromMod(mod, "battles", Battles, b => b.Id, origins, problems);
         AddFromMod(mod, "campaigns", Campaigns, c => c.Id, origins, problems);
         AddFromMod(mod, "landmarks", Landmarks, l => l.Id, origins, problems);
@@ -424,6 +428,18 @@ public sealed class ContentDatabase
             if (e.NewsGrammar == "") p.Add($"{at}: needs a newsGrammar.");
             foreach (var rule in ContentRules.EventNewsRules) CheckGrammar(at, e.NewsGrammar, rule, p);
             CheckVariables(at, e.NewsGrammar, ContentRules.EventNewsVariables, p);
+        }
+
+        foreach (var f in Finds.Values)
+        {
+            string at = $"Find '{f.Id}'";
+            if (f.Where.Count == 0 || f.Where.Any(w => w is not ("body" or "rock" or "ship" or "cache"))) p.Add($"{at}: where must list body, rock, ship or cache.");
+            if (f.Weight <= 0) p.Add($"{at}: weight must be positive.");
+            if (f.Title == "" || f.Text == "") p.Add($"{at}: needs a title and text.");
+            if (f.LeadsTo != null && (!Finds.TryGetValue(f.LeadsTo, out var cache) || !cache.Where.Contains("cache"))) p.Add($"{at}: leadsTo '{f.LeadsTo}' must be a find with where \"cache\".");
+            if (f.LeadsTo == null && (f.Text.Contains("{target}") || f.Text.Contains("{targetBody}"))) p.Add($"{at}: only a find with leadsTo can name {{target}}.");
+            foreach (var g in f.Goods.Keys.Where(g => !Commodities.ContainsKey(g))) p.Add($"{at}: unknown goods '{g}'.");
+            foreach (var r in f.Regions.Where(r => !ContentRules.Regions.Contains(r))) p.Add($"{at}: unknown region '{r}'.");
         }
 
         foreach (var c in Complications.Values)

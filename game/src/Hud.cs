@@ -67,6 +67,15 @@ public partial class Hud : Control
         while (_radio.Count > 7) _radio.RemoveAt(0);
     }
     public string JobStep { get; set; } = "";
+    /// <summary>The targeted asteroid: where it is, its label and its size, or null.</summary>
+    public (Vector3 Position, string Label, float Radius)? RockTarget { get; set; }
+    /// <summary>"SCANNING X 40%" while a scan runs.</summary>
+    public string ScanProgress { get; set; } = "";
+    /// <summary>The last scan's report, shown for a while on the left.</summary>
+    public string ScanReport { get; set; } = "";
+    public float ScanReportTime { get; set; }
+    /// <summary>What the mining laser is doing, while you hold fire on a rock.</summary>
+    public string CutStatus { get; set; } = "";
     /// <summary>Where the course target is, in render space, for the nav marker. Null hides it.</summary>
     public Vector3? NavPoint { get; set; }
     public string NavLabel { get; set; } = "";
@@ -90,6 +99,7 @@ public partial class Hud : Control
             a += (float)delta;
             if (a > 14) _radio.RemoveAt(i); else _radio[i] = (t, side, a);
         }
+        if (ScanReportTime > 0) ScanReportTime -= (float)delta;
         for (int i = _messages.Count - 1; i >= 0; i--)
         {
             var (text, age) = _messages[i];
@@ -121,6 +131,10 @@ public partial class Hud : Control
         Text(new Vector2(size.X / 2, 24), Cruise, Amber, HorizontalAlignment.Center);
         DrawNavMarker(size);
         DrawMarks(size);
+        DrawRockTarget(size);
+        if (ScanProgress != "") Text(new Vector2(size.X / 2, size.Y / 2 + 48), ScanProgress, Blue, HorizontalAlignment.Center);
+        if (CutStatus != "") Text(new Vector2(size.X / 2, size.Y / 2 + 60), CutStatus, Amber, HorizontalAlignment.Center);
+        if (ScanReportTime > 0 && ScanReport != "") DrawScanReport(size);
         if (Threat != "") Text(new Vector2(size.X / 2, 84), Threat, Red, HorizontalAlignment.Center);
         if (Prompt != null) Text(new Vector2(size.X / 2, size.Y / 2 + 36), Prompt, Amber, HorizontalAlignment.Center);
         Text(new Vector2(size.X - 6, 12), $"KILLS {Kills}", Dim, HorizontalAlignment.Right);
@@ -251,6 +265,46 @@ public partial class Hud : Control
                 DrawLine(p, l, new Color(Red, 0.3f));
             }
         }
+    }
+
+    /// <summary>Brackets on the targeted asteroid, with its ore once scanned.</summary>
+    private void DrawRockTarget(Vector2 size)
+    {
+        if (RockTarget is not { } rock || Camera == null) return;
+        if (Camera.IsPositionBehind(rock.Position) || !OnScreen(Camera.UnprojectPosition(rock.Position), size, 10))
+        {
+            DrawOffscreenArrow(rock.Position, size, Amber);
+            return;
+        }
+        var p = Camera.UnprojectPosition(rock.Position);
+        float distance = Mathf.Max(1, Camera.GlobalPosition.DistanceTo(rock.Position));
+        float half = Mathf.Clamp(rock.Radius * 500f / distance, 5, 60);
+        foreach (var (sx, sy) in new[] { (-1, -1), (1, -1), (1, 1), (-1, 1) })
+        {
+            var corner = p + new Vector2(sx * half, sy * half);
+            DrawLine(corner, corner - new Vector2(sx * 4, 0), Amber);
+            DrawLine(corner, corner - new Vector2(0, sy * 4), Amber);
+        }
+        Text(p + new Vector2(0, half + 10), rock.Label, Amber, HorizontalAlignment.Center);
+    }
+
+    /// <summary>The last scan's report in a panel on the left, wrapped to fit.</summary>
+    private void DrawScanReport(Vector2 size)
+    {
+        var lines = new List<string>();
+        foreach (var paragraph in ScanReport.Split('\n'))
+        {
+            var line = "";
+            foreach (var word in paragraph.Split(' '))
+            {
+                if (line.Length + word.Length + 1 > 52) { lines.Add(line); line = word; }
+                else line = line.Length == 0 ? word : line + " " + word;
+            }
+            lines.Add(line);
+        }
+        var origin = new Vector2(8, 90);
+        DrawRect(new Rect2(origin - new Vector2(4, 10), new Vector2(214, lines.Count * 10 + 6)), Panel);
+        for (int i = 0; i < lines.Count; i++) Text(origin + new Vector2(0, i * 10), lines[i], i == 0 ? Amber : Green);
     }
 
     /// <summary>A diamond on the course target, or an arrow at the screen edge pointing to it.</summary>
@@ -438,6 +492,7 @@ public partial class Hud : Control
             "J / LEFT STICK CLICK          autopilot to your destination",
             "B / RIGHT CLICK / LT          fire a missile once locked",
             "H                             afterburner, if one is fitted",
+            "K                             scan your target, or the world you're near",
             "L                             cycle which job you're following",
             ".  ,                          speed time up, slow it down",
             "F1  this list    F3  frame rate and ship count    C  (system map) find your ship",

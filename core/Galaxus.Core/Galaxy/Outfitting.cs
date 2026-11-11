@@ -114,8 +114,8 @@ public static class Outfitting
         var hull = session.Db.Hulls[session.Career.HullId];
         if (slot < 0 || slot >= hull.Slots.Count) return "Pick a slot first.";
         var s = hull.Slots[slot];
-        if (s.Type != offer.Part.Type) return $"That slot takes a {Label(s.Type)}.";
-        if (offer.Part.Size > s.Size) return $"Too big: that slot takes size {s.Size} or smaller.";
+        if (offer.Part.Size > s.Size && (s.Type == offer.Part.Type || ShipFactory.IsMiningLaser(offer.Part))) return $"Too big: that slot takes size {s.Size} or smaller.";
+        if (!ShipFactory.SlotTakes(s, offer.Part)) return $"That slot takes a {Label(s.Type)}.";
         if (Fitted(session)[slot]?.Id == offer.Part.Id) return "Already fitted.";
         int cost = Cost(session, slot, offer);
         if (cost > session.Career.Credits) return $"You need {cost:N0} cr after selling the old part.";

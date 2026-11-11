@@ -189,7 +189,7 @@ public partial class Main
         double distance = DistanceKm(PlayerKm, target);
         // Already inside the drop distance: for a station or a ship there's nothing to do; for a
         // world or a surface port the autopilot carries on down towards it.
-        bool descent = _navTarget >= 0 || _navTarget <= NavPortBase;
+        bool descent = (_navTarget >= 0 && _solar.Bodies[_navTarget].Kind != BodyKind.Belt) || _navTarget <= NavPortBase;
         if (distance < CourseDropKm() && !descent)
         {
             _hud.Message($"{NavName.ToUpperInvariant()} IS {distance:0.0} KM AHEAD: FLY IN ON THRUSTERS");
@@ -294,6 +294,7 @@ public partial class Main
         : _navTarget == NavBattle ? 12
         : _navTarget == NavFleet ? 4
         : _navTarget <= NavPortBase ? 25
+        : _navTarget >= 0 && _solar.Bodies[_navTarget].Kind == BodyKind.Belt ? 3
         : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
 
     private (double X, double Y, double Z)? NavTargetKm() => _navTarget switch
@@ -304,6 +305,9 @@ public partial class Main
         NavBattle when BattleJobHere() is { } battleJob => BattlePointKm(battleJob),
         <= NavPortBase when -_navTarget + NavPortBase < _solar.Stations.Count =>
             _solar.PortPositionKm(_solar.Stations[NavPortBase - _navTarget], Day, TerrainOf(_solar.Stations[NavPortBase - _navTarget].Body)),
+        // A belt: the nearest part of it.
+        >= 0 when _navTarget < _solar.Bodies.Count && _solar.Bodies[_navTarget].Kind == BodyKind.Belt =>
+            Galaxus.Core.Mining.Asteroids.Landing(_solar.Bodies[_navTarget], _cruising ? _cruiseKm : PlayerKm),
         >= 0 when _navTarget < _solar.Bodies.Count => _solar.PositionKm(_navTarget, Day),
         _ => null,
     };

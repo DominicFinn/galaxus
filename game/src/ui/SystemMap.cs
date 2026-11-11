@@ -136,6 +136,10 @@ public partial class SystemMap : Control
             float d = BodyScreen(i).DistanceTo(at);
             if (d < bestDistance) { bestDistance = d; best = i; }
         }
+        // The belt: anywhere on its ring.
+        if (best == -1)
+            for (int i = 0; i < _solar.Bodies.Count; i++)
+                if (_solar.Bodies[i].Kind == BodyKind.Belt && Mathf.Abs(Centre.DistanceTo(at) - _solar.Bodies[i].Orbit * _pxPerAu) < 5) return i;
         // The star, for skimming with a fuel scoop.
         if (best == -1 && Centre.DistanceTo(at) < 9) return NavStar;
         if (!_current) return best;
@@ -200,6 +204,15 @@ public partial class SystemMap : Control
             return;
         }
         var b = _solar.Bodies[id];
+        if (b.Kind == BodyKind.Belt)
+        {
+            var ore = _session.Db.Commodities[Galaxus.Core.Mining.Asteroids.MainOre(b)].Name.ToLowerInvariant();
+            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{b.Name.ToUpperInvariant()}[/color]\nAn asteroid belt {b.Orbit - b.Radius:0.00} to {b.Orbit + b.Radius:0.00} AU from the star, mostly {ore}.\n" +
+                         "Set it as your destination and the autopilot (J) takes you into the nearest part of it. Target rocks with T, scan them with K, and cut them with a mining laser.";
+            _course.Disabled = !_current || _selected != id;
+            return;
+        }
+        bool surveyed = _session.Career.Scanned.Contains($"{_system.Id}:body:{id}");
         string kind = b.Kind switch
         {
             BodyKind.GasGiant => "Gas giant",
@@ -220,7 +233,8 @@ public partial class SystemMap : Control
                      $"Radius {b.Radius * SolarSystem.KmPerEarthRadius:N0} km. {b.Temperature - 273:N0} °C.\n" +
                      (b.IsMoon ? "" : $"{_solar.MoonsOf(id).Count()} moons.\n") +
                      (stations.Count > 0 ? $"Stations in orbit: {string.Join(", ", stations)}\n" : "") +
-                     (ports.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]Surface ports: {string.Join(", ", ports)}[/color]" : "");
+                     (ports.Count > 0 ? $"[color=#{Ui.Hex(Ui.Amber)}]Surface ports: {string.Join(", ", ports)}[/color]\n" : "") +
+                     (surveyed ? "Surveyed." : "Not surveyed: fly close and scan it (K) for survey data.");
         _course.Disabled = !_current || _selected != id;
     }
 

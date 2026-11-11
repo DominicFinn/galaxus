@@ -45,6 +45,16 @@ public sealed class Career
     public Dictionary<string, int> LastDrink { get; } = [];
     /// <summary>Questions asked of each person today, as "day:count".</summary>
     public Dictionary<string, string> Questions { get; } = [];
+    /// <summary>Tonnes cut from each asteroid, by rock id.</summary>
+    public Dictionary<string, int> Mined { get; } = [];
+    /// <summary>Everything you've scanned: bodies and rocks by system, ships by day.</summary>
+    public HashSet<string> Scanned { get; } = [];
+    /// <summary>What you've found by scanning, oldest first.</summary>
+    public List<Mining.LogEntry> Logbook { get; } = [];
+    /// <summary>Leads you're following to caches elsewhere.</summary>
+    public List<Mining.Trail> Trails { get; } = [];
+    /// <summary>Survey data you hold and haven't sold.</summary>
+    public List<Mining.SurveyRecord> SurveyData { get; } = [];
     /// <summary>Criminal haunts you've been told about, as "factionId:systemId".</summary>
     public HashSet<string> KnownLeads { get; } = [];
     /// <summary>Jobs you've haggled over and the pay multiplier agreed (1 means refused).</summary>
@@ -119,12 +129,23 @@ public sealed class Career
         FuelLy = -1; // new ships come with a full tank
     }
 
+    /// <summary>Whether a job's work at its destination is done (true if it has none).</summary>
+    public bool TaskDone(MissionOffer offer) => offer.Task?.Split(':') switch
+    {
+        null => true,
+        ["scan", var body] => Scanned.Contains($"{offer.DestinationSystemId}:body:{body}"),
+        ["rocks", var n] => Scanned.Count(s => s.StartsWith($"{offer.DestinationSystemId}:rock:")) >= int.Parse(n),
+        ["mine", var ore, var t] => Cargo.GetValueOrDefault(ore) >= int.Parse(t),
+        _ => true,
+    };
+
     /// <summary>Why the job can't be taken, or null if it can.</summary>
     public string? CannotAccept(ContentDatabase db, MissionOffer offer)
     {
         if (TakenOffers.Contains(offer.Id)) return "Already taken.";
         if (!offer.Playable) return "This kind of job comes in a later build.";
         if (offer.Mission.Tonnes > CargoCapacity(db) - CargoUsed) return $"Needs {offer.Mission.Tonnes} t of free cargo space.";
+        if (offer.Task?.Split(':') is ["mine", _, var t] && int.Parse(t) > CargoCapacity(db)) return $"Needs a hold of at least {t} t for the ore.";
         if (Missions.Count >= 6) return "You already have six jobs.";
         return null;
     }
@@ -164,8 +185,10 @@ public sealed class Career
             var mission = job.Offer.Mission;
             bool rightStation = dockedAt != null && ((sameStop?.Invoke(job.Offer.DestinationStation) ?? dockedAt == job.Offer.DestinationStation)
                                 || !galaxy.Systems[SystemId].Stations.Contains(job.Offer.DestinationStation));
-            if (job.Offer.BattleId == null && job.Offer.DestinationSystemId == SystemId && rightStation && galaxy.Day <= job.DeadlineDay)
+            if (job.Offer.BattleId == null && job.Offer.DestinationSystemId == SystemId && rightStation && galaxy.Day <= job.DeadlineDay && TaskDone(job.Offer))
             {
+                // Mined ore is handed over.
+                if (job.Offer.Task?.Split(':') is ["mine", var ore, var t] && (Cargo[ore] -= int.Parse(t)) <= 0) Cargo.Remove(ore);
                 Credits += mission.Reward;
                 Reputation[job.Offer.GiverFactionId] = Reputation.GetValueOrDefault(job.Offer.GiverFactionId) + 20 + mission.Reward / 500;
                 Missions.Remove(job);

@@ -87,7 +87,11 @@ public sealed class ShipSpec
     public float BoostCooldown { get; init; }
     /// <summary>Off the price of goods bought at Free Machine ports.</summary>
     public float MarketDiscount { get; init; }
-    /// <summary>Fitted mining gear's strength, for when mining arrives.</summary>
+    /// <summary>Scanner gear's detail rating: higher scans faster.</summary>
+    public float ScanDetail { get; init; }
+    /// <summary>How far the mining laser reaches, in metres (0 with none fitted).</summary>
+    public float MiningRange { get; init; }
+    /// <summary>Fitted mining gear's strength: tonnes a second is about this times the rock's richness.</summary>
     public float Mining { get; init; }
 }
 
@@ -189,9 +193,18 @@ public static class ShipFactory
             BoostSeconds = gear.Select(p => p.Stats.GetValueOrDefault("boostSeconds")).DefaultIfEmpty(0).Max(),
             BoostCooldown = gear.Select(p => p.Stats.GetValueOrDefault("cooldownSeconds")).DefaultIfEmpty(0).Max(),
             MarketDiscount = Math.Clamp(Gear("freeMachineMarketDiscount"), 0, 0.3f),
-            Mining = Gear("miningRate", "mining", "cuttingRate"),
+            ScanDetail = gear.Select(p => p.Stats.GetValueOrDefault("detail")).DefaultIfEmpty(0).Max(),
+            MiningRange = gear.Where(IsMiningLaser).Select(p => p.Stats.GetValueOrDefault("range", 800)).DefaultIfEmpty(0).Max(),
+            Mining = Gear("miningRate", "mining"),
         };
     }
+
+    /// <summary>A part that cuts rock: it can go in a utility slot or a weapon slot.</summary>
+    public static bool IsMiningLaser(PartDef part) => part.Type == "utility" && (part.Stats.ContainsKey("miningRate") || part.Stats.ContainsKey("mining"));
+
+    /// <summary>Whether a slot can take a part: the right type (or a mining laser on a weapon mount) and no bigger.</summary>
+    public static bool SlotTakes(SlotDef slot, PartDef part) =>
+        part.Size <= slot.Size && (slot.Type == part.Type || (slot.Type == "weapon" && IsMiningLaser(part)));
 
     /// <summary>
     /// Puts a loadout into the hull's slots: one part per slot, of the slot's type and no bigger.
@@ -202,7 +215,7 @@ public static class ShipFactory
     {
         var ids = (loadout ?? hull.DefaultLoadout).ToList();
         var slots = new PartDef?[hull.Slots.Count];
-        static bool Fits(SlotDef slot, PartDef part) => slot.Type == part.Type && part.Size <= slot.Size;
+        static bool Fits(SlotDef slot, PartDef part) => SlotTakes(slot, part);
         bool positional = ids.Count == slots.Length && ids.Select((id, i) => id == "" || (db.Parts.TryGetValue(id, out var p) && Fits(hull.Slots[i], p))).All(ok => ok);
         if (positional)
         {

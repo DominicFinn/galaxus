@@ -63,7 +63,7 @@ public partial class StationScreen
             item.SetText(0, $"{(slot.Type switch { "powerPlant" => "power", "cargo" => "cargo", _ => slot.Type })} {slot.Size}" + (slot.Turret ? " T" : ""));
             item.SetText(1, fitted[i]?.Name ?? "empty");
             if (fitted[i] == null) item.SetCustomColor(1, Ui.Dim);
-            int fits = _shelf.Count(o => o.Part.Type == slot.Type && o.Part.Size <= slot.Size);
+            int fits = _shelf.Count(o => ShipFactory.SlotTakes(slot, o.Part));
             if (fits == 0) item.SetCustomColor(0, Ui.Dim);
             item.SetMetadata(0, i);
             if (i == keep) item.Select(0);
@@ -91,7 +91,7 @@ public partial class StationScreen
             return;
         }
         var slot = hull.Slots[index];
-        _fitting = [.. _shelf.Where(o => o.Part.Type == slot.Type && o.Part.Size <= slot.Size)
+        _fitting = [.. _shelf.Where(o => ShipFactory.SlotTakes(slot, o.Part))
             .OrderByDescending(o => o.Part.Size).ThenBy(o => o.Price)];
         for (int i = 0; i < _fitting.Count; i++)
         {

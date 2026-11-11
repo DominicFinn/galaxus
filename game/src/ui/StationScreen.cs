@@ -8,7 +8,7 @@ using Galaxus.Core.People;
 namespace Galaxus.Ui;
 
 /// <summary>
-/// The docked view: jobs, jobs in hand, market, shipyard, outfitting, people, news and standing. There's no walking
+/// The docked view: jobs, jobs in hand, market, shipyard, outfitting, people, news, standing and the logbook. There's no walking
 /// about, so everything at a station happens on these screens.
 /// </summary>
 public partial class StationScreen : PanelContainer
@@ -79,6 +79,7 @@ public partial class StationScreen : PanelContainer
         tabs.AddChild(BuildPeopleTab());
         tabs.AddChild(BuildNewsTab());
         tabs.AddChild(BuildStandingTab());
+        tabs.AddChild(BuildLogbookTab());
         tabs.AddChild(BuildOrdersTab());
 
         var footer = new HBoxContainer();
@@ -121,6 +122,7 @@ public partial class StationScreen : PanelContainer
         RefreshPeople();
         RefreshNews();
         RefreshStanding();
+        RefreshLogbook();
         RefreshOrders();
     }
 

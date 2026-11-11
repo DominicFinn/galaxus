@@ -192,6 +192,7 @@ public partial class Main : Node3D
         {
             var session = Session.StartNew(_db, 2026);
             if (_startSystem is { } id && id >= 0 && id < session.Galaxy.Systems.Count) session.Career.SystemId = id;
+            if (OS.GetCmdlineUserArgs().Contains("--mining-test")) MiningTestStart(session);
             StartGame(session, _startScreen);
             if (_showcaseDir != null) StartShowcase();
         }
@@ -315,7 +316,7 @@ public partial class Main : Node3D
         EnterSystem();
         if (_demo || startScreen == "flight") SetScreen(Screen.Flight);
         else if (startScreen == "map") OpenMap();
-        else if (_flagship != null && _campaignFleet) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(8); }
+        else if (_flagship != null && _campaignFleet) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(9); }
         else if (_session.Here.Stations.Count > 0) { Dock(); if (_stationTab >= 0) _stationScreen.ShowTab(_stationTab, _stationSlot); }
         else SetScreen(Screen.Flight);
         UpdateCamera(1f, snap: true);
@@ -385,6 +386,7 @@ public partial class Main : Node3D
         BuildSystemBodies();
         ClearBattle();
         ClearTraffic();
+        ClearRocks();
         SetupFleet();
         _dockedAtFlagship = false;
         UpdateSystemView();
@@ -645,7 +647,9 @@ public partial class Main : Node3D
                 }
 
             StepAutopilotTest(dt);
+            StepMiningTest(dt);
             StepFuelScoop(dt);
+            StepProspecting(dt);
             if (_cruising)
             {
                 // On the autopilot the ship only turns; the system moves past instead.
@@ -675,6 +679,8 @@ public partial class Main : Node3D
         _visuals[_player].Visible = !_cockpit;
         foreach (var drone in _drones.Keys) _visuals[drone].Visible = !_cruising;
         UpdateSystemView();
+        SyncRocks(delta);
+        UpdateRockHud();
         UpdateNavHud();
         UpdateJobHud(delta);
         UpdateGuidance(dt);
@@ -735,7 +741,8 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.Help)) _hud.ShowHelp = !_hud.ShowHelp;
         if (Input.IsActionJustPressed(GameInput.Performance)) _hud.ShowPerformance = !_hud.ShowPerformance;
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
-        if (Input.IsActionJustPressed(GameInput.TargetNext)) { _player.Target = NextTarget(); AudioManager.Instance?.Ui("lock"); }
+        if (Input.IsActionJustPressed(GameInput.TargetNext)) { CycleTarget(); AudioManager.Instance?.Ui("lock"); }
+        if (Input.IsActionJustPressed(GameInput.Scan)) StartScan();
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
         if (Input.IsActionJustPressed(GameInput.SystemMapKey)) { OpenSystemMap(); return; }
         if (Input.IsActionJustPressed(GameInput.Cruise)) ToggleCruise();
@@ -755,7 +762,7 @@ public partial class Main : Node3D
             _dockedPort = null;
             _dockedAtFlagship = true;
             Dock();
-            if (_campaignFleet) _stationScreen.ShowTab(8);
+            if (_campaignFleet) _stationScreen.ShowTab(9);
             return;
         }
         if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { _dockedPort = null; _dockedAtFlagship = false; Dock(); return; }

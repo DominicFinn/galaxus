@@ -96,7 +96,7 @@ public partial class Main
                 if (_flagship == null) return;
                 _dockedAtFlagship = true;
                 Dock();
-                _stationScreen.ShowTab(8);
+                _stationScreen.ShowTab(9);
             }),
             new("galaxy-deep-stars.png", 20, () =>
             {

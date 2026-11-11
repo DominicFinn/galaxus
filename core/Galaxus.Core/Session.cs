@@ -181,6 +181,28 @@ public sealed class Session
     private HashSet<string> SurfacePorts(StarSystem system) =>
         SolarSystems.For(system, Db.Grammars).Stations.Where(s => s.Surface).Select(s => s.Name).ToHashSet();
 
+    /// <summary>The work left to do in the destination system, in a line.</summary>
+    private string TaskStep(MissionOffer offer, SolarSystem solar, string due)
+    {
+        int belt = Mining.Asteroids.BeltIndex(solar);
+        string beltName = belt >= 0 ? solar.Bodies[belt].Name : "belt";
+        switch (offer.Task!.Split(':'))
+        {
+            case ["scan", var b]:
+                int body = int.Parse(b);
+                string name = body < 0 || body >= solar.Bodies.Count ? "the star" : solar.Bodies[body].Name;
+                return $"Scan {name}: the course is set, J for autopilot, then hold the scanner (K) on it. {due}.";
+            case ["rocks", var n]:
+                int left = int.Parse(n) - Career.Scanned.Count(s => s.StartsWith($"{offer.DestinationSystemId}:rock:"));
+                return $"Prospect the {beltName}: scan {left} more asteroid{(left == 1 ? "" : "s")} (T to target, K to scan). {due}.";
+            case ["mine", var ore, var t]:
+                int need = int.Parse(t) - Career.Cargo.GetValueOrDefault(ore);
+                string oreName = Db.Commodities[ore].Name.ToLowerInvariant();
+                return $"Mine {need} t more {oreName} in the {beltName}: target a rock (T), scan it (K) to see its ore, and fire your mining laser. {due}.";
+        }
+        return due;
+    }
+
     /// <summary>What to do next for a job, in a line: where to go, how long it takes, how long is left.</summary>
     public string NextStep(AcceptedMission job, string? dockedAt = null)
     {
@@ -207,6 +229,7 @@ public sealed class Session
         if (offer.BattleId != null)
             return $"Head for the fighting near {offer.DestinationStation}: the course is set, J for autopilot. {Capital(due)}.";
         var solar = SolarSystems.For(Here, Db.Grammars);
+        if (!Career.TaskDone(offer)) return TaskStep(offer, solar, Capital(due));
         var port = solar.Stations.FirstOrDefault(s => s.Surface && s.Name == offer.DestinationStation);
         if (port != null)
             return dockedAt == port.Name

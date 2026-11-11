@@ -1183,7 +1183,8 @@
    "range": 1100
   }
  },
- {
+ {"id": "tw-mining-laser-1", "name": "Prospector cutter S1 Mk I", "type": "utility", "size": 1, "mark": 1, "builder": "tolland-wrights", "price": 4200, "description": "A frontier cutting beam that bolts onto a gun mount. Loud, hot and good enough.", "stats": {"miningRate": 0.55, "range": 650, "heat": 0.65}},
+  {
   "id": "tw-mining-laser-2",
   "name": "Prospector mining laser S2 Mk I",
   "type": "utility",

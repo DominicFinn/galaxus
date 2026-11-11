@@ -156,7 +156,15 @@ Faces are 16-bit style pixel art, built from a pool of features for each race: s
 
 ![Generated pixel-art faces: a row per race, in mixed jobs and genders](docs/screenshots/faces.png)
 
-Stations also have a market for 128 kinds of goods, a shipyard, an outfitter, local news and your standing with each faction. At the outfitter you pick one of your ship's slots and see every part on sale that fits it, with what it would change (speed, shields, firepower, hold, fuel) before you buy; the old part is sold back for half its list price. Stock changes weekly and bigger stations carry higher marks. Utility gear works in flight: armour, repair rigs that patch the hull once your shields are up, fuel scoops for skimming a star (pick the star on the system map), drop tanks, missile decoys, stealth veils, hidden holds, afterburners (H) and more. Mining gear is on sale too, ready for when mining arrives.
+Stations also have a market for 128 kinds of goods, a shipyard, an outfitter, local news and your standing with each faction. At the outfitter you pick one of your ship's slots and see every part on sale that fits it, with what it would change (speed, shields, firepower, hold, fuel) before you buy; the old part is sold back for half its list price. Stock changes weekly and bigger stations carry higher marks. Utility gear works in flight: armour, repair rigs that patch the hull once your shields are up, fuel scoops for skimming a star (pick the star on the system map), drop tanks, missile decoys, stealth veils, hidden holds, afterburners (H) and more. Small mining lasers fit a gun mount, so even the starter ship can mine.
+
+## Mining, scanning and finds
+
+Belts are places now. Pick one on the system map and the autopilot takes you to a clump of rocks; each rock's ore and size come from the belt's seed, so the same rocks are always there. Warm belts are stony and metallic, cold ones icy, and a few rocks anywhere carry rare metals. Target a rock with T, scan it with K to see its ore and how much is left, and hold fire with a mining laser fitted to cut it into your hold. Rocks shrink as you work them.
+
+The scanner works on more than rocks. Scan a ship for its cargo, and a planet, moon or the star for survey data, which any station buys from the new Logbook tab; it pays more for rarer stars and for systems off the gates. Anything can carry a find: a lost survey drone, a Dominion toll beacon, a wreck from the Walkout, a Horde marker, a smuggler's stash or a rich seam. Some finds are leads to a cache a few gates away, written in the logbook until you go and scan the body they name. Finds are content in `game/data/finds`, so mods can add their own.
+
+Survey jobs now need the scan done before you dock, and mining jobs in systems with a belt need the ore cut and brought in. Mining jobs where there's no belt are still about guarding someone else's miners.
 
 ![The shipyard](docs/screenshots/shipyard.png)
 
@@ -223,10 +231,12 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Thrusters up, down, left, right | R, F, Z, C | |
 | Fire | Space, left click | Right trigger |
 | Fire a missile (once locked) | B, right click | Left trigger |
+| Afterburner (if fitted) | H | |
+| Scan your target or the world you're near | K | |
 | Flight assist on or off | G | B |
 | Power to engines, shields, weapons | 1, 2, 3 | D-pad up, left, right |
 | Balance power | 4 | D-pad down |
-| Next target | T | A |
+| Next target (ships, then asteroids) | T | A |
 | Chase or cockpit camera | V | Y |
 | Dock (when close and slow) and undock | Enter | X |
 | Galaxy map | M | Start |

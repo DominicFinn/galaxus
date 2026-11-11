@@ -110,6 +110,26 @@ public sealed class MissionTemplateDef
 }
 
 /// <summary>A twist on a job: the client lies, the cargo is stolen, the passenger is a fugitive.</summary>
+/// <summary>Something a scan can turn up. See game/data/finds.</summary>
+public sealed class FindDef
+{
+    public string Id { get; set; } = "";
+    /// <summary>What can carry it: body, rock, ship, or cache (only found by following a lead).</summary>
+    public List<string> Where { get; set; } = [];
+    /// <summary>Only in these regions, or anywhere if empty.</summary>
+    public List<string> Regions { get; set; } = [];
+    public float Weight { get; set; } = 1;
+    public string Title { get; set; } = "";
+    /// <summary>The logbook entry. Can use {system}, {body}, {target} and {targetBody}.</summary>
+    public string Text { get; set; } = "";
+    /// <summary>Paid when you find it: a finder's fee or salvage.</summary>
+    public int Credits { get; set; }
+    /// <summary>Goods recovered into the hold, tonnes by commodity, if there's room.</summary>
+    public Dictionary<string, int> Goods { get; set; } = [];
+    /// <summary>A cache find this one points to, placed on a body in another system.</summary>
+    public string? LeadsTo { get; set; }
+}
+
 public sealed class ComplicationDef
 {
     public string Id { get; set; } = "";
