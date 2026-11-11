@@ -166,6 +166,12 @@ Enter a system whose police you owe and a patrol comes out to hail you: pay, pro
 
 Hails come up at the top of the screen with the caller's face and their ship turning in a little window, and your replies as buttons. Pirates hail before they attack: dump your cargo, pay them off, or fight. Press Y to hail a ship you've targeted. The system map now shows the ships about the system (traders on their runs, patrols, miners at the belt, and in poorly policed systems pirates and fences), and you can hail any of them from there or fly out to meet them. Fences buy and sell contraband and tell you which local gang is hiring. Illegal jobs stay off a station's board until someone has told you who to ask: a fence, or gossip in the bar.
 
+## The logbook, lore and treasure hunts
+
+O opens the logbook anywhere, including on the autopilot, which keeps flying while you read. It has three parts. The news, newest first, filtered to everything, within four jumps, where your jobs are, or unread, with each system linked to the galaxy map. Lore: histories, legends and the ways of each people, which people in station bars tell you once they like you, each in their own voice. And clues and finds: your treasure hunts, leads and everything your scanner has turned up. The HUD says when something new goes in.
+
+Treasure hunts come in three pieces, from gossip and now and then from a scan: the first names a region and arm, the second a system, the third a body. With all three the galaxy map marks it and scanning the body finds what's there, which may or may not be what the legend promised. Lore entries are content in `game/data/lore` and hunts in `game/data/clues`, so mods can add their own.
+
 ## Mining, scanning and finds
 
 Belts are places now. Pick one on the system map and the autopilot takes you to a clump of rocks; each rock's ore and size come from the belt's seed, so the same rocks are always there. Warm belts are stony and metallic, cold ones icy, and a few rocks anywhere carry rare metals. Target a rock with T, scan it with K to see its ore and how much is left, and hold fire with a mining laser fitted to cut it into your hold. Rocks shrink as you work them.
@@ -242,6 +248,7 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Afterburner (if fitted) | H | |
 | Scan your target or the world you're near | K | |
 | Hail your target | Y | |
+| Logbook: news, lore, clues and finds | O | |
 | Flight assist on or off | G | B |
 | Power to engines, shields, weapons | 1, 2, 3 | D-pad up, left, right |
 | Balance power | 4 | D-pad down |

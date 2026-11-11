@@ -21,6 +21,7 @@ Don't write files until the person has agreed a plan.
 | Mods: folders, walkthroughs, ship/station/landmark/campaign hooks, music styles, the checker | `docs/expanding-the-universe.md` |
 | How each race talks: crew chatter, contract wording, bar talk | `game/data/grammars/voices/`, `mission-voices/`, `talk/` |
 | Core content | `game/data/` (races, builders, hulls, parts, factions, events, missions, complications, battles, campaigns, music, grammars) |
+| Lore entries, treasure hunts and scan finds the player collects in the logbook | `game/data/lore/`, `game/data/clues/`, `game/data/finds/` (mods add their own in the same folders) |
 | Mods | `mods/<name>/`. `example-free-traders` is the simple pattern, `gyptians` the full one (builder, ships, station, landmark, campaign), `old-stories` a legends-style mod |
 | Ship and station design | [ship-design.md](ship-design.md) in this folder |
 

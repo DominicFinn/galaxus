@@ -339,6 +339,16 @@ public partial class GalaxyMap : Control
         QueueRedraw();
     }
 
+    /// <summary>Opens centred on a system, with it selected: for news and logbook links.</summary>
+    public void OpenAt(int systemId)
+    {
+        Open();
+        Select(systemId);
+        _centre = _session.Galaxy.Systems[systemId].Position;
+        UpdateInfo();
+        QueueRedraw();
+    }
+
     private Vector2 ToScreen(NVector2 p) => Size / 2 + new Vector2(p.X - _centre.X, p.Y - _centre.Y) * _zoom;
     private NVector2 ToGalaxy(Vector2 s) => _centre + new NVector2((s.X - Size.X / 2) / _zoom, (s.Y - Size.Y / 2) / _zoom);
 
@@ -640,6 +650,18 @@ public partial class GalaxyMap : Control
                 var p = ToScreen(galaxy.Systems[id].Position);
                 DrawColoredPolygon([p + new Vector2(0, -dot - 4), p + new Vector2(dot + 4, 0), p + new Vector2(0, dot + 4), p + new Vector2(-dot - 4, 0)], new Color(Ui.Red, 0.55f));
             }
+
+        // Treasure hunts you've pinned to a system, and leads to a body: an amber ring with a question mark.
+        var hunted = _session.Career.Trails.Select(t => t.SystemId)
+            .Concat(_session.Db.Clues.Values.Where(c => _session.Career.Clues.GetValueOrDefault(c.Id) >= 2)
+                .Select(c => Galaxus.Core.Lore.Tales.Target(_session, c)?.System.Id ?? -1))
+            .Where(id => id >= 0).Distinct();
+        foreach (int id in hunted)
+        {
+            var p = ToScreen(galaxy.Systems[id].Position);
+            DrawArc(p, dot + 7, 0, Mathf.Tau, 16, Ui.Amber, 1.5f);
+            DrawString(ThemeDB.FallbackFont, p + new Vector2(dot + 8, 10), "?", HorizontalAlignment.Left, -1, 10, Ui.Amber);
+        }
 
         // Close in, the billions of stars between the gates come into view.
         _visibleDeep.Clear();

@@ -45,6 +45,16 @@ public sealed class Career
     public Dictionary<string, int> LastDrink { get; } = [];
     /// <summary>Questions asked of each person today, as "day:count".</summary>
     public Dictionary<string, string> Questions { get; } = [];
+    /// <summary>Lore entries you've been told, in the order you heard them.</summary>
+    public List<Galaxus.Core.Lore.LoreRecord> Lore { get; } = [];
+    /// <summary>How many pieces of each clue chain you have, by chain id.</summary>
+    public Dictionary<string, int> Clues { get; } = [];
+    /// <summary>News up to this day has been read.</summary>
+    public int NewsReadDay { get; set; } = -1;
+    /// <summary>Logbook entries (finds, lore and clue pieces) you've seen, for the unread count.</summary>
+    public int LogbookSeen { get; set; }
+    /// <summary>Everything in the logbook that isn't news: finds, lore and clue pieces.</summary>
+    public int LogbookCount => Logbook.Count + Lore.Count + Clues.Values.Sum();
     /// <summary>Crimes on your record, each with the faction it's held against and its fine.</summary>
     public List<Law.Offence> Offences { get; } = [];
     /// <summary>Tonnes cut from each asteroid, by rock id.</summary>

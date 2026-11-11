@@ -47,6 +47,8 @@ public sealed class ContentDatabase
     public Dictionary<string, EventDef> Events { get; } = [];
     public Dictionary<string, MissionTemplateDef> Missions { get; } = [];
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
+    public Dictionary<string, LoreDef> Lore { get; } = [];
+    public Dictionary<string, ClueDef> Clues { get; } = [];
     /// <summary>Things a scan can turn up: wrecks, beacons, seams, caches and leads.</summary>
     public Dictionary<string, FindDef> Finds { get; } = [];
     public Dictionary<string, BattleDef> Battles { get; } = [];
@@ -100,6 +102,8 @@ public sealed class ContentDatabase
         LoadInto(source, "missions", db.Missions, m => m.Id, problems);
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
         LoadInto(source, "finds", db.Finds, f => f.Id, problems);
+        LoadInto(source, "lore", db.Lore, l => l.Id, problems);
+        LoadInto(source, "clues", db.Clues, c => c.Id, problems);
         LoadInto(source, "battles", db.Battles, b => b.Id, problems);
         LoadInto(source, "campaigns", db.Campaigns, c => c.Id, problems);
         LoadInto(source, "landmarks", db.Landmarks, l => l.Id, problems);
@@ -166,7 +170,7 @@ public sealed class ContentDatabase
 
     /// <summary>Folders a mod may add to. Powers are left out: the great powers belong to the base game.</summary>
     public static readonly string[] ModFolders =
-        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "finds", "battles", "campaigns", "landmarks", "music", "portraits", "people", "grammars"];
+        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "finds", "lore", "clues", "battles", "campaigns", "landmarks", "music", "portraits", "people", "grammars"];
 
     private static readonly System.Text.RegularExpressions.Regex OwnerPattern =
         new(@"^(?:Grammar|[A-Z][A-Za-z]*(?: [a-z]+)?) '([^']+)'", System.Text.RegularExpressions.RegexOptions.Compiled);
@@ -187,6 +191,8 @@ public sealed class ContentDatabase
         AddFromMod(mod, "missions", Missions, m => m.Id, origins, problems);
         AddFromMod(mod, "complications", Complications, c => c.Id, origins, problems);
         AddFromMod(mod, "finds", Finds, f => f.Id, origins, problems);
+        AddFromMod(mod, "lore", Lore, l => l.Id, origins, problems);
+        AddFromMod(mod, "clues", Clues, c => c.Id, origins, problems);
         AddFromMod(mod, "battles", Battles, b => b.Id, origins, problems);
         AddFromMod(mod, "campaigns", Campaigns, c => c.Id, origins, problems);
         AddFromMod(mod, "landmarks", Landmarks, l => l.Id, origins, problems);
@@ -428,6 +434,24 @@ public sealed class ContentDatabase
             if (e.NewsGrammar == "") p.Add($"{at}: needs a newsGrammar.");
             foreach (var rule in ContentRules.EventNewsRules) CheckGrammar(at, e.NewsGrammar, rule, p);
             CheckVariables(at, e.NewsGrammar, ContentRules.EventNewsVariables, p);
+        }
+
+        foreach (var l in Lore.Values)
+        {
+            string at = $"Lore '{l.Id}'";
+            if (l.Title == "" || l.Text == "") p.Add($"{at}: needs a title and text.");
+            if (l.Category is not ("history" or "legend" or "people" or "places" or "machines")) p.Add($"{at}: category must be history, legend, people, places or machines.");
+            foreach (var r in l.Tellers.Where(r => !Races.ContainsKey(r))) p.Add($"{at}: unknown race '{r}' in tellers.");
+            foreach (var r in l.Regions.Where(r => !ContentRules.Regions.Contains(r))) p.Add($"{at}: unknown region '{r}'.");
+        }
+
+        foreach (var c in Clues.Values)
+        {
+            string at = $"Clue '{c.Id}'";
+            if (c.Fragments.Count != 3) p.Add($"{at}: needs exactly three fragments (region, system, body).");
+            if (!Finds.TryGetValue(c.Payoff, out var payoff) || !payoff.Where.Contains("cache")) p.Add($"{at}: payoff '{c.Payoff}' must be a find with where \"cache\".");
+            if (c.Regions.Count == 0) p.Add($"{at}: needs at least one region.");
+            foreach (var r in c.Regions.Where(r => !ContentRules.Regions.Contains(r))) p.Add($"{at}: unknown region '{r}'.");
         }
 
         foreach (var f in Finds.Values)

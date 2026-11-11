@@ -34,6 +34,7 @@ public static class GameInput
     public const string Afterburner = "afterburner";
     public const string Scan = "scan";
     public const string Hail = "hail";
+    public const string Logbook = "logbook";
     /// <summary>An absolute throttle axis, for a HOTAS lever that stays where you leave it. Unbound until you set it.</summary>
     public const string ThrottleLever = "throttle_lever";
 
@@ -44,7 +45,7 @@ public static class GameInput
         (RollLeft, "Roll left"), (RollRight, "Roll right"), (ThrottleUp, "Throttle up"), (ThrottleDown, "Throttle down"),
         (ThrottleZero, "Throttle to zero"), (ThrottleLever, "Throttle lever (HOTAS axis)"),
         (StrafeUp, "Thrust up"), (StrafeDown, "Thrust down"), (StrafeLeft, "Thrust left"), (StrafeRight, "Thrust right"),
-        (Fire, "Fire guns"), (FireMissile, "Fire missile"), (Afterburner, "Afterburner"), (Scan, "Scan"), (Hail, "Hail"), (TargetNext, "Next target"), (MatchSpeed, "Match target speed"),
+        (Fire, "Fire guns"), (FireMissile, "Fire missile"), (Afterburner, "Afterburner"), (Scan, "Scan"), (Hail, "Hail"), (Logbook, "Logbook"), (TargetNext, "Next target"), (MatchSpeed, "Match target speed"),
         (FlightAssist, "Flight assist"), (PipEngines, "Power to engines"), (PipShields, "Power to shields"),
         (PipWeapons, "Power to weapons"), (PipBalance, "Balance power"), (Cruise, "Autopilot"),
         (Dock, "Dock and undock"), (Map, "Galaxy map"), (SystemMapKey, "System map"), (NextJob, "Next job"),
@@ -93,6 +94,7 @@ public static class GameInput
         Bind(Afterburner, keys: [Key.H]);
         Bind(Scan, keys: [Key.K]);
         Bind(Hail, keys: [Key.Y]);
+        Bind(Logbook, keys: [Key.O]);
         Bind(ThrottleLever);
     }
 

@@ -72,9 +72,12 @@ public static class Conversation
             case Topic.Rumour:
             {
                 var (fact, lead) = PickFact(session, person, disposition, turn);
-                return Apply(career, person, fact == null
+                var reply = fact == null
                     ? new Reply(Say(session, person, "no-rumour", null, turn), 1)
-                    : new Reply(Say(session, person, "rumour", fact, turn), 1, lead));
+                    : new Reply(Say(session, person, "rumour", fact, turn), 1, lead);
+                // Sometimes a bit of history, a legend or a piece of a treasure hunt comes with it.
+                if (Lore.Tales.FromGossip(session, person, disposition, turn) is { } tale) reply = reply with { Text = reply.Text + "\n\n" + tale };
+                return Apply(career, person, reply);
             }
             case Topic.Work:
             {

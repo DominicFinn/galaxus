@@ -311,6 +311,8 @@ public partial class Main : Node3D
         _map.Init(_session, JumpTo, CloseMap, JumpBlocked, CallRescue);
         uiLayer.AddChild(_map);
         BuildHailPanel(uiLayer);
+        BuildLogbook(uiLayer);
+        _stationScreen.ShowOnMap = OpenMapAt;
         _systemMap = new SystemMap();
         _systemMap.Init(_session, SetCourse, CloseSystemMap, () => PlayerKm, () => _navTarget, () => { RefreshContacts(); return _contacts; }, HailContact);
         uiLayer.AddChild(_systemMap);
@@ -491,6 +493,15 @@ public partial class Main : Node3D
         SetScreen(Screen.Map);
     }
 
+    /// <summary>The galaxy map on a particular system, from a news or logbook link.</summary>
+    private void OpenMapAt(int systemId)
+    {
+        if (_logbook.Visible) _logbook.Visible = false;
+        _mapReturn = _screen == Screen.Map ? _mapReturn : _screen;
+        _map.OpenAt(systemId);
+        SetScreen(Screen.Map);
+    }
+
     private SystemMap _systemMap = null!;
 
     private void OpenSystemMap()
@@ -602,7 +613,7 @@ public partial class Main : Node3D
         // A click takes hold of the mouse for flying, but only when you're actually flying: not on the
         // title screen, in the viewer, or in menus.
         else if (e is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left or MouseButton.Right } && Input.MouseMode != Input.MouseModeEnum.Captured
-                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight && !Hailing)
+                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight && !Hailing && !_logbook.Visible)
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             GetViewport().SetInputAsHandled();
@@ -691,6 +702,7 @@ public partial class Main : Node3D
         foreach (var drone in _drones.Keys) _visuals[drone].Visible = !_cruising;
         UpdateSystemView();
         SyncRocks(delta);
+        NoteLogbook();
         UpdateRockHud();
         UpdateNavHud();
         UpdateJobHud(delta);
@@ -755,6 +767,7 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.TargetNext)) { CycleTarget(); AudioManager.Instance?.Ui("lock"); }
         if (Input.IsActionJustPressed(GameInput.Scan)) StartScan();
         if (Input.IsActionJustPressed(GameInput.Hail)) HailTarget();
+        if (Input.IsActionJustPressed(GameInput.Logbook)) ToggleLogbook();
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
         if (Input.IsActionJustPressed(GameInput.SystemMapKey)) { OpenSystemMap(); return; }
         if (Input.IsActionJustPressed(GameInput.Cruise)) ToggleCruise();

@@ -494,6 +494,7 @@ public partial class Hud : Control
             "H                             afterburner, if one is fitted",
             "K                             scan your target, or the world you're near",
             "Y                             hail your target",
+            "O                             logbook: news, lore, clues, finds",
             "L                             cycle which job you're following",
             ".  ,                          speed time up, slow it down",
             "F1  this list    F3  frame rate and ship count    C  (system map) find your ship",

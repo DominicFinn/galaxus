@@ -1,0 +1,31 @@
+// Clue chains: a treasure told about in pieces. Each fragment narrows it down: the first gives the
+// region and arm, the second the system, the third the body. Fragments come from bar gossip and
+// from scans; once you have all three, the body is in your leads and scanning it finds "payoff",
+// a find with where "cache". Fragments can use {arm}, {region}, {system}, {star}, {body} and
+// {kind}. Where it lands is worked out from the galaxy seed, so every save agrees.
+[
+  { "id": "renns-treasury", "title": "Renn's treasury", "regions": ["outer", "rim"], "payoff": "renn-strongbox",
+    "fragments": [
+      "A false Renn's quartermaster, drunk, once swore the real treasury was hidden in the {region} systems of the {arm} arm, and that Renn never trusted a station with it.",
+      "Another piece: the quartermaster's ledger names {system}, a {star} system, as where the last shipment went.",
+      "The last of it: a coded line in an old Restoration log, 'second watch, {body}'. It's a {kind}."
+    ] },
+  { "id": "silent-yards-hull", "title": "A sealed hull from the Silent Yards", "regions": ["inner", "outer"], "payoff": "yards-hull",
+    "fragments": [
+      "A salvager swears one of the great Dominion hulls drifted clear of the Silent Yards, still sealed, and ended up in the {region} systems of the {arm} arm.",
+      "A drift chart, sold cheap: it puts the hull's last plotted course into {system}.",
+      "Someone saw a shape on a long scan, too regular to be rock, near {body}, a {kind} in {system}."
+    ] },
+  { "id": "horde-hoard", "title": "The hoard of the Old Horde", "regions": ["outer", "rim"], "payoff": "horde-hoard",
+    "fragments": [
+      "An orc swears on Mam's chair that the Old Horde's tribute was buried in the {region} systems of the {arm} arm, where the Horde last feasted.",
+      "A khan's cousin, after a lot of drink: the place is {system}. The Tablets of Kron say so, apparently.",
+      "Last piece, from a dwarf who thinks it's funny: 'they buried it on {body}, a {kind}. You'll see why it's funny.'"
+    ] },
+  { "id": "lost-courier", "title": "The courier that went quiet", "regions": ["outer", "rim"], "payoff": "quiet-courier",
+    "fragments": [
+      "A courier carrying a Directorate data core went quiet somewhere in the {region} systems of the {arm} arm. The Directorate never said what was on it.",
+      "Its last transponder ping, passed on by a patrol pilot: {system}.",
+      "A trader on the same run remembers the courier changing course for {body}, a {kind}, and not answering after."
+    ] }
+]

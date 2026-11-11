@@ -68,6 +68,7 @@ public static class Scanning
         }
 
         var find = FindOnBody(session, solar, index, first);
+        if (first && Lore.Tales.FromScan(session, key) is { } clue) lines.Add($"Among the readings, a clue. {clue}");
         if (!first) value = 0;
         if (value > 0)
         {

@@ -68,6 +68,10 @@ public static class SaveGame
         public List<Mining.Trail> Trails { get; set; } = [];
         public List<Mining.SurveyRecord> SurveyData { get; set; } = [];
         public List<Law.Offence> Offences { get; set; } = [];
+        public List<Galaxus.Core.Lore.LoreRecord> Lore { get; set; } = [];
+        public Dictionary<string, int> Clues { get; set; } = [];
+        public int NewsReadDay { get; set; } = -1;
+        public int LogbookSeen { get; set; }
         /// <summary>The mods loaded when this was saved. Mods can change the galaxy, so a save moved to a game with different mods may not come out the same.</summary>
         public List<string> Mods { get; set; } = [];
     }
@@ -143,6 +147,10 @@ public static class SaveGame
             Trails = [.. c.Trails],
             SurveyData = [.. c.SurveyData],
             Offences = [.. c.Offences],
+            Lore = [.. c.Lore],
+            Clues = new(c.Clues),
+            NewsReadDay = c.NewsReadDay,
+            LogbookSeen = c.LogbookSeen,
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -262,6 +270,10 @@ public static class SaveGame
         c.Logbook.AddRange(data.Logbook);
         c.Trails.AddRange(data.Trails.Where(t => db.Finds.ContainsKey(t.CacheId) && t.SystemId >= 0 && t.SystemId < session.Galaxy.Systems.Count));
         c.SurveyData.AddRange(data.SurveyData);
+        c.Lore.AddRange(data.Lore.Where(l => db.Lore.ContainsKey(l.Id)));
+        foreach (var (k, v) in data.Clues.Where(kv => db.Clues.ContainsKey(kv.Key))) c.Clues[k] = Math.Clamp(v, 0, 3);
+        c.NewsReadDay = data.NewsReadDay;
+        c.LogbookSeen = data.LogbookSeen;
         c.Offences.AddRange(data.Offences.Where(o => o.FactionId >= 0 && o.FactionId < session.Galaxy.Factions.Count && Law.LawRules.Kinds.ContainsKey(o.Kind)));
         foreach (var (id, market) in data.SeenMarkets) if (id >= 0 && id < session.Galaxy.Systems.Count) c.SeenMarkets[id] = market;
         // Older saves had no route: pick one from where you are now.

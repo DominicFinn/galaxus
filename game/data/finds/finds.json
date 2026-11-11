@@ -46,5 +46,17 @@
     "leadsTo": "marked-body" },
   { "id": "marked-body", "where": ["cache"], "weight": 1, "title": "The marked body",
     "text": "On {body}, where the chart was marked: a crashed courier's data core, intact. Its owners are long gone and its contents still sell.",
-    "credits": 5000 }
+    "credits": 5000 },
+  { "id": "renn-strongbox", "where": ["cache"], "weight": 1, "title": "A strongbox with Renn's seal",
+    "text": "On {body}, a strongbox stamped with the Regent's seal, the lock long since cut. Inside: Restoration coin, a few medals, and a letter addressed to nobody. Whether it was ever Renn's is anyone's guess. The coin, at least, is real.",
+    "credits": 14000 },
+  { "id": "yards-hull", "where": ["cache"], "weight": 1, "title": "A sealed Dominion hull",
+    "text": "Near {body}: one of the great hulls from the Silent Yards, sealed since the Walkout. The crew berths are empty and the machine berths are neatly made up. The cargo holds are full.",
+    "goods": { "machine-parts": 10, "derelict-hull-plate": 10 }, "credits": 6000 },
+  { "id": "horde-hoard", "where": ["cache"], "weight": 1, "title": "The hoard of the Old Horde",
+    "text": "On {body}: a buried vault, exactly where the orc said. Inside are cups, plates and enough cutlery for a thousand guests, carefully stacked by seating order. No crowns, no tribute. Orcs will say the tribute was eaten. The silver, at least, sells.",
+    "credits": 8000 },
+  { "id": "quiet-courier", "where": ["cache"], "weight": 1, "title": "The quiet courier",
+    "text": "Near {body}: the courier, drifting, every system powered down by hand. No crew aboard and no sign of a fight. The data core is still in its cradle. The Directorate will pay for it and ask you not to have looked.",
+    "credits": 11000 }
 ]

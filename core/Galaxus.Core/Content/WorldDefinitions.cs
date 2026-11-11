@@ -110,6 +110,33 @@ public sealed class MissionTemplateDef
 }
 
 /// <summary>A twist on a job: the client lies, the cargo is stolen, the passenger is a fugitive.</summary>
+/// <summary>A lore entry you can be told and keep in your logbook. See game/data/lore.</summary>
+public sealed class LoreDef
+{
+    public string Id { get; set; } = "";
+    public string Title { get; set; } = "";
+    /// <summary>history, legend, people, places or machines.</summary>
+    public string Category { get; set; } = "history";
+    public string Text { get; set; } = "";
+    /// <summary>Races who tell it in the bar; empty for anyone.</summary>
+    public List<string> Tellers { get; set; } = [];
+    /// <summary>Where you can hear it; empty for anywhere.</summary>
+    public List<string> Regions { get; set; } = [];
+}
+
+/// <summary>A treasure told about in three pieces: region, system, body. See game/data/clues.</summary>
+public sealed class ClueDef
+{
+    public string Id { get; set; } = "";
+    public string Title { get; set; } = "";
+    /// <summary>Regions the treasure can be in.</summary>
+    public List<string> Regions { get; set; } = [];
+    /// <summary>Three fragments, each narrowing it down.</summary>
+    public List<string> Fragments { get; set; } = [];
+    /// <summary>The cache find at the end.</summary>
+    public string Payoff { get; set; } = "";
+}
+
 /// <summary>Something a scan can turn up. See game/data/finds.</summary>
 public sealed class FindDef
 {
