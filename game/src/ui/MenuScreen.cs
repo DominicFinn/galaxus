@@ -353,7 +353,7 @@ public partial class MenuScreen : Control
         Add(Ui.Label("SETTINGS", Ui.Amber));
         Add(Choice("Difficulty", ["Easy", "Normal", "Hard"], s.Difficulty, i => s.Difficulty = i));
         Add(Wrapped("Easy: enemies fire slower and softer, at most two come for you at once, your side is bigger and warships go down quicker. "
-                    + "Normal: a fair fight. Hard: the battles as designed, with sharper pilots. "
+                    + "Normal: a fair fight, with three at most on you. Hard: enemy fighters at full strength, four on you and fewer allies. "
                     + "Battles stay big at every level, and ease off a little when you're clearly losing.", Ui.Dim));
         Add(Toggle("Fullscreen", s.Fullscreen, v => s.Fullscreen = v));
         Add(Choice("Window size", ["640 x 360", "1280 x 720", "1920 x 1080", "2560 x 1440"], s.WindowScale - 1, i => s.WindowScale = i + 1));

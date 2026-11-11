@@ -3,7 +3,9 @@ namespace Galaxus.Core;
 /// <summary>
 /// Everything the difficulty setting changes, in one place. Battles stay big at every level:
 /// difficulty changes how dangerous the crowd is to you, not how many ships are in it. Easy is
-/// generous, Normal fair, Hard as the battles were designed.
+/// generous, Normal fair and Hard sharp. Enemy warship turrets and flak are the steepest settings:
+/// at full strength they make every warship battle unwinnable, so even Hard softens them and
+/// gets its edge from the enemy fighters instead. tools/balance measures each level.
 /// </summary>
 public sealed record Difficulty
 {
@@ -59,14 +61,19 @@ public sealed record Difficulty
 
     public static readonly Difficulty Normal = new()
     {
-        Name = "Normal", DamageTaken = 0.75f, EnemySkill = 0.8f, EnemyFireRate = 0.8f, EnemyDamage = 0.85f, EnemyAim = 0.7f,
-        TurretAccuracy = 0.55f, TurretPlayerWeight = 2.5f, FlakDamage = 0.5f, EnemyWarshipToughness = 0.8f,
-        MaxAttackers = 4, AllyScale = 1.25f, ExtraWingmen = 1, WingmanSkill = 0.75f, ProtectedToughness = 1.4f, SurviveTime = 0.85f,
-        PlayerAimAssist = 6.5f, ShieldRecharge = 1.25f, LockSpeed = 1.3f, SecondWind = 0.7f,
+        Name = "Normal", DamageTaken = 0.7f, EnemySkill = 0.85f, EnemyFireRate = 0.8f, EnemyDamage = 0.8f, EnemyAim = 0.7f,
+        TurretAccuracy = 0.3f, TurretPlayerWeight = 5f, FlakDamage = 0.2f, EnemyWarshipToughness = 0.65f,
+        MaxAttackers = 3, AllyScale = 1.4f, ExtraWingmen = 1, WingmanSkill = 0.8f, ProtectedToughness = 1.6f, SurviveTime = 0.8f,
+        PlayerAimAssist = 7, ShieldRecharge = 1.4f, LockSpeed = 1.4f, SecondWind = 0.85f,
     };
 
-    /// <summary>Hard: the battles as designed, with sharper enemy pilots.</summary>
-    public static readonly Difficulty Hard = new() { Name = "Hard", EnemySkill = 1.1f, EnemyFireRate = 1.1f, TurretPlayerWeight = 0.8f };
+    /// <summary>Hard: enemy fighters at full strength, more of them on you, and fewer allies to help.</summary>
+    public static readonly Difficulty Hard = new()
+    {
+        Name = "Hard", DamageTaken = 0.8f, EnemySkill = 1f, EnemyFireRate = 0.95f, EnemyDamage = 0.95f, EnemyAim = 0.9f,
+        TurretAccuracy = 0.32f, TurretPlayerWeight = 4.5f, FlakDamage = 0.22f, EnemyWarshipToughness = 0.7f,
+        MaxAttackers = 4, AllyScale = 1.15f, ShieldRecharge = 1.2f, SecondWind = 0.7f,
+    };
 
     /// <summary>0 easy, 1 normal, 2 hard.</summary>
     public static Difficulty For(int level) => level switch { 0 => Easy, 1 => Normal, _ => Hard };
