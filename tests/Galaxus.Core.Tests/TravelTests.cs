@@ -84,10 +84,19 @@ public class TravelTests
         {
             Assert.InRange(bridge.Beyond, 1, total / 2);
             Assert.False(Reaches(galaxy, bridge.A, bridge.B), $"{bridge.A}-{bridge.B} is marked as a bridge but isn't one.");
+            Assert.True(bridge.Far == bridge.A || bridge.Far == bridge.B);
+            Assert.Contains(bridge.FarRegion, new[] { "core", "inner", "outer", "rim" });
+            Assert.Contains("beyond", GateNetwork.Describe(galaxy, bridge));
         }
         // A non-bridge never splits it.
         var ordinary = roles.Values.First(r => !r.Bridge);
         Assert.True(Reaches(galaxy, ordinary.A, ordinary.B));
+        Assert.Equal(-1, ordinary.Far);
+
+        // Hubs are where main routes meet, and every bridge end is one.
+        var hubs = GateNetwork.Hubs(galaxy);
+        Assert.NotEmpty(hubs);
+        Assert.All(roles.Values.Where(r => r.Bridge), r => { Assert.Contains(r.A, hubs); Assert.Contains(r.B, hubs); });
     }
 
     /// <summary>Whether b can be reached from a by gate without using the a-b link itself.</summary>

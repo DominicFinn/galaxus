@@ -19,6 +19,8 @@ public partial class GalaxyMap : Control
     private float _zoom = 1.2f;            // pixels per light year
     private NVector2 _centre;              // galaxy point at the middle of the screen
     private int _hovered = -1, _selected = -1;
+    /// <summary>The gate line under the cursor, when no system is.</summary>
+    private GateRole? _hoveredGate;
     private List<int> _route = [];
     private bool _dragging;
 
@@ -319,7 +321,6 @@ public partial class GalaxyMap : Control
         QueueRedraw();
     }
 
-    /// <summary>Opens centred on the player with nothing selected.</summary>
     /// <summary>Opens centred on the player, with the active job's destination already selected and routed.</summary>
     public void Open()
     {
@@ -334,6 +335,13 @@ public partial class GalaxyMap : Control
         {
             Select(job.Offer.DestinationSystemId);
             _centre = (_session.Here.Position + _session.Galaxy.Systems[job.Offer.DestinationSystemId].Position) / 2;
+        }
+        // For screenshots: --map-zoom=0.17 opens zoomed out on the whole galaxy.
+        if (OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--map-zoom=")) is { } zoomArg
+            && float.TryParse(zoomArg["--map-zoom=".Length..], System.Globalization.CultureInfo.InvariantCulture, out float zoom))
+        {
+            _zoom = zoom;
+            if (zoom < 0.5f) _centre = NVector2.Zero;
         }
         UpdateInfo();
         QueueRedraw();
@@ -378,10 +386,45 @@ public partial class GalaxyMap : Control
                 if (_dragging) { _centre -= new NVector2(motion.Relative.X, motion.Relative.Y) / _zoom; QueueRedraw(); }
                 int hovered = Nearest(motion.Position);
                 if (hovered <= -1000) hovered = -1; // an unregistered deep star: only show it once clicked
-                if (hovered != _hovered) { _hovered = hovered; UpdateInfo(); QueueRedraw(); }
+                var gate = hovered < 0 ? GateUnder(motion.Position) : null;
+                if (hovered != _hovered || gate != _hoveredGate) { _hovered = hovered; _hoveredGate = gate; UpdateInfo(); QueueRedraw(); }
                 break;
         }
     }
+
+    /// <summary>
+    /// The gate line under the cursor. Bridges and main routes only, as local links are too many
+    /// and too short to be worth hovering; at the closest zooms any gate counts.
+    /// </summary>
+    private GateRole? GateUnder(Vector2 screen)
+    {
+        var galaxy = _session.Galaxy;
+        GateRole? best = null;
+        float bestDistance = 5f;
+        foreach (var role in GateNetwork.Roles(galaxy).Values)
+        {
+            if (!role.Main && _zoom < 3) continue;
+            var a = ToScreen(galaxy.Systems[role.A].Position);
+            var b = ToScreen(galaxy.Systems[role.B].Position);
+            float d = screen.DistanceTo(Geometry2D.GetClosestPointToSegment(screen, a, b));
+            // Bridges win ties, as they matter most.
+            if (role.Bridge) d -= 1.5f;
+            if (d < bestDistance) { bestDistance = d; best = role; }
+        }
+        return best;
+    }
+
+    private static int RegionRank(string region) => region switch { "core" => 0, "inner" => 1, "outer" => 2, "rim" => 3, _ => 4 };
+
+    /// <summary>Region colours for the Gates view: warm in the core, cooling out to the rim.</summary>
+    private static Color RegionColour(string region) => region switch
+    {
+        "core" => new Color(1f, 0.6f, 0.75f),
+        "inner" => new Color(0.55f, 0.9f, 0.8f),
+        "outer" => new Color(0.5f, 0.7f, 1f),
+        "rim" => new Color(0.75f, 0.55f, 1f),
+        _ => new Color(0.6f, 0.65f, 0.7f),
+    };
 
     /// <summary>For the showcase: set the view and selection directly.</summary>
     public void SetView(float zoom, NVector2 centre, int selected = -1)
@@ -424,6 +467,16 @@ public partial class GalaxyMap : Control
         UpdateTradePanel(id);
         var (fuel, tank) = (_session.FuelLy, _session.FuelTankLy);
         string fuelLine = tank > 0 ? $"Fuel {fuel:0} of {tank:0} ly for direct jumps. Gates are free.\n" : "";
+        if (id < 0 && _hoveredGate is { } gate)
+        {
+            var far = gate.Bridge ? galaxy.Systems[gate.Far] : null;
+            int? jumps = far != null && _jumpsFromHere.TryGetValue(far.Id, out int j) ? j : null;
+            _info.Text = $"[color=#{Ui.Hex(gate.Bridge ? Ui.Amber : Ui.Green)}]{(gate.Bridge ? "BRIDGE GATE" : "GATE")}[/color]\n"
+                         + GateNetwork.Describe(galaxy, gate)
+                         + (gate.Bridge ? "\nLose this link and everything beyond it is reachable only by direct jump." : "")
+                         + (jumps is { } n ? $"\n{n} gate jump{(n == 1 ? "" : "s")} from here to its far end." : "");
+            return;
+        }
         if (id < 0 && _tradeMode)
         {
             _info.Text = TradeSummary();
@@ -432,7 +485,7 @@ public partial class GalaxyMap : Control
         if (id < 0)
         {
             _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]GALAXY MAP[/color]\nDay {galaxy.Day}. You are at {_session.Here.Name}.\n" + fuelLine +
-                         (_gatesMode ? "Bright lines are the main gate routes; amber ones are bridges, the only way into whole parts of the galaxy. Numbers are gate jumps from here.\n\n"
+                         (_gatesMode ? "Main gate routes are coloured by region: [color=#ff99bf]core[/color], [color=#8ce6cc]inner[/color], [color=#80b3ff]outer[/color], [color=#bf8cff]rim[/color]. Amber lines are bridges, the only gate way into whole parts of the galaxy: hover one to see where it leads. Diamonds are hubs, numbered with gate jumps from here.\n\n"
                                      : "Click a system to plot a route. Scroll to zoom, right-drag to pan.\n\n") + Legend();
             return;
         }
@@ -488,10 +541,7 @@ public partial class GalaxyMap : Control
         }
         // Gates: bridges out of here lead to whole parts of the galaxy.
         foreach (var b in bridges)
-        {
-            int other = b!.A == id ? b.B : b.A;
-            lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]A bridge gate to {galaxy.Systems[other].Name}: the only way to {b.Beyond} systems beyond.[/color]");
-        }
+            lines.Add($"[color=#{Ui.Hex(Ui.Amber)}]{GateNetwork.Describe(galaxy, b!)}[/color]");
         lines.Add("\n" + travel);
         _info.Text = string.Join("\n", lines.Where(l => l.Length > 0));
     }
@@ -588,14 +638,22 @@ public partial class GalaxyMap : Control
             if (!new Rect2(-50, -50, Size.X + 100, Size.Y + 100).HasPoint(a) && !new Rect2(-50, -50, Size.X + 100, Size.Y + 100).HasPoint(b)) continue;
             Color colour;
             float width;
-            if (role.Bridge) { colour = new Color(Ui.Amber, _gatesMode ? 0.95f : 0.6f); width = _gatesMode ? 2.5f : 1.6f; }
-            else if (role.Main) { colour = new Color(0.55f, 0.75f, 0.95f, _gatesMode ? 0.75f : 0.3f + 0.25f * role.Weight); width = 1 + role.Weight * (_gatesMode ? 2.2f : 1.2f); }
-            else { colour = new Color(0.4f, 0.55f, 0.7f, _gatesMode ? faint * 1.8f : faint); width = 1; }
+            // In the Gates view, main routes take the colour of the region further out, so the
+            // corridors out to the rim read as one colour all the way.
+            string outerRegion = RegionRank(galaxy.Systems[role.A].Region) >= RegionRank(galaxy.Systems[role.B].Region) ? galaxy.Systems[role.A].Region : galaxy.Systems[role.B].Region;
+            if (role.Bridge) { colour = new Color(Ui.Amber, _gatesMode ? 1f : 0.75f); width = _gatesMode ? 3f : 2.2f; }
+            else if (role.Main && _gatesMode) { colour = new Color(RegionColour(outerRegion), 0.55f + 0.35f * role.Weight); width = 1.2f + role.Weight * 2.2f; }
+            else if (role.Main) { colour = new Color(0.55f, 0.75f, 0.95f, 0.3f + 0.25f * role.Weight); width = 1 + role.Weight * 1.2f; }
+            else { colour = new Color(0.4f, 0.55f, 0.7f, _gatesMode ? faint * 1.4f : faint); width = 1; }
+            if (_hoveredGate == role) { colour = colour.Lightened(0.4f); colour.A = 1; width += 1.5f; }
             DrawLine(a, b, colour, width);
-            // A small gate mark at each end of a bridge.
-            if (role.Bridge && _zoom > 0.3f)
+            // A gate mark at each end of a bridge, at every zoom, so the ways out stand out.
+            if (role.Bridge)
+            {
+                float m = _zoom > 0.6f ? 5 : 4;
                 foreach (var end in new[] { a, b })
-                    DrawPolyline([end + new Vector2(0, -5), end + new Vector2(5, 0), end + new Vector2(0, 5), end + new Vector2(-5, 0), end + new Vector2(0, -5)], Ui.Amber, 1);
+                    DrawPolyline([end + new Vector2(0, -m), end + new Vector2(m, 0), end + new Vector2(0, m), end + new Vector2(-m, 0), end + new Vector2(0, -m)], Ui.Amber, 1.5f);
+            }
         }
 
         if (_selected >= 0 && _route.Count < 2 && _selected != _session.Career.SystemId)
@@ -604,6 +662,7 @@ public partial class GalaxyMap : Control
             DrawLine(ToScreen(galaxy.Systems[_route[i]].Position), ToScreen(galaxy.Systems[_route[i + 1]].Position), Ui.Green, 2);
 
         float dot = Mathf.Clamp(_zoom * 2f, 1.5f, 4f);
+        var hubs = _gatesMode ? GateNetwork.Hubs(galaxy) : [];
         foreach (var s in galaxy.Systems)
         {
             var p = ToScreen(s.Position);
@@ -612,7 +671,20 @@ public partial class GalaxyMap : Control
             if (s.Owner < 0) c.A = s.State == SystemState.Surveyed ? 0.5f : 0.25f;
             else if (!s.Settled) c.A = 0.6f;
             if (_tradeMode) c = TradeColour(s);
-            DrawRect(new Rect2(p - Vector2.One * dot / 2, Vector2.One * dot), c);
+            if (_gatesMode) c = s.IsGateSystem ? new Color(RegionColour(s.Region), 0.7f) : new Color(0.5f, 0.5f, 0.55f, 0.3f);
+            if (_gatesMode && hubs.Contains(s.Id))
+            {
+                // Hubs: a filled diamond, where the main routes meet.
+                float h = dot + 2.5f;
+                DrawColoredPolygon([p + new Vector2(0, -h), p + new Vector2(h, 0), p + new Vector2(0, h), p + new Vector2(-h, 0)], new Color(RegionColour(s.Region), 0.95f));
+            }
+            else if (s.IsGateSystem && _zoom >= 1f)
+            {
+                // Gate systems as small diamonds; the stars between the gates stay plain dots.
+                float h = dot * 0.85f + 1;
+                DrawColoredPolygon([p + new Vector2(0, -h), p + new Vector2(h, 0), p + new Vector2(0, h), p + new Vector2(-h, 0)], c);
+            }
+            else DrawRect(new Rect2(p - Vector2.One * dot / 2, Vector2.One * dot), c);
             if (_tradeMode && _known.TryGetValue(s.Id, out var seen) && Math.Abs(seen.Price.Trend) >= 0.03f)
             {
                 // A small arrow: up for rising, down for falling.
@@ -693,10 +765,12 @@ public partial class GalaxyMap : Control
         else if (_zoom >= DeepZoom / 4)
             DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 230, Size.Y - 8), "Zoom in further to see the stars between the gates.", HorizontalAlignment.Left, -1, 8, Ui.Dim);
 
-        if (_gatesMode && _zoom >= 1.5f)
+        if (_gatesMode)
             foreach (var (id, jumps) in _jumpsFromHere)
             {
-                if (jumps == 0 || jumps > 12) continue;
+                // Close in, every system near you; further out, just the hubs, so you can read how
+                // many jumps it is to each part of the galaxy.
+                if (jumps == 0 || (_zoom >= 1.5f ? jumps > 12 : !hubs.Contains(id))) continue;
                 var p = ToScreen(galaxy.Systems[id].Position);
                 if (p.X < 0 || p.Y < 0 || p.X > Size.X || p.Y > Size.Y) continue;
                 DrawString(ThemeDB.FallbackFont, p + new Vector2(dot, dot + 8), jumps.ToString(), HorizontalAlignment.Left, -1, 8, new Color(0.7f, 0.85f, 1f, 0.8f));

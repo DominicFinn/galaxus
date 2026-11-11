@@ -8,7 +8,9 @@ namespace Galaxus.Core.Galaxy;
 /// <param name="CrossesRegion">Joins two regions (core, inner, outer, rim).</param>
 /// <param name="CrossesArm">Joins two spiral arms.</param>
 /// <param name="Weight">How much of the network's traffic it carries, 0 to 1: the main routes are near 1.</param>
-public sealed record GateRole(int A, int B, bool Bridge, int Beyond, bool CrossesRegion, bool CrossesArm, float Weight)
+/// <param name="Far">For a bridge, the end on the smaller side: the way out to what lies beyond. -1 otherwise.</param>
+/// <param name="FarRegion">For a bridge, the region most of the systems beyond it are in.</param>
+public sealed record GateRole(int A, int B, bool Bridge, int Beyond, bool CrossesRegion, bool CrossesArm, float Weight, int Far = -1, string FarRegion = "")
 {
     /// <summary>A main route: worth drawing boldly on the map.</summary>
     public bool Main => Bridge || Weight > 0.4f || (CrossesRegion && Weight > 0.2f);
@@ -39,6 +41,41 @@ public static class GateNetwork
 
     public static GateRole? Role(Galaxy galaxy, int a, int b) => Roles(galaxy).GetValueOrDefault(Key(a, b));
 
+    /// <summary>
+    /// Hubs: gate systems where three or more main routes meet, or that sit at the end of a bridge.
+    /// They're the junctions worth marking on the map.
+    /// </summary>
+    public static HashSet<int> Hubs(Galaxy galaxy)
+    {
+        var mains = new Dictionary<int, int>();
+        var hubs = new HashSet<int>();
+        foreach (var r in Roles(galaxy).Values)
+        {
+            if (r.Bridge) { hubs.Add(r.A); hubs.Add(r.B); }
+            if (!r.Main) continue;
+            mains[r.A] = mains.GetValueOrDefault(r.A) + 1;
+            mains[r.B] = mains.GetValueOrDefault(r.B) + 1;
+        }
+        foreach (var (id, count) in mains) if (count >= 3) hubs.Add(id);
+        return hubs;
+    }
+
+    /// <summary>A gate in a few words, from one end: "Gate to the outer reaches, 14 systems beyond" for a bridge.</summary>
+    public static string Describe(Galaxy galaxy, GateRole role)
+    {
+        string a = galaxy.Systems[role.A].Name, b = galaxy.Systems[role.B].Name;
+        if (role.Bridge)
+        {
+            string near = galaxy.Systems[role.Far == role.A ? role.B : role.A].Name;
+            string far = galaxy.Systems[role.Far].Name;
+            string where = role.FarRegion switch { "core" => "the core", "inner" => "the inner systems", "outer" => "the outer reaches", "rim" => "the rim", _ => "the far reaches" };
+            return $"Bridge gate from {near} to {far}: the only gate way to {where}, {role.Beyond} system{(role.Beyond == 1 ? "" : "s")} beyond.";
+        }
+        string kind = role.Main ? "A main gate route" : "A local gate link";
+        string crossing = role.CrossesRegion ? $", from the {galaxy.Systems[role.A].Region} to the {galaxy.Systems[role.B].Region}" : "";
+        return $"{kind}, {a} to {b}{crossing}.";
+    }
+
     /// <summary>The bridges a route crosses, in order.</summary>
     public static List<GateRole> BridgesOn(Galaxy galaxy, IReadOnlyList<int> route)
     {
@@ -62,9 +99,19 @@ public static class GateNetwork
                 var key = Key(s.Id, g);
                 var other = galaxy.Systems[g];
                 bool bridge = bridges.Contains(key);
-                int beyond = bridge ? FarSide(galaxy, s.Id, g) : 0;
                 float weight = MathF.Sqrt(usage.GetValueOrDefault(key) / busiest);
-                roles[key] = new GateRole(key.Item1, key.Item2, bridge, beyond, s.Region != other.Region, s.Arm != other.Arm, weight);
+                int beyond = 0, far = -1;
+                string farRegion = "";
+                if (bridge)
+                {
+                    var fromS = Walk(galaxy, s.Id, g);
+                    var fromG = Walk(galaxy, g, s.Id);
+                    var (side, end) = fromS.Count <= fromG.Count ? (fromS, s.Id) : (fromG, g);
+                    beyond = side.Count;
+                    far = end;
+                    farRegion = side.GroupBy(id => galaxy.Systems[id].Region).OrderByDescending(r => r.Count()).ThenBy(r => r.Key, StringComparer.Ordinal).First().Key;
+                }
+                roles[key] = new GateRole(key.Item1, key.Item2, bridge, beyond, s.Region != other.Region, s.Arm != other.Arm, weight, far, farRegion);
             }
         return roles;
     }
@@ -108,11 +155,8 @@ public static class GateNetwork
         return bridges;
     }
 
-    /// <summary>Systems on the smaller side of a bridge: how much of the galaxy it leads to.</summary>
-    private static int FarSide(Galaxy galaxy, int a, int b) => Math.Min(Walk(galaxy, a, b), Walk(galaxy, b, a));
-
-    /// <summary>How many systems you can reach from a start without using one particular link out of it.</summary>
-    private static int Walk(Galaxy galaxy, int start, int notVia)
+    /// <summary>The systems you can reach from a start without using one particular link out of it.</summary>
+    private static HashSet<int> Walk(Galaxy galaxy, int start, int notVia)
     {
         var seen = new HashSet<int> { start };
         var queue = new Queue<int>([start]);
@@ -126,7 +170,7 @@ public static class GateNetwork
                 if (seen.Add(n)) queue.Enqueue(n);
             }
         }
-        return seen.Count;
+        return seen;
     }
 
     /// <summary>
