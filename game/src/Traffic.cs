@@ -129,7 +129,7 @@ public partial class Main
             ship.FireRateScale = level.EnemyFireRate;
             ship.DamageDealtScale = level.EnemyDamage;
         }
-        Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
+        Battle.ApplyToPlayer(_player, GameSettings.Current.Level); ApplyCrew();
         if (role == PilotRole.Freighter && nearStation)
         {
             departing = _rng.NextFloat() < 0.5f;

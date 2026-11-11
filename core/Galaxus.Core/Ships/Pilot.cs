@@ -3,6 +3,17 @@ using System.Numerics;
 namespace Galaxus.Core.Ships;
 
 /// <summary>What an AI pilot is for, which sets how it flies and what it picks on.</summary>
+/// <summary>What you've told your wingmen to do.</summary>
+public enum WingOrder
+{
+    /// <summary>Stay near you and take on anything that comes close.</summary>
+    Defend,
+    /// <summary>Go after your target.</summary>
+    Attack,
+    /// <summary>Hold formation off your wing and don't start fights.</summary>
+    FormUp,
+}
+
 public enum PilotRole
 {
     /// <summary>Dogfights: goes for the nearest enemy small craft, then anything.</summary>
@@ -34,6 +45,10 @@ public sealed class Pilot(PilotRole role, Rng rng)
     public PilotRole Role { get; } = role;
     /// <summary>The ship an escort guards, or a bomber's or capital's assigned target.</summary>
     public Ship? Assigned { get; set; }
+    /// <summary>For escorts flying as your wingmen: the order, its target, and their place in formation (ship space, metres).</summary>
+    public WingOrder Order { get; set; }
+    public Ship? OrderTarget { get; set; }
+    public Vector3 Formation { get; set; } = new(60, 0, 40);
     /// <summary>Where a freighter, capital or patrol is heading or circling.</summary>
     public Vector3 Destination { get; set; }
     /// <summary>The player's ship, which interceptors and pirates like to pick on.</summary>
@@ -103,6 +118,20 @@ public sealed class Pilot(PilotRole role, Rng rng)
                 break;
             case PilotRole.Capital: FlyCapital(ship, world, dt); break;
             case PilotRole.Freighter: FlyFreighter(ship, world); break;
+            case PilotRole.Escort when Order == WingOrder.Attack && OrderTarget is { Alive: true } ordered && world.Hostile(ship, ordered):
+                ship.Target = ordered;
+                _retarget = 3;
+                Dogfight(ship, world, dt, near: null, radius: 30000);
+                break;
+            case PilotRole.Escort when Order == WingOrder.FormUp && Assigned is { Alive: true } lead:
+            {
+                ship.Target = null;
+                var spot = lead.Body.Position + Vector3.Transform(Formation, lead.Body.Orientation);
+                float gap = Vector3.Distance(ship.Body.Position, spot);
+                float matched = lead.Body.Speed / MathF.Max(ship.CurrentFlightStats().MaxSpeed, 1);
+                FlyTo(ship, gap > 150 ? spot + lead.Body.Velocity : spot + lead.Body.Forward * 600, Math.Clamp(matched + gap / 800f, 0, 1));
+                break;
+            }
             case PilotRole.Escort:
                 if (Assigned is { Alive: true } ward && Vector3.Distance(ship.Body.Position, ward.Body.Position) > 900
                     && (ship.Target == null || Vector3.Distance(ship.Target.Body.Position, ward.Body.Position) > 2500))

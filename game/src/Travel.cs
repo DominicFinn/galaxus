@@ -72,6 +72,7 @@ public partial class Main
         _navTarget = _session.Here.Stations.Count > 0 ? NavStation : -1;
         _sinceUndock = 0;
         if (label != "") _hud.Message($"{label.ToUpperInvariant()} {distance:0} KM AHEAD: J FOR AUTOPILOT");
+        SpawnWing();
     }
 
     /// <summary>Fuel in the tank and its size, in light years, for the HUD and map.</summary>
@@ -315,6 +316,71 @@ public partial class Main
                 Done($"arrived {DistanceKm(PlayerKm, _lawTestContact!.Km):N1} km from {_lawTestContact.Name}; ship present: {there}");
                 return;
             }
+        }
+    }
+}
+
+/// <summary>
+/// A launch option for checking wingmen without a player: "-- --screen=flight --wing-test" hires
+/// two pilots, flies straight with the wing formed up and measures how well they keep station,
+/// then puts a pirate ahead, orders an attack and logs the fight. Quits when it's over.
+/// </summary>
+public partial class Main
+{
+    private float _wingTestTime;
+    private int _wingTestStage;
+    private Galaxus.Core.Ships.Ship? _wingTestPirate;
+
+    private void WingTestStart(Galaxus.Core.Session session)
+    {
+        session.Career.Credits = 100_000;
+        int hired = 0;
+        for (int i = 0; i < 400 && hired < 2; i++)
+        {
+            var p = Galaxus.Core.People.PeopleDirectory.Make(session.Db, session.Galaxy, $"wing-test-{i}", session.Here, null, regular: false);
+            if (Galaxus.Core.People.CrewRules.JobFor(p) == "pilot" && Galaxus.Core.People.CrewRules.Hire(session, p) != null) hired++;
+        }
+    }
+
+    private void StepWingTest(float dt)
+    {
+        if (!OS.GetCmdlineUserArgs().Contains("--wing-test") || _screen != Screen.Flight) return;
+        float before = _wingTestTime;
+        _wingTestTime += dt;
+        bool tick = (int)_wingTestTime != (int)before;
+        void Log(string text) => GD.Print($"WING TEST: t={_wingTestTime:0}s {text}");
+        void Done(string text) { Log(text); GetTree().Quit(); }
+        if (_wingTestTime > 120) { Done($"time up at stage {_wingTestStage}: {WingStatus()}"); return; }
+        switch (_wingTestStage)
+        {
+            case 0:
+                Log($"{_wing.Count} wingmen: {string.Join(", ", _wing.Values.Select(w => $"{w.Member.Name} in a {w.Member.HullId}, skill {w.Member.Skill:0.00}"))}");
+                if (_wing.Count == 0) { Done("no wing"); return; }
+                _wingOrder = Galaxus.Core.Ships.WingOrder.FormUp;
+                _wingTestStage = 1;
+                return;
+            case 1:
+                _player.Controls.Flight.Throttle = 0.6f;
+                _throttle = 0.6f;
+                if (tick)
+                {
+                    var gaps = _wing.Select(w => NVector3.Distance(w.Key.Body.Position, _player.Body.Position + NVector3.Transform(w.Value.Pilot.Formation, _player.Body.Orientation)));
+                    Log($"formed up, gaps {string.Join(", ", gaps.Select(g => $"{g:0} m"))}, speed {_player.Body.Speed:0} m/s");
+                }
+                if (_wingTestTime < 15) return;
+                var spec = Galaxus.Core.Ships.ShipFactory.Build(_db, _db.Hulls.Values.First(h => h.Builder == "breakers-guild" && h.Class == "fighter").Id);
+                _wingTestPirate = AddTrafficShip(spec.Hull.Id, "Test Pirate", Galaxus.Core.Ships.PilotRole.Pirate, PirateSide, "human", _player.Body.Position + _player.Body.Forward * 2500, _player.Body.Position);
+                _hailed.Add(_wingTestPirate!);
+                _player.Target = _wingTestPirate;
+                OrderWing(Galaxus.Core.Ships.WingOrder.Attack);
+                _wingTestStage = 2;
+                return;
+            case 2:
+                _player.Controls.Flight.Throttle = 0;
+                _throttle = 0;
+                if (tick) Log($"fight: pirate {(int)(_wingTestPirate!.Hull + _wingTestPirate.Shields)} left, {WingStatus()}");
+                if (_wingTestPirate is { Alive: false }) Done($"pirate down. {WingStatus()}. Kills: {string.Join(", ", _session.Career.Crew.Select(c => $"{c.Name} {c.Kills}"))}");
+                return;
         }
     }
 }

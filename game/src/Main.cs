@@ -194,6 +194,7 @@ public partial class Main : Node3D
             if (_startSystem is { } id && id >= 0 && id < session.Galaxy.Systems.Count) session.Career.SystemId = id;
             if (OS.GetCmdlineUserArgs().Contains("--mining-test")) MiningTestStart(session);
             if (OS.GetCmdlineUserArgs().Contains("--law-test")) LawTestStart(session);
+            if (OS.GetCmdlineUserArgs().Contains("--wing-test")) WingTestStart(session);
             StartGame(session, _startScreen);
             if (_showcaseDir != null) StartShowcase();
         }
@@ -257,7 +258,7 @@ public partial class Main : Node3D
     {
         // The difficulty may have changed in Settings.
         _session.Easy = GameSettings.Current.Difficulty == 0;
-        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
+        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level); ApplyCrew();
         if (_battle != null) _battle.Difficulty = GameSettings.Current.Level;
         _menu.Visible = false;
         if (_pauseReturn == Screen.Docked) Dock(); else SetScreen(_pauseReturn);
@@ -276,7 +277,7 @@ public partial class Main : Node3D
             Side = 0,
             AimAssist = true,
         };
-        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
+        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level); ApplyCrew();
         _world.Ships.Add(_player);
         AddVisual(_player);
         BuildCockpit();
@@ -318,9 +319,9 @@ public partial class Main : Node3D
         uiLayer.AddChild(_systemMap);
 
         EnterSystem();
-        if (_demo || startScreen == "flight") SetScreen(Screen.Flight);
+        if (_demo || startScreen == "flight") { SetScreen(Screen.Flight); SpawnWing(); }
         else if (startScreen == "map") OpenMap();
-        else if (_flagship != null && _campaignFleet) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(9); }
+        else if (_flagship != null && _campaignFleet) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(10); }
         else if (_session.Here.Stations.Count > 0) { Dock(); if (_stationTab >= 0) _stationScreen.ShowTab(_stationTab, _stationSlot); }
         else SetScreen(Screen.Flight);
         UpdateCamera(1f, snap: true);
@@ -391,6 +392,7 @@ public partial class Main : Node3D
         ClearBattle();
         ClearTraffic();
         ClearRocks();
+        ClearWing();
         ResetLaw();
         SetupFleet();
         _dockedAtFlagship = false;
@@ -451,6 +453,8 @@ public partial class Main : Node3D
         // Customs first, so contraband found on a smuggling run is lost before it's delivered.
         string? scan = customs && !_dockedAtFlagship ? DockCustoms() : null;
         var delivered = _session.Dock(stationName);
+        if (Galaxus.Core.People.CrewRules.PayWages(_session) is { Length: > 0 } wages) arrival = ((arrival ?? "") + " " + wages).Trim();
+        ClearWing();
         if (scan != null) arrival = ((arrival ?? "") + " " + scan).Trim();
         string summary = arrival ?? "";
         foreach (var result in delivered)
@@ -480,6 +484,7 @@ public partial class Main : Node3D
         SetScreen(Screen.Flight);
         AudioManager.Instance?.Ui("undock");
         _hud.Message($"UNDOCKED FROM {_stationScreen.StationName.ToUpperInvariant()}");
+        SpawnWing();
         // Fines paid at the station: the police stand down.
         if (Galaxus.Core.Law.LawRules.StandingHere(_session) == Galaxus.Core.Law.Standing.Clean) _world.SetHostile(LawfulSide, _player.Side, false);
         CourseForJob();
@@ -567,7 +572,7 @@ public partial class Main : Node3D
 
         _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId, _session.Career.Loadout)) { Side = 0 };
         _player.AimAssist = true;
-        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
+        Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level); ApplyCrew();
         BuildCockpit();
         _player.Body.Position = old.Body.Position;
         _player.Body.Orientation = old.Body.Orientation;
@@ -669,9 +674,11 @@ public partial class Main : Node3D
             StepAutopilotTest(dt);
             StepMiningTest(dt);
             StepLawTest(dt);
+            StepWingTest(dt);
             StepFuelScoop(dt);
             StepProspecting(dt);
             StepLaw(dt);
+            StepWing(dt);
             if (_cruising)
             {
                 // On the autopilot the ship only turns; the system moves past instead.
@@ -717,6 +724,7 @@ public partial class Main : Node3D
 
         _hud.MouseStick = _mouseStick;
         _hud.Throttle = _throttle;
+        _hud.Wing = WingStatus();
         _hud.Kills = _kills;
         _hud.Cockpit = _cockpit;
         _hud.Prompt = DockPrompt();
@@ -768,6 +776,9 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.Scan)) StartScan();
         if (Input.IsActionJustPressed(GameInput.Hail)) HailTarget();
         if (Input.IsActionJustPressed(GameInput.Logbook)) ToggleLogbook();
+        if (Input.IsActionJustPressed(GameInput.WingAttack)) OrderWing(Galaxus.Core.Ships.WingOrder.Attack);
+        if (Input.IsActionJustPressed(GameInput.WingDefend)) OrderWing(Galaxus.Core.Ships.WingOrder.Defend);
+        if (Input.IsActionJustPressed(GameInput.WingFormUp)) OrderWing(Galaxus.Core.Ships.WingOrder.FormUp);
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
         if (Input.IsActionJustPressed(GameInput.SystemMapKey)) { OpenSystemMap(); return; }
         if (Input.IsActionJustPressed(GameInput.Cruise)) ToggleCruise();
@@ -787,7 +798,7 @@ public partial class Main : Node3D
             _dockedPort = null;
             _dockedAtFlagship = true;
             Dock();
-            if (_campaignFleet) _stationScreen.ShowTab(9);
+            if (_campaignFleet) _stationScreen.ShowTab(10);
             return;
         }
         if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { RequestDock(null); return; }
@@ -921,6 +932,7 @@ public partial class Main : Node3D
                     _effects.Explosion(ship.Body.Position.ToGodot(), ship.Body.Velocity.ToGodot(), ship.Spec.Radius);
                     AudioManager.Instance?.Explosion(ship.Body.Position.ToGodot());
                     LawOnDestroyed(destroyed);
+                    WingOnDestroyed(destroyed);
                     if (destroyed.By == _player)
                     {
                         PayBounty(ship);

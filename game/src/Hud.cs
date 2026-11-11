@@ -71,6 +71,8 @@ public partial class Hud : Control
     public (Vector3 Position, string Label, float Radius)? RockTarget { get; set; }
     /// <summary>"SCANNING X 40%" while a scan runs.</summary>
     public string ScanProgress { get; set; } = "";
+    /// <summary>Your wing's order and how each wingman is doing.</summary>
+    public string Wing { get; set; } = "";
     /// <summary>The last scan's report, shown for a while on the left.</summary>
     public string ScanReport { get; set; } = "";
     public float ScanReportTime { get; set; }
@@ -132,6 +134,7 @@ public partial class Hud : Control
         DrawNavMarker(size);
         DrawMarks(size);
         DrawRockTarget(size);
+        if (Wing != "") Text(new Vector2(size.X / 2, 36), Wing, Green, HorizontalAlignment.Center);
         if (ScanProgress != "") Text(new Vector2(size.X / 2, size.Y / 2 + 48), ScanProgress, Blue, HorizontalAlignment.Center);
         if (CutStatus != "") Text(new Vector2(size.X / 2, size.Y / 2 + 60), CutStatus, Amber, HorizontalAlignment.Center);
         if (ScanReportTime > 0 && ScanReport != "") DrawScanReport(size);
@@ -495,6 +498,7 @@ public partial class Hud : Control
             "K                             scan your target, or the world you're near",
             "Y                             hail your target",
             "O                             logbook: news, lore, clues, finds",
+            "F5 / F6 / F7                  wing: attack my target, defend me, form up",
             "L                             cycle which job you're following",
             ".  ,                          speed time up, slow it down",
             "F1  this list    F3  frame rate and ship count    C  (system map) find your ship",

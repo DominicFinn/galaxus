@@ -166,6 +166,10 @@ Enter a system whose police you owe and a patrol comes out to hail you: pay, pro
 
 Hails come up at the top of the screen with the caller's face and their ship turning in a little window, and your replies as buttons. Pirates hail before they attack: dump your cargo, pay them off, or fight. Press Y to hail a ship you've targeted. The system map now shows the ships about the system (traders on their runs, patrols, miners at the belt, and in poorly policed systems pirates and fences), and you can hail any of them from there or fly out to meet them. Fences buy and sell contraband and tell you which local gang is hiring. Illegal jobs stay off a station's board until someone has told you who to ask: a fence, or gossip in the bar.
 
+## Crew and wingmen
+
+Some of the people in station bars will work for you: pick them on the People tab and the Hire button shows their terms, a fee up front and a daily wage. Pilots and mercenaries fly as wingmen in their own fighters, up to two, in ordinary flight and in battles, and keep up on the autopilot. F5 sends them after your target, F6 has them defend you, F7 forms them up off your wing. They get better with every kill, and a wingman shot down may not get out; the lucky ones are back when you next dock. Engineers, gunners and navigators take a berth aboard (your hull says how many) and help a little: shields recharge faster, guns hit harder, jumps reach further on less fuel. Wages are paid when you dock, and anyone you can't pay leaves. The Crew tab shows who you have and what they cost.
+
 ## The logbook, lore and treasure hunts
 
 O opens the logbook anywhere, including on the autopilot, which keeps flying while you read. It has three parts. The news, newest first, filtered to everything, within four jumps, where your jobs are, or unread, with each system linked to the galaxy map. Lore: histories, legends and the ways of each people, which people in station bars tell you once they like you, each in their own voice. And clues and finds: your treasure hunts, leads and everything your scanner has turned up. The HUD says when something new goes in.
@@ -249,6 +253,7 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Scan your target or the world you're near | K | |
 | Hail your target | Y | |
 | Logbook: news, lore, clues and finds | O | |
+| Wing: attack my target, defend me, form up | F5, F6, F7 | |
 | Flight assist on or off | G | B |
 | Power to engines, shields, weapons | 1, 2, 3 | D-pad up, left, right |
 | Balance power | 4 | D-pad down |

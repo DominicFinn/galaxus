@@ -72,6 +72,8 @@ public static class SaveGame
         public Dictionary<string, int> Clues { get; set; } = [];
         public int NewsReadDay { get; set; } = -1;
         public int LogbookSeen { get; set; }
+        public List<People.CrewMember> Crew { get; set; } = [];
+        public int WagesPaidDay { get; set; } = -1;
         /// <summary>The mods loaded when this was saved. Mods can change the galaxy, so a save moved to a game with different mods may not come out the same.</summary>
         public List<string> Mods { get; set; } = [];
     }
@@ -151,6 +153,8 @@ public static class SaveGame
             Clues = new(c.Clues),
             NewsReadDay = c.NewsReadDay,
             LogbookSeen = c.LogbookSeen,
+            Crew = [.. c.Crew],
+            WagesPaidDay = c.WagesPaidDay,
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -274,6 +278,8 @@ public static class SaveGame
         foreach (var (k, v) in data.Clues.Where(kv => db.Clues.ContainsKey(kv.Key))) c.Clues[k] = Math.Clamp(v, 0, 3);
         c.NewsReadDay = data.NewsReadDay;
         c.LogbookSeen = data.LogbookSeen;
+        c.Crew.AddRange(data.Crew.Where(m => m.HullId == null || db.Hulls.ContainsKey(m.HullId)));
+        c.WagesPaidDay = data.WagesPaidDay;
         c.Offences.AddRange(data.Offences.Where(o => o.FactionId >= 0 && o.FactionId < session.Galaxy.Factions.Count && Law.LawRules.Kinds.ContainsKey(o.Kind)));
         foreach (var (id, market) in data.SeenMarkets) if (id >= 0 && id < session.Galaxy.Systems.Count) c.SeenMarkets[id] = market;
         // Older saves had no route: pick one from where you are now.

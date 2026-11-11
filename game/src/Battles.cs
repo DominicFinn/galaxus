@@ -66,7 +66,7 @@ public partial class Main
         variables.TryAdd("captain", _session.Career.Captain);
         _battle = new Battle(db, def, _world, _player, sides, new Rng(Rng.Hash(job.Offer.Id + _session.Galaxy.Day)), variables, tags);
         _battle.Difficulty = GameSettings.Current.Level;
-        Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
+        Battle.ApplyToPlayer(_player, GameSettings.Current.Level); ApplyCrew();
         _battleJob = job;
         UpdateAudioForScreen();
         _battleCleanup = 0;

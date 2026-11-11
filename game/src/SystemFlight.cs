@@ -231,6 +231,7 @@ public partial class Main
             _drones[drone].Anchor = forward * 900;
         }
         _navTarget = _navTarget == NavStation ? -1 : _navTarget;
+        PlaceWing();
         _player.Target = NearestTarget();
         if (message != "") _hud.Message(message);
         if (OS.GetCmdlineUserArgs().Contains("--autopilot-test")) GD.Print($"AUTOPILOT TEST: dropped: {message}");

@@ -127,7 +127,7 @@ public sealed class Session
 
     public List<PartOffer> Outfitter() => Outfitting.Offers(this, Here);
 
-    public float JumpRangeLy => Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpRangeLy;
+    public float JumpRangeLy => Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpRangeLy * People.CrewRules.Bonus(Career).JumpRange;
 
     /// <summary>Days for a direct jump: one day, plus one for every eight light years.</summary>
     public static int JumpDays(float distanceLy) => 1 + (int)(distanceLy / 8f);
@@ -325,7 +325,7 @@ public sealed class Session
 
     private JumpReport DirectJump(int destination, float distanceLy)
     {
-        Career.FuelLy = MathF.Max(0, FuelLy - distanceLy * Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpFuel);
+        Career.FuelLy = MathF.Max(0, FuelLy - distanceLy * Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpFuel * People.CrewRules.Bonus(Career).JumpFuel);
         int days = JumpDays(distanceLy);
         int dayBefore = Galaxy.Day;
         Simulation.Run(days);

@@ -45,6 +45,10 @@ public sealed class Career
     public Dictionary<string, int> LastDrink { get; } = [];
     /// <summary>Questions asked of each person today, as "day:count".</summary>
     public Dictionary<string, string> Questions { get; } = [];
+    /// <summary>Wingmen and crew working for you.</summary>
+    public List<People.CrewMember> Crew { get; } = [];
+    /// <summary>The day wages were last paid, or -1 before anyone was hired.</summary>
+    public int WagesPaidDay { get; set; } = -1;
     /// <summary>Lore entries you've been told, in the order you heard them.</summary>
     public List<Galaxus.Core.Lore.LoreRecord> Lore { get; } = [];
     /// <summary>How many pieces of each clue chain you have, by chain id.</summary>

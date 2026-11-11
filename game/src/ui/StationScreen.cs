@@ -80,6 +80,7 @@ public partial class StationScreen : PanelContainer
         tabs.AddChild(BuildNewsTab());
         tabs.AddChild(BuildStandingTab());
         tabs.AddChild(BuildLogbookTab());
+        tabs.AddChild(BuildCrewTab());
         tabs.AddChild(BuildOrdersTab());
 
         var footer = new HBoxContainer();
@@ -123,6 +124,7 @@ public partial class StationScreen : PanelContainer
         RefreshNews();
         RefreshStanding();
         RefreshLogbook();
+        RefreshCrew();
         RefreshOrders();
     }
 
@@ -609,6 +611,8 @@ public partial class StationScreen : PanelContainer
                 _ => "Goodbye",
             }, () => Talk(t)));
         }
+        _hire = Ui.Button("Hire", HireShownPerson);
+        _topics.AddChild(_hire);
         return tab;
     }
 
@@ -680,6 +684,30 @@ public partial class StationScreen : PanelContainer
             (faction != null ? $"\nWorks under {faction.Name}." : "") +
             $"\n{(p.Regular ? "A regular here" : "Passing through")}. Seems {mood}.";
         _personText.Text = string.Join("\n", _transcripts[p.Id]);
+        // Pilots, engineers and the like will sign on for the right money.
+        var offer = CrewRules.Offer(_session, p);
+        _hire.Visible = offer != null && !_session.Career.Crew.Any(c => c.PersonId == p.Id);
+        if (offer != null)
+        {
+            string ship = offer.HullId != null && _session.Db.Hulls.TryGetValue(offer.HullId, out var h) ? $", flying their own {h.Name}" : "";
+            _personDetails.Text += $"\nWould sign on as {CrewRules.JobName(offer.Job)} (skill {offer.Skill * 100:0}%{ship}).";
+            _hire.Text = $"Hire: {offer.Fee:N0} cr, then {offer.Wage} cr a day";
+            var reason = CrewRules.CannotHire(_session, p);
+            _hire.Disabled = reason != null;
+            _hire.TooltipText = reason ?? "";
+        }
+    }
+
+    private Button _hire = null!;
+
+    private void HireShownPerson()
+    {
+        if (ShownPerson is not { } p) return;
+        if (CrewRules.CannotHire(_session, p) is { } reason) { _status.Text = reason; return; }
+        var member = CrewRules.Hire(_session, p)!;
+        _transcripts[p.Id].Add($"[color=#{Ui.Hex(Ui.Green)}]{p.Name} signs on as your {CrewRules.JobName(member.Job)}.[/color]");
+        AudioManager.Instance?.Ui("paid");
+        Refresh($"{p.Name} has joined your crew.");
     }
 
     /// <summary>Updates credits in the header after buying a round, without rebuilding every tab.</summary>
