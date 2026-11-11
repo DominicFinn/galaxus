@@ -71,7 +71,7 @@ public partial class Main
         _landed = false;
         _navTarget = _session.Here.Stations.Count > 0 ? NavStation : -1;
         _sinceUndock = 0;
-        if (label != "") _hud.Message($"{label.ToUpperInvariant()} {distance:0} KM AHEAD: J TO CRUISE IN");
+        if (label != "") _hud.Message($"{label.ToUpperInvariant()} {distance:0} KM AHEAD: J FOR AUTOPILOT");
     }
 
     /// <summary>Fuel in the tank and its size, in light years, for the HUD and map.</summary>
@@ -79,5 +79,40 @@ public partial class Main
     {
         float tank = _player.Spec.FuelTankLy;
         return (_session.Career.FuelLy < 0 ? tank : MathF.Min(_session.Career.FuelLy, tank), tank);
+    }
+}
+
+/// <summary>
+/// A launch option for checking the autopilot without a player: "-- --screen=flight --autopilot-test"
+/// picks the furthest world in the system as the destination, engages the autopilot, logs its
+/// progress every second, and quits when it arrives (or after two minutes).
+/// </summary>
+public partial class Main
+{
+    private float _autopilotTestTime = -1;
+
+    private void StepAutopilotTest(float dt)
+    {
+        if (!OS.GetCmdlineUserArgs().Contains("--autopilot-test") || _solar == null || _screen != Screen.Flight) return;
+        if (_autopilotTestTime < 0)
+        {
+            int furthest = Enumerable.Range(0, _solar.Bodies.Count).Where(i => _solar.Bodies[i].Kind != Galaxus.Core.Galaxy.BodyKind.Belt)
+                .MaxBy(i => DistanceKm(PlayerKm, _solar.PositionKm(i, Day)));
+            _navTarget = furthest;
+            ToggleCruise();
+            _autopilotTestTime = 0;
+            GD.Print($"AUTOPILOT TEST: to {NavName}, {DistanceKm(PlayerKm, NavTargetKm()!.Value):N0} km, engaged {_cruising}");
+            return;
+        }
+        float before = _autopilotTestTime;
+        _autopilotTestTime += dt;
+        double left = NavTargetKm() is { } t ? DistanceKm(PlayerKm, t) : -1;
+        if ((int)_autopilotTestTime != (int)before)
+            GD.Print($"AUTOPILOT TEST: t={_autopilotTestTime:0}s on={_cruising} speed={_cruiseSpeed:N0} km/s left={left:N0} km");
+        if (!_cruising || _autopilotTestTime > 240)
+        {
+            GD.Print($"AUTOPILOT TEST: {(_cruising ? "still flying" : "dropped out")} after {_autopilotTestTime:0.0}s, {left:N0} km from {NavName}");
+            GetTree().Quit();
+        }
     }
 }

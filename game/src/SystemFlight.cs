@@ -163,43 +163,66 @@ public partial class Main
         }
     }
 
+    /// <summary>
+    /// The autopilot: "take me there" within a system. It flies to your destination fast and drops
+    /// you out a few kilometres short, facing it, to fly the last bit on thrusters. With no
+    /// destination set it picks the obvious one: your job's stop here, or the main station.
+    /// Pressing J again, or steering, hands control back.
+    /// </summary>
     private void ToggleCruise()
     {
-        if (_cruising) { DropFromCruise(); return; }
+        if (_cruising) { DropFromCruise("AUTOPILOT OFF: YOU HAVE CONTROL"); return; }
         if (_battle is { Won: null })
         {
-            _hud.Message("CAN'T CRUISE: TOO MANY SHIPS NEARBY");
+            _hud.Message("NO AUTOPILOT IN A FIGHT");
             return;
         }
+        if (_navTarget == -1) CourseForJob();
+        if (_navTarget == -1 && _session.Here.Stations.Count > 0) _navTarget = NavStation;
+        if (NavTargetKm() is not { } target)
+        {
+            _hud.Message("NO DESTINATION: PICK ONE ON THE SYSTEM MAP (N)");
+            return;
+        }
+        double distance = DistanceKm(PlayerKm, target);
+        // Already inside the drop distance: for a station or a ship there's nothing to do; for a
+        // world or a surface port the autopilot carries on down towards it.
+        bool descent = _navTarget >= 0 || _navTarget <= NavPortBase;
+        if (distance < CourseDropKm() && !descent)
+        {
+            _hud.Message($"{NavName.ToUpperInvariant()} IS {distance:0.0} KM AHEAD: FLY IN ON THRUSTERS");
+            return;
+        }
+        _ignoreTargetDrop = descent && distance < CourseDropKm();
         _cruiseKm = PlayerKm;
         ClearTraffic();
         _cruising = true;
-        if (_navTarget != -1) _mouseStick = Vector2.Zero;
-        _cruiseSpeed = 30;
+        _mouseStick = Vector2.Zero;
+        _cruiseSpeed = 5;
         _landed = false;
-        _ignoreTargetDrop = NavTargetKm() is { } navAt && _navTarget != NavStation && DistanceKm(_cruiseKm, navAt) < CourseDropKm();
         _player.Target = null;
         foreach (var drone in _drones.Keys) _visuals[drone].Visible = false;
         foreach (var shot in _world.Projectiles) _effects.RemoveBolt(shot);
         _world.Projectiles.Clear();
-        _hud.Message("CRUISE DRIVE ENGAGED");
+        _hud.Message($"AUTOPILOT: {NavName.ToUpperInvariant()}");
         AudioManager.Instance?.Ui("jump");
     }
 
-    private void DropFromCruise()
+    private void DropFromCruise(string message = "")
     {
         _cruising = false;
         SetWarp(1, "");
         var forward = _player.Body.Forward;
-        if (_navTarget == NavStation || DistanceKm(_cruiseKm, _stationKm) < 50)
+        bool atStation = _navTarget == NavStation || DistanceKm(_cruiseKm, _stationKm) < 50;
+        if (atStation)
         {
             // Come out a few kilometres short of the station, facing it.
             _anchorKm = (_stationKm.X - forward.X * StationDropKm, _stationKm.Y - forward.Y * StationDropKm, _stationKm.Z - forward.Z * StationDropKm);
         }
         else _anchorKm = _cruiseKm;
         _player.Body.Position = NVector3.Zero;
-        _player.Body.Velocity = forward * 80;
-        _throttle = 0.5f;
+        _player.Body.Velocity = forward * 60;
+        _throttle = 0.35f;
         foreach (var drone in _drones.Keys)
         {
             drone.Respawn(forward * 900 + new NVector3(_rng.Range(-300, 300), _rng.Range(-100, 100), _rng.Range(-300, 300)), RandomOrientation());
@@ -207,20 +230,20 @@ public partial class Main
         }
         _navTarget = _navTarget == NavStation ? -1 : _navTarget;
         _player.Target = NearestTarget();
-        _hud.Message("DROPPED FROM CRUISE");
+        if (message != "") _hud.Message(message);
+        if (OS.GetCmdlineUserArgs().Contains("--autopilot-test")) GD.Print($"AUTOPILOT TEST: dropped: {message}");
         AudioManager.Instance?.Ui("undock");
     }
 
-    /// <summary>Cruise flight: speed builds up quickly, eases off near the target, and drops you out on arrival.</summary>
+    /// <summary>The autopilot flying: it turns to the target, builds speed once lined up, eases off as it nears, and drops out on arrival.</summary>
     private void StepCruise(float dt)
     {
-        var target = NavTargetKm();
-        double distance = target is { } t ? DistanceKm(_cruiseKm, t) : double.MaxValue;
+        if (NavTargetKm() is not { } target) { DropFromCruise("AUTOPILOT OFF: NO DESTINATION"); return; }
+        double distance = DistanceKm(_cruiseKm, target);
         double dropAt = CourseDropKm();
 
-        double wanted = target != null
-            ? Math.Clamp((distance - dropAt) / 4.0, 20, MaxCruiseKmS)
-            : Math.Max(0.05f, _throttle) * 2_000_000;
+        // Ease off on the way in, but keep a brisk pace to the end rather than creeping.
+        double wanted = Math.Clamp((distance - dropAt) / 1.5 + 15, 3, MaxCruiseKmS);
         // Near a world, cruise slows with height so you can come down to the ground.
         var (near, altitude) = NearestSolid(_cruiseKm);
         if (near >= 0) wanted = Math.Min(wanted, Math.Max(1.5, altitude * 2.5));
@@ -233,14 +256,15 @@ public partial class Main
         bool keysHeld = Mathf.Abs(Input.GetAxis(GameInput.PitchDown, GameInput.PitchUp)) > 0.2f
                         || Mathf.Abs(Input.GetAxis(GameInput.YawLeft, GameInput.YawRight)) > 0.2f;
         bool mouseHeld = _mouseStick.Length() > MouseStickRadius * 0.45f;
-        _autopilot = target != null && !keysHeld && !mouseHeld;
+        _autopilot = true;
+        if (keysHeld || mouseHeld) { DropFromCruise("AUTOPILOT OFF: YOU HAVE CONTROL"); return; }
         double facing = 1;
-        if (target is { } aim)
         {
+            // Fly round anything in the way rather than through it.
+            var aim = AimAround(_cruiseKm, target);
             var dir = Normalised((aim.X - _cruiseKm.X, aim.Y - _cruiseKm.Y, aim.Z - _cruiseKm.Z));
             var f = _player.Body.Forward;
             facing = f.X * dir.X + f.Y * dir.Y + f.Z * dir.Z;
-            if (_autopilot)
             {
                 _mouseStick *= Mathf.Exp(-6f * dt);
                 var (pitch, yaw) = Galaxus.Core.Ships.Autopilot.SteerTowards(_player,
@@ -257,7 +281,7 @@ public partial class Main
         var forward = _player.Body.Forward;
         var next = (_cruiseKm.X + forward.X * _cruiseSpeed * dt, _cruiseKm.Y + forward.Y * _cruiseSpeed * dt, _cruiseKm.Z + forward.Z * _cruiseSpeed * dt);
         // A course target is dropped at further out than the safety margin, so it's handled first.
-        if (target != null && distance < dropAt && !_ignoreTargetDrop) { DropFromCruise(); return; }
+        if (distance < dropAt && !_ignoreTargetDrop) { DropFromCruise($"ARRIVED: {NavName.ToUpperInvariant()}"); return; }
         if (CruiseBlocked(_cruiseKm, next)) return;
         _cruiseKm = next;
     }
@@ -290,7 +314,7 @@ public partial class Main
     private void SetCourse(int target)
     {
         _navTarget = target;
-        _hud.Message($"COURSE SET: {NavName.ToUpperInvariant()}. J FOR CRUISE");
+        _hud.Message($"DESTINATION: {NavName.ToUpperInvariant()}. J FOR AUTOPILOT");
     }
 
     /// <summary>True while cruise is steering you to your course.</summary>
@@ -349,22 +373,77 @@ public partial class Main
     private bool CruiseBlocked((double X, double Y, double Z) from, (double X, double Y, double Z) to)
     {
         double bestT = double.MaxValue;
-        string? blocker = null;
-        if (Galaxus.Core.Ships.Collision.FirstContact(from, to, (0, 0, 0), _solar.StarRadiusKm * 1.6) is { } st) { bestT = st; blocker = "STAR"; }
+        int blocker = -2;
+        if (Galaxus.Core.Ships.Collision.FirstContact(from, to, (0, 0, 0), _solar.StarRadiusKm * 1.6) is { } st) { bestT = st; blocker = -1; }
         for (int i = 0; i < _solar.Bodies.Count; i++)
         {
             if (_solar.Bodies[i].Kind == BodyKind.Belt) continue;
             if (Galaxus.Core.Ships.Collision.FirstContact(from, to, _solar.PositionKm(i, Day), CruiseSafetyKm(i)) is { } t && t < bestT)
             {
                 bestT = t;
-                blocker = _solar.Bodies[i].Name.ToUpperInvariant();
+                blocker = i;
             }
         }
-        if (blocker == null) return false;
-        _cruiseKm = (from.X + (to.X - from.X) * bestT, from.Y + (to.Y - from.Y) * bestT, from.Z + (to.Z - from.Z) * bestT);
-        DropFromCruise();
-        _hud.Message($"CRUISE DROPPED: TOO CLOSE TO {blocker}");
+        if (blocker == -2) return false;
+        // Stop just short of the margin.
+        double stop = Math.Max(0, bestT - 0.01);
+        _cruiseKm = (from.X + (to.X - from.X) * stop, from.Y + (to.Y - from.Y) * stop, from.Z + (to.Z - from.Z) * stop);
+        if (blocker >= 0 && blocker == DestinationBody())
+        {
+            DropFromCruise($"ARRIVED: {NavName.ToUpperInvariant()}");
+            return true;
+        }
+        // Anything else is in the way: hold back and let the autopilot steer round it.
+        _cruiseSpeed = 3;
         return true;
+    }
+
+    /// <summary>The world you're heading down to, if the destination is a world or a port on one.</summary>
+    private int DestinationBody() => _navTarget >= 0 ? _navTarget
+        : _navTarget <= NavPortBase && NavPortBase - _navTarget < _solar.Stations.Count ? _solar.Stations[NavPortBase - _navTarget].Body
+        : -1;
+
+    /// <summary>
+    /// Where to point to get to a target without hitting anything: the target itself if the way is
+    /// clear, otherwise a point off to the side of whatever's in the way, or straight out if you're
+    /// already too close to it. Your destination world never counts as in the way.
+    /// </summary>
+    private (double X, double Y, double Z) AimAround((double X, double Y, double Z) from, (double X, double Y, double Z) target)
+    {
+        var aim = target;
+        int destination = DestinationBody();
+        for (int pass = 0; pass < 4; pass++)
+        {
+            double bestT = double.MaxValue, radius = 0;
+            (double X, double Y, double Z) centre = default;
+            void Check((double X, double Y, double Z) c, double r)
+            {
+                if (Galaxus.Core.Ships.Collision.FirstContact(from, aim, c, r) is { } t && t < bestT) { bestT = t; centre = c; radius = r; }
+            }
+            Check((0, 0, 0), _solar.StarRadiusKm * 1.6);
+            for (int i = 0; i < _solar.Bodies.Count; i++)
+                if (_solar.Bodies[i].Kind != BodyKind.Belt && i != destination) Check(_solar.PositionKm(i, Day), CruiseSafetyKm(i));
+            if (bestT == double.MaxValue) return aim;
+
+            var outward = (X: from.X - centre.X, Y: from.Y - centre.Y, Z: from.Z - centre.Z);
+            double height = Math.Sqrt(outward.X * outward.X + outward.Y * outward.Y + outward.Z * outward.Z);
+            if (height <= radius * 1.02)
+            {
+                // Too close already: climb straight out first.
+                var up = Normalised(outward);
+                return (centre.X + up.X * radius * 1.3, centre.Y + up.Y * radius * 1.3, centre.Z + up.Z * radius * 1.3);
+            }
+            // The point on the line nearest the obstacle's centre, pushed out past its margin.
+            var d = (X: aim.X - from.X, Y: aim.Y - from.Y, Z: aim.Z - from.Z);
+            double len2 = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
+            double s = Math.Clamp(-(outward.X * d.X + outward.Y * d.Y + outward.Z * d.Z) / len2, 0, 1);
+            var side = (X: outward.X + d.X * s, Y: outward.Y + d.Y * s, Z: outward.Z + d.Z * s);
+            if (side.X * side.X + side.Y * side.Y + side.Z * side.Z < radius * radius * 1e-6)
+                side = (d.Z, 0, -d.X); // Dead centre: pick any side.
+            var away = Normalised(side);
+            aim = (centre.X + away.X * radius * 1.4, centre.Y + away.Y * radius * 1.4, centre.Z + away.Z * radius * 1.4);
+        }
+        return aim;
     }
 
     /// <summary>
@@ -595,7 +674,7 @@ public partial class Main
         var (fuel, tank) = FuelGauge();
         _hud.Fuel = tank > 0 ? $"{fuel:0}/{tank:0} LY" : "";
         var target = NavTargetKm();
-        string status = _cruising ? $"{(_autopilot ? "AUTOPILOT" : "CRUISE")} {FormatSpeed(_cruiseSpeed)}" : "";
+        string status = _cruising ? $"AUTOPILOT {FormatSpeed(_cruiseSpeed)}" : "";
         if (target is { } t)
         {
             double d = DistanceKm(PlayerKm, t);
@@ -607,7 +686,7 @@ public partial class Main
         else
         {
             _hud.NavPoint = null;
-            if (!_cruising) status = "N SYSTEM MAP   J CRUISE";
+            if (!_cruising) status = "N SYSTEM MAP   J AUTOPILOT";
         }
         if (_surface != null)
         {

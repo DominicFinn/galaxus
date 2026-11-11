@@ -51,7 +51,7 @@ public partial class SystemMap : Control
         _info.ScrollActive = false;
         _info.CustomMinimumSize = new Vector2(190, 0);
         box.AddChild(_info);
-        _course = Ui.Button("Set course", () => { if (_selected != -1) _setCourse(_selected); _close(); });
+        _course = Ui.Button("Set as destination", () => { if (_selected != -1) _setCourse(_selected); _close(); });
         box.AddChild(_course);
         box.AddChild(Ui.Button("Close (N)", () => _close()));
     }
@@ -165,7 +165,7 @@ public partial class SystemMap : Control
                          $"{star.Description}, {star.Temperature:N0} K, {star.Mass:0.00} solar masses, {star.Luminosity:0.###} times the Sun's light.\n" +
                          $"Habitable zone {star.HabitableInner:0.00} to {star.HabitableOuter:0.00} AU. Frost line {star.FrostLine:0.0} AU.\n" +
                          $"{_solar.Planets.Count(b => b.Kind != BodyKind.Belt)} planets, {_solar.Bodies.Count(b => b.IsMoon)} moons.\n\n" +
-                         "Click a body for details" + (_current ? " and to set a course." : ".") +
+                         "Click a body for details" + (_current ? " and to make it your destination for the autopilot (J)." : ".") +
                          (_session.Career.ActiveJob is { } job ? $"\n\n[color=#{Ui.Hex(Ui.Amber)}]Job: {job.Offer.Mission.Title}[/color]\n{_session.NextStep(job)}" : "");
             _course.Disabled = true;
             return;
@@ -178,7 +178,7 @@ public partial class SystemMap : Control
             double lon = Math.Atan2(port.Site.Z, port.Site.X) * 180 / Math.PI;
             _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{port.Name.ToUpperInvariant()}[/color]\nSurface port on {world.Name}, " +
                          $"{Math.Abs(lat):0}°{(lat >= 0 ? "N" : "S")} {Math.Abs(lon):0}°{(lon >= 0 ? "E" : "W")}.\n" +
-                         "Set a course and cruise in. You'll drop out above the port: fly down and land on the pad.\n" + TradeLines();
+                         "Set it as your destination and use the autopilot (J). It drops you out above the port: fly down and land on the pad.\n" + TradeLines();
             _course.Disabled = !_current || _selected != id;
             return;
         }

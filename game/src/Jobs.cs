@@ -49,7 +49,7 @@ public partial class Main
             && Galaxus.Core.Ships.World.DistanceToShip(_flagship, _player.Body.Position) > 3000)
         {
             _navTarget = NavFleet;
-            _hud.Message($"COURSE SET FOR THE {Campaigns.Current(_session)!.BaseName.ToUpperInvariant()}. J FOR AUTOPILOT");
+            _hud.Message($"DESTINATION: THE {Campaigns.Current(_session)!.BaseName.ToUpperInvariant()}. J FOR AUTOPILOT");
             return;
         }
         if (_session.Career.ActiveJob is not { } job || job.Offer.DestinationSystemId != _session.Career.SystemId) return;
@@ -57,12 +57,12 @@ public partial class Main
         {
             if (_battle != null) return;
             _navTarget = NavBattle;
-            _hud.Message("COURSE SET FOR THE FIGHTING. J FOR AUTOPILOT");
+            _hud.Message("DESTINATION: THE FIGHTING. J FOR AUTOPILOT");
             return;
         }
         int index = _solar.Stations.FindIndex(s => s.Surface && s.Name == job.Offer.DestinationStation);
         if (index < 0 || _dockedPort?.Name == job.Offer.DestinationStation) return;
         _navTarget = NavPortBase - index;
-        _hud.Message($"COURSE SET FOR YOUR JOB: {job.Offer.DestinationStation.ToUpperInvariant()}. J FOR AUTOPILOT");
+        _hud.Message($"DESTINATION FOR YOUR JOB: {job.Offer.DestinationStation.ToUpperInvariant()}. J FOR AUTOPILOT");
     }
 }

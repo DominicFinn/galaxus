@@ -640,9 +640,10 @@ public partial class Main : Node3D
                     brain.Think(drone, dt);
                 }
 
+            StepAutopilotTest(dt);
             if (_cruising)
             {
-                // In cruise the ship only turns; the system moves past instead.
+                // On the autopilot the ship only turns; the system moves past instead.
                 StepCruise(dt);
                 _player.Controls.Fire = false;
                 _player.Controls.Flight.Throttle = 0;

@@ -43,7 +43,7 @@ public static class GameInput
         (StrafeUp, "Thrust up"), (StrafeDown, "Thrust down"), (StrafeLeft, "Thrust left"), (StrafeRight, "Thrust right"),
         (Fire, "Fire guns"), (FireMissile, "Fire missile"), (TargetNext, "Next target"), (MatchSpeed, "Match target speed"),
         (FlightAssist, "Flight assist"), (PipEngines, "Power to engines"), (PipShields, "Power to shields"),
-        (PipWeapons, "Power to weapons"), (PipBalance, "Balance power"), (Cruise, "Cruise and autopilot"),
+        (PipWeapons, "Power to weapons"), (PipBalance, "Balance power"), (Cruise, "Autopilot"),
         (Dock, "Dock and undock"), (Map, "Galaxy map"), (SystemMapKey, "System map"), (NextJob, "Next job"),
         (CameraToggle, "Cockpit or chase camera"), (TimeFaster, "Time faster"), (TimeSlower, "Time slower"), (Help, "Help"),
     ];
