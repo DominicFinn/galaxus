@@ -56,6 +56,8 @@ public partial class Main : Node3D
     private int _frame;
     private string? _previewHull;
     private string? _startScreen;
+    /// <summary>For screenshots: the station tab to open on, and the outfitting slot to pick.</summary>
+    private int _stationTab = -1, _stationSlot = -1;
     private int? _startSystem;
 
     private enum Screen { Flight, Docked, Map, SystemMap, Menu }
@@ -267,7 +269,7 @@ public partial class Main : Node3D
         _effects = new Effects();
         AddChild(_effects);
 
-        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId))
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId, _session.Career.Loadout))
         {
             Side = 0,
             AimAssist = true,
@@ -313,8 +315,8 @@ public partial class Main : Node3D
         EnterSystem();
         if (_demo || startScreen == "flight") SetScreen(Screen.Flight);
         else if (startScreen == "map") OpenMap();
-        else if (_flagship != null && _campaignFleet) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(7); }
-        else if (_session.Here.Stations.Count > 0) Dock();
+        else if (_flagship != null && _campaignFleet) { _dockedAtFlagship = true; Dock(); _stationScreen.ShowTab(8); }
+        else if (_session.Here.Stations.Count > 0) { Dock(); if (_stationTab >= 0) _stationScreen.ShowTab(_stationTab, _stationSlot); }
         else SetScreen(Screen.Flight);
         UpdateCamera(1f, snap: true);
     }
@@ -541,7 +543,7 @@ public partial class Main : Node3D
         _visuals[old].QueueFree();
         _visuals.Remove(old);
 
-        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId)) { Side = 0 };
+        _player = new Ship(1, _db.Hulls[_session.Career.HullId].Name, ShipFactory.Build(_db, _session.Career.HullId, _session.Career.Loadout)) { Side = 0 };
         _player.AimAssist = true;
         Galaxus.Core.Battles.Battle.ApplyToPlayer(_player, GameSettings.Current.Level);
         BuildCockpit();
@@ -563,6 +565,8 @@ public partial class Main : Node3D
             else if (arg.StartsWith("--frames=")) _screenshotFrame = int.Parse(arg["--frames=".Length..]);
             else if (arg.StartsWith("--preview=")) _previewHull = arg["--preview=".Length..];
             else if (arg.StartsWith("--screen=")) _startScreen = arg["--screen=".Length..];
+            else if (arg.StartsWith("--station-tab=")) _stationTab = int.Parse(arg["--station-tab=".Length..]);
+            else if (arg.StartsWith("--station-slot=")) _stationSlot = int.Parse(arg["--station-slot=".Length..]);
             else if (arg.StartsWith("--system=")) _startSystem = int.Parse(arg["--system=".Length..]);
             else if (arg.StartsWith("--showcase=")) { _showcaseDir = arg["--showcase=".Length..]; _startScreen = "flight"; }
             else if (arg.StartsWith("--battle=")) _cliPreview = arg["--battle=".Length..];
@@ -641,6 +645,7 @@ public partial class Main : Node3D
                 }
 
             StepAutopilotTest(dt);
+            StepFuelScoop(dt);
             if (_cruising)
             {
                 // On the autopilot the ship only turns; the system moves past instead.
@@ -750,7 +755,7 @@ public partial class Main : Node3D
             _dockedPort = null;
             _dockedAtFlagship = true;
             Dock();
-            if (_campaignFleet) _stationScreen.ShowTab(7);
+            if (_campaignFleet) _stationScreen.ShowTab(8);
             return;
         }
         if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { _dockedPort = null; _dockedAtFlagship = false; Dock(); return; }
@@ -811,6 +816,12 @@ public partial class Main : Node3D
 
         controls.Fire = Input.IsActionPressed(GameInput.Fire);
         if (Input.IsActionJustPressed(GameInput.FireMissile)) controls.Missile = true;
+        if (Input.IsActionJustPressed(GameInput.Afterburner))
+        {
+            if (_player.Spec.BoostFactor <= 1) _hud.Message("NO AFTERBURNER FITTED");
+            else if (_player.BoostCooldown > 0) _hud.Message($"AFTERBURNER READY IN {_player.BoostCooldown:0} S");
+            else { controls.Boost = true; _hud.Message("AFTERBURNER"); }
+        }
     }
 
     /// <summary>Chases the current target and fires when lined up. Used for screenshots and soak tests.</summary>
@@ -853,6 +864,9 @@ public partial class Main : Node3D
                     _effects.AddBolt(fired.Projectile);
                     AudioManager.Instance?.Shot(fired.Projectile.Position.ToGodot(), fired.Projectile.Kind, fired.Projectile.Owner.Spec.Builder.Race,
                         fired.Projectile.Velocity.Length(), fired.Projectile.Damage);
+                    break;
+                case MissileDecoyed decoyed:
+                    if (decoyed.Ship == _player) _hud.Message($"DECOY: MISSILE SHAKEN OFF ({_player.DecoysLeft} LEFT)");
                     break;
                 case FlakBurst burst:
                     _effects.RemoveBolt(burst.Projectile);

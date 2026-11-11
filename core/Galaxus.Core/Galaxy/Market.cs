@@ -145,6 +145,9 @@ public static class Market
     /// <summary>A market's starting point for one good on a day, before the player's own trades.</summary>
     private readonly record struct Base(int Low, int High, float Position, float EventFactor, float Spread, float Stock, float Wanted, bool Deal)
     {
+        /// <summary>Taken off what you pay, from gear like the Free Machines' handshake beacon.</summary>
+        public float Discount { get; init; }
+
         /// <summary>Price at a position in the range. Only a glut (selling far more than wanted) goes below the bottom.</summary>
         private float At(float position, float floor = 0)
         {
@@ -159,7 +162,7 @@ public static class Market
         public int BuyPrice(float bought)
         {
             float left = Stock > 0 ? Math.Clamp(1 - bought / Stock, 0, 1) : 0;
-            return (int)MathF.Round(At(Position + 0.3f * (1 - left)) * (1 + Spread / 2));
+            return (int)MathF.Round(At(Position + 0.3f * (1 - left)) * (1 + Spread / 2) * (1 - Discount));
         }
 
         /// <summary>Price for the next tonne once <paramref name="sold"/> tonnes have been sold: lower as the market fills.</summary>
@@ -184,6 +187,7 @@ public static class Market
         private bool _takenOver;
         private List<TradeDeal> _deals = [];
         private HashSet<string> _shortages = [];
+        private float _discount;
 
         public static Context For(ContentDatabase db, Galaxy galaxy, StarSystem system, int day, Session? session)
         {
@@ -199,6 +203,9 @@ public static class Market
                 if (c.FrontSystem == system.Id) { ctx._warLevel = 2; break; }
                 if (ctx._warLevel == 0 && galaxy.Jumps(system.Id, c.FrontSystem, 2) is > 0 and <= 2) ctx._warLevel = 1;
             }
+            // Handshake gear gets you a better price at Free Machine ports.
+            if (session != null && galaxy.OwnerOf(system)?.RaceId == "free-machine")
+                ctx._discount = Ships.ShipFactory.Build(db, session.Career.HullId, session.Career.Loadout).MarketDiscount;
             ctx._deals = Deals(db, galaxy, day).Where(d => d.Source == system.Id || d.Destination == system.Id).ToList();
             ctx._shortages = [.. Shortages(db, galaxy, day).Where(s => s.SystemId == system.Id).Select(s => s.CommodityId)];
             return ctx;
@@ -262,7 +269,7 @@ public static class Market
             if (_profile.Security is "Low" or "Lawless") spread += 0.03f;
             if (_session?.Easy == true) spread -= 0.03f;
 
-            return new Base(low, high, position, eventFactor, spread, MathF.Max(0, stock), MathF.Max(5, wanted), deal);
+            return new Base(low, high, position, eventFactor, spread, MathF.Max(0, stock), MathF.Max(5, wanted), deal) { Discount = _discount };
         }
 
         /// <summary>-1 if this market is the cheap end of the Easy route for the good, 1 the dear end, 0 otherwise.</summary>

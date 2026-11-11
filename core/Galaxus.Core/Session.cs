@@ -123,7 +123,9 @@ public sealed class Session
     public List<ShipOffer> Shipyard() => Shipyards.Offers(this, Here);
 
     /// <summary>What this yard will give for your current ship.</summary>
-    public int TradeInValue() => Shipyards.TradeIn(this, Here, Career.HullId);
+    public int TradeInValue() => Shipyards.TradeIn(this, Here, Career.HullId, Career.Loadout);
+
+    public List<PartOffer> Outfitter() => Outfitting.Offers(this, Here);
 
     public float JumpRangeLy => Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpRangeLy;
 
@@ -300,7 +302,7 @@ public sealed class Session
 
     private JumpReport DirectJump(int destination, float distanceLy)
     {
-        Career.FuelLy = MathF.Max(0, FuelLy - distanceLy);
+        Career.FuelLy = MathF.Max(0, FuelLy - distanceLy * Ships.ShipFactory.Build(Db, Career.HullId, Career.Loadout).JumpFuel);
         int days = JumpDays(distanceLy);
         int dayBefore = Galaxy.Day;
         Simulation.Run(days);

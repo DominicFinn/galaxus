@@ -385,7 +385,7 @@ public partial class Hud : Control
         Bar(origin + new Vector2(0, 16), "HULL", Player.Hull / Player.Spec.MaxHull, Green);
         Bar(origin + new Vector2(0, 32), "WEAPON", Player.Capacitor / MathF.Max(Player.Spec.CapacitorMax, 1), Red);
         if (Player.Spec.Missiles > 0)
-            Text(origin + new Vector2(0, 48), $"MISSILES {Player.MissilesLeft}/{Player.Spec.Missiles}", Player.MissilesLeft > 0 ? Amber : Dim);
+            Text(origin + new Vector2(0, 48), $"MISSILES {Player.MissilesLeft}/{Player.Spec.Missiles}" + (Player.Spec.Decoys > 0 ? $"  DECOYS {Player.DecoysLeft}" : ""), Player.MissilesLeft > 0 ? Amber : Dim);
     }
 
     private void DrawTargetPanel()
@@ -437,6 +437,7 @@ public partial class Hud : Control
             "N / VIEW                      system map: pick a destination",
             "J / LEFT STICK CLICK          autopilot to your destination",
             "B / RIGHT CLICK / LT          fire a missile once locked",
+            "H                             afterburner, if one is fitted",
             "L                             cycle which job you're following",
             ".  ,                          speed time up, slow it down",
             "F1  this list    F3  frame rate and ship count    C  (system map) find your ship",

@@ -28,6 +28,8 @@ public partial class Main
     /// <summary>Course target: a body index, NavStation for the station, or -1 for none.</summary>
     private int _navTarget = -1;
     private const int NavStation = -2;
+    /// <summary>The star, for skimming fuel.</summary>
+    private const int NavStar = -5;
     private NVector3 _stationLocal = new(0, 0, -1600);
 
     private (double X, double Y, double Z) PlayerKm => _cruising
@@ -288,6 +290,7 @@ public partial class Main
 
     private double CourseDropKm() =>
         _navTarget == NavStation ? StationDropKm * 2
+        : _navTarget == NavStar ? _solar.StarRadiusKm * 2.2
         : _navTarget == NavBattle ? 12
         : _navTarget == NavFleet ? 4
         : _navTarget <= NavPortBase ? 25
@@ -296,6 +299,7 @@ public partial class Main
     private (double X, double Y, double Z)? NavTargetKm() => _navTarget switch
     {
         NavStation => _stationKm,
+        NavStar => (0, 0, 0),
         NavFleet when _flagship != null => _fleetKm,
         NavBattle when BattleJobHere() is { } battleJob => BattlePointKm(battleJob),
         <= NavPortBase when -_navTarget + NavPortBase < _solar.Stations.Count =>
@@ -305,6 +309,7 @@ public partial class Main
     };
 
     private string NavName => _navTarget == NavStation ? _session.Here.Stations.FirstOrDefault() ?? "Station"
+        : _navTarget == NavStar ? "The star"
         : _navTarget == NavBattle ? "The fighting"
         : _navTarget == NavFleet ? FleetName
         : _navTarget <= NavPortBase ? _solar.Stations[NavPortBase - _navTarget].Name
@@ -420,7 +425,7 @@ public partial class Main
             {
                 if (Galaxus.Core.Ships.Collision.FirstContact(from, aim, c, r) is { } t && t < bestT) { bestT = t; centre = c; radius = r; }
             }
-            Check((0, 0, 0), _solar.StarRadiusKm * 1.6);
+            if (_navTarget != NavStar) Check((0, 0, 0), _solar.StarRadiusKm * 1.6);
             for (int i = 0; i < _solar.Bodies.Count; i++)
                 if (_solar.Bodies[i].Kind != BodyKind.Belt && i != destination) Check(_solar.PositionKm(i, Day), CruiseSafetyKm(i));
             if (bestT == double.MaxValue) return aim;
@@ -504,7 +509,7 @@ public partial class Main
                 if (closing > 0)
                 {
                     _player.Body.Velocity += normal * closing * 1.3f;
-                    var damage = _player.TakeDamage(Galaxus.Core.Ships.Collision.ImpactDamage(closing));
+                    var damage = _player.TakeDamage(Galaxus.Core.Ships.Collision.ImpactDamage(closing) * _player.Spec.CollisionDamage);
                     var at = (_player.Body.Position - normal * _player.Spec.Radius).ToGodot();
                     if (damage.ToHull > 0) { _effects.HullSpark(at); AudioManager.Instance?.HullHit(at); }
                     else if (damage.ToShields > 0) { _effects.ShieldFlash(_player.Body.Position.ToGodot(), _player.Spec.Radius); AudioManager.Instance?.ShieldHit(at); }

@@ -10,6 +10,8 @@ public struct ShipControls
     public bool Fire;
     /// <summary>Launch a missile at the locked target, once per press.</summary>
     public bool Missile;
+    /// <summary>Light the afterburner, if one is fitted and ready.</summary>
+    public bool Boost;
 }
 
 /// <summary>A ship in flight: its spec, physics body, power and the state of its systems.</summary>
@@ -52,6 +54,11 @@ public sealed class Ship
     /// <summary>The player's aim assist cone in degrees, when AimAssist is on.</summary>
     public float AimAssistCone { get; set; } = AimAssistDegrees;
     public int MissilesLeft { get; private set; }
+    /// <summary>Seconds of afterburner left, and until it can be lit again.</summary>
+    public float BoostLeft { get; private set; }
+    public float BoostCooldown { get; private set; }
+    /// <summary>Missile decoys left this sortie.</summary>
+    public int DecoysLeft { get; set; }
     /// <summary>How far the missile lock on the current target has built up, 0 to 1. Locked at 1.</summary>
     public float Lock { get; private set; }
     public bool Locked => Lock >= 1;
@@ -80,6 +87,7 @@ public sealed class Ship
         Shields = spec.MaxShields;
         Capacitor = spec.CapacitorMax;
         MissilesLeft = spec.Missiles;
+        DecoysLeft = spec.Decoys;
         Controls.Flight.Assist = true;
     }
 
@@ -88,10 +96,11 @@ public sealed class Ship
     {
         float pips = Power.Pips(ShipSystem.Engines);
         float turn = 0.9f + 0.05f * pips;
+        float boost = BoostLeft > 0 ? Spec.BoostFactor : 1;
         return new FlightStats
         {
-            MaxSpeed = Spec.MaxSpeed * (0.8f + 0.1f * pips),
-            Acceleration = Spec.Acceleration * Power.Multiplier(ShipSystem.Engines),
+            MaxSpeed = Spec.MaxSpeed * (0.8f + 0.1f * pips) * boost,
+            Acceleration = Spec.Acceleration * Power.Multiplier(ShipSystem.Engines) * boost,
             PitchRate = Spec.PitchRate * turn,
             YawRate = Spec.YawRate * turn,
             RollRate = Spec.RollRate * turn,
@@ -105,6 +114,13 @@ public sealed class Ship
     {
         if (!Alive) return;
 
+        if (Controls.Boost)
+        {
+            Controls.Boost = false;
+            if (Spec.BoostFactor > 1 && BoostLeft <= 0 && BoostCooldown <= 0) { BoostLeft = Spec.BoostSeconds; BoostCooldown = Spec.BoostSeconds + Spec.BoostCooldown; }
+        }
+        if (BoostLeft > 0) BoostLeft -= dt;
+        if (BoostCooldown > 0) BoostCooldown -= dt;
         var stats = CurrentFlightStats();
         FlightModel.Step(Body, Controls.Flight, stats, dt);
 
@@ -113,6 +129,9 @@ public sealed class Ship
 
         if (_shieldDelay > 0) _shieldDelay -= dt;
         else Shields = MathF.Min(Spec.MaxShields, Shields + Spec.ShieldRecharge * ShieldRechargeScale * Power.Multiplier(ShipSystem.Shields) * dt);
+        // Repair gear patches the hull once the shields are back up.
+        if (Spec.HullRepair > 0 && Shields >= Spec.MaxShields * 0.98f && Hull < Spec.MaxHull)
+            Hull = MathF.Min(Spec.MaxHull, Hull + Spec.HullRepair * dt);
 
         _fireCooldown -= dt;
         if (Controls.Fire && _fixed.Count > 0 && _fireCooldown <= 0) TryFire(shotsFired);
@@ -120,7 +139,7 @@ public sealed class Ship
     }
 
     /// <summary>Restocks the missile rack, at a station.</summary>
-    public void Resupply() => MissilesLeft = Spec.Missiles;
+    public void Resupply() { MissilesLeft = Spec.Missiles; DecoysLeft = Spec.Decoys; }
 
     /// <summary>
     /// The lock builds while the target stays near the nose and in range, and fades when it

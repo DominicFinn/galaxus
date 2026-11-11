@@ -156,7 +156,7 @@ Faces are 16-bit style pixel art, built from a pool of features for each race: s
 
 ![Generated pixel-art faces: a row per race, in mixed jobs and genders](docs/screenshots/faces.png)
 
-Stations also have a market for 128 kinds of goods, a shipyard, local news and your standing with each faction.
+Stations also have a market for 128 kinds of goods, a shipyard, an outfitter, local news and your standing with each faction. At the outfitter you pick one of your ship's slots and see every part on sale that fits it, with what it would change (speed, shields, firepower, hold, fuel) before you buy; the old part is sold back for half its list price. Stock changes weekly and bigger stations carry higher marks. Utility gear works in flight: armour, repair rigs that patch the hull once your shields are up, fuel scoops for skimming a star (pick the star on the system map), drop tanks, missile decoys, stealth veils, hidden holds, afterburners (H) and more. Mining gear is on sale too, ready for when mining arrives.
 
 ![The shipyard](docs/screenshots/shipyard.png)
 

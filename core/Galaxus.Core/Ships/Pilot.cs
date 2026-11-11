@@ -229,7 +229,8 @@ public sealed class Pilot(PilotRole role, Rng rng)
             // Drones are markers and practice targets (scan beacons, the tutorial's targets): left alone unless ordered.
             if (other.Spec.Hull.Class == "drone" && other != Assigned) continue;
             float d = Vector3.Distance(centre, other.Body.Position);
-            if (d > radius) continue;
+            // Stealth gear shrinks the range a ship is noticed at.
+            if (d > radius * other.Spec.Detection) continue;
             bool big = other.Spec.Hull.IsCapital;
             float score = d;
             // Pilots spread out: a target others are already chasing is less attractive.

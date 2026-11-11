@@ -116,3 +116,30 @@ public partial class Main
         }
     }
 }
+
+/// <summary>Skimming a star with a fuel scoop fitted fills the tank.</summary>
+public partial class Main
+{
+    private bool _scooping;
+
+    private void StepFuelScoop(float dt)
+    {
+        if (_solar == null || !_player.Alive || _player.Spec.FuelScoop <= 0) { _scooping = false; return; }
+        double distance = DistanceKm(PlayerKm, (0, 0, 0)) / _solar.StarRadiusKm;
+        float tank = _session.FuelTankLy, fuel = _session.FuelLy;
+        bool close = distance < 3;
+        if (close && fuel < tank - 0.05f)
+        {
+            // Strongest skimming low, nothing beyond three star radii.
+            float rate = _player.Spec.FuelScoop * (float)Math.Clamp((3 - distance) / 1.2, 0.2, 1);
+            _session.Career.FuelLy = MathF.Min(tank, fuel + rate * dt);
+            if (!_scooping) _hud.Message("FUEL SCOOP OPEN");
+            _scooping = true;
+        }
+        else if (_scooping)
+        {
+            _hud.Message(close ? "FUEL SCOOP: TANK FULL" : "FUEL SCOOP CLOSED");
+            _scooping = false;
+        }
+    }
+}

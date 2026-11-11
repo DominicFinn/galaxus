@@ -61,13 +61,11 @@ public sealed class Career
 
     public static readonly string[] RankNames = ["Unknown", "Contractor", "Trusted", "Commissioned", "Honoured"];
 
-    /// <summary>Cargo space: the hull's fixed hold plus fitted cargo racks.</summary>
-    public int CargoCapacity(ContentDatabase db)
-    {
-        var hull = db.Hulls[HullId];
-        var parts = (Loadout ?? hull.DefaultLoadout).Select(id => db.Parts[id]);
-        return hull.CargoTonnes + (int)parts.Where(p => p.Type == "cargo").Sum(p => p.Stats.GetValueOrDefault("tonnes"));
-    }
+    /// <summary>Cargo space: the hull's fixed hold, fitted cargo racks and any hidden compartments.</summary>
+    public int CargoCapacity(ContentDatabase db) => Ships.ShipFactory.Build(db, HullId, Loadout).CargoTonnes;
+
+    /// <summary>True if the ship has a fuel scoop fitted.</summary>
+    public bool ShipFuelScoop(ContentDatabase db) => Ships.ShipFactory.Build(db, HullId, Loadout).FuelScoop > 0;
 
     public int CargoUsed => Missions.Sum(m => m.Offer.Mission.Tonnes) + Cargo.Values.Sum();
 
@@ -108,7 +106,7 @@ public sealed class Career
         var hull = offer.Hull;
         if (hull.Id == HullId) return "You already fly one.";
         if (offer.Price - tradeIn > Credits) return $"You need {offer.Price - tradeIn:N0} cr after trade-in.";
-        int capacity = hull.CargoTonnes + (int)hull.DefaultLoadout.Select(id => db.Parts[id]).Where(p => p.Type == "cargo").Sum(p => p.Stats.GetValueOrDefault("tonnes"));
+        int capacity = Ships.ShipFactory.Build(db, hull.Id).CargoTonnes;
         if (capacity < CargoUsed) return $"Its hold is too small for your {CargoUsed} t of cargo.";
         return null;
     }

@@ -72,11 +72,18 @@ public static class Shipyards
 
     /// <summary>
     /// What a yard will give for your ship: 60% of what it sells them for here, or 55% of the list
-    /// price if it doesn't stock them.
+    /// price if it doesn't stock them. Parts you've changed are worth what an outfitter would pay,
+    /// set against the standard parts they replaced.
     /// </summary>
-    public static int TradeIn(Session session, StarSystem system, string hullId)
+    public static int TradeIn(Session session, StarSystem system, string hullId, IEnumerable<string>? loadout = null)
     {
+        var db = session.Db;
+        var hull = db.Hulls[hullId];
         var offer = Offers(session, system).FirstOrDefault(o => o.Hull.Id == hullId);
-        return offer != null ? offer.Price * 6 / 10 : session.Db.Hulls[hullId].Price * 55 / 100;
+        int value = offer != null ? offer.Price * 6 / 10 : hull.Price * 55 / 100;
+        if (loadout == null) return value;
+        int fitted = Ships.ShipFactory.Assign(db, hull, loadout).Sum(p => p == null ? 0 : Outfitting.SellValue(p));
+        int standard = Ships.ShipFactory.Assign(db, hull, null).Sum(p => p == null ? 0 : Outfitting.SellValue(p));
+        return Math.Max(value / 2, value + fitted - standard);
     }
 }

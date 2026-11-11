@@ -96,7 +96,7 @@ public partial class Main
                 if (_flagship == null) return;
                 _dockedAtFlagship = true;
                 Dock();
-                _stationScreen.ShowTab(7);
+                _stationScreen.ShowTab(8);
             }),
             new("galaxy-deep-stars.png", 20, () =>
             {
@@ -138,12 +138,12 @@ public partial class Main
             foreach (var hull in new[] { "mc-tribune", "le-windsong", "hd-principal", "kestrel" })
                 if (_stationScreen.SelectShip(hull)) break;
         }));
-        _showcaseSteps.Add(new("news.png", 20, () => _stationScreen.ShowTab(5)));
+        _showcaseSteps.Add(new("news.png", 20, () => _stationScreen.ShowTab(6)));
         foreach (var race in new[] { "dwarf", "orc" })
         {
             var system = galaxy.Systems.FirstOrDefault(s => s.Stations.Count > 0 && s.Economy == Economy.Mining && galaxy.OwnerOf(s)?.RaceId == race);
             if (system == null) continue;
-            _showcaseSteps.Add(new($"people-{race}.png", 25, () => { GoTo(system.Id); Dock(); _stationScreen.ShowTab(4); _stationScreen.SelectPerson(2);
+            _showcaseSteps.Add(new($"people-{race}.png", 25, () => { GoTo(system.Id); Dock(); _stationScreen.ShowTab(5); _stationScreen.SelectPerson(2);
                 _stationScreen.TalkAbout(Galaxus.Core.People.Topic.Drink, Galaxus.Core.People.Topic.Rumour, Galaxus.Core.People.Topic.Self); }));
         }
         _showcaseIndex = -1;

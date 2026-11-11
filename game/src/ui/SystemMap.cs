@@ -136,6 +136,8 @@ public partial class SystemMap : Control
             float d = BodyScreen(i).DistanceTo(at);
             if (d < bestDistance) { bestDistance = d; best = i; }
         }
+        // The star, for skimming with a fuel scoop.
+        if (best == -1 && Centre.DistanceTo(at) < 9) return NavStar;
         if (!_current) return best;
         for (int i = 0; i < _solar.Stations.Count; i++)
         {
@@ -150,6 +152,7 @@ public partial class SystemMap : Control
     private Vector2 PortScreen(int body) => BodyScreen(body) + new Vector2(-7, 7);
     /// <summary>Surface ports are selected as this minus their station index, matching the flight code's course targets.</summary>
     private const int NavPortBase = -10;
+    private const int NavStar = -5;
 
     private void UpdateInfo()
     {
@@ -179,6 +182,13 @@ public partial class SystemMap : Control
             _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{port.Name.ToUpperInvariant()}[/color]\nSurface port on {world.Name}, " +
                          $"{Math.Abs(lat):0}°{(lat >= 0 ? "N" : "S")} {Math.Abs(lon):0}°{(lon >= 0 ? "E" : "W")}.\n" +
                          "Set it as your destination and use the autopilot (J). It drops you out above the port: fly down and land on the pad.\n" + TradeLines();
+            _course.Disabled = !_current || _selected != id;
+            return;
+        }
+        if (id == NavStar)
+        {
+            _info.Text = $"[color=#{Ui.Hex(Ui.Amber)}]{_system.Name.ToUpperInvariant()}, THE STAR[/color]\n{star.Description}, {star.Temperature:N0} K.\n" +
+                         (_session.Career.ShipFuelScoop(_session.Db) ? "Your fuel scoop fills the tank while you skim close. The autopilot takes you to a safe distance." : "With a fuel scoop fitted, you can fill your tank skimming close to a star. Outfitters sell them.");
             _course.Disabled = !_current || _selected != id;
             return;
         }

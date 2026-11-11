@@ -8,7 +8,7 @@ using Galaxus.Core.People;
 namespace Galaxus.Ui;
 
 /// <summary>
-/// The docked view: jobs, jobs in hand, market, shipyard, news and standing. There's no walking
+/// The docked view: jobs, jobs in hand, market, shipyard, outfitting, people, news and standing. There's no walking
 /// about, so everything at a station happens on these screens.
 /// </summary>
 public partial class StationScreen : PanelContainer
@@ -75,6 +75,7 @@ public partial class StationScreen : PanelContainer
         tabs.AddChild(BuildInHandTab());
         tabs.AddChild(BuildMarketTab());
         tabs.AddChild(BuildShipyardTab());
+        tabs.AddChild(BuildOutfittingTab());
         tabs.AddChild(BuildPeopleTab());
         tabs.AddChild(BuildNewsTab());
         tabs.AddChild(BuildStandingTab());
@@ -116,6 +117,7 @@ public partial class StationScreen : PanelContainer
         RefreshInHand();
         RefreshMarket();
         RefreshShipyard();
+        RefreshOutfitting();
         RefreshPeople();
         RefreshNews();
         RefreshStanding();
@@ -174,7 +176,12 @@ public partial class StationScreen : PanelContainer
     }
 
     /// <summary>For the showcase and tutorials: 0 jobs, 1 in hand, 2 market, 3 shipyard, 4 people, 5 news, 6 standing.</summary>
-    public void ShowTab(int index) => _tabs.CurrentTab = index;
+    public void ShowTab(int index, int slot = -1)
+    {
+        _tabs.CurrentTab = index;
+        if (slot >= 0 && _slots.GetRoot()?.GetChild(slot) is { } item) { item.Select(0); ShowPartsForSlot(); }
+        if (slot >= 0 && _parts.GetRoot()?.GetChildCount() > 0) { _parts.GetRoot().GetChild(0).Select(0); ShowSelectedPart(); }
+    }
 
     /// <summary>Selects the first job posted by a faction of the given race. Returns false if there isn't one.</summary>
     public bool SelectJobFrom(string race)

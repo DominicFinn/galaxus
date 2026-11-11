@@ -17,7 +17,7 @@ public sealed class Projectile(Ship owner, Vector3 position, Vector3 velocity, f
     /// <summary>The weapon kind it came from, which sets how it flies and looks.</summary>
     public string Kind { get; } = kind;
     /// <summary>What a missile or torpedo is chasing.</summary>
-    public Ship? Target { get; init; }
+    public Ship? Target { get; set; }
 
     public bool Homing => Kind is "missile" or "torpedo";
     /// <summary>Degrees per second a homing shot can turn.</summary>
@@ -33,6 +33,8 @@ public sealed record ShipHit(Ship Ship, Projectile Projectile, Vector3 Point, Da
 public sealed record ShipDestroyed(Ship Ship, Ship? By) : WorldEvent;
 /// <summary>A flak shell went off, here.</summary>
 public sealed record FlakBurst(Projectile Projectile, Vector3 Point) : WorldEvent;
+/// <summary>A decoy drew a missile off the ship it was chasing.</summary>
+public sealed record MissileDecoyed(Projectile Projectile, Ship Ship) : WorldEvent;
 /// <summary>Someone fired on a side they weren't at war with, and now they are.</summary>
 public sealed record SidesTurnedHostile(int Attacker, int Victim) : WorldEvent;
 
@@ -76,11 +78,7 @@ public sealed class World
         foreach (var ship in Ships) ship.Update(dt, _newShots);
         foreach (var ship in Ships)
             if (ship.Alive && ship.Spec.Weapons.Any(w => w.Turret)) ship.UpdateTurrets(dt, this, _newShots);
-        foreach (var shot in _newShots)
-        {
-            Projectiles.Add(shot);
-            Events.Add(new ShotFired(shot));
-        }
+        foreach (var shot in _newShots) Launch(shot);
 
         for (int i = Projectiles.Count - 1; i >= 0; i--)
         {
@@ -118,6 +116,22 @@ public sealed class World
                 Projectiles.RemoveAt(i);
             }
         }
+    }
+
+    /// <summary>Puts a new shot into the world. A decoy on its target may pull a missile off as it launches.</summary>
+    public void Launch(Projectile shot)
+    {
+        if (shot.Homing && shot.Target is { DecoysLeft: > 0 } mark)
+        {
+            mark.DecoysLeft--;
+            if ((Rng.Hash("decoy:" + shot.Id) % 1000) / 1000f < mark.Spec.DecoyChance)
+            {
+                shot.Target = null;
+                Events.Add(new MissileDecoyed(shot, mark));
+            }
+        }
+        Projectiles.Add(shot);
+        Events.Add(new ShotFired(shot));
     }
 
     /// <summary>Turns a homing shot towards where its target will be, at its turn rate.</summary>
