@@ -1,14 +1,16 @@
 # Builds Galaxus for Windows, macOS and Linux and publishes the zips as a GitHub release.
 #
-# Push a tag such as v0.1.0 to make a release. The website links to
-# releases/latest/download/<zip>, so the newest release is what players download.
-# Running the workflow by hand builds the zips and keeps them as a workflow artifact without releasing.
+# Releases are made locally with tools/release.sh, as Mac runners can queue for a long time.
+# This workflow is a fallback: run it by hand with a tag name to build on GitHub and publish
+# that release. The website links to releases/latest/download/<zip>.
 name: Release
 
 on:
-  push:
-    tags: ['v*']
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to release, such as v0.3.0 (leave empty to build without releasing)
+        required: false
 
 permissions:
   contents: write
@@ -53,8 +55,9 @@ jobs:
           retention-days: 14
 
       - name: Publish the release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: inputs.tag != ''
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ inputs.tag }}
           files: build/*.zip
           generate_release_notes: true
