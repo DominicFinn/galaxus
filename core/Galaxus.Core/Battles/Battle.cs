@@ -287,10 +287,10 @@ public sealed class Battle
                 // Ships the objectives need alive are tougher on easier levels, whichever side they're on
                 // (an enemy you must scan shouldn't be shot out from under you).
                 if (protectedShip) ship.DamageTakenScale = 1 / Difficulty.ProtectedToughness;
-                float spacing = def.IsCapital ? spec.Radius * 3 + 300 : 140;
-                var offset = (_right * (i - (group.Count - 1) / 2f) + _up * _rng.Range(-0.3f, 0.3f)) * spacing
+                float spacing = def.IsCapital ? spec.Radius * 3 + 300 : MathF.Max(140, spec.Radius * 2.5f + 60);
+                var offset = (_right * (i - (count - 1) / 2f) + _up * _rng.Range(-0.3f, 0.3f)) * spacing
                              + new Vector3(_rng.Range(-1, 1), _rng.Range(-1, 1), _rng.Range(-1, 1)) * (def.IsCapital ? 50 : 80);
-                ship.Body.Position = anchor + offset;
+                ship.Body.Position = ClearSpot(anchor + offset, spec.Radius);
                 // Enemies come in facing the fight; friends face the way the enemy will come from.
                 var facing = wave.Side == "friend" ? _forward : Vector3.Normalize(_centre - ship.Body.Position);
                 ship.Body.Orientation = LookRotation(facing, _up);
@@ -330,6 +330,26 @@ public sealed class Battle
     }
 
     /// <summary>
+    /// Moves a new ship off anyone it would spawn inside or right beside, so groups that share an
+    /// arrival point don't pile up. It tries the spot first, then rings further and further out.
+    /// </summary>
+    private Vector3 ClearSpot(Vector3 spot, float radius)
+    {
+        bool Clear(Vector3 p) => !_world.Ships.Any(s => s.Alive
+            && Vector3.Distance(s.Body.Position, p) < radius + s.Spec.Radius + 60);
+        if (Clear(spot)) return spot;
+        float step = radius * 2 + 120;
+        for (int ring = 1; ring <= 12; ring++)
+            for (int k = 0; k < 8; k++)
+            {
+                float a = MathF.Tau * k / 8 + ring * 0.4f;
+                var p = spot + (_right * MathF.Cos(a) + _up * MathF.Sin(a) * 0.6f - _forward * (k % 2) * 0.5f) * step * ring;
+                if (Clear(p)) return p;
+            }
+        return spot + _up * step * 13;
+    }
+
+    /// <summary>
     /// Nobody flies alone: a section of fighters joins you on your wing, more when the other side
     /// badly outnumbers yours, and they go for whatever comes after you.
     /// </summary>
@@ -349,7 +369,7 @@ public sealed class Battle
         {
             var spec = ShipFactory.Build(_db, hull, null, _sides.FriendRace);
             var ship = new Ship(Interlocked.Increment(ref _nextShipId), $"Wing {calls[i]}", spec) { Side = FriendSide };
-            ship.Body.Position = _player.Body.Position + (_right * (i % 2 == 0 ? 1 : -1) * (60 + 50 * (i / 2)) - _forward * (40 + 40 * (i / 2)));
+            ship.Body.Position = ClearSpot(_player.Body.Position + (_right * (i % 2 == 0 ? 1 : -1) * (60 + 50 * (i / 2)) - _forward * (40 + 40 * (i / 2))), spec.Radius);
             ship.Body.Orientation = _player.Body.Orientation;
             ship.Body.Velocity = _player.Body.Velocity;
             var pilot = new Pilot(PilotRole.Escort, _rng.Fork($"wing-{i}")) { Assigned = _player, Player = _player, Skill = Difficulty.WingmanSkill };

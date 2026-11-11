@@ -36,6 +36,27 @@ public class BattleTests
     }
 
     [Fact]
+    public void Ships_never_spawn_inside_each_other()
+    {
+        foreach (var id in Db.Battles.Keys)
+        {
+            var (battle, world, _) = Start(id);
+            for (float t = 0; t < 240 && battle.Won == null; t += 1 / 30f)
+            {
+                int before = battle.Spawned.Count;
+                battle.Step(1 / 30f);
+                foreach (var ship in battle.Spawned.Skip(before))
+                    foreach (var other in world.Ships.Where(o => o != ship && o.Alive))
+                    {
+                        float gap = Vector3.Distance(ship.Body.Position, other.Body.Position) - ship.Spec.Radius - other.Spec.Radius;
+                        Assert.True(gap > 0, $"{id}: {ship.Name} spawned inside {other.Name} ({gap:0} m)");
+                    }
+                world.Step(1 / 30f);
+            }
+        }
+    }
+
+    [Fact]
     public void Every_battle_loads_and_its_waves_arrive()
     {
         foreach (var id in Db.Battles.Keys)
