@@ -211,3 +211,53 @@ public class DifficultyTests
         Assert.Equal(fighter.Spec.MaxHull, fighter.Hull);
     }
 }
+
+/// <summary>Losing a battle and going again from the last wave.</summary>
+public class BattleRetryTests
+{
+    private static readonly Galaxus.Core.Content.ContentDatabase Db =
+        Galaxus.Core.Content.ContentDatabase.Load(new Galaxus.Core.Content.DirectoryContentSource(ContentTests.DataFolder));
+
+    private static (Battle Battle, Galaxus.Core.Ships.Ship Player) Start(string id, Galaxus.Core.Ships.World world)
+    {
+        var def = Db.Battles[id];
+        var player = new Galaxus.Core.Ships.Ship(1, "Player", Galaxus.Core.Ships.ShipFactory.Build(Db, "hc-sparrow")) { Side = 1 };
+        world.Ships.Add(player);
+        var vars = new Dictionary<string, string> { ["client"] = "A", ["enemy"] = "B", ["system"] = "C", ["captain"] = "D", ["station"] = "E", ["base"] = "F" };
+        var battle = new Battle(Db, def, world, player, Balance.SidesFor(def), new Rng(5), vars, Battle.NameTags(def, new Rng(6))) { Difficulty = Difficulty.Easy };
+        return (battle, player);
+    }
+
+    [Fact]
+    public void A_lost_battle_resumes_from_the_wave_you_were_fighting()
+    {
+        var world = new Galaxus.Core.Ships.World();
+        var (battle, player) = Start("blockade-run", world);
+        // Fight a while, wipe out the picket, let the next waves come, then lose.
+        for (int i = 0; i < 30 * 5; i++) { battle.Step(1 / 30f); world.Step(1 / 30f); }
+        foreach (var ship in battle.Spawned.Where(s => s.Side == battle.EnemySide)) ship.TakeDamage(1e6f);
+        for (int i = 0; i < 30 * 50; i++) { battle.Step(1 / 30f); world.Step(1 / 30f); }
+        player.TakeDamage(1e6f);
+        battle.Step(1 / 30f);
+        Assert.False(battle.Won);
+        Assert.Contains("Objectives", battle.Debrief());
+
+        var retry = battle.Retry();
+        Assert.NotNull(retry);
+        Assert.Contains("picket", retry!.Cleared);
+        Assert.NotEqual("picket", retry.WaveId);
+        int picketObjective = battle.Objectives.FindIndex(o => o.Def.Id == "picketdown");
+        Assert.Contains(picketObjective, retry.Done);
+
+        // Go again: the picket doesn't come back and its objective stays done.
+        var world2 = new Galaxus.Core.Ships.World();
+        var (again, _) = Start("blockade-run", world2);
+        again.ResumeFrom(retry);
+        Assert.Equal(1, again.Attempt);
+        Assert.Equal(ObjectiveState.Done, again.Objectives[picketObjective].State);
+        for (int i = 0; i < 30 * 10; i++) { again.Step(1 / 30f); world2.Step(1 / 30f); }
+        // The picket's frigate was beaten, so no enemy frigate comes back.
+        Assert.DoesNotContain(again.Spawned, s => s.Side == again.EnemySide && s.Spec.Hull.Class == "frigate");
+        Assert.True(again.Spawned.Any(s => s.Side == again.EnemySide), "The wave you were fighting comes back.");
+    }
+}

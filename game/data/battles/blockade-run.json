@@ -11,6 +11,25 @@
     "textGrammar": "battle-blockade-run",
     "waves": [
       {
+        "id": "escort",
+        "side": "friend",
+        "at": 0,
+        "position": "behind",
+        "distance": 800,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          },
+          {
+            "role": "capital",
+            "class": "frigate",
+            "count": 1
+          }
+        ]
+      },
+      {
         "id": "picket",
         "side": "enemy",
         "at": 0,
@@ -20,13 +39,19 @@
           {
             "role": "capital",
             "class": "frigate",
-            "count": 2,
+            "count": 1,
+            "tag": "picket"
+          },
+          {
+            "role": "fighter",
+            "class": "gunship",
+            "count": 1,
             "tag": "picket"
           },
           {
             "role": "fighter",
             "class": "fighter",
-            "count": 6
+            "count": 4
           }
         ],
         "radio": "radio-picket"
@@ -57,19 +82,24 @@
         "id": "response",
         "side": "enemy",
         "after": "wave:picket",
-        "delay": 25,
+        "delay": 40,
         "position": "right",
         "distance": 6000,
         "ships": [
           {
             "role": "interceptor",
             "class": "fighter",
-            "count": 6
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
           },
           {
             "role": "bomber",
             "class": "gunship",
-            "count": 3
+            "count": 2
           }
         ],
         "radio": "radio-response"
@@ -102,7 +132,7 @@
         "id": "picketdown",
         "type": "destroy",
         "tag": "picket",
-        "text": "Destroy the picket frigates"
+        "text": "Destroy the picket: a frigate and its gunship"
       },
       {
         "id": "column",

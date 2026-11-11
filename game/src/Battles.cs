@@ -46,12 +46,12 @@ public partial class Main
 
     private void CheckBattleStart()
     {
-        if (_battle != null || _cruising || !_player.Alive || BattleJobHere() is not { } job) return;
+        if (_battle != null || _pendingLoss != null || _cruising || !_player.Alive || BattleJobHere() is not { } job) return;
         if (DistanceKm(PlayerKm, BattlePointKm(job)) > BattleStartKm) return;
         StartBattle(job);
     }
 
-    private void StartBattle(AcceptedMission job)
+    private void StartBattle(AcceptedMission job, RetryPoint? resume = null)
     {
         var db = _session.Db;
         if (!db.Battles.TryGetValue(job.Offer.BattleId!, out var def)) return;
@@ -66,6 +66,7 @@ public partial class Main
         variables.TryAdd("captain", _session.Career.Captain);
         _battle = new Battle(db, def, _world, _player, sides, new Rng(Rng.Hash(job.Offer.Id + _session.Galaxy.Day)), variables, tags);
         _battle.Difficulty = GameSettings.Current.Level;
+        if (resume != null) _battle.ResumeFrom(resume);
         Battle.ApplyToPlayer(_player, GameSettings.Current.Level); ApplyCrew();
         _battleJob = job;
         UpdateAudioForScreen();
@@ -125,7 +126,22 @@ public partial class Main
     private void FinishBattle(BattleOver over)
     {
         if (_battleJob == null || _battle == null) return;
-        var result = _session.Career.FinishBattle(_battleJob, over.Won, _battle.BonusesEarned);
+        // A loss isn't final yet: say how close it was, and offer another go from the last wave.
+        if (!over.Won && _battle.Retry() is { } retry)
+        {
+            ShowDebrief(_battleJob, retry, over.Text, _battle.Debrief(), _battle.BonusesEarned);
+            AudioManager.Instance?.Ui("error");
+            return;
+        }
+        ConcludeBattle(_battleJob, over.Won, _battle.BonusesEarned, over.Text);
+    }
+
+    /// <summary>Settles a battle job: pay or failure, campaign progress and the news.</summary>
+    private void ConcludeBattle(AcceptedMission job, bool won, int bonuses, string text)
+    {
+        _battleJob = job;
+        var over = new BattleOver(won, text);
+        var result = _session.Career.FinishBattle(_battleJob, over.Won, bonuses);
         Campaigns.Record(_session, _battleJob, over.Won);
         if (_session.RecordBattle(_battleJob, over.Won) is { } action && action.Won)
             _hud.Message("WORD OF THIS WILL SPREAD. CHECK THE NEWS WHEN YOU DOCK");
@@ -133,7 +149,7 @@ public partial class Main
             _hud.Message(Campaigns.Finished(_session) ? "CAMPAIGN COMPLETE. REPORT TO THE FLAGSHIP" : "RETURN TO THE FLAGSHIP FOR YOUR DEBRIEF");
         _hud.Radio(over.Text, "friend");
         _hud.Message(over.Won
-            ? $"VICTORY. +{result.Payment:N0} CR{(_battle.BonusesEarned > 0 ? $" WITH {_battle.BonusesEarned} BONUS" : "")}"
+            ? $"VICTORY. +{result.Payment:N0} CR{(bonuses > 0 ? $" WITH {bonuses} BONUS" : "")}"
             : "THE BATTLE IS LOST. THE JOB HAS FAILED");
         AudioManager.Instance?.Ui(over.Won ? "paid" : "error");
         _battleJob = null;

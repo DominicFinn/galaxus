@@ -5,7 +5,7 @@ using Galaxus.Core.Content;
 
 // Plays battles with a bot at each difficulty and prints win rates, for tuning.
 //
-//   dotnet run -c Release --project tools/balance -- <data folder> [--runs N] [--skill 0.5] [--kinds war,job,...] [--no-second-wind] [battle ...]
+//   dotnet run -c Release --project tools/balance -- <data folder> [--runs N] [--skill 0.5] [--kinds war,job,...] [--no-second-wind] [--losses] [battle ...]
 
 var db = ContentDatabase.Load(new DirectoryContentSource(args.Length > 0 ? args[0] : "game/data"));
 int runs = 4;
@@ -13,12 +13,15 @@ float skill = 0.5f;
 var kinds = new HashSet<string> { "war", "pirate", "synth", "defence", "job", "sim", "campaign" };
 var only = new List<string>();
 bool secondWind = true;
+// --losses lists why runs were lost at every level, not just Easy.
+bool losses = false;
 for (int i = 1; i < args.Length; i++)
 {
     if (args[i] == "--runs") runs = int.Parse(args[++i]);
     else if (args[i] == "--skill") skill = float.Parse(args[++i]);
     else if (args[i] == "--kinds") kinds = [.. args[++i].Split(',')];
     else if (args[i] == "--no-second-wind") secondWind = false;
+    else if (args[i] == "--losses") losses = true;
     else only.Add(args[i]);
 }
 // Practice battles where you shoot targets on your own side (the tutorial) aren't something the bot can play.
@@ -44,7 +47,7 @@ foreach (var b in battles)
         var nearlyDown = results.Where(r => r.LowestHealth < 0.5f).ToList();
         comebacks[level.Name] = (comebacks[level.Name].Low + nearlyDown.Count, comebacks[level.Name].Won + nearlyDown.Count(r => r.Won));
         row.Add($"{won}/{runs}");
-        if (level.Name == "Easy") easyLosses.AddRange(results.Where(r => !r.Won).Select(r => r.Reason));
+        if (level.Name == "Easy" || losses) easyLosses.AddRange(results.Where(r => !r.Won).Select(r => $"{(level.Name == "Easy" ? "" : level.Name + ": ")}{r.Reason} at {r.Seconds:0}s"));
     }
     Console.WriteLine($"{b.Kind + " " + b.Id,-34} {row[0],8} {row[1],8} {row[2],8}   {string.Join("; ", easyLosses.GroupBy(r => r).Select(g => $"{g.Key} x{g.Count()}"))}");
 }

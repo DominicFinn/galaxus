@@ -493,6 +493,20 @@
     "textGrammar": "battle-campaign-khanate-tithe-train",
     "waves": [
       {
+        "id": "raiders",
+        "side": "friend",
+        "at": 0,
+        "position": "behind",
+        "distance": 800,
+        "ships": [
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 4
+          }
+        ]
+      },
+      {
         "id": "train",
         "side": "enemy",
         "at": 0,
@@ -524,7 +538,7 @@
           {
             "role": "escort",
             "class": "fighter",
-            "count": 6,
+            "count": 4,
             "target": "hauler"
           }
         ],
@@ -558,7 +572,12 @@
           {
             "role": "interceptor",
             "class": "fighter",
-            "count": 4
+            "count": 2
+          },
+          {
+            "role": "fighter",
+            "class": "fighter",
+            "count": 2
           },
           {
             "role": "bomber",

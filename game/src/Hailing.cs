@@ -43,6 +43,8 @@ public partial class Main
     /// <summary>A new system: peace with its police, and a patrol on its way if you owe them.</summary>
     private void ResetLaw()
     {
+        // Leaving with a lost battle undecided takes the loss.
+        if (_pendingLoss != null) AcceptDefeat();
         _world.SetHostile(LawfulSide, _player.Side, false);
         _assaulted.Clear();
         _hailed.Clear();

@@ -313,6 +313,7 @@ public partial class Main : Node3D
         uiLayer.AddChild(_map);
         BuildHailPanel(uiLayer);
         BuildLogbook(uiLayer);
+        BuildDebrief(uiLayer);
         _stationScreen.ShowOnMap = OpenMapAt;
         _systemMap = new SystemMap();
         _systemMap.Init(_session, SetCourse, CloseSystemMap, () => PlayerKm, () => _navTarget, () => { RefreshContacts(); return _contacts; }, HailContact);
@@ -622,7 +623,7 @@ public partial class Main : Node3D
         // A click takes hold of the mouse for flying, but only when you're actually flying: not on the
         // title screen, in the viewer, or in menus.
         else if (e is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left or MouseButton.Right } && Input.MouseMode != Input.MouseModeEnum.Captured
-                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight && !Hailing && !_logbook.Visible)
+                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight && !Hailing && !_logbook.Visible && !DebriefOpen)
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             GetViewport().SetInputAsHandled();

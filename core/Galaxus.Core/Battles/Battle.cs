@@ -27,6 +27,13 @@ public sealed record WaveArrived(string WaveId, string Side, int Ships) : Battle
 public sealed record BattleOver(bool Won, string Text) : BattleEvent;
 public sealed record ScanComplete(BattleObjective Objective, Ship Ship, int Done, int Of) : BattleEvent;
 
+/// <summary>Where to pick a lost battle up again: the enemy wave you were fighting, and what you'd already done.</summary>
+/// <param name="WaveId">The enemy wave to fight again.</param>
+/// <param name="Time">The battle clock when it arrived.</param>
+/// <param name="Cleared">Enemy waves already beaten, which don't come back.</param>
+/// <param name="Done">Objectives already done, by index, which stay done.</param>
+public sealed record RetryPoint(string WaveId, float Time, IReadOnlyList<string> Cleared, IReadOnlyList<int> Done, int Attempt);
+
 /// <summary>
 /// A set-piece battle running in a World: spawns each wave when its time or trigger comes, flies
 /// every AI ship, tracks the objectives and reports radio calls and the outcome. The player's
@@ -55,6 +62,11 @@ public sealed class Battle
     private readonly Dictionary<string, List<Ship>> _waves = [];
     private readonly HashSet<string> _spawned = [];
     private readonly Dictionary<string, float> _triggeredAt = [];
+    private readonly Dictionary<string, float> _spawnedAt = [];
+    private bool _wingmenOut;
+    private string? _lostBecause;
+    /// <summary>Which go at the battle this is: 0 first, then one more for each retry.</summary>
+    public int Attempt { get; private set; }
 
     private float _lastDt;
     public BattleDef Def { get; }
@@ -129,7 +141,7 @@ public sealed class Battle
     {
         Events.Clear();
         if (Won != null) { FlyCrews(dt); return; }
-        if (Time == 0) SpawnWingmen();
+        if (!_wingmenOut) { _wingmenOut = true; SpawnWingmen(); }
         Time += dt;
         _lastDt = dt;
         foreach (var wave in Def.Waves)
@@ -237,6 +249,7 @@ public sealed class Battle
     private void Spawn(WaveDef wave)
     {
         _spawned.Add(wave.Id);
+        _spawnedAt[wave.Id] = Time;
         var ships = _waves[wave.Id] = [];
         int side = wave.Side switch { "friend" => FriendSide, "enemy" => EnemySide, _ => NeutralSide };
         string builder = wave.Side switch { "friend" => _sides.FriendBuilder, "enemy" => _sides.EnemyBuilder, _ => "human-corporate" };
@@ -492,6 +505,8 @@ public sealed class Battle
 
         if (!_player.Alive || Objectives.Any(o => !o.Def.Optional && o.State == ObjectiveState.Failed))
         {
+            var failed = Objectives.FirstOrDefault(o => !o.Def.Optional && o.State == ObjectiveState.Failed);
+            _lostBecause = !_player.Alive ? "shot-down" : failed?.Def.Type switch { "protect" => "protect", "escape" => "escape", _ => "objective" };
             Finish(false);
             return;
         }
@@ -508,6 +523,63 @@ public sealed class Battle
             }
             Finish(true);
         }
+    }
+
+    /// <summary>
+    /// After a loss, where a retry would start: the earliest enemy wave still fighting, or the last
+    /// one that came if they were all beaten. Null unless the battle is lost.
+    /// </summary>
+    public RetryPoint? Retry()
+    {
+        if (Won != false) return null;
+        var enemyWaves = Def.Waves.Where(w => w.Side == "enemy" && _spawned.Contains(w.Id)).ToList();
+        if (enemyWaves.Count == 0) return new RetryPoint("", 0, [], [], Attempt + 1);
+        var fighting = enemyWaves.FirstOrDefault(w => _waves[w.Id].Any(s => s.Alive)) ?? enemyWaves[^1];
+        var cleared = enemyWaves.TakeWhile(w => w != fighting).Select(w => w.Id).ToList();
+        var done = Objectives.Select((o, i) => (o, i)).Where(x => x.o.State == ObjectiveState.Done).Select(x => x.i).ToList();
+        return new RetryPoint(fighting.Id, _spawnedAt[fighting.Id], cleared, done, Attempt + 1);
+    }
+
+    /// <summary>Starts a fresh battle from a retry point: beaten waves stay beaten, finished objectives stay finished.</summary>
+    public void ResumeFrom(RetryPoint point)
+    {
+        Attempt = point.Attempt;
+        // A few seconds before the wave, to get your bearings.
+        Time = MathF.Max(0, point.Time - 6);
+        foreach (var id in point.Cleared)
+        {
+            _spawned.Add(id);
+            _waves[id] = [];
+            _spawnedAt[id] = 0;
+        }
+        foreach (int i in point.Done.Where(i => i < Objectives.Count)) Objectives[i].State = ObjectiveState.Done;
+    }
+
+    /// <summary>
+    /// How close you came, and what to try next: objectives done, waves seen, enemies left, and a
+    /// tip from what went wrong.
+    /// </summary>
+    public string Debrief()
+    {
+        var required = Objectives.Where(o => !o.Def.Optional).ToList();
+        int done = required.Count(o => o.State == ObjectiveState.Done);
+        int enemyWaves = Def.Waves.Count(w => w.Side == "enemy");
+        int seen = Def.Waves.Count(w => w.Side == "enemy" && _spawned.Contains(w.Id));
+        int left = EnemiesLeft();
+        var lines = new List<string>();
+        lines.Add(required.Count > 0 ? $"Objectives: {done} of {required.Count} done." : "");
+        lines.Add(enemyWaves > 0 ? $"Enemy waves: {seen} of {enemyWaves} came in, {left} enemy ship{(left == 1 ? "" : "s")} still fighting." : "");
+        float progress = (required.Count > 0 ? (float)done / required.Count : 0) * 0.5f + (enemyWaves > 0 ? (float)seen / enemyWaves : 0) * 0.5f;
+        lines.Add(progress >= 0.7f ? "You were nearly there." : progress >= 0.4f ? "You got a good way in." : "It went wrong early.");
+        lines.Add(_lostBecause switch
+        {
+            "shot-down" => "You were shot down. Keep power on your shields (2) in a crowd, and break away to recharge when they drop; warship flak hurts most up close.",
+            "protect" => "A ship you were protecting went down. Stay near it, and take the fighters attacking it first.",
+            "escape" => "The ships you were escorting didn't get away. Clear their path and stay with them.",
+            "time" => "Time ran out. Go straight for the objectives and leave stragglers.",
+            _ => "An objective failed. Read the objectives (top left) and take them in order.",
+        });
+        return string.Join(" ", lines.Where(l => l != ""));
     }
 
     public int EnemiesLeft() => Crews.Count(c => c.Ship.Alive && c.Ship.Side == EnemySide);
