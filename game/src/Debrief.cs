@@ -53,7 +53,7 @@ public partial class Main
         _retryButton.Text = point.WaveId == "" ? "Try again" : "Retry from the last wave";
         _debrief!.Visible = true;
         _timeWarp = 1;
-        Input.MouseMode = Input.MouseModeEnum.Visible;
+        FreeMouse();
     }
 
     private void RetryBattle()

@@ -33,6 +33,16 @@ public partial class Main
 
     private bool Hailing => _hailPanel.Visible;
 
+    /// <summary>
+    /// Frees the mouse for a panel (a hail, the logbook, a debrief) and centres the flight stick,
+    /// so the ship flies straight while you click rather than carrying on turning.
+    /// </summary>
+    private void FreeMouse()
+    {
+        _mouseStick = Vector2.Zero;
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+    }
+
     private void BuildHailPanel(CanvasLayer layer)
     {
         _hailPanel = new HailPanel();
@@ -87,7 +97,7 @@ public partial class Main
         _hailPanel.Open(caller.Kind == "station" ? "INCOMING HAIL" : caller.ShipName.ToUpperInvariant(), $"{person.Name}. {who}.", mesh, radius,
             face => face.ShowPerson(_db, _session.Galaxy, person), Hails.Open(_session, caller));
         _timeWarp = 1;
-        Input.MouseMode = Input.MouseModeEnum.Visible;
+        FreeMouse();
         AudioManager.Instance?.Ui("lock");
     }
 
@@ -106,6 +116,7 @@ public partial class Main
         _hailCaller = null;
         _hailShip = null;
         _afterDockHail = null;
+        _mouseStick = Vector2.Zero;
         if (_screen == Screen.Flight) Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 

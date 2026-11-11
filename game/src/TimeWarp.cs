@@ -36,10 +36,19 @@ public partial class Main
     }
 
     /// <summary>Why time can't run fast right now, or null if it can.</summary>
+    /// <summary>
+    /// A fight that should stop the clock: a battle on, or something hostile within 8 km that isn't
+    /// one of the practice drones. Shooting at drones doesn't count.
+    /// </summary>
+    private bool InRealFight() =>
+        _battle is { Won: null }
+        || _world.Ships.Any(s => s.Alive && s != _player && !_drones.ContainsKey(s) && _world.Hostile(_player, s)
+                                 && System.Numerics.Vector3.Distance(s.Body.Position, _player.Body.Position) < 8000);
+
     private string? WarpBlocker()
     {
         if (_screen != Screen.Flight || !_player.Alive) return "NOT FLYING";
-        if (_fightCooldown > 0) return "IN COMBAT";
+        if (_fightCooldown > 0 && InRealFight()) return "IN COMBAT";
         if (CanDock || PortToDock != null) return "DOCKING RANGE";
         if (!_cruising && _surface != null && HeightAboveGroundKm() is { } h && h < 1.5) return "LOW ALTITUDE";
         return null;

@@ -45,7 +45,7 @@ public partial class Main
         {
             _logbookView.Refresh();
             _logbookView.MarkRead();
-            Input.MouseMode = Input.MouseModeEnum.Visible;
+            FreeMouse();
         }
         else if (_screen == Screen.Flight && !Hailing) Input.MouseMode = Input.MouseModeEnum.Captured;
     }
