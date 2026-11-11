@@ -1,6 +1,7 @@
 using Godot;
 using Galaxus.Core;
 using Galaxus.Core.Galaxy;
+using Galaxus.Core.Law;
 
 namespace Galaxus.Ui;
 
@@ -17,6 +18,12 @@ public partial class SystemMap : Control
     private Action _close = null!;
     private Func<(double X, double Y, double Z)> _playerKm = null!;
     private Func<int> _navTarget = null!;
+    private Func<List<Contact>> _contactsOf = null!;
+    private Action<Contact> _hailContact = null!;
+    private List<Contact> _contacts = [];
+    private Button _hail = null!;
+    /// <summary>Ships are picked as this minus their index, matching the flight code's course targets.</summary>
+    private const int ContactBase = -1000;
 
     private StarSystem _system = null!;
     private SolarSystem _solar = null!;
@@ -28,8 +35,11 @@ public partial class SystemMap : Control
     private RichTextLabel _info = null!;
     private Button _course = null!;
 
-    public void Init(Session session, Action<int> setCourse, Action close, Func<(double, double, double)> playerKm, Func<int> navTarget)
+    public void Init(Session session, Action<int> setCourse, Action close, Func<(double, double, double)> playerKm, Func<int> navTarget,
+        Func<List<Contact>> contacts, Action<Contact> hail)
     {
+        _contactsOf = contacts;
+        _hailContact = hail;
         _session = session;
         _setCourse = setCourse;
         _close = close;
@@ -53,6 +63,9 @@ public partial class SystemMap : Control
         box.AddChild(_info);
         _course = Ui.Button("Set as destination", () => { if (_selected != -1) _setCourse(_selected); _close(); });
         box.AddChild(_course);
+        _hail = Ui.Button("Hail", () => { if (_selected <= ContactBase && ContactBase - _selected < _contacts.Count) _hailContact(_contacts[ContactBase - _selected]); });
+        _hail.Visible = false;
+        box.AddChild(_hail);
         box.AddChild(Ui.Button("Close (N)", () => _close()));
     }
 
@@ -62,6 +75,7 @@ public partial class SystemMap : Control
         _system = system;
         _current = current;
         _solar = SolarSystems.For(system, _session.Db.Grammars);
+        _contacts = current ? _contactsOf() : [];
         float outer = (float)_solar.Planets.Max(b => b.Orbit + (b.Kind == BodyKind.Belt ? b.Radius : 0));
         _pxPerAu = Mathf.Min(Size.X, Size.Y) * 0.44f / Mathf.Max(outer, 0.1f);
         _pan = new Vector2(60, 0);
@@ -128,6 +142,12 @@ public partial class SystemMap : Control
     /// <summary>Nearest body to the cursor; -2 means the station.</summary>
     private int Nearest(Vector2 at)
     {
+        // Ships first: they're small and sit on top of everything.
+        for (int i = 0; i < _contacts.Count; i++)
+        {
+            var c = KmScreen(_contacts[i].Km) + new Vector2(((i * 7) % 5 - 2) * 2.5f, ((i * 3) % 5 - 2) * 2.5f);
+            if (c.DistanceTo(at) < 5) return ContactBase - i;
+        }
         int best = -1;
         float bestDistance = 9;
         for (int i = 0; i < _solar.Bodies.Count; i++)
@@ -162,6 +182,7 @@ public partial class SystemMap : Control
     {
         int id = _hovered != -1 ? _hovered : _selected;
         var star = _solar.Star;
+        _hail.Visible = false;
         if (id == -1)
         {
             var profile = SystemProfiles.For(_session.Galaxy, _system, _session.Db);
@@ -175,6 +196,29 @@ public partial class SystemMap : Control
                          "Click a body for details" + (_current ? " and to make it your destination for the autopilot (J)." : ".") +
                          (_session.Career.ActiveJob is { } job ? $"\n\n[color=#{Ui.Hex(Ui.Amber)}]Job: {job.Offer.Mission.Title}[/color]\n{_session.NextStep(job)}" : "");
             _course.Disabled = true;
+            return;
+        }
+        if (id <= ContactBase)
+        {
+            int i = ContactBase - id;
+            if (i >= _contacts.Count) return;
+            var c = _contacts[i];
+            var hull = _session.Db.Hulls.GetValueOrDefault(c.HullId);
+            string flies = c.FactionId >= 0 && c.FactionId < _session.Galaxy.Factions.Count ? _session.Galaxy.Factions[c.FactionId].Name : "no registration";
+            string what = c.Role switch
+            {
+                "trader" => "A trader on her run between worlds.",
+                "patrol" => "A police patrol.",
+                "miner" => "A miner working the belt.",
+                "fence" => "Keeping to the shadows off a quiet world. Fences deal in what the markets won't touch.",
+                "pirate" => "Lurking with no transponder. Probably not friendly.",
+                _ => "",
+            };
+            _info.Text = $"[color=#{Ui.Hex(ContactColour(c.Role))}]{c.Name.ToUpperInvariant()}[/color]\n{hull?.Name ?? "Ship"}, {flies}.\n{what}\n" +
+                         (_current ? "Hail it from here, or set it as your destination and fly out to meet it." : "");
+            _course.Disabled = !_current || _selected != id;
+            _hail.Disabled = !_current || _selected != id;
+            _hail.Visible = true;
             return;
         }
         if (id <= NavPortBase)
@@ -337,10 +381,10 @@ public partial class SystemMap : Control
         {
             int nav = _navTarget();
             if (nav >= 0) DrawArc(BodyScreen(nav), 8, 0, Mathf.Tau, 20, Ui.Amber, 1.5f);
-            if (nav <= NavPortBase) DrawArc(PortScreen(_solar.Stations[NavPortBase - nav].Body), 6, 0, Mathf.Tau, 16, Ui.Amber, 1.5f);
+            if (nav <= NavPortBase && nav > ContactBase) DrawArc(PortScreen(_solar.Stations[NavPortBase - nav].Body), 6, 0, Mathf.Tau, 16, Ui.Amber, 1.5f);
         }
         if (_selected >= 0) DrawArc(BodyScreen(_selected), 10, 0, Mathf.Tau, 20, Ui.Green, 1.5f);
-        if (_selected <= NavPortBase) DrawArc(PortScreen(_solar.Stations[NavPortBase - _selected].Body), 7, 0, Mathf.Tau, 16, Ui.Green, 1.5f);
+        if (_selected <= NavPortBase && _selected > ContactBase) DrawArc(PortScreen(_solar.Stations[NavPortBase - _selected].Body), 7, 0, Mathf.Tau, 16, Ui.Green, 1.5f);
         if (_session.Career.ActiveJob is { } activeJob && activeJob.Offer.DestinationSystemId == _system.Id)
         {
             int index = _solar.Stations.FindIndex(st => st.Name == activeJob.Offer.DestinationStation);
@@ -353,9 +397,35 @@ public partial class SystemMap : Control
                 DrawString(ThemeDB.FallbackFont, at + new Vector2(11, -6), $"JOB: {site.Name}", HorizontalAlignment.Left, -1, 9, Ui.Amber);
             }
         }
+        if (_current) DrawContacts(_navTarget());
         if (_current) DrawShip();
 
         DrawString(ThemeDB.FallbackFont, new Vector2(Size.X - 280, Size.Y - 8), $"Day {day}. Scroll to zoom, right-drag to pan, C to find your ship.", HorizontalAlignment.Left, -1, 8, Ui.Dim);
+    }
+
+    private static Color ContactColour(string role) => role switch
+    {
+        "patrol" => new Color(0.45f, 0.75f, 1f), "pirate" => Ui.Red, "fence" => Ui.Amber, "miner" => new Color(0.75f, 0.6f, 0.45f), _ => new Color(0.8f, 0.85f, 0.8f),
+    };
+
+    private Vector2 KmScreen((double X, double Y, double Z) km) =>
+        Centre + new Vector2((float)(km.X / SolarSystem.KmPerAu), (float)(km.Z / SolarSystem.KmPerAu)) * _pxPerAu;
+
+    /// <summary>The ships about the system: small diamonds by role, named when picked or hovered.</summary>
+    private void DrawContacts(int nav)
+    {
+        for (int i = 0; i < _contacts.Count; i++)
+        {
+            var c = _contacts[i];
+            var at = KmScreen(c.Km) + new Vector2(((i * 7) % 5 - 2) * 2.5f, ((i * 3) % 5 - 2) * 2.5f);
+            var colour = ContactColour(c.Role);
+            DrawColoredPolygon([at + new Vector2(0, -3), at + new Vector2(3, 0), at + new Vector2(0, 3), at + new Vector2(-3, 0)], colour);
+            int id = ContactBase - i;
+            if (id == _selected) DrawArc(at, 6, 0, Mathf.Tau, 16, Ui.Green, 1.5f);
+            if (id == nav) DrawArc(at, 5, 0, Mathf.Tau, 16, Ui.Amber, 1.5f);
+            if (id == _selected || id == _hovered || id == nav)
+                DrawString(ThemeDB.FallbackFont, at + new Vector2(6, -4), c.Name, HorizontalAlignment.Left, -1, 8, colour);
+        }
     }
 
     private Vector2 ShipScreen()

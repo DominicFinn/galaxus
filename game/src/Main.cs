@@ -193,6 +193,7 @@ public partial class Main : Node3D
             var session = Session.StartNew(_db, 2026);
             if (_startSystem is { } id && id >= 0 && id < session.Galaxy.Systems.Count) session.Career.SystemId = id;
             if (OS.GetCmdlineUserArgs().Contains("--mining-test")) MiningTestStart(session);
+            if (OS.GetCmdlineUserArgs().Contains("--law-test")) LawTestStart(session);
             StartGame(session, _startScreen);
             if (_showcaseDir != null) StartShowcase();
         }
@@ -309,8 +310,9 @@ public partial class Main : Node3D
         _map = new GalaxyMap();
         _map.Init(_session, JumpTo, CloseMap, JumpBlocked, CallRescue);
         uiLayer.AddChild(_map);
+        BuildHailPanel(uiLayer);
         _systemMap = new SystemMap();
-        _systemMap.Init(_session, SetCourse, CloseSystemMap, () => PlayerKm, () => _navTarget);
+        _systemMap.Init(_session, SetCourse, CloseSystemMap, () => PlayerKm, () => _navTarget, () => { RefreshContacts(); return _contacts; }, HailContact);
         uiLayer.AddChild(_systemMap);
 
         EnterSystem();
@@ -387,6 +389,7 @@ public partial class Main : Node3D
         ClearBattle();
         ClearTraffic();
         ClearRocks();
+        ResetLaw();
         SetupFleet();
         _dockedAtFlagship = false;
         UpdateSystemView();
@@ -433,8 +436,9 @@ public partial class Main : Node3D
             Input.MouseMode = screen == Screen.Flight ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
     }
 
-    private void Dock(string? arrival = null)
+    private void Dock(string? arrival = null, bool customs = false)
     {
+        if (Hailing) CloseHail();
         _timeWarp = 1;
         _player.Resupply();
         // On Easy the station tops your tank up as you dock.
@@ -442,7 +446,10 @@ public partial class Main : Node3D
         _stationScreen.Port = _dockedAtFlagship ? (_campaignFleet ? FleetName : $"{_flagship?.Name}, {FleetName}") : _dockedPort?.Name;
         // Docking delivers any jobs for this station.
         string stationName = _dockedPort?.Name ?? _session.Here.Stations.FirstOrDefault() ?? _session.Here.Name;
+        // Customs first, so contraband found on a smuggling run is lost before it's delivered.
+        string? scan = customs && !_dockedAtFlagship ? DockCustoms() : null;
         var delivered = _session.Dock(stationName);
+        if (scan != null) arrival = ((arrival ?? "") + " " + scan).Trim();
         string summary = arrival ?? "";
         foreach (var result in delivered)
             summary += $" Job done: {result.Mission.Offer.Mission.Title}, +{result.Payment:N0} cr.";
@@ -471,6 +478,8 @@ public partial class Main : Node3D
         SetScreen(Screen.Flight);
         AudioManager.Instance?.Ui("undock");
         _hud.Message($"UNDOCKED FROM {_stationScreen.StationName.ToUpperInvariant()}");
+        // Fines paid at the station: the police stand down.
+        if (Galaxus.Core.Law.LawRules.StandingHere(_session) == Galaxus.Core.Law.Standing.Clean) _world.SetHostile(LawfulSide, _player.Side, false);
         CourseForJob();
         _sinceUndock = 0;
     }
@@ -593,7 +602,7 @@ public partial class Main : Node3D
         // A click takes hold of the mouse for flying, but only when you're actually flying: not on the
         // title screen, in the viewer, or in menus.
         else if (e is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left or MouseButton.Right } && Input.MouseMode != Input.MouseModeEnum.Captured
-                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight)
+                 && !_demo && _sessionOrNull != null && _screen == Screen.Flight && !Hailing)
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             GetViewport().SetInputAsHandled();
@@ -648,8 +657,10 @@ public partial class Main : Node3D
 
             StepAutopilotTest(dt);
             StepMiningTest(dt);
+            StepLawTest(dt);
             StepFuelScoop(dt);
             StepProspecting(dt);
+            StepLaw(dt);
             if (_cruising)
             {
                 // On the autopilot the ship only turns; the system moves past instead.
@@ -743,6 +754,7 @@ public partial class Main : Node3D
         if (Input.IsActionJustPressed(GameInput.CameraToggle)) _cockpit = !_cockpit;
         if (Input.IsActionJustPressed(GameInput.TargetNext)) { CycleTarget(); AudioManager.Instance?.Ui("lock"); }
         if (Input.IsActionJustPressed(GameInput.Scan)) StartScan();
+        if (Input.IsActionJustPressed(GameInput.Hail)) HailTarget();
         if (Input.IsActionJustPressed(GameInput.Map)) { OpenMap(); return; }
         if (Input.IsActionJustPressed(GameInput.SystemMapKey)) { OpenSystemMap(); return; }
         if (Input.IsActionJustPressed(GameInput.Cruise)) ToggleCruise();
@@ -756,7 +768,7 @@ public partial class Main : Node3D
             _player.Controls.Flight.Assist = true;
             _hud.Message("MATCHING TARGET SPEED");
         }
-        if (Input.IsActionJustPressed(GameInput.Dock) && PortToDock is { } port) { _dockedPort = port; _dockedAtFlagship = false; Dock(); return; }
+        if (Input.IsActionJustPressed(GameInput.Dock) && PortToDock is { } port) { RequestDock(port); return; }
         if (Input.IsActionJustPressed(GameInput.Dock) && CanDockAtFlagship)
         {
             _dockedPort = null;
@@ -765,7 +777,7 @@ public partial class Main : Node3D
             if (_campaignFleet) _stationScreen.ShowTab(9);
             return;
         }
-        if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { _dockedPort = null; _dockedAtFlagship = false; Dock(); return; }
+        if (Input.IsActionJustPressed(GameInput.Dock) && CanDock) { RequestDock(null); return; }
 
         if (Input.IsActionJustPressed(GameInput.PipEngines)) { _player.Power.Raise(ShipSystem.Engines); AudioManager.Instance?.Ui("pip-0"); }
         if (Input.IsActionJustPressed(GameInput.PipShields)) { _player.Power.Raise(ShipSystem.Shields); AudioManager.Instance?.Ui("pip-1"); }
@@ -886,6 +898,7 @@ public partial class Main : Node3D
                 case ShipHit hit:
                     if (hit.Ship == _player || hit.Projectile.Owner == _player) _fightCooldown = 8;
                     if (hit.Ship == _player && hit.Projectile.Owner != _player) TookFire(hit.Projectile.Owner);
+                    LawOnHit(hit);
                     _effects.RemoveBolt(hit.Projectile);
                     if (hit.Damage.ToHull > 0) { _effects.HullSpark(hit.Point.ToGodot()); AudioManager.Instance?.HullHit(hit.Point.ToGodot()); }
                     else { _effects.ShieldFlash(hit.Ship.Body.Position.ToGodot(), hit.Ship.Spec.Radius); AudioManager.Instance?.ShieldHit(hit.Point.ToGodot()); }
@@ -894,6 +907,7 @@ public partial class Main : Node3D
                     var ship = destroyed.Ship;
                     _effects.Explosion(ship.Body.Position.ToGodot(), ship.Body.Velocity.ToGodot(), ship.Spec.Radius);
                     AudioManager.Instance?.Explosion(ship.Body.Position.ToGodot());
+                    LawOnDestroyed(destroyed);
                     if (destroyed.By == _player)
                     {
                         PayBounty(ship);

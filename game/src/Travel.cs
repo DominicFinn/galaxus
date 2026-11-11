@@ -246,3 +246,75 @@ public partial class Main
         }
     }
 }
+
+/// <summary>
+/// A launch option for checking the law and hailing without a player: "-- --screen=flight
+/// --law-test" starts in a policed system with a fine on your record, waits for the patrol's hail
+/// and pays, hails a ship on the system map and asks for news, then flies out to a contact and
+/// checks it's there. Logs as it goes and quits.
+/// </summary>
+public partial class Main
+{
+    private float _lawTestTime;
+    private int _lawTestStage;
+    private Galaxus.Core.Law.Contact? _lawTestContact;
+    private float _lawTestArrived;
+
+    private void LawTestStart(Galaxus.Core.Session session)
+    {
+        var galaxy = session.Galaxy;
+        var system = galaxy.Systems.First(s => s.Stations.Count > 0 && Galaxus.Core.Law.LawRules.Police(galaxy, s) != null
+            && Galaxus.Core.Galaxy.SystemProfiles.For(galaxy, s, session.Db).StationSize >= Galaxus.Core.Galaxy.StationSize.Station);
+        session.Career.SystemId = system.Id;
+        Galaxus.Core.Law.LawRules.Commit(session, "assault");
+    }
+
+    private void StepLawTest(float dt)
+    {
+        if (!OS.GetCmdlineUserArgs().Contains("--law-test") || _solar == null || _screen != Screen.Flight) return;
+        _lawTestTime += dt;
+        void Log(string text) => GD.Print($"LAW TEST: t={_lawTestTime:0}s {text}");
+        void Done(string text) { Log(text); GetTree().Quit(); }
+        if (_lawTestTime > 240) { Done($"gave up at stage {_lawTestStage}"); return; }
+        switch (_lawTestStage)
+        {
+            case 0:
+                _policeTimer = Mathf.Min(_policeTimer, 2);
+                Log($"in {_session.Here.Name}, standing {Galaxus.Core.Law.LawRules.StandingHere(_session)}, {_contacts.Count} contacts: {string.Join(", ", _contacts.Select(c => $"{c.Name} ({c.Role})"))}");
+                _lawTestStage = 1;
+                return;
+            case 1:
+                if (!Hailing) return;
+                Log($"hailed by {_hailCaller!.ShipName} ({_hailCaller.Kind}): {Galaxus.Core.Law.Hails.Open(_session, _hailCaller).Text}");
+                OnHailChosen("pay");
+                Log($"paid; standing now {Galaxus.Core.Law.LawRules.StandingHere(_session)}, credits {_session.Career.Credits:N0}");
+                OnHailChosen("close");
+                _lawTestStage = 2;
+                return;
+            case 2:
+            {
+                var trader = _contacts.FirstOrDefault(c => c.Role == "trader");
+                if (trader == null) { Done("no trader to hail"); return; }
+                HailContact(trader);
+                Log($"hailing {trader.Name} from the map: open={Hailing}");
+                var turn = Galaxus.Core.Law.Hails.Respond(_session, _hailCaller!, "news");
+                Log($"news: {turn.Text}");
+                OnHailChosen("close");
+                _lawTestContact = _contacts.OrderBy(c => DistanceKm(PlayerKm, c.Km)).First();
+                _navTarget = ContactBase - _contacts.IndexOf(_lawTestContact);
+                ToggleCruise();
+                Log($"autopilot to {_lawTestContact.Name} ({_lawTestContact.Role}), {DistanceKm(PlayerKm, _lawTestContact.Km):N0} km, engaged {_cruising}");
+                _lawTestStage = 3;
+                return;
+            }
+            case 3:
+            {
+                if (_cruising) { _lawTestArrived = _lawTestTime; return; }
+                if (_lawTestTime - _lawTestArrived < 1) return;
+                bool there = _traffic.Any(t => _callers.TryGetValue(t.Ship, out var c) && c.Key == _lawTestContact!.Id);
+                Done($"arrived {DistanceKm(PlayerKm, _lawTestContact!.Km):N1} km from {_lawTestContact.Name}; ship present: {there}");
+                return;
+            }
+        }
+    }
+}

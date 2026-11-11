@@ -253,7 +253,10 @@ public partial class StationScreen : PanelContainer
 
     private void RefreshJobs()
     {
-        _offers = _session.Board();
+        // Illegal work is only shown to those who know who to ask.
+        var all = _session.Board();
+        _offers = [.. all.Where(o => o.Mission.Template.Legal || Galaxus.Core.Law.LawRules.KnowsUnderworld(_session.Career, o.GiverFactionId))];
+        int hidden = all.Count - _offers.Count;
         _jobs.Clear();
         var root = _jobs.CreateItem();
         for (int i = 0; i < _offers.Count; i++)
@@ -267,7 +270,8 @@ public partial class StationScreen : PanelContainer
             if (!o.Playable) for (int c = 0; c < 3; c++) item.SetCustomColor(c, Ui.Dim);
             if (!o.Mission.Template.Legal) item.SetCustomColor(0, Ui.Amber);
         }
-        _jobText.Text = _offers.Count == 0 ? "No work posted here." : "Pick a job to read the briefing.";
+        _jobText.Text = (_offers.Count == 0 ? "No work posted here." : "Pick a job to read the briefing.") +
+            (hidden > 0 ? "\n\nNot everything here is on the open board. Gossip in the bar, or a fence out in the system, could tell you who to ask." : "");
         _clientFace.Clear();
         _clientName.Text = "";
         _accept.Disabled = true;
@@ -285,6 +289,7 @@ public partial class StationScreen : PanelContainer
         var destination = galaxy.Systems[o.DestinationSystemId];
         int travel = MissionBoard.TravelDays(galaxy, _session.Career.SystemId, o.DestinationSystemId);
         string cargo = o.Mission.Cargo != null ? $"{o.Mission.Tonnes} t of {o.Mission.Cargo.Name.ToLowerInvariant()}" : "none";
+        if (o.Mission.Cargo is { Legality: "contraband" }) cargo += $" [color=#{Ui.Hex(Ui.Red)}](contraband: customs scans could find it)[/color]";
         _jobText.Text =
             $"[color=#{Ui.Hex(Ui.Amber)}]{o.Mission.Title}[/color]\n" +
             $"From [color=#{giver.Colour.TrimStart('#')}]{giver.Name}[/color]{(o.Mission.Template.Legal ? "" : $" [color=#{Ui.Hex(Ui.Red)}](illegal)[/color]")}\n\n" +
@@ -725,13 +730,47 @@ public partial class StationScreen : PanelContainer
     private Control BuildStandingTab()
     {
         var tab = new VBoxContainer { Name = "Standing" };
+        _fines = new VBoxContainer();
+        tab.AddChild(_fines);
         _standing = Ui.Table(("Faction", 0), ("Rank", 90), ("Points", 50));
         tab.AddChild(_standing);
         return tab;
     }
 
+    private VBoxContainer _fines = null!;
+
+    /// <summary>Your record with each faction's law, and paying it off.</summary>
+    private void RefreshFines()
+    {
+        foreach (var child in _fines.GetChildren()) child.QueueFree();
+        var career = _session.Career;
+        var galaxy = _session.Galaxy;
+        foreach (var factionId in career.Offences.Select(o => o.FactionId).Distinct().OrderBy(f => f))
+        {
+            var faction = galaxy.Factions[factionId];
+            var standing = Galaxus.Core.Law.LawRules.StandingWith(career, factionId);
+            int owed = Galaxus.Core.Law.LawRules.Owed(career, factionId);
+            var row = new HBoxContainer();
+            _fines.AddChild(row);
+            var text = Ui.Label($"{(standing == Galaxus.Core.Law.Standing.Wanted ? "WANTED" : "Fined")} by {faction.Name} for {Galaxus.Core.Law.Hails.Record(_session, factionId)}: {owed:N0} cr.",
+                standing == Galaxus.Core.Law.Standing.Wanted ? Ui.Red : Ui.Amber, wrap: true);
+            text.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+            row.AddChild(text);
+            var pay = Ui.Button($"Pay {owed:N0} cr", () =>
+            {
+                if (!Galaxus.Core.Law.LawRules.Pay(career, factionId)) return;
+                AudioManager.Instance?.Ui("paid");
+                Refresh($"Paid {owed:N0} cr. Your record with {faction.Name} is clean.");
+            });
+            pay.Disabled = owed > career.Credits;
+            row.AddChild(pay);
+        }
+        if (career.Offences.Count == 0) _fines.AddChild(Ui.Label("Your record is clean everywhere.", Ui.Dim));
+    }
+
     private void RefreshStanding()
     {
+        RefreshFines();
         var galaxy = _session.Galaxy;
         _standing.Clear();
         var root = _standing.CreateItem();

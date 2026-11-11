@@ -189,7 +189,7 @@ public partial class Main
         double distance = DistanceKm(PlayerKm, target);
         // Already inside the drop distance: for a station or a ship there's nothing to do; for a
         // world or a surface port the autopilot carries on down towards it.
-        bool descent = (_navTarget >= 0 && _solar.Bodies[_navTarget].Kind != BodyKind.Belt) || _navTarget <= NavPortBase;
+        bool descent = (_navTarget >= 0 && _solar.Bodies[_navTarget].Kind != BodyKind.Belt) || IsPortTarget;
         if (distance < CourseDropKm() && !descent)
         {
             _hud.Message($"{NavName.ToUpperInvariant()} IS {distance:0.0} KM AHEAD: FLY IN ON THRUSTERS");
@@ -293,7 +293,8 @@ public partial class Main
         : _navTarget == NavStar ? _solar.StarRadiusKm * 2.2
         : _navTarget == NavBattle ? 12
         : _navTarget == NavFleet ? 4
-        : _navTarget <= NavPortBase ? 25
+        : IsContactTarget ? 4
+        : IsPortTarget ? 25
         : _navTarget >= 0 && _solar.Bodies[_navTarget].Kind == BodyKind.Belt ? 3
         : _navTarget >= 0 ? Math.Max(_solar.RadiusKm(_navTarget) * 3, 3000) : 0;
 
@@ -303,7 +304,8 @@ public partial class Main
         NavStar => (0, 0, 0),
         NavFleet when _flagship != null => _fleetKm,
         NavBattle when BattleJobHere() is { } battleJob => BattlePointKm(battleJob),
-        <= NavPortBase when -_navTarget + NavPortBase < _solar.Stations.Count =>
+        <= ContactBase when ContactBase - _navTarget < _contacts.Count => _contacts[ContactBase - _navTarget].Km,
+        <= NavPortBase when IsPortTarget && -_navTarget + NavPortBase < _solar.Stations.Count =>
             _solar.PortPositionKm(_solar.Stations[NavPortBase - _navTarget], Day, TerrainOf(_solar.Stations[NavPortBase - _navTarget].Body)),
         // A belt: the nearest part of it.
         >= 0 when _navTarget < _solar.Bodies.Count && _solar.Bodies[_navTarget].Kind == BodyKind.Belt =>
@@ -316,7 +318,8 @@ public partial class Main
         : _navTarget == NavStar ? "The star"
         : _navTarget == NavBattle ? "The fighting"
         : _navTarget == NavFleet ? FleetName
-        : _navTarget <= NavPortBase ? _solar.Stations[NavPortBase - _navTarget].Name
+        : IsContactTarget ? (ContactBase - _navTarget < _contacts.Count ? _contacts[ContactBase - _navTarget].Name : "Contact")
+        : IsPortTarget ? _solar.Stations[NavPortBase - _navTarget].Name
         : _navTarget >= 0 ? _solar.Bodies[_navTarget].Name : "";
 
     /// <summary>Sets a course from the system map.</summary>
@@ -340,6 +343,10 @@ public partial class Main
     private StationSite? _dockedPort;
     /// <summary>Course targets for surface ports are encoded below this: -10 is the first station, -11 the second, and so on.</summary>
     private const int NavPortBase = -10;
+    /// <summary>Ships on the system map are destinations as this minus their index in the day's contacts.</summary>
+    private const int ContactBase = -1000;
+    private bool IsContactTarget => _navTarget <= ContactBase;
+    private bool IsPortTarget => _navTarget <= NavPortBase && _navTarget > ContactBase;
     private const float PortDockRange = 220f, PortDockHeight = 45f, PortDockSpeed = 25f;
     private readonly Dictionary<int, PlanetTerrain> _terrains = [];
 
@@ -409,7 +416,7 @@ public partial class Main
 
     /// <summary>The world you're heading down to, if the destination is a world or a port on one.</summary>
     private int DestinationBody() => _navTarget >= 0 ? _navTarget
-        : _navTarget <= NavPortBase && NavPortBase - _navTarget < _solar.Stations.Count ? _solar.Stations[NavPortBase - _navTarget].Body
+        : IsPortTarget && NavPortBase - _navTarget < _solar.Stations.Count ? _solar.Stations[NavPortBase - _navTarget].Body
         : -1;
 
     /// <summary>

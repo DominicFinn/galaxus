@@ -67,6 +67,7 @@ public static class SaveGame
         public List<Mining.LogEntry> Logbook { get; set; } = [];
         public List<Mining.Trail> Trails { get; set; } = [];
         public List<Mining.SurveyRecord> SurveyData { get; set; } = [];
+        public List<Law.Offence> Offences { get; set; } = [];
         /// <summary>The mods loaded when this was saved. Mods can change the galaxy, so a save moved to a game with different mods may not come out the same.</summary>
         public List<string> Mods { get; set; } = [];
     }
@@ -141,6 +142,7 @@ public static class SaveGame
             Logbook = [.. c.Logbook],
             Trails = [.. c.Trails],
             SurveyData = [.. c.SurveyData],
+            Offences = [.. c.Offences],
             Missions = c.Missions.Select(m => new SavedMission
             {
                 OfferId = m.Offer.Id,
@@ -260,6 +262,7 @@ public static class SaveGame
         c.Logbook.AddRange(data.Logbook);
         c.Trails.AddRange(data.Trails.Where(t => db.Finds.ContainsKey(t.CacheId) && t.SystemId >= 0 && t.SystemId < session.Galaxy.Systems.Count));
         c.SurveyData.AddRange(data.SurveyData);
+        c.Offences.AddRange(data.Offences.Where(o => o.FactionId >= 0 && o.FactionId < session.Galaxy.Factions.Count && Law.LawRules.Kinds.ContainsKey(o.Kind)));
         foreach (var (id, market) in data.SeenMarkets) if (id >= 0 && id < session.Galaxy.Systems.Count) c.SeenMarkets[id] = market;
         // Older saves had no route: pick one from where you are now.
         c.TradeRoute = data.TradeRoute ?? Market.PickRoute(db, session.Galaxy, c.SystemId);

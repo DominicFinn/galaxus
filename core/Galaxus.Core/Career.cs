@@ -45,6 +45,8 @@ public sealed class Career
     public Dictionary<string, int> LastDrink { get; } = [];
     /// <summary>Questions asked of each person today, as "day:count".</summary>
     public Dictionary<string, string> Questions { get; } = [];
+    /// <summary>Crimes on your record, each with the faction it's held against and its fine.</summary>
+    public List<Law.Offence> Offences { get; } = [];
     /// <summary>Tonnes cut from each asteroid, by rock id.</summary>
     public Dictionary<string, int> Mined { get; } = [];
     /// <summary>Everything you've scanned: bodies and rocks by system, ships by day.</summary>

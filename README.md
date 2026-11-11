@@ -158,6 +158,14 @@ Faces are 16-bit style pixel art, built from a pool of features for each race: s
 
 Stations also have a market for 128 kinds of goods, a shipyard, an outfitter, local news and your standing with each faction. At the outfitter you pick one of your ship's slots and see every part on sale that fits it, with what it would change (speed, shields, firepower, hold, fuel) before you buy; the old part is sold back for half its list price. Stock changes weekly and bigger stations carry higher marks. Utility gear works in flight: armour, repair rigs that patch the hull once your shields are up, fuel scoops for skimming a star (pick the star on the system map), drop tanks, missile decoys, stealth veils, hidden holds, afterburners (H) and more. Small mining lasers fit a gun mount, so even the starter ship can mine.
 
+## The law, hailing and the underworld
+
+Crime is held against the faction whose space you commit it in, and it follows you anywhere that faction rules. Firing on a lawful ship, destroying one, getting caught with contraband, running from a stop and refusing to pay all go on your record, each with a fine. Small offences leave you fined; serious ones make you wanted, and clearing that costs half as much again. Pay at any of that faction's stations from the Standing tab, or to a patrol in flight. Criminal factions keep no records.
+
+Enter a system whose police you owe and a patrol comes out to hail you: pay, promise to pay at the next station, or refuse and be hunted. Stations turn the wanted away until they pay. Customs scan your hold now and then as you dock, and patrols sometimes stop you for a scan, more often where security is high. Contraband in the open is almost always found, seized and fined, and a smuggling job loses its cargo with it; a hidden hold makes it far harder to find.
+
+Hails come up at the top of the screen with the caller's face and their ship turning in a little window, and your replies as buttons. Pirates hail before they attack: dump your cargo, pay them off, or fight. Press Y to hail a ship you've targeted. The system map now shows the ships about the system (traders on their runs, patrols, miners at the belt, and in poorly policed systems pirates and fences), and you can hail any of them from there or fly out to meet them. Fences buy and sell contraband and tell you which local gang is hiring. Illegal jobs stay off a station's board until someone has told you who to ask: a fence, or gossip in the bar.
+
 ## Mining, scanning and finds
 
 Belts are places now. Pick one on the system map and the autopilot takes you to a clump of rocks; each rock's ore and size come from the belt's seed, so the same rocks are always there. Warm belts are stony and metallic, cold ones icy, and a few rocks anywhere carry rare metals. Target a rock with T, scan it with K to see its ore and how much is left, and hold fire with a mining laser fitted to cut it into your hold. Rocks shrink as you work them.
@@ -233,6 +241,7 @@ There's a printable sheet in [docs/controls.pdf](docs/controls.pdf), and F1 show
 | Fire a missile (once locked) | B, right click | Left trigger |
 | Afterburner (if fitted) | H | |
 | Scan your target or the world you're near | K | |
+| Hail your target | Y | |
 | Flight assist on or off | G | B |
 | Power to engines, shields, weapons | 1, 2, 3 | D-pad up, left, right |
 | Balance power | 4 | D-pad down |

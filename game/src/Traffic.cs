@@ -32,6 +32,8 @@ public partial class Main
             if (_player.Target == ship) _player.Target = null;
         }
         _traffic.Clear();
+        _callers.Clear();
+        _metContacts.Clear();
         _trafficTimer = 2;
         _world.SetHostile(PirateSide, _player.Side);
         _world.SetHostile(PirateSide, LawfulSide);
@@ -155,6 +157,7 @@ public partial class Main
 
         _world.Ships.Add(ship);
         _traffic.Add((ship, pilot, departing));
+        _callers[ship] = CallerFor(ship, role);
         AddVisual(ship);
         if (role == PilotRole.Pirate && NVector3.Distance(ship.Body.Position, _player.Body.Position) < 12_000)
             _hud.Message("CONTACT: UNKNOWN SHIP ON AN INTERCEPT COURSE");
