@@ -25,6 +25,14 @@ public partial class Main
     private readonly HashSet<Ship> _hailed = [];
     private float _policeTimer;
     private bool _policeSent, _inspected;
+    /// <summary>Whether a patrol means to stop you for a scan this visit, decided once.</summary>
+    private bool? _inspectWanted;
+    /// <summary>Who gets through on your comms, one at a time, timed in flight seconds.</summary>
+    private readonly Galaxus.Core.Law.Comms _comms = new();
+    private float _commsClock;
+
+    /// <summary>Clears the comms after docking or arriving: nobody calls for a minute or so.</summary>
+    private void SettleComms() => _comms.Reset(_commsClock, 50 + _rng.NextFloat() * 40);
 
     /// <summary>The day's ships about the system, for the map and as destinations.</summary>
     private List<Contact> _contacts = [];
@@ -61,6 +69,8 @@ public partial class Main
         _metContacts.Clear();
         _policeSent = false;
         _inspected = false;
+        _inspectWanted = null;
+        SettleComms();
         _policeTimer = 25 + _rng.NextFloat() * 20;
         RefreshContacts();
         if (Hailing) CloseHail();
@@ -84,6 +94,7 @@ public partial class Main
         _hailCaller = caller;
         _hailShip = ship;
         if (ship != null) _hailed.Add(ship);
+        _comms.Outgoing();
         var hull = _db.Hulls.GetValueOrDefault(caller.HullId);
         Mesh? mesh = caller.Kind == "station"
             ? MeshFactory.BuildStation(_session.Galaxy.OwnerOf(_session.Here) is { } o ? new Color(o.Colour) : Colors.Gray, _profile.StationSize,
@@ -113,6 +124,7 @@ public partial class Main
     private void CloseHail()
     {
         _hailPanel.Visible = false;
+        _comms.Ended(_commsClock);
         _hailCaller = null;
         _hailShip = null;
         _afterDockHail = null;
@@ -184,15 +196,15 @@ public partial class Main
 
     private void StepLaw(float dt)
     {
+        _commsClock += dt;
         if (_solar == null || !_player.Alive || _cruising || _battle is { Won: null }) return;
         if (Hailing && _hailShip is { Alive: false }) CloseHail();
-        if (Hailing) return;
 
         // Owe the police here and a patrol comes out to collect.
         if (!_policeSent && LawRules.Police(_session.Galaxy, _session.Here) is { } police && LawRules.StandingWith(_session.Career, police.Id) != Standing.Clean)
         {
             _policeTimer -= dt;
-            if (_policeTimer <= 0)
+            if (_policeTimer <= 0 && _comms.TryCall("police", _commsClock))
             {
                 _policeSent = true;
                 if (SpawnPolice(police) is { } patrol)
@@ -201,6 +213,7 @@ public partial class Main
                     OpenHail(_callers[patrol] with { Kind = "police" }, patrol);
                     return;
                 }
+                _comms.Ended(_commsClock);
             }
         }
 
@@ -208,24 +221,32 @@ public partial class Main
         {
             if (!ship.Alive || _hailed.Contains(ship) || !_callers.TryGetValue(ship, out var caller)) continue;
             float distance = NVector3.Distance(ship.Body.Position, _player.Body.Position);
-            // Pirates call before they open fire.
+            string id = $"ship-{ship.Id}";
+            // Pirates call before they open fire. One who can't get through skips the talk and attacks.
             if (caller.Kind == "pirate" && ship.Side == PirateSide && distance < 6000)
             {
+                if (_comms.BackingOff(id, _commsClock)) continue;
+                if (!_comms.TryCall(id, _commsClock))
+                {
+                    if (_comms.Busy) _hailed.Add(ship);
+                    continue;
+                }
                 OpenHail(caller, ship);
                 return;
             }
-            // Patrols now and then stop you for a scan, once a visit.
+            // Patrols now and then stop you for a scan, once a visit, waiting their turn on the comms.
             if (caller.Kind == "patrol" && !_inspected && distance < 5000 && _sinceUndock > 20)
             {
+                _inspectWanted ??= _rng.NextFloat() < LawRules.DockScanChance(_session) * 1.5f;
+                if (_inspectWanted == false) { _inspected = true; continue; }
+                if (!_comms.TryCall(id, _commsClock)) continue;
                 _inspected = true;
-                if (_rng.NextFloat() < LawRules.DockScanChance(_session) * 1.5f)
-                {
-                    _hud.Message("INCOMING HAIL: CUSTOMS");
-                    OpenHail(caller with { Kind = "inspection" }, ship);
-                    return;
-                }
+                _hud.Message("INCOMING HAIL: CUSTOMS");
+                OpenHail(caller with { Kind = "inspection" }, ship);
+                return;
             }
         }
+        if (Hailing) return;
 
         // Arriving at a ship you picked on the map: it's there.
         foreach (var contact in _contacts)

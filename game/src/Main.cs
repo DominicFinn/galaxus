@@ -448,6 +448,7 @@ public partial class Main : Node3D
     private void Dock(string? arrival = null, bool customs = false)
     {
         if (Hailing) CloseHail();
+        SettleComms();
         _timeWarp = 1;
         _player.Resupply();
         // On Easy the station tops your tank up as you dock.
