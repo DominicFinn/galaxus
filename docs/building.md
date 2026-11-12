@@ -80,6 +80,6 @@ Releases are made from a Mac with everything above set up:
 tools/release.sh v0.3.0 notes.md
 ```
 
-It runs the tests, builds the desktop zips, tags the commit and pushes the tag, publishes the GitHub release with the zips and `notes.md` as its notes, pushes the Windows, macOS and Linux zips to their itch.io channels, and then builds and pushes the web version. The website links to the latest GitHub release, so players get the new zips straight away.
+It runs the tests, builds the desktop zips, pushes them to their itch.io channels while it builds and pushes the web version, and then tags the commit, pushes the tag and publishes the GitHub release with the zips and `notes.md` as its notes. Add `--skip-tests` when the tests have just passed on the same commit. The website links to the latest GitHub release, so players get the new zips straight away.
 
 The Release workflow on GitHub does the same desktop build in the cloud, but Mac runners can sit in the queue for a long time, so it only runs when started by hand. Give it a tag to publish that release, or leave the tag empty to keep the zips as a workflow artifact.
