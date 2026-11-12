@@ -33,12 +33,16 @@ public partial class Viewer : Node3D
     public Viewer() { _db = null!; _camera = null!; }
 
     /// <param name="back">Back to the menu, or null in the standalone Preview build (which offers Quit instead).</param>
-    public Viewer(ContentDatabase db, Camera3D camera, Action? back)
+    /// <param name="startId">A hull to open on, such as one a mod adds.</param>
+    public Viewer(ContentDatabase db, Camera3D camera, Action? back, string? startId = null)
     {
         _db = db;
         _camera = camera;
         _back = back;
+        _startId = startId;
     }
+
+    private readonly string? _startId;
 
     public override void _Ready()
     {
@@ -51,7 +55,7 @@ public partial class Viewer : Node3D
         CollectEntries();
         BuildUi();
         // --viewer=ID opens on a particular hull (for screenshots).
-        var wanted = OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--viewer="))?["--viewer=".Length..];
+        var wanted = OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--viewer="))?["--viewer=".Length..] ?? _startId;
         var start = wanted != null ? _entries.FirstOrDefault(e => e.Id == wanted) : null;
         int category = start != null ? _categories.IndexOf(start.Category) : 0;
         _category.Select(category);

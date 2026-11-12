@@ -82,6 +82,8 @@ public sealed class ContentDatabase
 
     /// <summary>Names of the mods that were loaded, in load order.</summary>
     public List<string> LoadedMods { get; } = [];
+    /// <summary>Each loaded mod, with what it added, for the mod previews.</summary>
+    public List<LoadedMod> Mods { get; } = [];
 
     /// <summary>
     /// Loads the base content, then adds each mod's content in the order given (callers pass them
@@ -123,6 +125,7 @@ public sealed class ContentDatabase
             db.AddMod(mod, grammars, origins, problems);
         }
         foreach (var grammar in grammars.Values) db.Grammars.Add(grammar);
+        db.RecordModContent(mods);
 
         var validation = db.Validate();
         problems.AddRange(validation.Select(v => AttributeToMod(v, origins)));
@@ -212,6 +215,7 @@ public sealed class ContentDatabase
                 {
                     grammars[g.Id] = g;
                     origins[g.Id] = where;
+                    _added.Add((mod.Name, "grammars", g.Id));
                     continue;
                 }
                 foreach (var v in g.Variables.Where(v => !existing.Variables.Contains(v)))
@@ -222,13 +226,41 @@ public sealed class ContentDatabase
                     // Repeats are allowed on purpose: they make an option more likely.
                     list.AddRange(options);
                 }
+                if (!_extendedBy.TryGetValue(mod.Name, out var extended)) _extendedBy[mod.Name] = extended = [];
+                extended.Add(g.Id);
                 origins.TryGetValue("extended:" + g.Id, out var by);
                 origins["extended:" + g.Id] = by == null ? mod.Name : by + ", " + mod.Name;
             }
         }
     }
 
-    private static void AddFromMod<T>(ModSource mod, string folder, Dictionary<string, T> target, Func<T, string> idOf,
+    /// <summary>Existing grammars each mod added lines to, by mod name.</summary>
+    private readonly Dictionary<string, List<string>> _extendedBy = [];
+    /// <summary>Everything each mod added: mod name, folder and id.</summary>
+    private readonly List<(string Mod, string Folder, string Id)> _added = [];
+
+    /// <summary>Which mod added what, folder by folder, for the mod previews.</summary>
+    private void RecordModContent(IReadOnlyList<ModSource> mods)
+    {
+        foreach (var mod in mods)
+        {
+            var loaded = new LoadedMod(mod.Name, mod.FolderName, mod.Info);
+            foreach (var (_, folder, id) in _added.Where(a => a.Mod == mod.Name))
+            {
+                if (!loaded.Content.TryGetValue(folder, out var ids)) loaded.Content[folder] = ids = [];
+                ids.Add(id);
+            }
+            // Lines added to existing grammars, such as bar talk, count as the mod's grammars too.
+            if (_extendedBy.TryGetValue(mod.Name, out var extended))
+            {
+                if (!loaded.Content.TryGetValue("grammars", out var grammarIds)) loaded.Content["grammars"] = grammarIds = [];
+                grammarIds.AddRange(extended.Where(g => !grammarIds.Contains(g)).Distinct());
+            }
+            Mods.Add(loaded);
+        }
+    }
+
+    private void AddFromMod<T>(ModSource mod, string folder, Dictionary<string, T> target, Func<T, string> idOf,
         Dictionary<string, string> origins, List<string> problems)
     {
         foreach (var path in mod.Source.ListJsonFiles(folder))
@@ -245,6 +277,7 @@ public sealed class ContentDatabase
                 {
                     target.Add(id, item);
                     origins[id] = where;
+                    _added.Add((mod.Name, folder, id));
                 }
             }
         }

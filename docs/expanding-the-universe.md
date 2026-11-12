@@ -356,7 +356,9 @@ The [content guide](content-guide.md) has the full detail, including events, com
 
 ## Checking your mod
 
-Run this from the top of the repository:
+To try a mod in the game, choose **Mods** on the main menu. It lists every loaded mod with what it adds. A mod's page can start a new free game docked at its place (its landmark, or a station held by one of its factions), start its campaign from the beginning, or open the ship viewer on the ships it adds.
+
+To check the files, run this from the top of the repository:
 
 ```
 tools/validate-mods.sh              # every enabled mod, loaded together

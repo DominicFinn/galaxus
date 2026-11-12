@@ -14,6 +14,12 @@ public sealed class MenuActions
     public required Action<string> PreviewBattle { get; init; }
     /// <summary>Opens the ship and station viewer.</summary>
     public required Action OpenViewer { get; init; }
+    /// <summary>Opens the viewer on one hull.</summary>
+    public required Action<string> OpenViewerAt { get; init; }
+    /// <summary>The loaded mods, for the mod previews.</summary>
+    public required Func<IEnumerable<ModEntry>> Mods { get; init; }
+    /// <summary>Starts a new game at a mod's place, by mod folder.</summary>
+    public required Action<string> StartAtMod { get; init; }
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> PreviewBattles { get; init; }
     public required Func<IEnumerable<(string Id, string Name, string Summary)>> Simulations { get; init; }
     public required Action<string> Load { get; init; }
@@ -27,13 +33,21 @@ public sealed class MenuActions
     public required Action Quit { get; init; }
 }
 
+/// <summary>A mod as the menu shows it: what it is, what it adds, and the ways to try it.</summary>
+/// <param name="StartLabel">The start button's text, such as "Start at Martins World", or null if it has no place.</param>
+/// <param name="FirstHull">A hull it adds, to open the viewer on, or null.</param>
+public sealed record ModEntry(string Folder, string Name, string Description, string Adds, string? StartLabel,
+    IReadOnlyList<(string Id, string Name)> Campaigns, string? FirstHull);
+
 /// <summary>
 /// The main menu over a live space backdrop, and the same menu as a pause screen in game:
 /// new game, continue, load, save, settings and quit.
 /// </summary>
 public partial class MenuScreen : Control
 {
-    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns, Import, Controls }
+    private enum Page { Main, Load, Save, Settings, NewGame, Previews, Result, Simulator, Campaigns, Import, Controls, Mods, Mod }
+    /// <summary>The mod open on the Mod page, by folder.</summary>
+    private string _modFolder = "";
 
     private MenuActions _actions = null!;
     private Logo _logo = null!;
@@ -81,10 +95,11 @@ public partial class MenuScreen : Control
         if (PendingPage is { } pending) OpenPage(pending);
     }
 
-    /// <summary>Opens a page by name, for screenshots: newgame, campaigns, simulator, previews.</summary>
+    /// <summary>Opens a page by name, for screenshots: newgame, campaigns, simulator, previews, mods, or mod:FOLDER.</summary>
     public void OpenPage(string name)
     {
-        if (Enum.TryParse<Page>(name, ignoreCase: true, out var page)) ShowPage(page);
+        if (name.StartsWith("mod:")) { _modFolder = name[4..]; ShowPage(Page.Mod); }
+        else if (Enum.TryParse<Page>(name, ignoreCase: true, out var page)) ShowPage(page);
         else if (name == "newgame") ShowPage(Page.NewGame);
     }
 
@@ -92,7 +107,7 @@ public partial class MenuScreen : Control
     {
         _page = page;
         foreach (var child in _items.GetChildren()) child.QueueFree();
-        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns or Page.Controls ? 440 : 360, 0);
+        _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns or Page.Controls or Page.Mods or Page.Mod ? 440 : 360, 0);
         _footer.Text = Loading.IsWeb
             ? "Galaxus in your browser. The desktop game is free too, and your game can come with you: pause, then Save game, Export this game to a file."
             : "Galaxus is a working title. Early build.";
@@ -110,6 +125,8 @@ public partial class MenuScreen : Control
             case Page.Result: BuildResult(); break;
             case Page.Import: BuildImport(); break;
             case Page.Controls: BuildControls(); break;
+            case Page.Mods: BuildMods(); break;
+            case Page.Mod: BuildMod(); break;
         }
         // Centre the panel under the logo once its contents have sized it, and again once wrapped
         // text has settled its height.
@@ -141,6 +158,7 @@ public partial class MenuScreen : Control
         }
         Add(Ui.Button("Load game", () => { _back = Page.Main; ShowPage(Page.Load); }));
         if (!InGame) Add(Ui.Button("Ships and stations", () => _actions.OpenViewer()));
+        if (!InGame && _actions.Mods().Any()) Add(Ui.Button("Mods", () => ShowPage(Page.Mods)));
         Add(Ui.Button("Settings", () => { _back = Page.Main; ShowPage(Page.Settings); }));
         if (InGame) Add(Ui.Button("Main menu", () => _actions.MainMenu()));
         // A browser tab has nothing to quit to, so the web preview offers the desktop game instead.
@@ -188,6 +206,41 @@ public partial class MenuScreen : Control
             list.AddChild(TwoLineButton(name, summary, () => _actions.NewCampaign(campaignId)));
         }
         Add(Ui.Button("Back", () => ShowPage(Page.NewGame)));
+    }
+
+    /// <summary>The loaded mods, each opening a page of ways to try it.</summary>
+    private void BuildMods()
+    {
+        Add(Ui.Label("MODS", Ui.Amber));
+        var list = Scrolled();
+        foreach (var mod in _actions.Mods())
+        {
+            var folder = mod.Folder;
+            list.AddChild(TwoLineButton(mod.Name, mod.Description, () => { _modFolder = folder; ShowPage(Page.Mod); }));
+        }
+        Add(Ui.Button("Back", () => ShowPage(Page.Main)));
+    }
+
+    /// <summary>One mod: what it adds, and buttons to start at its place, play its campaign or see its ships.</summary>
+    private void BuildMod()
+    {
+        var mod = _actions.Mods().FirstOrDefault(m => m.Folder == _modFolder);
+        if (mod == null) { ShowPage(Page.Mods); return; }
+        Add(Ui.Label(mod.Name.ToUpperInvariant(), Ui.Amber));
+        Add(Wrapped(mod.Description, Ui.Dim));
+        if (mod.Adds != "") Add(Wrapped(mod.Adds, Ui.Green));
+        if (mod.StartLabel != null)
+            Add(TwoLineButton(mod.StartLabel, "A new free game, docked at the mod's own place, to look around.", () => _actions.StartAtMod(mod.Folder)));
+        foreach (var (id, name) in mod.Campaigns)
+        {
+            var campaignId = id;
+            Add(TwoLineButton($"Campaign: {name}", "Start the mod's campaign from the beginning.", () => _actions.NewCampaign(campaignId)));
+        }
+        if (mod.FirstHull is { } hull)
+            Add(TwoLineButton("See its ships", "Open the ship and station viewer on the ships it adds.", () => _actions.OpenViewerAt(hull)));
+        if (mod.StartLabel == null && mod.Campaigns.Count == 0)
+            Add(Wrapped("This mod changes things across the galaxy rather than one place. Start a free game and you'll find it as you go.", Ui.Dim));
+        Add(Ui.Button("Back", () => ShowPage(Page.Mods)));
     }
 
     /// <summary>A scrolling list that fits the window under the logo, for pages with more than a few entries.</summary>

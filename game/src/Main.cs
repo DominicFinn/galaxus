@@ -74,6 +74,8 @@ public partial class Main : Node3D
         _camera.AddChild(_cockpitFrame);
     }
     private static bool _pendingViewer;
+    /// <summary>A hull for the viewer to open on, from a mod's page.</summary>
+    private static string? _pendingViewerHull;
     private static bool _splashShown;
     private MenuScreen _menu = null!;
     private Screen _pauseReturn = Screen.Flight;
@@ -138,7 +140,8 @@ public partial class Main : Node3D
         {
             _pendingViewer = false;
             Input.MouseMode = Input.MouseModeEnum.Visible;
-            AddChild(new Viewer(_db, _camera, standaloneViewer ? null : () => Restart(null)));
+            AddChild(new Viewer(_db, _camera, standaloneViewer ? null : () => Restart(null), _pendingViewerHull));
+            _pendingViewerHull = null;
             return;
         }
 
@@ -152,6 +155,15 @@ public partial class Main : Node3D
             Campaigns = () => _db.Campaigns.Values.OrderBy(c => c.Tutorial ? 0 : 1).ThenBy(c => c.Name).Select(c => (c.Id, c.Tutorial ? $"Tutorial: {c.Name}" : c.Name, c.Summary)),
             PreviewBattle = PreviewRequested,
             OpenViewer = () => { _pendingViewer = true; Restart(null); },
+            OpenViewerAt = hull => { _pendingViewer = true; _pendingViewerHull = hull; Restart(null); },
+            Mods = ModEntries,
+            StartAtMod = folder => Loading.Run(this, "Building the galaxy", () =>
+            {
+                ulong seed = (ulong)DateTime.Now.Ticks;
+                bool easy = GameSettings.Current.Difficulty == 0;
+                var mod = _db.Mods.First(m => m.Folder == folder);
+                Restart(ModPreviews.StartAt(_db, seed, mod, easy) ?? Session.StartNew(_db, seed, easy: easy));
+            }, finish: false),
             PreviewBattles = PreviewBattles,
             Simulations = () => _db.Battles.Values.Where(b => b.Kind == "sim").OrderBy(b => b.Order).Select(b => (b.Id, b.Name, SimSummary(b))),
             Load = slot => Loading.Run(this, "Loading your game", () => Restart(SaveSlots.Read(_db, slot)), finish: false),
@@ -443,6 +455,36 @@ public partial class Main : Node3D
         UpdateAudioForScreen();
         if (!_demo && _screenshotPath == null)
             Input.MouseMode = screen == Screen.Flight ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
+    }
+
+    /// <summary>The loaded mods for the menu: what each adds and how to try it.</summary>
+    private IEnumerable<ModEntry> ModEntries()
+    {
+        foreach (var mod in _db.Mods.Where(m => m.Content.Count > 0))
+        {
+            string? start = null;
+            if (mod.Ids("landmarks").FirstOrDefault() is { } landmarkId && _db.Landmarks.TryGetValue(landmarkId, out var landmark))
+                start = $"Start at {landmark.StationName ?? landmark.SystemName}";
+            else if (ModPreviews.HasPlace(_db, mod))
+            {
+                var type = mod.Ids("factions").Select(id => _db.FactionTypes[id]).First(t => !t.Criminal);
+                start = $"Start at a {type.Name} station";
+            }
+            var campaigns = mod.Ids("campaigns").Where(_db.Campaigns.ContainsKey).Select(id => (id, _db.Campaigns[id].Name)).ToList();
+            var hulls = mod.Ids("hulls").Where(_db.Hulls.ContainsKey).ToList();
+            var adds = new List<string>();
+            void Count(int n, string one, string many) { if (n > 0) adds.Add(n == 1 ? one : $"{n} {many}"); }
+            Count(hulls.Count, "a ship", "ships");
+            Count(mod.Ids("factions").Count, "a faction", "factions");
+            Count(mod.Ids("landmarks").Count, "a place", "places");
+            Count(campaigns.Count, "a campaign", "campaigns");
+            Count(mod.Ids("battles").Count, "a battle", "battles");
+            Count(mod.Ids("missions").Count, "a job", "jobs");
+            Count(mod.Ids("events").Count, "an event", "events");
+            if (mod.Ids("grammars").Any(g => g.StartsWith("talk-"))) adds.Add("bar talk");
+            string addsText = adds.Count == 0 ? "" : "Adds " + (adds.Count == 1 ? adds[0] : string.Join(", ", adds.Take(adds.Count - 1)) + " and " + adds[^1]) + ".";
+            yield return new ModEntry(mod.Folder, mod.Name, mod.Info.Description, addsText, start, campaigns, hulls.FirstOrDefault());
+        }
     }
 
     private void Dock(string? arrival = null, bool customs = false)
