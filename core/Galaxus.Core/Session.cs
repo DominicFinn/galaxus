@@ -113,6 +113,7 @@ public sealed class Session
     /// <summary>The jobs on offer here, with any haggled pay applied and withdrawn jobs removed.</summary>
     public List<MissionOffer> Board() =>
         MissionBoard.For(Db, Galaxy, Here, Career.Captain, Career.RankWith)
+            .Concat(Passengers.FollowUpOffers(this))
             .Where(o => !Career.TakenOffers.Contains(o.Id) && !Career.WithdrawnOffers.Contains(o.Id))
             .Select(o => Career.Haggled.TryGetValue(o.Id, out var m) && m > 1
                 ? o with { Mission = o.Mission with { Reward = (int)(MathF.Round(o.Mission.Reward * m / 50f) * 50) } }
@@ -175,8 +176,17 @@ public sealed class Session
     {
         var ports = SurfacePorts(Here);
         bool orbital = !ports.Contains(station);
-        return Career.Settle(Galaxy, station, wanted => wanted == station || (orbital && !ports.Contains(wanted)));
+        var results = Career.Settle(Galaxy, station, wanted => wanted == station || (orbital && !ports.Contains(wanted)));
+        // Passengers you got through may have more work for you.
+        Career.FollowUps.RemoveAll(f => Galaxy.Day - f.Day > Passengers.FollowUpDays);
+        foreach (var gone in Career.PassengerOutcomes.Keys.Where(id => Career.Missions.All(m => m.Offer.Id != id) && results.All(r => r.Mission.Offer.Id != id)).ToList())
+            Career.PassengerOutcomes.Remove(gone);
+        DockNotes = string.Join(" ", results.Select(r => Passengers.Delivered(this, r)).Where(t => t != null));
+        return results;
     }
+
+    /// <summary>What passengers you just delivered had to say: tips and offers of more work.</summary>
+    public string DockNotes { get; private set; } = "";
 
     private HashSet<string> SurfacePorts(StarSystem system) =>
         SolarSystems.For(system, Db.Grammars).Stations.Where(s => s.Surface).Select(s => s.Name).ToHashSet();

@@ -128,6 +128,51 @@ public sealed class MissionTemplateDef
     public string? Landmark { get; set; }
     /// <summary>For a landmark job, the named character who offers it.</summary>
     public string? GiverName { get; set; }
+    /// <summary>Only offered as a follow-up to another job, never on the open board.</summary>
+    public bool FollowUpOnly { get; set; }
+    /// <summary>
+    /// For passenger jobs, the looks the passenger can have (respectable, shady or dodgy), one
+    /// picked at random, so a repeated look is likelier. Empty means respectable mostly for lawful
+    /// work and shady or dodgy for illegal work.
+    /// </summary>
+    public List<string> Looks { get; set; } = [];
+    /// <summary>For passenger jobs, the troubles the passenger can be in. Empty means the usual ones for the job's legality.</summary>
+    public List<string> Troubles { get; set; } = [];
+    /// <summary>For passenger jobs, how many people travel: each takes a berth.</summary>
+    public int Berths { get; set; } = 1;
+}
+
+/// <summary>
+/// People who come after a passenger: police for the wanted, bounty hunters, creditors, a house's
+/// agents. They intercept you on the way, hail, and give you choices. See game/data/pursuers.
+/// </summary>
+public sealed class PursuerDef
+{
+    public string Id { get; set; } = "";
+    /// <summary>What they're called in a line, plural: "bounty hunters".</summary>
+    public string Name { get; set; } = "";
+    /// <summary>The passenger troubles they come for.</summary>
+    public List<string> Troubles { get; set; } = [];
+    /// <summary>
+    /// police (the system's police, only where there are any), outlaw (no registration, and keener
+    /// where security is low) or agents (another faction's people).
+    /// </summary>
+    public string Side { get; set; } = "outlaw";
+    /// <summary>Hull classes they fly.</summary>
+    public List<string> Hulls { get; set; } = ["fighter", "gunship"];
+    /// <summary>How many ships come.</summary>
+    public int Ships { get; set; } = 2;
+    public float Weight { get; set; } = 1;
+    /// <summary>What you can say: hand-over, pay, talk, run and fight. Run and fight are always offered.</summary>
+    public List<string> Choices { get; set; } = ["hand-over", "fight", "run"];
+    /// <summary>Handing the passenger over pays this share of the fare.</summary>
+    public float HandOverReward { get; set; }
+    /// <summary>Paying them off costs this share of the fare.</summary>
+    public float PayFactor { get; set; } = 0.6f;
+    /// <summary>Beaten in a fight, they come back with friends.</summary>
+    public bool Grudge { get; set; }
+    /// <summary>Grammar with the rules in ContentRules.PursuerTextRules.</summary>
+    public string TextGrammar { get; set; } = "";
 }
 
 /// <summary>A twist on a job: the client lies, the cargo is stolen, the passenger is a fugitive.</summary>
@@ -189,6 +234,8 @@ public sealed class ComplicationDef
     public float Weight { get; set; } = 1f;
     /// <summary>Grammar with "reveal" and "aftermath" rules.</summary>
     public string TextGrammar { get; set; } = "";
+    /// <summary>On a passenger job, the trouble this gives the passenger: who comes after them follows from it.</summary>
+    public string? Trouble { get; set; }
 }
 
 /// <summary>A great power from the lore bible, seeded by the galaxy generator in its arm and region.</summary>
@@ -252,9 +299,33 @@ public static class ContentRules
         "rim-signal",        // something strange from the rim interferes
     ];
 
-    /// <summary>Variables every mission and complication text can use.</summary>
+    /// <summary>Variables every mission and complication text can use. On a passenger job, {target} is the passenger.</summary>
     public static readonly string[] MissionVariables =
         ["captain", "client", "faction", "system", "destination", "cargo", "tonnes", "reward", "target", "deadline"];
+
+    /// <summary>How a passenger comes across: it sets the pay and how likely trouble is.</summary>
+    public static readonly string[] PassengerLooks = ["respectable", "shady", "dodgy"];
+
+    /// <summary>
+    /// The base game's passenger troubles. Mods can add their own, as long as some pursuer comes for it.
+    /// wanted: the law. bounty: a price on them. debtor: they owe. witness: they saw something.
+    /// runaway: someone wants them back. valuables: they carry something worth taking.
+    /// </summary>
+    public static readonly string[] PassengerTroubles = ["wanted", "bounty", "debtor", "witness", "runaway", "valuables"];
+
+    public static readonly HashSet<string> PursuerSides = ["police", "outlaw", "agents"];
+    public static readonly HashSet<string> PursuerChoices = ["hand-over", "pay", "talk", "run", "fight"];
+
+    /// <summary>
+    /// Rules a pursuer grammar needs. "group" names them; "open" is their hail; one rule per choice
+    /// they offer ("hand-over", "pay", "talk-yes" and "talk-no"); "outran" and "caught" for running;
+    /// "fight" for a refusal; and "grudge" (only with grudge) when they come back for you.
+    /// </summary>
+    public static readonly string[] PursuerTextRules = ["group", "open", "outran", "caught", "fight"];
+    public static readonly string[] PursuerVariables = ["captain", "passenger", "group", "fare", "price", "faction", "system"];
+
+    /// <summary>The passenger hints grammar: one rule per look, and optional look-trouble rules ("shady-wanted").</summary>
+    public const string PassengerHintGrammar = "passenger-hints";
 
     public static readonly string[] MissionTextRules = ["title", "briefing", "success", "failure"];
     public static readonly string[] ComplicationTextRules = ["reveal", "aftermath"];

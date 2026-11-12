@@ -43,6 +43,7 @@ game/data/
   events/       EventDef
   missions/     MissionTemplateDef
   complications/ ComplicationDef
+  pursuers/     PursuerDef: people who come after passengers
   grammars/     GrammarDef, in subfolders: names, ships, voices, mission-voices,
                 factions, events, missions, complications, places
 ```
@@ -331,3 +332,67 @@ The aim is variety. A few dozen templates multiplied by complications and race v
 ```
 
 Effects are game rules, so they come from a fixed list: ambush, stolen-cargo, client-lies, rival-bid, fugitive, double-cross, hidden-contraband, deadline-cut, extra-stop, bad-intel, rival-offer, rim-signal. Write several complications per effect with different stories. `reveal` is the moment it goes wrong; `aftermath` is the line after the job ends.
+
+On a passenger job a complication can also give the passenger a trouble, with `"trouble": "wanted"`, and then the people who come for that trouble may intercept you. The fugitive complications and `contraband-passenger-bag` do this, so a respectable-looking passenger can turn out to be a stowaway with a warrant.
+
+## Passengers
+
+Every passenger job has a passenger: someone with a name, a race and a face, who takes a berth aboard (berths are shared with crew, and fighters have none). On a passenger job `{target}` is the passenger's name. Three extra fields shape them:
+
+```json
+{
+  "type": "passenger",
+  "looks": ["respectable", "respectable", "shady"],  // one is picked, so repeats are likelier
+  "troubles": ["witness", "runaway"],                  // what can be after them; empty for the usual ones
+  "berths": 2                                          // people in the party
+}
+```
+
+The look sets the pay and how likely trouble is:
+
+| Look | Pay | Chance of trouble |
+| --- | --- | --- |
+| respectable | ×0.8 | 8% |
+| shady | ×1.5 | 55% |
+| dodgy (shown as "up to no good") | ×2.4 | 95% |
+
+Without `looks`, lawful jobs are mostly respectable and illegal jobs shady or dodgy. Every passenger briefing ends with a line from the `passenger-hints` grammar: one rule per look, and optional `look-trouble` rules such as `shady-debtor`. Dodgy passengers always use the trouble rule when there is one, so their briefing more or less says what's after them; shady ones only sometimes give it away.
+
+The base troubles are wanted, bounty, debtor, witness, runaway and valuables. A mod can add its own, as long as a pursuer comes for it.
+
+Templates with `"followUpOnly": true` never appear on the open board. They're offered after a passenger job, by the passenger, who is the `{client}` in their text. A passenger you got through an interception usually has more work for you; one who was a witness often does. The job's own `followUps` are used half the time, otherwise `passenger-evidence` for a witness, `passenger-old-friends` for the wanted, hunted and indebted, and `passenger-family` for anyone else.
+
+## Pursuers
+
+```json
+{
+  "id": "creditors", "name": "creditors",
+  "troubles": ["debtor"],          // what they come for
+  "side": "outlaw",                // police, outlaw or agents
+  "hulls": ["gunship", "fighter"], // hull classes they fly
+  "ships": 2,
+  "choices": ["pay", "hand-over", "fight", "run"],
+  "handOverReward": 0.15,          // share of the fare paid for the passenger
+  "payFactor": 1.0,                // share of the fare it costs to pay them off
+  "grudge": true,                  // beaten, they come back with friends
+  "textGrammar": "pursuer-creditors"
+}
+```
+
+Each time you arrive in a system, every passenger in trouble might be intercepted, once per job. The chance rises with the look (25%, 35% or 50%) and with how well the system suits the pursuer's side: the police only come where there are police and like high security; outlaws like low security and empty systems; agents don't much mind. It's 30% higher in the destination system. A respectable passenger in a high-security system is almost never caught up with.
+
+Police pursuers are the system's police. Agents are another faction near the system, not the client. Outlaws work for a gang that haunts the system, or nobody.
+
+What the choices do:
+
+- **hand-over** loses the job and some standing with the client, pays `handOverReward` of the fare, and raises your standing with the pursuers' faction.
+- **pay** costs `payFactor` of the fare (at least 300 cr) and keeps the passenger.
+- **talk** works more often for respectable passengers and with people who rate you. If it fails, you choose again without it.
+- **run** works if your ship is more than 5% faster than their fastest. Running from the police is evasion either way.
+- **fight** turns them hostile. Refusing the police is harbouring a wanted person, a serious offence.
+
+Run and fight are always offered. A pursuer with `grudge` that you beat comes back within 40 days, in a low-security system, with two more ships; pay or beat them again and they give up.
+
+A pursuer grammar needs `group` (what they're called, such as "Vask's hunters"), `open`, `outran`, `caught` and `fight`, plus a rule for each choice it offers (`hand-over`, `pay`, and `talk-yes` and `talk-no` for talk), and `grudge` and `pay` if it holds grudges. It can use `{captain}`, `{passenger}`, `{group}`, `{fare}`, `{price}`, `{faction}` and `{system}`.
+
+Customs scans also look for wanted passengers. They find one about half the time, or a fifth of the time with a hidden hold of 2 t or more, and take them off the ship. That loses the job and is harbouring.

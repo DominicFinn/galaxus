@@ -125,7 +125,8 @@
     "description": "Someone is aboard who should not be, and others are looking for them.",
     "effect": "fugitive",
     "weight": 3,
-    "textGrammar": "complication-fugitive-stowaway"
+    "textGrammar": "complication-fugitive-stowaway",
+    "trouble": "wanted"
   },
   {
     "id": "fugitive-wanted",
@@ -133,7 +134,8 @@
     "description": "Someone connected to the job is wanted by the law.",
     "effect": "fugitive",
     "weight": 2,
-    "textGrammar": "complication-fugitive-wanted"
+    "textGrammar": "complication-fugitive-wanted",
+    "trouble": "wanted"
   },
   {
     "id": "fugitive-debtor",
@@ -141,7 +143,8 @@
     "description": "Whoever is being moved is in debt and the lender is close.",
     "effect": "fugitive",
     "weight": 2,
-    "textGrammar": "complication-fugitive-debtor"
+    "textGrammar": "complication-fugitive-debtor",
+    "trouble": "debtor"
   },
   {
     "id": "fugitive-witness",
@@ -149,7 +152,8 @@
     "description": "Someone aboard saw something they shouldn't have, and powerful people want it forgotten.",
     "effect": "fugitive",
     "weight": 1,
-    "textGrammar": "complication-fugitive-witness"
+    "textGrammar": "complication-fugitive-witness",
+    "trouble": "witness"
   },
   {
     "id": "double-cross-ambush-pay",
@@ -197,7 +201,8 @@
     "description": "A package you were asked to mind is not what it seemed.",
     "effect": "hidden-contraband",
     "weight": 2,
-    "textGrammar": "complication-contraband-passenger-bag"
+    "textGrammar": "complication-contraband-passenger-bag",
+    "trouble": "valuables"
   },
   {
     "id": "deadline-gate-queue",

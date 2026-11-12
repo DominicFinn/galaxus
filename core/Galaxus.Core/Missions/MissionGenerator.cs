@@ -30,7 +30,9 @@ public sealed record Mission(
     ComplicationDef? Complication,
     string? ComplicationReveal,
     string? ComplicationAftermath,
-    IReadOnlyDictionary<string, string> Variables);
+    IReadOnlyDictionary<string, string> Variables,
+    /// <summary>Who travels with you on a passenger job.</summary>
+    Passenger? Passenger = null);
 
 /// <summary>
 /// Builds jobs from templates. Missions come out of what's happening: a famine event makes
@@ -44,7 +46,7 @@ public static class MissionGenerator
     public static Mission? Generate(ContentDatabase db, MissionContext context, Rng rng)
     {
         var candidates = db.Missions.Values
-            .Where(m => m.Landmark == null) // landmark work is only offered at its landmark
+            .Where(m => m.Landmark == null && !m.FollowUpOnly) // landmark work is only offered at its landmark, follow-ups only after a job
             .Where(m => m.Givers.Count == 0 || m.Givers.Contains(context.Giver.TypeId))
             // Open templates go to the obvious side of the law: criminals don't post patrols, lawful factions don't post smuggling.
             .Where(m => m.Givers.Count > 0 || m.Legal != context.Giver.Criminal)
@@ -102,10 +104,24 @@ public static class MissionGenerator
             complication = PickWeighted(options, c => c.Weight, rng);
         }
 
+        // A passenger job is about who's travelling: their name is {target}, their look sets the
+        // pay, and the briefing gets a line that hints at what they are.
+        Passenger? passenger = null;
+        string hint = "";
+        if (template.Type == "passenger")
+        {
+            var prng = rng.Fork("passenger");
+            passenger = Passengers.Make(db, template, context.Giver, complication, prng);
+            reward = RoundTo(reward * Passengers.PayFactor(passenger.Look), 50);
+            variables["reward"] = $"{reward:N0} cr";
+            variables["target"] = passenger.Name;
+            hint = Passengers.Hint(db, passenger, variables, aliases, prng);
+        }
+
         return new Mission(
             template,
             Text(template.TextGrammar, "title"),
-            Text(template.TextGrammar, "briefing"),
+            (Text(template.TextGrammar, "briefing") + " " + hint).Trim(),
             Text(template.TextGrammar, "success"),
             Text(template.TextGrammar, "failure"),
             reward,
@@ -115,7 +131,8 @@ public static class MissionGenerator
             complication,
             complication == null ? null : Text(complication.TextGrammar, "reveal"),
             complication == null ? null : Text(complication.TextGrammar, "aftermath"),
-            variables);
+            variables,
+            passenger);
     }
 
     /// <summary>The client race's mission voice, or the first race that has one.</summary>

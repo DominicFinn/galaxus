@@ -1,0 +1,166 @@
+[
+  {
+    "id": "fare-paying-passage",
+    "name": "Fare-paying passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 1500,
+    "looks": [
+      "respectable",
+      "respectable",
+      "respectable",
+      "shady"
+    ],
+    "complications": [
+      "fugitive-stowaway",
+      "fugitive-debtor",
+      "ambush-on-route",
+      "client-lies-purpose"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-fare-paying-passage"
+  },
+  {
+    "id": "cash-fare",
+    "name": "Cash fare",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 1500,
+    "looks": [
+      "shady"
+    ],
+    "complications": [
+      "fugitive-wanted",
+      "fugitive-debtor",
+      "contraband-passenger-bag"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-cash-fare"
+  },
+  {
+    "id": "no-questions-passage",
+    "name": "No questions passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": false,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 1900,
+    "looks": [
+      "shady",
+      "dodgy",
+      "dodgy"
+    ],
+    "complications": [
+      "fugitive-wanted",
+      "fugitive-witness",
+      "fugitive-debtor",
+      "contraband-passenger-bag"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-no-questions-passage"
+  },
+  {
+    "id": "hot-passenger",
+    "name": "A passenger in trouble",
+    "type": "passenger",
+    "scale": "small",
+    "legal": false,
+    "givers": [
+      "crime-syndicate",
+      "smuggling-ring",
+      "information-broker",
+      "fence-network",
+      "pirate-clan"
+    ],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 1,
+    "baseReward": 2300,
+    "looks": [
+      "dodgy"
+    ],
+    "troubles": [
+      "wanted",
+      "bounty",
+      "witness"
+    ],
+    "complications": [],
+    "followUps": [],
+    "textGrammar": "mission-hot-passenger"
+  },
+  {
+    "id": "passenger-evidence",
+    "name": "The evidence",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 2600,
+    "followUpOnly": true,
+    "complications": [
+      "ambush-on-route"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-passenger-evidence"
+  },
+  {
+    "id": "passenger-old-friends",
+    "name": "A favour for old friends",
+    "type": "courier",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [
+      "data"
+    ],
+    "minRank": 0,
+    "baseReward": 2400,
+    "followUpOnly": true,
+    "complications": [
+      "ambush-on-route",
+      "client-lies-purpose"
+    ],
+    "followUps": [],
+    "textGrammar": "mission-passenger-old-friends"
+  },
+  {
+    "id": "passenger-family",
+    "name": "Family passage",
+    "type": "passenger",
+    "scale": "small",
+    "legal": true,
+    "givers": [],
+    "events": [],
+    "cargoCategories": [],
+    "minRank": 0,
+    "baseReward": 1900,
+    "followUpOnly": true,
+    "looks": [
+      "respectable",
+      "respectable",
+      "shady"
+    ],
+    "complications": [],
+    "followUps": [],
+    "textGrammar": "mission-passenger-family"
+  }
+]

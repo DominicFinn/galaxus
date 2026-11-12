@@ -74,6 +74,7 @@ public partial class Main
         _policeTimer = 25 + _rng.NextFloat() * 20;
         RefreshContacts();
         if (Hailing) CloseHail();
+        ResetPursuit();
     }
 
     private void RefreshContacts()
@@ -103,10 +104,11 @@ public partial class Main
         float radius = caller.Kind == "station" ? 170 : hull?.Radius ?? 10;
         string faction = caller.FactionId >= 0 && caller.FactionId < _session.Galaxy.Factions.Count ? _session.Galaxy.Factions[caller.FactionId].Name : "";
         string who = caller.Kind == "station" ? $"Traffic control, {_session.Here.Stations.FirstOrDefault() ?? _session.Here.Name}"
-            : $"{hull?.Name ?? "Ship"}" + (faction != "" ? $", {faction}" : caller.Kind is "fence" or "pirate" ? ", no registration" : "");
+            : $"{hull?.Name ?? "Ship"}" + (faction != "" ? $", {faction}" : caller.Kind is "fence" or "pirate" or "pursuer" ? ", no registration" : "");
         var person = Hails.Speaker(_session, caller);
         _hailPanel.Open(caller.Kind == "station" ? "INCOMING HAIL" : caller.ShipName.ToUpperInvariant(), $"{person.Name}. {who}.", mesh, radius,
-            face => face.ShowPerson(_db, _session.Galaxy, person), Hails.Open(_session, caller));
+            face => face.ShowPerson(_db, _session.Galaxy, person),
+            caller.Kind == "pursuer" && _pursuit is { } pursuit ? Galaxus.Core.Missions.Passengers.Open(_session, pursuit) : Hails.Open(_session, caller));
         _timeWarp = 1;
         FreeMouse();
         AudioManager.Instance?.Ui("lock");
@@ -116,9 +118,12 @@ public partial class Main
     {
         if (_hailCaller is not { } caller) return;
         if (action == "close") { CloseHail(); return; }
-        var turn = Hails.Respond(_session, caller, action);
+        var turn = action.StartsWith("px:") && _pursuit is { } pursuit
+            ? Galaxus.Core.Missions.Passengers.Respond(_session, pursuit, action)
+            : Hails.Respond(_session, caller, action);
         _hailPanel.Show(turn);
-        ApplyHailOutcome(turn.Outcome);
+        if (caller.Kind == "pursuer") ApplyPursuitOutcome(turn.Outcome);
+        else ApplyHailOutcome(turn.Outcome);
     }
 
     private void CloseHail()
@@ -165,7 +170,7 @@ public partial class Main
     private void HailTarget()
     {
         if (_player.Target is not { Alive: true } target) { _hud.Message("TARGET A SHIP TO HAIL IT (T), OR PICK ONE ON THE SYSTEM MAP"); return; }
-        if (!_callers.TryGetValue(target, out var caller)) { _hud.Message("NO ANSWER"); return; }
+        if (!_callers.TryGetValue(target, out var caller) || (caller.Kind == "pursuer" && (_pursuit == null || _pursuitHostile))) { _hud.Message("NO ANSWER"); return; }
         // Hailing a patrol you owe gets you their demand.
         if (caller.Police && LawRules.StandingHere(_session) != Standing.Clean) caller = caller with { Kind = "police" };
         OpenHail(caller, target);
@@ -197,6 +202,7 @@ public partial class Main
     private void StepLaw(float dt)
     {
         _commsClock += dt;
+        StepPursuit(dt);
         if (_solar == null || !_player.Alive || _cruising || _battle is { Won: null }) return;
         if (Hailing && _hailShip is { Alive: false }) CloseHail();
 

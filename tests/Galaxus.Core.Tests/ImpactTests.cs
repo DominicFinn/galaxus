@@ -77,7 +77,7 @@ public class ImpactTests
         var session = Session.StartNew(Db, 2026);
         var offers = session.Galaxy.Systems.Where(s => s.Settled).Take(40)
             .SelectMany(s => Missions.MissionBoard.For(Db, session.Galaxy, s, "Vale", _ => 2)).ToList();
-        var combat = offers.Where(o => !Missions.MissionBoard.TravelTypes.Contains(o.Mission.Template.Type) && o.Mission.Template.Type != "battle").ToList();
+        var combat = offers.Where(o => !Missions.MissionBoard.TravelTypes.Contains(o.Mission.Template.Type) && o.Mission.Template.Type != "battle" && o.Task == null).ToList();
         Assert.NotEmpty(combat);
         Assert.All(combat, o => Assert.True(o.Playable && o.BattleId != null && Db.Battles[o.BattleId].Kind == "job"));
     }

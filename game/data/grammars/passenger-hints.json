@@ -1,0 +1,82 @@
+[
+  {
+    "id": "passenger-hints",
+    "description": "A line added to every passenger briefing that hints at what sort of passenger it is. The client says it, about {target}.",
+    "variables": [
+      "target",
+      "destination",
+      "system"
+    ],
+    "rules": {
+      "respectable": [
+        "{target} is a plain traveller with plain luggage. You'll barely know they're aboard.",
+        "{target} has their papers in order, and a spare copy, and a copy of the spare.",
+        "{target} travels like this every month. They'll want a quiet berth and a hot drink.",
+        "{target} is visiting family. They've packed a present for every one of them.",
+        "{target} is going to {destination} for work. Nothing more to it.",
+        "{target} has booked a return passage already. That's the sort of passenger they are."
+      ],
+      "shady": [
+        "{target} will pay the rest in cash, on arrival, and would rather you didn't ask for a name on the manifest.",
+        "{target} has no luggage to speak of, and asked twice which route avoids the patrols.",
+        "{target} would like to board after the dock shift changes. Don't ask why.",
+        "{target} gave a different name at the desk. It's probably fine.",
+        "{target} will want to know who's on the comms before you answer any hail.",
+        "{target} has paid well over the usual fare. That usually means something."
+      ],
+      "dodgy": [
+        "{target} wants to leave now, before anyone comes looking. And someone will come looking.",
+        "{target} is in trouble and you'll be in it too, for a while. That's what the pay is for.",
+        "{target} is the sort of passenger who gets a ship stopped. Be ready."
+      ],
+      "shady-wanted": [
+        "{target} keeps an eye on every customs boat in the dock.",
+        "{target} asked whether you'd ever been searched at {destination}."
+      ],
+      "dodgy-wanted": [
+        "{target} is wanted. I won't pretend otherwise. Keep them away from customs scanners.",
+        "There's a warrant out for {target}. If a patrol asks, you've never heard of them."
+      ],
+      "shady-bounty": [
+        "{target} flinches whenever a bounty board lights up.",
+        "{target} asked if you know any hunters by name. They seemed relieved when you didn't."
+      ],
+      "dodgy-bounty": [
+        "There's a price on {target}, and hunters who'd like it. Don't stop for anyone.",
+        "{target} is worth more to some people than this job pays you. Remember who's paying you."
+      ],
+      "shady-debtor": [
+        "{target} paid the fare in small, mismatched coins and wouldn't look at the lenders' offices.",
+        "{target} gets very quiet when anyone mentions money."
+      ],
+      "dodgy-debtor": [
+        "{target} owes money to the kind of people who send ships to collect it.",
+        "{target}'s creditors are looking for them. They'll be looking at you as well."
+      ],
+      "shady-witness": [
+        "{target} saw something they shouldn't have, I think. They haven't said what.",
+        "{target} keeps a sealed file close and won't let it out of reach."
+      ],
+      "dodgy-witness": [
+        "{target} is going to testify, if they get there. Some people would rather they didn't.",
+        "{target} saw what happened, and the people who did it know. Get them there alive."
+      ],
+      "shady-runaway": [
+        "{target} left somewhere in a hurry and doesn't want to talk about it.",
+        "{target} keeps looking at the gate charts like they're counting the distance from somewhere."
+      ],
+      "dodgy-runaway": [
+        "{target} has run from people who want them back very much. They won't stop at asking.",
+        "{target} walked out on a vow. The people they made it to have ships."
+      ],
+      "shady-valuables": [
+        "{target} won't let their case out of sight, not even to eat.",
+        "{target}'s luggage is very small and very heavy."
+      ],
+      "dodgy-valuables": [
+        "{target} is carrying something worth a great deal, and too many people know it.",
+        "Half the bar knows what's in {target}'s bag. That's the trouble with bars."
+      ]
+    }
+  }
+]

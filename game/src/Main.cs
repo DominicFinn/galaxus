@@ -206,6 +206,7 @@ public partial class Main : Node3D
             if (_startSystem is { } id && id >= 0 && id < session.Galaxy.Systems.Count) session.Career.SystemId = id;
             if (OS.GetCmdlineUserArgs().Contains("--mining-test")) MiningTestStart(session);
             if (OS.GetCmdlineUserArgs().Contains("--law-test")) LawTestStart(session);
+            if (OS.GetCmdlineUserArgs().Contains("--passenger-test")) PassengerTestStart(session);
             if (OS.GetCmdlineUserArgs().Contains("--wing-test")) WingTestStart(session);
             StartGame(session, _startScreen);
             if (_showcaseDir != null) StartShowcase();
@@ -480,6 +481,7 @@ public partial class Main : Node3D
             Count(campaigns.Count, "a campaign", "campaigns");
             Count(mod.Ids("battles").Count, "a battle", "battles");
             Count(mod.Ids("missions").Count, "a job", "jobs");
+            Count(mod.Ids("pursuers").Count, "a kind of pursuer", "kinds of pursuer");
             Count(mod.Ids("events").Count, "an event", "events");
             if (mod.Ids("grammars").Any(g => g.StartsWith("talk-"))) adds.Add("bar talk");
             string addsText = adds.Count == 0 ? "" : "Adds " + (adds.Count == 1 ? adds[0] : string.Join(", ", adds.Take(adds.Count - 1)) + " and " + adds[^1]) + ".";
@@ -507,6 +509,7 @@ public partial class Main : Node3D
         string summary = arrival ?? "";
         foreach (var result in delivered)
             summary += $" Job done: {result.Mission.Offer.Mission.Title}, +{result.Payment:N0} cr.";
+        if (_session.DockNotes != "") summary += " " + _session.DockNotes;
         if (delivered.Count > 0) AudioManager.Instance?.Ui("paid");
         _stationScreen.Refresh(summary.Trim() == "" ? null : summary.Trim());
         SetScreen(Screen.Docked);
@@ -722,6 +725,7 @@ public partial class Main : Node3D
             StepAutopilotTest(dt);
             StepMiningTest(dt);
             StepLawTest(dt);
+            StepPassengerTest(dt);
             StepWingTest(dt);
             StepFuelScoop(dt);
             StepProspecting(dt);

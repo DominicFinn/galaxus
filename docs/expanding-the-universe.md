@@ -12,6 +12,7 @@ Mods add things. They can't change or remove what's already in the game, and the
 | Names for that faction | `grammars/` | A grammar the faction type uses to name itself. |
 | A mission | `missions/` and `grammars/` | A mission template, plus a grammar holding the briefing text. |
 | A twist on a mission | `complications/` and `grammars/` | Something that goes wrong mid-job. |
+| People who hunt passengers | `pursuers/` and `grammars/` | Who comes after a passenger in trouble, what they say, and the choices they give. |
 | A galaxy event | `events/` and `grammars/` | A famine, a toll dispute, a strike. Creates work and news. |
 | A trade good | `commodities/` | Something to buy, sell and carry. |
 | Extra flavour | `grammars/` | New options for text that already exists, such as news lines or place names. |
@@ -40,6 +41,7 @@ mods/
     missions/             mission templates
     events/               events
     complications/        complications
+    pursuers/             people who come after passengers
     commodities/          trade goods
     grammars/             all text: names, briefings, news, extra options
 ```
@@ -351,8 +353,9 @@ You can add a new option to an existing rule or add a whole new rule. You can on
 | Event news | `start`, `ongoing`, `end` | `{system}`, `{faction}`, `{rival}` |
 | Mission text | `title`, `briefing`, `success`, `failure` | the mission variables above |
 | Complication text | `reveal`, `aftermath` | the mission variables above |
+| Pursuer text | `group`, `open`, `outran`, `caught`, `fight`, and one per choice | `{captain}`, `{passenger}`, `{group}`, `{fare}`, `{price}`, `{faction}`, `{system}` |
 
-The [content guide](content-guide.md) has the full detail, including events, complications and commodities.
+The [content guide](content-guide.md) has the full detail, including events, complications, commodities, passengers and pursuers.
 
 ## Checking your mod
 

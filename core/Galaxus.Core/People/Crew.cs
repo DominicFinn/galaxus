@@ -87,7 +87,8 @@ public static class CrewRules
             if (offer.HullId == null) return "Has no ship to fly.";
             if (career.Crew.Count(c => c.Job == "pilot") >= MaxWingmen) return $"You already have {MaxWingmen} wingmen.";
         }
-        else if (career.Crew.Count(c => c.Job != "pilot") >= Berths(session)) return $"No free berth: your ship has {Berths(session)}.";
+        else if (career.Crew.Count(c => c.Job != "pilot") + Missions.Passengers.Aboard(career) >= Berths(session))
+            return Missions.Passengers.Aboard(career) > 0 ? $"No free berth: your ship has {Berths(session)}, and passengers are in some." : $"No free berth: your ship has {Berths(session)}.";
         if (Conversation.Disposition(career, person) < 0) return "They don't want to work for you.";
         if (offer.Fee > career.Credits) return $"You need {offer.Fee:N0} cr up front.";
         return null;

@@ -47,6 +47,9 @@ public static class SaveGame
         public List<string> GiftParts { get; set; } = [];
         public Dictionary<string, float> Haggled { get; set; } = [];
         public List<string> WithdrawnOffers { get; set; } = [];
+        public Dictionary<string, string> PassengerOutcomes { get; set; } = [];
+        public List<Grudge> Grudges { get; set; } = [];
+        public List<FollowUp> FollowUps { get; set; } = [];
         public List<SavedMission> Missions { get; set; } = [];
         public string? ActiveJob { get; set; }
         public string? CampaignId { get; set; }
@@ -105,6 +108,7 @@ public static class SaveGame
         public string? BattleId { get; set; }
         public int EnemyFactionId { get; set; } = -1;
         public string? Task { get; set; }
+        public Passenger? Passenger { get; set; }
     }
 
     public static string Save(Session session)
@@ -136,6 +140,9 @@ public static class SaveGame
             GiftParts = [.. c.GiftParts],
             Haggled = new(c.Haggled),
             WithdrawnOffers = [.. c.WithdrawnOffers],
+            PassengerOutcomes = new(c.PassengerOutcomes),
+            Grudges = [.. c.Grudges],
+            FollowUps = [.. c.FollowUps],
             ActiveJob = c.ActiveJobId,
             CampaignId = c.CampaignId,
             CampaignStep = c.CampaignStep,
@@ -181,6 +188,7 @@ public static class SaveGame
                 BattleId = m.Offer.BattleId,
                 EnemyFactionId = m.Offer.EnemyFactionId,
                 Task = m.Offer.Task,
+                Passenger = m.Offer.Mission.Passenger,
                 AcceptedDay = m.AcceptedDay,
                 DeadlineDay = m.DeadlineDay,
             }).ToList(),
@@ -254,6 +262,9 @@ public static class SaveGame
         c.GiftParts = [.. data.GiftParts];
         foreach (var (k, v) in data.Haggled) c.Haggled[k] = v;
         foreach (var id in data.WithdrawnOffers) c.WithdrawnOffers.Add(id);
+        foreach (var (k, v) in data.PassengerOutcomes) c.PassengerOutcomes[k] = v;
+        c.Grudges.AddRange(data.Grudges.Where(g => db.Pursuers.ContainsKey(g.PursuerId)));
+        c.FollowUps.AddRange(data.FollowUps.Where(f => db.Missions.ContainsKey(f.TemplateId) && f.SystemId >= 0 && f.SystemId < session.Galaxy.Systems.Count));
 
         foreach (var m in data.Missions.Where(m => db.Missions.ContainsKey(m.TemplateId) || (m.BattleId != null && db.Battles.ContainsKey(m.BattleId))))
         {
@@ -261,7 +272,7 @@ public static class SaveGame
                 m.BattleId != null ? Battles.BattleJobs.Template(db.Battles[m.BattleId]) : db.Missions[m.TemplateId], m.Title, m.Briefing, m.SuccessText, m.FailureText, m.Reward,
                 m.CargoId != null ? db.Commodities.GetValueOrDefault(m.CargoId) : null, m.Tonnes, m.DeadlineDays,
                 m.ComplicationId != null ? db.Complications.GetValueOrDefault(m.ComplicationId) : null,
-                m.ComplicationReveal, m.ComplicationAftermath, new Dictionary<string, string>());
+                m.ComplicationReveal, m.ComplicationAftermath, new Dictionary<string, string>(), m.Passenger);
             var offer = new MissionOffer(m.OfferId, mission, m.Giver, m.Origin, m.Destination, m.DestinationStation, m.PostedDay, m.ClientId, m.BattleId, m.EnemyFactionId, m.Task);
             c.Missions.Add(new AcceptedMission(offer, m.AcceptedDay, m.DeadlineDay));
         }

@@ -31,6 +31,7 @@ Where each kind of content goes:
 - Missions: `missions/`, plus a text grammar in `grammars/`.
 - Events and news: `events/`, plus a news grammar.
 - Complications: `complications/`, plus a text grammar.
+- Passengers and the people who hunt them: `looks`, `troubles` and `berths` on a passenger mission, and `pursuers/` with a text grammar (see "Passengers" and "Pursuers" in the content guide).
 - Ships: `builders/`, `hulls/`, `parts/`, plus a model-name grammar.
 - Fixed places: `landmarks/`.
 - Campaigns: `campaigns/` and `battles/`.

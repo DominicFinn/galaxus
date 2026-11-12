@@ -161,7 +161,11 @@
     "followUps": [
       "fugitive-out-of-system"
     ],
-    "textGrammar": "mission-quiet-passengers"
+    "textGrammar": "mission-quiet-passengers",
+    "looks": [
+      "shady",
+      "dodgy"
+    ]
   },
   {
     "id": "fugitive-out-of-system",
@@ -191,7 +195,15 @@
       "double-cross-fall-guy"
     ],
     "followUps": [],
-    "textGrammar": "mission-fugitive-out-of-system"
+    "textGrammar": "mission-fugitive-out-of-system",
+    "looks": [
+      "dodgy"
+    ],
+    "troubles": [
+      "wanted",
+      "bounty",
+      "debtor"
+    ]
   },
   {
     "id": "amnesty-clearance",

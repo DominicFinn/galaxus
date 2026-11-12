@@ -1,0 +1,338 @@
+[
+  {
+    "id": "pursuer-customs-officers",
+    "description": "Customs officers who have come for a wanted passenger.",
+    "variables": [
+      "captain",
+      "passenger",
+      "group",
+      "fare",
+      "price",
+      "faction",
+      "system"
+    ],
+    "rules": {
+      "group": [
+        "{faction} customs",
+        "the {faction} customs cutter",
+        "a {faction} customs flight"
+      ],
+      "open": [
+        "Captain {captain}, this is {group}. You're carrying {passenger}, who is wanted here. Hand them over and there's a reward in it. Keep them and it's harbouring.",
+        "{group} to Captain {captain}. We have a warrant for {passenger} and we know they're aboard. Make this easy.",
+        "Captain {captain}, cut your drives. {passenger} is wanted by {faction}. We can do this the short way, with a reward, or the long way, with a fine and a cell.",
+        "This is {group}. Your manifest says one thing and our informant says {passenger}. Our informant has been right before."
+      ],
+      "hand-over": [
+        "{passenger} is in custody. A reward has gone to your account. {faction} thanks you for your cooperation.",
+        "Received. {passenger} didn't look surprised. They rarely do. The reward is on its way, captain.",
+        "Docking collar sealed, prisoner transferred. Fly safe, captain. You did the right thing, whatever {passenger} is shouting."
+      ],
+      "pay": [
+        "I'll log it as a faulty transponder. {price}. Don't bring {passenger} through here again.",
+        "{price}, and I never saw you. My shift ends in an hour and I'd like it to end quietly.",
+        "Fine. {price} and the warrant gets lost in the filing. It happens more than you'd think."
+      ],
+      "outran": [
+        "Stop that ship! It's no good, she's too quick for us. We have your registration, captain.",
+        "Pursuit called off. You're faster than us today. We'll be waiting at the stations.",
+        "They're pulling away. Log it, send the registration on, and let her go."
+      ],
+      "caught": [
+        "Running only makes it worse, and you're not fast enough to make it work. Weapons free.",
+        "You won't outrun a customs cutter in that. All ships, disable that vessel.",
+        "Nice try. Now we do it the hard way."
+      ],
+      "fight": [
+        "Harbouring a wanted person, and refusing a lawful order. Weapons free.",
+        "That's the wrong answer, captain. All ships, take them.",
+        "Then we'll come and get them ourselves."
+      ]
+    }
+  },
+  {
+    "id": "pursuer-bounty-hunters",
+    "description": "Bounty hunters after a passenger with a price on them.",
+    "variables": [
+      "captain",
+      "passenger",
+      "group",
+      "fare",
+      "price",
+      "faction",
+      "system"
+    ],
+    "rules": {
+      "group": [
+        "Vask's hunters",
+        "the Ollery crew",
+        "Hale and Daughters",
+        "the Second Chance Recovery Company",
+        "Morrow's lot",
+        "the Tallow brothers"
+      ],
+      "open": [
+        "Captain {captain}, {group} here. You've got {passenger} aboard and there's a price on them. We'll share it with you. Or we take them off a wreck. Your choice.",
+        "Afternoon, captain. We're {group}. {passenger} is worth a lot to people who aren't you. Let's be sensible about this.",
+        "This is {group}. We've followed {passenger} across three systems and we're tired. Hand them over and we'll cut you in.",
+        "{group} calling. Nothing personal, captain. {passenger} has a price, and we collect prices."
+      ],
+      "hand-over": [
+        "Pleasure doing business, captain. Your share's sent. {passenger} will be fine. Probably.",
+        "Transfer complete. {passenger} called you a few names on the way over. Your share is in your account.",
+        "That's how it's done. Your cut's been paid. If you ever want steady work, look for {group}."
+      ],
+      "outran": [
+        "Fast ship. We'll find {passenger} again, captain. Everyone stops somewhere.",
+        "She's away. Fine. There'll be other ports, and we know them all.",
+        "Too quick for us today. Tell {passenger} we said hello."
+      ],
+      "caught": [
+        "Nice try. Nobody outruns {group} in a ship like that. Guns out.",
+        "Running? We've chased faster. Open fire.",
+        "We hoped you'd say yes. We planned for no."
+      ],
+      "fight": [
+        "Wrong answer. Take the ship, and try not to hurt the bounty.",
+        "Then we'll do it the expensive way. Your expense.",
+        "Have it your way, captain. Weapons free."
+      ],
+      "grudge": [
+        "Captain {captain}. Remember {group}? We remember you. We brought friends this time.",
+        "{group} here. You cost us a bounty and two ships' worth of repairs. We've come to collect.",
+        "We said we'd find you, captain. Pay what you owe us for last time or we take it out of the hull."
+      ],
+      "pay": [
+        "That covers the repairs. We're square, captain. For now.",
+        "{price}. Fine. We'll call it even, and we'll call it a lesson.",
+        "Credits received. Don't make us come looking for you again."
+      ]
+    }
+  },
+  {
+    "id": "pursuer-creditors",
+    "description": "Creditors come to collect a passenger's debt.",
+    "variables": [
+      "captain",
+      "passenger",
+      "group",
+      "fare",
+      "price",
+      "faction",
+      "system"
+    ],
+    "rules": {
+      "group": [
+        "the Brennick Credit Union",
+        "Saltash Lending",
+        "a Debt Recovery Office",
+        "the Quiet Ledger",
+        "Fairlight Loans and Collections"
+      ],
+      "open": [
+        "Captain {captain}, {group}. Your passenger {passenger} owes us {price} and has missed every payment. Settle it for them, hand them over, or we settle it with your ship.",
+        "This is {group}. We're not pirates, captain. We're worse: we have paperwork. {passenger} owes {price}.",
+        "Good day, captain. {group} would like a word with {passenger} about {price} and some interest. A lot of interest.",
+        "{group} calling. {passenger} borrowed {price} and a great deal of patience. The patience has run out."
+      ],
+      "pay": [
+        "Paid in full. {passenger}'s account is closed. Do tell them we'll be glad to lend again.",
+        "{price} received. A pleasure, captain. {passenger} is a free person, financially speaking.",
+        "That settles it. You're a generous friend, captain, or a foolish one."
+      ],
+      "hand-over": [
+        "Thank you, captain. {passenger} will work it off. Here's a small finder's fee.",
+        "{passenger} is ours now, along with the debt. Your fee is sent. Mind you never borrow from us.",
+        "Sensible. {passenger} is coming quietly, more or less. A fee for your trouble."
+      ],
+      "outran": [
+        "Interest is accruing, captain. Tell {passenger} it's accruing very fast.",
+        "Away you go. The debt doesn't go anywhere. It just grows.",
+        "Fine. We'll add the fuel to {passenger}'s account."
+      ],
+      "caught": [
+        "Running from a debt never works, captain. We'll take it out of your hull.",
+        "We've repossessed faster ships than yours. Open fire.",
+        "That's a breach of contract. Weapons free."
+      ],
+      "fight": [
+        "Then the debt passes to you, captain, and we're collecting.",
+        "Very well. Repossession it is.",
+        "We did ask nicely. Write that down."
+      ],
+      "grudge": [
+        "Captain {captain}. {group}. You have outstanding charges with us for damage to our ships. {price}, or we repossess.",
+        "{group} again. You cost us a debtor and two ships. We have your name on file now.",
+        "We never forget an unpaid account, captain. Yours is overdue."
+      ]
+    }
+  },
+  {
+    "id": "pursuer-house-agents",
+    "description": "Another faction's agents, sent to stop a witness talking or bring someone back.",
+    "variables": [
+      "captain",
+      "passenger",
+      "group",
+      "fare",
+      "price",
+      "faction",
+      "system"
+    ],
+    "rules": {
+      "group": [
+        "agents of {faction}",
+        "{faction} security",
+        "a {faction} retrieval team",
+        "people from {faction}"
+      ],
+      "open": [
+        "Captain {captain}. We act for {faction}. {passenger} has things to say that we'd rather weren't said. Give them to us and you'll be paid for your trouble.",
+        "This is {group}. {passenger} belongs with us, captain. Let's not make this a diplomatic matter.",
+        "Captain, I'm with {faction}. {passenger} is confused and frightened and wants to come home, whatever they've told you. We'll pay well.",
+        "{group} here. You don't know what {passenger} is mixed up in. We do. Hand them over and walk away richer."
+      ],
+      "hand-over": [
+        "Thank you, captain. {faction} pays its debts. {passenger} will be looked after.",
+        "Received. Your payment is sent. You'll forget this conversation, I'm sure.",
+        "{passenger} is with us now. You'll find {faction} generous to its friends."
+      ],
+      "talk-yes": [
+        "Hm. Perhaps we've been misinformed. Go on, captain. We'll say we lost you.",
+        "You make a fair point. {faction} can't afford the noise. Fly on.",
+        "Very well. But {passenger} should know that we let them go."
+      ],
+      "talk-no": [
+        "That's a fine speech, captain. It changes nothing.",
+        "We're not here to debate. Decide.",
+        "Nice try. Now answer the question."
+      ],
+      "outran": [
+        "Let them go. We know where they're going anyway.",
+        "She's too fast. Report it. Someone else will finish this.",
+        "Gone. {faction} will not be pleased."
+      ],
+      "caught": [
+        "You can't outrun us in that. Disable the ship, and keep {passenger} alive.",
+        "Running tells us everything we need to know. Open fire.",
+        "Too slow, captain. Weapons free."
+      ],
+      "fight": [
+        "Then we'll take them. Don't say we didn't offer.",
+        "A pity. Weapons free.",
+        "As you like, captain."
+      ]
+    }
+  },
+  {
+    "id": "pursuer-the-faithful",
+    "description": "A congregation who want a runaway back.",
+    "variables": [
+      "captain",
+      "passenger",
+      "group",
+      "fare",
+      "price",
+      "faction",
+      "system"
+    ],
+    "rules": {
+      "group": [
+        "the Lamplit Congregation",
+        "the Brothers of the Long Gate",
+        "the Quiet Choir",
+        "the Sisters of Patient Light",
+        "the Gatewalkers"
+      ],
+      "open": [
+        "Captain {captain}, peace be with you. We are {group}. {passenger} has strayed from us, and we've come to bring them home.",
+        "This is {group}. You carry one of ours, captain. {passenger} took a vow. We'd like to remind them of it.",
+        "Captain, we mean no harm. {group} only wants {passenger} back among people who love them. And watch them closely.",
+        "{group} calls on you, captain. Give {passenger} back to the fold. We can offer prayers, and a donation to your fuel."
+      ],
+      "talk-yes": [
+        "Perhaps they must find their own way back. We'll pray for {passenger}, and for you.",
+        "You speak kindly, captain. Go in peace. The gate will bring them home in its own time.",
+        "Very well. Tell {passenger} the door is open."
+      ],
+      "talk-no": [
+        "You don't understand what you're carrying, captain.",
+        "We have heard that argument before. From {passenger}, in fact.",
+        "Kind words. But we've come a long way."
+      ],
+      "pay": [
+        "A gift to the congregation. We accept, and we'll leave {passenger} to their road.",
+        "{price}. The Choir is grateful. Fly in peace.",
+        "Your offering is received. We'll pray {passenger} comes back of their own will."
+      ],
+      "outran": [
+        "Let them go. The gate sees everything.",
+        "Too fast for us, and perhaps that's a sign.",
+        "Go, then. We'll be waiting at the next station, and the one after."
+      ],
+      "caught": [
+        "Running from us? That's not what the faithful do. We're sorry for this.",
+        "Then we must stop you. Forgive us.",
+        "Hold them. Gently, if you can."
+      ],
+      "fight": [
+        "Then we'll take them back by force, and pray for you after.",
+        "We hoped it wouldn't come to this.",
+        "So be it."
+      ]
+    }
+  },
+  {
+    "id": "pursuer-scavengers",
+    "description": "Scavengers who've heard what a passenger carries.",
+    "variables": [
+      "captain",
+      "passenger",
+      "group",
+      "fare",
+      "price",
+      "faction",
+      "system"
+    ],
+    "rules": {
+      "group": [
+        "the Rustline crew",
+        "Pell's scavengers",
+        "the Knackers",
+        "the Bonepickers",
+        "Sallow's lot"
+      ],
+      "open": [
+        "Captain {captain}, word travels. Your passenger {passenger} has something in their luggage worth a lot. We'd like it, or a fair price for leaving it.",
+        "{group} here, captain. {passenger}'s bag. Hand it over or pay us not to look.",
+        "We're {group}, captain. Someone in the last bar talked about {passenger}'s case. Let's have it, or {price}.",
+        "{group} calling. We hear {passenger} is carrying something they shouldn't. We'll take it off your hands."
+      ],
+      "pay": [
+        "{price}. You can keep the bag, captain. Smart choice.",
+        "Paid. We were never here, and {passenger}'s luggage is none of our business.",
+        "That'll do. Off you go."
+      ],
+      "outran": [
+        "She's faster than she looks. Never mind, there's always another.",
+        "Let her go. Not worth the fuel.",
+        "Gone. Next time, captain."
+      ],
+      "caught": [
+        "Run? In that? Open fire, lads.",
+        "You don't outrun scavengers, captain. We live on the leftovers of people who tried.",
+        "Too slow. Weapons free."
+      ],
+      "fight": [
+        "Have it your way. We'll pick it out of the wreck.",
+        "Lovely. We like it when they say no.",
+        "Then we take it all."
+      ],
+      "grudge": [
+        "Remember {group}, captain? You made us look bad. We've brought friends and we're in a mood.",
+        "{group} again. You owe us for the ships. {price}, or your hull.",
+        "We don't forget, captain. Pay up, or we strip you for parts."
+      ]
+    }
+  }
+]

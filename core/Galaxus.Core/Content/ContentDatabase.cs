@@ -47,6 +47,8 @@ public sealed class ContentDatabase
     public Dictionary<string, EventDef> Events { get; } = [];
     public Dictionary<string, MissionTemplateDef> Missions { get; } = [];
     public Dictionary<string, ComplicationDef> Complications { get; } = [];
+    /// <summary>People who come after passengers. See game/data/pursuers.</summary>
+    public Dictionary<string, PursuerDef> Pursuers { get; } = [];
     public Dictionary<string, LoreDef> Lore { get; } = [];
     public Dictionary<string, ClueDef> Clues { get; } = [];
     /// <summary>Things a scan can turn up: wrecks, beacons, seams, caches and leads.</summary>
@@ -103,6 +105,7 @@ public sealed class ContentDatabase
         LoadInto(source, "events", db.Events, e => e.Id, problems);
         LoadInto(source, "missions", db.Missions, m => m.Id, problems);
         LoadInto(source, "complications", db.Complications, c => c.Id, problems);
+        LoadInto(source, "pursuers", db.Pursuers, x => x.Id, problems);
         LoadInto(source, "finds", db.Finds, f => f.Id, problems);
         LoadInto(source, "lore", db.Lore, l => l.Id, problems);
         LoadInto(source, "clues", db.Clues, c => c.Id, problems);
@@ -173,7 +176,7 @@ public sealed class ContentDatabase
 
     /// <summary>Folders a mod may add to. Powers are left out: the great powers belong to the base game.</summary>
     public static readonly string[] ModFolders =
-        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "finds", "lore", "clues", "battles", "campaigns", "landmarks", "music", "portraits", "people", "grammars"];
+        ["races", "builders", "hulls", "parts", "commodities", "factions", "events", "missions", "complications", "pursuers", "finds", "lore", "clues", "battles", "campaigns", "landmarks", "music", "portraits", "people", "grammars"];
 
     private static readonly System.Text.RegularExpressions.Regex OwnerPattern =
         new(@"^(?:Grammar|[A-Z][A-Za-z]*(?: [a-z]+)?) '([^']+)'", System.Text.RegularExpressions.RegexOptions.Compiled);
@@ -193,6 +196,7 @@ public sealed class ContentDatabase
         AddFromMod(mod, "events", Events, e => e.Id, origins, problems);
         AddFromMod(mod, "missions", Missions, m => m.Id, origins, problems);
         AddFromMod(mod, "complications", Complications, c => c.Id, origins, problems);
+        AddFromMod(mod, "pursuers", Pursuers, x => x.Id, origins, problems);
         AddFromMod(mod, "finds", Finds, f => f.Id, origins, problems);
         AddFromMod(mod, "lore", Lore, l => l.Id, origins, problems);
         AddFromMod(mod, "clues", Clues, c => c.Id, origins, problems);
@@ -507,7 +511,9 @@ public sealed class ContentDatabase
             if (c.TextGrammar == "") p.Add($"{at}: needs a textGrammar.");
             foreach (var rule in ContentRules.ComplicationTextRules) CheckGrammar(at, c.TextGrammar, rule, p);
             CheckVariables(at, c.TextGrammar, ContentRules.MissionVariables, p);
+            if (c.Trouble != null && !Pursuers.Values.Any(x => x.Troubles.Contains(c.Trouble))) p.Add($"{at}: no pursuer comes for trouble '{c.Trouble}'.");
         }
+        CheckPassengers(p);
 
         foreach (var m in Missions.Values)
         {
@@ -528,6 +534,10 @@ public sealed class ContentDatabase
             if (m.TextGrammar == "") p.Add($"{at}: needs a textGrammar.");
             foreach (var rule in ContentRules.MissionTextRules) CheckGrammar(at, m.TextGrammar, rule, p);
             CheckVariables(at, m.TextGrammar, ContentRules.MissionVariables, p);
+            foreach (var look in m.Looks.Where(l => !ContentRules.PassengerLooks.Contains(l))) p.Add($"{at}: look '{look}' is unknown. Use one of {Join(ContentRules.PassengerLooks)}.");
+            foreach (var trouble in m.Troubles.Where(t => !Pursuers.Values.Any(x => x.Troubles.Contains(t)))) p.Add($"{at}: no pursuer comes for trouble '{trouble}'.");
+            if ((m.Looks.Count > 0 || m.Troubles.Count > 0) && m.Type != "passenger") p.Add($"{at}: looks and troubles only work on passenger jobs.");
+            if (m.Berths is < 1 or > 12) p.Add($"{at}: berths must be 1 to 12.");
         }
 
         CheckBattles(p);
@@ -747,6 +757,36 @@ public sealed class ContentDatabase
                 if (o.Type == "survive" && o.Seconds <= 0) p.Add($"{oat}: survive needs seconds.");
                 if (o.Text == "") p.Add($"{oat}: needs text for the HUD.");
             }
+        }
+    }
+
+    /// <summary>Pursuers, and the hints grammar every passenger job uses.</summary>
+    private void CheckPassengers(List<string> p)
+    {
+        foreach (var x in Pursuers.Values)
+        {
+            string at = $"Pursuer '{x.Id}'";
+            if (x.Name == "") p.Add($"{at}: needs a name.");
+            if (x.Troubles.Count == 0) p.Add($"{at}: needs at least one trouble it comes for.");
+            if (!ContentRules.PursuerSides.Contains(x.Side)) p.Add($"{at}: side must be one of {Join(ContentRules.PursuerSides)}.");
+            foreach (var c in x.Choices.Where(c => !ContentRules.PursuerChoices.Contains(c))) p.Add($"{at}: choice '{c}' is unknown. Use one of {Join(ContentRules.PursuerChoices)}.");
+            if (x.Ships is < 1 or > 6) p.Add($"{at}: ships must be 1 to 6.");
+            if (x.Weight <= 0) p.Add($"{at}: weight must be positive.");
+            if (x.Hulls.Count == 0 || x.Hulls.Any(h => !Hulls.Values.Any(hull => hull.Class == h && hull.ForSale))) p.Add($"{at}: hulls need classes that have ships on sale.");
+            if (x.HandOverReward is < 0 or > 2) p.Add($"{at}: handOverReward should be 0 to 2 (a share of the fare).");
+            if (x.Choices.Contains("pay") && x.PayFactor is <= 0 or > 3) p.Add($"{at}: payFactor should be above 0 and at most 3.");
+            if (x.TextGrammar == "") { p.Add($"{at}: needs a textGrammar."); continue; }
+            var rules = ContentRules.PursuerTextRules.Concat(x.Choices.Where(c => c is "hand-over" or "pay"))
+                .Concat(x.Choices.Contains("talk") ? ["talk-yes", "talk-no"] : []).Concat(x.Grudge ? ["grudge", "pay"] : []).Distinct();
+            foreach (var rule in rules) CheckGrammar(at, x.TextGrammar, rule, p);
+            CheckVariables(at, x.TextGrammar, ContentRules.PursuerVariables, p);
+        }
+        foreach (var trouble in ContentRules.PassengerTroubles.Where(t => !Pursuers.Values.Any(x => x.Troubles.Contains(t))))
+            p.Add($"Passenger trouble '{trouble}': no pursuer comes for it.");
+        if (Missions.Values.Any(m => m.Type == "passenger"))
+        {
+            foreach (var look in ContentRules.PassengerLooks) CheckGrammar("Passenger hints", ContentRules.PassengerHintGrammar, look, p);
+            CheckVariables("Passenger hints", ContentRules.PassengerHintGrammar, ContentRules.MissionVariables, p);
         }
     }
 

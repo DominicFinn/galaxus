@@ -438,7 +438,12 @@
       "client-lies-purpose"
     ],
     "followUps": [],
-    "textGrammar": "mission-pilgrim-passage"
+    "textGrammar": "mission-pilgrim-passage",
+    "looks": [
+      "respectable",
+      "respectable",
+      "shady"
+    ]
   },
   {
     "id": "envoy-passage",
@@ -466,7 +471,15 @@
     "followUps": [
       "house-gift-delivery"
     ],
-    "textGrammar": "mission-envoy-passage"
+    "textGrammar": "mission-envoy-passage",
+    "looks": [
+      "respectable",
+      "shady"
+    ],
+    "troubles": [
+      "witness",
+      "runaway"
+    ]
   },
   {
     "id": "synth-with-papers",
@@ -498,7 +511,15 @@
     "followUps": [
       "silent-refugees"
     ],
-    "textGrammar": "mission-synth-with-papers"
+    "textGrammar": "mission-synth-with-papers",
+    "looks": [
+      "shady"
+    ],
+    "troubles": [
+      "wanted",
+      "witness",
+      "runaway"
+    ]
   },
   {
     "id": "silent-refugees",
@@ -528,7 +549,11 @@
       "contraband-passenger-bag"
     ],
     "followUps": [],
-    "textGrammar": "mission-silent-refugees"
+    "textGrammar": "mission-silent-refugees",
+    "looks": [
+      "shady"
+    ],
+    "berths": 2
   },
   {
     "id": "exile-passage",
@@ -560,7 +585,16 @@
     "followUps": [
       "treaty-papers-run"
     ],
-    "textGrammar": "mission-exile-passage"
+    "textGrammar": "mission-exile-passage",
+    "looks": [
+      "shady",
+      "dodgy"
+    ],
+    "troubles": [
+      "witness",
+      "bounty",
+      "runaway"
+    ]
   },
   {
     "id": "miners-shift-passage",
@@ -591,7 +625,13 @@
       "client-lies-money"
     ],
     "followUps": [],
-    "textGrammar": "mission-miners-shift-passage"
+    "textGrammar": "mission-miners-shift-passage",
+    "looks": [
+      "respectable",
+      "respectable",
+      "shady"
+    ],
+    "berths": 2
   },
   {
     "id": "stranded-crew-rescue",

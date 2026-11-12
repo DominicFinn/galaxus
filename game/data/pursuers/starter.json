@@ -1,0 +1,137 @@
+[
+  {
+    "id": "customs-officers",
+    "name": "customs officers",
+    "troubles": [
+      "wanted"
+    ],
+    "side": "police",
+    "hulls": [
+      "fighter",
+      "gunship"
+    ],
+    "ships": 2,
+    "choices": [
+      "hand-over",
+      "pay",
+      "run",
+      "fight"
+    ],
+    "handOverReward": 0.3,
+    "payFactor": 0.9,
+    "grudge": false,
+    "textGrammar": "pursuer-customs-officers"
+  },
+  {
+    "id": "bounty-hunters",
+    "name": "bounty hunters",
+    "troubles": [
+      "bounty",
+      "wanted"
+    ],
+    "side": "outlaw",
+    "weight": 0.6,
+    "hulls": [
+      "fighter",
+      "gunship"
+    ],
+    "ships": 2,
+    "choices": [
+      "hand-over",
+      "fight",
+      "run"
+    ],
+    "handOverReward": 0.6,
+    "grudge": true,
+    "textGrammar": "pursuer-bounty-hunters"
+  },
+  {
+    "id": "creditors",
+    "name": "creditors",
+    "troubles": [
+      "debtor"
+    ],
+    "side": "outlaw",
+    "hulls": [
+      "gunship",
+      "fighter"
+    ],
+    "ships": 2,
+    "choices": [
+      "pay",
+      "hand-over",
+      "fight",
+      "run"
+    ],
+    "handOverReward": 0.15,
+    "payFactor": 1.0,
+    "grudge": true,
+    "textGrammar": "pursuer-creditors"
+  },
+  {
+    "id": "house-agents",
+    "name": "agents",
+    "troubles": [
+      "witness",
+      "runaway"
+    ],
+    "side": "agents",
+    "hulls": [
+      "fighter",
+      "courier"
+    ],
+    "ships": 2,
+    "choices": [
+      "hand-over",
+      "talk",
+      "fight",
+      "run"
+    ],
+    "handOverReward": 0.8,
+    "grudge": false,
+    "textGrammar": "pursuer-house-agents"
+  },
+  {
+    "id": "the-faithful",
+    "name": "the faithful",
+    "troubles": [
+      "runaway"
+    ],
+    "side": "outlaw",
+    "hulls": [
+      "courier",
+      "fighter"
+    ],
+    "ships": 2,
+    "choices": [
+      "talk",
+      "pay",
+      "fight",
+      "run"
+    ],
+    "payFactor": 0.5,
+    "grudge": false,
+    "textGrammar": "pursuer-the-faithful"
+  },
+  {
+    "id": "scavengers",
+    "name": "scavengers",
+    "troubles": [
+      "valuables"
+    ],
+    "side": "outlaw",
+    "hulls": [
+      "fighter",
+      "gunship"
+    ],
+    "ships": 3,
+    "choices": [
+      "pay",
+      "fight",
+      "run"
+    ],
+    "payFactor": 0.5,
+    "grudge": true,
+    "textGrammar": "pursuer-scavengers"
+  }
+]

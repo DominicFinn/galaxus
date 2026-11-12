@@ -42,6 +42,7 @@ public static class LawRules
         ["smuggling"] = new("carrying contraband", 1000, false),
         ["evasion"] = new("running from a stop", 1500, true),
         ["refusal"] = new("refusing to pay a fine", 1000, true),
+        ["harbouring"] = new("harbouring a wanted person", 2500, true),
     };
 
     /// <summary>Wanted pilots pay this much over the fines to clear their record.</summary>
@@ -128,6 +129,32 @@ public static class LawRules
     /// loses the job) and the fine is their value, at least the standard smuggling fine.
     /// </summary>
     public static CustomsResult Inspect(Session session, Rng rng)
+    {
+        var goods = InspectGoods(session, rng);
+        // People are harder to hide than crates: a wanted passenger is found half the time, and a
+        // hidden hold big enough to lie down in helps.
+        var wanted = Missions.Passengers.WantedAboard(session);
+        if (wanted.Count == 0) return goods;
+        var career = session.Career;
+        var spec = Ships.ShipFactory.Build(session.Db, career.HullId, career.Loadout);
+        if (rng.Fork("people").NextFloat() >= (spec.HiddenTonnes >= 2 ? 0.2f : 0.55f)) return goods;
+
+        foreach (var job in wanted)
+        {
+            career.Missions.Remove(job);
+            career.Reputation[job.Offer.GiverFactionId] = career.Reputation.GetValueOrDefault(job.Offer.GiverFactionId) - 30;
+            if (career.ActiveJobId == job.Offer.Id) career.ActiveJobId = null;
+        }
+        var police = Police(session.Galaxy, session.Here)!;
+        var offence = Commit(session, "harbouring");
+        string names = string.Join(" and ", wanted.Select(j => j.Offer.Mission.Passenger!.Name));
+        string text = $"They found {names} aboard, wanted by {police.Name}, and took {(wanted.Count == 1 ? "them" : "them all")} off the ship. " +
+                      $"Harbouring a wanted person: {offence?.Fine ?? 0:N0} cr, owed to {police.Name}.";
+        return new CustomsResult(true, goods.Seized, goods.Fine + (offence?.Fine ?? 0), goods.FailedJob ?? wanted[0],
+            goods.Found ? goods.Text + " " + text : text);
+    }
+
+    private static CustomsResult InspectGoods(Session session, Rng rng)
     {
         var db = session.Db;
         var career = session.Career;

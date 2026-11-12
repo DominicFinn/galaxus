@@ -1,0 +1,295 @@
+[
+  {
+    "id": "mission-fare-paying-passage",
+    "description": "An ordinary passenger who needs a berth.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target",
+      "client",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "Passage to {destination} for {target}",
+        "A berth for {target}",
+        "One passenger, {system} to {destination}",
+        "Fare to {destination}"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #voice:closer#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment#"
+      ],
+      "job": [
+        "{target} needs a berth to {destination}, and the scheduled liners are full.",
+        "Take {target} to {destination}. They'll keep to their berth and won't touch the controls.",
+        "We have a passenger for {destination} and no ship of our own going that way.",
+        "{target} needs to be in {destination} within {deadline}, and nobody else is flying."
+      ],
+      "success": [
+        "{target} thanks you at the airlock and is gone into the crowd. {faction} pays {reward}.",
+        "{target} arrives at {destination} rested and on time. {faction} pays {reward}.",
+        "A quiet trip. {target} leaves a note in the berth: thank you, captain. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} missed whatever they were going to {destination} for. {faction} won't use you again soon.",
+        "The fare is refunded and the complaint is filed. {faction} is not pleased.",
+        "{target} found another ship in the end. {faction} pays nothing."
+      ]
+    }
+  },
+  {
+    "id": "mission-cash-fare",
+    "description": "A passenger who would rather pay cash and keep their name off the manifest.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target",
+      "client",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "Cash fare to {destination}",
+        "A passenger paying cash",
+        "No name on the manifest",
+        "{target}, one way, cash"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:payment# #voice:warning#",
+        "#voice:opener# #job# #voice:warning# #voice:payment#",
+        "#voice:opener# #job# #voice:payment#"
+      ],
+      "job": [
+        "There's a passenger, {target}, who'd like to get to {destination} and pay cash for it.",
+        "{target} wants passage to {destination} and doesn't want it on any list. We'll vouch for the fare, not the passenger.",
+        "We sell berths. {target} bought one to {destination}, in cash, without blinking. You'd be flying them."
+      ],
+      "success": [
+        "{target} counts out the last of the cash at {destination} and is gone. {faction} pays {reward}.",
+        "No trouble after all, or none that caught up. {faction} pays {reward}.",
+        "{target} steps off at {destination} looking lighter. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} never got to {destination}. {faction} would like the fare back, and an explanation.",
+        "The cash fare is gone and so is the passenger. {faction} is not impressed.",
+        "{faction} has struck you off its list of reliable captains."
+      ]
+    }
+  },
+  {
+    "id": "mission-no-questions-passage",
+    "description": "Passage for someone who needs to leave without questions.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target",
+      "client",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "No questions to {destination}",
+        "Somebody leaving quietly",
+        "A passenger off the books",
+        "Get {target} out"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:payment# #voice:warning#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment#",
+        "#voice:opener# #voice:warning# #job# #voice:payment# #voice:closer#"
+      ],
+      "job": [
+        "{target} needs to be at {destination}, and nobody needs to know how they got there.",
+        "Take {target} to {destination}. No manifest, no names, no questions.",
+        "There's a passenger who has to leave {system} before the week's out. {target}. You'll take them to {destination}.",
+        "{target} pays our rate and our rate is high. Take them to {destination} and forget them."
+      ],
+      "success": [
+        "{target} disappears into {destination} like they were never there. {faction} pays {reward}.",
+        "Nobody asked and nobody told. {faction} pays {reward}.",
+        "{target} shakes your hand at the dock and is gone. {faction} pays {reward} and says you'll be remembered."
+      ],
+      "failure": [
+        "{target} didn't make it out. {faction} is asking what you saw.",
+        "{faction} has heard what happened to {target}. They're not angry. They're making a note.",
+        "The passage failed. {faction} pays nothing and asks you not to come round for a while."
+      ]
+    }
+  },
+  {
+    "id": "mission-hot-passenger",
+    "description": "A passenger with people after them, and the pay to match.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target",
+      "client",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "{target} has to disappear",
+        "A passenger with company",
+        "Hot passage to {destination}",
+        "Get {target} clear"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:warning# #voice:payment#",
+        "#voice:opener# #job# #voice:urgency# #voice:payment# #voice:warning#"
+      ],
+      "job": [
+        "{target} is in more trouble than anyone in {system}, and they're our trouble. Take them to {destination}.",
+        "Somebody wants {target} badly. We want them at {destination} more. Fly fast.",
+        "We need {target} moved to {destination} today. People are already looking.",
+        "{target} is hot. You'll be hot too, until {destination}. That's why it pays."
+      ],
+      "success": [
+        "You got {target} through. {faction} pays {reward}, and someone in {destination} owes you a drink.",
+        "{target} is safe at {destination}, for now. {faction} pays {reward}.",
+        "{faction} pays {reward}. {target} says you fly like someone with nothing to lose."
+      ],
+      "failure": [
+        "{target} was taken. {faction} would like to know how much you were paid to let it happen.",
+        "{faction} lost {target}, and with them, a good deal of patience.",
+        "The job failed and {target} with it. {faction} pays nothing."
+      ]
+    }
+  },
+  {
+    "id": "mission-passenger-evidence",
+    "description": "A witness you carried sends you for the evidence.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target",
+      "client",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "{client}'s evidence",
+        "The rest of the story",
+        "A file for {destination}",
+        "What {client} saw"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:payment# #voice:warning#",
+        "#voice:opener# #job# #voice:payment#"
+      ],
+      "job": [
+        "{client} here. You got me this far, and now I need the rest of it: a sealed file, held for me at {destination}. Bring it and I can finally say what I saw.",
+        "You carried me, captain. Now carry this for me: the proof, to {destination}, where people are waiting to read it. {client} won't forget it.",
+        "The evidence is on a data core, and nobody else will take it. Get it to {destination} and {client} can stop running."
+      ],
+      "success": [
+        "The file arrives and the hearing goes ahead. {client} sends word: thank you, captain. {faction} pays {reward}.",
+        "The proof is where it needs to be. People will be reading about {client} for weeks. {faction} pays {reward}.",
+        "{client}'s evidence is in. Whatever happens now, it happens in the open. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The evidence never arrived. {client} has gone quiet.",
+        "Without the file, {client}'s word is just a word. {faction} pays nothing.",
+        "The hearing was called off. {client} doesn't blame you. Not out loud."
+      ]
+    }
+  },
+  {
+    "id": "mission-passenger-old-friends",
+    "description": "A passenger's friends have a favour to ask.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target",
+      "client",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "A favour for {client}'s friends",
+        "Something from {client}",
+        "{client} remembers you",
+        "A small errand"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #voice:warning#"
+      ],
+      "job": [
+        "You brought {client} through. Their friends would like you to carry a package to {destination}, and they pay better than strangers.",
+        "{client} says you can be trusted. That's a short list. Take this to {destination}.",
+        "We hear you didn't hand {client} over when you could have. We have work for someone like that, at {destination}."
+      ],
+      "success": [
+        "The package arrives. {client}'s friends pay {reward} and say you'll hear from them.",
+        "{faction} pays {reward}. {client} sends their thanks, from somewhere.",
+        "Delivered. You're on a short list now, captain. {faction} pays {reward}."
+      ],
+      "failure": [
+        "The package didn't get there. {client}'s friends are less friendly now.",
+        "{faction} pays nothing. {client} is disappointed, which is worse.",
+        "The favour fell through. It happens. It's remembered."
+      ]
+    }
+  },
+  {
+    "id": "mission-passenger-family",
+    "description": "A passenger's family or friends need passage too.",
+    "variables": [
+      "system",
+      "destination",
+      "reward",
+      "deadline",
+      "faction",
+      "target",
+      "client",
+      "captain"
+    ],
+    "rules": {
+      "title": [
+        "{client}'s family",
+        "Bring {target} too",
+        "Passage for {target}, on {client}'s word",
+        "Another berth for the family"
+      ],
+      "briefing": [
+        "#voice:opener# #job# #voice:payment#",
+        "#voice:opener# #job# #voice:payment# #voice:closer#"
+      ],
+      "job": [
+        "You brought me here, and now {target} wants to follow, to {destination}. I'd rather it was you.",
+        "{client} again, captain. {target} is family, and needs taking to {destination}. You're the only captain I trust.",
+        "{target} is a friend of {client}'s. They need passage to {destination}, and {client} gave them your name."
+      ],
+      "success": [
+        "{target} arrives and {client} is waiting at the dock. {faction} pays {reward}.",
+        "A family put back together at {destination}. {faction} pays {reward}, and {client} sends something homemade.",
+        "{target} thanks you for bringing them, and for bringing {client} before. {faction} pays {reward}."
+      ],
+      "failure": [
+        "{target} never got to {destination}. {client} doesn't call again.",
+        "{faction} pays nothing. {client} is too upset to say why.",
+        "The berth went unused. {client} found someone else."
+      ]
+    }
+  }
+]

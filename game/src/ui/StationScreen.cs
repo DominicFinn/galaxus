@@ -292,15 +292,28 @@ public partial class StationScreen : PanelContainer
         int travel = MissionBoard.TravelDays(galaxy, _session.Career.SystemId, o.DestinationSystemId);
         string cargo = o.Mission.Cargo != null ? $"{o.Mission.Tonnes} t of {o.Mission.Cargo.Name.ToLowerInvariant()}" : "none";
         if (o.Mission.Cargo is { Legality: "contraband" }) cargo += $" [color=#{Ui.Hex(Ui.Red)}](contraband: customs scans could find it)[/color]";
+        string passenger = o.Mission.Passenger is { } p
+            ? $"Passenger: {p.Name}{(p.Count > 1 ? $" and {p.Count - 1} more" : "")}, {_session.Db.Races.GetValueOrDefault(p.RaceId)?.Name.ToLowerInvariant() ?? p.RaceId}. " +
+              $"Looks [color=#{Ui.Hex(p.Look == "respectable" ? Ui.Dim : p.Look == "shady" ? Ui.Amber : Ui.Red)}]{Passengers.LookName(p.Look)}[/color]. " +
+              $"Needs {p.Count} berth{(p.Count == 1 ? "" : "s")} (you have {Math.Max(0, Passengers.FreeBerths(_session.Db, _session.Career))} free)\n"
+            : "";
         _jobText.Text =
             $"[color=#{Ui.Hex(Ui.Amber)}]{o.Mission.Title}[/color]\n" +
             $"From [color=#{giver.Colour.TrimStart('#')}]{giver.Name}[/color]{(o.Mission.Template.Legal ? "" : $" [color=#{Ui.Hex(Ui.Red)}](illegal)[/color]")}\n\n" +
             $"{o.Mission.Briefing}\n\n" +
             $"Destination: {o.DestinationStation}, {destination.Name} ({travel} days away)\n" +
-            $"Cargo: {cargo}\nDeadline: {o.Mission.DeadlineDays} days\nPays: {o.Mission.Reward:N0} cr\n" +
+            passenger + (o.Mission.Cargo != null || o.Mission.Passenger == null ? $"Cargo: {cargo}\n" : "") +
+            $"Deadline: {o.Mission.DeadlineDays} days\nPays: {o.Mission.Reward:N0} cr\n" +
             $"Your standing with them: {Career.RankNames[_session.Career.RankWith(giver.Id)]}";
         var person = o.ClientId == null ? null : PeopleDirectory.Contacts(_session.Db, galaxy, giver).FirstOrDefault(c => c.Id == o.ClientId);
-        if (person != null)
+        if (o.Mission.Passenger is { } traveller)
+        {
+            // Passenger jobs show who you'd be carrying.
+            var face = traveller.AsPerson(_session.Here.Id);
+            _clientFace.ShowPerson(_session.Db, galaxy, face);
+            _clientName.Text = $"{traveller.Name}\nYour passenger, {RaceName(face)}" + (person != null ? $"\nBooked by {person.Name}" : "");
+        }
+        else if (person != null)
         {
             _clientFace.ShowPerson(_session.Db, galaxy, person);
             _clientName.Text = $"{person.Name}\n{RoleName(person)}, {RaceName(person)}" + (_session.Career.MetPeople.Contains(person.Id) ? "\nYou've worked together before." : "");
@@ -342,7 +355,7 @@ public partial class StationScreen : PanelContainer
     private Control BuildInHandTab()
     {
         var tab = new VBoxContainer { Name = "In hand" };
-        _inHand = Ui.Table(("Job", 0), ("Destination", 130), ("Days left", 50), ("Pay", 60));
+        _inHand = Ui.Table(("Job", 0), ("Aboard", 150), ("Destination", 130), ("Days left", 50), ("Pay", 60));
         tab.AddChild(_inHand);
         return tab;
     }
@@ -356,12 +369,16 @@ public partial class StationScreen : PanelContainer
         {
             var item = _inHand.CreateItem(root);
             item.SetText(0, job.Offer.Mission.Title);
-            item.SetText(1, galaxy.Systems[job.Offer.DestinationSystemId].Name);
+            var mission = job.Offer.Mission;
+            item.SetText(1, mission.Passenger is { } p ? $"{p.Name}{(p.Count > 1 ? $" +{p.Count - 1}" : "")} ({Passengers.LookName(p.Look)})"
+                : mission.Cargo != null && mission.Tonnes > 0 ? $"{mission.Tonnes} t {mission.Cargo.Name.ToLowerInvariant()}" : "");
+            if (mission.Passenger is { Look: not "respectable" } shady) item.SetCustomColor(1, shady.Look == "shady" ? Ui.Amber : Ui.Red);
+            item.SetText(2, galaxy.Systems[job.Offer.DestinationSystemId].Name);
             int left = job.DeadlineDay - galaxy.Day;
             int travel = MissionBoard.TravelDays(galaxy, _session.Career.SystemId, job.Offer.DestinationSystemId);
-            item.SetText(2, $"{left} ({travel} to go)");
-            if (travel > left) item.SetCustomColor(2, Ui.Red);
-            item.SetText(3, $"{job.Offer.Mission.Reward:N0}");
+            item.SetText(3, $"{left} ({travel} to go)");
+            if (travel > left) item.SetCustomColor(3, Ui.Red);
+            item.SetText(4, $"{job.Offer.Mission.Reward:N0}");
         }
     }
 

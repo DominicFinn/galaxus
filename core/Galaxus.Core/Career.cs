@@ -79,6 +79,12 @@ public sealed class Career
     public Dictionary<string, float> Haggled { get; } = [];
     /// <summary>Jobs pulled after a haggle offended the client.</summary>
     public HashSet<string> WithdrawnOffers { get; } = [];
+    /// <summary>What happened when someone came for a passenger, by job id: handed-over, paid, talked, outran, fighting or beat.</summary>
+    public Dictionary<string, string> PassengerOutcomes { get; } = [];
+    /// <summary>Pursuers you beat who mean to come back.</summary>
+    public List<Galaxus.Core.Missions.Grudge> Grudges { get; } = [];
+    /// <summary>Work offered after a passenger job, on the board where you left them.</summary>
+    public List<Galaxus.Core.Missions.FollowUp> FollowUps { get; } = [];
 
     public int AskedToday(string personId, int day) =>
         Questions.TryGetValue(personId, out var v) && v.Split(':') is [var d, var n] && int.Parse(d) == day ? int.Parse(n) : 0;
@@ -136,6 +142,8 @@ public sealed class Career
         if (offer.Price - tradeIn > Credits) return $"You need {offer.Price - tradeIn:N0} cr after trade-in.";
         int capacity = Ships.ShipFactory.Build(db, hull.Id).CargoTonnes;
         if (capacity < CargoUsed) return $"Its hold is too small for your {CargoUsed} t of cargo.";
+        int aboard = Crew.Count(c => c.Job != "pilot") + Galaxus.Core.Missions.Passengers.Aboard(this);
+        if (hull.CrewBerths < aboard) return $"It has {hull.CrewBerths} berths, and you have {aboard} people aboard.";
         return null;
     }
 
@@ -164,6 +172,11 @@ public sealed class Career
         if (!offer.Playable) return "This kind of job comes in a later build.";
         if (offer.Mission.Tonnes > CargoCapacity(db) - CargoUsed) return $"Needs {offer.Mission.Tonnes} t of free cargo space.";
         if (offer.Task?.Split(':') is ["mine", _, var t] && int.Parse(t) > CargoCapacity(db)) return $"Needs a hold of at least {t} t for the ore.";
+        if (offer.Mission.Passenger is { } passenger && passenger.Count > Galaxus.Core.Missions.Passengers.FreeBerths(db, this))
+        {
+            int free = Math.Max(0, Galaxus.Core.Missions.Passengers.FreeBerths(db, this));
+            return $"Needs {passenger.Count} free berth{(passenger.Count == 1 ? "" : "s")}: you have {(free == 0 ? "none" : free.ToString())}.";
+        }
         if (Missions.Count >= 6) return "You already have six jobs.";
         return null;
     }
