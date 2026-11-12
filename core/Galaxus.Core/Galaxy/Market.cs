@@ -77,6 +77,26 @@ public static class Market
     }
 
     /// <summary>A market's middle price, without the player's trades: for rumours and tests.</summary>
+    /// <summary>
+    /// An economy in a line, from the same leanings the prices use: "Agricultural: exports food;
+    /// imports machinery, technology and luxury." Empty for no economy.
+    /// </summary>
+    public static string TradeProfile(Economy economy)
+    {
+        if (!EconomyBias.TryGetValue(economy, out var bias)) return "";
+        static string List(IEnumerable<string> items)
+        {
+            var l = items.Select(i => i.Replace('-', ' ')).ToList();
+            return l.Count <= 1 ? string.Concat(l) : string.Join(", ", l.Take(l.Count - 1)) + " and " + l[^1];
+        }
+        var exports = bias.Where(b => b.Value < 0.9f).OrderBy(b => b.Value).Select(b => b.Key);
+        var imports = bias.Where(b => b.Value > 1.15f).OrderByDescending(b => b.Value).Select(b => b.Key);
+        var parts = new List<string>();
+        if (exports.Any()) parts.Add("exports " + List(exports));
+        if (imports.Any()) parts.Add("imports " + List(imports));
+        return parts.Count == 0 ? "" : $"{economy}: {string.Join("; ", parts)}.";
+    }
+
     public static int Price(ContentDatabase db, Galaxy galaxy, StarSystem system, CommodityDef c) =>
         (int)MathF.Round(Context.For(db, galaxy, system, galaxy.Day, null).Base(c, galaxy.Day).Mid);
 

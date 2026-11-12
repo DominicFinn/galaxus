@@ -16,7 +16,7 @@ public static class Loading
     public static bool IsWeb => OS.HasFeature("web");
 
     /// <summary>What the web build says under every loading message.</summary>
-    public const string WebNote = "The web preview is slower than the desktop game.";
+    public const string WebNote = "This takes a moment.";
 
     private static CanvasLayer? _layer;
     private static bool _busy;

@@ -34,6 +34,8 @@ public partial class Hud : Control
     public string Cruise { get; set; } = "";
     /// <summary>Fuel for direct jumps, e.g. "120/150 LY".</summary>
     public string Fuel { get; set; } = "";
+    /// <summary>Clear to jump: in open space, away from stations, the fleet and planets.</summary>
+    public bool JumpReady { get; set; }
     /// <summary>The active job and what to do next, shown top right. Empty for none.</summary>
     public string JobTitle { get; set; } = "";
     public bool ShowPerformance { get; set; }
@@ -380,15 +382,16 @@ public partial class Hud : Control
 
     private void DrawFlightPanel(Vector2 size)
     {
-        var origin = new Vector2(8, size.Y - 74);
-        DrawRect(new Rect2(origin - new Vector2(4, 12), new Vector2(96, 80)), Panel);
+        var origin = new Vector2(8, size.Y - 98);
+        DrawRect(new Rect2(origin - new Vector2(4, 12), new Vector2(96, 104)), Panel);
         var stats = Player!.CurrentFlightStats();
         bool assist = Player.Controls.Flight.Assist;
 
         Text(origin, assist ? "FLIGHT ASSIST ON" : "FLIGHT ASSIST OFF", assist ? Green : Amber);
         Text(origin + new Vector2(0, 14), $"SPD {Player.Body.Speed,4:0} m/s", Green);
         Text(origin + new Vector2(0, 26), $"MAX {stats.MaxSpeed,4:0} m/s", Dim);
-        if (Fuel != "") Text(origin + new Vector2(0, 38), $"FUEL {Fuel}", Dim);
+        if (Fuel != "") Text(origin + new Vector2(0, 62), $"FUEL {Fuel}", Dim);
+        if (JumpReady) Text(origin + new Vector2(0, 74), "JUMP READY (M)", Green);
 
         // Throttle bar: the setting with assist on, live thrust with it off.
         var bar = new Rect2(origin + new Vector2(76, -4), new Vector2(8, 60));

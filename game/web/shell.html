@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>$GODOT_PROJECT_NAME (web preview)</title>
+		<title>$GODOT_PROJECT_NAME</title>
 		<style>
 :root {
 	--bg: #000;
@@ -119,35 +119,9 @@ body {
 	visibility: hidden;
 }
 
-#preview-notice {
-	max-width: 520px;
-	background: var(--panel);
-	border: 1px solid var(--line);
-	border-radius: 6px;
-	padding: 0.9rem 1.1rem;
-	font-size: 0.9rem;
-	line-height: 1.45;
-	text-align: center;
-}
 
-#preview-notice strong {
-	color: var(--accent);
-	font-weight: 600;
-}
 
-#preview-notice a {
-	display: inline-block;
-	margin-top: 0.6rem;
-	padding: 0.45rem 0.9rem;
-	border: 1px solid #6ccc6c;
-	border-radius: 4px;
-	color: #d8ffd0;
-	text-decoration: none;
-}
 
-#preview-notice a:hover {
-	background: rgba(108, 204, 108, 0.15);
-}
 
 #status-error {
 	display: none;
@@ -189,12 +163,6 @@ body {
 			<progress id="status-progress"></progress>
 			<div id="status-detail">This can take a minute the first time.</div>
 			<div id="status-error"></div>
-			<div id="preview-notice">
-				<strong>Web preview.</strong> Galaxus runs more slowly in a browser than on a computer,
-				and building a galaxy or a big battle can take up to a minute. For the full game at full
-				speed, install the desktop version for Windows, macOS or Linux.<br>
-				<a href="https://galaxus-game.web.app/#download" target="_blank" rel="noopener">Download Galaxus</a>
-			</div>
 		</div>
 
 		<script src="$GODOT_URL"></script>
@@ -246,7 +214,7 @@ const engine = new Engine(GODOT_CONFIG);
 	// Called by the game (through JavaScriptBridge) around its slow steps. The game waits a
 	// couple of frames after asking, so the overlay is on screen before it gets busy.
 	window.galaxusLoading = function (text, detail) {
-		show(text || 'Loading', detail || 'The web preview is slower than the desktop game.', started);
+		show(text || 'Loading', detail || 'This takes a moment.', started);
 	};
 	window.galaxusLoaded = function () {
 		started = true;

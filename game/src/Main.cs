@@ -730,6 +730,7 @@ public partial class Main : Node3D
         _hud.MouseStick = _mouseStick;
         _hud.Throttle = _throttle;
         _hud.Wing = WingStatus();
+        _hud.JumpReady = _screen == Screen.Flight && !_cruising && JumpBlocked() == null;
         _hud.Kills = _kills;
         _hud.Cockpit = _cockpit;
         _hud.Prompt = DockPrompt();

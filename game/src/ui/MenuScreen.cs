@@ -94,7 +94,7 @@ public partial class MenuScreen : Control
         foreach (var child in _items.GetChildren()) child.QueueFree();
         _panel.CustomMinimumSize = new Vector2(page == Page.Main ? 200 : page is Page.NewGame or Page.Previews or Page.Simulator or Page.Campaigns or Page.Controls ? 440 : 360, 0);
         _footer.Text = Loading.IsWeb
-            ? "Web preview. The desktop game is free to download, and your game can come with you: pause, then Save game, Export this game to a file."
+            ? "Galaxus in your browser. The desktop game is free too, and your game can come with you: pause, then Save game, Export this game to a file."
             : "Galaxus is a working title. Early build.";
 
         switch (page)

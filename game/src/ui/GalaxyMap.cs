@@ -522,6 +522,7 @@ public partial class GalaxyMap : Control
             $"{Capitalise(s.Region)}, {s.Arm} arm. {s.State}{(s.Economy != Economy.None ? $", {s.Economy}" : "")}.",
             owner != null ? $"Held by {Faction(owner.Id)}." : "Unclaimed.",
             ProfileLine(s).TrimEnd('\n'),
+            s.Stations.Count > 0 ? Market.TradeProfile(s.Economy) : "",
             s.Stations.Count > 0 ? $"Stations: {string.Join(", ", s.Stations)}" : "No stations.",
         };
         // History and lore: landmarks, takeovers and wars.

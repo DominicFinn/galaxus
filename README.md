@@ -6,7 +6,7 @@ Galaxus (a working title) is a space game for PC in the spirit of Frontier: Elit
 
 It's built to run on almost any computer: flat-shaded low-poly models and Godot's simplest renderer, with every ship, planet, name, mission and piece of music generated from data rather than drawn or recorded.
 
-**Play it in your browser:** [domfinn.itch.io/galaxus](https://domfinn.itch.io/galaxus). The web version is a preview: it runs more slowly than the desktop game, which you can download from the [Galaxus website](https://galaxus-game.web.app/#download). Saves move between the two.
+**Play it in your browser:** [domfinn.itch.io/galaxus](https://domfinn.itch.io/galaxus). Or download the desktop game for Windows, macOS or Linux from the [Galaxus website](https://galaxus-game.web.app/#download). Saves move between the two.
 
 ![Title screen](docs/screenshots/title.png)
 

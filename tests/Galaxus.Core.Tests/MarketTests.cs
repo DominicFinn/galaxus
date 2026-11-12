@@ -239,4 +239,13 @@ public class MarketTests
         Assert.True(price > low + (high - low) * 0.4f, $"{goods.Name} at {system.Name}: {price} in a shortage (range {low} to {high}).");
         Assert.True(shortage.EndDay - shortage.StartDay is >= 5 and < 10);
     }
+
+    [Fact]
+    public void Each_economy_has_a_trade_profile_line()
+    {
+        Assert.Equal("Agricultural: exports food and water; imports machinery, technology and luxury.", Market.TradeProfile(Economy.Agricultural));
+        foreach (var economy in Enum.GetValues<Economy>().Where(e => e != Economy.None))
+            Assert.StartsWith($"{economy}: exports", Market.TradeProfile(economy));
+        Assert.Equal("", Market.TradeProfile(Economy.None));
+    }
 }
